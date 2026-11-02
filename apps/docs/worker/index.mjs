@@ -6,7 +6,8 @@
  * Stores no IP address. Querying: docs/internal/wideset-hosting.md §4.
  */
 /* global URL */
-const ITEM = /^\/r\/([^/]+)\.json$/;
+// registry.json is the index of items, not an item.
+const ITEM = /^\/r\/(?!registry\.json$)([^/]+)\.json$/;
 
 export default {
   async fetch(request, env) {

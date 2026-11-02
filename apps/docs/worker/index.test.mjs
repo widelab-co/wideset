@@ -50,6 +50,12 @@ describe('registry worker', () => {
     assert.equal(points.length, 0);
   });
 
+  it('does not count the registry index', async () => {
+    const { env, points } = setup();
+    await worker.fetch(get('/r/registry.json'), env);
+    assert.equal(points.length, 0);
+  });
+
   it('still answers when the count fails', async () => {
     const { answer, env } = setup({
       write: () => {
