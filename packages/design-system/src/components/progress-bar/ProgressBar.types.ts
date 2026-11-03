@@ -1,17 +1,118 @@
 import type * as ProgressPrimitive from '@radix-ui/react-progress';
+import type { VariantProps } from 'class-variance-authority';
+import type * as React from 'react';
 
 import type { MotionProps } from '../../motion/Motion.types';
+import type { progressBarRootVariants } from './ProgressBar.variants';
+import type { ProgressBarDescription } from './ProgressBarDescription';
+import type { ProgressBarHeader } from './ProgressBarHeader';
+import type { ProgressBarLabel } from './ProgressBarLabel';
+import type { ProgressBarTrack } from './ProgressBarTrack';
+import type { ProgressBarValue } from './ProgressBarValue';
 
-export type ProgressBarProps = React.ComponentPropsWithoutRef<typeof ProgressPrimitive.Root> &
+export type ProgressBarVariant = 'default' | 'success' | 'error';
+export type ProgressBarType = NonNullable<VariantProps<typeof progressBarRootVariants>['type']>;
+
+type ProgressBarPropsBase = Omit<
+  React.ComponentPropsWithoutRef<typeof ProgressPrimitive.Root>,
+  'asChild' | 'children' | 'getValueLabel'
+> &
   MotionProps & {
-    /** Semantic state — controls color for both bar fill and circle icon. */
-    variant?: 'default' | 'success' | 'error';
-    /** Label shown above the bar (bar type only); it also names the bar. */
-    label?: string;
-    /** Helper text shown below the indicator (bar type only). */
-    description?: string;
-    /** Shape of the progress indicator. */
-    type?: 'bar' | 'circle';
-    /** Aligns the percentage label to a fixed width to prevent layout shift during animation (circle type only). */
-    fixedWidth?: boolean;
+    /** Current progress, clamped between `0` and `max`. A missing or `NaN` value renders `0`. */
+    value?: number;
+    /** The value that means complete. Defaults to `100`. */
+    max?: number;
+    /** Semantic state: the colour of the fill, the circle icon and the description. */
+    variant?: ProgressBarVariant;
+    /** Shape of the progress indicator: a full-width bar or a compact ring. */
+    type?: ProgressBarType;
+    /**
+     * Text a screen reader announces for the value. Defaults to the percentage.
+     * @deprecated Use `aria-valuetext` on the root. Removed in a later release.
+     */
+    getValueLabel?: (value: number, max: number) => string;
   };
+
+type ProgressBarPropsWithShorthand = ProgressBarPropsBase & {
+  /**
+   * Label shown above the bar; it also names the progressbar. On the circle it is the accessible name.
+   * @deprecated Compose `<ProgressBar.Header><ProgressBar.Label>` instead.
+   */
+  label?: string;
+  /**
+   * Helper text shown below the bar (bar type only).
+   * @deprecated Compose `<ProgressBar.Description>` instead.
+   */
+  description?: string;
+  /**
+   * Has no effect: the circle's percentage always reserves room for `100%`.
+   * @deprecated Remove it.
+   */
+  fixedWidth?: boolean;
+  children?: never;
+};
+
+type ProgressBarPropsWithChildren = ProgressBarPropsBase & {
+  label?: never;
+  description?: never;
+  fixedWidth?: never;
+  /**
+   * The parts to render: `ProgressBar.Header`, `.Label`, `.Value`, `.Track`, `.Description`.
+   * Without children the bar renders its track and the circle its percentage and ring.
+   */
+  children: React.ReactNode;
+};
+
+/** Shows how far a task has got, as a bar or a ring. */
+export type ProgressBarProps = ProgressBarPropsWithShorthand | ProgressBarPropsWithChildren;
+
+export type ProgressBarContextValue = {
+  /** Value clamped into `0..max`. */
+  value: number;
+  max: number;
+  /** `value / max` as a rounded percentage, `0..100`. */
+  percent: number;
+  variant: ProgressBarVariant;
+  type: ProgressBarType;
+  motion: boolean;
+  labelId: string;
+  descriptionId: string;
+  /** Marks a mounted Label; returns the cleanup that unmarks it. */
+  registerLabel: () => () => void;
+  /** Marks a mounted Description; returns the cleanup that unmarks it. */
+  registerDescription: () => () => void;
+};
+
+export type ProgressBarWithSubComponents = React.ForwardRefExoticComponent<
+  ProgressBarProps & React.RefAttributes<React.ComponentRef<typeof ProgressPrimitive.Root>>
+> & {
+  Header: typeof ProgressBarHeader;
+  Label: typeof ProgressBarLabel;
+  Value: typeof ProgressBarValue;
+  Track: typeof ProgressBarTrack;
+  Description: typeof ProgressBarDescription;
+};
+
+/** The row above the bar holding `ProgressBar.Label` and `ProgressBar.Value` (bar type). */
+export type ProgressBarHeaderProps = React.HTMLAttributes<HTMLDivElement>;
+
+/** The visible label; it names the progressbar through `aria-labelledby`. */
+export type ProgressBarLabelProps = React.LabelHTMLAttributes<HTMLLabelElement> & {
+  /** Label content: plain text or rich content such as formatted text. */
+  children?: React.ReactNode;
+};
+
+/** The value as text, the percentage by default. */
+export type ProgressBarValueProps = React.HTMLAttributes<HTMLSpanElement> & {
+  /**
+   * Formats the visible value, e.g. `(value, max) => \`${value} / ${max}\``. Defaults to the rounded
+   * percentage. Visual only: screen readers read the root's `aria-valuetext`.
+   */
+  formatValue?: (value: number, max: number) => React.ReactNode;
+};
+
+/** The bar's track and fill, or the ring (an icon on success and error) for the circle type. */
+export type ProgressBarTrackProps = React.HTMLAttributes<HTMLDivElement>;
+
+/** Helper text below the bar, coloured by the root `variant`; it describes the progressbar. */
+export type ProgressBarDescriptionProps = React.HTMLAttributes<HTMLSpanElement>;

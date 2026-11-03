@@ -111,6 +111,11 @@ A member such as `Card.Header` comes with `Card`; its named form, `CardHeader`, 
 - `import { PopupTitle } from '@/components/ui/wideset/popup/PopupTitle';`
 - `import { PopupTrigger } from '@/components/ui/wideset/popup/PopupTrigger';`
 - `import { ProgressBar } from '@/components/ui/wideset/progress-bar/ProgressBar';`
+- `import { ProgressBarDescription } from '@/components/ui/wideset/progress-bar/ProgressBarDescription';`
+- `import { ProgressBarHeader } from '@/components/ui/wideset/progress-bar/ProgressBarHeader';`
+- `import { ProgressBarLabel } from '@/components/ui/wideset/progress-bar/ProgressBarLabel';`
+- `import { ProgressBarTrack } from '@/components/ui/wideset/progress-bar/ProgressBarTrack';`
+- `import { ProgressBarValue } from '@/components/ui/wideset/progress-bar/ProgressBarValue';`
 - `import { ProgressStepper } from '@/components/ui/wideset/progress-stepper/ProgressStepper';`
 - `import { ProgressStepperIcon } from '@/components/ui/wideset/progress-stepper/ProgressStepperIcon';`
 - `import { ProgressStepperStep } from '@/components/ui/wideset/progress-stepper/ProgressStepperStep';`
@@ -239,7 +244,7 @@ A member such as `Card.Header` comes with `Card`; its named form, `CardHeader`, 
 - `import type { MultiSelectContentProps, MultiSelectGroupProps, MultiSelectLabelProps, MultiSelectOptionProps, MultiSelectOptionType, MultiSelectProps, MultiSelectSeparatorProps, MultiSelectTriggerProps, MultiSelectValueProps } from '@/components/ui/wideset/multi-select/MultiSelect.types';`
 - `import type { PaginationNumbersProps, PaginationOverflowProps, PaginationProps, PaginationRowsPerPageProps, PaginationType } from '@/components/ui/wideset/pagination/Pagination.types';`
 - `import type { PopupCloseProps, PopupContainerProps, PopupContentProps, PopupDescriptionProps, PopupFooterProps, PopupHeaderProps, PopupProps, PopupTitleProps, PopupTriggerProps } from '@/components/ui/wideset/popup/Popup.types';`
-- `import type { ProgressBarProps } from '@/components/ui/wideset/progress-bar/ProgressBar.types';`
+- `import type { ProgressBarDescriptionProps, ProgressBarHeaderProps, ProgressBarLabelProps, ProgressBarProps, ProgressBarTrackProps, ProgressBarType, ProgressBarValueProps, ProgressBarVariant, ProgressBarWithSubComponents } from '@/components/ui/wideset/progress-bar/ProgressBar.types';`
 - `import type { ProgressStepperIconProps, ProgressStepperOrientation, ProgressStepperProps, ProgressStepperStepProps } from '@/components/ui/wideset/progress-stepper/ProgressStepper.types';`
 - `import type { ProgressTrackerContextValue, ProgressTrackerProps, ProgressTrackerStepProps, ProgressTrackerWithSubComponents } from '@/components/ui/wideset/progress-tracker/ProgressTracker.types';`
 - `import type { RadioButtonGroupProps, RadioButtonProps } from '@/components/ui/wideset/radio-button/RadioButton.types';`

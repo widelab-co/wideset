@@ -2,39 +2,77 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useEffect, useState } from 'react';
 
 import { exampleStory } from '../../stories/example';
+import CompositionExample from './examples/progress-bar/composition';
+import compositionSource from './examples/progress-bar/composition?raw';
 import TypesExample from './examples/progress-bar/types';
 import typesSource from './examples/progress-bar/types?raw';
 import VariantsExample from './examples/progress-bar/variants';
 import variantsSource from './examples/progress-bar/variants?raw';
 import { ProgressBar } from './ProgressBar';
-import type { ProgressBarProps } from './ProgressBar.types';
+import type { ProgressBarType, ProgressBarVariant } from './ProgressBar.types';
+import { ProgressBarValue } from './ProgressBarValue';
 
-const variants: ProgressBarProps['variant'][] = ['default', 'success', 'error'];
-const types: NonNullable<ProgressBarProps['type']>[] = ['bar', 'circle'];
+const variants: ProgressBarVariant[] = ['default', 'success', 'error'];
+const types: ProgressBarType[] = ['bar', 'circle'];
+
+const useSteppedValue = () => {
+  const [value, setValue] = useState(0);
+  useEffect(() => {
+    const steps = [0, 30, 40, 70, 100];
+    let index = 0;
+    const interval = setInterval(() => {
+      index = (index + 1) % steps.length;
+      setValue(steps[index]);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+  return value;
+};
 
 const meta = {
   title: 'Components/ProgressBar',
   tags: ['autodocs'],
   component: ProgressBar,
+  subcomponents: { 'ProgressBar.Value': ProgressBarValue },
   parameters: {
     docs: {
       description: {
-        component: `
-ProgressBar communicates the progress of a task or loading operation.
+        component: `ProgressBar communicates the progress of a task or loading operation.
 Two display types are available:
-- \`bar\` — a horizontal progress track with optional label, percentage, and helper text
+- \`bar\` — a horizontal progress track with an optional label, value and helper text
 - \`circle\` — a compact inline circular indicator; replaces the ring with an icon on success / error
-        `,
+
+Use ProgressTracker for progress through discrete steps.
+
+**Optional Composition:**
+\`\`\`
+<ProgressBar value={32} max={40}>
+  <ProgressBar.Header>
+    <ProgressBar.Label />
+    <ProgressBar.Value formatValue={fn} />
+  </ProgressBar.Header>
+  <ProgressBar.Track />
+  <ProgressBar.Description />
+</ProgressBar>
+\`\`\``,
       },
     },
   },
   argTypes: {
     value: {
       control: { type: 'number', min: 0, max: 100, step: 1 },
-      description: 'Current progress value from 0 to 100.',
       table: {
         category: 'Content',
         type: { summary: 'number' },
+      },
+    },
+    max: {
+      control: { type: 'number', min: 1, step: 1 },
+      table: {
+        category: 'Content',
+        type: { summary: 'number' },
+        defaultValue: { summary: '100' },
       },
     },
     type: {
@@ -55,30 +93,21 @@ Two display types are available:
         defaultValue: { summary: 'default' },
       },
     },
+    children: {
+      control: false,
+      table: { category: 'Content', type: { summary: 'ReactNode' } },
+    },
     label: {
-      control: 'text',
-      table: {
-        category: 'Content',
-        type: { summary: 'string' },
-      },
-      if: { arg: 'type', eq: 'bar' },
+      control: false,
+      table: { category: 'Content', type: { summary: 'string' } },
     },
     description: {
-      control: 'text',
-      table: {
-        category: 'Content',
-        type: { summary: 'string' },
-      },
-      if: { arg: 'type', eq: 'bar' },
+      control: false,
+      table: { category: 'Content', type: { summary: 'string' } },
     },
     fixedWidth: {
-      control: 'boolean',
-      table: {
-        category: 'Behavior',
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' },
-      },
-      if: { arg: 'type', eq: 'circle' },
+      control: false,
+      table: { category: 'Appearance', type: { summary: 'boolean' } },
     },
   },
 } satisfies Meta<typeof ProgressBar>;
@@ -87,26 +116,33 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'Bar progress indicator with label, percentage, and helper text using the default variant.',
-      },
-    },
-  },
-  render: (args) => (
+  // The playground controls the root; the parts are fixed here.
+  render: ({ type, variant, value, max }) => (
     <div className="max-w-80">
-      <ProgressBar {...args} />
+      {type === 'circle' ? (
+        <ProgressBar
+          type="circle"
+          variant={variant}
+          value={value}
+          max={max}
+          aria-label="Uploading assets"
+        />
+      ) : (
+        <ProgressBar type="bar" variant={variant} value={value} max={max}>
+          <ProgressBar.Header>
+            <ProgressBar.Label>Uploading assets</ProgressBar.Label>
+            <ProgressBar.Value />
+          </ProgressBar.Header>
+          <ProgressBar.Track />
+          <ProgressBar.Description>12 of 18 files uploaded</ProgressBar.Description>
+        </ProgressBar>
+      )}
     </div>
   ),
   args: {
     type: 'bar',
     variant: 'default',
     value: 33,
-    label: 'Label',
-    description: 'Description',
-    fixedWidth: false,
   },
 };
 
@@ -114,60 +150,38 @@ export const Types: Story = exampleStory(TypesExample, typesSource);
 
 export const Variants: Story = exampleStory(VariantsExample, variantsSource);
 
+export const Composition: Story = exampleStory(CompositionExample, compositionSource);
+
 export const Animated: Story = {
   parameters: {
     docs: {
       description: {
         story:
-          'The bar transitions smoothly between values. Use this pattern for step-by-step processes.',
-      },
-      source: {
-        code: `const [value, setValue] = useState(0);
-
-useEffect(() => {
-  const steps = [0, 30, 40, 70, 100];
-  let index = 0;
-  const interval = setInterval(() => {
-    index = (index + 1) % steps.length;
-    setValue(steps[index]);
-  }, 1000);
-
-  return () => clearInterval(interval);
-}, []);
-
-return <ProgressBar type="bar" label="Label" description="Description" value={value} />;`,
+          'The bar and the ring transition smoothly between values. The circle\'s percentage reserves room for "100%", so the ring does not move.',
       },
     },
+    controls: { disable: true },
   },
-  render: (args) => {
+  render: () => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    const [value, setValue] = useState(0);
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useEffect(() => {
-      const steps = [0, 30, 40, 70, 100];
-      let index = 0;
-      const interval = setInterval(() => {
-        index = (index + 1) % steps.length;
-        setValue(steps[index]);
-      }, 1000);
-
-      return () => clearInterval(interval);
-    }, []);
+    const value = useSteppedValue();
 
     return (
-      <div className="max-w-80">
-        <ProgressBar {...args} value={value} />
+      <div className="gap-ws-12 flex max-w-80 flex-col">
+        <ProgressBar value={value}>
+          <ProgressBar.Header>
+            <ProgressBar.Label>Uploading assets</ProgressBar.Label>
+            <ProgressBar.Value />
+          </ProgressBar.Header>
+          <ProgressBar.Track />
+        </ProgressBar>
+        <ProgressBar type="circle" value={value} aria-label="Uploading assets" />
       </div>
     );
   },
-  args: {
-    ...Default.args,
-    label: 'Label',
-    description: 'Description',
-  },
 };
 
-export const CircleVariant: Story = {
+export const CircleVariants: Story = {
   parameters: {
     docs: {
       description: {
@@ -175,74 +189,37 @@ export const CircleVariant: Story = {
           'Circle indicators for all three variants: `default` shows a progress ring, `success` replaces it with a check icon, `error` replaces it with an error icon.',
       },
     },
+    controls: { disable: true },
   },
-  argTypes: {
-    type: { table: { disable: true } },
-    variant: { table: { disable: true } },
-    label: { table: { disable: true } },
-    description: { table: { disable: true } },
-  },
-  render: (args) => (
+  render: () => (
     <div className="gap-ws-8 flex flex-col">
       {variants.map((variant) => (
-        <ProgressBar key={variant} {...args} type="circle" variant={variant} />
+        <ProgressBar
+          key={variant}
+          type="circle"
+          variant={variant}
+          value={75}
+          aria-label={`Upload, ${variant}`}
+        />
       ))}
     </div>
   ),
-  args: {
-    ...Default.args,
-    value: 75,
-  },
 };
 
-export const CircleAnimated: Story = {
+export const DeprecatedShorthand: Story = {
+  name: 'Deprecated shorthand props',
   parameters: {
     docs: {
       description: {
         story:
-          'Use `fixedWidth` when the circle indicator is part of a list or table to prevent the percentage label from causing layout shift.',
-      },
-      source: {
-        code: `const [value, setValue] = useState(0);
-
-useEffect(() => {
-  const steps = [0, 30, 40, 70, 100];
-  let index = 0;
-  
-  const interval = setInterval(() => {
-    index = (index + 1) % steps.length;
-    setValue(steps[index]);
-  }, 1000);
-
-  return () => clearInterval(interval);
-}, []);
-
-return <ProgressBar type="circle" fixedWidth value={value} />;`,
+          '`label` and `description` still render the composed anatomy for one release. Prefer the parts.',
       },
     },
+    controls: { disable: true },
   },
-  render: (args) => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const [value, setValue] = useState(0);
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useEffect(() => {
-      const steps = [0, 30, 40, 70, 100];
-      let index = 0;
-      const interval = setInterval(() => {
-        index = (index + 1) % steps.length;
-        setValue(steps[index]);
-      }, 1000);
-
-      return () => clearInterval(interval);
-    }, []);
-
-    return <ProgressBar {...args} value={value} />;
-  },
-  args: {
-    ...Default.args,
-    type: 'circle',
-    fixedWidth: true,
-    label: undefined,
-    description: undefined,
-  },
+  render: () => (
+    <div className="max-w-80">
+      <ProgressBar value={65} label="Uploading assets" description="12 of 18 files uploaded" />
+    </div>
+  ),
 };

@@ -2,6 +2,30 @@ import { cva } from 'class-variance-authority';
 
 import { fillTravelMotion } from '../../motion/recipes';
 
+export const progressBarRootVariants = cva('gap-ws-5', {
+  variants: {
+    type: {
+      bar: 'flex w-full flex-col',
+      circle: 'inline-flex items-center',
+    },
+  },
+  defaultVariants: {
+    type: 'bar',
+  },
+});
+
+export const progressBarTrackVariants = cva('', {
+  variants: {
+    type: {
+      bar: 'h-ws-3 relative w-full overflow-hidden rounded-full bg-(--ws-dynamic-stroke-secondary-default)',
+      circle: 'inline-flex shrink-0',
+    },
+  },
+  defaultVariants: {
+    type: 'bar',
+  },
+});
+
 export const progressBarIndicatorVariants = cva('size-full flex-1 rounded-full', {
   variants: {
     variant: {

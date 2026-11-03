@@ -3,7 +3,15 @@ name: ProgressBar
 import: import { ProgressBar } from '@wideset/react'
 group: feedback
 status: stable
-parts: [ProgressBar]
+parts:
+  [
+    ProgressBar,
+    ProgressBarHeader,
+    ProgressBarLabel,
+    ProgressBarValue,
+    ProgressBarTrack,
+    ProgressBarDescription,
+  ]
 related: [ProgressTracker, ProgressStepper, FileItem]
 docs: https://wideset-docs.widelab.workers.dev/components/progress-bar
 storybook: components-progressbar--default
@@ -27,28 +35,44 @@ storybook: components-progressbar--default
 ## Anatomy
 
 ```tsx
-// Bar: label + percentage above, helper text below
-<ProgressBar value={65} label="Uploading assets" description="12 of 18 files uploaded" />
+// Bar: header (label + value) above, description below
+<ProgressBar value={32} max={40}>
+  <ProgressBar.Header>
+    <ProgressBar.Label>Uploading files</ProgressBar.Label>
+    <ProgressBar.Value formatValue={(value, max) => `${value} / ${max}`} />
+  </ProgressBar.Header>
+  <ProgressBar.Track />
+  <ProgressBar.Description>8 files remaining</ProgressBar.Description>
+</ProgressBar>
 
 // Circle: percentage + ring, no visible label
-<ProgressBar type="circle" value={50} aria-label="Uploading assets" />
+<ProgressBar type="circle" value={80} aria-label="Syncing library" />
+
+// No children: the bar renders its track alone, the circle its percentage and ring
+<ProgressBar value={60} aria-label="Upload" />
 ```
 
-One component, no parts.
+The root carries `role="progressbar"`, the value, `ref`, `className` and `aria-*`. Parts read
+`value`, `max`, `variant` and `type` from it:
+
+- `ProgressBar.Header`: the row holding Label and Value (bar).
+- `ProgressBar.Label`: the visible label; names the progressbar (`aria-labelledby`).
+- `ProgressBar.Value`: the value as text; `formatValue(value, max)` changes what is shown.
+- `ProgressBar.Track`: the bar and its fill, or the ring (an icon on success and error).
+- `ProgressBar.Description`: helper text coloured by the root `variant`; describes the progressbar.
 
 ## Choosing props
 
-| Prop          | Value           | Use for                                                          |
-| ------------- | --------------- | ---------------------------------------------------------------- |
-| `type`        | `bar` (default) | Full width of its container, with label and description.         |
-|               | `circle`        | Compact inline percentage where a bar does not fit.              |
-| `variant`     | `default`       | Still running.                                                   |
-|               | `success`       | Finished. Circle shows a check icon; description gets one too.   |
-|               | `error`         | Failed. Circle shows an error icon; say what to do next.         |
-| `value`       | `0`–`max`       | Clamped into range; `max` defaults to `100`.                     |
-| `label`       | string          | Bar: visible label that names it. Circle: the accessible name.   |
-| `description` | string          | Bar only: what is happening or what went wrong.                  |
-| `fixedWidth`  | `true`          | Circle in a list or table: stops the percentage shifting layout. |
+| Prop                | Value           | Use for                                                         |
+| ------------------- | --------------- | --------------------------------------------------------------- |
+| `type`              | `bar` (default) | Full width of its container, with label and description.        |
+|                     | `circle`        | Compact inline percentage where a bar does not fit.             |
+| `variant`           | `default`       | Still running.                                                  |
+|                     | `success`       | Finished. Circle shows a check icon; description gets one too.  |
+|                     | `error`         | Failed. Circle shows an error icon; say what to do next.        |
+| `value`             | `0`–`max`       | Clamped into range; `max` defaults to `100`.                    |
+| `Value.formatValue` | function        | A count instead of a percentage: `32 / 40`.                     |
+| `aria-valuetext`    | string          | What a screen reader says for the value, when not a percentage. |
 
 ## States
 
@@ -63,19 +87,28 @@ One component, no parts.
 
 ## Accessibility
 
-- Both types render `role="progressbar"` with the value.
-- Name it: `label` on a bar; `aria-label` (or `label`) on a circle. Without either, the name falls
-  back to "Progress".
+- Both types render `role="progressbar"` with the value on the root.
+- Name it: `ProgressBar.Label` on a bar; `aria-label` on a circle. Without either, the name falls
+  back to "Progress". `ProgressBar.Description` describes it.
+- `formatValue` is visual only. Screen readers hear the percentage; set `aria-valuetext` on the
+  root when the shown value means something else.
 - Success and error add an icon, so colour is not the only signal.
 
 ## Do / Don't
 
 ```tsx
-// Do: switch variant when the task ends
-<ProgressBar variant="success" value={100} label="Uploading assets" description="All 18 files uploaded" />
+// Do: switch variant when the task ends; the description follows it
+<ProgressBar variant="success" value={100}>
+  <ProgressBar.Header>
+    <ProgressBar.Label>Uploading assets</ProgressBar.Label>
+    <ProgressBar.Value />
+  </ProgressBar.Header>
+  <ProgressBar.Track />
+  <ProgressBar.Description>All 18 files uploaded</ProgressBar.Description>
+</ProgressBar>
 
-// Don't: description on a circle (not rendered)
-<ProgressBar type="circle" value={40} description="4 of 10" />
+// Don't: the deprecated string props in new code
+<ProgressBar value={65} label="Uploading assets" description="12 of 18 files uploaded" />
 
 // Don't: a step indicator built from a bar
 <ProgressBar value={(step / 5) * 100} />   // → ProgressTracker activeStep={step}
@@ -84,9 +117,11 @@ One component, no parts.
 ## Gotchas
 
 - There is no indeterminate mode; a missing `value` renders 0%.
-- On `type="bar"`, `className` and `ref` go to the track, not to the wrapper with label and
-  description.
-- `description` and the visible label exist only on `type="bar"`.
+- `className` and `ref` go to the root: the column holding header, track and description on a bar.
+  Style the track through `ProgressBar.Track`.
+- Header, Label and Description are for the bar; the circle composes Value and Track only.
+- `label`, `description` and `fixedWidth` are deprecated. They still render the old output for one
+  release; `fixedWidth` has no effect because the circle's percentage always reserves room for 100%.
 - The bar fills its container's width; constrain the container, not the bar.
 
 ## API

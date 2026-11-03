@@ -2,23 +2,22 @@ import { ProgressBar } from '@wideset/react';
 
 import { playground, type Values } from '../lib/playground-kit';
 
+const LABEL = 'Uploading assets';
+
 const DESCRIPTIONS: Record<string, string> = {
   default: '12 of 18 files uploaded',
   success: 'All files uploaded',
   error: '3 files could not be uploaded',
 };
 
-/** The label and description only exist on the bar; the circle shows the percentage alone. */
-const texts = (v: Values) =>
-  v.type === 'bar' && v.label
-    ? { label: 'Uploading assets', description: DESCRIPTIONS[String(v.variant)] }
-    : {};
+/** The header and description only exist on the bar; the circle shows the percentage alone. */
+const composed = (v: Values) => v.type === 'bar' && Boolean(v.label);
 
-/** Type and variant come from `ProgressBarProps`; this file adds the value and the texts. */
+/** Type and variant come from `ProgressBarProps`; this file adds the value and the parts. */
 export default playground({
   from: 'ProgressBarProps',
-  // Only pads the circle's percentage to a fixed width, for a column of circles.
-  hide: ['fixedWidth'],
+  // Deprecated: the parts replace the string props, and the circle always reserves its width.
+  hide: ['label', 'description', 'fixedWidth'],
   content: [
     {
       key: 'value',
@@ -31,19 +30,32 @@ export default playground({
   ],
   render: (v, { props }) => (
     <div className={v.type === 'bar' ? 'w-[20rem] max-w-full' : undefined}>
-      <ProgressBar {...props()} value={Number(v.value)} {...texts(v)} />
+      {composed(v) ? (
+        <ProgressBar {...props()} value={Number(v.value)}>
+          <ProgressBar.Header>
+            <ProgressBar.Label>{LABEL}</ProgressBar.Label>
+            <ProgressBar.Value />
+          </ProgressBar.Header>
+          <ProgressBar.Track />
+          <ProgressBar.Description>{DESCRIPTIONS[String(v.variant)]}</ProgressBar.Description>
+        </ProgressBar>
+      ) : (
+        <ProgressBar {...props()} value={Number(v.value)} aria-label={LABEL} />
+      )}
     </div>
   ),
   code: (v, { attrs }) => {
-    const { label, description } = texts(v);
-    const props = [
-      ...attrs().trim().split(' '),
-      `value={${v.value}}`,
-      label ? `label="${label}"` : '',
-      description ? `description="${description}"` : '',
-    ].filter(Boolean);
-    return props.join(' ').length > 70
-      ? `<ProgressBar\n${props.map((p) => `  ${p}`).join('\n')}\n/>`
-      : `<ProgressBar ${props.join(' ')} />`;
+    const props = [...attrs().trim().split(' '), `value={${v.value}}`].filter(Boolean);
+    if (!composed(v)) return `<ProgressBar ${[...props, `aria-label="${LABEL}"`].join(' ')} />`;
+    return [
+      `<ProgressBar ${props.join(' ')}>`,
+      '  <ProgressBar.Header>',
+      `    <ProgressBar.Label>${LABEL}</ProgressBar.Label>`,
+      '    <ProgressBar.Value />',
+      '  </ProgressBar.Header>',
+      '  <ProgressBar.Track />',
+      `  <ProgressBar.Description>${DESCRIPTIONS[String(v.variant)]}</ProgressBar.Description>`,
+      '</ProgressBar>',
+    ].join('\n');
   },
 });

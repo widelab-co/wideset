@@ -1,0 +1,33 @@
+import * as React from 'react';
+import { cn } from 'src/lib/utils';
+
+import { HelperText } from '../helper-text/HelperText';
+import { helperTextVariants } from '../helper-text/HelperText.variants';
+import { useProgressBarContext } from './ProgressBar.context';
+import type { ProgressBarDescriptionProps } from './ProgressBar.types';
+
+const ProgressBarDescription = ({ className, children, ...props }: ProgressBarDescriptionProps) => {
+  const { variant, descriptionId, registerDescription } = useProgressBarContext();
+
+  React.useEffect(registerDescription, [registerDescription]);
+
+  return (
+    <HelperText
+      data-slot="progress-bar-description"
+      {...props}
+      // The state comes from the root, so a red bar cannot sit above a green message.
+      state={variant}
+      showIcon={variant === 'success' || variant === 'error'}
+      // Figma puts a Gap/3 top padding on the Helper Text instance; with the root's Gap/5 that
+      // makes 12px from the bar to the text.
+      className={cn(helperTextVariants({ state: variant }), 'pt-ws-3', className)}
+      // The id comes last: the root's aria-describedby points at it.
+      id={descriptionId}
+    >
+      {children}
+    </HelperText>
+  );
+};
+ProgressBarDescription.displayName = 'ProgressBar.Description';
+
+export { ProgressBarDescription };
