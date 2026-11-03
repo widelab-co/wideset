@@ -159,6 +159,69 @@ describe('Tooltip', () => {
     });
   });
 
+  describe('Keyboard', () => {
+    it('should open on keyboard focus and close with Escape', async () => {
+      const user = userEvent.setup();
+
+      render(
+        <Tooltip>
+          <Tooltip.Trigger asChild>
+            <Button>Hover me</Button>
+          </Tooltip.Trigger>
+          <Tooltip.Content>
+            <Tooltip.Label>Tooltip content</Tooltip.Label>
+          </Tooltip.Content>
+        </Tooltip>,
+      );
+
+      const trigger = screen.getByRole('button', { name: 'Hover me' });
+
+      await user.tab();
+      expect(trigger).toHaveFocus();
+      await waitFor(() => {
+        expect(screen.getByRole('tooltip', { name: 'Tooltip content' })).toBeInTheDocument();
+        expect(trigger).toHaveFocus();
+      });
+
+      await user.keyboard('{Escape}');
+      await waitFor(() =>
+        expect(screen.queryByRole('tooltip', { name: 'Tooltip content' })).not.toBeInTheDocument(),
+      );
+      expect(trigger).toHaveFocus();
+    });
+
+    it('should close tooltip when focus leaves the trigger', async () => {
+      const user = userEvent.setup();
+
+      render(
+        <>
+          <Tooltip>
+            <Tooltip.Trigger asChild>
+              <Button>Hover me</Button>
+            </Tooltip.Trigger>
+            <Tooltip.Content>
+              <Tooltip.Label>Tooltip content</Tooltip.Label>
+            </Tooltip.Content>
+          </Tooltip>
+          <button type="button">After</button>
+        </>,
+      );
+
+      const trigger = screen.getByRole('button', { name: 'Hover me' });
+      const afterButton = screen.getByRole('button', { name: 'After' });
+
+      await user.tab();
+      expect(trigger).toHaveFocus();
+      expect(screen.getByRole('tooltip', { name: 'Tooltip content' })).toBeInTheDocument();
+
+      await user.tab();
+      expect(afterButton).toHaveFocus();
+      await waitFor(() =>
+        expect(screen.queryByRole('tooltip', { name: 'Tooltip content' })).not.toBeInTheDocument(),
+      );
+    });
+  });
+
   // Snapshot Tests
   describe('Tooltip Snapshots', () => {
     it('matches snapshot for default tooltip', () => {
