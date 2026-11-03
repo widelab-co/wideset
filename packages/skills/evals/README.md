@@ -35,4 +35,4 @@ The target for a release: **with the skills at least 80% of runs pass, and witho
 
 So read the traps too, without a target of their own. If both arms fall into a trap equally often, the guidance adds nothing on that trap: reconsider the rule (its wording, where it sits, whether the spec is the right carrier) instead of keeping it. A trap nobody falls into, in either arm, is an easy case and tells us nothing: make it harder or drop it. Three runs per case is a small sample; read a difference of one run as noise.
 
-To add a case, write a task a person would actually ask for, without naming components in the prompt, and list what a correct answer must use under `requires`.
+To add a case, write a task a person would actually ask for, without naming components in the prompt, and list what a correct answer must use under `requires`. `Modal|StatusModal` accepts either, and a component used through its hook (`useToast`) counts.
