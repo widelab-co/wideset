@@ -470,3 +470,38 @@ describe('Composition', () => {
     expect(root).not.toHaveTextContent('60%');
   });
 });
+
+describe('Invalid numbers', () => {
+  const warnSpy = () => vi.spyOn(console, 'warn').mockImplementation(() => {});
+
+  it.each([NaN, Infinity])('renders 0 and warns for value %s', (value) => {
+    const warn = warnSpy();
+    render(<ProgressBar value={value} aria-label="Upload" />);
+
+    expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuenow', '0');
+    expect(warn).toHaveBeenCalledWith(
+      `ProgressBar \`value\` must be a finite number. Received ${value}.`,
+    );
+    warn.mockRestore();
+  });
+
+  it.each([0, -5, NaN])('falls back to max 100 and warns for max %s', (max) => {
+    const warn = warnSpy();
+    render(<ProgressBar value={50} max={max} aria-label="Upload" />);
+
+    expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuemax', '100');
+    expect(warn).toHaveBeenCalledWith(
+      `ProgressBar \`max\` must be a number greater than 0. Received ${max}.`,
+    );
+    warn.mockRestore();
+  });
+
+  it('does not warn when value and max are left out, or when value is only out of range', () => {
+    const warn = warnSpy();
+    render(<ProgressBar aria-label="Upload" />);
+    render(<ProgressBar value={150} max={40} aria-label="Upload" />);
+
+    expect(warn).not.toHaveBeenCalled();
+    warn.mockRestore();
+  });
+});

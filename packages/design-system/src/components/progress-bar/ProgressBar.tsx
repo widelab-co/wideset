@@ -1,6 +1,7 @@
 import * as ProgressPrimitive from '@radix-ui/react-progress';
 import * as React from 'react';
 import { cn } from 'src/lib/utils';
+import { clamp, finiteOr } from 'src/logic/helpers';
 
 import { useDefaultMotion } from '../../motion/MotionProvider';
 import { ProgressBarContext } from './ProgressBar.context';
@@ -15,6 +16,23 @@ import { ProgressBarHeader } from './ProgressBarHeader';
 import { ProgressBarLabel } from './ProgressBarLabel';
 import { ProgressBarTrack } from './ProgressBarTrack';
 import { ProgressBarValue } from './ProgressBarValue';
+
+const DEFAULT_MAX = 100;
+const INVALID_MAX = 'ProgressBar `max` must be a number greater than 0.';
+
+/** `max` when it is a number greater than 0, otherwise 100 (with a warning if one was given). */
+const validateMax = (max: number | undefined) => {
+  const finiteMax = finiteOr(max, DEFAULT_MAX, { warn: INVALID_MAX });
+  if (finiteMax > 0) return finiteMax;
+
+  // eslint-disable-next-line no-console
+  console.warn(`${INVALID_MAX} Received ${finiteMax}.`);
+  return DEFAULT_MAX;
+};
+
+/** `value` kept within `0…max`; a missing or non-finite value is 0 (with a warning if one was given). */
+const validateValue = (value: number | undefined, max: number) =>
+  clamp(finiteOr(value, 0, { warn: 'ProgressBar `value` must be a finite number.' }), 0, max);
 
 /** Tracks whether a part is mounted, so the root only points ARIA at ids that exist. */
 const usePartRegistration = () => {
@@ -49,16 +67,8 @@ const ProgressBar = React.forwardRef<
     const [hasLabel, registerLabel] = usePartRegistration();
     const [hasDescription, registerDescription] = usePartRegistration();
 
-    if (Number.isNaN(valueProp)) {
-      // eslint-disable-next-line no-console
-      console.warn('ProgressBar received NaN for `value` prop.');
-    }
-
-    const max = typeof maxProp === 'number' && maxProp > 0 ? maxProp : 100;
-    const value =
-      typeof valueProp === 'number' && !Number.isNaN(valueProp)
-        ? Math.min(Math.max(valueProp, 0), max)
-        : 0;
+    const max = validateMax(maxProp);
+    const value = validateValue(valueProp, max);
     const percent = Math.round((value / max) * 100);
 
     const fields: ProgressBarContextValue = {

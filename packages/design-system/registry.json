@@ -20,7 +20,7 @@
       "name": "logic",
       "type": "registry:lib",
       "title": "Date helpers",
-      "description": "Date formatting and range helpers shared by the date pickers.",
+      "description": "Date formatting and range helpers shared by the date pickers, and number helpers (clamp, finiteOr) shared by components.",
       "files": [
         {
           "path": "src/logic/date.ts",
