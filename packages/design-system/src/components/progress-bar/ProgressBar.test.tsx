@@ -364,8 +364,13 @@ describe('Composition', () => {
     const bar = screen.getByRole('progressbar');
     expect(bar).toHaveAttribute('aria-valuenow', '32');
     expect(bar).toHaveAttribute('aria-valuemax', '40');
-    expect(bar).toHaveAttribute('aria-valuetext', '80%');
     expect(bar).toHaveAttribute('data-state', 'loading');
+  });
+
+  it('omits aria-valuetext by default, so the percentage is announced once', () => {
+    render(<Composed />);
+
+    expect(screen.getByRole('progressbar')).not.toHaveAttribute('aria-valuetext');
   });
 
   it('lets aria-valuetext replace the spoken value', () => {
