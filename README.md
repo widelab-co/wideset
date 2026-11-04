@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src=".github/assets/banner.gif" alt="Wideset components switching from light to dark: a views menu, a form, navigation, an inbox and a theme switch" width="100%" />
+<img src=".github/assets/banner.gif" alt="An agent builds a booking form from Wideset components: Input, DatePicker, Select, Toggle and Button" width="100%" />
 
 # Wideset
 
