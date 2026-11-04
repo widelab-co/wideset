@@ -5,9 +5,9 @@ import { useProgressBarContext } from './ProgressBar.context';
 import type { ProgressBarValueProps } from './ProgressBar.types';
 
 const ProgressBarValue = React.forwardRef<HTMLSpanElement, ProgressBarValueProps>(
-  ({ children, className, ...props }, ref) => {
-    const { percent, type } = useProgressBarContext();
-    const isDefault = children == null;
+  ({ formatValue, children, className, ...props }, ref) => {
+    const { value, max, percent, type } = useProgressBarContext();
+    const isDefault = children == null && !formatValue;
 
     return (
       <span
@@ -22,7 +22,7 @@ const ProgressBarValue = React.forwardRef<HTMLSpanElement, ProgressBarValueProps
         )}
         {...props}
       >
-        {isDefault ? `${percent}%` : children}
+        {children ?? (formatValue ? formatValue(value, max) : `${percent}%`)}
       </span>
     );
   },

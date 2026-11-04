@@ -76,9 +76,11 @@ export type ProgressBarLabelProps = React.LabelHTMLAttributes<HTMLLabelElement> 
 /** The value as text, the percentage by default. */
 export type ProgressBarValueProps = React.HTMLAttributes<HTMLSpanElement> & {
   /**
-   * Replaces the percentage, e.g. `{done} / {total} files`. Visual only: screen readers hear the
-   * root's `aria-valuetext`, the percentage unless you set it.
+   * Builds the text from the clamped value and `max`, e.g. `(value, max) => \`${value} / ${max}\``.
+   * Visual only: screen readers hear the root's `aria-valuetext`, the percentage unless you set it.
    */
+  formatValue?: (value: number, max: number) => React.ReactNode;
+  /** Fixed content that replaces the computed value; wins over `formatValue`. Visual only. */
   children?: React.ReactNode;
 };
 

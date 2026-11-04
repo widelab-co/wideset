@@ -382,6 +382,38 @@ describe('Composition', () => {
     );
   });
 
+  it('builds the text with formatValue from the clamped value and max', () => {
+    render(
+      <ProgressBar value={54} max={40} aria-label="Upload">
+        <ProgressBar.Value formatValue={(value, max) => `${value} / ${max}`} />
+      </ProgressBar>,
+    );
+
+    expect(screen.getByText('40 / 40')).toBeInTheDocument();
+  });
+
+  it('prefers children over formatValue', () => {
+    render(
+      <ProgressBar value={10} aria-label="Upload">
+        <ProgressBar.Value formatValue={() => 'formatted'}>fixed</ProgressBar.Value>
+      </ProgressBar>,
+    );
+
+    expect(screen.getByText('fixed')).toBeInTheDocument();
+    expect(screen.queryByText('formatted')).not.toBeInTheDocument();
+  });
+
+  it('reserves no room for 100% when the circle value uses formatValue', () => {
+    render(
+      <ProgressBar type="circle" value={5} aria-label="Sync">
+        <ProgressBar.Value formatValue={(value) => `${value} files`} />
+        <ProgressBar.Track />
+      </ProgressBar>,
+    );
+
+    expect(screen.getByText('5 files')).not.toHaveClass('min-w-ws-14');
+  });
+
   it('shows its children instead of the percentage', () => {
     render(<Composed />);
 
