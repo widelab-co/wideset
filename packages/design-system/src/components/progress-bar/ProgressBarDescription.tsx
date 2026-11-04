@@ -18,7 +18,6 @@ const ProgressBarDescription = ({ className, children, ...props }: ProgressBarDe
       state={status}
       showIcon={status === 'success' || status === 'error'}
       className={cn(helperTextVariants({ state: status }), className)}
-      // The id comes last: the root's aria-describedby points at it.
       id={descriptionId}
     >
       {children}

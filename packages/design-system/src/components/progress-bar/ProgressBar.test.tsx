@@ -568,3 +568,20 @@ describe('asChild', () => {
     expect(root.firstElementChild).toHaveAttribute('data-slot', 'progress-bar-track');
   });
 });
+
+describe('Part ids', () => {
+  it('keeps the label and description linked when the caller passes its own id', () => {
+    render(
+      <ProgressBar value={40}>
+        <ProgressBar.Header>
+          <ProgressBar.Label id="caller-label">Uploading files</ProgressBar.Label>
+        </ProgressBar.Header>
+        <ProgressBar.Track />
+        <ProgressBar.Description id="caller-description">8 files remaining</ProgressBar.Description>
+      </ProgressBar>,
+    );
+
+    const bar = screen.getByRole('progressbar', { name: 'Uploading files' });
+    expect(bar).toHaveAccessibleDescription('8 files remaining');
+  });
+});

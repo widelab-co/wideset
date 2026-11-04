@@ -10,7 +10,6 @@ const ProgressBarLabel = ({ children, ...props }: ProgressBarLabelProps) => {
   React.useEffect(registerLabel, [registerLabel]);
 
   return (
-    // The id comes last: the root's aria-labelledby points at it.
     <FieldLabel data-slot="progress-bar-label" {...props} id={labelId}>
       {children}
     </FieldLabel>
