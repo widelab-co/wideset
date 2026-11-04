@@ -34,62 +34,6 @@ describe('Chip', () => {
     });
   });
 
-  describe('Keyboard activation', () => {
-    it('clicks on Enter', async () => {
-      const user = userEvent.setup();
-      const onClick = vi.fn();
-      render(<Chip onClick={onClick}>Design</Chip>);
-      await user.tab();
-      await user.keyboard('{Enter}');
-      expect(onClick).toHaveBeenCalledTimes(1);
-    });
-
-    it('clicks on Space', async () => {
-      const user = userEvent.setup();
-      const onClick = vi.fn();
-      render(<Chip onClick={onClick}>Design</Chip>);
-      await user.tab();
-      await user.keyboard(' ');
-      expect(onClick).toHaveBeenCalledTimes(1);
-    });
-
-    it('prevents the page from scrolling on Space', () => {
-      render(<Chip>Design</Chip>);
-      const notCancelled = fireEvent.keyDown(screen.getByRole('button', { name: 'Design' }), {
-        key: ' ',
-      });
-      expect(notCancelled).toBe(false);
-    });
-
-    it('does not click when disabled', () => {
-      const onClick = vi.fn();
-      render(
-        <Chip disabled onClick={onClick}>
-          Design
-        </Chip>,
-      );
-      const chip = screen.getByRole('button', { name: 'Design' });
-      fireEvent.keyDown(chip, { key: 'Enter' });
-      fireEvent.keyUp(chip, { key: ' ' });
-      expect(onClick).not.toHaveBeenCalled();
-    });
-
-    it('still calls onKeyDown and onKeyUp', () => {
-      const onKeyDown = vi.fn();
-      const onKeyUp = vi.fn();
-      render(
-        <Chip onKeyDown={onKeyDown} onKeyUp={onKeyUp}>
-          Design
-        </Chip>,
-      );
-      const chip = screen.getByRole('button', { name: 'Design' });
-      fireEvent.keyDown(chip, { key: 'Enter' });
-      fireEvent.keyUp(chip, { key: 'Enter' });
-      expect(onKeyDown).toHaveBeenCalledTimes(1);
-      expect(onKeyUp).toHaveBeenCalledTimes(1);
-    });
-  });
-
   describe('HTML attributes', () => {
     it('should pass through HTML attributes', () => {
       render(
@@ -131,6 +75,80 @@ describe('Chip', () => {
       expect(() => render(<Chip.Icon icon={RiCloseLine} />)).toThrow(
         'useChipContext must be used within a Chip',
       );
+    });
+  });
+
+  describe('Keyboard', () => {
+    it('should focus with tab', async () => {
+      const user = userEvent.setup();
+
+      render(<Chip>Chip</Chip>);
+
+      const chip = screen.getByRole('button', { name: 'Chip' });
+      await user.tab();
+      expect(chip).toHaveFocus();
+    });
+
+    it('should skip a disabled chip with tab', async () => {
+      const user = userEvent.setup();
+
+      render(<Chip disabled>Chip</Chip>);
+
+      await user.tab();
+      expect(screen.getByRole('button', { name: 'Chip' })).not.toHaveFocus();
+    });
+
+    it.each([
+      { key: 'Enter', input: '{Enter}' },
+      { key: 'Space', input: ' ' },
+    ])('should support $key to activate onClick', async ({ input }) => {
+      const user = userEvent.setup();
+      const onClick = vi.fn();
+
+      render(<Chip onClick={onClick}>Chip</Chip>);
+
+      const chip = screen.getByRole('button', { name: 'Chip' });
+      await user.tab();
+
+      expect(chip).toHaveFocus();
+      await user.keyboard(input);
+      expect(onClick).toHaveBeenCalledOnce();
+    });
+
+    it('prevents the page from scrolling on Space', () => {
+      render(<Chip>Design</Chip>);
+      const notCancelled = fireEvent.keyDown(screen.getByRole('button', { name: 'Design' }), {
+        key: ' ',
+      });
+      expect(notCancelled).toBe(false);
+    });
+
+    it('does not click when disabled', () => {
+      const onClick = vi.fn();
+      render(
+        <Chip disabled onClick={onClick}>
+          Design
+        </Chip>,
+      );
+      const chip = screen.getByRole('button', { name: 'Design' });
+      fireEvent.keyDown(chip, { key: 'Enter' });
+      fireEvent.keyUp(chip, { key: ' ' });
+      expect(onClick).not.toHaveBeenCalled();
+    });
+
+    it('still calls onKeyDown and onKeyUp', () => {
+      const onKeyDown = vi.fn();
+      const onKeyUp = vi.fn();
+      render(
+        <Chip onKeyDown={onKeyDown} onKeyUp={onKeyUp}>
+          Design
+        </Chip>,
+      );
+      const chip = screen.getByRole('button', { name: 'Design' });
+      fireEvent.keyDown(chip, { key: 'Enter' });
+      fireEvent.keyUp(chip, { key: 'Enter' });
+      expect(onKeyDown).toHaveBeenCalledTimes(1);
+      expect(onKeyUp).toHaveBeenCalledTimes(1);
     });
   });
 });
