@@ -1,7 +1,7 @@
 import * as ProgressPrimitive from '@radix-ui/react-progress';
 import * as React from 'react';
 import { cn } from 'src/lib/utils';
-import { clamp, finiteOr } from 'src/logic/helpers';
+import { clamp, isFiniteNumber } from 'src/logic/helpers';
 
 import { useDefaultMotion } from '../../motion/MotionProvider';
 import { ProgressBarContext } from './ProgressBar.context';
@@ -18,20 +18,22 @@ import { ProgressBarTrack } from './ProgressBarTrack';
 import { ProgressBarValue } from './ProgressBarValue';
 
 const DEFAULT_MAX = 100;
-const INVALID_MAX = 'ProgressBar `max` must be a number greater than 0.';
 
 /** `max` when it is a number greater than 0, otherwise 100 (with a warning if one was given). */
-const validateMax = (max: number | undefined) => {
-  const finiteMax = finiteOr(max, DEFAULT_MAX, { warn: INVALID_MAX });
-  if (finiteMax > 0) return finiteMax;
-
-  console.warn(`${INVALID_MAX} Received ${finiteMax}.`);
+const validateMax = (max?: number) => {
+  if (max === undefined) return DEFAULT_MAX;
+  if (isFiniteNumber(max) && max > 0) return max;
+  console.warn(`ProgressBar \`max\` must be a number greater than 0. Received ${max}.`);
   return DEFAULT_MAX;
 };
 
 /** `value` kept within `0…max`; a missing or non-finite value is 0 (with a warning if one was given). */
-const validateValue = (value: number | undefined, max: number) =>
-  clamp(finiteOr(value, 0, { warn: 'ProgressBar `value` must be a finite number.' }), 0, max);
+const validateValue = (value: number | undefined, max: number) => {
+  if (value === undefined) return 0;
+  if (isFiniteNumber(value)) return clamp(value, 0, max);
+  console.warn(`ProgressBar \`value\` must be a finite number. Received ${value}.`);
+  return 0;
+};
 
 /** Tracks whether a part is mounted, so the root only points ARIA at ids that exist. */
 const usePartRegistration = () => {
@@ -55,6 +57,7 @@ const ProgressBar = React.forwardRef<
       status = 'default',
       type = 'bar',
       defaultMotion,
+      asChild,
       children,
       ...props
     },
@@ -86,6 +89,10 @@ const ProgressBar = React.forwardRef<
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const context = React.useMemo(() => fields, Object.values(fields));
 
+    // `asChild` puts the root on the caller's single element, which then holds the parts (as in
+    // Tile). Without such an element the root stays a <div> instead of slotting onto a part.
+    const isSlotted = Boolean(asChild) && React.isValidElement(children);
+
     const hasOwnName = Boolean(props['aria-label'] || props['aria-labelledby']);
     const fallbackName = hasOwnName || hasLabel ? undefined : 'Progress';
 
@@ -95,6 +102,7 @@ const ProgressBar = React.forwardRef<
           ref={ref}
           value={value}
           max={max}
+          asChild={isSlotted}
           data-slot="progress-bar"
           data-type={type}
           data-status={status}

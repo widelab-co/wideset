@@ -97,6 +97,10 @@ Use ProgressTracker for progress through discrete steps.
       control: false,
       table: { category: 'Content', type: { summary: 'ReactNode' } },
     },
+    asChild: {
+      control: false,
+      table: { category: 'Behavior', type: { summary: 'boolean' } },
+    },
   },
 } satisfies Meta<typeof ProgressBar>;
 

@@ -16,7 +16,7 @@ export type ProgressBarType = NonNullable<VariantProps<typeof progressBarRootVar
 /** Shows how far a task has got, as a bar or a ring. */
 export type ProgressBarProps = Omit<
   React.ComponentPropsWithoutRef<typeof ProgressPrimitive.Root>,
-  'asChild' | 'children' | 'getValueLabel'
+  'children' | 'getValueLabel'
 > &
   MotionProps & {
     /** Current progress, clamped between `0` and `max`. A missing or `NaN` value renders `0`. */
@@ -32,9 +32,14 @@ export type ProgressBarProps = Omit<
     type?: ProgressBarType;
     /**
      * The parts to render: `ProgressBar.Header`, `.Label`, `.Value`, `.Track`, `.Description`.
-     * Without children the bar renders its track and the circle its percentage and ring.
+     * Without children both types render only their track: the bar, or the ring.
      */
     children?: React.ReactNode;
+    /**
+     * Renders the root onto its single child element, which then holds the parts, e.g.
+     * `<ProgressBar asChild><section>…</section></ProgressBar>`. Without one, the root stays a `<div>`.
+     */
+    asChild?: boolean;
   };
 
 export type ProgressBarContextValue = {

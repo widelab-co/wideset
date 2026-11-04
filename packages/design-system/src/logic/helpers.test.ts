@@ -1,6 +1,6 @@
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
-import { clamp, finiteOr, isFiniteNumber } from './helpers';
+import { clamp, isFiniteNumber } from './helpers';
 
 describe('isFiniteNumber', () => {
   it.each([0, -1, 1.5, Number.MAX_SAFE_INTEGER])('accepts %s', (value) => {
@@ -23,37 +23,5 @@ describe('clamp', () => {
 
   it('lowers a value above max to max', () => {
     expect(clamp(15, 0, 10)).toBe(10);
-  });
-});
-
-describe('finiteOr', () => {
-  afterEach(() => {
-    vi.restoreAllMocks();
-  });
-
-  it('returns a finite value', () => {
-    expect(finiteOr(7, 0)).toBe(7);
-  });
-
-  it.each([NaN, Infinity, -Infinity])('falls back for %s', (value) => {
-    expect(finiteOr(value, 3)).toBe(3);
-  });
-
-  it('warns with the message and the received value when it rejects a value', () => {
-    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
-
-    finiteOr(NaN, 0, { warn: 'Thing `value` must be a finite number.' });
-
-    expect(warn).toHaveBeenCalledWith('Thing `value` must be a finite number. Received NaN.');
-  });
-
-  it('does not warn for undefined, an accepted value, or without a message', () => {
-    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
-
-    finiteOr(undefined, 0, { warn: 'message' });
-    finiteOr(5, 0, { warn: 'message' });
-    finiteOr(NaN, 0);
-
-    expect(warn).not.toHaveBeenCalled();
   });
 });

@@ -537,3 +537,34 @@ describe('Invalid numbers', () => {
     warn.mockRestore();
   });
 });
+
+describe('asChild', () => {
+  it('renders the root onto its single child element, with the parts inside', () => {
+    render(
+      <ProgressBar asChild value={40} className="root-class">
+        <section data-testid="custom-root">
+          <ProgressBar.Header>
+            <ProgressBar.Label>Uploading files</ProgressBar.Label>
+          </ProgressBar.Header>
+          <ProgressBar.Track />
+        </section>
+      </ProgressBar>,
+    );
+
+    const root = screen.getByRole('progressbar', { name: 'Uploading files' });
+    expect(root.tagName).toBe('SECTION');
+    expect(root).toBe(screen.getByTestId('custom-root'));
+    expect(root).toHaveAttribute('data-slot', 'progress-bar');
+    expect(root).toHaveAttribute('aria-valuenow', '40');
+    expect(root).toHaveClass('root-class');
+    expect(root.querySelector('[data-slot="progress-bar-track"]')).toBeInTheDocument();
+  });
+
+  it('keeps a <div> root when there is no single child element', () => {
+    render(<ProgressBar asChild value={40} aria-label="Upload" />);
+
+    const root = screen.getByRole('progressbar', { name: 'Upload' });
+    expect(root.tagName).toBe('DIV');
+    expect(root.firstElementChild).toHaveAttribute('data-slot', 'progress-bar-track');
+  });
+});
