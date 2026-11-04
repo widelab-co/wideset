@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src=".github/assets/banner.gif" alt="Wideset components switching from light to dark: a views menu, a form, navigation, an inbox and a theme switch" width="100%" />
+
 # Wideset
 
 An open source React design system with a matching Figma library, <br/> built for the people and the coding agents who ship product UI together.
