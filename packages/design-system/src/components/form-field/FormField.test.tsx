@@ -133,14 +133,47 @@ describe('FormField', () => {
     expect((container.firstChild as HTMLElement).tagName).toBe('FIELDSET');
   });
 
-  it('forwards FieldLabel props like aside', () => {
+  it('renders aside at the end of the label row', () => {
     render(
       <FormField label="Count" aside="5/10">
         <div>Child</div>
       </FormField>,
     );
 
-    expect(screen.getByText('5/10')).toBeInTheDocument();
+    expect(screen.getByText('5/10')).toHaveAttribute('data-slot', 'field-label-aside');
+  });
+
+  it('renders suffix inside the label', () => {
+    render(
+      <FormField label="Nickname" htmlFor="nick" suffix="(optional)">
+        <input id="nick" />
+      </FormField>,
+    );
+
+    expect(screen.getByRole('textbox', { name: 'Nickname (optional)' })).toBeInTheDocument();
+  });
+
+  it('renders tooltip as a button next to the label, not inside it', () => {
+    render(
+      <FormField label="Email" htmlFor="email" tooltip="Help text" tooltipAriaLabel="About email">
+        <input id="email" />
+      </FormField>,
+    );
+
+    const button = screen.getByRole('button', { name: 'About email' });
+    expect(button.closest('label')).toBeNull();
+    expect(screen.getByRole('textbox', { name: 'Email' })).toBeInTheDocument();
+  });
+
+  it('keeps the required asterisk out of the accessible name', () => {
+    render(
+      <FormField label="Email" htmlFor="email" required>
+        <input id="email" />
+      </FormField>,
+    );
+
+    expect(screen.getByText('*')).toHaveAttribute('aria-hidden', 'true');
+    expect(screen.getByRole('textbox', { name: 'Email' })).toBeInTheDocument();
   });
 });
 

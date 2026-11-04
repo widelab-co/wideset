@@ -1,223 +1,39 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`FieldLabel > FieldLabel Snapshots > matches snapshot for basic label 1`] = `
-<div
-  class="gap-ws-3 flex flex-wrap items-start w-fit"
-  data-slot="field-label"
->
-  <div
-    class="gap-ws-3 flex min-w-0 flex-1 items-center"
+exports[`FieldLabel > Snapshots > matches snapshot for a composed label row 1`] = `
+<div>
+  <label
+    class="text-ws-static-strong typography-label-strong-sm gap-ws-3 inline-flex min-w-0 flex-wrap items-center break-words"
+    data-slot="field-label"
   >
-    <label
-      class="text-ws-static-strong typography-label-strong-sm gap-ws-3 flex min-w-0 flex-wrap items-center"
+    Test Label 
+    <span
+      class="text-ws-static-subtle typography-label-sm shrink-0"
+      data-slot="field-label-suffix"
     >
-      <span
-        class="min-w-0 break-words"
-      >
-        Test Label
-      </span>
-    </label>
-  </div>
-</div>
-`;
-
-exports[`FieldLabel > FieldLabel Snapshots > matches snapshot for label with all features 1`] = `
-<div
-  class="gap-ws-3 flex flex-col"
-  data-slot="field-label"
->
-  <div
-    class="gap-ws-3 flex flex-wrap items-start"
-  >
-    <div
-      class="gap-ws-3 flex min-w-0 flex-1 items-center"
+      (optional)
+    </span>
+    <span
+      aria-hidden="true"
+      class="text-ws-semantic-negative typography-label-sm shrink-0"
+      data-slot="field-label-required"
     >
-      <label
-        class="text-ws-static-strong typography-label-strong-sm gap-ws-3 flex min-w-0 flex-wrap items-center"
-      >
-        <span
-          class="min-w-0 break-words"
-        >
-          Test Label
-        </span>
-        <span
-          class="text-ws-semantic-negative typography-label-sm shrink-0"
-        >
-          *
-        </span>
-        <span
-          class="text-ws-static-subtle typography-label-sm shrink-0"
-        >
-          (optional)
-        </span>
-      </label>
-      <svg
-        aria-label="More information"
-        class="remixicon text-ws-static-subtle focus-visible:wds-focus-visible h-ws-9 w-ws-9 shrink-0 rounded-full"
-        data-slot="tooltip-trigger"
-        data-state="closed"
-        fill="currentColor"
-        height="24"
-        tabindex="0"
-        viewBox="0 0 24 24"
-        width="24"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM11 11V17H13V11H11ZM11 7V9H13V7H11Z"
-        />
-      </svg>
-    </div>
-    <div
-      class="gap-ws-2 flex flex-shrink-0 items-center"
-    >
-      <div
-        class="text-ws-static-subtle typography-label-sm"
-      >
-        0/100
-      </div>
-    </div>
-  </div>
-  <div
-    class="text-ws-static-subtle typography-body-md"
+      *
+    </span>
+  </label>
+  <button
+    aria-label="More information"
+    class="text-ws-static-subtle focus-visible:wds-focus-visible inline-flex shrink-0 items-center justify-center rounded-full"
+    data-slot="field-label-tooltip"
+    data-state="closed"
+    type="button"
   >
-    This is a description
-  </div>
-</div>
-`;
-
-exports[`FieldLabel > FieldLabel Snapshots > matches snapshot for label with aside 1`] = `
-<div
-  class="gap-ws-3 flex flex-wrap items-start"
-  data-slot="field-label"
->
-  <div
-    class="gap-ws-3 flex min-w-0 flex-1 items-center"
-  >
-    <label
-      class="text-ws-static-strong typography-label-strong-sm gap-ws-3 flex min-w-0 flex-wrap items-center"
-    >
-      <span
-        class="min-w-0 break-words"
-      >
-        Test Label
-      </span>
-    </label>
-  </div>
-  <div
-    class="gap-ws-2 flex flex-shrink-0 items-center"
-  >
-    <div
-      class="text-ws-static-subtle typography-label-sm"
-    >
-      0/100
-    </div>
-  </div>
-</div>
-`;
-
-exports[`FieldLabel > FieldLabel Snapshots > matches snapshot for label with description 1`] = `
-<div
-  class="gap-ws-3 flex flex-col w-fit"
-  data-slot="field-label"
->
-  <div
-    class="gap-ws-3 flex flex-wrap items-start w-fit"
-  >
-    <div
-      class="gap-ws-3 flex min-w-0 flex-1 items-center"
-    >
-      <label
-        class="text-ws-static-strong typography-label-strong-sm gap-ws-3 flex min-w-0 flex-wrap items-center"
-      >
-        <span
-          class="min-w-0 break-words"
-        >
-          Test Label
-        </span>
-      </label>
-    </div>
-  </div>
-  <div
-    class="text-ws-static-subtle typography-body-md"
-  >
-    This is a description
-  </div>
-</div>
-`;
-
-exports[`FieldLabel > FieldLabel Snapshots > matches snapshot for label with long text 1`] = `
-<div
-  class="gap-ws-3 flex flex-wrap items-start w-fit"
-  data-slot="field-label"
->
-  <div
-    class="gap-ws-3 flex min-w-0 flex-1 items-center"
-  >
-    <label
-      class="text-ws-static-strong typography-label-strong-sm gap-ws-3 flex min-w-0 flex-wrap items-center"
-    >
-      <span
-        class="min-w-0 break-words"
-      >
-        This is a very long label text that should wrap properly when it exceeds the available width
-      </span>
-    </label>
-  </div>
-</div>
-`;
-
-exports[`FieldLabel > FieldLabel Snapshots > matches snapshot for label with suffix 1`] = `
-<div
-  class="gap-ws-3 flex flex-wrap items-start w-fit"
-  data-slot="field-label"
->
-  <div
-    class="gap-ws-3 flex min-w-0 flex-1 items-center"
-  >
-    <label
-      class="text-ws-static-strong typography-label-strong-sm gap-ws-3 flex min-w-0 flex-wrap items-center"
-    >
-      <span
-        class="min-w-0 break-words"
-      >
-        Test Label
-      </span>
-      <span
-        class="text-ws-static-subtle typography-label-sm shrink-0"
-      >
-        (optional)
-      </span>
-    </label>
-  </div>
-</div>
-`;
-
-exports[`FieldLabel > FieldLabel Snapshots > matches snapshot for label with tooltip 1`] = `
-<div
-  class="gap-ws-3 flex flex-wrap items-start w-fit"
-  data-slot="field-label"
->
-  <div
-    class="gap-ws-3 flex min-w-0 flex-1 items-center"
-  >
-    <label
-      class="text-ws-static-strong typography-label-strong-sm gap-ws-3 flex min-w-0 flex-wrap items-center"
-    >
-      <span
-        class="min-w-0 break-words"
-      >
-        Test Label
-      </span>
-    </label>
     <svg
-      aria-label="More information"
-      class="remixicon text-ws-static-subtle focus-visible:wds-focus-visible h-ws-9 w-ws-9 shrink-0 rounded-full"
-      data-slot="tooltip-trigger"
-      data-state="closed"
+      aria-hidden="true"
+      class="remixicon h-ws-9 w-ws-9"
       fill="currentColor"
+      focusable="false"
       height="24"
-      tabindex="0"
       viewBox="0 0 24 24"
       width="24"
       xmlns="http://www.w3.org/2000/svg"
@@ -226,32 +42,92 @@ exports[`FieldLabel > FieldLabel Snapshots > matches snapshot for label with too
         d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM11 11V17H13V11H11ZM11 7V9H13V7H11Z"
       />
     </svg>
+  </button>
+  <div
+    class="text-ws-static-subtle typography-label-sm gap-ws-2 ml-auto flex shrink-0 items-center"
+    data-slot="field-label-aside"
+  >
+    0/100
   </div>
+  <p
+    class="text-ws-static-subtle typography-body-md basis-full"
+    data-slot="field-label-description"
+  >
+    This is a description
+  </p>
 </div>
 `;
 
-exports[`FieldLabel > FieldLabel Snapshots > matches snapshot for required label 1`] = `
-<div
-  class="gap-ws-3 flex flex-wrap items-start w-fit"
+exports[`FieldLabel > Snapshots > matches snapshot for basic label 1`] = `
+<label
+  class="text-ws-static-strong typography-label-strong-sm gap-ws-3 inline-flex min-w-0 flex-wrap items-center break-words"
   data-slot="field-label"
 >
-  <div
-    class="gap-ws-3 flex min-w-0 flex-1 items-center"
+  Test Label
+</label>
+`;
+
+exports[`FieldLabel > Snapshots > matches snapshot for label with long text 1`] = `
+<label
+  class="text-ws-static-strong typography-label-strong-sm gap-ws-3 inline-flex min-w-0 flex-wrap items-center break-words"
+  data-slot="field-label"
+>
+  This is a very long label text that should wrap properly when it exceeds the available width
+</label>
+`;
+
+exports[`FieldLabel > Snapshots > matches snapshot for label with suffix 1`] = `
+<label
+  class="text-ws-static-strong typography-label-strong-sm gap-ws-3 inline-flex min-w-0 flex-wrap items-center break-words"
+  data-slot="field-label"
+>
+  Test Label 
+  <span
+    class="text-ws-static-subtle typography-label-sm shrink-0"
+    data-slot="field-label-suffix"
   >
-    <label
-      class="text-ws-static-strong typography-label-strong-sm gap-ws-3 flex min-w-0 flex-wrap items-center"
-    >
-      <span
-        class="min-w-0 break-words"
-      >
-        Test Label
-      </span>
-      <span
-        class="text-ws-semantic-negative typography-label-sm shrink-0"
-      >
-        *
-      </span>
-    </label>
-  </div>
-</div>
+    (optional)
+  </span>
+</label>
+`;
+
+exports[`FieldLabel > Snapshots > matches snapshot for required label 1`] = `
+<label
+  class="text-ws-static-strong typography-label-strong-sm gap-ws-3 inline-flex min-w-0 flex-wrap items-center break-words"
+  data-slot="field-label"
+>
+  Test Label
+  <span
+    aria-hidden="true"
+    class="text-ws-semantic-negative typography-label-sm shrink-0"
+    data-slot="field-label-required"
+  >
+    *
+  </span>
+</label>
+`;
+
+exports[`FieldLabel > Snapshots > matches snapshot for the tooltip button 1`] = `
+<button
+  aria-label="More information"
+  class="text-ws-static-subtle focus-visible:wds-focus-visible inline-flex shrink-0 items-center justify-center rounded-full"
+  data-slot="field-label-tooltip"
+  data-state="closed"
+  type="button"
+>
+  <svg
+    aria-hidden="true"
+    class="remixicon h-ws-9 w-ws-9"
+    fill="currentColor"
+    focusable="false"
+    height="24"
+    viewBox="0 0 24 24"
+    width="24"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM11 11V17H13V11H11ZM11 7V9H13V7H11Z"
+    />
+  </svg>
+</button>
 `;
