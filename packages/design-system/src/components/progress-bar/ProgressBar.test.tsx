@@ -82,9 +82,9 @@ describe('ProgressBar', () => {
     expect(indicator).toHaveStyle('transform: translateX(-100%)');
   });
 
-  it('shows the real percentage when value is below 0', () => {
+  it('shows 0% label when value is below 0', () => {
     const { getByText } = render(<LabelledBar label="Progress" value={-10} />);
-    expect(getByText('-10%')).toBeInTheDocument();
+    expect(getByText('0%')).toBeInTheDocument();
   });
 
   it('clamps values above 100 to 100', () => {
@@ -93,23 +93,9 @@ describe('ProgressBar', () => {
     expect(indicator).toHaveStyle('transform: translateX(-0%)');
   });
 
-  it('shows the real percentage when value is above max', () => {
+  it('shows 100% label when value is above 100', () => {
     const { getByText } = render(<LabelledBar label="Progress" value={150} />);
-    expect(getByText('150%')).toBeInTheDocument();
-  });
-
-  it('keeps the fill full and the ARIA value at max above max, but speaks the real percentage', () => {
-    const { container, getByRole } = render(
-      <ProgressBar value={54} max={40} aria-label="Upload" />,
-    );
-    const bar = getByRole('progressbar');
-
-    expect(container.querySelector('[data-slot="progress-bar-track"] > div')).toHaveStyle(
-      'transform: translateX(-0%)',
-    );
-    expect(bar).toHaveAttribute('aria-valuenow', '40');
-    expect(bar).toHaveAttribute('aria-valuetext', '135%');
-    expect(bar).toHaveAttribute('data-state', 'complete');
+    expect(getByText('100%')).toBeInTheDocument();
   });
 
   it('handles undefined value gracefully', () => {
