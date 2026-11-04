@@ -1,5 +1,5 @@
 import { RiArrowLeftSLine, RiArrowRightSLine } from '@remixicon/react';
-import { useMemo } from 'react';
+import { useMemo, useRef } from 'react';
 import { IconButton } from 'src/components/button/IconButton';
 import { cn } from 'src/lib/utils';
 
@@ -20,6 +20,7 @@ const PaginationNumbers = ({ className, defaultMotion, ...props }: PaginationNum
     motion: paginationMotion,
   } = usePaginationContext();
   const motion = useDefaultMotion(defaultMotion ?? paginationMotion);
+  const pageButtons = useRef(new Map<number, HTMLButtonElement>());
 
   const pagesToDisplay = useMemo(
     () => getPagesToDisplay(localActivePage, pagesCount, maxVisiblePages),
@@ -31,6 +32,14 @@ const PaginationNumbers = ({ className, defaultMotion, ...props }: PaginationNum
   }
 
   const buttonSizeClassName = 'size-ws-14 p-0 flex-shrink-0';
+
+  const handleEllipsisClose = (event: Event, selectedPage: number) => {
+    const button = pageButtons.current.get(selectedPage);
+    if (button?.getAttribute('aria-current') !== 'page') return;
+
+    event.preventDefault();
+    button.focus({ preventScroll: true });
+  };
 
   return (
     <div
@@ -57,6 +66,14 @@ const PaginationNumbers = ({ className, defaultMotion, ...props }: PaginationNum
             previousPage={pagesToDisplay[index - 1]}
             isActive={localActivePage === page}
             onChange={onChange}
+            pageButtonRef={(button) => {
+              if (button) {
+                pageButtons.current.set(page, button);
+              } else {
+                pageButtons.current.delete(page);
+              }
+            }}
+            onEllipsisClose={handleEllipsisClose}
             buttonSizeClassName={buttonSizeClassName}
             defaultMotion={motion}
           />

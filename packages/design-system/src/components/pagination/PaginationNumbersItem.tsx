@@ -1,3 +1,4 @@
+import { type Ref, useRef } from 'react';
 import { Button } from 'src/components/button/Button';
 import { ListItem } from 'src/components/list-item/ListItem';
 import { Select } from 'src/components/select/Select';
@@ -11,6 +12,8 @@ type PaginationNumbersItemProps = {
   previousPage?: number;
   isActive: boolean;
   onChange: (value: number) => void;
+  pageButtonRef: Ref<HTMLButtonElement>;
+  onEllipsisClose: (event: Event, selectedPage: number) => void;
   buttonSizeClassName: string;
   defaultMotion: boolean;
 };
@@ -20,10 +23,13 @@ const PaginationNumbersItem = ({
   previousPage,
   isActive,
   onChange,
+  pageButtonRef,
+  onEllipsisClose,
   buttonSizeClassName,
   defaultMotion,
 }: PaginationNumbersItemProps) => {
   const { selectPageAriaLabel, ellipsisPlaceholder } = usePaginationContext();
+  const selectedPageRef = useRef<number | null>(null);
   const previousOrCurrentPage = previousPage ?? page;
   const gap = page - previousOrCurrentPage;
   const inBetweenPageOptions =
@@ -46,7 +52,11 @@ const PaginationNumbersItem = ({
         // width, which is 32px here — multi-digit page numbers get truncated.
         <Select
           value=""
-          onValueChange={(value) => onChange(Number(value))}
+          onValueChange={(value) => {
+            const selectedPage = Number(value);
+            selectedPageRef.current = selectedPage;
+            onChange(selectedPage);
+          }}
           defaultMotion={defaultMotion}
         >
           <Select.Trigger
@@ -74,7 +84,18 @@ const PaginationNumbersItem = ({
           </Select.Trigger>
           {/* Figma pins the page list at 98px — an unbound raw value, so a
               designer can tokenise it later. */}
-          <Select.Content align="center" className="w-[98px]!">
+          <Select.Content
+            align="center"
+            className="w-[98px]!"
+            onCloseAutoFocus={(event) => {
+              const selectedPage = selectedPageRef.current;
+              selectedPageRef.current = null;
+
+              if (selectedPage !== null) {
+                onEllipsisClose(event, selectedPage);
+              }
+            }}
+          >
             {inBetweenPageOptions.map((option) => (
               <Select.Option key={option.value} value={option.value} textValue={option.label}>
                 <ListItem.Label>{option.label}</ListItem.Label>
@@ -84,6 +105,7 @@ const PaginationNumbersItem = ({
         </Select>
       )}
       <Button
+        ref={pageButtonRef}
         aria-current={isActive ? 'page' : undefined}
         preset={isActive ? 'filled' : 'ghost'}
         size="sm"

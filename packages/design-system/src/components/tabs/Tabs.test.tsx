@@ -576,41 +576,6 @@ describe('Tabs', () => {
       expect(targetTab).toHaveAttribute('aria-selected', 'true');
       expect(middleTab).toHaveAttribute('aria-selected', 'false');
     });
-
-    it.todo(
-      'moves focus directly to the first focusable content element when leaving the tab list',
-      async () => {
-        const user = userEvent.setup();
-
-        render(
-          <Tabs defaultValue="tab2">
-            <Tabs.List>
-              <Tabs.Item value="tab1">
-                <Tabs.Label>Tab 1</Tabs.Label>
-              </Tabs.Item>
-              <Tabs.Item value="tab2">
-                <Tabs.Label>Tab 2</Tabs.Label>
-              </Tabs.Item>
-            </Tabs.List>
-            <Tabs.Content value="tab1">Content 1</Tabs.Content>
-            <Tabs.Content value="tab2">
-              <button type="button">Save changes</button>
-            </Tabs.Content>
-          </Tabs>,
-        );
-
-        const activeTab = screen.getByRole('tab', { name: 'Tab 2' });
-        const contentButton = screen.getByRole('button', { name: 'Save changes' });
-
-        await user.tab();
-        expect(activeTab).toHaveFocus();
-        await user.tab();
-        expect(contentButton).toHaveFocus();
-
-        await user.tab({ shift: true });
-        expect(activeTab).toHaveFocus();
-      },
-    );
   });
 });
 

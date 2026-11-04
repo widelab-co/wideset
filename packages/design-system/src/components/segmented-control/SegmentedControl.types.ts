@@ -1,4 +1,4 @@
-import type * as ToggleGroup from '@radix-ui/react-toggle-group';
+import type * as RadioGroup from '@radix-ui/react-radio-group';
 import type { RemixiconComponentType } from '@remixicon/react';
 import type { VariantProps } from 'class-variance-authority';
 import type {
@@ -45,8 +45,8 @@ export type SegmentedControlProps = {
   'aria-labelledby'?: string;
 } & MotionProps &
   Omit<
-    ComponentPropsWithoutRef<typeof ToggleGroup.Root>,
-    'type' | 'value' | 'defaultValue' | 'onValueChange'
+    ComponentPropsWithoutRef<typeof RadioGroup.Root>,
+    'value' | 'defaultValue' | 'onValueChange'
   >;
 
 /** An icon rendered within `SegmentedControl`. */
@@ -91,7 +91,7 @@ type SegmentedControlItemIconProps =
     };
 
 /** An individual item within `SegmentedControl`. */
-export type SegmentedControlItemProps = ComponentPropsWithoutRef<typeof ToggleGroup.Item> &
+export type SegmentedControlItemProps = ComponentPropsWithoutRef<typeof RadioGroup.Item> &
   Omit<VariantProps<typeof segmentedControlItemVariants>, 'iconOnly'> &
   SegmentedControlItemIconProps;
 

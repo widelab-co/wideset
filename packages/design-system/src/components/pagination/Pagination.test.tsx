@@ -154,30 +154,63 @@ describe('Pagination', () => {
               'aria-current',
               'page',
             );
+            expect(screen.getByRole('button', { name: '5' })).toHaveFocus();
           });
         },
       );
 
-      it.todo(
-        'moves focus to the active page when selecting a hidden page removes the ellipsis trigger',
-        async () => {
+      it('moves focus to the active page when selecting a hidden page removes the ellipsis trigger', async () => {
+        const user = userEvent.setup();
+
+        render(<Pagination pagesCount={10} defaultActivePage={1} maxVisiblePages={5} />);
+
+        const trigger = screen.getByRole('combobox', { name: 'Select page between 5 and 9' });
+        trigger.focus();
+        await user.keyboard('{Enter}');
+        await waitFor(() => expect(screen.getByRole('option', { name: '5' })).toHaveFocus());
+        await user.keyboard('{End}');
+        expect(screen.getByRole('option', { name: '9' })).toHaveFocus();
+        await user.keyboard('{Enter}');
+
+        expect(trigger).not.toBeInTheDocument();
+        expect(screen.getByRole('button', { name: '9' })).toHaveAttribute('aria-current', 'page');
+        await waitFor(() => expect(screen.getByRole('button', { name: '9' })).toHaveFocus());
+      });
+
+      it.each([5, 9])(
+        'moves focus to page %i after pointer selection from the ellipsis',
+        async (page) => {
           const user = userEvent.setup();
 
           render(<Pagination pagesCount={10} defaultActivePage={1} maxVisiblePages={5} />);
 
           const trigger = screen.getByRole('combobox', { name: 'Select page between 5 and 9' });
-          trigger.focus();
-          await user.keyboard('{Enter}');
-          await waitFor(() => expect(screen.getByRole('option', { name: '5' })).toHaveFocus());
-          await user.keyboard('{End}');
-          expect(screen.getByRole('option', { name: '9' })).toHaveFocus();
-          await user.keyboard('{Enter}');
+          await user.click(trigger);
+          await user.click(screen.getByRole('option', { name: String(page) }));
 
-          expect(trigger).not.toBeInTheDocument();
-          expect(screen.getByRole('button', { name: '9' })).toHaveAttribute('aria-current', 'page');
-          await waitFor(() => expect(screen.getByRole('button', { name: '9' })).toHaveFocus());
+          const activePage = screen.getByRole('button', { name: String(page) });
+          expect(activePage).toHaveAttribute('aria-current', 'page');
+          await waitFor(() => expect(activePage).toHaveFocus());
         },
       );
+
+      it('restores focus to the ellipsis trigger on Escape without changing the page', async () => {
+        const user = userEvent.setup();
+
+        render(<Pagination pagesCount={10} defaultActivePage={1} maxVisiblePages={5} />);
+
+        const trigger = screen.getByRole('combobox', { name: 'Select page between 5 and 9' });
+        trigger.focus();
+        await user.keyboard('{Enter}');
+        await waitFor(() => expect(screen.getByRole('option', { name: '5' })).toHaveFocus());
+        await user.keyboard('{Escape}');
+
+        await waitFor(() => {
+          expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+          expect(trigger).toHaveFocus();
+        });
+        expect(screen.getByRole('button', { name: '1' })).toHaveAttribute('aria-current', 'page');
+      });
     });
 
     describe('Overflow', () => {

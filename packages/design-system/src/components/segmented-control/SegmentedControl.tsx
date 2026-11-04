@@ -1,5 +1,5 @@
 import { useComposedRefs } from '@radix-ui/react-compose-refs';
-import * as ToggleGroup from '@radix-ui/react-toggle-group';
+import * as RadioGroup from '@radix-ui/react-radio-group';
 import React, { useState } from 'react';
 import { cn } from 'src/lib/utils';
 
@@ -53,14 +53,13 @@ const SegmentedControl = React.forwardRef<HTMLDivElement, SegmentedControlProps>
 
     return (
       <SegmentedControlContext.Provider value={{ size, variant, motion }}>
-        <ToggleGroup.Root
+        <RadioGroup.Root
           ref={composedRef}
           className={cn(
             segmentedControlVariants({ size, variant }),
             segmentedControlGlideVariants({ enabled: motion }),
             className,
           )}
-          type="single"
           value={currentValue}
           onValueChange={handleValueChange}
           disabled={disabled}
@@ -80,7 +79,7 @@ const SegmentedControl = React.forwardRef<HTMLDivElement, SegmentedControlProps>
               }}
             />
           )}
-        </ToggleGroup.Root>
+        </RadioGroup.Root>
       </SegmentedControlContext.Provider>
     );
   },

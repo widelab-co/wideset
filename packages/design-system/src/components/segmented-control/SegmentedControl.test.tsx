@@ -1,5 +1,5 @@
 import { RiCheckboxCircleFill, RiCloseLine } from '@remixicon/react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { createRef, StrictMode } from 'react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
@@ -31,8 +31,8 @@ describe('SegmentedControl', () => {
       const item1 = screen.getByRole('radio', { name: 'Item 1' });
       const item2 = screen.getByRole('radio', { name: 'Item 2' });
 
-      expect(item1).toHaveAttribute('data-state', 'on');
-      expect(item2).toHaveAttribute('data-state', 'off');
+      expect(item1).toHaveAttribute('data-state', 'checked');
+      expect(item2).toHaveAttribute('data-state', 'unchecked');
     });
 
     it('should merge custom className with default classes', () => {
@@ -803,41 +803,35 @@ describe('SegmentedControl', () => {
       expect(item2).toHaveFocus();
     });
 
-    it.each([
-      { key: 'Enter', input: '{Enter}' },
-      { key: 'Space', input: ' ' },
-    ])(
-      'supports $key to select an item without clearing it on repeated activation',
-      async ({ input }) => {
-        const user = userEvent.setup();
-        const onValueChange = vi.fn();
+    it('supports Space to select an item without clearing it on repeated activation', async () => {
+      const user = userEvent.setup();
+      const onValueChange = vi.fn();
 
-        render(
-          <SegmentedControl defaultValue="item-1" onValueChange={onValueChange}>
-            <SegmentedControl.Item value="item-1">Item 1</SegmentedControl.Item>
-            <SegmentedControl.Item value="item-2">Item 2</SegmentedControl.Item>
-          </SegmentedControl>,
-        );
+      render(
+        <SegmentedControl defaultValue="item-1" onValueChange={onValueChange}>
+          <SegmentedControl.Item value="item-1">Item 1</SegmentedControl.Item>
+          <SegmentedControl.Item value="item-2">Item 2</SegmentedControl.Item>
+        </SegmentedControl>,
+      );
 
-        const item1 = screen.getByRole('radio', { name: 'Item 1' });
-        const item2 = screen.getByRole('radio', { name: 'Item 2' });
+      const item1 = screen.getByRole('radio', { name: 'Item 1' });
+      const item2 = screen.getByRole('radio', { name: 'Item 2' });
 
-        expect(item1).toBeChecked();
-        item2.focus();
+      expect(item1).toBeChecked();
+      item2.focus();
 
-        await user.keyboard(input);
-        expect(item2).toBeChecked();
-        expect(item1).not.toBeChecked();
-        expect(onValueChange).toHaveBeenCalledExactlyOnceWith('item-2');
+      await user.keyboard(' ');
+      expect(item2).toBeChecked();
+      expect(item1).not.toBeChecked();
+      expect(onValueChange).toHaveBeenCalledExactlyOnceWith('item-2');
 
-        // Stay checked
-        await user.keyboard(input);
-        expect(item2).toBeChecked();
-        expect(onValueChange).toHaveBeenCalledTimes(1);
-      },
-    );
+      // Stay checked
+      await user.keyboard(' ');
+      expect(item2).toBeChecked();
+      expect(onValueChange).toHaveBeenCalledTimes(1);
+    });
 
-    it('supports arrow key navigation', async () => {
+    it('supports arrow key navigation and selects the focused item', async () => {
       const user = userEvent.setup();
 
       render(
@@ -856,21 +850,22 @@ describe('SegmentedControl', () => {
       expect(item1).toHaveFocus();
 
       const movements = [
-        { key: 'ArrowRight', next: item2 },
-        { key: 'ArrowLeft', next: item1 },
-        { key: 'ArrowUp', next: item3 },
-        { key: 'ArrowDown', next: item1 },
+        { key: 'ArrowRight', next: item2, previous: item1 },
+        { key: 'ArrowLeft', next: item1, previous: item2 },
+        { key: 'ArrowUp', next: item3, previous: item1 },
+        { key: 'ArrowDown', next: item1, previous: item3 },
       ];
 
-      for (const { key, next } of movements) {
-        await user.keyboard(`{${key}}`);
-        expect(next).toHaveFocus();
+      for (const { key, next, previous } of movements) {
+        await user.keyboard(`{${key}>}`);
+        await waitFor(() => {
+          expect(next).toHaveFocus();
+          expect(next).toBeChecked();
+          expect(previous).not.toBeChecked();
+        });
+        await user.keyboard(`{/${key}}`);
       }
     });
-
-    it.todo(
-      'selects the focused item and unchecks the previous item when navigating with arrow keys',
-    );
   });
 });
 
