@@ -18,9 +18,8 @@ const ProgressBarDescription = ({ className, children, ...props }: ProgressBarDe
       // The state comes from the root, so a red bar cannot sit above a green message.
       state={status}
       showIcon={status === 'success' || status === 'error'}
-      // Figma puts a Gap/3 top padding on the Helper Text instance; with the root's Gap/5 that
-      // makes 12px from the bar to the text.
-      className={cn(helperTextVariants({ state: status }), 'pt-ws-3', className)}
+      // HelperText spreads className over its own classes, so they are merged here.
+      className={cn(helperTextVariants({ state: status }), className)}
       // The id comes last: the root's aria-describedby points at it.
       id={descriptionId}
     >
