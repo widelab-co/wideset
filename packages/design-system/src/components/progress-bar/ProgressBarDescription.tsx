@@ -15,10 +15,8 @@ const ProgressBarDescription = ({ className, children, ...props }: ProgressBarDe
     <HelperText
       data-slot="progress-bar-description"
       {...props}
-      // The state comes from the root, so a red bar cannot sit above a green message.
       state={status}
       showIcon={status === 'success' || status === 'error'}
-      // HelperText spreads className over its own classes, so they are merged here.
       className={cn(helperTextVariants({ state: status }), className)}
       // The id comes last: the root's aria-describedby points at it.
       id={descriptionId}
