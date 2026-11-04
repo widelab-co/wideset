@@ -12,9 +12,9 @@ const ProgressBarDescription = React.forwardRef<HTMLSpanElement, ProgressBarDesc
     const descriptionId = id ?? generatedId;
     const showIcon = status === 'success' || status === 'error';
     // HelperText renders nothing without text or an icon; the root must not point at a missing id.
-    const isRendered = children != null || showIcon;
+    const isRendered = Boolean(children) || showIcon;
 
-    React.useEffect(
+    React.useLayoutEffect(
       () => (isRendered ? registerDescription(descriptionId) : undefined),
       [isRendered, descriptionId, registerDescription],
     );

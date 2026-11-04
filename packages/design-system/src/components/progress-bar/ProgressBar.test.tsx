@@ -621,11 +621,16 @@ describe('Part ids', () => {
     expect(bar).toHaveAttribute('aria-describedby', 'caller-description');
   });
 
-  it('does not point aria-describedby at a Description that renders nothing', () => {
+  it.each([
+    ['no children', undefined],
+    ['false', false],
+    ['an empty string', ''],
+    ['0', 0],
+  ])('does not point aria-describedby at a Description with %s', (_name, children) => {
     render(
       <ProgressBar value={40} aria-label="Upload">
         <ProgressBar.Track />
-        <ProgressBar.Description />
+        <ProgressBar.Description>{children}</ProgressBar.Description>
       </ProgressBar>,
     );
 

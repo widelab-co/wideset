@@ -10,7 +10,7 @@ const ProgressBarLabel = React.forwardRef<HTMLLabelElement, ProgressBarLabelProp
     const generatedId = React.useId();
     const labelId = id ?? generatedId;
 
-    React.useEffect(() => registerLabel(labelId), [labelId, registerLabel]);
+    React.useLayoutEffect(() => registerLabel(labelId), [labelId, registerLabel]);
 
     return (
       <FieldLabel ref={ref} data-slot="progress-bar-label" {...props} id={labelId}>
