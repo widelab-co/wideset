@@ -2,23 +2,49 @@ import { cva } from 'class-variance-authority';
 
 import { fillTravelMotion } from '../../motion/recipes';
 
+export const progressBarRootVariants = cva('gap-ws-5', {
+  variants: {
+    type: {
+      bar: 'flex w-full flex-col',
+      circle: 'inline-flex items-center',
+    },
+  },
+  defaultVariants: {
+    type: 'bar',
+  },
+});
+
+export const progressBarTrackVariants = cva('', {
+  variants: {
+    type: {
+      bar: 'h-ws-3 relative w-full overflow-hidden rounded-full bg-(--ws-dynamic-stroke-secondary-default)',
+      circle: 'inline-flex shrink-0',
+    },
+  },
+  defaultVariants: {
+    type: 'bar',
+  },
+});
+
 export const progressBarIndicatorVariants = cva('size-full flex-1 rounded-full', {
   variants: {
-    variant: {
+    status: {
       default: 'bg-ws-dynamic-primary-default',
       success: 'bg-(--ws-semantic-stroke-positive)',
       error: 'bg-(--ws-semantic-stroke-negative)',
     },
   },
   defaultVariants: {
-    variant: 'default',
+    status: 'default',
   },
 });
 
-export const progressBarCircleIconVariants = cva('size-ws-control-md', {
+// Figma draws the status icon at 24px (a 20px glyph) and lets it overhang the 20px ring slot by
+// 2px on each side, so the negative margin keeps the slot at 20px.
+export const progressBarCircleIconVariants = cva('size-ws-control-lg -m-ws-2', {
   variants: {
-    variant: {
-      success: 'text-(--ws-dynamic-stroke-success-strong-default)',
+    status: {
+      success: 'text-(--ws-dynamic-fill-success-default)',
       error: 'text-(--ws-dynamic-text-danger-default)',
     },
   },

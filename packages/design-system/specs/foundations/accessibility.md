@@ -112,7 +112,7 @@ Checks for what you add around the components.
 - **Navigation.** `Breadcrumbs` and `Pagination` are labelled `nav` landmarks; when a page has
   two of the same, rename one (`Pagination` `navigationAriaLabel`, or `aria-label` on
   `Breadcrumbs`). After a client-side route change, move focus to the new page's `h1` or `main`.
-- **Feedback.** `ProgressBar` needs a `label`; the circle type has none, so name the task in text.
+- **Feedback.** `ProgressBar` needs a name: `ProgressBar.Label` on a bar, `aria-label` on a circle.
   Messages that must stay findable go in `InlineAlert`, not a `Toast`.
 
 ## Check it

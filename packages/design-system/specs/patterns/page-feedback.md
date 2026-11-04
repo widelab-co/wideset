@@ -26,13 +26,13 @@ an `InlineAlert` there, not a `SystemAlert`. If the user must act before continu
 
 ## Status names differ per component
 
-| Meaning      | InlineAlert | SystemAlert | Toast     | StatusModal   | ProgressBar `variant` | StatusBadge |
-| ------------ | ----------- | ----------- | --------- | ------------- | --------------------- | ----------- |
-| Failure      | `error`     | `negative`  | `error`   | `error`       | `error`               | `negative`  |
-| Warning      | `warning`   | `notice`    | —         | `notice`      | —                     | `notice`    |
-| Success      | `success`   | `positive`  | `success` | `positive`    | `success`             | `positive`  |
-| Information  | `info`      | `info`      | `info`    | `information` | —                     | `info`      |
-| No judgement | —           | `neutral`   | `neutral` | `neutral`     | `default`             | `neutral`   |
+| Meaning      | InlineAlert | SystemAlert | Toast     | StatusModal   | ProgressBar `status` | StatusBadge |
+| ------------ | ----------- | ----------- | --------- | ------------- | -------------------- | ----------- |
+| Failure      | `error`     | `negative`  | `error`   | `error`       | `error`              | `negative`  |
+| Warning      | `warning`   | `notice`    | —         | `notice`      | —                    | `notice`    |
+| Success      | `success`   | `positive`  | `success` | `positive`    | `success`            | `positive`  |
+| Information  | `info`      | `info`      | `info`    | `information` | —                    | `info`      |
+| No judgement | —           | `neutral`   | `neutral` | `neutral`     | `default`            | `neutral`   |
 
 ## Structure
 
@@ -44,7 +44,10 @@ main
 └ section
   ├ InlineAlert status title message            — about this section, at its top
   │ └ InlineAlert.Action
-  ├ ProgressBar value label description          — the running task, in place
+  ├ ProgressBar value                            — the running task, in place
+  │ ├ ProgressBar.Header > Label, Value
+  │ ├ ProgressBar.Track
+  │ └ ProgressBar.Description
   └ form > FormField errorText                   — field-level
 ```
 
@@ -81,11 +84,14 @@ export function ImportPage({
           </InlineAlert>
         )}
         {progress !== null && (
-          <ProgressBar
-            value={progress}
-            label="Importing contacts"
-            description={`${progress}% done. You can leave this page.`}
-          />
+          <ProgressBar value={progress}>
+            <ProgressBar.Header>
+              <ProgressBar.Label>Importing contacts</ProgressBar.Label>
+              <ProgressBar.Value />
+            </ProgressBar.Header>
+            <ProgressBar.Track />
+            <ProgressBar.Description>You can leave this page.</ProgressBar.Description>
+          </ProgressBar>
         )}
         <Button onClick={() => showToast({ content: 'Import settings saved', status: 'success' })}>
           Save settings
@@ -111,7 +117,7 @@ onClick={undo}>Undo</Toast.Action> })`. Use for reversible actions instead of a 
 - **Blocking problem.** `SystemAlert emphasis="high"` for something that blocks work (failed
   payment); keep it rare.
 - **Compact progress.** `ProgressBar type="circle"` in a table row or file list; name the task
-  in the text beside it. On completion switch `variant` to `success` or `error` and say what
+  in the text beside it and in `aria-label`. On completion switch `status` to `success` or `error` and say what
   happened in `description`.
 - **Failure that needs a decision.** `StatusModal status="error"` with a Retry button.
 
@@ -123,7 +129,8 @@ onClick={undo}>Undo</Toast.Action> })`. Use for reversible actions instead of a 
 - Make alerts `persistent` (InlineAlert) or non-`dismissible` (SystemAlert) while the
   condition still holds; closing them would only hide the problem.
 - Toasts disappear. Never put the only copy of an error, or the only way to act, in a toast.
-- `ProgressBar` with `label` names itself; the circle type has no label, so name the task in text.
+- `ProgressBar.Label` names the bar; the circle has no label, so give it `aria-label` and name the
+  task in the text beside it.
 - The message says what happened and what to do; colour and icons only back it up.
 
 ## Anti-patterns
