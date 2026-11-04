@@ -30,7 +30,7 @@ const ProgressBarRing = ({ percent, motion }: { percent: number; motion: boolean
       cx={RING_SIZE / 2}
       cy={RING_SIZE / 2}
       r={RING_RADIUS}
-      className="fill-none stroke-(--border-color-ws-dynamic-secondary-default)"
+      className="fill-none stroke-(--ws-dynamic-stroke-secondary-default)"
       strokeWidth={RING_STROKE}
     />
     <circle
@@ -38,7 +38,8 @@ const ProgressBarRing = ({ percent, motion }: { percent: number; motion: boolean
       cy={RING_SIZE / 2}
       r={RING_RADIUS}
       className={cn(
-        'stroke-ws-dynamic-primary-default fill-none',
+        // Same fill token as the bar's indicator; the `stroke-ws-*` utility maps to the text token.
+        'fill-none stroke-(--ws-dynamic-fill-primary-default)',
         progressBarCircleMotionVariants({ enabled: motion }),
       )}
       strokeWidth={RING_STROKE}
