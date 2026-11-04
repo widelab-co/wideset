@@ -151,8 +151,8 @@ exports[`ProgressBar Snapshots > matches snapshot for circle progress bar 1`] = 
 
 exports[`ProgressBar Snapshots > matches snapshot for complete progress bar 1`] = `
 <div
-  aria-describedby="_r_1n_"
-  aria-labelledby="_r_1m_"
+  aria-describedby="_r_1l_"
+  aria-labelledby="_r_1k_"
   aria-valuemax="100"
   aria-valuemin="0"
   aria-valuenow="90"
@@ -180,7 +180,7 @@ exports[`ProgressBar Snapshots > matches snapshot for complete progress bar 1`] 
         <label
           class="text-ws-static-strong typography-label-strong-sm gap-ws-3 flex min-w-0 flex-wrap items-center"
           data-slot="progress-bar-label"
-          id="_r_1m_"
+          id="_r_1k_"
         >
           <span
             class="min-w-0 break-words"
@@ -212,7 +212,7 @@ exports[`ProgressBar Snapshots > matches snapshot for complete progress bar 1`] 
   <span
     class="typography-body-sm gap-ws-3 flex items-center text-ws-semantic-positive pt-ws-3"
     data-slot="progress-bar-description"
-    id="_r_1n_"
+    id="_r_1l_"
   >
     <svg
       aria-hidden="true"
@@ -266,8 +266,8 @@ exports[`ProgressBar Snapshots > matches snapshot for default progress bar 1`] =
 
 exports[`ProgressBar Snapshots > matches snapshot for progress bar with description 1`] = `
 <div
-  aria-describedby="_r_1l_"
-  aria-label="Progress"
+  aria-describedby="_r_1j_"
+  aria-labelledby="_r_1i_"
   aria-valuemax="100"
   aria-valuemin="0"
   aria-valuenow="30"
@@ -281,6 +281,37 @@ exports[`ProgressBar Snapshots > matches snapshot for progress bar with descript
   data-variant="default"
   role="progressbar"
 >
+  <div
+    class="gap-ws-3 flex items-center justify-between"
+    data-slot="progress-bar-header"
+  >
+    <div
+      class="gap-ws-3 flex flex-wrap items-start w-fit"
+      data-slot="field-label"
+    >
+      <div
+        class="gap-ws-3 flex min-w-0 flex-1 items-center"
+      >
+        <label
+          class="text-ws-static-strong typography-label-strong-sm gap-ws-3 flex min-w-0 flex-wrap items-center"
+          data-slot="progress-bar-label"
+          id="_r_1i_"
+        >
+          <span
+            class="min-w-0 break-words"
+          >
+            Upload
+          </span>
+        </label>
+      </div>
+    </div>
+    <span
+      class="typography-label-sm text-ws-static-subtle tabular-nums"
+      data-slot="progress-bar-value"
+    >
+      30%
+    </span>
+  </div>
   <div
     class="h-ws-3 relative w-full overflow-hidden rounded-full bg-(--ws-dynamic-stroke-secondary-default)"
     data-slot="progress-bar-track"
@@ -296,7 +327,7 @@ exports[`ProgressBar Snapshots > matches snapshot for progress bar with descript
   <span
     class="typography-body-sm gap-ws-3 flex items-center text-ws-static-subtle pt-ws-3"
     data-slot="progress-bar-description"
-    id="_r_1l_"
+    id="_r_1j_"
   >
     Loading data...
   </span>
@@ -305,7 +336,7 @@ exports[`ProgressBar Snapshots > matches snapshot for progress bar with descript
 
 exports[`ProgressBar Snapshots > matches snapshot for progress bar with label 1`] = `
 <div
-  aria-labelledby="_r_1i_"
+  aria-labelledby="_r_1g_"
   aria-valuemax="100"
   aria-valuemin="0"
   aria-valuenow="75"
@@ -333,7 +364,7 @@ exports[`ProgressBar Snapshots > matches snapshot for progress bar with label 1`
         <label
           class="text-ws-static-strong typography-label-strong-sm gap-ws-3 flex min-w-0 flex-wrap items-center"
           data-slot="progress-bar-label"
-          id="_r_1i_"
+          id="_r_1g_"
         >
           <span
             class="min-w-0 break-words"

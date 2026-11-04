@@ -13,7 +13,8 @@ import type { ProgressBarValue } from './ProgressBarValue';
 export type ProgressBarVariant = 'default' | 'success' | 'error';
 export type ProgressBarType = NonNullable<VariantProps<typeof progressBarRootVariants>['type']>;
 
-type ProgressBarPropsBase = Omit<
+/** Shows how far a task has got, as a bar or a ring. */
+export type ProgressBarProps = Omit<
   React.ComponentPropsWithoutRef<typeof ProgressPrimitive.Root>,
   'asChild' | 'children' | 'getValueLabel'
 > &
@@ -27,44 +28,11 @@ type ProgressBarPropsBase = Omit<
     /** Shape of the progress indicator: a full-width bar or a compact ring. */
     type?: ProgressBarType;
     /**
-     * Text a screen reader announces for the value. Defaults to the percentage.
-     * @deprecated Use `aria-valuetext` on the root. Removed in a later release.
+     * The parts to render: `ProgressBar.Header`, `.Label`, `.Value`, `.Track`, `.Description`.
+     * Without children the bar renders its track and the circle its percentage and ring.
      */
-    getValueLabel?: (value: number, max: number) => string;
+    children?: React.ReactNode;
   };
-
-type ProgressBarPropsWithShorthand = ProgressBarPropsBase & {
-  /**
-   * Label shown above the bar; it also names the progressbar. On the circle it is the accessible name.
-   * @deprecated Compose `<ProgressBar.Header><ProgressBar.Label>` instead.
-   */
-  label?: string;
-  /**
-   * Helper text shown below the bar (bar type only).
-   * @deprecated Compose `<ProgressBar.Description>` instead.
-   */
-  description?: string;
-  /**
-   * Has no effect: the circle's percentage always reserves room for `100%`.
-   * @deprecated Remove it.
-   */
-  fixedWidth?: boolean;
-  children?: never;
-};
-
-type ProgressBarPropsWithChildren = ProgressBarPropsBase & {
-  label?: never;
-  description?: never;
-  fixedWidth?: never;
-  /**
-   * The parts to render: `ProgressBar.Header`, `.Label`, `.Value`, `.Track`, `.Description`.
-   * Without children the bar renders its track and the circle its percentage and ring.
-   */
-  children: React.ReactNode;
-};
-
-/** Shows how far a task has got, as a bar or a ring. */
-export type ProgressBarProps = ProgressBarPropsWithShorthand | ProgressBarPropsWithChildren;
 
 export type ProgressBarContextValue = {
   /** Value clamped into `0..max`. */

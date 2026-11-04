@@ -16,8 +16,6 @@ const composed = (v: Values) => v.type === 'bar' && Boolean(v.label);
 /** Type and variant come from `ProgressBarProps`; this file adds the value and the parts. */
 export default playground({
   from: 'ProgressBarProps',
-  // Deprecated: the parts replace the string props, and the circle always reserves its width.
-  hide: ['label', 'description', 'fixedWidth'],
   content: [
     {
       key: 'value',

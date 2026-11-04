@@ -107,8 +107,10 @@ The root carries `role="progressbar"`, the value, `ref`, `className` and `aria-*
   <ProgressBar.Description>All 18 files uploaded</ProgressBar.Description>
 </ProgressBar>
 
-// Don't: the deprecated string props in new code
-<ProgressBar value={65} label="Uploading assets" description="12 of 18 files uploaded" />
+// Don't: a description on a circle (the circle composes Value and Track only)
+<ProgressBar type="circle" value={40} aria-label="Upload">
+  <ProgressBar.Description>4 of 10</ProgressBar.Description>
+</ProgressBar>
 
 // Don't: a step indicator built from a bar
 <ProgressBar value={(step / 5) * 100} />   // → ProgressTracker activeStep={step}
@@ -120,8 +122,6 @@ The root carries `role="progressbar"`, the value, `ref`, `className` and `aria-*
 - `className` and `ref` go to the root: the column holding header, track and description on a bar.
   Style the track through `ProgressBar.Track`.
 - Header, Label and Description are for the bar; the circle composes Value and Track only.
-- `label`, `description` and `fixedWidth` are deprecated. They still render the old output for one
-  release; `fixedWidth` has no effect because the circle's percentage always reserves room for 100%.
 - The bar fills its container's width; constrain the container, not the bar.
 
 ## API

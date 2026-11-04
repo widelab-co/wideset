@@ -97,18 +97,6 @@ Use ProgressTracker for progress through discrete steps.
       control: false,
       table: { category: 'Content', type: { summary: 'ReactNode' } },
     },
-    label: {
-      control: false,
-      table: { category: 'Content', type: { summary: 'string' } },
-    },
-    description: {
-      control: false,
-      table: { category: 'Content', type: { summary: 'string' } },
-    },
-    fixedWidth: {
-      control: false,
-      table: { category: 'Appearance', type: { summary: 'boolean' } },
-    },
   },
 } satisfies Meta<typeof ProgressBar>;
 
@@ -202,24 +190,6 @@ export const CircleVariants: Story = {
           aria-label={`Upload, ${variant}`}
         />
       ))}
-    </div>
-  ),
-};
-
-export const DeprecatedShorthand: Story = {
-  name: 'Deprecated shorthand props',
-  parameters: {
-    docs: {
-      description: {
-        story:
-          '`label` and `description` still render the composed anatomy for one release. Prefer the parts.',
-      },
-    },
-    controls: { disable: true },
-  },
-  render: () => (
-    <div className="max-w-80">
-      <ProgressBar value={65} label="Uploading assets" description="12 of 18 files uploaded" />
     </div>
   ),
 };

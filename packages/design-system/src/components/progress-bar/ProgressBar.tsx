@@ -38,11 +38,6 @@ const ProgressBar = React.forwardRef<
       variant = 'default',
       type = 'bar',
       defaultMotion,
-      label,
-      description,
-      // Deprecated and without effect: the circle's Value always reserves room for 100%.
-      // eslint-disable-next-line unused-imports/no-unused-vars
-      fixedWidth: _fixedWidth,
       children,
       ...props
     },
@@ -94,10 +89,9 @@ const ProgressBar = React.forwardRef<
     );
 
     const hasOwnName = Boolean(props['aria-label'] || props['aria-labelledby']);
-    // The circle has no visible label, so the deprecated `label` prop names it.
-    const circleName = type === 'circle' ? label : undefined;
-    const fallbackName = hasOwnName || hasLabel ? undefined : (circleName ?? 'Progress');
+    const fallbackName = hasOwnName || hasLabel ? undefined : 'Progress';
 
+    // Without children: the bar is its track, the circle its percentage and ring.
     const content =
       children ??
       (type === 'circle' ? (
@@ -106,16 +100,7 @@ const ProgressBar = React.forwardRef<
           <ProgressBarTrack />
         </>
       ) : (
-        <>
-          {label && (
-            <ProgressBarHeader>
-              <ProgressBarLabel>{label}</ProgressBarLabel>
-              <ProgressBarValue />
-            </ProgressBarHeader>
-          )}
-          <ProgressBarTrack />
-          {description && <ProgressBarDescription>{description}</ProgressBarDescription>}
-        </>
+        <ProgressBarTrack />
       ));
 
     return (
