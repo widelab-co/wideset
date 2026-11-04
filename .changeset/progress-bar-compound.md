@@ -19,3 +19,5 @@ ProgressBar gets a compound API (`ProgressBar.Header`, `.Label`, `.Value`, `.Tra
 ProgressBar no longer sets `aria-valuetext` by default (Radix filled it with the rounded percentage), so VoiceOver announces the percentage once instead of twice. Pass `aria-valuetext` on the root for custom text such as "32 of 40 files".
 
 `ProgressBarProps` is now a union, as in Checkbox, so `label` and `description` cannot be combined with `children`. With `asChild`, the root renders onto your single child element and the parts go inside it, for both the bar and the circle.
+
+The circle's success and error icons now match Figma: a 20px glyph instead of 16.67px, and the success icon uses the success fill colour, which changes it in dark mode.

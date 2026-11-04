@@ -15,10 +15,12 @@ export const progressBarIndicatorVariants = cva('size-full flex-1 rounded-full',
   },
 });
 
-export const progressBarCircleIconVariants = cva('size-ws-control-md', {
+// Figma draws the status icon at 24px (a 20px glyph) and lets it overhang the 20px ring slot by
+// 2px on each side, so the negative margin keeps the slot at 20px.
+export const progressBarCircleIconVariants = cva('size-ws-control-lg -m-ws-2', {
   variants: {
     variant: {
-      success: 'text-(--ws-dynamic-stroke-success-strong-default)',
+      success: 'text-(--ws-dynamic-fill-success-default)',
       error: 'text-(--ws-dynamic-text-danger-default)',
     },
   },
