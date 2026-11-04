@@ -76,10 +76,10 @@ export type ProgressBarLabelProps = React.LabelHTMLAttributes<HTMLLabelElement> 
 /** The value as text, the percentage by default. */
 export type ProgressBarValueProps = React.HTMLAttributes<HTMLSpanElement> & {
   /**
-   * Formats the visible value, e.g. `(value, max) => \`${value} / ${max}\``. Defaults to the rounded
-   * percentage. Visual only: screen readers read the root's `aria-valuetext`.
+   * Replaces the percentage, e.g. `{done} / {total} files`. Visual only: screen readers hear the
+   * root's `aria-valuetext`, the percentage unless you set it.
    */
-  formatValue?: (value: number, max: number) => React.ReactNode;
+  children?: React.ReactNode;
 };
 
 /** The bar's track and fill, or the ring (an icon on success and error) for the circle type. */

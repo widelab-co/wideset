@@ -297,11 +297,9 @@ describe('Composition', () => {
         <ProgressBar.Label data-testid="label" className="label-class">
           Uploading files
         </ProgressBar.Label>
-        <ProgressBar.Value
-          data-testid="value"
-          className="value-class"
-          formatValue={(value, max) => `${value} / ${max}`}
-        />
+        <ProgressBar.Value data-testid="value" className="value-class">
+          32 / 40
+        </ProgressBar.Value>
       </ProgressBar.Header>
       <ProgressBar.Track data-testid="track" className="track-class" />
       <ProgressBar.Description data-testid="description" className="description-class">
@@ -384,7 +382,7 @@ describe('Composition', () => {
     );
   });
 
-  it('shows the formatValue output', () => {
+  it('shows its children instead of the percentage', () => {
     render(<Composed />);
 
     expect(screen.getByTestId('value')).toHaveTextContent('32 / 40');
@@ -411,7 +409,7 @@ describe('Composition', () => {
 
     rerender(
       <ProgressBar type="circle" value={5} aria-label="Sync">
-        <ProgressBar.Value formatValue={(value) => `${value} files`} />
+        <ProgressBar.Value>5 files</ProgressBar.Value>
         <ProgressBar.Track />
       </ProgressBar>,
     );

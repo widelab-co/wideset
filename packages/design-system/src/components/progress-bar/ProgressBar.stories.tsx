@@ -50,7 +50,7 @@ Use ProgressTracker for progress through discrete steps.
 <ProgressBar value={32} max={40}>
   <ProgressBar.Header>
     <ProgressBar.Label />
-    <ProgressBar.Value formatValue={fn} />
+    <ProgressBar.Value />
   </ProgressBar.Header>
   <ProgressBar.Track />
   <ProgressBar.Description />

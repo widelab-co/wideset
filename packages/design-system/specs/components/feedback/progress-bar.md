@@ -39,7 +39,7 @@ storybook: components-progressbar--default
 <ProgressBar value={32} max={40}>
   <ProgressBar.Header>
     <ProgressBar.Label>Uploading files</ProgressBar.Label>
-    <ProgressBar.Value formatValue={(value, max) => `${value} / ${max}`} />
+    <ProgressBar.Value>32 / 40</ProgressBar.Value>
   </ProgressBar.Header>
   <ProgressBar.Track />
   <ProgressBar.Description>8 files remaining</ProgressBar.Description>
@@ -60,22 +60,22 @@ The root carries `role="progressbar"`, the value, `ref`, `className` and `aria-*
 
 - `ProgressBar.Header`: the row holding Label and Value (bar).
 - `ProgressBar.Label`: the visible label; names the progressbar (`aria-labelledby`).
-- `ProgressBar.Value`: the value as text; `formatValue(value, max)` changes what is shown.
+- `ProgressBar.Value`: the percentage; children replace it with your own text.
 - `ProgressBar.Track`: the bar and its fill, or the ring (an icon on success and error).
 - `ProgressBar.Description`: helper text coloured by the root `status`; describes the progressbar.
 
 ## Choosing props
 
-| Prop                | Value           | Use for                                                         |
-| ------------------- | --------------- | --------------------------------------------------------------- |
-| `type`              | `bar` (default) | Full width of its container, with label and description.        |
-|                     | `circle`        | Compact inline ring where a bar does not fit.                   |
-| `status`            | `default`       | Still running.                                                  |
-|                     | `success`       | Finished. Circle shows a check icon; description gets one too.  |
-|                     | `error`         | Failed. Circle shows an error icon; say what to do next.        |
-| `value`             | `0`–`max`       | Clamped into range; `max` defaults to `100`.                    |
-| `Value.formatValue` | function        | A count instead of a percentage: `32 / 40`.                     |
-| `aria-valuetext`    | string          | What a screen reader says for the value, when not a percentage. |
+| Prop             | Value           | Use for                                                         |
+| ---------------- | --------------- | --------------------------------------------------------------- |
+| `type`           | `bar` (default) | Full width of its container, with label and description.        |
+|                  | `circle`        | Compact inline ring where a bar does not fit.                   |
+| `status`         | `default`       | Still running.                                                  |
+|                  | `success`       | Finished. Circle shows a check icon; description gets one too.  |
+|                  | `error`         | Failed. Circle shows an error icon; say what to do next.        |
+| `value`          | `0`–`max`       | Clamped into range; `max` defaults to `100`.                    |
+| `Value` children | ReactNode       | A count instead of a percentage: `32 / 40`.                     |
+| `aria-valuetext` | string          | What a screen reader says for the value, when not a percentage. |
 
 ## States
 
@@ -93,7 +93,7 @@ The root carries `role="progressbar"`, the value, `ref`, `className` and `aria-*
 - Both types render `role="progressbar"` with the value on the root.
 - Name it: `ProgressBar.Label` on a bar; `aria-label` on a circle. Without either, the name falls
   back to "Progress". `ProgressBar.Description` describes it.
-- `formatValue` is visual only. Screen readers hear the percentage; set `aria-valuetext` on the
+- `ProgressBar.Value` children are visual only. Screen readers hear the percentage; set `aria-valuetext` on the
   root when the shown value means something else.
 - Success and error add an icon, so colour is not the only signal.
 
