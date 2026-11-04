@@ -1,34 +1,18 @@
-/** The playground's stage: one upload bar with its label and description, its props set from the rail. */
+/** The playground's stage: one upload bar composed from its parts, its props set from the rail. */
 import { ProgressBar, type ProgressBarProps } from '@wideset/react';
 
-type ProgressBarDefaultProps = Pick<ProgressBarProps, 'value' | 'max' | 'variant' | 'type'> & {
-  label?: string;
-  description?: string;
-};
+type StageProps = Omit<ProgressBarProps, 'children'>;
 
-export default function ProgressBarDefault({
-  label = 'Uploading assets',
-  description = '12 of 18 files uploaded',
-  ...props
-}: ProgressBarDefaultProps) {
+export default function ProgressBarDefault(props: Partial<StageProps>) {
   return (
     <div className="w-[20rem] max-w-full">
-      <ProgressBar value={65} aria-label={label} {...props}>
-        {props.type === 'circle' ? (
-          <>
-            <ProgressBar.Value />
-            <ProgressBar.Track />
-          </>
-        ) : (
-          <>
-            <ProgressBar.Header>
-              <ProgressBar.Label>{label}</ProgressBar.Label>
-              <ProgressBar.Value />
-            </ProgressBar.Header>
-            <ProgressBar.Track />
-            <ProgressBar.Description>{description}</ProgressBar.Description>
-          </>
-        )}
+      <ProgressBar value={65} {...props}>
+        <ProgressBar.Header>
+          <ProgressBar.Label>Uploading assets</ProgressBar.Label>
+          <ProgressBar.Value />
+        </ProgressBar.Header>
+        <ProgressBar.Track />
+        <ProgressBar.Description>12 of 18 files uploaded</ProgressBar.Description>
       </ProgressBar>
     </div>
   );

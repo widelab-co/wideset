@@ -2,22 +2,27 @@
 '@wideset/react': minor
 ---
 
-ProgressBar gets a compound API (`ProgressBar.Header`, `.Label`, `.Value`, `.Track`, `.Description`) with `formatValue`, `aria-describedby` and a Radix root for the circle; `label`, `description`, `fixedWidth` and `getValueLabel` are deprecated and will be removed in the next release.
+ProgressBar is composed from parts: `ProgressBar.Header`, `.Label`, `.Value` (the percentage, `formatValue(value, max)` or your own text as children), `.Track` and `.Description`, also exported by name. `asChild` renders the root onto a single child element that holds the parts. The label names the progressbar and the description describes it (`aria-describedby`).
 
-`className` on the root now styles the wrapper instead of the track, so a consumer that styled the track moves that class to `ProgressBar.Track` (Toast is updated):
+**Breaking:** `variant` is renamed to `status` (`'default' | 'success' | 'error'`, type `ProgressBarStatus`), matching InlineAlert, Toast and SystemAlert. `label`, `description`, `fixedWidth` and `getValueLabel` are removed. `className` and `ref` now reach the root, the column that holds the header, track and description, rather than the track; style the track through `ProgressBar.Track`. Without children both types render only their track: a `type="circle"` ProgressBar now shows the ring without its percentage, so compose `<ProgressBar.Value />` and `<ProgressBar.Track />` to keep it. The circle's percentage always reserves room for `100%`. The root no longer sets a default `aria-valuetext`: screen readers read the percentage from the value, and VoiceOver announced it twice. For custom spoken text set `aria-valuetext`. An invalid `value` (`NaN`, `Infinity`) renders 0 and an invalid `max` (not a number greater than 0) falls back to 100; both warn in the console. Values outside `0…max` are clamped without a warning.
 
 ```tsx
-// before
-<ProgressBar value={40} className="bg-gray-200" />
+// Before
+<ProgressBar value={65} label="Uploading assets" description="12 of 18 files uploaded" />
 
-// after
-<ProgressBar value={40}>
-  <ProgressBar.Track className="bg-gray-200" />
+// After
+<ProgressBar value={65}>
+  <ProgressBar.Header>
+    <ProgressBar.Label>Uploading assets</ProgressBar.Label>
+    <ProgressBar.Value />
+  </ProgressBar.Header>
+  <ProgressBar.Track />
+  <ProgressBar.Description>12 of 18 files uploaded</ProgressBar.Description>
+</ProgressBar>
+
+// Circle: name it with aria-label, compose the percentage
+<ProgressBar type="circle" value={50} aria-label="Uploading assets">
+  <ProgressBar.Value />
+  <ProgressBar.Track />
 </ProgressBar>
 ```
-
-ProgressBar no longer sets `aria-valuetext` by default (Radix filled it with the rounded percentage), so VoiceOver announces the percentage once instead of twice. Pass `aria-valuetext` on the root for custom text such as "32 of 40 files".
-
-`ProgressBarProps` is now a union, as in Checkbox, so `label` and `description` cannot be combined with `children`. With `asChild`, the root renders onto your single child element and the parts go inside it, for both the bar and the circle.
-
-The circle's success and error icons now match Figma: a 20px glyph instead of 16.67px, and the success icon uses the success fill colour, which changes it in dark mode.

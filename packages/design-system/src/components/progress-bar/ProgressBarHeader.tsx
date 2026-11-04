@@ -4,7 +4,7 @@ import { cn } from 'src/lib/utils';
 import { useProgressBarContext } from './ProgressBar.context';
 import type { ProgressBarHeaderProps } from './ProgressBar.types';
 
-export const ProgressBarHeader = React.forwardRef<HTMLDivElement, ProgressBarHeaderProps>(
+const ProgressBarHeader = React.forwardRef<HTMLDivElement, ProgressBarHeaderProps>(
   ({ className, ...props }, ref) => {
     useProgressBarContext();
 
@@ -19,3 +19,5 @@ export const ProgressBarHeader = React.forwardRef<HTMLDivElement, ProgressBarHea
   },
 );
 ProgressBarHeader.displayName = 'ProgressBar.Header';
+
+export { ProgressBarHeader };

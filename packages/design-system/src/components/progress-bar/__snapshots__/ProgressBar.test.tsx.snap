@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`ProgressBar Snapshots > matches snapshot for all variants > ProgressBar with default variant 1`] = `
+exports[`ProgressBar Snapshots > matches snapshot for all statuses > ProgressBar with default status 1`] = `
 <div
   aria-label="Progress"
   aria-valuemax="100"
@@ -10,6 +10,8 @@ exports[`ProgressBar Snapshots > matches snapshot for all variants > ProgressBar
   data-max="100"
   data-slot="progress-bar"
   data-state="loading"
+  data-status="default"
+  data-type="bar"
   data-value="50"
   role="progressbar"
 >
@@ -28,7 +30,7 @@ exports[`ProgressBar Snapshots > matches snapshot for all variants > ProgressBar
 </div>
 `;
 
-exports[`ProgressBar Snapshots > matches snapshot for all variants > ProgressBar with error variant 1`] = `
+exports[`ProgressBar Snapshots > matches snapshot for all statuses > ProgressBar with error status 1`] = `
 <div
   aria-label="Progress"
   aria-valuemax="100"
@@ -38,6 +40,8 @@ exports[`ProgressBar Snapshots > matches snapshot for all variants > ProgressBar
   data-max="100"
   data-slot="progress-bar"
   data-state="loading"
+  data-status="error"
+  data-type="bar"
   data-value="50"
   role="progressbar"
 >
@@ -56,7 +60,7 @@ exports[`ProgressBar Snapshots > matches snapshot for all variants > ProgressBar
 </div>
 `;
 
-exports[`ProgressBar Snapshots > matches snapshot for all variants > ProgressBar with success variant 1`] = `
+exports[`ProgressBar Snapshots > matches snapshot for all statuses > ProgressBar with success status 1`] = `
 <div
   aria-label="Progress"
   aria-valuemax="100"
@@ -66,6 +70,8 @@ exports[`ProgressBar Snapshots > matches snapshot for all variants > ProgressBar
   data-max="100"
   data-slot="progress-bar"
   data-state="loading"
+  data-status="success"
+  data-type="bar"
   data-value="50"
   role="progressbar"
 >
@@ -94,22 +100,17 @@ exports[`ProgressBar Snapshots > matches snapshot for circle progress bar 1`] = 
   data-max="100"
   data-slot="progress-bar"
   data-state="loading"
+  data-status="default"
+  data-type="circle"
   data-value="50"
   role="progressbar"
 >
-  <span
-    class="typography-label-sm text-ws-static-subtle tabular-nums"
-    data-slot="progress-bar-value"
-  >
-    50%
-  </span>
   <div
     class="inline-flex shrink-0"
     data-slot="progress-bar-track"
   >
     <svg
       aria-hidden="true"
-      class="shrink-0"
       focusable="false"
       height="20"
       viewBox="0 0 20 20"
@@ -123,7 +124,7 @@ exports[`ProgressBar Snapshots > matches snapshot for circle progress bar 1`] = 
         stroke-width="2.5"
       />
       <circle
-        class="stroke-ws-dynamic-primary-default fill-none transition-[stroke-dashoffset] ease-linear"
+        class="fill-none stroke-(--background-color-ws-dynamic-primary-default) transition-[stroke-dashoffset] ease-linear"
         cx="10"
         cy="10"
         r="8.75"
@@ -140,8 +141,8 @@ exports[`ProgressBar Snapshots > matches snapshot for circle progress bar 1`] = 
 
 exports[`ProgressBar Snapshots > matches snapshot for complete progress bar 1`] = `
 <div
-  aria-describedby="_r_o_"
-  aria-labelledby="_r_n_"
+  aria-describedby="_r_1l_"
+  aria-labelledby="_r_1k_"
   aria-valuemax="100"
   aria-valuemin="0"
   aria-valuenow="90"
@@ -149,6 +150,8 @@ exports[`ProgressBar Snapshots > matches snapshot for complete progress bar 1`] 
   data-max="100"
   data-slot="progress-bar"
   data-state="loading"
+  data-status="success"
+  data-type="bar"
   data-value="90"
   role="progressbar"
 >
@@ -166,7 +169,7 @@ exports[`ProgressBar Snapshots > matches snapshot for complete progress bar 1`] 
         <label
           class="text-ws-static-strong typography-label-strong-sm gap-ws-3 flex min-w-0 flex-wrap items-center"
           data-slot="progress-bar-label"
-          id="_r_n_"
+          id="_r_1k_"
         >
           <span
             class="min-w-0 break-words"
@@ -195,32 +198,27 @@ exports[`ProgressBar Snapshots > matches snapshot for complete progress bar 1`] 
       style="transform: translateX(-10%);"
     />
   </div>
-  <div
-    class="pt-ws-3"
+  <span
+    class="typography-body-sm gap-ws-3 flex items-center text-ws-semantic-positive"
     data-slot="progress-bar-description"
-    id="_r_o_"
+    id="_r_1l_"
   >
-    <span
-      class="typography-body-sm gap-ws-3 flex items-center text-ws-semantic-positive"
-      data-slot="helper-text"
+    <svg
+      aria-hidden="true"
+      class="remixicon h-ws-control-sm w-ws-control-sm text-ws-semantic-positive"
+      fill="currentColor"
+      focusable="false"
+      height="24"
+      viewBox="0 0 24 24"
+      width="24"
+      xmlns="http://www.w3.org/2000/svg"
     >
-      <svg
-        aria-hidden="true"
-        class="remixicon h-ws-control-sm w-ws-control-sm text-ws-semantic-positive"
-        fill="currentColor"
-        focusable="false"
-        height="24"
-        viewBox="0 0 24 24"
-        width="24"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22ZM17.4571 9.45711L11 15.9142L6.79289 11.7071L8.20711 10.2929L11 13.0858L16.0429 8.04289L17.4571 9.45711Z"
-        />
-      </svg>
-      Uploading files to server...
-    </span>
-  </div>
+      <path
+        d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22ZM17.4571 9.45711L11 15.9142L6.79289 11.7071L8.20711 10.2929L11 13.0858L16.0429 8.04289L17.4571 9.45711Z"
+      />
+    </svg>
+    Uploading files to server...
+  </span>
 </div>
 `;
 
@@ -234,6 +232,8 @@ exports[`ProgressBar Snapshots > matches snapshot for default progress bar 1`] =
   data-max="100"
   data-slot="progress-bar"
   data-state="loading"
+  data-status="default"
+  data-type="bar"
   data-value="50"
   role="progressbar"
 >
@@ -254,8 +254,8 @@ exports[`ProgressBar Snapshots > matches snapshot for default progress bar 1`] =
 
 exports[`ProgressBar Snapshots > matches snapshot for progress bar with description 1`] = `
 <div
-  aria-describedby="_r_m_"
-  aria-label="Progress"
+  aria-describedby="_r_1j_"
+  aria-labelledby="_r_1i_"
   aria-valuemax="100"
   aria-valuemin="0"
   aria-valuenow="30"
@@ -263,9 +263,42 @@ exports[`ProgressBar Snapshots > matches snapshot for progress bar with descript
   data-max="100"
   data-slot="progress-bar"
   data-state="loading"
+  data-status="default"
+  data-type="bar"
   data-value="30"
   role="progressbar"
 >
+  <div
+    class="gap-ws-3 flex items-center justify-between"
+    data-slot="progress-bar-header"
+  >
+    <div
+      class="gap-ws-3 flex flex-wrap items-start w-fit"
+      data-slot="field-label"
+    >
+      <div
+        class="gap-ws-3 flex min-w-0 flex-1 items-center"
+      >
+        <label
+          class="text-ws-static-strong typography-label-strong-sm gap-ws-3 flex min-w-0 flex-wrap items-center"
+          data-slot="progress-bar-label"
+          id="_r_1i_"
+        >
+          <span
+            class="min-w-0 break-words"
+          >
+            Upload
+          </span>
+        </label>
+      </div>
+    </div>
+    <span
+      class="typography-label-sm text-ws-static-subtle tabular-nums"
+      data-slot="progress-bar-value"
+    >
+      30%
+    </span>
+  </div>
   <div
     class="h-ws-3 relative w-full overflow-hidden rounded-full bg-(--ws-dynamic-stroke-secondary-default)"
     data-slot="progress-bar-track"
@@ -278,24 +311,19 @@ exports[`ProgressBar Snapshots > matches snapshot for progress bar with descript
       style="transform: translateX(-70%);"
     />
   </div>
-  <div
-    class="pt-ws-3"
+  <span
+    class="typography-body-sm gap-ws-3 flex items-center text-ws-static-subtle"
     data-slot="progress-bar-description"
-    id="_r_m_"
+    id="_r_1j_"
   >
-    <span
-      class="typography-body-sm gap-ws-3 flex items-center text-ws-static-subtle"
-      data-slot="helper-text"
-    >
-      Loading data...
-    </span>
-  </div>
+    Loading data...
+  </span>
 </div>
 `;
 
 exports[`ProgressBar Snapshots > matches snapshot for progress bar with label 1`] = `
 <div
-  aria-labelledby="_r_l_"
+  aria-labelledby="_r_1g_"
   aria-valuemax="100"
   aria-valuemin="0"
   aria-valuenow="75"
@@ -303,6 +331,8 @@ exports[`ProgressBar Snapshots > matches snapshot for progress bar with label 1`
   data-max="100"
   data-slot="progress-bar"
   data-state="loading"
+  data-status="default"
+  data-type="bar"
   data-value="75"
   role="progressbar"
 >
@@ -320,7 +350,7 @@ exports[`ProgressBar Snapshots > matches snapshot for progress bar with label 1`
         <label
           class="text-ws-static-strong typography-label-strong-sm gap-ws-3 flex min-w-0 flex-wrap items-center"
           data-slot="progress-bar-label"
-          id="_r_l_"
+          id="_r_1g_"
         >
           <span
             class="min-w-0 break-words"

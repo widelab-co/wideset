@@ -2,35 +2,28 @@ import * as React from 'react';
 import { cn } from 'src/lib/utils';
 
 import { HelperText } from '../helper-text/HelperText';
+import { helperTextVariants } from '../helper-text/HelperText.variants';
 import { useProgressBarContext } from './ProgressBar.context';
 import type { ProgressBarDescriptionProps } from './ProgressBar.types';
 
-export const ProgressBarDescription = React.forwardRef<HTMLDivElement, ProgressBarDescriptionProps>(
-  ({ id, className, children, ...props }, ref) => {
-    const { variant, setDescriptionId } = useProgressBarContext();
-    const generatedId = React.useId();
-    const descriptionId = id ?? generatedId;
+const ProgressBarDescription = ({ className, children, ...props }: ProgressBarDescriptionProps) => {
+  const { status, descriptionId, registerDescription } = useProgressBarContext();
 
-    React.useEffect(() => {
-      setDescriptionId(descriptionId);
-      return () => setDescriptionId(undefined);
-    }, [descriptionId, setDescriptionId]);
+  React.useEffect(registerDescription, [registerDescription]);
 
-    return (
-      <div
-        ref={ref}
-        id={descriptionId}
-        data-slot="progress-bar-description"
-        // Figma puts a Gap/3 top padding on the Helper Text instance; with the
-        // Gap/5 of the root that makes 12px from the bar to the text.
-        className={cn('pt-ws-3', className)}
-        {...props}
-      >
-        <HelperText state={variant} showIcon={variant === 'success' || variant === 'error'}>
-          {children}
-        </HelperText>
-      </div>
-    );
-  },
-);
+  return (
+    <HelperText
+      data-slot="progress-bar-description"
+      {...props}
+      state={status}
+      showIcon={status === 'success' || status === 'error'}
+      className={cn(helperTextVariants({ state: status }), className)}
+      id={descriptionId}
+    >
+      {children}
+    </HelperText>
+  );
+};
 ProgressBarDescription.displayName = 'ProgressBar.Description';
+
+export { ProgressBarDescription };

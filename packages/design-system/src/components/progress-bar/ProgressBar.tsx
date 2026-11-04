@@ -1,21 +1,54 @@
 import * as ProgressPrimitive from '@radix-ui/react-progress';
 import * as React from 'react';
 import { cn } from 'src/lib/utils';
+import { clamp, isFiniteNumber } from 'src/logic/helpers';
 
 import { useDefaultMotion } from '../../motion/MotionProvider';
 import { ProgressBarContext } from './ProgressBar.context';
-import type { ProgressBarProps, ProgressBarWithSubComponents } from './ProgressBar.types';
-import { progressBarVariants } from './ProgressBar.variants';
+import type {
+  ProgressBarContextValue,
+  ProgressBarProps,
+  ProgressBarWithSubComponents,
+} from './ProgressBar.types';
+import { progressBarRootVariants } from './ProgressBar.variants';
 import { ProgressBarDescription } from './ProgressBarDescription';
 import { ProgressBarHeader } from './ProgressBarHeader';
 import { ProgressBarLabel } from './ProgressBarLabel';
 import { ProgressBarTrack } from './ProgressBarTrack';
 import { ProgressBarValue } from './ProgressBarValue';
 
-// Radix fills `aria-valuetext` with the rounded percentage when no `getValueLabel` is given. Screen
-// readers derive the same percentage from `aria-valuenow`, so VoiceOver announces it twice. Omit
-// the attribute unless the caller supplies its own text (`aria-valuetext` or `getValueLabel`).
+// Radix fills `aria-valuetext` with the rounded percentage by default. Screen readers derive the
+// same percentage from `aria-valuenow` and `aria-valuemax`, so VoiceOver announced it twice (as
+// found on #5). Omit the attribute; a caller's own `aria-valuetext` still reaches the root.
 const omitValueText = (() => undefined) as unknown as (value: number, max: number) => string;
+
+const DEFAULT_MAX = 100;
+
+/** `max` when it is a number greater than 0, otherwise 100 (with a warning if one was given). */
+const validateMax = (max?: number) => {
+  if (max === undefined) return DEFAULT_MAX;
+  if (isFiniteNumber(max) && max > 0) return max;
+  console.warn(`ProgressBar \`max\` must be a number greater than 0. Received ${max}.`);
+  return DEFAULT_MAX;
+};
+
+/** `value` kept within `0…max`; a missing or non-finite value is 0 (with a warning if one was given). */
+const validateValue = (value: number | undefined, max: number) => {
+  if (value === undefined) return 0;
+  if (isFiniteNumber(value)) return clamp(value, 0, max);
+  console.warn(`ProgressBar \`value\` must be a finite number. Received ${value}.`);
+  return 0;
+};
+
+/** Tracks whether a part is mounted, so the root only points ARIA at ids that exist. */
+const usePartRegistration = () => {
+  const [mounted, setMounted] = React.useState(false);
+  const register = React.useCallback(() => {
+    setMounted(true);
+    return () => setMounted(false);
+  }, []);
+  return [mounted, register] as const;
+};
 
 const ProgressBar = React.forwardRef<
   React.ComponentRef<typeof ProgressPrimitive.Root>,
@@ -24,119 +57,84 @@ const ProgressBar = React.forwardRef<
   (
     {
       className,
-      value,
+      value: valueProp,
       max: maxProp,
-      getValueLabel,
-      asChild,
-      label,
-      description,
-      fixedWidth = false,
-      variant = 'default',
+      status = 'default',
       type = 'bar',
       defaultMotion,
+      asChild,
       children,
       ...props
     },
     ref,
   ) => {
     const motion = useDefaultMotion(defaultMotion);
-    const [labelId, setLabelId] = React.useState<string>();
-    const [descriptionId, setDescriptionId] = React.useState<string>();
-    const max = typeof maxProp === 'number' && maxProp > 0 ? maxProp : 100;
-    const clampedValue =
-      typeof value === 'number' && !Number.isNaN(value) ? Math.min(Math.max(value, 0), max) : 0;
-    const percent = Math.round((clampedValue / max) * 100);
+    const labelId = React.useId();
+    const descriptionId = React.useId();
+    const [hasLabel, registerLabel] = usePartRegistration();
+    const [hasDescription, registerDescription] = usePartRegistration();
 
-    if (typeof value === 'number' && Number.isNaN(value)) {
-      // eslint-disable-next-line no-console
-      console.warn('ProgressBar received NaN for `value` prop.');
-    }
+    const max = validateMax(maxProp);
+    const value = validateValue(valueProp, max);
+    const percent = Math.round((value / max) * 100);
 
-    const hasOwnName = Boolean(props['aria-label'] || props['aria-labelledby']);
-    // The circle has no visible label, so the `label` shorthand names it through `aria-label`.
-    const shorthandName = type === 'circle' ? label : undefined;
-    const ariaLabel = hasOwnName
-      ? props['aria-label']
-      : (shorthandName ?? (labelId || (type === 'bar' && label) ? undefined : 'Progress'));
+    const fields: ProgressBarContextValue = {
+      value,
+      max,
+      percent,
+      status,
+      type,
+      motion,
+      labelId,
+      descriptionId,
+      registerLabel,
+      registerDescription,
+    };
 
-    const contextValue = React.useMemo(
-      () => ({
-        value: clampedValue,
-        max,
-        percent,
-        variant,
-        type,
-        motion,
-        fixedWidth,
-        setLabelId,
-        setDescriptionId,
-      }),
-      [clampedValue, max, percent, variant, type, motion, fixedWidth],
-    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const context = React.useMemo(() => fields, Object.values(fields));
 
-    // `asChild` renders the root props onto the caller's single element, which then holds
-    // the parts (as in Tile). Without such an element there is nothing to slot onto, so the
-    // root stays a <div> rather than losing its role to the first part.
+    // `asChild` puts the root on the caller's single element, which then holds the parts (as in
+    // Tile). Without such an element the root stays a <div> instead of slotting onto a part.
     const isSlotted = Boolean(asChild) && React.isValidElement(children);
 
-    const content =
-      children ??
-      (type === 'circle' ? (
-        <>
-          <ProgressBarValue />
-          <ProgressBarTrack />
-        </>
-      ) : (
-        <>
-          {label && (
-            <ProgressBarHeader>
-              <ProgressBarLabel>{label}</ProgressBarLabel>
-              <ProgressBarValue />
-            </ProgressBarHeader>
-          )}
-          <ProgressBarTrack />
-          {description && <ProgressBarDescription>{description}</ProgressBarDescription>}
-        </>
-      ));
+    const hasOwnName = Boolean(props['aria-label'] || props['aria-labelledby']);
+    const fallbackName = hasOwnName || hasLabel ? undefined : 'Progress';
 
     return (
-      <ProgressBarContext.Provider value={contextValue}>
+      <ProgressBarContext.Provider value={context}>
         <ProgressPrimitive.Root
           ref={ref}
-          value={clampedValue}
+          value={value}
           max={max}
-          getValueLabel={getValueLabel ?? omitValueText}
           asChild={isSlotted}
+          getValueLabel={omitValueText}
           data-slot="progress-bar"
-          aria-label={ariaLabel}
-          aria-labelledby={props['aria-labelledby'] ?? labelId}
-          aria-describedby={props['aria-describedby'] ?? descriptionId}
+          data-type={type}
+          data-status={status}
+          aria-label={fallbackName}
+          aria-labelledby={hasLabel ? labelId : undefined}
+          aria-describedby={hasDescription ? descriptionId : undefined}
           {...props}
-          // Computed ARIA wins over caller props, as it did on the hand-built circle.
+          // Radix spreads caller props over its own ARIA; the computed role and values must win.
           role="progressbar"
+          aria-valuenow={value}
           aria-valuemin={0}
           aria-valuemax={max}
-          aria-valuenow={clampedValue}
-          className={cn(progressBarVariants({ type }), className)}
+          className={cn(progressBarRootVariants({ type }), className)}
         >
-          {content}
+          {children ?? <ProgressBarTrack />}
         </ProgressPrimitive.Root>
       </ProgressBarContext.Provider>
     );
   },
 ) as ProgressBarWithSubComponents;
 ProgressBar.displayName = 'ProgressBar';
+
 ProgressBar.Header = ProgressBarHeader;
 ProgressBar.Label = ProgressBarLabel;
 ProgressBar.Value = ProgressBarValue;
 ProgressBar.Track = ProgressBarTrack;
 ProgressBar.Description = ProgressBarDescription;
 
-export {
-  ProgressBar,
-  ProgressBarDescription,
-  ProgressBarHeader,
-  ProgressBarLabel,
-  ProgressBarTrack,
-  ProgressBarValue,
-};
+export { ProgressBar };

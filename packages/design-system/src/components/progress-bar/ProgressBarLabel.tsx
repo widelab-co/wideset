@@ -4,16 +4,17 @@ import { FieldLabel } from '../field-label/FieldLabel';
 import { useProgressBarContext } from './ProgressBar.context';
 import type { ProgressBarLabelProps } from './ProgressBar.types';
 
-export const ProgressBarLabel = ({ id, ...props }: ProgressBarLabelProps) => {
-  const { setLabelId } = useProgressBarContext();
-  const generatedId = React.useId();
-  const labelId = id ?? generatedId;
+const ProgressBarLabel = ({ children, ...props }: ProgressBarLabelProps) => {
+  const { labelId, registerLabel } = useProgressBarContext();
 
-  React.useEffect(() => {
-    setLabelId(labelId);
-    return () => setLabelId(undefined);
-  }, [labelId, setLabelId]);
+  React.useEffect(registerLabel, [registerLabel]);
 
-  return <FieldLabel id={labelId} data-slot="progress-bar-label" {...props} />;
+  return (
+    <FieldLabel data-slot="progress-bar-label" {...props} id={labelId}>
+      {children}
+    </FieldLabel>
+  );
 };
 ProgressBarLabel.displayName = 'ProgressBar.Label';
+
+export { ProgressBarLabel };

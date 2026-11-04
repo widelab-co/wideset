@@ -13,70 +13,48 @@ import {
   progressBarTrackVariants,
 } from './ProgressBar.variants';
 
-const SIZE = 20;
-const STROKE_WIDTH = 2.5;
-const RADIUS = SIZE / 2 - STROKE_WIDTH / 2;
-const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
+const RING_SIZE = 20;
+const RING_STROKE = 2.5;
+const RING_RADIUS = RING_SIZE / 2 - RING_STROKE / 2;
+const RING_CIRCUMFERENCE = 2 * Math.PI * RING_RADIUS;
 
-export const ProgressBarTrack = React.forwardRef<HTMLDivElement, ProgressBarTrackProps>(
+const ProgressBarRing = ({ percent, motion }: { percent: number; motion: boolean }) => (
+  <svg
+    width={RING_SIZE}
+    height={RING_SIZE}
+    viewBox={`0 0 ${RING_SIZE} ${RING_SIZE}`}
+    aria-hidden="true"
+    focusable="false"
+  >
+    <circle
+      cx={RING_SIZE / 2}
+      cy={RING_SIZE / 2}
+      r={RING_RADIUS}
+      className="fill-none stroke-(--border-color-ws-dynamic-secondary-default)"
+      strokeWidth={RING_STROKE}
+    />
+    <circle
+      cx={RING_SIZE / 2}
+      cy={RING_SIZE / 2}
+      r={RING_RADIUS}
+      className={cn(
+        // The bar's fill colour (`bg-ws-dynamic-primary-default`); `stroke-ws-*` classes map to text tokens.
+        'fill-none stroke-(--background-color-ws-dynamic-primary-default)',
+        progressBarCircleMotionVariants({ enabled: motion }),
+      )}
+      strokeWidth={RING_STROKE}
+      strokeLinecap="round"
+      strokeDasharray={RING_CIRCUMFERENCE}
+      strokeDashoffset={RING_CIRCUMFERENCE * (1 - percent / 100)}
+      transform={`rotate(-90 ${RING_SIZE / 2} ${RING_SIZE / 2})`}
+    />
+  </svg>
+);
+
+/** Visual only: the root carries the progressbar role and the value. */
+const ProgressBarTrack = React.forwardRef<HTMLDivElement, ProgressBarTrackProps>(
   ({ className, ...props }, ref) => {
-    const { percent, variant, type, motion } = useProgressBarContext();
-
-    if (type === 'circle') {
-      return (
-        <div
-          ref={ref}
-          data-slot="progress-bar-track"
-          className={cn(progressBarTrackVariants({ type }), className)}
-          {...props}
-        >
-          {variant === 'success' ? (
-            <RiCheckboxCircleFill
-              aria-hidden="true"
-              focusable="false"
-              className={progressBarCircleIconVariants({ variant })}
-            />
-          ) : variant === 'error' ? (
-            <RiErrorWarningFill
-              aria-hidden="true"
-              focusable="false"
-              className={progressBarCircleIconVariants({ variant })}
-            />
-          ) : (
-            <svg
-              width={SIZE}
-              height={SIZE}
-              viewBox={`0 0 ${SIZE} ${SIZE}`}
-              className="shrink-0"
-              aria-hidden="true"
-              focusable="false"
-            >
-              <circle
-                cx={SIZE / 2}
-                cy={SIZE / 2}
-                r={RADIUS}
-                className="fill-none stroke-(--border-color-ws-dynamic-secondary-default)"
-                strokeWidth={STROKE_WIDTH}
-              />
-              <circle
-                cx={SIZE / 2}
-                cy={SIZE / 2}
-                r={RADIUS}
-                className={cn(
-                  'stroke-ws-dynamic-primary-default fill-none',
-                  progressBarCircleMotionVariants({ enabled: motion }),
-                )}
-                strokeWidth={STROKE_WIDTH}
-                strokeLinecap="round"
-                strokeDasharray={CIRCUMFERENCE}
-                strokeDashoffset={CIRCUMFERENCE * (1 - percent / 100)}
-                transform={`rotate(-90 ${SIZE / 2} ${SIZE / 2})`}
-              />
-            </svg>
-          )}
-        </div>
-      );
-    }
+    const { type, status, percent, motion } = useProgressBarContext();
 
     return (
       <div
@@ -85,15 +63,36 @@ export const ProgressBarTrack = React.forwardRef<HTMLDivElement, ProgressBarTrac
         className={cn(progressBarTrackVariants({ type }), className)}
         {...props}
       >
-        <ProgressPrimitive.Indicator
-          className={cn(
-            progressBarIndicatorVariants({ variant }),
-            progressBarIndicatorMotionVariants({ enabled: motion }),
-          )}
-          style={{ transform: `translateX(-${100 - percent}%)` }}
-        />
+        {type === 'bar' && (
+          <ProgressPrimitive.Indicator
+            className={cn(
+              progressBarIndicatorVariants({ status }),
+              progressBarIndicatorMotionVariants({ enabled: motion }),
+            )}
+            style={{ transform: `translateX(-${100 - percent}%)` }}
+          />
+        )}
+        {type === 'circle' && status === 'default' && (
+          <ProgressBarRing percent={percent} motion={motion} />
+        )}
+        {type === 'circle' && status === 'success' && (
+          <RiCheckboxCircleFill
+            aria-hidden="true"
+            focusable="false"
+            className={progressBarCircleIconVariants({ status: 'success' })}
+          />
+        )}
+        {type === 'circle' && status === 'error' && (
+          <RiErrorWarningFill
+            aria-hidden="true"
+            focusable="false"
+            className={progressBarCircleIconVariants({ status: 'error' })}
+          />
+        )}
       </div>
     );
   },
 );
 ProgressBarTrack.displayName = 'ProgressBar.Track';
+
+export { ProgressBarTrack };
