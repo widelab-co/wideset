@@ -10,7 +10,7 @@ import type { ProgressBarLabel } from './ProgressBarLabel';
 import type { ProgressBarTrack } from './ProgressBarTrack';
 import type { ProgressBarValue } from './ProgressBarValue';
 
-export type ProgressBarVariant = 'default' | 'success' | 'error';
+export type ProgressBarStatus = 'default' | 'success' | 'error';
 export type ProgressBarType = NonNullable<VariantProps<typeof progressBarRootVariants>['type']>;
 
 /** Shows how far a task has got, as a bar or a ring. */
@@ -23,8 +23,11 @@ export type ProgressBarProps = Omit<
     value?: number;
     /** The value that means complete. Defaults to `100`. */
     max?: number;
-    /** Semantic state: the colour of the fill, the circle icon and the description. */
-    variant?: ProgressBarVariant;
+    /**
+     * State of the task: `default` while it runs, `success` when it finished, `error` when it
+     * failed. Sets the colour of the fill, the circle's icon and the description.
+     */
+    status?: ProgressBarStatus;
     /** Shape of the progress indicator: a full-width bar or a compact ring. */
     type?: ProgressBarType;
     /**
@@ -40,7 +43,7 @@ export type ProgressBarContextValue = {
   max: number;
   /** `value / max` as a rounded percentage, `0..100`. */
   percent: number;
-  variant: ProgressBarVariant;
+  status: ProgressBarStatus;
   type: ProgressBarType;
   motion: boolean;
   labelId: string;
@@ -82,5 +85,5 @@ export type ProgressBarValueProps = React.HTMLAttributes<HTMLSpanElement> & {
 /** The bar's track and fill, or the ring (an icon on success and error) for the circle type. */
 export type ProgressBarTrackProps = React.HTMLAttributes<HTMLDivElement>;
 
-/** Helper text below the bar, coloured by the root `variant`; it describes the progressbar. */
+/** Helper text below the bar, coloured by the root `status`; it describes the progressbar. */
 export type ProgressBarDescriptionProps = React.HTMLAttributes<HTMLSpanElement>;

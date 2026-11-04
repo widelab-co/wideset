@@ -302,10 +302,10 @@ export type {
   ProgressBarHeaderProps,
   ProgressBarLabelProps,
   ProgressBarProps,
+  ProgressBarStatus,
   ProgressBarTrackProps,
   ProgressBarType,
   ProgressBarValueProps,
-  ProgressBarVariant,
   ProgressBarWithSubComponents,
 } from './components/progress-bar/ProgressBar.types';
 export { ProgressBarDescription } from './components/progress-bar/ProgressBarDescription';

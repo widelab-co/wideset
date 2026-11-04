@@ -14,7 +14,7 @@ const DESCRIPTIONS: Record<string, string> = {
 const composed = (v: Values) => v.type === 'bar' && Boolean(v.label);
 const circleValue = (v: Values) => v.type === 'circle' && Boolean(v.label);
 
-/** Type and variant come from `ProgressBarProps`; this file adds the value and the parts. */
+/** Type and status come from `ProgressBarProps`; this file adds the value and the parts. */
 export default playground({
   from: 'ProgressBarProps',
   content: [
@@ -36,7 +36,7 @@ export default playground({
             <ProgressBar.Value />
           </ProgressBar.Header>
           <ProgressBar.Track />
-          <ProgressBar.Description>{DESCRIPTIONS[String(v.variant)]}</ProgressBar.Description>
+          <ProgressBar.Description>{DESCRIPTIONS[String(v.status)]}</ProgressBar.Description>
         </ProgressBar>
       ) : circleValue(v) ? (
         <ProgressBar {...props()} value={Number(v.value)} aria-label={LABEL}>
@@ -67,7 +67,7 @@ export default playground({
       '    <ProgressBar.Value />',
       '  </ProgressBar.Header>',
       '  <ProgressBar.Track />',
-      `  <ProgressBar.Description>${DESCRIPTIONS[String(v.variant)]}</ProgressBar.Description>`,
+      `  <ProgressBar.Description>${DESCRIPTIONS[String(v.status)]}</ProgressBar.Description>`,
       '</ProgressBar>',
     ].join('\n');
   },

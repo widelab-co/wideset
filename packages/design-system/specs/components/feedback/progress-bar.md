@@ -56,13 +56,13 @@ storybook: components-progressbar--default
 ```
 
 The root carries `role="progressbar"`, the value, `ref`, `className` and `aria-*`. Parts read
-`value`, `max`, `variant` and `type` from it:
+`value`, `max`, `status` and `type` from it:
 
 - `ProgressBar.Header`: the row holding Label and Value (bar).
 - `ProgressBar.Label`: the visible label; names the progressbar (`aria-labelledby`).
 - `ProgressBar.Value`: the value as text; `formatValue(value, max)` changes what is shown.
 - `ProgressBar.Track`: the bar and its fill, or the ring (an icon on success and error).
-- `ProgressBar.Description`: helper text coloured by the root `variant`; describes the progressbar.
+- `ProgressBar.Description`: helper text coloured by the root `status`; describes the progressbar.
 
 ## Choosing props
 
@@ -70,7 +70,7 @@ The root carries `role="progressbar"`, the value, `ref`, `className` and `aria-*
 | ------------------- | --------------- | --------------------------------------------------------------- |
 | `type`              | `bar` (default) | Full width of its container, with label and description.        |
 |                     | `circle`        | Compact inline ring where a bar does not fit.                   |
-| `variant`           | `default`       | Still running.                                                  |
+| `status`            | `default`       | Still running.                                                  |
 |                     | `success`       | Finished. Circle shows a check icon; description gets one too.  |
 |                     | `error`         | Failed. Circle shows an error icon; say what to do next.        |
 | `value`             | `0`–`max`       | Clamped into range; `max` defaults to `100`.                    |
@@ -79,7 +79,7 @@ The root carries `role="progressbar"`, the value, `ref`, `className` and `aria-*
 
 ## States
 
-- Running → `variant="default"`; done → `success`; failed → `error`. Change `variant` yourself;
+- Running → `status="default"`; done → `success`; failed → `error`. Change `status` yourself;
   reaching `100` does not switch it.
 
 ## Content
@@ -100,8 +100,8 @@ The root carries `role="progressbar"`, the value, `ref`, `className` and `aria-*
 ## Do / Don't
 
 ```tsx
-// Do: switch variant when the task ends; the description follows it
-<ProgressBar variant="success" value={100}>
+// Do: switch status when the task ends; the description follows it
+<ProgressBar status="success" value={100}>
   <ProgressBar.Header>
     <ProgressBar.Label>Uploading assets</ProgressBar.Label>
     <ProgressBar.Value />

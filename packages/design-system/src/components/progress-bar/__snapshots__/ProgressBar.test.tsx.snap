@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`ProgressBar Snapshots > matches snapshot for all variants > ProgressBar with default variant 1`] = `
+exports[`ProgressBar Snapshots > matches snapshot for all statuses > ProgressBar with default status 1`] = `
 <div
   aria-label="Progress"
   aria-valuemax="100"
@@ -11,9 +11,9 @@ exports[`ProgressBar Snapshots > matches snapshot for all variants > ProgressBar
   data-max="100"
   data-slot="progress-bar"
   data-state="loading"
+  data-status="default"
   data-type="bar"
   data-value="50"
-  data-variant="default"
   role="progressbar"
 >
   <div
@@ -31,7 +31,7 @@ exports[`ProgressBar Snapshots > matches snapshot for all variants > ProgressBar
 </div>
 `;
 
-exports[`ProgressBar Snapshots > matches snapshot for all variants > ProgressBar with error variant 1`] = `
+exports[`ProgressBar Snapshots > matches snapshot for all statuses > ProgressBar with error status 1`] = `
 <div
   aria-label="Progress"
   aria-valuemax="100"
@@ -42,9 +42,9 @@ exports[`ProgressBar Snapshots > matches snapshot for all variants > ProgressBar
   data-max="100"
   data-slot="progress-bar"
   data-state="loading"
+  data-status="error"
   data-type="bar"
   data-value="50"
-  data-variant="error"
   role="progressbar"
 >
   <div
@@ -62,7 +62,7 @@ exports[`ProgressBar Snapshots > matches snapshot for all variants > ProgressBar
 </div>
 `;
 
-exports[`ProgressBar Snapshots > matches snapshot for all variants > ProgressBar with success variant 1`] = `
+exports[`ProgressBar Snapshots > matches snapshot for all statuses > ProgressBar with success status 1`] = `
 <div
   aria-label="Progress"
   aria-valuemax="100"
@@ -73,9 +73,9 @@ exports[`ProgressBar Snapshots > matches snapshot for all variants > ProgressBar
   data-max="100"
   data-slot="progress-bar"
   data-state="loading"
+  data-status="success"
   data-type="bar"
   data-value="50"
-  data-variant="success"
   role="progressbar"
 >
   <div
@@ -104,9 +104,9 @@ exports[`ProgressBar Snapshots > matches snapshot for circle progress bar 1`] = 
   data-max="100"
   data-slot="progress-bar"
   data-state="loading"
+  data-status="default"
   data-type="circle"
   data-value="50"
-  data-variant="default"
   role="progressbar"
 >
   <div
@@ -155,9 +155,9 @@ exports[`ProgressBar Snapshots > matches snapshot for complete progress bar 1`] 
   data-max="100"
   data-slot="progress-bar"
   data-state="loading"
+  data-status="success"
   data-type="bar"
   data-value="90"
-  data-variant="success"
   role="progressbar"
 >
   <div
@@ -238,9 +238,9 @@ exports[`ProgressBar Snapshots > matches snapshot for default progress bar 1`] =
   data-max="100"
   data-slot="progress-bar"
   data-state="loading"
+  data-status="default"
   data-type="bar"
   data-value="50"
-  data-variant="default"
   role="progressbar"
 >
   <div
@@ -270,9 +270,9 @@ exports[`ProgressBar Snapshots > matches snapshot for progress bar with descript
   data-max="100"
   data-slot="progress-bar"
   data-state="loading"
+  data-status="default"
   data-type="bar"
   data-value="30"
-  data-variant="default"
   role="progressbar"
 >
   <div
@@ -339,9 +339,9 @@ exports[`ProgressBar Snapshots > matches snapshot for progress bar with label 1`
   data-max="100"
   data-slot="progress-bar"
   data-state="loading"
+  data-status="default"
   data-type="bar"
   data-value="75"
-  data-variant="default"
   role="progressbar"
 >
   <div

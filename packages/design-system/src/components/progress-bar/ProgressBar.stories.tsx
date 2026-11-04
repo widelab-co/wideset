@@ -4,15 +4,15 @@ import { useEffect, useState } from 'react';
 import { exampleStory } from '../../stories/example';
 import CompositionExample from './examples/progress-bar/composition';
 import compositionSource from './examples/progress-bar/composition?raw';
+import StatusesExample from './examples/progress-bar/statuses';
+import statusesSource from './examples/progress-bar/statuses?raw';
 import TypesExample from './examples/progress-bar/types';
 import typesSource from './examples/progress-bar/types?raw';
-import VariantsExample from './examples/progress-bar/variants';
-import variantsSource from './examples/progress-bar/variants?raw';
 import { ProgressBar } from './ProgressBar';
-import type { ProgressBarType, ProgressBarVariant } from './ProgressBar.types';
+import type { ProgressBarStatus, ProgressBarType } from './ProgressBar.types';
 import { ProgressBarValue } from './ProgressBarValue';
 
-const variants: ProgressBarVariant[] = ['default', 'success', 'error'];
+const statuses: ProgressBarStatus[] = ['default', 'success', 'error'];
 const types: ProgressBarType[] = ['bar', 'circle'];
 
 const useSteppedValue = () => {
@@ -84,9 +84,9 @@ Use ProgressTracker for progress through discrete steps.
         defaultValue: { summary: 'bar' },
       },
     },
-    variant: {
+    status: {
       control: 'radio',
-      options: variants,
+      options: statuses,
       table: {
         category: 'Appearance',
         type: { summary: "'default' | 'success' | 'error'" },
@@ -105,12 +105,12 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   // The playground controls the root; the parts are fixed here.
-  render: ({ type, variant, value, max }) => (
+  render: ({ type, status, value, max }) => (
     <div className="max-w-80">
       {type === 'circle' ? (
         <ProgressBar
           type="circle"
-          variant={variant}
+          status={status}
           value={value}
           max={max}
           aria-label="Uploading assets"
@@ -119,7 +119,7 @@ export const Default: Story = {
           <ProgressBar.Track />
         </ProgressBar>
       ) : (
-        <ProgressBar type="bar" variant={variant} value={value} max={max}>
+        <ProgressBar type="bar" status={status} value={value} max={max}>
           <ProgressBar.Header>
             <ProgressBar.Label>Uploading assets</ProgressBar.Label>
             <ProgressBar.Value />
@@ -132,14 +132,14 @@ export const Default: Story = {
   ),
   args: {
     type: 'bar',
-    variant: 'default',
+    status: 'default',
     value: 33,
   },
 };
 
 export const Types: Story = exampleStory(TypesExample, typesSource);
 
-export const Variants: Story = exampleStory(VariantsExample, variantsSource);
+export const Statuses: Story = exampleStory(StatusesExample, statusesSource);
 
 export const Composition: Story = exampleStory(CompositionExample, compositionSource);
 
@@ -175,25 +175,25 @@ export const Animated: Story = {
   },
 };
 
-export const CircleVariants: Story = {
+export const CircleStatuses: Story = {
   parameters: {
     docs: {
       description: {
         story:
-          'Circle indicators for all three variants: `default` shows a progress ring, `success` replaces it with a check icon, `error` replaces it with an error icon. Without children the circle is the ring alone; compose `ProgressBar.Value` to show the percentage.',
+          'Circle indicators for all three statuses: `default` shows a progress ring, `success` replaces it with a check icon, `error` replaces it with an error icon. Without children the circle is the ring alone; compose `ProgressBar.Value` to show the percentage.',
       },
     },
     controls: { disable: true },
   },
   render: () => (
     <div className="gap-ws-8 flex flex-col">
-      {variants.map((variant) => (
+      {statuses.map((status) => (
         <ProgressBar
-          key={variant}
+          key={status}
           type="circle"
-          variant={variant}
+          status={status}
           value={75}
-          aria-label={`Upload, ${variant}`}
+          aria-label={`Upload, ${status}`}
         />
       ))}
     </div>

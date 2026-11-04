@@ -14,8 +14,8 @@
 ## Do / Don't
 
 ```tsx
-// Do: switch variant when the task ends; the description follows it
-<ProgressBar variant="success" value={100}>
+// Do: switch status when the task ends; the description follows it
+<ProgressBar status="success" value={100}>
   <ProgressBar.Header>
     <ProgressBar.Label>Uploading assets</ProgressBar.Label>
     <ProgressBar.Value />

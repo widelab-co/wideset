@@ -49,23 +49,23 @@ describe('ProgressBar', () => {
     expect(getByText('Progress description')).toBeInTheDocument();
   });
 
-  it('shows icon in helper text for success variant', () => {
+  it('shows icon in helper text for success status', () => {
     const { container } = render(
-      <LabelledBar variant="success" description="Success message" value={50} />,
+      <LabelledBar status="success" description="Success message" value={50} />,
     );
     expect(container.querySelector('svg')).toBeInTheDocument();
   });
 
-  it('shows icon in helper text for error variant', () => {
+  it('shows icon in helper text for error status', () => {
     const { container } = render(
-      <LabelledBar variant="error" description="Error message" value={50} />,
+      <LabelledBar status="error" description="Error message" value={50} />,
     );
     expect(container.querySelector('svg')).toBeInTheDocument();
   });
 
-  it('does not show icon for default variant', () => {
+  it('does not show icon for default status', () => {
     const { container } = render(
-      <LabelledBar variant="default" description="Default message" value={50} />,
+      <LabelledBar status="default" description="Default message" value={50} />,
     );
     expect(container.querySelector('svg')).not.toBeInTheDocument();
   });
@@ -160,7 +160,7 @@ describe('ProgressBar', () => {
       <LabelledBar
         label="Upload Progress"
         description="Uploading files..."
-        variant="success"
+        status="success"
         value={85}
         className="custom-progress"
       />,
@@ -186,12 +186,12 @@ describe('ProgressBar Snapshots', () => {
     expect(container.firstChild).toMatchSnapshot();
   });
 
-  it('matches snapshot for all variants', () => {
-    const variants = ['default', 'success', 'error'] as const;
+  it('matches snapshot for all statuses', () => {
+    const statuses = ['default', 'success', 'error'] as const;
 
-    variants.forEach((variant) => {
-      const { container } = render(<ProgressBar variant={variant} value={50} />);
-      expect(container.firstChild).toMatchSnapshot(`ProgressBar with ${variant} variant`);
+    statuses.forEach((status) => {
+      const { container } = render(<ProgressBar status={status} value={50} />);
+      expect(container.firstChild).toMatchSnapshot(`ProgressBar with ${status} status`);
     });
   });
 
@@ -210,7 +210,7 @@ describe('ProgressBar Snapshots', () => {
       <LabelledBar
         label="File Upload"
         description="Uploading files to server..."
-        variant="success"
+        status="success"
         value={90}
         className="custom-class"
       />,
@@ -291,7 +291,7 @@ describe('Circle type', () => {
 });
 
 describe('Composition', () => {
-  const Composed = (props: { value?: number; max?: number; variant?: 'default' | 'success' }) => (
+  const Composed = (props: { value?: number; max?: number; status?: 'default' | 'success' }) => (
     <ProgressBar value={32} max={40} {...props}>
       <ProgressBar.Header data-testid="header" className="header-class">
         <ProgressBar.Label data-testid="label" className="label-class">
@@ -418,8 +418,8 @@ describe('Composition', () => {
     expect(screen.getByText('5 files')).not.toHaveClass('min-w-ws-14');
   });
 
-  it('colours the Description from the root variant', () => {
-    render(<Composed variant="success" />);
+  it('colours the Description from the root status', () => {
+    render(<Composed status="success" />);
 
     const description = screen.getByTestId('description');
     expect(description).toHaveClass('text-ws-semantic-positive');

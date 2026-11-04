@@ -28,20 +28,20 @@ export const progressBarTrackVariants = cva('', {
 
 export const progressBarIndicatorVariants = cva('size-full flex-1 rounded-full', {
   variants: {
-    variant: {
+    status: {
       default: 'bg-ws-dynamic-primary-default',
       success: 'bg-(--ws-semantic-stroke-positive)',
       error: 'bg-(--ws-semantic-stroke-negative)',
     },
   },
   defaultVariants: {
-    variant: 'default',
+    status: 'default',
   },
 });
 
 export const progressBarCircleIconVariants = cva('size-ws-control-md', {
   variants: {
-    variant: {
+    status: {
       success: 'text-(--ws-dynamic-stroke-success-strong-default)',
       error: 'text-(--ws-dynamic-text-danger-default)',
     },

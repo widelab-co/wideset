@@ -26,13 +26,13 @@ an `InlineAlert` there, not a `SystemAlert`. If the user must act before continu
 
 ## Status names differ per component
 
-| Meaning      | InlineAlert | SystemAlert | Toast     | StatusModal   | ProgressBar `variant` | StatusBadge |
-| ------------ | ----------- | ----------- | --------- | ------------- | --------------------- | ----------- |
-| Failure      | `error`     | `negative`  | `error`   | `error`       | `error`               | `negative`  |
-| Warning      | `warning`   | `notice`    | —         | `notice`      | —                     | `notice`    |
-| Success      | `success`   | `positive`  | `success` | `positive`    | `success`             | `positive`  |
-| Information  | `info`      | `info`      | `info`    | `information` | —                     | `info`      |
-| No judgement | —           | `neutral`   | `neutral` | `neutral`     | `default`             | `neutral`   |
+| Meaning      | InlineAlert | SystemAlert | Toast     | StatusModal   | ProgressBar `status` | StatusBadge |
+| ------------ | ----------- | ----------- | --------- | ------------- | -------------------- | ----------- |
+| Failure      | `error`     | `negative`  | `error`   | `error`       | `error`              | `negative`  |
+| Warning      | `warning`   | `notice`    | —         | `notice`      | —                    | `notice`    |
+| Success      | `success`   | `positive`  | `success` | `positive`    | `success`            | `positive`  |
+| Information  | `info`      | `info`      | `info`    | `information` | —                    | `info`      |
+| No judgement | —           | `neutral`   | `neutral` | `neutral`     | `default`            | `neutral`   |
 
 ## Structure
 
@@ -117,7 +117,7 @@ onClick={undo}>Undo</Toast.Action> })`. Use for reversible actions instead of a 
 - **Blocking problem.** `SystemAlert emphasis="high"` for something that blocks work (failed
   payment); keep it rare.
 - **Compact progress.** `ProgressBar type="circle"` in a table row or file list; name the task
-  in the text beside it and in `aria-label`. On completion switch `variant` to `success` or `error` and say what
+  in the text beside it and in `aria-label`. On completion switch `status` to `success` or `error` and say what
   happened in `description`.
 - **Failure that needs a decision.** `StatusModal status="error"` with a Retry button.
 

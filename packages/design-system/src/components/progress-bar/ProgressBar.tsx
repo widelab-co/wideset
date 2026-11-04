@@ -35,7 +35,7 @@ const ProgressBar = React.forwardRef<
       className,
       value: valueProp,
       max: maxProp,
-      variant = 'default',
+      status = 'default',
       type = 'bar',
       defaultMotion,
       children,
@@ -65,7 +65,7 @@ const ProgressBar = React.forwardRef<
       value,
       max,
       percent,
-      variant,
+      status,
       type,
       motion,
       labelId,
@@ -80,10 +80,6 @@ const ProgressBar = React.forwardRef<
     const hasOwnName = Boolean(props['aria-label'] || props['aria-labelledby']);
     const fallbackName = hasOwnName || hasLabel ? undefined : 'Progress';
 
-    // Without children both types render only their track: the bar, or the ring. Text appears
-    // only when it is composed.
-    const content = children ?? <ProgressBarTrack />;
-
     return (
       <ProgressBarContext.Provider value={context}>
         <ProgressPrimitive.Root
@@ -92,7 +88,7 @@ const ProgressBar = React.forwardRef<
           max={max}
           data-slot="progress-bar"
           data-type={type}
-          data-variant={variant}
+          data-status={status}
           aria-label={fallbackName}
           aria-labelledby={hasLabel ? labelId : undefined}
           aria-describedby={hasDescription ? descriptionId : undefined}
@@ -104,7 +100,7 @@ const ProgressBar = React.forwardRef<
           aria-valuemax={max}
           className={cn(progressBarRootVariants({ type }), className)}
         >
-          {content}
+          {children ?? <ProgressBarTrack />}
         </ProgressPrimitive.Root>
       </ProgressBarContext.Provider>
     );

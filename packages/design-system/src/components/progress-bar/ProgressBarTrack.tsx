@@ -53,7 +53,7 @@ const ProgressBarRing = ({ percent, motion }: { percent: number; motion: boolean
 /** Visual only: the root carries the progressbar role and the value. */
 const ProgressBarTrack = React.forwardRef<HTMLDivElement, ProgressBarTrackProps>(
   ({ className, ...props }, ref) => {
-    const { type, variant, percent, motion } = useProgressBarContext();
+    const { type, status, percent, motion } = useProgressBarContext();
 
     return (
       <div
@@ -65,27 +65,27 @@ const ProgressBarTrack = React.forwardRef<HTMLDivElement, ProgressBarTrackProps>
         {type === 'bar' && (
           <ProgressPrimitive.Indicator
             className={cn(
-              progressBarIndicatorVariants({ variant }),
+              progressBarIndicatorVariants({ status }),
               progressBarIndicatorMotionVariants({ enabled: motion }),
             )}
             style={{ transform: `translateX(-${100 - percent}%)` }}
           />
         )}
-        {type === 'circle' && variant === 'default' && (
+        {type === 'circle' && status === 'default' && (
           <ProgressBarRing percent={percent} motion={motion} />
         )}
-        {type === 'circle' && variant === 'success' && (
+        {type === 'circle' && status === 'success' && (
           <RiCheckboxCircleFill
             aria-hidden="true"
             focusable="false"
-            className={progressBarCircleIconVariants({ variant: 'success' })}
+            className={progressBarCircleIconVariants({ status: 'success' })}
           />
         )}
-        {type === 'circle' && variant === 'error' && (
+        {type === 'circle' && status === 'error' && (
           <RiErrorWarningFill
             aria-hidden="true"
             focusable="false"
-            className={progressBarCircleIconVariants({ variant: 'error' })}
+            className={progressBarCircleIconVariants({ status: 'error' })}
           />
         )}
       </div>

@@ -7,16 +7,16 @@
 import { ProgressBar } from '@wideset/react';
 
 const states = [
-  { variant: 'default', value: 50, description: '9 of 18 files uploaded' },
-  { variant: 'success', value: 100, description: 'All 18 files uploaded' },
-  { variant: 'error', value: 50, description: 'Upload stopped: 9 files failed. Try again.' },
+  { status: 'default', value: 50, description: '9 of 18 files uploaded' },
+  { status: 'success', value: 100, description: 'All 18 files uploaded' },
+  { status: 'error', value: 50, description: 'Upload stopped: 9 files failed. Try again.' },
 ] as const;
 
-export default function ProgressBarVariants() {
+export default function ProgressBarStatuses() {
   return (
     <div className="gap-ws-12 flex w-[20rem] max-w-full flex-col">
-      {states.map(({ variant, value, description }) => (
-        <ProgressBar key={variant} variant={variant} value={value}>
+      {states.map(({ status, value, description }) => (
+        <ProgressBar key={status} status={status} value={value}>
           <ProgressBar.Header>
             <ProgressBar.Label>Uploading assets</ProgressBar.Label>
             <ProgressBar.Value />
