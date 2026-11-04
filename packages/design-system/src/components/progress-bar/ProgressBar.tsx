@@ -61,18 +61,32 @@ const ProgressBar = React.forwardRef<
         : 0;
     const percent = Math.round((value / max) * 100);
 
-    const context: ProgressBarContextValue = {
-      value,
-      max,
-      percent,
-      variant,
-      type,
-      motion,
-      labelId,
-      descriptionId,
-      registerLabel,
-      registerDescription,
-    };
+    const context = React.useMemo<ProgressBarContextValue>(
+      () => ({
+        value,
+        max,
+        percent,
+        variant,
+        type,
+        motion,
+        labelId,
+        descriptionId,
+        registerLabel,
+        registerDescription,
+      }),
+      [
+        value,
+        max,
+        percent,
+        variant,
+        type,
+        motion,
+        labelId,
+        descriptionId,
+        registerLabel,
+        registerDescription,
+      ],
+    );
 
     const hasOwnName = Boolean(props['aria-label'] || props['aria-labelledby']);
     const fallbackName = hasOwnName || hasLabel ? undefined : 'Progress';
