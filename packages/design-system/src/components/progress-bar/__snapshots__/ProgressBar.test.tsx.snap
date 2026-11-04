@@ -109,12 +109,6 @@ exports[`ProgressBar Snapshots > matches snapshot for circle progress bar 1`] = 
   data-variant="default"
   role="progressbar"
 >
-  <span
-    class="typography-label-sm text-ws-static-subtle tabular-nums min-w-ws-14 text-end"
-    data-slot="progress-bar-value"
-  >
-    50%
-  </span>
   <div
     class="inline-flex shrink-0"
     data-slot="progress-bar-track"

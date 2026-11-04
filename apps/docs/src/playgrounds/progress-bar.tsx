@@ -10,8 +10,9 @@ const DESCRIPTIONS: Record<string, string> = {
   error: '3 files could not be uploaded',
 };
 
-/** The header and description only exist on the bar; the circle shows the percentage alone. */
+/** The header and description only exist on the bar; the circle composes its percentage. */
 const composed = (v: Values) => v.type === 'bar' && Boolean(v.label);
+const circleValue = (v: Values) => v.type === 'circle' && Boolean(v.label);
 
 /** Type and variant come from `ProgressBarProps`; this file adds the value and the parts. */
 export default playground({
@@ -24,7 +25,7 @@ export default playground({
       options: ['10', '35', '65', '100'].map((value) => ({ label: `${value}%`, value })),
       default: '65',
     },
-    { key: 'label', label: 'Label and description', type: 'switch', default: true },
+    { key: 'label', label: 'Text', type: 'switch', default: true },
   ],
   render: (v, { props }) => (
     <div className={v.type === 'bar' ? 'w-[20rem] max-w-full' : undefined}>
@@ -37,6 +38,11 @@ export default playground({
           <ProgressBar.Track />
           <ProgressBar.Description>{DESCRIPTIONS[String(v.variant)]}</ProgressBar.Description>
         </ProgressBar>
+      ) : circleValue(v) ? (
+        <ProgressBar {...props()} value={Number(v.value)} aria-label={LABEL}>
+          <ProgressBar.Value />
+          <ProgressBar.Track />
+        </ProgressBar>
       ) : (
         <ProgressBar {...props()} value={Number(v.value)} aria-label={LABEL} />
       )}
@@ -44,7 +50,16 @@ export default playground({
   ),
   code: (v, { attrs }) => {
     const props = [...attrs().trim().split(' '), `value={${v.value}}`].filter(Boolean);
-    if (!composed(v)) return `<ProgressBar ${[...props, `aria-label="${LABEL}"`].join(' ')} />`;
+    const open = `<ProgressBar ${[...props, `aria-label="${LABEL}"`].join(' ')}`;
+    if (circleValue(v)) {
+      return [
+        `${open}>`,
+        '  <ProgressBar.Value />',
+        '  <ProgressBar.Track />',
+        '</ProgressBar>',
+      ].join('\n');
+    }
+    if (!composed(v)) return `${open} />`;
     return [
       `<ProgressBar ${props.join(' ')}>`,
       '  <ProgressBar.Header>',

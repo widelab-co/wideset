@@ -39,6 +39,8 @@
 - `className` and `ref` go to the root: the column holding header, track and description on a bar.
   Style the track through `ProgressBar.Track`.
 - Header, Label and Description are for the bar; the circle composes Value and Track only.
+- Without children both types render only the track, with no text. Compose `ProgressBar.Value`
+  for the percentage, on a circle too.
 - Children replace the default parts entirely: once you pass any, include `ProgressBar.Track`
   yourself, or the bar has no track.
 - The bar fills its container's width; constrain the container, not the bar.

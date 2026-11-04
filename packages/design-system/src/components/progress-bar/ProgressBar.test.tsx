@@ -401,7 +401,12 @@ describe('Composition', () => {
   });
 
   it('reserves room for 100% only for the default circle value', () => {
-    const { rerender } = render(<ProgressBar type="circle" value={5} aria-label="Sync" />);
+    const { rerender } = render(
+      <ProgressBar type="circle" value={5} aria-label="Sync">
+        <ProgressBar.Value />
+        <ProgressBar.Track />
+      </ProgressBar>,
+    );
     expect(screen.getByText('5%')).toHaveClass('min-w-ws-14');
 
     rerender(
@@ -458,12 +463,12 @@ describe('Composition', () => {
     expect(root.firstElementChild).toHaveAttribute('data-slot', 'progress-bar-track');
   });
 
-  it('renders the value and the ring for a circle without children', () => {
+  it('renders the ring alone, without text, for a circle without children', () => {
     render(<ProgressBar type="circle" value={60} aria-label="Sync" />);
 
-    const slots = Array.from(screen.getByRole('progressbar').children).map((child) =>
-      child.getAttribute('data-slot'),
-    );
-    expect(slots).toEqual(['progress-bar-value', 'progress-bar-track']);
+    const root = screen.getByRole('progressbar');
+    expect(root.children).toHaveLength(1);
+    expect(root.firstElementChild).toHaveAttribute('data-slot', 'progress-bar-track');
+    expect(root).not.toHaveTextContent('60%');
   });
 });

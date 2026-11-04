@@ -46,9 +46,12 @@ storybook: components-progressbar--default
 </ProgressBar>
 
 // Circle: percentage + ring, no visible label
-<ProgressBar type="circle" value={80} aria-label="Syncing library" />
+<ProgressBar type="circle" value={80} aria-label="Syncing library">
+  <ProgressBar.Value />
+  <ProgressBar.Track />
+</ProgressBar>
 
-// No children: the bar renders its track alone, the circle its percentage and ring
+// No children: the track alone, no text (the bar, or the ring for type="circle")
 <ProgressBar value={60} aria-label="Upload" />
 ```
 
@@ -66,7 +69,7 @@ The root carries `role="progressbar"`, the value, `ref`, `className` and `aria-*
 | Prop                | Value           | Use for                                                         |
 | ------------------- | --------------- | --------------------------------------------------------------- |
 | `type`              | `bar` (default) | Full width of its container, with label and description.        |
-|                     | `circle`        | Compact inline percentage where a bar does not fit.             |
+|                     | `circle`        | Compact inline ring where a bar does not fit.                   |
 | `variant`           | `default`       | Still running.                                                  |
 |                     | `success`       | Finished. Circle shows a check icon; description gets one too.  |
 |                     | `error`         | Failed. Circle shows an error icon; say what to do next.        |
@@ -122,6 +125,8 @@ The root carries `role="progressbar"`, the value, `ref`, `className` and `aria-*
 - `className` and `ref` go to the root: the column holding header, track and description on a bar.
   Style the track through `ProgressBar.Track`.
 - Header, Label and Description are for the bar; the circle composes Value and Track only.
+- Without children both types render only the track, with no text. Compose `ProgressBar.Value`
+  for the percentage, on a circle too.
 - Children replace the default parts entirely: once you pass any, include `ProgressBar.Track`
   yourself, or the bar has no track.
 - The bar fills its container's width; constrain the container, not the bar.

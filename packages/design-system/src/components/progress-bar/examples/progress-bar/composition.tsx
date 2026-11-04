@@ -1,8 +1,8 @@
 /**
  * Compose the parts to change what the bar shows. `ProgressBar.Value` takes `formatValue` for a
  * count instead of a percentage; set `max` on the root so the fill and the screen reader value
- * follow it. The label names the progressbar and the description describes it, and a circle
- * without children renders its percentage and ring.
+ * follow it. The label names the progressbar and the description describes it. Without children
+ * the bar and the circle render only their track, so compose `ProgressBar.Value` for the percentage.
  */
 import { ProgressBar } from '@wideset/react';
 

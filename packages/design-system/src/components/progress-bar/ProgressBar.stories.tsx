@@ -114,7 +114,10 @@ export const Default: Story = {
           value={value}
           max={max}
           aria-label="Uploading assets"
-        />
+        >
+          <ProgressBar.Value />
+          <ProgressBar.Track />
+        </ProgressBar>
       ) : (
         <ProgressBar type="bar" variant={variant} value={value} max={max}>
           <ProgressBar.Header>
@@ -163,7 +166,10 @@ export const Animated: Story = {
           </ProgressBar.Header>
           <ProgressBar.Track />
         </ProgressBar>
-        <ProgressBar type="circle" value={value} aria-label="Uploading assets" />
+        <ProgressBar type="circle" value={value} aria-label="Uploading assets">
+          <ProgressBar.Value />
+          <ProgressBar.Track />
+        </ProgressBar>
       </div>
     );
   },
@@ -174,7 +180,7 @@ export const CircleVariants: Story = {
     docs: {
       description: {
         story:
-          'Circle indicators for all three variants: `default` shows a progress ring, `success` replaces it with a check icon, `error` replaces it with an error icon.',
+          'Circle indicators for all three variants: `default` shows a progress ring, `success` replaces it with a check icon, `error` replaces it with an error icon. Without children the circle is the ring alone; compose `ProgressBar.Value` to show the percentage.',
       },
     },
     controls: { disable: true },

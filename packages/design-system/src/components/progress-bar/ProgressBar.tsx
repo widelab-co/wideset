@@ -80,17 +80,9 @@ const ProgressBar = React.forwardRef<
     const hasOwnName = Boolean(props['aria-label'] || props['aria-labelledby']);
     const fallbackName = hasOwnName || hasLabel ? undefined : 'Progress';
 
-    // Without children: the bar is its track, the circle its percentage and ring.
-    const content =
-      children ??
-      (type === 'circle' ? (
-        <>
-          <ProgressBarValue />
-          <ProgressBarTrack />
-        </>
-      ) : (
-        <ProgressBarTrack />
-      ));
+    // Without children both types render only their track: the bar, or the ring. Text appears
+    // only when it is composed.
+    const content = children ?? <ProgressBarTrack />;
 
     return (
       <ProgressBarContext.Provider value={context}>
