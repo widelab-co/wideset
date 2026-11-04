@@ -469,6 +469,23 @@ describe('Composition', () => {
     }
   });
 
+  it('forwards refs to the Label and Description elements', () => {
+    const labelRef = createRef<HTMLLabelElement>();
+    const descriptionRef = createRef<HTMLSpanElement>();
+
+    render(
+      <ProgressBar value={50}>
+        <ProgressBar.Label ref={labelRef}>Upload</ProgressBar.Label>
+        <ProgressBar.Track />
+        <ProgressBar.Description ref={descriptionRef}>8 files remaining</ProgressBar.Description>
+      </ProgressBar>,
+    );
+
+    expect(labelRef.current?.tagName).toBe('LABEL');
+    expect(labelRef.current).toHaveTextContent('Upload');
+    expect(descriptionRef.current).toHaveAttribute('data-slot', 'progress-bar-description');
+  });
+
   it('forwards refs to the root, Header, Value and Track', () => {
     const rootRef = createRef<HTMLDivElement>();
     const headerRef = createRef<HTMLDivElement>();
@@ -589,4 +606,70 @@ describe('Part ids', () => {
     const bar = screen.getByRole('progressbar', { name: 'Uploading files' });
     expect(bar).toHaveAccessibleDescription('8 files remaining');
   });
+
+  it('uses the caller id on the Label and Description and points the root at it', () => {
+    render(
+      <ProgressBar value={40}>
+        <ProgressBar.Label id="caller-label">Uploading files</ProgressBar.Label>
+        <ProgressBar.Track />
+        <ProgressBar.Description id="caller-description">8 files remaining</ProgressBar.Description>
+      </ProgressBar>,
+    );
+
+    const bar = screen.getByRole('progressbar');
+    expect(bar).toHaveAttribute('aria-labelledby', 'caller-label');
+    expect(bar).toHaveAttribute('aria-describedby', 'caller-description');
+  });
+
+  it('does not point aria-describedby at a Description that renders nothing', () => {
+    render(
+      <ProgressBar value={40} aria-label="Upload">
+        <ProgressBar.Track />
+        <ProgressBar.Description />
+      </ProgressBar>,
+    );
+
+    expect(screen.getByRole('progressbar')).not.toHaveAttribute('aria-describedby');
+  });
+
+  it('drops the references when the Label and Description unmount', () => {
+    const { rerender } = render(
+      <ProgressBar value={40}>
+        <ProgressBar.Label>Upload</ProgressBar.Label>
+        <ProgressBar.Description>8 files remaining</ProgressBar.Description>
+      </ProgressBar>,
+    );
+    rerender(
+      <ProgressBar value={40}>
+        <ProgressBar.Track />
+      </ProgressBar>,
+    );
+
+    const bar = screen.getByRole('progressbar', { name: 'Progress' });
+    expect(bar).not.toHaveAttribute('aria-labelledby');
+    expect(bar).not.toHaveAttribute('aria-describedby');
+  });
+});
+
+describe('ARIA with Radix', () => {
+  it.each(['bar', 'circle'] as const)(
+    'has one progressbar and no ARIA on the parts (%s)',
+    (type) => {
+      const { container } = render(
+        <ProgressBar type={type} value={40} status="success">
+          <ProgressBar.Header>
+            <ProgressBar.Label>Upload</ProgressBar.Label>
+            <ProgressBar.Value />
+          </ProgressBar.Header>
+          <ProgressBar.Track />
+          <ProgressBar.Description>Done</ProgressBar.Description>
+        </ProgressBar>,
+      );
+
+      expect(screen.getAllByRole('progressbar')).toHaveLength(1);
+      expect(container.querySelectorAll('[role]')).toHaveLength(1);
+      expect(container.querySelectorAll('[aria-valuenow], [aria-valuetext]')).toHaveLength(1);
+      expect(container.querySelectorAll('[aria-labelledby], [aria-describedby]')).toHaveLength(1);
+    },
+  );
 });

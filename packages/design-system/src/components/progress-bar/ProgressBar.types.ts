@@ -51,12 +51,10 @@ export type ProgressBarContextValue = {
   status: ProgressBarStatus;
   type: ProgressBarType;
   motion: boolean;
-  labelId: string;
-  descriptionId: string;
-  /** Marks a mounted Label; returns the cleanup that unmarks it. */
-  registerLabel: () => () => void;
-  /** Marks a mounted Description; returns the cleanup that unmarks it. */
-  registerDescription: () => () => void;
+  /** Records the id of a mounted Label; returns the cleanup that clears it. */
+  registerLabel: (id: string) => () => void;
+  /** Records the id of a mounted Description; returns the cleanup that clears it. */
+  registerDescription: (id: string) => () => void;
 };
 
 export type ProgressBarWithSubComponents = React.ForwardRefExoticComponent<

@@ -40,14 +40,17 @@ const validateValue = (value: number | undefined, max: number) => {
   return 0;
 };
 
-/** Tracks whether a part is mounted, so the root only points ARIA at ids that exist. */
-const usePartRegistration = () => {
-  const [mounted, setMounted] = React.useState(false);
-  const register = React.useCallback(() => {
-    setMounted(true);
-    return () => setMounted(false);
+/**
+ * Holds the id of a mounted part (its own `id` or a generated one), so the root only points ARIA
+ * at an element that exists and keeps pointing at it when a caller sets the part's `id`.
+ */
+const usePartId = () => {
+  const [id, setId] = React.useState<string>();
+  const register = React.useCallback((partId: string) => {
+    setId(partId);
+    return () => setId((current) => (current === partId ? undefined : current));
   }, []);
-  return [mounted, register] as const;
+  return [id, register] as const;
 };
 
 const ProgressBar = React.forwardRef<
@@ -69,10 +72,8 @@ const ProgressBar = React.forwardRef<
     ref,
   ) => {
     const motion = useDefaultMotion(defaultMotion);
-    const labelId = React.useId();
-    const descriptionId = React.useId();
-    const [hasLabel, registerLabel] = usePartRegistration();
-    const [hasDescription, registerDescription] = usePartRegistration();
+    const [labelId, registerLabel] = usePartId();
+    const [descriptionId, registerDescription] = usePartId();
 
     const max = validateMax(maxProp);
     const value = validateValue(valueProp, max);
@@ -85,8 +86,6 @@ const ProgressBar = React.forwardRef<
       status,
       type,
       motion,
-      labelId,
-      descriptionId,
       registerLabel,
       registerDescription,
     };
@@ -99,7 +98,7 @@ const ProgressBar = React.forwardRef<
     const isSlotted = Boolean(asChild) && React.isValidElement(children);
 
     const hasOwnName = Boolean(props['aria-label'] || props['aria-labelledby']);
-    const fallbackName = hasOwnName || hasLabel ? undefined : 'Progress';
+    const fallbackName = hasOwnName || labelId ? undefined : 'Progress';
 
     return (
       <ProgressBarContext.Provider value={context}>
@@ -113,8 +112,8 @@ const ProgressBar = React.forwardRef<
           data-type={type}
           data-status={status}
           aria-label={fallbackName}
-          aria-labelledby={hasLabel ? labelId : undefined}
-          aria-describedby={hasDescription ? descriptionId : undefined}
+          aria-labelledby={labelId}
+          aria-describedby={descriptionId}
           {...props}
           // Radix spreads caller props over its own ARIA; the computed role and values must win.
           role="progressbar"

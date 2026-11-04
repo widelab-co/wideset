@@ -124,9 +124,22 @@
       },
       "valueWidth": {
         "figma": "hug (49-64px root across values)",
-        "code": "hug; fixedWidth opt-in",
+        "code": "min-w-ws-14 text-end on the default percentage; custom content hugs",
+        "figmaPx": "hug",
+        "renderedPx": 32,
+        "status": "DIFF",
+        "note": "deliberate: rings in a list line up and the ring does not shift while the value animates; design question, Figma could bind a min width"
+      },
+      "ringTrackColor": {
+        "figma": "Dynamic/Stroke/Secondary/Default",
+        "code": "stroke-(--border-color-ws-dynamic-secondary-default)",
+        "status": "OK"
+      },
+      "ringArcColor": {
+        "figma": "Dynamic/Fill/Primary/Default",
+        "code": "stroke-(--background-color-ws-dynamic-primary-default)",
         "status": "OK",
-        "note": "Figma reserves no width, so Value hugs by default"
+        "note": "fixed: was stroke-ws-dynamic-primary-default, which maps to Dynamic/Text/Primary (brand-200 instead of brand-600 in dark mode)"
       }
     },
     "circle-success-error": {
