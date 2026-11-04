@@ -121,14 +121,14 @@ exports[`ProgressBar Snapshots > matches snapshot for circle progress bar 1`] = 
       width="20"
     >
       <circle
-        class="fill-none stroke-(--border-color-ws-dynamic-secondary-default)"
+        class="fill-none stroke-(--ws-dynamic-stroke-secondary-default)"
         cx="10"
         cy="10"
         r="8.75"
         stroke-width="2.5"
       />
       <circle
-        class="stroke-ws-dynamic-primary-default fill-none transition-[stroke-dashoffset] ease-linear"
+        class="fill-none stroke-(--ws-dynamic-fill-primary-default) transition-[stroke-dashoffset] ease-linear"
         cx="10"
         cy="10"
         r="8.75"
