@@ -2,11 +2,13 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useEffect, useState } from 'react';
 
 import { exampleStory } from '../../stories/example';
+import CompositionExample from './examples/progress-bar/composition';
+import compositionSource from './examples/progress-bar/composition?raw';
 import TypesExample from './examples/progress-bar/types';
 import typesSource from './examples/progress-bar/types?raw';
 import VariantsExample from './examples/progress-bar/variants';
 import variantsSource from './examples/progress-bar/variants?raw';
-import { ProgressBar } from './ProgressBar';
+import { ProgressBar, ProgressBarValue } from './ProgressBar';
 import type { ProgressBarProps } from './ProgressBar.types';
 
 const variants: ProgressBarProps['variant'][] = ['default', 'success', 'error'];
@@ -16,6 +18,9 @@ const meta = {
   title: 'Components/ProgressBar',
   tags: ['autodocs'],
   component: ProgressBar,
+  subcomponents: {
+    'ProgressBar.Value': ProgressBarValue,
+  },
   parameters: {
     docs: {
       description: {
@@ -24,6 +29,8 @@ ProgressBar communicates the progress of a task or loading operation.
 Two display types are available:
 - \`bar\` — a horizontal progress track with optional label, percentage, and helper text
 - \`circle\` — a compact inline circular indicator; replaces the ring with an icon on success / error
+
+**Optional Composition:** with no children it renders the track alone. Compose \`ProgressBar.Header\`, \`.Label\`, \`.Value\`, \`.Track\` and \`.Description\` to lay it out; \`label\` and \`description\` remain as deprecated shorthands.
         `,
       },
     },
@@ -55,31 +62,9 @@ Two display types are available:
         defaultValue: { summary: 'default' },
       },
     },
-    label: {
-      control: 'text',
-      table: {
-        category: 'Content',
-        type: { summary: 'string' },
-      },
-      if: { arg: 'type', eq: 'bar' },
-    },
-    description: {
-      control: 'text',
-      table: {
-        category: 'Content',
-        type: { summary: 'string' },
-      },
-      if: { arg: 'type', eq: 'bar' },
-    },
-    fixedWidth: {
-      control: 'boolean',
-      table: {
-        category: 'Behavior',
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' },
-      },
-      if: { arg: 'type', eq: 'circle' },
-    },
+    label: { control: false, table: { category: 'Content' } },
+    description: { control: false, table: { category: 'Content' } },
+    fixedWidth: { control: false, table: { category: 'Behavior' } },
   },
 } satisfies Meta<typeof ProgressBar>;
 
@@ -91,28 +76,57 @@ export const Default: Story = {
     docs: {
       description: {
         story:
-          'Bar progress indicator with label, percentage, and helper text using the default variant.',
+          'Bar progress indicator composed of a label, the value, the track and a description. Change `type` to `circle` to see the compact form.',
       },
     },
   },
-  render: (args) => (
+  render: ({ type, variant, value }) => (
     <div className="max-w-80">
-      <ProgressBar {...args} />
+      <ProgressBar type={type} variant={variant} value={value} aria-label="Label">
+        {type === 'circle' ? (
+          <>
+            <ProgressBar.Value />
+            <ProgressBar.Track />
+          </>
+        ) : (
+          <>
+            <ProgressBar.Header>
+              <ProgressBar.Label>Label</ProgressBar.Label>
+              <ProgressBar.Value />
+            </ProgressBar.Header>
+            <ProgressBar.Track />
+            <ProgressBar.Description>Description</ProgressBar.Description>
+          </>
+        )}
+      </ProgressBar>
     </div>
   ),
   args: {
     type: 'bar',
     variant: 'default',
     value: 33,
-    label: 'Label',
-    description: 'Description',
-    fixedWidth: false,
   },
 };
 
 export const Types: Story = exampleStory(TypesExample, typesSource);
 
 export const Variants: Story = exampleStory(VariantsExample, variantsSource);
+
+const steps = [0, 30, 40, 70, 100];
+
+const useSteps = () => {
+  const [value, setValue] = useState(0);
+  useEffect(() => {
+    let index = 0;
+    const interval = setInterval(() => {
+      index = (index + 1) % steps.length;
+      setValue(steps[index]);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+  return value;
+};
 
 export const Animated: Story = {
   parameters: {
@@ -135,36 +149,36 @@ useEffect(() => {
   return () => clearInterval(interval);
 }, []);
 
-return <ProgressBar type="bar" label="Label" description="Description" value={value} />;`,
+return (
+  <ProgressBar value={value}>
+    <ProgressBar.Header>
+      <ProgressBar.Label>Label</ProgressBar.Label>
+      <ProgressBar.Value />
+    </ProgressBar.Header>
+    <ProgressBar.Track />
+    <ProgressBar.Description>Description</ProgressBar.Description>
+  </ProgressBar>
+);`,
       },
     },
   },
-  render: (args) => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const [value, setValue] = useState(0);
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useEffect(() => {
-      const steps = [0, 30, 40, 70, 100];
-      let index = 0;
-      const interval = setInterval(() => {
-        index = (index + 1) % steps.length;
-        setValue(steps[index]);
-      }, 1000);
-
-      return () => clearInterval(interval);
-    }, []);
+  render: function Render({ variant }) {
+    const value = useSteps();
 
     return (
       <div className="max-w-80">
-        <ProgressBar {...args} value={value} />
+        <ProgressBar variant={variant} value={value}>
+          <ProgressBar.Header>
+            <ProgressBar.Label>Label</ProgressBar.Label>
+            <ProgressBar.Value />
+          </ProgressBar.Header>
+          <ProgressBar.Track />
+          <ProgressBar.Description>Description</ProgressBar.Description>
+        </ProgressBar>
       </div>
     );
   },
-  args: {
-    ...Default.args,
-    label: 'Label',
-    description: 'Description',
-  },
+  args: Default.args,
 };
 
 export const CircleVariant: Story = {
@@ -179,13 +193,20 @@ export const CircleVariant: Story = {
   argTypes: {
     type: { table: { disable: true } },
     variant: { table: { disable: true } },
-    label: { table: { disable: true } },
-    description: { table: { disable: true } },
   },
-  render: (args) => (
+  render: ({ value }) => (
     <div className="gap-ws-8 flex flex-col">
       {variants.map((variant) => (
-        <ProgressBar key={variant} {...args} type="circle" variant={variant} />
+        <ProgressBar
+          key={variant}
+          type="circle"
+          variant={variant}
+          value={value}
+          aria-label={`Sync progress, ${variant}`}
+        >
+          <ProgressBar.Value />
+          <ProgressBar.Track />
+        </ProgressBar>
       ))}
     </div>
   ),
@@ -200,7 +221,7 @@ export const CircleAnimated: Story = {
     docs: {
       description: {
         story:
-          'Use `fixedWidth` when the circle indicator is part of a list or table to prevent the percentage label from causing layout shift.',
+          'Give `ProgressBar.Value` a fixed width when the circle indicator is part of a list or table, so the changing percentage does not shift the layout.',
       },
       source: {
         code: `const [value, setValue] = useState(0);
@@ -208,7 +229,7 @@ export const CircleAnimated: Story = {
 useEffect(() => {
   const steps = [0, 30, 40, 70, 100];
   let index = 0;
-  
+
   const interval = setInterval(() => {
     index = (index + 1) % steps.length;
     setValue(steps[index]);
@@ -217,32 +238,29 @@ useEffect(() => {
   return () => clearInterval(interval);
 }, []);
 
-return <ProgressBar type="circle" fixedWidth value={value} />;`,
+return (
+  <ProgressBar type="circle" value={value} aria-label="Sync progress">
+    <ProgressBar.Value className="w-ws-14 inline-block" />
+    <ProgressBar.Track />
+  </ProgressBar>
+);`,
       },
     },
   },
-  render: (args) => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const [value, setValue] = useState(0);
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useEffect(() => {
-      const steps = [0, 30, 40, 70, 100];
-      let index = 0;
-      const interval = setInterval(() => {
-        index = (index + 1) % steps.length;
-        setValue(steps[index]);
-      }, 1000);
+  render: function Render({ variant }) {
+    const value = useSteps();
 
-      return () => clearInterval(interval);
-    }, []);
-
-    return <ProgressBar {...args} value={value} />;
+    return (
+      <ProgressBar type="circle" variant={variant} value={value} aria-label="Sync progress">
+        <ProgressBar.Value className="w-ws-14 inline-block" />
+        <ProgressBar.Track />
+      </ProgressBar>
+    );
   },
   args: {
     ...Default.args,
     type: 'circle',
-    fixedWidth: true,
-    label: undefined,
-    description: undefined,
   },
 };
+
+export const Composition: Story = exampleStory(CompositionExample, compositionSource);

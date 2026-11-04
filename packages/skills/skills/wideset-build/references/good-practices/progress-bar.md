@@ -15,10 +15,17 @@
 
 ```tsx
 // Do: switch variant when the task ends
-<ProgressBar variant="success" value={100} label="Uploading assets" description="All 18 files uploaded" />
+<ProgressBar variant="success" value={100}>
+  <ProgressBar.Header>
+    <ProgressBar.Label>Uploading assets</ProgressBar.Label>
+    <ProgressBar.Value />
+  </ProgressBar.Header>
+  <ProgressBar.Track />
+  <ProgressBar.Description>All 18 files uploaded</ProgressBar.Description>
+</ProgressBar>
 
-// Don't: description on a circle (not rendered)
-<ProgressBar type="circle" value={40} description="4 of 10" />
+// Don't: a description on a circle (the circle has no room for it)
+<ProgressBar type="circle" value={40} aria-label="Sync"><ProgressBar.Description>4 of 10</ProgressBar.Description></ProgressBar>
 
 // Don't: a step indicator built from a bar
 <ProgressBar value={(step / 5) * 100} />   // → ProgressTracker activeStep={step}
@@ -27,7 +34,7 @@
 ## Gotchas
 
 - There is no indeterminate mode; a missing `value` renders 0%.
-- On `type="bar"`, `className` and `ref` go to the track, not to the wrapper with label and
-  description.
-- `description` and the visible label exist only on `type="bar"`.
+- `className` and `ref` go to the root. Style the bar fill area with `className` on
+  `ProgressBar.Track` (it used to style the track).
+- `ProgressBar.Header` is for the bar; `label` and `description` shorthands are deprecated.
 - The bar fills its container's width; constrain the container, not the bar.

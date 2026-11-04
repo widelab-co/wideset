@@ -37,3 +37,33 @@ export const progressBarCircleMotionVariants = cva('', {
   },
   defaultVariants: { enabled: true },
 });
+
+export const progressBarVariants = cva('', {
+  variants: {
+    type: {
+      bar: 'gap-ws-5 flex w-full flex-col',
+      circle: 'gap-ws-5 inline-flex items-center',
+    },
+  },
+  defaultVariants: { type: 'bar' },
+});
+
+export const progressBarTrackVariants = cva('', {
+  variants: {
+    type: {
+      bar: 'h-ws-3 relative w-full overflow-hidden rounded-full bg-(--ws-dynamic-stroke-secondary-default)',
+      circle: 'inline-flex shrink-0',
+    },
+  },
+  defaultVariants: { type: 'bar' },
+});
+
+export const progressBarValueVariants = cva(
+  'typography-label-sm text-ws-static-subtle tabular-nums',
+  {
+    variants: {
+      fixedWidth: { true: 'w-ws-14 inline-block', false: '' },
+    },
+    defaultVariants: { fixedWidth: false },
+  },
+);

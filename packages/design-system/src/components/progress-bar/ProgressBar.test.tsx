@@ -55,13 +55,13 @@ describe('ProgressBar', () => {
 
   it('applies correct transform style based on value', () => {
     const { container } = render(<ProgressBar value={75} />);
-    const indicator = container.querySelector('[role="progressbar"] > div');
+    const indicator = container.querySelector('[data-slot="progress-bar-track"] > div');
     expect(indicator).toHaveStyle('transform: translateX(-25%)');
   });
 
   it('clamps values below 0 to 0', () => {
     const { container } = render(<ProgressBar value={-10} />);
-    const indicator = container.querySelector('[role="progressbar"] > div');
+    const indicator = container.querySelector('[data-slot="progress-bar-track"] > div');
     expect(indicator).toHaveStyle('transform: translateX(-100%)');
   });
 
@@ -72,7 +72,7 @@ describe('ProgressBar', () => {
 
   it('clamps values above 100 to 100', () => {
     const { container } = render(<ProgressBar value={150} />);
-    const indicator = container.querySelector('[role="progressbar"] > div');
+    const indicator = container.querySelector('[data-slot="progress-bar-track"] > div');
     expect(indicator).toHaveStyle('transform: translateX(-0%)');
   });
 
@@ -83,7 +83,7 @@ describe('ProgressBar', () => {
 
   it('handles undefined value gracefully', () => {
     const { container } = render(<ProgressBar />);
-    const indicator = container.querySelector('[role="progressbar"] > div');
+    const indicator = container.querySelector('[data-slot="progress-bar-track"] > div');
     expect(indicator).toHaveStyle('transform: translateX(-100%)');
   });
 
@@ -162,6 +162,43 @@ describe('ProgressBar', () => {
     }
   });
 
+  describe('asChild', () => {
+    it.each(['bar', 'circle'] as const)(
+      'renders the %s root onto the child element, with the parts inside',
+      (type) => {
+        render(
+          <ProgressBar type={type} value={40} aria-label="Upload" asChild>
+            <section>
+              <ProgressBar.Value />
+              <ProgressBar.Track />
+            </section>
+          </ProgressBar>,
+        );
+
+        const progressBar = screen.getByRole('progressbar', { name: 'Upload' });
+        expect(progressBar.tagName).toBe('SECTION');
+        expect(progressBar).toHaveAttribute('data-slot', 'progress-bar');
+        expect(progressBar).toHaveTextContent('40%');
+        expect(progressBar.querySelector('[data-slot="progress-bar-track"]')).toBeInTheDocument();
+      },
+    );
+
+    it('keeps the role on a <div> root when there is no child element to slot onto', () => {
+      const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {});
+
+      try {
+        render(<ProgressBar value={40} asChild />);
+
+        const progressBar = screen.getByRole('progressbar');
+        expect(progressBar.tagName).toBe('DIV');
+        expect(progressBar).toHaveAttribute('aria-valuenow', '40');
+        expect(consoleError).not.toHaveBeenCalled();
+      } finally {
+        consoleError.mockRestore();
+      }
+    });
+  });
+
   it('renders complete component with all props', () => {
     const { getByText, container } = render(
       <ProgressBar
@@ -178,6 +215,188 @@ describe('ProgressBar', () => {
     expect(getByText('Uploading files...')).toBeInTheDocument();
     expect(container.querySelector('.custom-progress')).toBeInTheDocument();
     expect(container.querySelector('.bg-\\(--ws-semantic-stroke-positive\\)')).toBeInTheDocument();
+  });
+});
+
+describe('ProgressBar compound parts', () => {
+  const composed = (props: { 'aria-valuetext'?: string } = {}) => (
+    <ProgressBar value={32} max={40} {...props}>
+      <ProgressBar.Header>
+        <ProgressBar.Label>Uploading files</ProgressBar.Label>
+        <ProgressBar.Value formatValue={(value, max) => `${value} / ${max}`} />
+      </ProgressBar.Header>
+      <ProgressBar.Track />
+      <ProgressBar.Description>8 files remaining</ProgressBar.Description>
+    </ProgressBar>
+  );
+
+  it('names and describes the progressbar from Label and Description', () => {
+    render(composed());
+    expect(
+      screen.getByRole('progressbar', {
+        name: 'Uploading files',
+        description: '8 files remaining',
+      }),
+    ).toBeInTheDocument();
+  });
+
+  it('falls back to "Progress" when no label is composed', () => {
+    render(
+      <ProgressBar value={10}>
+        <ProgressBar.Track />
+      </ProgressBar>,
+    );
+    expect(screen.getByRole('progressbar', { name: 'Progress' })).toBeInTheDocument();
+  });
+
+  it('formats the value with formatValue', () => {
+    render(composed());
+    expect(screen.getByText('32 / 40')).toBeInTheDocument();
+  });
+
+  it('shows the rounded percentage of max by default', () => {
+    render(
+      <ProgressBar value={32} max={40}>
+        <ProgressBar.Value />
+        <ProgressBar.Track />
+      </ProgressBar>,
+    );
+    expect(screen.getByText('80%')).toBeInTheDocument();
+  });
+
+  it('shows children of Value instead of the computed text', () => {
+    render(
+      <ProgressBar value={32}>
+        <ProgressBar.Value>Almost there</ProgressBar.Value>
+        <ProgressBar.Track />
+      </ProgressBar>,
+    );
+    expect(screen.getByText('Almost there')).toBeInTheDocument();
+  });
+
+  it('omits aria-valuetext by default so the percentage is announced once', () => {
+    // No Label or Description here: they call useId, which would shift the ids in later snapshots.
+    render(
+      <ProgressBar value={32} max={40}>
+        <ProgressBar.Track />
+      </ProgressBar>,
+    );
+    expect(screen.getByRole('progressbar')).not.toHaveAttribute('aria-valuetext');
+  });
+
+  it('passes a custom aria-valuetext on the root through', () => {
+    render(composed({ 'aria-valuetext': '32 of 40 files' }));
+    expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuetext', '32 of 40 files');
+  });
+
+  it('reaches Radix with getValueLabel', () => {
+    render(<ProgressBar value={50} getValueLabel={(value, max) => `${value} of ${max}`} />);
+    expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuetext', '50 of 100');
+  });
+
+  it('shows the value and the error icon, not NaN, on a circle with the error variant', () => {
+    render(
+      <ProgressBar type="circle" variant="error" value={40} aria-label="Sync">
+        <ProgressBar.Value />
+        <ProgressBar.Track />
+      </ProgressBar>,
+    );
+    expect(screen.getByText('40%')).toBeInTheDocument();
+    expect(screen.queryByText(/NaN/)).not.toBeInTheDocument();
+    expect(screen.getByRole('progressbar').querySelector('svg')).toBeInTheDocument();
+  });
+
+  it('takes the Description state and icon from the root variant', () => {
+    render(
+      <ProgressBar value={10} variant="error">
+        <ProgressBar.Track />
+        <ProgressBar.Description>Upload failed</ProgressBar.Description>
+      </ProgressBar>,
+    );
+    expect(
+      screen.getByText('Upload failed').closest('[data-slot="helper-text"]')?.querySelector('svg'),
+    ).toBeInTheDocument();
+  });
+
+  it('reserves a fixed width for the circle value with fixedWidth', () => {
+    render(<ProgressBar type="circle" value={5} fixedWidth />);
+    expect(screen.getByText('5%')).toHaveClass('w-ws-14');
+  });
+
+  it('uses the label shorthand only as aria-label on a circle', () => {
+    render(<ProgressBar type="circle" value={5} label="Sync" />);
+    expect(screen.getByRole('progressbar', { name: 'Sync' })).toBeInTheDocument();
+    expect(screen.queryByText('Sync')).not.toBeInTheDocument();
+  });
+
+  it('renders the label and description shorthand as composed parts', () => {
+    render(<ProgressBar value={50} label="Upload" description="Halfway" />);
+    expect(
+      screen.getByRole('progressbar', { name: 'Upload', description: 'Halfway' }),
+    ).toBeInTheDocument();
+    expect(screen.getByText('50%')).toBeInTheDocument();
+  });
+
+  it('renders the Header in a circle without error', () => {
+    render(
+      <ProgressBar type="circle" value={50} aria-label="Sync">
+        <ProgressBar.Header data-testid="header">
+          <ProgressBar.Value />
+        </ProgressBar.Header>
+        <ProgressBar.Track />
+      </ProgressBar>,
+    );
+    expect(screen.getByTestId('header')).toBeInTheDocument();
+  });
+
+  it.each([
+    ['Header', 'progress-bar-header', (p: object) => <ProgressBar.Header {...p} />],
+    [
+      'Label',
+      'progress-bar-label',
+      (p: object) => <ProgressBar.Label {...p}>Name</ProgressBar.Label>,
+    ],
+    ['Value', 'progress-bar-value', (p: object) => <ProgressBar.Value {...p} />],
+    ['Track', 'progress-bar-track', (p: object) => <ProgressBar.Track {...p} />],
+    [
+      'Description',
+      'progress-bar-description',
+      (p: object) => <ProgressBar.Description {...p}>Text</ProgressBar.Description>,
+    ],
+  ])('%s forwards className and data attributes', (_name, slot, part) => {
+    render(
+      <ProgressBar value={5}>{part({ className: 'custom', 'data-extra': 'yes' })}</ProgressBar>,
+    );
+    const el = document.querySelector(`[data-slot="${slot}"]`);
+    expect(el).toHaveClass('custom');
+    expect(el).toHaveAttribute('data-extra', 'yes');
+  });
+
+  it.each([
+    ['Header', () => <ProgressBar.Header />],
+    ['Label', () => <ProgressBar.Label>x</ProgressBar.Label>],
+    ['Value', () => <ProgressBar.Value />],
+    ['Track', () => <ProgressBar.Track />],
+    ['Description', () => <ProgressBar.Description>x</ProgressBar.Description>],
+  ])('%s throws outside a ProgressBar', (_name, part) => {
+    const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {});
+    expect(() => render(part())).toThrow(
+      'useProgressBarContext must be used within a <ProgressBar>',
+    );
+    consoleError.mockRestore();
+  });
+
+  it('forwards refs of the parts', () => {
+    const track = createRef<HTMLDivElement>();
+    const value = createRef<HTMLSpanElement>();
+    render(
+      <ProgressBar value={5}>
+        <ProgressBar.Value ref={value} />
+        <ProgressBar.Track ref={track} />
+      </ProgressBar>,
+    );
+    expect(track.current).toHaveAttribute('data-slot', 'progress-bar-track');
+    expect(value.current).toHaveAttribute('data-slot', 'progress-bar-value');
   });
 });
 
