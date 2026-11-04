@@ -17,6 +17,11 @@ import { ProgressBarLabel } from './ProgressBarLabel';
 import { ProgressBarTrack } from './ProgressBarTrack';
 import { ProgressBarValue } from './ProgressBarValue';
 
+// Radix fills `aria-valuetext` with the rounded percentage by default. Screen readers derive the
+// same percentage from `aria-valuenow` and `aria-valuemax`, so VoiceOver announced it twice (as
+// found on #5). Omit the attribute; a caller's own `aria-valuetext` still reaches the root.
+const omitValueText = (() => undefined) as unknown as (value: number, max: number) => string;
+
 const DEFAULT_MAX = 100;
 
 /** `max` when it is a number greater than 0, otherwise 100 (with a warning if one was given). */
@@ -103,6 +108,7 @@ const ProgressBar = React.forwardRef<
           value={value}
           max={max}
           asChild={isSlotted}
+          getValueLabel={omitValueText}
           data-slot="progress-bar"
           data-type={type}
           data-status={status}
