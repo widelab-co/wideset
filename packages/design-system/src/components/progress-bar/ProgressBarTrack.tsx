@@ -53,7 +53,7 @@ const ProgressBarRing = ({ percent, motion }: { percent: number; motion: boolean
 /** Visual only: the root carries the progressbar role and the value. */
 const ProgressBarTrack = React.forwardRef<HTMLDivElement, ProgressBarTrackProps>(
   ({ className, ...props }, ref) => {
-    const { type, status, percent, motion } = useProgressBarContext();
+    const { type, status, fillPercent, motion } = useProgressBarContext();
 
     return (
       <div
@@ -68,11 +68,11 @@ const ProgressBarTrack = React.forwardRef<HTMLDivElement, ProgressBarTrackProps>
               progressBarIndicatorVariants({ status }),
               progressBarIndicatorMotionVariants({ enabled: motion }),
             )}
-            style={{ transform: `translateX(-${100 - percent}%)` }}
+            style={{ transform: `translateX(-${100 - fillPercent}%)` }}
           />
         )}
         {type === 'circle' && status === 'default' && (
-          <ProgressBarRing percent={percent} motion={motion} />
+          <ProgressBarRing percent={fillPercent} motion={motion} />
         )}
         {type === 'circle' && status === 'success' && (
           <RiCheckboxCircleFill

@@ -19,7 +19,10 @@ export type ProgressBarProps = Omit<
   'asChild' | 'children' | 'getValueLabel'
 > &
   MotionProps & {
-    /** Current progress, clamped between `0` and `max`. A missing or `NaN` value renders `0`. */
+    /**
+     * Current progress. The bar and the ring stop at `0` and `max`, while the default value text and
+     * the spoken value show the real percentage (54 of 40 is 135%). A missing or `NaN` value is `0`.
+     */
     value?: number;
     /** The value that means complete. Defaults to `100`. */
     max?: number;
@@ -38,11 +41,13 @@ export type ProgressBarProps = Omit<
   };
 
 export type ProgressBarContextValue = {
-  /** Value clamped into `0..max`. */
+  /** `value` as given, not clamped. */
   value: number;
   max: number;
-  /** `value / max` as a rounded percentage, `0..100`. */
+  /** `value / max` as a rounded percentage, not clamped: the text shows 135% for 54 of 40. */
   percent: number;
+  /** `percent` clamped to `0..100`, for the fill and the ring. */
+  fillPercent: number;
   status: ProgressBarStatus;
   type: ProgressBarType;
   motion: boolean;

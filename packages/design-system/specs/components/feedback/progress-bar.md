@@ -73,7 +73,7 @@ The root carries `role="progressbar"`, the value, `ref`, `className` and `aria-*
 | `status`         | `default`       | Still running.                                                  |
 |                  | `success`       | Finished. Circle shows a check icon; description gets one too.  |
 |                  | `error`         | Failed. Circle shows an error icon; say what to do next.        |
-| `value`          | `0`–`max`       | Clamped into range; `max` defaults to `100`.                    |
+| `value`          | `0`–`max`       | The bar stops at `0` and `max`; the text shows the real %.      |
 | `Value` children | ReactNode       | A count instead of a percentage: `32 / 40`.                     |
 | `aria-valuetext` | string          | What a screen reader says for the value, when not a percentage. |
 

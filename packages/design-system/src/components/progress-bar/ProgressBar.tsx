@@ -29,9 +29,9 @@ const validateMax = (max: number | undefined) => {
   return DEFAULT_MAX;
 };
 
-/** `value` kept within `0…max`; a missing or non-finite value is 0 (with a warning if one was given). */
-const validateValue = (value: number | undefined, max: number) =>
-  clamp(finiteOr(value, 0, { warn: 'ProgressBar `value` must be a finite number.' }), 0, max);
+/** A missing or non-finite value is 0 (with a warning if one was given). Not clamped: 54 of 40 is 135%. */
+const validateValue = (value: number | undefined) =>
+  finiteOr(value, 0, { warn: 'ProgressBar `value` must be a finite number.' });
 
 /** Tracks whether a part is mounted, so the root only points ARIA at ids that exist. */
 const usePartRegistration = () => {
@@ -67,13 +67,18 @@ const ProgressBar = React.forwardRef<
     const [hasDescription, registerDescription] = usePartRegistration();
 
     const max = validateMax(maxProp);
-    const value = validateValue(valueProp, max);
+    const value = validateValue(valueProp);
+    // The text shows the real percentage (135%, -10%); the fill and ARIA stay within the range.
     const percent = Math.round((value / max) * 100);
+    const fillPercent = clamp(percent, 0, 100);
+    // Radix and ARIA need a value within 0…max; outside it Radix treats the bar as indeterminate.
+    const ariaValue = clamp(value, 0, max);
 
     const fields: ProgressBarContextValue = {
       value,
       max,
       percent,
+      fillPercent,
       status,
       type,
       motion,
@@ -93,8 +98,10 @@ const ProgressBar = React.forwardRef<
       <ProgressBarContext.Provider value={context}>
         <ProgressPrimitive.Root
           ref={ref}
-          value={value}
+          value={ariaValue}
           max={max}
+          // Screen readers hear the same percentage the text shows; aria-valuetext overrides it.
+          getValueLabel={() => `${percent}%`}
           data-slot="progress-bar"
           data-type={type}
           data-status={status}
@@ -104,7 +111,7 @@ const ProgressBar = React.forwardRef<
           {...props}
           // Radix spreads caller props over its own ARIA; the computed role and values must win.
           role="progressbar"
-          aria-valuenow={value}
+          aria-valuenow={ariaValue}
           aria-valuemin={0}
           aria-valuemax={max}
           className={cn(progressBarRootVariants({ type }), className)}
