@@ -25,7 +25,6 @@ const validateMax = (max: number | undefined) => {
   const finiteMax = finiteOr(max, DEFAULT_MAX, { warn: INVALID_MAX });
   if (finiteMax > 0) return finiteMax;
 
-  // eslint-disable-next-line no-console
   console.warn(`${INVALID_MAX} Received ${finiteMax}.`);
   return DEFAULT_MAX;
 };

@@ -29,7 +29,6 @@ export const finiteOr = (
 ) => {
   if (isFiniteNumber(value)) return value;
   if (value !== undefined && warn) {
-    // eslint-disable-next-line no-console
     console.warn(`${warn} Received ${String(value)}.`);
   }
   return fallback;
