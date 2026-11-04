@@ -259,7 +259,7 @@ describe('SplitButton', () => {
         <SplitButton
           icon={RiArrowDownSLine}
           onClick={handleClick}
-          menuContent={<div role="menuitem">Action one</div>}
+          menuContent={<DropdownMenu.Item>Action one</DropdownMenu.Item>}
         >
           Save
         </SplitButton>,
