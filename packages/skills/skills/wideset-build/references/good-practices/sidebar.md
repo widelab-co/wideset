@@ -22,6 +22,14 @@
 
 // Don't: children on a plain item (the type forbids it); use label
 <Sidebar.Item href="/projects">Projects</Sidebar.Item>
+
+// Do: a named group of items
+<Sidebar.Group label="Core team">
+  <Sidebar.Item href="/issues" icon={RiStackLine} label="Issues" />
+</Sidebar.Group>
+
+// Don't: a hand-made heading with its own icon; it falls out of line with the items
+<div className="flex items-center gap-ws-3"><RiTeamLine /> Core team</div>
 ```
 
 ## Gotchas

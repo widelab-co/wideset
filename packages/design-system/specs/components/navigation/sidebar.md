@@ -11,6 +11,7 @@ parts:
     SidebarExpanded,
     SidebarCollapsed,
     SidebarItem,
+    SidebarGroup,
     SidebarTrigger,
   ]
 related: [Tabs, Breadcrumbs, Sidepanel]
@@ -88,6 +89,9 @@ The root fills its parent's height; place it in a full-height flex row next to t
 
 - Labels are page names, one or two words, sentence case.
 - Every item has an icon: collapsed mode shows nothing else.
+- Items that belong together under a name (a team, a workspace) go in `Sidebar.Group label="…"`.
+  The heading is text only and lines up with the item icons; collapsed, it is hidden and still
+  names the group for screen readers.
 - Prefer hiding a page the user will never reach over showing it disabled.
 
 ## Accessibility
@@ -108,6 +112,14 @@ The root fills its parent's height; place it in a full-height flex row next to t
 
 // Don't: children on a plain item (the type forbids it); use label
 <Sidebar.Item href="/projects">Projects</Sidebar.Item>
+
+// Do: a named group of items
+<Sidebar.Group label="Core team">
+  <Sidebar.Item href="/issues" icon={RiStackLine} label="Issues" />
+</Sidebar.Group>
+
+// Don't: a hand-made heading with its own icon; it falls out of line with the items
+<div className="flex items-center gap-ws-3"><RiTeamLine /> Core team</div>
 ```
 
 ## Gotchas

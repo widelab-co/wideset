@@ -370,6 +370,7 @@ export { Sidebar } from './components/sidebar/Sidebar';
 export type {
   SidebarCollapsedProps,
   SidebarExpandedProps,
+  SidebarGroupProps,
   SidebarHeaderProps,
   SidebarItemProps,
   SidebarProps,
@@ -378,6 +379,7 @@ export type {
 } from './components/sidebar/Sidebar.types';
 export { SidebarCollapsed } from './components/sidebar/SidebarCollapsed';
 export { SidebarExpanded } from './components/sidebar/SidebarExpanded';
+export { SidebarGroup } from './components/sidebar/SidebarGroup';
 export { SidebarHeader } from './components/sidebar/SidebarHeader';
 export { SidebarItem } from './components/sidebar/SidebarItem';
 export { SidebarSection } from './components/sidebar/SidebarSection';
