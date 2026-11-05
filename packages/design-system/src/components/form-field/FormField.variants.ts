@@ -24,6 +24,8 @@ export const formFieldLabelVariants = cva('', {
   },
 });
 
+export const formFieldLabelRowVariants = cva('gap-ws-3 flex items-start');
+
 export const formFieldContentVariants = cva('flex flex-col gap-[0.375rem]', {
   variants: {
     variant: {

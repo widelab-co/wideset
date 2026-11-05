@@ -20,4 +20,15 @@ export type FormFieldProps = VariantProps<typeof formFieldVariants> & {
   helperTextId?: string;
   /** Field label content; connect it to the control with matching IDs. */
   label: ReactNode;
-} & Omit<FieldLabelProps, 'children' | 'className' | 'description'>;
+  /** Quiet text after the label, such as "(optional)". */
+  suffix?: string;
+  /** Extra explanation behind an info button next to the label. */
+  tooltip?: ReactNode;
+  /** Accessible name of the tooltip button. Defaults to `'More information'`. */
+  tooltipAriaLabel?: string;
+  /** Quiet content at the far end of the label row, such as a counter or a link. */
+  aside?: ReactNode;
+} & Omit<
+    FieldLabelProps,
+    'children' | 'className' | 'suffix' | 'tooltip' | 'tooltipAriaLabel' | 'aside' | 'description'
+  >;
