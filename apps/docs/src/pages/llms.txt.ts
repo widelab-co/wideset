@@ -18,7 +18,8 @@ export const GET: APIRoute = async ({ site }) => {
     '# Wideset',
     `> ${SITE_SUMMARY}`,
     [
-      'Every page has a Markdown version at its URL plus `.md`; a component page (`/components/<id>.md`) has usage guidance (when to use it, when not, what breaks), install, import, parts, examples and props.',
+      'Every page has a Markdown version at its URL plus `.md`; a component page (`/components/<id>.md`) has usage guidance (when to use it, when not, what breaks), install, import, parts, examples, props, the `ws` classes it paints with by variant and state, and its related components.',
+      `The whole system as one graph (components, how they meet, the tokens each paints with, the components each token changes): ${new URL('/graph.json', base).href}`,
       `Everything below in one file: ${new URL('/llms-full.txt', base).href}`,
     ].join('\n'),
     `## Docs\n\n${docLines(top).join('\n')}`,

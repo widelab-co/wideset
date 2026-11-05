@@ -128,6 +128,41 @@ describe('generate: foundations token data', () => {
   });
 });
 
+describe('gen-token-usage: the token half of the graph', () => {
+  const usage = read('token-usage.json');
+  const uses = (id, filter) => usage.components[id].uses.filter(filter);
+
+  it('reads a CVA class with the variant it sits under', () => {
+    const [row] = uses(
+      'button',
+      (use) => use.class === 'bg-ws-dynamic-primary-default' && use.state === 'default',
+    );
+    assert.deepEqual(row?.when, { variant: 'primary', preset: 'filled' });
+    assert.equal(row.token, '--ws-dynamic-fill-primary-default');
+  });
+
+  it('reads a state prefix as the state', () => {
+    assert.ok(
+      uses('button', (use) => use.class === 'bg-ws-dynamic-primary-hover')[0]?.state === 'hover',
+    );
+  });
+
+  it('keeps the CVA defaults', () => {
+    assert.equal(usage.components.button.defaults.variant, 'primary');
+  });
+
+  it('resolves a token to its light and dark primitive and the components it changes', () => {
+    const token = usage.tokens['--ws-dynamic-fill-primary-default'];
+    assert.match(token.light, /^--ws-colors-light-/);
+    assert.match(token.dark, /^--ws-colors-dark-/);
+    assert.ok(token.usedBy.includes('button'));
+  });
+
+  it('finds no ws class that points at nothing (a typo or a removed token)', () => {
+    assert.deepEqual(usage.unresolved, {});
+  });
+});
+
 describe('gen-guidance', () => {
   const page = (id) => readFileSync(join(generatedDir, 'guidance', `${id}.md`), 'utf8');
 
