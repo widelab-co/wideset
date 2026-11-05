@@ -163,6 +163,7 @@ A member such as `Card.Header` comes with `Card`; its named form, `CardHeader`, 
 - `import { Table } from '@/components/ui/wideset/table/Table';`
 - `import { TableBody } from '@/components/ui/wideset/table/TableBody';`
 - `import { TableCell } from '@/components/ui/wideset/table/TableCell';`
+- `import { TableCellDescription } from '@/components/ui/wideset/table/TableCellDescription';`
 - `import { TableFoot } from '@/components/ui/wideset/table/TableFoot';`
 - `import { TableHead } from '@/components/ui/wideset/table/TableHead';`
 - `import { TableHeader } from '@/components/ui/wideset/table/TableHeader';`
@@ -253,7 +254,7 @@ A member such as `Card.Header` comes with `Card`; its named form, `CardHeader`, 
 - `import type { StatusModalBodyProps, StatusModalCloseProps, StatusModalContentProps, StatusModalFooterProps, StatusModalOrientation, StatusModalOverlayProps, StatusModalStatus, StatusModalTitleProps, StatusModalTriggerProps } from '@/components/ui/wideset/status-modal/StatusModal.types';`
 - `import type { SwitchLabelProps, SwitchProps } from '@/components/ui/wideset/switch/Switch.types';`
 - `import type { SystemAlertActionProps, SystemAlertEmphasis, SystemAlertMessageProps, SystemAlertProps, SystemAlertStatus, SystemAlertWithSubComponents } from '@/components/ui/wideset/system-alert/SystemAlert.types';`
-- `import type { SelectionMode, SortDirection, TableBodyProps, TableCellProps, TableFootProps, TableHeadProps, TableHeaderProps, TableProps, TableRowProps } from '@/components/ui/wideset/table/Table.types';`
+- `import type { SelectionMode, SortDirection, TableBodyProps, TableCellDescriptionProps, TableCellProps, TableFootProps, TableHeadProps, TableHeaderProps, TableProps, TableRowProps } from '@/components/ui/wideset/table/Table.types';`
 - `import type { TabsContentProps, TabsCountProps, TabsItemProps, TabsListProps, TabsProps } from '@/components/ui/wideset/tabs/Tabs.types';`
 - `import type { TagContextValue, TagIconProps, TagProps } from '@/components/ui/wideset/tag/Tag.types';`
 - `import type { TextInputButtonProps, TextInputClearButtonProps, TextInputIconButtonProps, TextInputIconProps, TextInputInputProps, TextInputProps } from '@/components/ui/wideset/text-input/TextInput.types';`

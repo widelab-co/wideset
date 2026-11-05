@@ -17,6 +17,19 @@ describe('Sidebar', () => {
         expect(screen.getByText('Test content')).toBeInTheDocument();
       });
 
+      // The app frame is grey and the page beside it white, as in most product apps; a white
+      // sidebar beside a grey page made the work look like the background.
+      it('sits on the grey app frame, not the white page surface', () => {
+        const { container } = render(
+          <Sidebar>
+            <div>Test content</div>
+          </Sidebar>,
+        );
+        const root = container.querySelector('[data-slot="sidebar"]');
+        expect(root).toHaveClass('bg-ws-static-background');
+        expect(root).not.toHaveClass('bg-ws-static-foreground');
+      });
+
       it('should apply custom className', () => {
         const { container } = render(
           <Sidebar className="custom-class">

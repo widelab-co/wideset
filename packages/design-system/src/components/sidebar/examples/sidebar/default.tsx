@@ -4,7 +4,7 @@ import { Sidebar, type SidebarProps } from '@wideset/react';
 
 export default function SidebarDefault(props: SidebarProps) {
   return (
-    <div className="rounded-ws-control-lg border-ws-static-base bg-ws-static-background flex h-[16rem] w-[22rem] max-w-full overflow-hidden border">
+    <div className="rounded-ws-control-lg border-ws-static-base bg-ws-static-foreground flex h-[16rem] w-[22rem] max-w-full overflow-hidden border">
       <Sidebar {...props}>
         <Sidebar.Header>
           <Sidebar.Expanded>

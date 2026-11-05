@@ -36,10 +36,10 @@ the class: `--ws-static-fill-container` → `bg-ws-static-container`, `--ws-stat
 
 | Job                                        | Class                                                                                                                        |
 | ------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------- |
-| Page canvas                                | `bg-ws-static-background`                                                                                                    |
+| App page (`main` beside a `Sidebar`)       | `bg-ws-static-foreground`                                                                                                    |
+| App frame (`Sidebar`, space around a page) | `bg-ws-static-background`                                                                                                    |
 | Card, table, panel                         | `bg-ws-static-container`                                                                                                     |
 | Menu, popover, modal                       | `bg-ws-static-overlay`                                                                                                       |
-| Sidebar / app chrome                       | `bg-ws-static-foreground`                                                                                                    |
 | Form field rest fill                       | `bg-ws-static-highlight-base`                                                                                                |
 | Modal backdrop                             | `bg-ws-static-scrim-base`                                                                                                    |
 | Heading / body / helper text               | `text-ws-static-strong` / `text-ws-static-base` / `text-ws-static-subtle`                                                    |

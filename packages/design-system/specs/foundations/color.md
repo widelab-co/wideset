@@ -20,8 +20,8 @@ roles are in [borders.md](borders.md); shadows and surface depth in [elevation.m
 
 | Class                                             | Use for                                                                                     |
 | ------------------------------------------------- | ------------------------------------------------------------------------------------------- |
-| `bg-ws-static-background`                         | The page canvas behind everything. Grey in light, darkest in dark.                          |
-| `bg-ws-static-foreground`                         | App chrome on the canvas: the sidebar.                                                      |
+| `bg-ws-static-background`                         | The app frame: `Sidebar` and the space around the page. Grey in light, darkest in dark.     |
+| `bg-ws-static-foreground`                         | The page beside the sidebar (`main`): where the work happens. White in light.               |
 | `bg-ws-static-container`                          | Cards, tables, side panels: content blocks on the page.                                     |
 | `bg-ws-static-overlay`                            | Floating layers: dropdowns, popups, modals, toasts, tooltips.                               |
 | `bg-ws-static-panel`                              | A docked panel surface; between foreground and container in dark. No component uses it yet. |
