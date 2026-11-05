@@ -175,6 +175,28 @@ describe('FormField', () => {
     expect(screen.getByText('*')).toHaveAttribute('aria-hidden', 'true');
     expect(screen.getByRole('textbox', { name: 'Email' })).toBeInTheDocument();
   });
+
+  it('renders a zero aside', () => {
+    const { container } = render(
+      <FormField label="Bio" htmlFor="bio" aside={0}>
+        <input id="bio" />
+      </FormField>,
+    );
+
+    expect(container.querySelector('[data-slot="field-label-aside"]')).toHaveTextContent('0');
+  });
+
+  it('marks the label row with a data-slot', () => {
+    const { container } = render(
+      <FormField label="Email" htmlFor="email">
+        <input id="email" />
+      </FormField>,
+    );
+
+    expect(container.querySelector('[data-slot="form-field-label-row"]')).toContainElement(
+      screen.getByText('Email'),
+    );
+  });
 });
 
 describe('FormField helper text linking', () => {

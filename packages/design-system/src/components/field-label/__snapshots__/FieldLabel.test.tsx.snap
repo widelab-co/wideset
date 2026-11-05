@@ -3,15 +3,19 @@
 exports[`FieldLabel > Snapshots > matches snapshot for a composed label row 1`] = `
 <div>
   <label
-    class="text-ws-static-strong typography-label-strong-sm gap-ws-3 inline-flex min-w-0 flex-wrap items-center break-words"
+    class="text-ws-static-strong typography-label-strong-sm gap-ws-3 inline-flex min-w-0 flex-wrap items-center"
     data-slot="field-label"
   >
-    Test Label 
     <span
-      class="text-ws-static-subtle typography-label-sm shrink-0"
-      data-slot="field-label-suffix"
+      class="min-w-0 break-words"
     >
-      (optional)
+      Test Label 
+      <span
+        class="text-ws-static-subtle typography-label-sm shrink-0"
+        data-slot="field-label-suffix"
+      >
+        (optional)
+      </span>
     </span>
     <span
       aria-hidden="true"
@@ -60,43 +64,59 @@ exports[`FieldLabel > Snapshots > matches snapshot for a composed label row 1`] 
 
 exports[`FieldLabel > Snapshots > matches snapshot for basic label 1`] = `
 <label
-  class="text-ws-static-strong typography-label-strong-sm gap-ws-3 inline-flex min-w-0 flex-wrap items-center break-words"
+  class="text-ws-static-strong typography-label-strong-sm gap-ws-3 inline-flex min-w-0 flex-wrap items-center"
   data-slot="field-label"
 >
-  Test Label
+  <span
+    class="min-w-0 break-words"
+  >
+    Test Label
+  </span>
 </label>
 `;
 
 exports[`FieldLabel > Snapshots > matches snapshot for label with long text 1`] = `
 <label
-  class="text-ws-static-strong typography-label-strong-sm gap-ws-3 inline-flex min-w-0 flex-wrap items-center break-words"
+  class="text-ws-static-strong typography-label-strong-sm gap-ws-3 inline-flex min-w-0 flex-wrap items-center"
   data-slot="field-label"
 >
-  This is a very long label text that should wrap properly when it exceeds the available width
+  <span
+    class="min-w-0 break-words"
+  >
+    This is a very long label text that should wrap properly when it exceeds the available width
+  </span>
 </label>
 `;
 
 exports[`FieldLabel > Snapshots > matches snapshot for label with suffix 1`] = `
 <label
-  class="text-ws-static-strong typography-label-strong-sm gap-ws-3 inline-flex min-w-0 flex-wrap items-center break-words"
+  class="text-ws-static-strong typography-label-strong-sm gap-ws-3 inline-flex min-w-0 flex-wrap items-center"
   data-slot="field-label"
 >
-  Test Label 
   <span
-    class="text-ws-static-subtle typography-label-sm shrink-0"
-    data-slot="field-label-suffix"
+    class="min-w-0 break-words"
   >
-    (optional)
+    Test Label 
+    <span
+      class="text-ws-static-subtle typography-label-sm shrink-0"
+      data-slot="field-label-suffix"
+    >
+      (optional)
+    </span>
   </span>
 </label>
 `;
 
 exports[`FieldLabel > Snapshots > matches snapshot for required label 1`] = `
 <label
-  class="text-ws-static-strong typography-label-strong-sm gap-ws-3 inline-flex min-w-0 flex-wrap items-center break-words"
+  class="text-ws-static-strong typography-label-strong-sm gap-ws-3 inline-flex min-w-0 flex-wrap items-center"
   data-slot="field-label"
 >
-  Test Label
+  <span
+    class="min-w-0 break-words"
+  >
+    Test Label
+  </span>
   <span
     aria-hidden="true"
     class="text-ws-semantic-negative typography-label-sm shrink-0"

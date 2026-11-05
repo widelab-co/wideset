@@ -248,4 +248,35 @@ describe('FieldLabel', () => {
       expect(container.firstChild).toMatchSnapshot();
     });
   });
+
+  describe('deprecated props', () => {
+    it('renders the parts from the old props, with the button outside the label', () => {
+      const { container } = render(
+        <FieldLabel
+          htmlFor="email"
+          suffix="(optional)"
+          tooltip="Help"
+          tooltipAriaLabel="About email"
+          aside="0/100"
+          description="Hint"
+        >
+          Email
+        </FieldLabel>,
+      );
+
+      const label = container.querySelector('[data-slot="field-label"]');
+      expect(label).toContainElement(screen.getByText('(optional)'));
+      expect(screen.getByRole('button', { name: 'About email' }).closest('label')).toBeNull();
+      expect(container.querySelector('[data-slot="field-label-aside"]')).toHaveTextContent('0/100');
+      expect(container.querySelector('[data-slot="field-label-description"]')).toHaveTextContent(
+        'Hint',
+      );
+    });
+
+    it('does not pass the old props to the label as attributes', () => {
+      render(<FieldLabel tooltip="Help">Email</FieldLabel>);
+
+      expect(screen.getByText('Email').closest('label')).not.toHaveAttribute('tooltip');
+    });
+  });
 });
