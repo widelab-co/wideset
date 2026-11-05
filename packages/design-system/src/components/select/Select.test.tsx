@@ -294,6 +294,41 @@ describe('Select', () => {
     });
   });
 
+  // Ghost reads as a value, not a boxed control (an issue's properties, a table cell).
+  describe('Ghost preset', () => {
+    const withPrefix = [
+      { label: 'Marek Zieliński', value: 'marek', prefix: <Avatar size="xs" initials="MZ" /> },
+    ];
+    const arrowOf = (trigger: HTMLElement) => trigger.querySelector('svg[aria-hidden="true"]');
+
+    it('hides the arrow until the trigger is hovered, focused or open', () => {
+      render(
+        <Select options={withPrefix} defaultValue="marek" preset="ghost" aria-label="Owner" />,
+      );
+      const arrow = arrowOf(screen.getByRole('combobox', { name: 'Owner' }));
+      expect(arrow).toHaveClass(
+        'opacity-0',
+        'group-hover/select-trigger:not-data-[disabled=true]:opacity-100',
+        'group-focus-visible/select-trigger:opacity-100',
+        'group-data-[state=open]/select-trigger:opacity-100',
+        'pointer-coarse:opacity-100',
+      );
+    });
+
+    it('keeps the arrow visible on a bordered field', () => {
+      render(<Select options={withPrefix} defaultValue="marek" aria-label="Owner" />);
+      expect(arrowOf(screen.getByRole('combobox', { name: 'Owner' }))).not.toHaveClass('opacity-0');
+    });
+
+    it('draws no divider after the prefix', () => {
+      render(
+        <Select options={withPrefix} defaultValue="marek" preset="ghost" aria-label="Owner" />,
+      );
+      const prefix = screen.getByText('MZ').closest('div');
+      expect(prefix).toHaveClass('border-r-0');
+    });
+  });
+
   // A field reads left to right on one line: a <button> centres and wraps by default, so a long
   // value next to a prefix once broke onto two centred lines.
   describe('Long values', () => {

@@ -176,7 +176,7 @@ export const Select = ({
           a field never wraps to a second line. */}
       <div className={cn('flex min-w-0 flex-1 items-center', hasPrefix && 'h-full')}>
         {hasPrefix && (
-          <div className={cn(selectValuePrefixVariants({ size }))} data-disabled={disabled}>
+          <div className={cn(selectValuePrefixVariants({ size, preset }))} data-disabled={disabled}>
             {selectedOption?.prefix}
           </div>
         )}
