@@ -80,6 +80,33 @@ describe('Sidebar', () => {
         expect(footer).toHaveClass('mt-auto', 'w-full', 'shrink-0');
       });
 
+      // A tree once came out with a hand-drawn guide line; Figma's Level 1 is indent only.
+      const renderNested = (collapsed = false) =>
+        render(
+          <Sidebar collapsed={collapsed}>
+            <Sidebar.Section>
+              <Sidebar.Expanded>
+                <Sidebar.Item href="#" label="Important" nested />
+              </Sidebar.Expanded>
+              <Sidebar.Collapsed>
+                <Sidebar.Item href="#" label="Important" nested />
+              </Sidebar.Collapsed>
+            </Sidebar.Section>
+          </Sidebar>,
+        );
+
+      it('indents a nested item so its icon starts under the parent label', () => {
+        renderNested();
+        expect(screen.getByRole('link', { name: 'Important' })).toHaveClass(
+          'pl-[calc(var(--spacing-ws-5)*2+var(--spacing-ws-10))]',
+        );
+      });
+
+      it('lines a nested item up with the rest when collapsed', () => {
+        renderNested(true);
+        expect(screen.getByRole('link', { name: 'Important' }).className).not.toMatch(/pl-\[/);
+      });
+
       it('should apply custom className', () => {
         const { container } = render(
           <Sidebar className="custom-class">

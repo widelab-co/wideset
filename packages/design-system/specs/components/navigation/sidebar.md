@@ -94,6 +94,9 @@ The root fills its parent's height; place it in a full-height flex row next to t
   in line with every other suffix. Never position it yourself.
 - What sits at the bottom (an invite button, the account switcher) goes in `Sidebar.Footer`, which
   keeps the sections' inset so its edges line up with theirs.
+- A child page under an item (pages inside "Pages") is `nested`: indented so its icon starts under
+  the parent's label, one level deep, with its own icon. The indent is the whole cue: never draw a
+  guide line or add margins to build a tree.
 - Items that belong together under a name (a team, a workspace) go in `Sidebar.Group label="…"`.
   The heading is text only and lines up with the item icons; collapsed, it is hidden and still
   names the group for screen readers.
@@ -125,6 +128,12 @@ The root fills its parent's height; place it in a full-height flex row next to t
 
 // Don't: a hand-made heading with its own icon; it falls out of line with the items
 <div className="flex items-center gap-ws-3"><RiTeamLine /> Core team</div>
+
+// Do: one level of children, indented by the item itself
+<Sidebar.Item href="/pages/important" icon={RiFileTextLine} label="Important" nested />
+
+// Don't: a hand-made tree with a guide line
+<div className="ml-ws-9 border-l pl-ws-3"><Sidebar.Item … /></div>
 
 // Do: a count on the row's edge
 <Sidebar.Item href="/inbox" icon={RiInboxLine} label="Inbox" suffix={3} />

@@ -25,8 +25,18 @@ export const sidebarItemVariants = cva(
         true: 'h-ws-15 justify-center px-0',
         false: 'h-ws-14',
       },
+      nested: { true: '', false: '' },
     },
-    defaultVariants: { active: false, collapsed: false },
+    compoundVariants: [
+      // Figma Sidebar Item `Nesting=Level 1`: the child's icon starts under the parent's label
+      // (item padding + icon + gap), so the tree reads by indent alone, with no guide line.
+      {
+        nested: true,
+        collapsed: false,
+        class: 'pl-[calc(var(--spacing-ws-5)*2+var(--spacing-ws-10))]',
+      },
+    ],
+    defaultVariants: { active: false, collapsed: false, nested: false },
   },
 );
 

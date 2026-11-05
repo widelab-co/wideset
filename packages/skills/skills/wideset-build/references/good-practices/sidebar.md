@@ -31,6 +31,12 @@
 // Don't: a hand-made heading with its own icon; it falls out of line with the items
 <div className="flex items-center gap-ws-3"><RiTeamLine /> Core team</div>
 
+// Do: one level of children, indented by the item itself
+<Sidebar.Item href="/pages/important" icon={RiFileTextLine} label="Important" nested />
+
+// Don't: a hand-made tree with a guide line
+<div className="ml-ws-9 border-l pl-ws-3"><Sidebar.Item … /></div>
+
 // Do: a count on the row's edge
 <Sidebar.Item href="/inbox" icon={RiInboxLine} label="Inbox" suffix={3} />
 

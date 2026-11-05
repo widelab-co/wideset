@@ -48,6 +48,12 @@ type SidebarItemBaseProps = Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 
    * since the row is a link. Hidden when the sidebar is collapsed.
    */
   suffix?: React.ReactNode;
+  /**
+   * A child of the item above it (Figma `Nesting=Level 1`), e.g. a page inside "Pages": indented
+   * so its icon starts under the parent's label. One level only; the indent is the whole cue, so
+   * draw no guide line. Collapsed, nested items line up like the rest.
+   */
+  nested?: boolean;
   /** Marks the row as the current page: active styling plus `aria-current="page"`. */
   active?: boolean;
   /** Blocks navigation and applies disabled styling via `aria-disabled`. */

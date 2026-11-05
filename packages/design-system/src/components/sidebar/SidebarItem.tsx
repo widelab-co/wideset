@@ -18,6 +18,7 @@ const SidebarItem = React.forwardRef<HTMLAnchorElement, SidebarItemProps>(
       icon: Icon,
       label,
       suffix,
+      nested = false,
       active = false,
       disabled = false,
       className,
@@ -41,7 +42,7 @@ const SidebarItem = React.forwardRef<HTMLAnchorElement, SidebarItemProps>(
         ref={ref}
         data-slot="sidebar-item"
         className={cn(
-          sidebarItemVariants({ active, collapsed: isCollapsed }),
+          sidebarItemVariants({ active, collapsed: isCollapsed, nested }),
           sidebarItemMotionVariants({ enabled: motion }),
           className,
         )}
