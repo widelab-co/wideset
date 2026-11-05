@@ -1,0 +1,33 @@
+# The integrated site (widelab-co/wideset-core) builds its documentation from this repository's
+# develop branch. Ask it to rebuild after a change that reaches the docs or the library.
+# Needs: secret CORE_DISPATCH_TOKEN (may trigger workflows in widelab-co/wideset-core). Without
+# it the job only warns.
+name: Notify site
+
+on:
+  push:
+    branches: [develop]
+    paths:
+      - 'apps/docs/**'
+      - 'packages/design-system/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Dispatch design-system-updated to wideset-core
+        env:
+          GH_TOKEN: ${{ secrets.CORE_DISPATCH_TOKEN }}
+        run: |
+          if [ -z "$GH_TOKEN" ]; then
+            echo "::warning title=Site not rebuilt::CORE_DISPATCH_TOKEN is not set."
+            exit 0
+          fi
+          gh api repos/widelab-co/wideset-core/dispatches \
+            -f event_type=design-system-updated \
+            -f "client_payload[design_system_ref]=$GITHUB_SHA"
