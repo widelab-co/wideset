@@ -132,6 +132,7 @@ A member such as `Card.Header` comes with `Card`; its named form, `CardHeader`, 
 - `import { Sidebar } from '@/components/ui/wideset/sidebar/Sidebar';`
 - `import { SidebarCollapsed } from '@/components/ui/wideset/sidebar/SidebarCollapsed';`
 - `import { SidebarExpanded } from '@/components/ui/wideset/sidebar/SidebarExpanded';`
+- `import { SidebarFooter } from '@/components/ui/wideset/sidebar/SidebarFooter';`
 - `import { SidebarGroup } from '@/components/ui/wideset/sidebar/SidebarGroup';`
 - `import { SidebarHeader } from '@/components/ui/wideset/sidebar/SidebarHeader';`
 - `import { SidebarItem } from '@/components/ui/wideset/sidebar/SidebarItem';`
@@ -248,7 +249,7 @@ A member such as `Card.Header` comes with `Card`; its named form, `CardHeader`, 
 - `import type { SearchProps } from '@/components/ui/wideset/search/Search.types';`
 - `import type { SegmentedControlIconProps, SegmentedControlItemProps, SegmentedControlProps, SegmentedControlWithSubComponents } from '@/components/ui/wideset/segmented-control/SegmentedControl.types';`
 - `import type { SelectContentProps, SelectGroupProps, SelectItemIndicatorProps, SelectItemTextProps, SelectLabelProps, SelectOptionProps, SelectOptionType, SelectProps, SelectRootProps, SelectScrollDownButtonProps, SelectScrollUpButtonProps, SelectSearchProps, SelectSeparatorProps, SelectTriggerProps, SelectValueProps } from '@/components/ui/wideset/select/Select.types';`
-- `import type { SidebarCollapsedProps, SidebarExpandedProps, SidebarGroupProps, SidebarHeaderProps, SidebarItemProps, SidebarProps, SidebarSectionProps, SidebarTriggerProps } from '@/components/ui/wideset/sidebar/Sidebar.types';`
+- `import type { SidebarCollapsedProps, SidebarExpandedProps, SidebarFooterProps, SidebarGroupProps, SidebarHeaderProps, SidebarItemProps, SidebarProps, SidebarSectionProps, SidebarTriggerProps } from '@/components/ui/wideset/sidebar/Sidebar.types';`
 - `import type { SidepanelActionsProps, SidepanelCloseProps, SidepanelContentProps, SidepanelDescriptionProps, SidepanelFooterProps, SidepanelHeaderProps, SidepanelPanelProps, SidepanelProps, SidepanelTitleProps, SidepanelTriggerProps } from '@/components/ui/wideset/sidepanel/Sidepanel.types';`
 - `import type { SliderLabelProps, SliderProps } from '@/components/ui/wideset/slider/Slider.types';`
 - `import type { StatusBadgeIconProps, StatusBadgeLabelProps, StatusBadgeProps, StatusBadgeWithSubComponents } from '@/components/ui/wideset/status-badge/StatusBadge.types';`

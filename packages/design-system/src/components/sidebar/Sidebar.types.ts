@@ -16,6 +16,9 @@ export type SidebarProps = React.HTMLAttributes<HTMLDivElement> & {
 /** Props for the Sidebar header — the title/branding row. Never scrolls; hidden when empty. */
 export type SidebarHeaderProps = React.HTMLAttributes<HTMLDivElement>;
 
+/** Props for the sidebar's bottom area (invite, account). Pinned to the bottom, never scrolls. */
+export type SidebarFooterProps = React.HTMLAttributes<HTMLDivElement>;
+
 /** Props for a Sidebar section wrapper that groups expanded and collapsed content slots. */
 export type SidebarSectionProps = React.HTMLAttributes<HTMLDivElement> & {
   /** Makes the section fill the remaining height and scroll its overflow inside a `ScrollArea`. */
@@ -40,6 +43,11 @@ type SidebarItemBaseProps = Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 
   icon?: RemixiconComponentType;
   /** Row label. Hidden when the sidebar is collapsed, where it falls back to `aria-label`. */
   label?: React.ReactNode;
+  /**
+   * Trailing content on the row's right edge: a count (`3`) or a `StatusBadge`. Not interactive,
+   * since the row is a link. Hidden when the sidebar is collapsed.
+   */
+  suffix?: React.ReactNode;
   /** Marks the row as the current page: active styling plus `aria-current="page"`. */
   active?: boolean;
   /** Blocks navigation and applies disabled styling via `aria-disabled`. */

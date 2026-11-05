@@ -4,12 +4,15 @@ import { sidebarCollapseMotion } from '../../motion/recipes';
 
 export const sidebarVariants = cva(
   // The app frame sits on the grey canvas; the page beside it (`main`) is the white foreground.
-  'bg-ws-static-background border-ws-static-subtle gap-ws-7 px-ws-5 py-ws-7 relative flex h-full flex-col overflow-hidden border-r',
+  // That contrast is the split: no border, which would stand alone beside an inset page card.
+  'bg-ws-static-background gap-ws-7 pl-ws-5 py-ws-7 relative flex h-full flex-col overflow-hidden',
   {
     variants: {
       collapsed: {
-        true: 'w-[3.25rem] items-center',
-        false: 'w-[16.25rem]',
+        true: 'pr-ws-5 w-[3.25rem] items-center',
+        // The right padding holds a scrollable section's bar (8px + 2px gap), so every part, the
+        // scrolling one included, ends on the same right edge.
+        false: 'pr-ws-6 w-[16.25rem]',
       },
     },
     defaultVariants: { collapsed: false },

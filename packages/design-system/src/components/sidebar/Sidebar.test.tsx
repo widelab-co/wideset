@@ -30,6 +30,56 @@ describe('Sidebar', () => {
         expect(root).not.toHaveClass('bg-ws-static-foreground');
       });
 
+      // The grey frame against the white page is the split; a border stood alone as a stray
+      // line beside an inset page card.
+      it('draws no border of its own', () => {
+        const { container } = render(
+          <Sidebar>
+            <div>Test content</div>
+          </Sidebar>,
+        );
+        expect(container.querySelector('[data-slot="sidebar"]')?.className).not.toMatch(
+          /\bborder(-r)?\b/,
+        );
+      });
+    });
+
+    describe('Sidebar.Item suffix and Sidebar.Footer', () => {
+      const renderNav = (collapsed = false) =>
+        render(
+          <Sidebar collapsed={collapsed}>
+            <Sidebar.Section>
+              <Sidebar.Expanded>
+                <Sidebar.Item href="#" label="Inbox" suffix="3" />
+              </Sidebar.Expanded>
+              <Sidebar.Collapsed>
+                <Sidebar.Item href="#" label="Inbox" suffix="3" />
+              </Sidebar.Collapsed>
+            </Sidebar.Section>
+            <Sidebar.Footer data-testid="footer">Account</Sidebar.Footer>
+          </Sidebar>,
+        );
+
+      it('puts the suffix on the row edge, after a label that takes the rest', () => {
+        renderNav();
+        const suffix = screen.getByText('3');
+        expect(suffix).toHaveAttribute('data-slot', 'sidebar-item-suffix');
+        expect(suffix).toHaveClass('shrink-0', 'text-ws-static-subtle');
+        expect(screen.getByText('Inbox')).toHaveClass('flex-1', 'truncate');
+      });
+
+      it('hides the suffix when collapsed', () => {
+        renderNav(true);
+        expect(screen.queryByText('3')).not.toBeInTheDocument();
+      });
+
+      it('pins the footer to the bottom with the section inset', () => {
+        renderNav();
+        const footer = screen.getByTestId('footer');
+        expect(footer).toHaveAttribute('data-slot', 'sidebar-footer');
+        expect(footer).toHaveClass('mt-auto', 'w-full', 'shrink-0');
+      });
+
       it('should apply custom className', () => {
         const { container } = render(
           <Sidebar className="custom-class">
