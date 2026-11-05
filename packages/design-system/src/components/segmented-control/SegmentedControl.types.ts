@@ -27,7 +27,7 @@ export type SegmentedControlContextValue = {
   motion: boolean;
 };
 
-/** A group of mutually exclusive toggle options. */
+/** A group of mutually exclusive radio options. */
 export type SegmentedControlProps = {
   /** Controls the height and padding of the control and its items. */
   size?: SegmentedControlSize;

@@ -745,6 +745,56 @@ describe('SegmentedControl', () => {
     });
   });
 
+  describe('Forms', () => {
+    it('submits the selected value and bubbles clicks from radio inputs instead of item buttons', async () => {
+      const user = userEvent.setup();
+      const onFormClick = vi.fn();
+
+      render(
+        // Observe bubbled React events; the form is not an interactive click target.
+        // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
+        <form aria-label="View settings" onClick={(event) => onFormClick(event.target)}>
+          <SegmentedControl name="view" defaultValue="list" aria-label="View">
+            <SegmentedControl.Item value="list">List</SegmentedControl.Item>
+            <SegmentedControl.Item value="grid">Grid</SegmentedControl.Item>
+          </SegmentedControl>
+        </form>,
+      );
+
+      const form = screen.getByRole('form', { name: 'View settings' }) as HTMLFormElement;
+      const list = screen.getByRole('radio', { name: 'List' });
+      const grid = screen.getByRole('radio', { name: 'Grid' });
+      const expectRadioInputClicks = () => {
+        expect(onFormClick).toHaveBeenCalled();
+        for (const [target] of onFormClick.mock.calls) {
+          expect(target).toBeInstanceOf(HTMLInputElement);
+          expect(target).toHaveAttribute('type', 'radio');
+          expect(target).toHaveAttribute('name', 'view');
+        }
+      };
+
+      expect(new FormData(form).getAll('view')).toEqual(['list']);
+
+      await user.click(grid);
+      expect(grid).toBeChecked();
+      expect(list).not.toBeChecked();
+      expect(new FormData(form).getAll('view')).toEqual(['grid']);
+      expectRadioInputClicks();
+
+      onFormClick.mockClear();
+      await user.keyboard('[ArrowLeft>]');
+      await waitFor(() => {
+        expect(list).toHaveFocus();
+        expect(list).toBeChecked();
+        expect(grid).not.toBeChecked();
+      });
+      await user.keyboard('[/ArrowLeft]');
+
+      expect(new FormData(form).getAll('view')).toEqual(['list']);
+      expectRadioInputClicks();
+    });
+  });
+
   describe('Keyboard', () => {
     it('supports Tab/Shift + Tab to change focus when no items are checked', async () => {
       const user = userEvent.setup();
@@ -865,6 +915,41 @@ describe('SegmentedControl', () => {
         });
         await user.keyboard(`{/${key}}`);
       }
+    });
+
+    it('enables the pill transition when arrow navigation changes selection', async () => {
+      const user = userEvent.setup();
+
+      render(
+        <SegmentedControl defaultValue="list" defaultMotion>
+          <SegmentedControl.Item value="list">List</SegmentedControl.Item>
+          <SegmentedControl.Item value="grid">Grid</SegmentedControl.Item>
+        </SegmentedControl>,
+      );
+
+      const grid = screen.getByRole('radio', { name: 'Grid' });
+      // JSDOM has no layout; give the destination a distinct position and size.
+      Object.defineProperties(grid, {
+        offsetLeft: { value: 100 },
+        offsetWidth: { value: 120 },
+        offsetHeight: { value: 32 },
+      });
+      const pill = screen.getByRole('radiogroup').querySelector(':scope > span[aria-hidden]');
+      expect(pill).toBeInTheDocument();
+      expect(pill).not.toHaveClass('transition-[transform,width,height,opacity]');
+
+      await user.tab();
+      await user.keyboard('[ArrowRight>]');
+      await waitFor(() => {
+        expect(grid).toHaveFocus();
+        expect(grid).toBeChecked();
+        expect(pill).toHaveStyle({ transform: 'translate(100px, 0px)', width: '120px' });
+        expect(pill).toHaveClass(
+          'transition-[transform,width,height,opacity]',
+          'duration-(--ws-motion-duration-fast)',
+        );
+      });
+      await user.keyboard('[/ArrowRight]');
     });
   });
 });

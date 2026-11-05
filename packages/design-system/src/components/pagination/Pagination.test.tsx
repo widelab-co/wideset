@@ -177,6 +177,48 @@ describe('Pagination', () => {
         await waitFor(() => expect(screen.getByRole('button', { name: '9' })).toHaveFocus());
       });
 
+      it.each([
+        { moveFocusAway: false, expectedFocus: 'selected page' },
+        { moveFocusAway: true, expectedFocus: 'other control' },
+      ])(
+        'keeps focus on the $expectedFocus after a delayed controlled page update',
+        async ({ moveFocusAway }) => {
+          const user = userEvent.setup();
+          const onChangeActivePage = vi.fn();
+          const content = (activePage: number) => (
+            <>
+              <Pagination
+                pagesCount={10}
+                activePage={activePage}
+                onChangeActivePage={onChangeActivePage}
+                maxVisiblePages={5}
+              />
+              <button type="button">After pagination</button>
+            </>
+          );
+          const { rerender } = render(content(1));
+
+          const trigger = screen.getByRole('combobox', { name: 'Select page between 5 and 9' });
+          await user.click(trigger);
+          await user.click(screen.getByRole('option', { name: '9' }));
+
+          expect(onChangeActivePage).toHaveBeenCalledExactlyOnceWith(9);
+          expect(screen.getByRole('button', { name: '1' })).toHaveAttribute('aria-current', 'page');
+          expect(screen.queryByRole('button', { name: '9' })).not.toBeInTheDocument();
+          await waitFor(() => expect(trigger).toHaveFocus());
+
+          const after = screen.getByRole('button', { name: 'After pagination' });
+          if (moveFocusAway) await user.click(after);
+
+          // The parent applies the requested page after the menu has already closed.
+          rerender(content(9));
+
+          const selectedPage = screen.getByRole('button', { name: '9' });
+          expect(selectedPage).toHaveAttribute('aria-current', 'page');
+          expect(moveFocusAway ? after : selectedPage).toHaveFocus();
+        },
+      );
+
       it.each([5, 9])(
         'moves focus to page %i after pointer selection from the ellipsis',
         async (page) => {

@@ -81,8 +81,9 @@ Match `size` to the controls beside it.
 
 - Each icon-only item needs `aria-label` or `aria-labelledby`; the item warns in the console
   without one.
-- The control is one tab stop; the arrow keys move between segments. Segments are announced as
-  radio options.
+- The control is one tab stop. Arrow keys move focus and select a segment; Space selects the
+  focused segment. Enter does not select. Segments are announced as radio options.
+- Home and End move focus to the first or last enabled segment without changing selection.
 - Name the control (`aria-label`) when no visible heading says what it switches.
 
 ## Do / Don't
