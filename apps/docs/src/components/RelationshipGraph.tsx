@@ -391,7 +391,8 @@ function GraphCanvas({ graph, current, pages, mode, width, height }: CanvasProps
       className="block touch-none text-ws-static-subtle select-none"
       style={{ cursor: panning ? 'grabbing' : 'grab' }}
       aria-label={`Components related to ${titles.get(current) ?? current}`}
-      role="img"
+      // A group, not an image: its nodes are links (named by their <title>) a keyboard reaches.
+      role="group"
       onPointerDown={startPan}
       onDoubleClick={() => setView({ z: 1, tx: 0, ty: 0 })}
     >
