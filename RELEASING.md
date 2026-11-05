@@ -60,7 +60,7 @@ A breaking change does **not** automatically mean a major release. Component-lev
 
 ### When a changeset is required
 
-The rule is mechanical, by file path. A branch needs a changeset when it changes a file that **ships**: anything under `packages/design-system/src/` or `packages/design-system/cli/` except
+The rule is mechanical, by file path. A branch needs a changeset when it changes a file that **ships**: anything under `packages/design-system/src/` or `packages/cli/src/` except
 
 - stories (`*.stories.tsx`), tests (`*.test.ts(x)`, `__tests__/`), snapshots (`__snapshots__/`, `*.snap`)
 - Figma specs (`*.figma-spec.json`)

@@ -4,7 +4,7 @@ This project builds UI with the Wideset design system, version <!-- generated:ve
 
 ## First
 
-Find out how this project consumes Wideset. With `@wideset/react` in `package.json` (mode `npm`) import from it, and `npx --no-install wideset info --json` reports the version and setup. With `components/ui/wideset/` in the source (mode `registry`) import from `@/components/ui/wideset/...`. Always pass `--no-install`: without it, npx fetches the name from the public registry.
+Find out how this project consumes Wideset. With `@wideset/react` in `package.json` (mode `npm`) import from it, and `npx wideset info --json` reports the version and setup. With `components/ui/wideset/` in the source (mode `registry`) import from `@/components/ui/wideset/...`.
 
 Before writing UI, load the `wideset-build` skill. Its specs say which component fits and what breaks without an error; component source says only what props exist. Before using a component, read its file, listed in the skill's `references/good-practices.md`.
 

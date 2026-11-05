@@ -37,7 +37,7 @@ CI runs lint, Prettier, typecheck, build, tests and a Storybook build on every P
 
 1. Fork the repository and branch from `develop`: `<type>/<description>`, e.g.
    `fix/select-aria-label`. `type` is `feature`, `fix` or `chore`. Never target `main`.
-2. If you changed a file that ships (`packages/design-system/src/` or `cli/`, minus stories, tests,
+2. If you changed a file that ships (`packages/design-system/src/` or `packages/cli/src/`, minus stories, tests,
    snapshots, Figma specs and docs pages), add a changeset: `pnpm changeset`. One consumer-facing
    line, correct semver bump. Shipping change with nothing to release: `pnpm changeset --empty`,
    reason in the body. The pre-push hook and CI refuse a branch without one

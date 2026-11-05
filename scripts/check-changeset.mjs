@@ -4,7 +4,7 @@
 //
 //   node scripts/check-changeset.mjs <base> [head]     e.g. origin/develop HEAD
 //
-// "Ships to consumers" = a file under packages/design-system/src/ or packages/design-system/cli/
+// "Ships to consumers" = a file under packages/design-system/src/ or packages/cli/src/ (the CLI)
 // that is not a story, test, snapshot, Figma spec or docs page (those never reach dist/ or the
 // registry), or the consumer skills in packages/skills, Markdown included: that is their content.
 // Anything else (CI, docs/, scripts, tooling, contributor skills in .agents/) is internal and
@@ -21,7 +21,7 @@ if (!base) {
   process.exit(2);
 }
 
-const SHIPPING = /^packages\/design-system\/(src|cli)\//;
+const SHIPPING = /^packages\/(design-system|cli)\/src\//;
 const SHIPPING_SKILLS =
   /^packages\/skills\/(skills\/|agents\/|cursor\/|AGENTS\.wideset\.md$|\.claude-plugin\/)/;
 const NOT_SHIPPING = [
