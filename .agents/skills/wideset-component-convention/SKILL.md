@@ -109,6 +109,10 @@ Check each refactored component for:
       `min-w-0 flex-1 truncate` in a `min-w-0` flex row: a `<button>` centres and wraps its text
       by default, so a long value next to a prefix breaks onto two centred lines. Its test renders
       a long value with and without a prefix (see `Select.test.tsx` › Long values).
+- [ ] A popup whose trigger changes width while it is open (a summary such as "Design, +3") must
+      not move with it: anchor it to the trigger as it was when it opened, pinned to the edge
+      that stays (see `FilterButton.logic.ts` › `frozenAnchor`). A list sliding under the
+      pointer makes the next click land on the wrong option.
 - [ ] ESLint + Prettier rules followed
 
 #### Icons
