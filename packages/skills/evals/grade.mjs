@@ -278,7 +278,7 @@ export function checkCraft(source) {
   return problems;
 }
 
-/** Each required name must be imported from Wideset, by either consumption mode. */
+/** Each required name is imported from Wideset. `A|B` accepts either; a hook (`useToast`) counts. */
 export function checkRequired(sources, required) {
   const imported = new Set();
   for (const source of sources)
@@ -292,7 +292,10 @@ export function checkRequired(sources, required) {
             .replace(/^type\s+/, '')
             .split(/\s+as\s+/)[0],
         );
-  return required.filter((name) => !imported.has(name)).map((name) => `does not use ${name}`);
+  const used = (name) => imported.has(name) || imported.has(`use${name}`);
+  return required
+    .filter((entry) => !entry.split('|').some(used))
+    .map((entry) => `does not use ${entry.replace('|', ' or ')}`);
 }
 
 /*

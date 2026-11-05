@@ -212,7 +212,9 @@ describe('Tooltip', () => {
 
       await user.tab();
       expect(trigger).toHaveFocus();
-      expect(screen.getByRole('tooltip', { name: 'Tooltip content' })).toBeInTheDocument();
+      await waitFor(() => {
+        expect(screen.getByRole('tooltip', { name: 'Tooltip content' })).toBeInTheDocument();
+      });
 
       await user.tab();
       expect(afterButton).toHaveFocus();
