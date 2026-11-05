@@ -9,13 +9,18 @@ exports[`FormField Snapshots > matches snapshot for default form field 1`] = `
     class=""
   >
     <div
-      class="gap-ws-3 flex flex-wrap items-center"
+      class="gap-ws-3 flex items-start"
+      data-slot="form-field-label-row"
     >
       <label
-        class="text-ws-static-strong typography-label-strong-sm gap-ws-3 inline-flex min-w-0 flex-wrap items-center break-words"
+        class="text-ws-static-strong typography-label-strong-sm gap-ws-3 inline-flex min-w-0 flex-wrap items-center"
         data-slot="field-label"
       >
-        Label
+        <span
+          class="min-w-0 break-words"
+        >
+          Label
+        </span>
       </label>
     </div>
   </div>
@@ -23,14 +28,14 @@ exports[`FormField Snapshots > matches snapshot for default form field 1`] = `
     class="gap-ws-4 flex flex-col"
   >
     <div
-      aria-describedby="_r_m_"
+      aria-describedby="_r_o_"
     >
       Child
     </div>
     <span
       class="typography-body-sm gap-ws-3 py-ws-3 flex items-center text-ws-static-subtle"
       data-slot="helper-text"
-      id="_r_m_"
+      id="_r_o_"
     >
       Help
     </span>
@@ -47,19 +52,24 @@ exports[`FormField Snapshots > matches snapshot for horizontal variant 1`] = `
     class="gap-ws-4 flex w-full max-w-[10rem] shrink-0 flex-col"
   >
     <div
-      class="gap-ws-3 flex flex-wrap items-center"
+      class="gap-ws-3 flex items-start"
+      data-slot="form-field-label-row"
     >
       <label
-        class="text-ws-static-strong typography-label-strong-sm gap-ws-3 inline-flex min-w-0 flex-wrap items-center break-words"
+        class="text-ws-static-strong typography-label-strong-sm gap-ws-3 inline-flex min-w-0 flex-wrap items-center"
         data-slot="field-label"
       >
-        Label
+        <span
+          class="min-w-0 break-words"
+        >
+          Label
+        </span>
       </label>
     </div>
     <span
       class="typography-body-sm gap-ws-3 py-ws-3 flex items-center text-ws-static-subtle"
       data-slot="helper-text"
-      id="_r_n_"
+      id="_r_p_"
     >
       Description
     </span>
@@ -68,7 +78,7 @@ exports[`FormField Snapshots > matches snapshot for horizontal variant 1`] = `
     class="gap-ws-4 flex flex-col min-w-0 flex-1"
   >
     <div
-      aria-describedby="_r_n_"
+      aria-describedby="_r_p_"
     >
       Child
     </div>
@@ -85,13 +95,18 @@ exports[`FormField Snapshots > matches snapshot with error and icon 1`] = `
     class=""
   >
     <div
-      class="gap-ws-3 flex flex-wrap items-center"
+      class="gap-ws-3 flex items-start"
+      data-slot="form-field-label-row"
     >
       <label
-        class="text-ws-static-strong typography-label-strong-sm gap-ws-3 inline-flex min-w-0 flex-wrap items-center break-words"
+        class="text-ws-static-strong typography-label-strong-sm gap-ws-3 inline-flex min-w-0 flex-wrap items-center"
         data-slot="field-label"
       >
-        Email
+        <span
+          class="min-w-0 break-words"
+        >
+          Email
+        </span>
       </label>
     </div>
   </div>
@@ -99,7 +114,7 @@ exports[`FormField Snapshots > matches snapshot with error and icon 1`] = `
     class="gap-ws-4 flex flex-col"
   >
     <div
-      aria-describedby="_r_p_"
+      aria-describedby="_r_r_"
       aria-invalid="true"
     >
       Child
@@ -107,7 +122,7 @@ exports[`FormField Snapshots > matches snapshot with error and icon 1`] = `
     <span
       class="typography-body-sm gap-ws-3 py-ws-3 flex items-center text-ws-semantic-negative"
       data-slot="helper-text"
-      id="_r_p_"
+      id="_r_r_"
       role="alert"
     >
       <svg
@@ -139,13 +154,18 @@ exports[`FormField Snapshots > matches snapshot with fieldset 1`] = `
     class=""
   >
     <div
-      class="gap-ws-3 flex flex-wrap items-center"
+      class="gap-ws-3 flex items-start"
+      data-slot="form-field-label-row"
     >
       <label
-        class="text-ws-static-strong typography-label-strong-sm gap-ws-3 inline-flex min-w-0 flex-wrap items-center break-words"
+        class="text-ws-static-strong typography-label-strong-sm gap-ws-3 inline-flex min-w-0 flex-wrap items-center"
         data-slot="field-label"
       >
-        Label
+        <span
+          class="min-w-0 break-words"
+        >
+          Label
+        </span>
       </label>
     </div>
   </div>

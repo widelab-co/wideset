@@ -11,6 +11,8 @@ import {
   formFieldVariants,
 } from './FormField.variants';
 
+const hasContent = (node: React.ReactNode) => node != null && node !== false && node !== '';
+
 export const FormField = React.forwardRef<HTMLDivElement | HTMLFieldSetElement, FormFieldProps>(
   (
     {
@@ -64,7 +66,7 @@ export const FormField = React.forwardRef<HTMLDivElement | HTMLFieldSetElement, 
     const content = (
       <>
         <div className={formFieldLabelVariants({ variant })}>
-          <div className={formFieldLabelRowVariants()}>
+          <div data-slot="form-field-label-row" className={formFieldLabelRowVariants()}>
             <FieldLabel {...props}>
               {label}
               {suffix && (
@@ -74,10 +76,10 @@ export const FormField = React.forwardRef<HTMLDivElement | HTMLFieldSetElement, 
                 </>
               )}
             </FieldLabel>
-            {tooltip && (
+            {hasContent(tooltip) && (
               <FieldLabel.Tooltip aria-label={tooltipAriaLabel}>{tooltip}</FieldLabel.Tooltip>
             )}
-            {aside && <FieldLabel.Aside>{aside}</FieldLabel.Aside>}
+            {hasContent(aside) && <FieldLabel.Aside>{aside}</FieldLabel.Aside>}
           </div>
           {variant === 'horizontal' && helperTextComponent}
         </div>

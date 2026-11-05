@@ -24,7 +24,7 @@ export const formFieldLabelVariants = cva('', {
   },
 });
 
-export const formFieldLabelRowVariants = cva('gap-ws-3 flex flex-wrap items-center');
+export const formFieldLabelRowVariants = cva('gap-ws-3 flex items-start');
 
 // Figma stacks FormField's parts with Gap/4; the helper text adds its own Gap/3 padding on top.
 export const formFieldContentVariants = cva('gap-ws-4 flex flex-col', {

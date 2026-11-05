@@ -7,6 +7,12 @@ const meta = {
   title: 'Helper Components/FieldLabel',
   tags: ['autodocs'],
   component: FieldLabel,
+  subcomponents: {
+    'FieldLabel.Suffix': FieldLabel.Suffix,
+    'FieldLabel.Tooltip': FieldLabel.Tooltip,
+    'FieldLabel.Aside': FieldLabel.Aside,
+    'FieldLabel.Description': FieldLabel.Description,
+  },
   parameters: {
     docs: {
       description: {
@@ -48,7 +54,7 @@ export const Default: Story = {
 };
 
 export const Required: Story = {
-  render: () => <FieldLabel required>Required Field</FieldLabel>,
+  args: { required: true, children: 'Required Field' },
 };
 
 export const WithSuffix: Story = {

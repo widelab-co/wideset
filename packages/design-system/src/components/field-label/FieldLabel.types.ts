@@ -17,6 +17,16 @@ export type FieldLabelProps = LabelHTMLAttributes<HTMLLabelElement> & {
   children?: ReactNode;
   /** Draws the asterisk (`aria-hidden`). Set `required` on the control as well. */
   required?: boolean;
+  /** @deprecated Use `FieldLabel.Suffix` inside the label. */
+  suffix?: ReactNode;
+  /** @deprecated Use `FieldLabel.Tooltip` next to the label. */
+  tooltip?: ReactNode;
+  /** @deprecated Set `aria-label` on `FieldLabel.Tooltip`. */
+  tooltipAriaLabel?: string;
+  /** @deprecated Use `FieldLabel.Aside` next to the label. */
+  aside?: ReactNode;
+  /** @deprecated Use `FieldLabel.Description` next to the label. */
+  description?: ReactNode;
 };
 
 export type FieldLabelSuffixProps = HTMLAttributes<HTMLSpanElement>;
