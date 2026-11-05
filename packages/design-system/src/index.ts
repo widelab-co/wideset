@@ -454,6 +454,7 @@ export type {
   SelectionMode,
   SortDirection,
   TableBodyProps,
+  TableCellDescriptionProps,
   TableCellProps,
   TableFootProps,
   TableHeaderProps,
@@ -463,6 +464,7 @@ export type {
 } from './components/table/Table.types';
 export { TableBody } from './components/table/TableBody';
 export { TableCell } from './components/table/TableCell';
+export { TableCellDescription } from './components/table/TableCellDescription';
 export { TableFoot } from './components/table/TableFoot';
 export { TableHead } from './components/table/TableHead';
 export { TableHeader } from './components/table/TableHeader';
