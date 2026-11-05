@@ -5,7 +5,8 @@ import { hoverTintMotion, pressMotion } from '../../motion/recipes';
 
 export const selectTriggerVariants = cva(
   cn(
-    'text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden outline-hidden',
+    // A <button> centres and wraps its text by default; a field reads left to right on one line.
+    'text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden text-left whitespace-nowrap outline-hidden',
     'data-[placeholder]:text-ws-static-subtle',
     'data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default',
     'data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle',

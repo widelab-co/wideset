@@ -22,6 +22,22 @@ describe('FilterButton', () => {
     { label: 'Canada', value: 'canada', disabled: true },
   ];
 
+  describe('Long values', () => {
+    it('cuts a long selected value with an ellipsis instead of clipping it', () => {
+      render(
+        <FilterButton
+          options={[{ label: 'Marek Zieliński from the platform team', value: 'marek' }]}
+          defaultValue={['marek']}
+          onChange={() => {}}
+        />,
+      );
+      expect(screen.getByText('Marek Zieliński from the platform team')).toHaveClass(
+        'truncate',
+        'min-w-0',
+      );
+    });
+  });
+
   describe('Basic rendering', () => {
     it('renders placeholder when empty', () => {
       render(<FilterButton options={options} defaultValue={[]} onChange={() => {}} />);

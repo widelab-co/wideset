@@ -104,6 +104,11 @@ Check each refactored component for:
 - [ ] Uses design tokens (e.g. `text-ws-static-strong`), no magic values like `text-gray-900`.
       A Figma value without a token is reported to design, not hardcoded.
 - [ ] Long classNames split into logical groups
+- [ ] A field or trigger that shows a value on one line (Select, FilterButton, DatePicker, any
+      `<button>` holding text) is `text-left whitespace-nowrap`, and the value is
+      `min-w-0 flex-1 truncate` in a `min-w-0` flex row: a `<button>` centres and wraps its text
+      by default, so a long value next to a prefix breaks onto two centred lines. Its test renders
+      a long value with and without a prefix (see `Select.test.tsx` › Long values).
 - [ ] ESLint + Prettier rules followed
 
 #### Icons
@@ -127,6 +132,8 @@ Check each refactored component for:
 - [ ] Snapshot test present and snapshot committed under `__snapshots__/`
 - [ ] One aspect per `it` (don't mix render + interaction assertions)
 - [ ] Rest-props spread is verified (e.g. `data-*`, `aria-*`, `className` merging onto the root element)
+- [ ] A component that shows user text in a fixed width has a long-value test: it truncates
+      with an ellipsis on one line, never wraps or clips.
 - [ ] Imports: `describe, expect, it, vi` from `vitest` (not `@jest/globals`)
 
 #### Exports (`src/index.ts`)

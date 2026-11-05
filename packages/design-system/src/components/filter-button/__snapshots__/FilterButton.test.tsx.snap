@@ -20,7 +20,7 @@ exports[`FilterButton Snapshots > Custom props > matches snapshot with custom la
         Items
       </span>
       <span
-        class="text-ws-dynamic-primary-default typography-label-strong-sm"
+        class="min-w-0 truncate text-ws-dynamic-primary-default typography-label-strong-sm"
       >
         Option 1
       </span>
@@ -330,7 +330,7 @@ exports[`FilterButton Snapshots > Selected state > matches snapshot for size lg 
         Filter
       </span>
       <span
-        class="text-ws-dynamic-primary-default typography-label-strong-md"
+        class="min-w-0 truncate text-ws-dynamic-primary-default typography-label-strong-md"
       >
         Option 1, +1
       </span>
@@ -385,7 +385,7 @@ exports[`FilterButton Snapshots > Selected state > matches snapshot for size lg 
         Filter
       </span>
       <span
-        class="text-ws-dynamic-primary-default typography-label-strong-md"
+        class="min-w-0 truncate text-ws-dynamic-primary-default typography-label-strong-md"
       >
         Option 1
       </span>
@@ -440,7 +440,7 @@ exports[`FilterButton Snapshots > Selected state > matches snapshot for size md 
         Filter
       </span>
       <span
-        class="text-ws-dynamic-primary-default typography-label-strong-md"
+        class="min-w-0 truncate text-ws-dynamic-primary-default typography-label-strong-md"
       >
         Option 1, +1
       </span>
@@ -495,7 +495,7 @@ exports[`FilterButton Snapshots > Selected state > matches snapshot for size md 
         Filter
       </span>
       <span
-        class="text-ws-dynamic-primary-default typography-label-strong-md"
+        class="min-w-0 truncate text-ws-dynamic-primary-default typography-label-strong-md"
       >
         Option 1
       </span>
@@ -550,7 +550,7 @@ exports[`FilterButton Snapshots > Selected state > matches snapshot for size sm 
         Filter
       </span>
       <span
-        class="text-ws-dynamic-primary-default typography-label-strong-sm"
+        class="min-w-0 truncate text-ws-dynamic-primary-default typography-label-strong-sm"
       >
         Option 1, +1
       </span>
@@ -605,7 +605,7 @@ exports[`FilterButton Snapshots > Selected state > matches snapshot for size sm 
         Filter
       </span>
       <span
-        class="text-ws-dynamic-primary-default typography-label-strong-sm"
+        class="min-w-0 truncate text-ws-dynamic-primary-default typography-label-strong-sm"
       >
         Option 1
       </span>

@@ -294,6 +294,37 @@ describe('Select', () => {
     });
   });
 
+  // A field reads left to right on one line: a <button> centres and wraps by default, so a long
+  // value next to a prefix once broke onto two centred lines.
+  describe('Long values', () => {
+    const longOptions = [
+      {
+        label: 'Marek Zieliński from the platform team',
+        value: 'marek',
+        prefix: <Avatar size="xs" initials="MZ" />,
+      },
+      { label: 'Ola Nowicka from the design team', value: 'ola' },
+    ];
+
+    it('keeps the trigger text left-aligned on one line', () => {
+      render(<Select options={longOptions} defaultValue="marek" aria-label="Assignee" />);
+      const trigger = screen.getByRole('combobox', { name: 'Assignee' });
+      expect(trigger).toHaveClass('text-left', 'whitespace-nowrap');
+    });
+
+    it('cuts a long label with an ellipsis next to a prefix', () => {
+      render(<Select options={longOptions} defaultValue="marek" aria-label="Assignee" />);
+      const label = screen.getByText('Marek Zieliński from the platform team');
+      expect(label).toHaveClass('truncate', 'min-w-0', 'flex-1');
+      expect(label.parentElement).toHaveClass('min-w-0', 'flex-1');
+    });
+
+    it('cuts a long label with an ellipsis without a prefix', () => {
+      render(<Select options={longOptions} defaultValue="ola" aria-label="Assignee" />);
+      expect(screen.getByText('Ola Nowicka from the design team')).toHaveClass('truncate');
+    });
+  });
+
   describe('Disabled state', () => {
     it('renders as disabled when disabled prop is true', () => {
       render(<Select options={baseOptions} disabled placeholder="Select country" />);

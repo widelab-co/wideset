@@ -86,7 +86,7 @@ export const filterButtonLabelsVariants = cva('flex min-w-0 items-center overflo
  * stays regular. Disabled drops back to the non-strong utility — Figma renders the
  * disabled value at `Font/Weight/Normal`.
  */
-export const filterButtonValueVariants = cva('', {
+export const filterButtonValueVariants = cva('min-w-0 truncate', {
   variants: {
     size: {
       sm: '',
