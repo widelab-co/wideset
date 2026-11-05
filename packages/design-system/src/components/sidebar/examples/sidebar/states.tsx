@@ -12,14 +12,12 @@ export default function SidebarStates() {
     <div className="rounded-ws-control-lg border-ws-static-base flex h-[16rem] w-fit overflow-hidden border">
       <Sidebar>
         <Sidebar.Section>
-          <Sidebar.Expanded>
-            <nav aria-label="Main" className="gap-ws-2 flex flex-col">
-              <Sidebar.Item href="#" icon={RiDashboardLine} label="Dashboard" active />
-              <Sidebar.Item href="#" icon={RiFolder3Line} label="Projects" />
-              <Sidebar.Item href="#" icon={RiUser3Line} label="Customers" />
-              <Sidebar.Item href="#" icon={RiBarChartLine} label="Reports" disabled />
-            </nav>
-          </Sidebar.Expanded>
+          <nav aria-label="Main" className="gap-ws-2 flex flex-col">
+            <Sidebar.Item href="#" icon={RiDashboardLine} label="Dashboard" active />
+            <Sidebar.Item href="#" icon={RiFolder3Line} label="Projects" />
+            <Sidebar.Item href="#" icon={RiUser3Line} label="Customers" />
+            <Sidebar.Item href="#" icon={RiBarChartLine} label="Reports" disabled />
+          </nav>
         </Sidebar.Section>
       </Sidebar>
     </div>
