@@ -3,7 +3,7 @@ name: wideset-setup
 description: Install and configure the Wideset design system in a React app. Use when adding Wideset to a project, choosing between the npm package and the registry, wiring stylesheets, Tailwind v4, Next.js Server Components or fonts, rebranding with --ws-colors-* tokens, or when Wideset imports or styles do not resolve.
 license: Apache-2.0
 metadata:
-  wideset-version: '1.0.0'
+  wideset-version: '1.0.1'
 ---
 
 # Wideset setup

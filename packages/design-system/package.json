@@ -1,6 +1,6 @@
 {
   "name": "@wideset/react",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "license": "Apache-2.0",
   "description": "Wideset, the Widelab design system: React components, and the `wideset` CLI that scaffolds them into your project",
