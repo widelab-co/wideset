@@ -90,17 +90,18 @@ Tailwind v4, Next.js and Server Components, and fonts; the
 
 ### Copy the source instead
 
-Wideset is also a [shadcn registry](https://ui.shadcn.com/docs/registry). In a project that
-already has a `components.json`, register the namespace and add components; the files land in
-your repo under `components/ui/wideset/`:
+Wideset is also a [shadcn registry](https://ui.shadcn.com/docs/registry), and the `wideset` CLI
+copies components from it into your repo, under `components/ui/wideset/`:
 
 ```bash
-npx shadcn@latest registry add @wideset=https://wideset-docs.widelab.workers.dev/r/{name}.json
-npx shadcn@latest add @wideset/button
+npx wideset init
+npx wideset add button
 ```
 
-A new project needs no `shadcn init`, only a `components.json`; the
-**[CLI guide](https://wideset-docs.widelab.workers.dev/docs/cli)** has one for Vite and Next.js.
+`init` sets up `components.json`, the `@/*` alias and the stylesheet; in a shadcn project it only
+registers the `@wideset` namespace. The
+**[CLI guide](https://wideset-docs.widelab.workers.dev/docs/cli)** also shows how to call the
+shadcn CLI yourself.
 
 ### Working with AI
 
@@ -117,12 +118,12 @@ installs four Agent Skills (setup, build, craft, review) for the agents you use.
 | Package                                    | Description                                                                        | README                                     |
 | ------------------------------------------ | ---------------------------------------------------------------------------------- | ------------------------------------------ |
 | [`@wideset/react`](packages/design-system) | Components, tokens and stylesheets, the shadcn registry, and the `wideset` CLI     | [README](packages/design-system/README.md) |
+| [`wideset`](packages/cli)                  | The `wideset` CLI: `npx wideset init`, `add`, `skills`, over the shadcn CLI        | [README](packages/cli/README.md)           |
 | [`@wideset/skills`](packages/skills)       | Agent Skills and rules for coding agents, generated from the library's usage specs | [README](packages/skills/README.md)        |
 | [`apps/docs`](apps/docs)                   | The documentation site (Astro), with the registry and `llms.txt`                   | [README](apps/docs/README.md)              |
 
 > `@wideset/skills` is not on npm yet: install the skills with `npx skills add` or the registry
-> item, as above. The `wideset` CLI ships inside `@wideset/react`; run it as
-> `npx --no-install wideset` until the `wideset` package is published.
+> item, as above.
 
 ## Project structure
 
@@ -130,7 +131,7 @@ installs four Agent Skills (setup, build, craft, review) for the agents you use.
 | ------------------------------- | ------------------------------------------------------------------------- |
 | `packages/design-system/src/`   | Components, styles and tokens; one folder per component                   |
 | `packages/design-system/specs/` | Usage guidance per component and pattern, read by the docs and the skills |
-| `packages/design-system/cli/`   | The `wideset` CLI                                                         |
+| `packages/cli/`                 | The `wideset` CLI                                                         |
 | `packages/skills/`              | Agent Skills, their build and evals                                       |
 | `apps/docs/`                    | Documentation site                                                        |
 | `.agents/skills/`               | Skills for contributors: code review, conventions, docs                   |

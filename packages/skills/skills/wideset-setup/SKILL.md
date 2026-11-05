@@ -10,11 +10,9 @@ metadata:
 
 Start by finding out what the project already has:
 
-- `@wideset/react` in `package.json` means package mode. The `wideset` command ships inside it, so `npx --no-install wideset info --json` reports the version, registry, aliases, Tailwind version and installed skills.
+- `@wideset/react` in `package.json` means package mode. `npx wideset info --json` reports the version, registry, aliases, Tailwind version and installed skills.
 - `components/ui/wideset/` in the source, or a `@wideset` entry under `registries` in `components.json`, means registry mode.
 - Neither means a new setup.
-
-Always pass `--no-install` when running the `wideset` command through npx. The name is not published on the public npm registry yet, so without the flag npx would look there.
 
 ## Choose a mode
 
