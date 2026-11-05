@@ -1,6 +1,6 @@
 {
   "name": "wideset",
-  "version": "0.1.0",
+  "version": "1.0.1",
   "description": "Build apps with the Wideset design system: component choice, props, ws- tokens, craft, compositions and review, generated from the library.",
   "author": {
     "name": "Widelab"

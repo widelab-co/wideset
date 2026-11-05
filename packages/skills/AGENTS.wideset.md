@@ -1,6 +1,6 @@
 # Wideset
 
-This project builds UI with the Wideset design system, version 1.0.0. These rules apply to every UI change. This file is generated and overwritten on update; put your own rules elsewhere.
+This project builds UI with the Wideset design system, version 1.0.1. These rules apply to every UI change. This file is generated and overwritten on update; put your own rules elsewhere.
 
 ## First
 
