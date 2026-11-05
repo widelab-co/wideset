@@ -115,25 +115,68 @@ describe('Chip', () => {
       expect(onClick).toHaveBeenCalledOnce();
     });
 
+    it.each([
+      { key: 'Enter', input: '{Enter}' },
+      { key: 'Space', input: ' ' },
+    ])('$key should not activate onClick when chip is disabled', async ({ input }) => {
+      const user = userEvent.setup();
+      const onClick = vi.fn();
+
+      render(
+        <Chip onClick={onClick} disabled>
+          Chip
+        </Chip>,
+      );
+
+      const chip = screen.getByRole('button', { name: 'Chip' });
+      chip.focus();
+      expect(chip).toHaveFocus();
+      await user.keyboard(input);
+      expect(onClick).not.toHaveBeenCalled();
+    });
+
+    it.each([
+      { key: 'Enter', press: '[Enter>]', release: '[/Enter]' },
+      { key: 'Space', press: '[Space>]', release: '[/Space]' },
+    ])(
+      'shows pressed feedback for $key and clears it on release or blur',
+      async ({ press, release }) => {
+        const user = userEvent.setup();
+        const onBlur = vi.fn();
+
+        render(
+          <>
+            <Chip onBlur={onBlur}>Chip</Chip>
+            <button type="button">After</button>
+          </>,
+        );
+
+        const chip = screen.getByRole('button', { name: 'Chip' });
+        await user.tab();
+        expect(chip).toHaveFocus();
+        expect(chip).not.toHaveAttribute('data-pressed');
+
+        await user.keyboard(press);
+        expect(chip).toHaveAttribute('data-pressed', 'true');
+        await user.keyboard(release);
+        expect(chip).not.toHaveAttribute('data-pressed');
+
+        await user.keyboard(press);
+        expect(chip).toHaveAttribute('data-pressed', 'true');
+        await user.tab();
+        expect(screen.getByRole('button', { name: 'After' })).toHaveFocus();
+        expect(chip).not.toHaveAttribute('data-pressed');
+        expect(onBlur).toHaveBeenCalledOnce();
+        await user.keyboard(release);
+      },
+    );
+
     it('prevents the page from scrolling on Space', () => {
       render(<Chip>Design</Chip>);
       const notCancelled = fireEvent.keyDown(screen.getByRole('button', { name: 'Design' }), {
         key: ' ',
       });
       expect(notCancelled).toBe(false);
-    });
-
-    it('does not click when disabled', () => {
-      const onClick = vi.fn();
-      render(
-        <Chip disabled onClick={onClick}>
-          Design
-        </Chip>,
-      );
-      const chip = screen.getByRole('button', { name: 'Design' });
-      fireEvent.keyDown(chip, { key: 'Enter' });
-      fireEvent.keyUp(chip, { key: ' ' });
-      expect(onClick).not.toHaveBeenCalled();
     });
 
     it('still calls onKeyDown and onKeyUp', () => {

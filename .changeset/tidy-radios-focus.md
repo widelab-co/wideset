@@ -2,7 +2,7 @@
 '@wideset/react': minor
 ---
 
-Fix RadioButton arrow navigation and Pagination focus after ellipsis selection, select SegmentedControl items on arrow navigation, and enable keyboard selection animations in SegmentedControl and Tabs.
+Fix RadioButton arrow navigation and Pagination focus after ellipsis selection, select SegmentedControl items on arrow navigation, enable keyboard selection animations in SegmentedControl and Tabs, and add Chip pressed colors and animation when using Enter or Space.
 
 **Breaking:** SegmentedControl now uses radio-group behavior. The root no longer accepts `rovingFocus`, and items no longer accept `name`; set `name` on the group for form submission. Arrow keys select the focused item, Space selects an unselected item, and Enter no longer activates items. Custom item selectors must use `data-state="checked"` / `"unchecked"` instead of `"on"` / `"off"`.
 
