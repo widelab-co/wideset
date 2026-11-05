@@ -18,15 +18,16 @@ const meta = {
   argTypes: {
     defaultMotion: { table: { category: 'Behavior', type: { summary: 'boolean' } } },
     type: {
+      description: 'Deprecated: the slider draws one thumb per value.',
       control: 'radio',
       options: ['single', 'range'],
       table: {
         category: 'Appearance',
         type: { summary: "'single' | 'range'" },
-        defaultValue: { summary: "'single'" },
       },
     },
     labels: {
+      description: 'Deprecated: compose `Slider.Label` next to the slider.',
       control: 'select',
       options: [undefined, 'left', 'right', 'side', 'bottom'],
       table: {
@@ -133,7 +134,7 @@ const meta = {
   parameters: {
     docs: {
       description: {
-        component: `Slider lets users choose a value or range along a track. Supports single-thumb and range (two-thumb) modes, optional min/max labels in four positions, and an optional tooltip displaying the current value. Works in both controlled (\`value\` + \`onValueChange\`) and uncontrolled (\`defaultValue\`) modes.
+        component: `Slider lets users choose a value or range along a track. It draws one thumb per value, so \`[40]\` is a single slider and \`[20, 80]\` a range, with an optional tooltip displaying the current value. Compose \`Slider.Label\` next to it to print the scale. Works in both controlled (\`value\` + \`onValueChange\`) and uncontrolled (\`defaultValue\`) modes.
 
 Use TextInput when precise numeric entry matters more than adjustment along a scale.`,
       },
@@ -154,17 +155,12 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   parameters: { docs: { description: { story: 'Minimal example with editable controls.' } } },
-  argTypes: {
-    type: { table: { category: 'Appearance' }, control: false },
-  },
   args: {
-    type: 'single',
     defaultValue: [50],
     min: 0,
     max: 100,
     step: 1,
     disabled: false,
-    labels: 'side',
     showTooltipValue: false,
     'aria-label': 'Volume',
   },
@@ -183,7 +179,6 @@ export const TooltipPositions: Story = {
       },
     },
   },
-  args: { ...Default.args, labels: undefined },
   argTypes: { showTooltipValue: { table: { category: 'Behavior' }, control: false } },
   render: (args) => (
     <>
@@ -214,16 +209,15 @@ export const Disabled: Story = {
     docs: { description: { story: 'Disabled state for single and range variants.' } },
   },
   args: { ...Default.args, disabled: true },
-  argTypes: { type: { control: false } },
   render: (args) => (
     <>
       <div>
         <div className="pb-ws-4">Single disabled</div>
-        <Slider {...args} type="single" defaultValue={[50]} />
+        <Slider {...args} defaultValue={[50]} />
       </div>
       <div>
         <div className="pb-ws-4">Range disabled</div>
-        <Slider {...args} type="range" defaultValue={[20, 70]} />
+        <Slider {...args} defaultValue={[20, 70]} />
       </div>
     </>
   ),
@@ -247,7 +241,7 @@ const handleInputChange = (index: number, inputValue: number) => {
 
 return (
   <div className="flex flex-col gap-ws-9">
-    <Slider type="range" min={min} max={max} value={value} onValueChange={setValue} />
+    <Slider aria-label="price" min={min} max={max} value={value} onValueChange={setValue} />
     <div className="flex items-center">
       <TextInput size="sm" className="flex-1">
         <TextInput.Input
@@ -277,11 +271,8 @@ return (
       },
     },
   },
-  args: { ...Default.args, type: 'range', labels: undefined },
-  argTypes: {
-    value: { control: false },
-    type: { table: { category: 'Appearance' }, control: false },
-  },
+  args: { ...Default.args, 'aria-label': 'price' },
+  argTypes: { value: { control: false } },
   render: function Render(args) {
     const { min = 0, max = 100 } = args;
     const [value, setValue] = useState([20, 80]);

@@ -27,31 +27,42 @@ storybook: components-slider--default
 ## Anatomy
 
 ```tsx
-<Slider aria-label="Volume" defaultValue={[40]} labels="side" />
+<Slider aria-label="Volume" defaultValue={[40]} />
 
 <Slider
-  type="range"
   thumbAriaLabels={['Minimum price', 'Maximum price']}
   defaultValue={[20, 80]}
   showTooltipValue
 />
+
+// the scale printed at both ends
+<div className="gap-ws-9 flex items-center">
+  <Slider.Label>0</Slider.Label>
+  <Slider className="min-w-0 flex-1" aria-label="Volume" defaultValue={[40]} />
+  <Slider.Label>100</Slider.Label>
+</div>
+
+// the scale under the track, for narrow rows
+<div>
+  <Slider aria-label="Volume" defaultValue={[40]} />
+  <div className="pt-ws-8 flex justify-between">
+    <Slider.Label>0</Slider.Label>
+    <Slider.Label>100</Slider.Label>
+  </div>
+</div>
 ```
 
-`Slider.Label` / `SliderLabel` is the numeric caption the slider uses for its `min` / `max`; use it
-when you compose your own readout next to the slider.
+`Slider.Label` / `SliderLabel` is the numeric caption for the scale or a readout; the slider
+prints no numbers itself, so place it where the layout needs it. `children` render inside the
+slider after the thumbs (tick marks, for example).
 
 ## Choosing props
 
 | Prop                     | Value                                         | Use for                                                                 |
 | ------------------------ | --------------------------------------------- | ----------------------------------------------------------------------- |
-| `type`                   | `single` (default)                            | one value                                                               |
-|                          | `range`                                       | an interval between two thumbs                                          |
-| `value` / `defaultValue` | `number[]`                                    | `[40]` for single, `[20, 80]` for range                                 |
+| `value` / `defaultValue` | `number[]`                                    | one thumb per value: `[40]` for one value, `[20, 80]` for a range       |
 | `onValueChange`          | `(value: number[]) => void`                   | fires while dragging, in both modes                                     |
 | `min` / `max` / `step`   | defaults `0` / `100` / `1`                    | the scale                                                               |
-| `labels`                 | `side`                                        | prints `min` and `max` at both ends (the usual choice)                  |
-|                          | `bottom`                                      | `min` and `max` under the track, for narrow rows                        |
-|                          | `left` / `right`                              | one end only                                                            |
 | `showTooltipValue`       | `true` or `top` / `right` / `bottom` / `left` | the current value above (or beside) the thumb while dragging or focused |
 
 ## States
@@ -61,13 +72,13 @@ when you compose your own readout next to the slider.
 
 ## Content
 
-- `labels` prints plain numbers. Name what the slider sets in a visible label next to it, and put
-  units in that label ("Price, EUR").
+- `Slider.Label` is for plain numbers. Name what the slider sets in a visible label next to it,
+  and put units in that label ("Price, EUR").
 
 ## Accessibility
 
-- Always name it: `aria-label`, `aria-labelledby`, or `thumbAriaLabels`. Without a name the thumb
-  falls back to "Slider thumb".
+- Always name it: `aria-label`, `aria-labelledby`, or `thumbAriaLabels`. There is no fallback:
+  without one the thumb has no accessible name.
 - In a range, `aria-label="price"` becomes "Minimum price" / "Maximum price"; `thumbAriaLabels`
   sets each thumb's name exactly.
 - Each thumb is its own tab stop. Arrows move one step, Page Up / Page Down ten, Home / End jump
@@ -78,7 +89,7 @@ when you compose your own readout next to the slider.
 ```tsx
 // Do: slider plus number inputs when the exact value matters
 const [value, setValue] = useState([20, 80]);
-<Slider type="range" value={value} onValueChange={setValue} aria-label="price" />
+<Slider value={value} onValueChange={setValue} aria-label="price" />
 <TextInput size="sm">
   <TextInput.Input
     aria-label="Minimum price"
@@ -98,12 +109,13 @@ const [value, setValue] = useState([20, 80]);
 
 ## Gotchas
 
-- Values are always arrays, even for `type="single"`.
-- Without `defaultValue`, single starts at `min` and range at `[min, max]`.
+- Values are always arrays, even for one thumb.
+- Without `value` or `defaultValue` the slider has one thumb at `min`.
+- `type` and `labels` are deprecated: the value's length sets the number of thumbs, and
+  `Slider.Label` replaces `labels`.
 - `onValueChange` fires on every step while dragging; save on `onValueCommit` when the work is
   expensive.
-- `className` and `ref` go to the outer wrapper (track plus labels); every other prop goes to the
-  slider itself.
+- `className` and `ref` go to the outer wrapper; every other prop goes to the slider itself.
 - The slider is horizontal only; don't pass `orientation="vertical"`.
 - DOM hooks: `data-slot="slider"`, `"slider-thumb"`, `"slider-label"`.
 
