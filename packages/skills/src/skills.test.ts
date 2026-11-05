@@ -707,11 +707,13 @@ describe('eval grader', () => {
     });
 
     it('flags mistakes that compile and then break', () => {
-      expect(checkCraft('<Sidebar.Section><nav /></Sidebar.Section>')).toEqual([
-        'Sidebar.Section without Sidebar.Expanded or Sidebar.Collapsed',
-      ]);
       expect(
-        checkCraft('<Sidebar.Section><Sidebar.Expanded>x</Sidebar.Expanded></Sidebar.Section>'),
+        checkCraft('<Sidebar.Expanded><div><Sidebar.Trigger /></div></Sidebar.Expanded>'),
+      ).toEqual(['Sidebar.Trigger inside Sidebar.Expanded loses focus on toggle']);
+      expect(
+        checkCraft(
+          '<Sidebar.Header><Sidebar.Expanded>x</Sidebar.Expanded><Sidebar.Trigger /></Sidebar.Header>',
+        ),
       ).toEqual([]);
       expect(
         checkCraft('<Modal.Trigger><Button variant="secondary">x</Button></Modal.Trigger>'),

@@ -8,6 +8,7 @@ parts:
     Sidebar,
     SidebarHeader,
     SidebarSection,
+    SidebarSectionHeader,
     SidebarExpanded,
     SidebarCollapsed,
     SidebarItem,
@@ -39,30 +40,27 @@ storybook: components-sidebar--default
 ```tsx
 <Sidebar>
   <Sidebar.Header>
-    <Sidebar.Expanded>
-      <div className="gap-ws-7 flex items-center justify-between">
-        <span className="typography-label-strong-sm text-ws-static-strong">Northwind</span>
-        <Sidebar.Trigger />
-      </div>
-    </Sidebar.Expanded>
-    <Sidebar.Collapsed>
+    <div className="gap-ws-7 py-ws-3 flex items-center">
+      <Sidebar.Expanded>
+        <span className="typography-label-strong-sm text-ws-static-strong pl-ws-5">Northwind</span>
+      </Sidebar.Expanded>
       <Sidebar.Trigger />
-    </Sidebar.Collapsed>
+    </div>
   </Sidebar.Header>
   <Sidebar.Section scrollable>
-    <Sidebar.Expanded>{nav}</Sidebar.Expanded>
-    <Sidebar.Collapsed>{nav}</Sidebar.Collapsed>
+    <nav aria-label="Main" className="gap-ws-2 flex flex-col">
+      <Sidebar.Item href="/" icon={RiDashboardLine} label="Dashboard" active />
+      <Sidebar.Item href="/projects" icon={RiFolder3Line} label="Projects" />
+      <Sidebar.SectionHeader>Products</Sidebar.SectionHeader>
+      <Sidebar.Item href="/payments" icon={RiSecurePaymentLine} label="Payments" />
+    </nav>
   </Sidebar.Section>
-</Sidebar>;
-
-// nav, reused in both modes:
-const nav = (
-  <nav aria-label="Main" className="gap-ws-2 flex flex-col">
-    <Sidebar.Item href="/" icon={RiDashboardLine} label="Dashboard" active />
-    <Sidebar.Item href="/projects" icon={RiFolder3Line} label="Projects" />
-  </nav>
-);
+</Sidebar>
 ```
+
+One tree serves both modes: `Sidebar.Item`, `Sidebar.SectionHeader` and `Sidebar.Trigger` adapt
+on their own. `Sidebar.Expanded` and `Sidebar.Collapsed` wrap only what exists in one mode (the
+product name, a promo card, an avatar in place of a profile row).
 
 The root fills its parent's height; place it in a full-height flex row next to the page.
 
@@ -88,6 +86,7 @@ The root fills its parent's height; place it in a full-height flex row next to t
 
 - Labels are page names, one or two words, sentence case.
 - Every item has an icon: collapsed mode shows nothing else.
+- Section headers are one or two words; collapsed they become a gap between groups.
 - Prefer hiding a page the user will never reach over showing it disabled.
 
 ## Accessibility
@@ -95,6 +94,10 @@ The root fills its parent's height; place it in a full-height flex row next to t
 - Wrap items in a `<nav aria-label="…">`; the sidebar root is a plain `div`.
 - Collapsed items fall back to `label` as `aria-label` when it is a string; pass `aria-label`
   when `label` is a node.
+- Write the trigger and the items once, outside `Sidebar.Expanded` / `Sidebar.Collapsed`, so they
+  keep focus when the sidebar toggles.
+- `Sidebar.SectionHeader` keeps its text for screen readers when collapsed; give it an `id` and
+  point the group's `aria-labelledby` at it.
 - `Sidebar.Trigger` names itself ("Collapse sidebar" / "Expand sidebar", via `collapseLabel` /
   `expandLabel`) and sets `aria-expanded` / `aria-controls`.
 
@@ -108,12 +111,23 @@ The root fills its parent's height; place it in a full-height flex row next to t
 
 // Don't: children on a plain item (the type forbids it); use label
 <Sidebar.Item href="/projects">Projects</Sidebar.Item>
+
+// Don't: the same navigation twice, once per mode (it remounts and drops focus on toggle)
+<Sidebar.Section>
+  <Sidebar.Expanded>{nav}</Sidebar.Expanded>
+  <Sidebar.Collapsed>{nav}</Sidebar.Collapsed>
+</Sidebar.Section>
+
+// Do: one tree
+<Sidebar.Section>{nav}</Sidebar.Section>
 ```
 
 ## Gotchas
 
-- `Sidebar.Section` renders nothing in a mode it has no `Sidebar.Expanded` / `Sidebar.Collapsed`
-  child for. Content put straight into a Section without them disappears.
+- A `Sidebar.Section` whose only children are `Sidebar.Expanded` / `Sidebar.Collapsed` renders
+  nothing in a mode it has no content for; any other section stays in both modes.
+- A `Sidebar.Trigger` inside `Sidebar.Expanded` or `Sidebar.Collapsed` unmounts on toggle and
+  loses focus; keep one trigger outside them.
 - The item's `icon` takes a component (`icon={RiFolder3Line}`), not an element.
 - `onCollapsedChange` fires in both modes; with `collapsed` set, nothing changes until you update it.
 - `Sidebar.Trigger` with `asChild` merges the toggle onto your own button.

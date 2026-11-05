@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import type * as React from 'react';
+import * as React from 'react';
 import { describe, expect, it, vi } from 'vitest';
 
 import { Sidebar } from './Sidebar';
@@ -148,6 +148,40 @@ describe('Sidebar', () => {
       expect(container.querySelector('.custom-wrapper')).not.toBeInTheDocument();
     });
 
+    it('should keep content without a mode wrapper in both modes', async () => {
+      const user = userEvent.setup();
+      render(
+        <Sidebar>
+          <Sidebar.Section>
+            <nav aria-label="Main">
+              <Sidebar.Item href="#" label="Dashboard" />
+            </nav>
+          </Sidebar.Section>
+          <Sidebar.Trigger />
+        </Sidebar>,
+      );
+      const item = screen.getByRole('link', { name: 'Dashboard' });
+
+      await user.click(screen.getByRole('button'));
+
+      expect(screen.getByRole('link', { name: 'Dashboard' })).toBe(item);
+    });
+
+    it('should keep a section that mixes plain content with a mode wrapper', () => {
+      render(
+        <Sidebar collapsed>
+          <Sidebar.Section data-testid="section">
+            <Sidebar.Expanded>
+              <span>Northwind</span>
+            </Sidebar.Expanded>
+            <Sidebar.Trigger />
+          </Sidebar.Section>
+        </Sidebar>,
+      );
+      expect(screen.getByTestId('section')).toBeInTheDocument();
+      expect(screen.queryByText('Northwind')).not.toBeInTheDocument();
+    });
+
     it('should apply className to wrapper', () => {
       const { container } = render(
         <Sidebar>
@@ -263,6 +297,74 @@ describe('Sidebar', () => {
       expect(button).toHaveTextContent('Custom Button');
       expect(button).toHaveAttribute('aria-label', 'Collapse sidebar');
       expect(button).toHaveAttribute('aria-expanded', 'true');
+    });
+  });
+
+  describe('Sidebar.SectionHeader', () => {
+    it('should render its text when expanded', () => {
+      render(
+        <Sidebar>
+          <Sidebar.SectionHeader>Products</Sidebar.SectionHeader>
+        </Sidebar>,
+      );
+      expect(screen.getByText('Products')).not.toHaveClass('sr-only');
+    });
+
+    it('should keep its text for screen readers when collapsed', () => {
+      render(
+        <Sidebar collapsed>
+          <Sidebar.SectionHeader>Products</Sidebar.SectionHeader>
+        </Sidebar>,
+      );
+      expect(screen.getByText('Products')).toHaveClass('sr-only');
+    });
+
+    it('should name a group through aria-labelledby in both modes', () => {
+      render(
+        <Sidebar collapsed>
+          <Sidebar.SectionHeader id="products">Products</Sidebar.SectionHeader>
+          <nav aria-labelledby="products" />
+        </Sidebar>,
+      );
+      expect(screen.getByRole('navigation', { name: 'Products' })).toBeInTheDocument();
+    });
+
+    it('should forward ref, className and rest props to the root', () => {
+      const ref = React.createRef<HTMLDivElement>();
+      render(
+        <Sidebar>
+          <Sidebar.SectionHeader ref={ref} className="custom-class" data-testid="section-header">
+            Products
+          </Sidebar.SectionHeader>
+        </Sidebar>,
+      );
+      const header = screen.getByTestId('section-header');
+      expect(header).toHaveClass('custom-class');
+      expect(header).toHaveAttribute('data-slot', 'sidebar-section-header');
+      expect(ref.current).toBe(header);
+    });
+  });
+
+  describe('Focus', () => {
+    it('should keep focus on the trigger when toggled from the keyboard', async () => {
+      const user = userEvent.setup();
+      render(
+        <Sidebar>
+          <Sidebar.Header>
+            <Sidebar.Expanded>
+              <span>Northwind</span>
+            </Sidebar.Expanded>
+            <Sidebar.Trigger />
+          </Sidebar.Header>
+        </Sidebar>,
+      );
+      const trigger = screen.getByRole('button', { name: 'Collapse sidebar' });
+      trigger.focus();
+
+      await user.keyboard('{Enter}');
+
+      expect(screen.getByRole('button', { name: 'Expand sidebar' })).toBe(trigger);
+      expect(trigger).toHaveFocus();
     });
   });
 
