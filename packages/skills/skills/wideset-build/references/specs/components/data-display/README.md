@@ -10,6 +10,8 @@ states. They show; they don't collect input. Selection and filtering live in `se
 - [ListItem](../../../good-practices/list-item.md) — one compact row (icon, label, description, trailing fact); the row
   inside menus and selects.
 - [Avatar](../../../good-practices/avatar.md) — a person, team or agent next to a name; `Avatar.Group` for several.
+- [Thumbnail](../../../good-practices/thumbnail.md) — a thing next to its name: a file kind, a project, an app's logo, a
+  small picture.
 - [Tag](../../../good-practices/tag.md) — which category something belongs to; colour is categorical.
 - [StatusBadge](../../../good-practices/status-badge.md) — what state something is in; colour is semantic.
 
@@ -31,6 +33,13 @@ Rules of thumb:
 - If the word stays the same for the life of the record (Engineering), it is a category → `Tag`.
 - If removing or toggling it changes what the user sees, it is a control → `Chip`.
 - Never give a Tag or StatusBadge an `onClick`; a clickable pill is a Chip.
+
+## Avatar vs Thumbnail
+
+Both are small tiles beside a name. Avatar is who: a person, a team, a company or a workspace
+account (`shape="square"` when it is not a person). Thumbnail is what: a file, a project, an
+integration, a product. A file being uploaded is a `FileItem` row with its own
+`FileItem.Thumbnail`.
 
 ## Table vs ListItem vs Card
 

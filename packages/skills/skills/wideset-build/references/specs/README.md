@@ -113,6 +113,8 @@ Sources of truth, in order: Figma → code → specs.
 - [ListItem](../good-practices/list-item.md): one compact row; the row inside menus and
   selects.
 - [Avatar](../good-practices/avatar.md): a person, team or the agent orb next to a name.
+- [Thumbnail](../good-practices/thumbnail.md): a file kind, project, app logo or small
+  picture next to its name; people are Avatar.
 - [Tag](../good-practices/tag.md): a static category label; colour is categorical.
 - [StatusBadge](../good-practices/status-badge.md): a static state label.
 
