@@ -79,6 +79,7 @@ export function CalendarSidebar() {
       label={label}
       active={active === id}
       suffix={shortcut ? <Shortcut digit={shortcut} /> : undefined}
+      suffixOnHover
       onClick={() => setActive(id)}
     />
   );
@@ -139,17 +140,20 @@ export function CalendarSidebar() {
           <nav aria-label="Workspace" className="gap-ws-9 flex flex-col">
             <div className="flex flex-col">{inboxLinks.map(link)}</div>
             <Divider weight="thin" />
-            <div className="relative">
-              <Sidebar.Group label="Shared">{sharedLinks.map(link)}</Sidebar.Group>
-              <IconButton
-                icon={RiAddLine}
-                variant="secondary"
-                preset="ghost"
-                size="xs"
-                aria-label="Add a shared page"
-                className="top-ws-0 right-ws-0 absolute"
-              />
-            </div>
+            <Sidebar.Group
+              label="Shared"
+              action={
+                <IconButton
+                  icon={RiAddLine}
+                  variant="secondary"
+                  preset="ghost"
+                  size="xs"
+                  aria-label="Add a shared page"
+                />
+              }
+            >
+              {sharedLinks.map(link)}
+            </Sidebar.Group>
             <Sidebar.Group label="Projects">
               {projects.map(({ id, label, color }) => (
                 <Sidebar.Item
@@ -176,8 +180,9 @@ export function CalendarSidebar() {
       <Sidebar.Footer>
         <div className="gap-ws-9 flex flex-col">
           <div className="gap-ws-3 flex flex-col">{footerLinks.map(link)}</div>
-          {/* The line runs edge to edge, out of the sidebar's own inset. */}
-          <div className="border-ws-static-base -mr-ws-6 -ml-ws-5 pt-ws-5 pr-ws-6 pl-ws-5 border-t">
+          {/* On the grey ground the line keeps the nav's inset: run edge to edge, it would stop
+              short of the page and read as broken. */}
+          <div className="border-ws-static-base pt-ws-5 border-t">
             <DropdownMenu>
               <DropdownMenu.Trigger asChild>
                 <button
