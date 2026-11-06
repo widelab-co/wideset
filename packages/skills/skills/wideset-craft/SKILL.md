@@ -89,6 +89,7 @@ When nothing in the request says otherwise, use exactly these:
 | Side panel         | sections stack from the top with a section gap; never spread over the panel's height (`justify-between`, `mt-auto`)                       |
 | Trailing edge      | counts, shortcuts, group actions and arrows in one column end on one right edge: use the `suffix` / `action` slots, not `absolute`        |
 | Shortcut hints     | shown on hover and keyboard focus (`Sidebar.Item suffixOnHover`), never all the time                                                      |
+| Row targets        | a row that does one thing is one button or link across the whole row: hover fill on the whole row, inset focus ring; never only its text  |
 | Primary action     | `<Button>` (primary, filled), one per view                                                                                                |
 | Secondary action   | `<Button variant="secondary" preset="border">`                                                                                            |
 | Tertiary / in-row  | `preset="ghost"` or `IconButton` with an `aria-label`                                                                                     |

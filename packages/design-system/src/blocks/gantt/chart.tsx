@@ -5,7 +5,7 @@ import {
   RiCheckboxCircleFill,
   RiFilter3Line,
 } from '@remixicon/react';
-import { Avatar, Button, cn, IconButton, ProgressBar } from '@wideset/react';
+import { Avatar, Button, cn, ProgressBar } from '@wideset/react';
 import { type CSSProperties, useState } from 'react';
 
 import {
@@ -36,6 +36,14 @@ const HATCH =
   'bg-ws-static-alpha-base bg-[repeating-linear-gradient(135deg,var(--ws-static-fill-alpha-subtle)_0_4px,transparent_4px_6.68px)]';
 const FOCUS =
   'focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default cursor-pointer';
+/**
+ * A row is one target across its whole width, never only its text: the table cell is the button,
+ * and the hover tint runs through to the row's track on the timeline. The ring is drawn inset,
+ * like a Sidebar item's, so the cells above and below do not cover it.
+ */
+const ROW =
+  'flex w-full cursor-pointer items-center text-left outline-ws-dynamic-primary-strong-default focus-visible:wds-focus-visible focus-visible:-outline-offset-2 active:bg-ws-dynamic-secondary-alpha-pressed';
+const TINT = 'bg-ws-dynamic-secondary-alpha-hover';
 
 const place = ({ start, length }: { start: number; length: number }): CSSProperties => ({
   left: start * WEEK,
@@ -47,6 +55,11 @@ type Row = { kind: 'member'; member: Member } | { kind: 'task'; task: Task };
 /** The people table and their work on a timeline of months; a task opens in the side panel. */
 export function GanttChart({ onOpenTask }: { onOpenTask: (title: string) => void }) {
   const [collapsed, setCollapsed] = useState<string[]>([]);
+  const [hovered, setHovered] = useState<string | null>(null);
+  const hover = (id: string) => ({
+    onMouseEnter: () => setHovered(id),
+    onMouseLeave: () => setHovered((current) => (current === id ? null : current)),
+  });
   const toggle = (id: string) =>
     setCollapsed((ids) => (ids.includes(id) ? ids.filter((item) => item !== id) : [...ids, id]));
 
@@ -77,20 +90,23 @@ export function GanttChart({ onOpenTask }: { onOpenTask: (title: string) => void
                 member={row.member}
                 expanded={!collapsed.includes(row.member.id)}
                 onToggle={() => toggle(row.member.id)}
+                tinted={hovered === row.member.id}
+                {...hover(row.member.id)}
               />
             ) : (
-              <div key={row.task.id} className="h-ws-15 pr-ws-21 flex items-center pl-[3.375rem]">
-                <button
-                  type="button"
-                  onClick={() => onOpenTask(row.task.title)}
-                  className={cn(
-                    'typography-label-sm text-ws-static-subtle hover:text-ws-static-strong rounded-ws-control-sm truncate',
-                    FOCUS,
-                  )}
-                >
-                  {row.task.title}
-                </button>
-              </div>
+              <button
+                key={row.task.id}
+                type="button"
+                onClick={() => onOpenTask(row.task.title)}
+                {...hover(row.task.id)}
+                className={cn(
+                  ROW,
+                  'h-ws-15 pr-ws-21 typography-label-sm text-ws-static-subtle pl-[3.375rem]',
+                  hovered === row.task.id && cn(TINT, 'text-ws-static-strong'),
+                )}
+              >
+                <span className="truncate">{row.task.title}</span>
+              </button>
             ),
           )}
           <div className="h-ws-18 pl-ws-6 flex items-center">
@@ -142,13 +158,21 @@ export function GanttChart({ onOpenTask }: { onOpenTask: (title: string) => void
               </div>
               {rows.map((row) =>
                 row.kind === 'member' ? (
-                  <div key={row.member.id} className="h-ws-18 relative">
+                  <div
+                    key={row.member.id}
+                    {...hover(row.member.id)}
+                    className={cn('h-ws-18 relative', hovered === row.member.id && TINT)}
+                  >
                     {row.member.marks.map((mark, index) => (
                       <TimelineMark key={index} mark={mark} top="top-ws-7" />
                     ))}
                   </div>
                 ) : (
-                  <div key={row.task.id} className="h-ws-15 relative">
+                  <div
+                    key={row.task.id}
+                    {...hover(row.task.id)}
+                    className={cn('h-ws-15 relative', hovered === row.task.id && TINT)}
+                  >
                     {row.task.marks.map((mark, index) => (
                       <TimelineMark
                         key={index}
@@ -174,30 +198,45 @@ export function GanttChart({ onOpenTask }: { onOpenTask: (title: string) => void
   );
 }
 
-/** A person's row in the table: expand, who, how far along. */
+/** A person's row in the table: the whole row expands or collapses their tasks. */
 function MemberCells({
   member,
   expanded,
   onToggle,
+  tinted,
+  onMouseEnter,
+  onMouseLeave,
 }: {
   member: Member;
   expanded: boolean;
   onToggle: () => void;
+  tinted: boolean;
+  onMouseEnter: () => void;
+  onMouseLeave: () => void;
 }) {
+  const Chevron = expanded ? RiArrowDownSLine : RiArrowRightSLine;
   return (
-    <div className="h-ws-18 flex items-center">
-      <div className={cn(CHEVRONS, 'pl-ws-9 shrink-0')}>
-        <IconButton
-          variant="secondary"
-          preset="ghost"
-          size="xs"
-          icon={expanded ? RiArrowDownSLine : RiArrowRightSLine}
-          aria-label={`${member.name}’s tasks`}
-          aria-expanded={expanded}
-          onClick={onToggle}
-        />
-      </div>
-      <div className="gap-ws-7 flex min-w-0 flex-1 items-center">
+    // The row holds a progress ring (a div), which a <button> may not contain, so the button is
+    // stretched under the whole row and the content above it lets clicks through.
+    <div
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      className={cn('h-ws-18 relative flex items-center', tinted && TINT)}
+    >
+      <button
+        type="button"
+        aria-expanded={expanded}
+        aria-label={`${member.name}’s tasks`}
+        onClick={onToggle}
+        className={cn(ROW, 'absolute inset-0')}
+      />
+      {/* Figma's XSmall icon button: its 16px arrow centred in a 24px box. */}
+      <span className={cn(CHEVRONS, 'pl-ws-9 pointer-events-none flex shrink-0')}>
+        <span className="size-ws-12 flex items-center justify-center">
+          <Chevron aria-hidden="true" className="size-ws-9 text-ws-dynamic-secondary-default" />
+        </span>
+      </span>
+      <div className="gap-ws-7 pointer-events-none flex min-w-0 flex-1 items-center">
         {member.initials ? (
           <Avatar size="sm" initials={member.initials} color={member.color} status="online" />
         ) : (
@@ -207,7 +246,7 @@ function MemberCells({
           {member.name}
         </span>
       </div>
-      <div className="w-ws-21 pr-ws-9 flex shrink-0 justify-end">
+      <div className="w-ws-21 pr-ws-9 pointer-events-none flex shrink-0 justify-end">
         <ProgressBar
           type="circle"
           value={member.progress}

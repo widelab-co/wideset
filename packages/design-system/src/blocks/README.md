@@ -105,5 +105,8 @@ grey take `bg-ws-static-highlight-base`.
 - Past 1440px the frame keeps filling the window and the content stops growing
   (`mx-auto w-full max-w-[80rem]`; a thread reads at 48rem); boards, calendars and timelines may
   fill. Panels stack their sections from the top. At 1440×960 nothing scrolls.
+- A row that does one thing (opens a task, expands a person) is one target across its whole
+  width, with the hover fill on the whole row (in Gantt it runs on into the timeline); never only
+  its text.
 - Sample content is static, in `data.ts`. Interactions a starting point needs work (selection,
   tabs, toggles); nothing talks to a server.
