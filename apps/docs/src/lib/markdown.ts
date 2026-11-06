@@ -21,7 +21,11 @@ type Use = {
   group: string;
   state: string;
   when: Record<string, string>;
+  via?: string;
 };
+/** What a reader matches a custom surface to; spacing, type and motion stay in /graph.json. */
+const COLOUR = new Set(['background', 'text', 'border', 'focus', 'icon']);
+const SHAPE = new Set(['radius', 'shadow']);
 const STATE_ORDER = [
   'default',
   'hover',
@@ -38,7 +42,7 @@ const stateRank = (state: string) => {
 };
 const condition = (when: Record<string, string>) =>
   Object.entries(when)
-    .map(([axis, value]) => `${axis}=${value}`)
+    .map(([axis, value]) => (axis === 'if' ? `when ${value}` : `${axis}=${value}`))
     .join(', ');
 
 /**
@@ -54,8 +58,20 @@ export const tokensMarkdown = (id: string) => {
     >
   )[id];
   if (!usage) return '';
+  // Short on purpose: the colours by variant and state, and the shape of the default variant.
+  // Sizes, spacing, type and layout-only prefixes are in /graph.json for tools that want them.
+  const isDefault = (when: Record<string, string>) =>
+    Object.entries(when).every(
+      ([axis, value]) => !(axis in usage.defaults) || usage.defaults[axis] === value,
+    );
+  const shown = usage.uses.filter(
+    (use) =>
+      use.state !== 'other' &&
+      (COLOUR.has(use.group) || (SHAPE.has(use.group) && isDefault(use.when))),
+  );
+  if (!shown.length) return '';
   const byWhen = new Map<string, Use[]>();
-  for (const use of usage.uses) {
+  for (const use of shown) {
     const key = condition(use.when);
     if (!byWhen.has(key)) byWhen.set(key, []);
     byWhen.get(key)!.push(use);
@@ -66,7 +82,7 @@ export const tokensMarkdown = (id: string) => {
       const byState = new Map<string, string[]>();
       for (const use of [...uses].sort((a, b) => stateRank(a.state) - stateRank(b.state))) {
         if (!byState.has(use.state)) byState.set(use.state, []);
-        byState.get(use.state)!.push(`\`${use.class}\``);
+        byState.get(use.state)!.push(`\`${use.class}\`${use.via ? ` (${use.via})` : ''}`);
       }
       const states = [...byState].map(
         ([state, classes]) => `${state}: ${[...new Set(classes)].join(' ')}`,
@@ -75,7 +91,7 @@ export const tokensMarkdown = (id: string) => {
     });
   const defaults = condition(usage.defaults);
   return [
-    'The `ws` classes this component paints with, by variant and state. Something you build beside it should use the same ones; a variant swaps only the classes listed under it.',
+    'The colour classes this component paints with, by variant and state, and the radius and shadow of its default variant. Something you build beside it should use the same ones. Sizes, spacing and type for every variant are in /graph.json.',
     defaults ? `Defaults: ${defaults}.` : '',
     lines.join('\n'),
   ]

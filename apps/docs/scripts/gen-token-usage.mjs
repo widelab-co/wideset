@@ -15,8 +15,8 @@
  *   tokens      { [token]: { light, dark, lightValue, darkValue, usedBy: [catalogId] } }
  *   unresolved  { [catalogId]: [class] }   ws classes that point at no variable (a typo or a gone token)
  */
-import { readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
-import { join } from 'node:path';
+import { existsSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
+import { dirname, join, relative } from 'node:path';
 
 import { generatedDir, library } from './paths.mjs';
 
@@ -177,7 +177,8 @@ const stateOf = (prefix) => {
   const parts = prefix.split(':').filter((part) => part && !/^(not-|enabled$)/.test(part));
   if (!parts.length) return 'default';
   const named = parts.map((part) => STATES.find(([re]) => re.test(part))?.[1]).filter(Boolean);
-  return named.length ? [...new Set(named)].join('+') : parts.join(':');
+  // A layout-only prefix (`data-[side=left]:`, `first:`, `has-[p]:`) is not a state a reader picks.
+  return named.length ? [...new Set(named)].join('+') : 'other';
 };
 
 const CLASS =
@@ -289,6 +290,68 @@ export function variantStrings(src) {
   return { out, defaults };
 }
 
+// --- .tsx files: each string with the condition it is written under ---------------------------
+/**
+ * `cond && 'cls'`, `cond ? 'a' : 'b'` (also over several lines): a class there applies only when
+ * its condition holds, so it is recorded `{ if: 'cond' }`, or `{ if: 'not cond' }` for the else
+ * branch, never as always on. Comments are skipped.
+ */
+export function conditionalStrings(src) {
+  const out = [];
+  const code = src
+    .replace(/\/\*[\s\S]*?\*\//g, (m) => m.replace(/[^\n]/g, ' '))
+    .replace(/(^|[^:])\/\/.*$/gm, '$1');
+  let lastTernary = null;
+  for (const m of code.matchAll(/(['"`])((?:\\.|(?!\1)[^\\])*)\1/g)) {
+    const before = code.slice(Math.max(0, m.index - 120), m.index).trimEnd();
+    let condition = null;
+    const and = before.match(/([!\w.?]+(?:\(\))?)\s*&&$/);
+    const ternary = before.match(/([!\w.]+(?:\s*[=!]==?\s*['"\w.]+)?)\s*\?$/);
+    if (and) condition = and[1];
+    else if (ternary) condition = lastTernary = ternary[1].replace(/\s+/g, ' ');
+    else if (/['"`]\s*:$/.test(before) && lastTernary) condition = `not ${lastTernary}`;
+    out.push({ text: m[2], condition });
+  }
+  return out;
+}
+
+const componentsRoot = join(library, 'src/components');
+const publicFolders = new Set(catalog.map((entry) => entry.component));
+const folderOf = (file) => relative(componentsRoot, join(library, file)).split(/[\\/]/)[0];
+const folderTitle = (file) =>
+  folderOf(file).replace(/(^|-)(\w)/g, (_, dash, ch) => ch.toUpperCase());
+/** Files that are another catalog entry's own (IconButton.tsx next to Button.tsx). */
+const claimedBy = new Map();
+for (const entry of catalog) for (const file of entry.sourceFiles) claimedBy.set(file, entry.id);
+
+/**
+ * Library-relative source files `file` imports that belong to the same component: its own parts
+ * (CardContent for Card) and internal parts with no catalog page (FieldLabel). Never another
+ * catalog entry's files, even in the same folder.
+ */
+function internalImports(file, src, ownerId) {
+  const found = [];
+  for (const [, spec] of src.matchAll(/from\s+['"]((?:\.\.?\/|src\/components\/)[^'"]+)['"]/g)) {
+    const base = spec.startsWith('src/')
+      ? join(library, spec)
+      : join(dirname(join(library, file)), spec);
+    const hit = ['.tsx', '.ts', '/index.ts']
+      .map((ext) => base + ext)
+      .find((path) => existsSync(path));
+    if (!hit) continue;
+    const rel = relative(library, hit).replace(/\\/g, '/');
+    if (!rel.startsWith('src/components/') || /.(stories|test).tsx?$/.test(rel)) continue;
+    const sameFolder = folderOf(rel) === folderOf(file);
+    const claimed = claimedBy.get(rel);
+    if (claimed && claimed !== ownerId) continue;
+    if (!sameFolder && publicFolders.has(folderOf(rel))) continue;
+    found.push(rel);
+    const variants = rel.replace(/\.tsx?$/, '.variants.ts');
+    if (existsSync(join(library, variants))) found.push(variants);
+  }
+  return found;
+}
+
 // --- per component ---------------------------------------------------------------------------
 const components = {};
 const unresolved = {};
@@ -296,7 +359,7 @@ const usedBy = new Map();
 for (const entry of catalog) {
   const uses = new Map();
   const defaults = {};
-  const add = (text, when) => {
+  const add = (text, when, via) => {
     for (const { 0: cls, index } of text.matchAll(CLASS)) {
       // Inside an arbitrary value (`[--x:var(--spacing-ws-5)]`): the var() pass below reads it.
       if (index > 0 && '-('.includes(text[index - 1])) continue;
@@ -317,6 +380,7 @@ for (const entry of catalog) {
       }
       const token = tokenOf(hit.variable);
       const row = { class: utility, token, group: hit.group, state: stateOf(prefix), when };
+      if (via) row.via = via;
       record(row);
     }
     // A variable read in an arbitrary value or a style prop: `[--thumb:var(--spacing-ws-5)]`.
@@ -328,6 +392,7 @@ for (const entry of catalog) {
         group: groupOfVariable(name),
         state: 'default',
         when,
+        ...(via ? { via } : {}),
       });
     }
   };
@@ -336,17 +401,26 @@ for (const entry of catalog) {
     if (!usedBy.has(row.token)) usedBy.set(row.token, new Set());
     usedBy.get(row.token).add(entry.id);
   };
-  for (const file of entry.sourceFiles) {
-    if (/\.(stories|test)\.tsx?$/.test(file)) continue;
+  // A component also paints with the internal parts it is built from (FieldLabel, HelperText,
+  // ScrollArea, Thumbnail): they have no page of their own, so their classes count here, marked
+  // `via`. Public parts it uses (a Button in a TextInput) are links in Related, not copied in.
+  const seen = new Set();
+  const read = (file, via) => {
+    if (seen.has(file) || /\.(stories|test)\.tsx?$/.test(file)) return;
+    seen.add(file);
     const src = readFileSync(join(library, file), 'utf8');
     if (/\.variants\.ts$/.test(file)) {
       const parsed = variantStrings(src);
-      Object.assign(defaults, parsed.defaults);
-      for (const { text, when } of parsed.out) add(text, when);
+      if (!via) Object.assign(defaults, parsed.defaults);
+      for (const { text, when } of parsed.out) add(text, when, via);
     } else {
-      for (const line of src.split('\n')) if (!/^\s*(\/\/|\*|\/\*)/.test(line)) add(line, {});
+      for (const { text, condition } of conditionalStrings(src))
+        add(text, condition ? { if: condition } : {}, via);
     }
-  }
+    for (const target of internalImports(file, src, entry.id))
+      read(target, publicFolders.has(folderOf(target)) ? via : folderTitle(target));
+  };
+  for (const file of entry.sourceFiles) read(file, null);
   if (uses.size) components[entry.id] = { defaults, uses: [...uses.values()] };
 }
 

@@ -161,6 +161,41 @@ describe('gen-token-usage: the token half of the graph', () => {
   it('finds no ws class that points at nothing (a typo or a removed token)', () => {
     assert.deepEqual(usage.unresolved, {});
   });
+
+  // FormField once listed 1 token: its label and helper text are internal parts with no page.
+  it('counts the internal parts a component is built from, marked via', () => {
+    const vias = new Set(usage.components['form-field'].uses.map((use) => use.via));
+    assert.ok(vias.has('FieldLabel'));
+    assert.ok(vias.has('HelperText'));
+  });
+
+  // Card once listed only Card.tsx: its own parts (CardContent, …) were never read.
+  it("reads a component's own parts, not just its root file", () => {
+    const tokens = new Set(usage.components.accordion.uses.map((use) => use.class));
+    assert.ok(tokens.has('border-ws-dynamic-secondary-disabled'), 'AccordionItem border');
+  });
+
+  it('does not fold a sibling public component in (IconButton is not part of Button)', () => {
+    const own = new Set(usage.components['icon-button'].uses.map((use) => use.class));
+    const button = usage.components.button.uses.map((use) => use.class);
+    assert.ok(button.length > 0 && own.size > 0);
+    assert.ok(!usage.components.button.uses.some((use) => use.via === 'Button'));
+  });
+
+  it('records a class written under a condition as conditional, not always on', () => {
+    const [row] = uses(
+      'checkbox',
+      (use) => use.class === 'text-ws-static-subtle' && use.when.if === 'disabled',
+    );
+    assert.ok(row);
+  });
+
+  it('files layout-only prefixes as other, not as states', () => {
+    const states = new Set(
+      Object.values(usage.components).flatMap((c) => c.uses.map((use) => use.state)),
+    );
+    assert.ok(![...states].some((state) => /\[|first|last|has-/.test(state)));
+  });
 });
 
 describe('gen-guidance', () => {
