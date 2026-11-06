@@ -58,11 +58,14 @@ export function SwapForm({ className }: { className?: string }) {
         <AmountField label="Sell" side={sell} onChange={setSell} />
         <AmountField label="Buy" side={buy} onChange={setBuy} />
         <div className="bg-ws-static-foreground shadow-ws-low rounded-ws-control-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+          {/* Round in every state: the button takes the circle's radius, so its hover, press
+              and focus ring follow the round chip instead of drawing a square inside it. */}
           <IconButton
             variant="secondary"
             preset="ghost"
             icon={RiArrowUpDownLine}
             aria-label="Switch currencies"
+            className="rounded-ws-control-full"
             onClick={() => {
               setSell(buy);
               setBuy(sell);
@@ -170,7 +173,7 @@ function AmountField({
           <button
             type="button"
             aria-label={`${label} currency: ${side.coin}`}
-            className="bg-ws-static-alpha-base hover:bg-ws-dynamic-secondary-hover rounded-ws-control-sm gap-ws-4 px-ws-5 py-ws-3 text-ws-static-strong focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default flex shrink-0 cursor-pointer items-center"
+            className="bg-ws-static-alpha-base hover:bg-ws-dynamic-secondary-hover rounded-ws-control-full gap-ws-4 py-ws-3 pr-ws-5 pl-ws-3 text-ws-static-strong focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default flex shrink-0 cursor-pointer items-center"
           >
             <CoinMark coin={side.coin} />
             <RiArrowDownSLine aria-hidden className="size-ws-7" />

@@ -46,7 +46,9 @@ function TaskCard({ task, nested = false }: { task: Task; nested?: boolean }) {
     <article
       className={cn(
         'p-ws-5 gap-ws-5 flex flex-col',
-        nested ? 'bg-ws-static-container rounded-ws-container-sm' : 'shadow-ws-low',
+        // Figma's card casts one 1px shadow (0 1 1, 10%), no outline and no style; the closest
+        // token without an outline is forms-base. Elevation/Low adds a ring and two blurs.
+        nested ? 'bg-ws-static-container rounded-ws-container-sm' : 'shadow-ws-forms-base',
         !nested &&
           (task.highlighted
             ? 'bg-ws-dynamic-primary-alpha-strong-default rounded-ws-container-md'
