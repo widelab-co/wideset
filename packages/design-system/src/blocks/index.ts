@@ -53,6 +53,14 @@ export const BLOCKS: BlockMeta[] = [
       'A plan over the app: a top bar to leave by, people and their tasks beside a timeline of months, and a task open in a side panel.',
   },
   {
+    id: 'ai-chat',
+    title: 'AI chat',
+    direction: 'flat',
+    navigation: 'top-bar',
+    description:
+      'An AI assistant home: a model switcher in the top bar, a greeting, and a composer with tools and attachments.',
+  },
+  {
     id: 'communication',
     title: 'Communication',
     direction: 'frame',

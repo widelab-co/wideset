@@ -114,6 +114,7 @@ surround.
 | `calendar`          | Inset     | Sidebar        |
 | `crypto`            | Canvas    | Top bar        |
 | `gantt`             | Flat      | Takeover       |
+| `ai-chat`           | Flat      | Top bar        |
 
 A takeover is a window over the app with no sidebar: a top bar with back and breadcrumbs, then the
 work (Gantt). Panels open over any direction and keep their own look; start a record's detail
