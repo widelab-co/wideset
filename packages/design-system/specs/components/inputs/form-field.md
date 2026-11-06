@@ -49,7 +49,7 @@ only through FormField's props.
 
 | Prop               | Value                        | Use for                                                                                         |
 | ------------------ | ---------------------------- | ----------------------------------------------------------------------------------------------- |
-| `label`            | ReactNode                    | Always. Short noun phrase.                                                                      |
+| `label`            | ReactNode                    | Always. Short noun phrase. `null` only when the control labels itself (a terms `Checkbox`).     |
 | `htmlFor`          | the control's `id`           | Links the label to the control. Not generated: match it yourself.                               |
 | `helperText`       | string                       | A hint the user needs before typing (format, limits, why).                                      |
 | `errorText`        | string                       | The validation message. Replaces `helperText` while set.                                        |
