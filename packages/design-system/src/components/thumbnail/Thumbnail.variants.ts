@@ -5,11 +5,10 @@ import { cva } from 'class-variance-authority';
  * `Control/sm` -> `md` -> `lg`; the hue per file kind is the matching
  * `Non-Semantic/Fill/<hue>/Strong` + `Text/<hue>/OnStrong` pair.
  *
- * `pdf` is `Non-Semantic/Fill/Scarlet/Strong` (#e96949) in Figma — a coral at
- * 12° that no exported hue comes near (`red` is 358°, ΔE 17.8; `orange` 30°,
- * ΔE 29.7). Scarlet has no ramp in the token export and no dark value, so the
- * hex is hard-coded here, the one place it is used, until the hue ships. The
- * glyph keeps the `Purple/OnStrong` white Figma binds on that tile.
+ * Figma's `PDF` fill is bound to `Non-Semantic/Fill/Scarlet/Strong` (#e96949),
+ * a variable deleted from `WDS Color Tokens`, so it never reaches the token
+ * export. `red` is the nearest hue the library has (ΔE 17.8; `orange` 29.7).
+ * The PDF variants need rebinding in Figma, not a hard-coded colour here.
  */
 export const thumbnailVariants = cva(
   'relative flex shrink-0 items-center justify-center overflow-hidden',
@@ -27,7 +26,7 @@ export const thumbnailVariants = cva(
         text: 'bg-ws-non-semantic-purple-strong text-ws-non-semantic-purple-on-strong',
         image: '',
         logo: 'bg-ws-static-highlight-base border-ws-static-subtle border',
-        pdf: 'text-ws-non-semantic-purple-on-strong bg-[#e96949]',
+        pdf: 'bg-ws-non-semantic-red-strong text-ws-non-semantic-red-on-strong',
         spreadsheet: 'bg-ws-non-semantic-green-strong text-ws-non-semantic-green-on-strong',
         document: 'bg-ws-non-semantic-cyan-strong text-ws-non-semantic-cyan-on-strong',
         video: 'bg-ws-non-semantic-indigo-strong text-ws-non-semantic-indigo-on-strong',

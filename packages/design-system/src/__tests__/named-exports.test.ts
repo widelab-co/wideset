@@ -9,7 +9,7 @@ import { describe, expect, it } from 'vitest';
   A React Server Component (Next.js App Router) receives a reference to a client module's named
   exports only, so `Card.Header` is undefined there and `<CardHeader>` is the only form that works.
   The name is always Component + Member. Members of an internal component (one `src/index.ts`
-  does not export, like Thumbnail) are internal too.
+  does not export, like FieldLabel) are internal too.
 */
 const ROOT = resolve(__dirname, '..');
 const COMPONENTS = join(ROOT, 'components');

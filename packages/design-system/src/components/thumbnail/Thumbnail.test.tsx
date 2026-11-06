@@ -1,7 +1,7 @@
 import { RiImageLine, RiMusic2Fill } from '@remixicon/react';
 import { render, screen } from '@testing-library/react';
 import { createRef } from 'react';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
 import { Thumbnail } from './Thumbnail';
 import { getThumbnailType } from './Thumbnail.logic';
@@ -62,8 +62,19 @@ describe('Thumbnail', () => {
 
       expect(container.querySelector('svg')).toBeInTheDocument();
       expect(screen.getByTestId('thumb').className).toMatch(
-        /bg-ws-non-semantic-[a-z]+-strong|bg-\[#e96949\]/,
+        /bg-ws-non-semantic-[a-z]+-strong text-ws-non-semantic-[a-z]+-on-strong/,
       );
+    });
+
+    it('paints the PDF kind with the red token pair, never a raw colour', () => {
+      render(<Thumbnail type="pdf" data-testid="thumb" />);
+
+      const thumb = screen.getByTestId('thumb');
+      expect(thumb).toHaveClass(
+        'bg-ws-non-semantic-red-strong',
+        'text-ws-non-semantic-red-on-strong',
+      );
+      expect(thumb.className).not.toMatch(/\[#/);
     });
 
     it('still renders explicit children as an escape hatch', () => {
@@ -74,6 +85,50 @@ describe('Thumbnail', () => {
       );
 
       expect(document.querySelector('.custom-icon')).toBeInTheDocument();
+    });
+
+    it('gives a composed Thumbnail.Image the image tile, with no purple behind it', () => {
+      render(
+        <Thumbnail data-testid="thumb">
+          <Thumbnail.Image src="https://example.com/a.jpg" alt="" loading="lazy" />
+        </Thumbnail>,
+      );
+
+      expect(screen.getByTestId('thumb')).not.toHaveClass('bg-ws-non-semantic-purple-strong');
+    });
+
+    it('keeps the type you pass over the one children would imply', () => {
+      render(
+        <Thumbnail type="pdf" data-testid="thumb">
+          <Thumbnail.Icon icon={RiImageLine} />
+        </Thumbnail>,
+      );
+
+      expect(screen.getByTestId('thumb')).toHaveClass('bg-ws-non-semantic-red-strong');
+    });
+  });
+
+  describe('root element', () => {
+    it('forwards ref to the tile', () => {
+      const ref = createRef<HTMLDivElement>();
+      render(<Thumbnail ref={ref} data-testid="thumb" />);
+
+      expect(ref.current).toBe(screen.getByTestId('thumb'));
+    });
+
+    it('spreads rest props onto the tile', () => {
+      render(<Thumbnail role="img" aria-label="Q3 board report" data-kind="report" type="pdf" />);
+
+      expect(screen.getByRole('img', { name: 'Q3 board report' })).toHaveAttribute(
+        'data-kind',
+        'report',
+      );
+    });
+
+    it('hides the glyph from screen readers', () => {
+      const { container } = render(<Thumbnail type="video" />);
+
+      expect(container.querySelector('svg')).toHaveAttribute('aria-hidden', 'true');
     });
   });
 
@@ -123,6 +178,32 @@ describe('Thumbnail', () => {
       );
       expect(ref.current).toBeInstanceOf(SVGSVGElement);
       expect(ref.current).toBe(container.querySelector('[data-slot="thumbnail-icon"]'));
+    });
+
+    it('takes the size of the thumbnail it sits in', () => {
+      const { container } = render(
+        <Thumbnail size="xl">
+          <Thumbnail.Icon icon={RiImageLine} />
+        </Thumbnail>,
+      );
+      expect(container.querySelector('svg')).toHaveClass('size-ws-12');
+    });
+
+    it('lets its own size override the thumbnail one', () => {
+      const { container } = render(
+        <Thumbnail size="xl">
+          <Thumbnail.Icon icon={RiImageLine} size="xs" />
+        </Thumbnail>,
+      );
+      expect(container.querySelector('svg')).toHaveClass('size-ws-7');
+    });
+
+    it('throws outside a Thumbnail', () => {
+      const error = vi.spyOn(console, 'error').mockImplementation(() => {});
+      expect(() => render(<Thumbnail.Icon icon={RiImageLine} />)).toThrow(
+        'useThumbnailContext must be used within a <Thumbnail>',
+      );
+      error.mockRestore();
     });
   });
 });

@@ -8,7 +8,7 @@ export const useThumbnailContext = () => {
   const context = useContext(ThumbnailContext);
 
   if (context === undefined) {
-    throw new Error('useThumbnailContext must be used within a Thumbnail');
+    throw new Error('useThumbnailContext must be used within a <Thumbnail>');
   }
 
   return context;

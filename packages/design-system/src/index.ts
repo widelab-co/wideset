@@ -504,6 +504,16 @@ export type { TextInputSuffixProps } from './components/text-input/TextInputSuff
 export { TextInputSuffix } from './components/text-input/TextInputSuffix';
 export { Textarea } from './components/textarea/Textarea';
 export type { TextareaProps } from './components/textarea/Textarea.types';
+export { Thumbnail } from './components/thumbnail/Thumbnail';
+export type {
+  ThumbnailIconProps,
+  ThumbnailImageProps,
+  ThumbnailProps,
+  ThumbnailSize,
+  ThumbnailType,
+} from './components/thumbnail/Thumbnail.types';
+export { ThumbnailIcon } from './components/thumbnail/ThumbnailIcon';
+export { ThumbnailImage } from './components/thumbnail/ThumbnailImage';
 export { Tile } from './components/tile/Tile';
 export type {
   TileCheckboxProps,
