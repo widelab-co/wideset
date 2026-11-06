@@ -405,6 +405,28 @@ export { SidepanelTitle } from './components/sidepanel/SidepanelTitle';
 export { Slider } from './components/slider/Slider';
 export type { SliderLabelProps, SliderProps } from './components/slider/Slider.types';
 export { SliderLabel } from './components/slider/SliderLabel';
+export { Spreadsheet } from './components/spreadsheet/Spreadsheet';
+export type {
+  SpreadsheetAlign,
+  SpreadsheetBodyProps,
+  SpreadsheetCellProps,
+  SpreadsheetColumnHeaderIconProps,
+  SpreadsheetColumnHeaderProps,
+  SpreadsheetColumnHeaderTriggerProps,
+  SpreadsheetHeadProps,
+  SpreadsheetProps,
+  SpreadsheetRowHeaderProps,
+  SpreadsheetRowProps,
+  SpreadsheetSize,
+} from './components/spreadsheet/Spreadsheet.types';
+export { SpreadsheetBody } from './components/spreadsheet/SpreadsheetBody';
+export { SpreadsheetCell } from './components/spreadsheet/SpreadsheetCell';
+export { SpreadsheetColumnHeader } from './components/spreadsheet/SpreadsheetColumnHeader';
+export { SpreadsheetColumnHeaderIcon } from './components/spreadsheet/SpreadsheetColumnHeaderIcon';
+export { SpreadsheetColumnHeaderTrigger } from './components/spreadsheet/SpreadsheetColumnHeaderTrigger';
+export { SpreadsheetHead } from './components/spreadsheet/SpreadsheetHead';
+export { SpreadsheetRow } from './components/spreadsheet/SpreadsheetRow';
+export { SpreadsheetRowHeader } from './components/spreadsheet/SpreadsheetRowHeader';
 export { StatusBadge } from './components/status-badge/StatusBadge';
 export type {
   StatusBadgeIconProps,
