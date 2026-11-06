@@ -82,7 +82,8 @@ export const Avatar = forwardRef<HTMLSpanElement, AvatarProps>(
         ref={ref}
         className={cn(
           'relative inline-flex',
-          onClick && 'wds-focus-visible outline-ws-dynamic-primary-strong-default cursor-pointer',
+          onClick &&
+            'focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default cursor-pointer',
         )}
         onClick={onClick}
         onKeyDown={
