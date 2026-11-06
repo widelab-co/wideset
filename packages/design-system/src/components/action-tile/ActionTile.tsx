@@ -72,7 +72,7 @@ const ActionTile = ({
       ref={ref}
       className={cn(
         actionTileVariants({ variant, disabled, isInteractive }),
-        actionTileMotionVariants({ enabled: motion, isInteractive }),
+        actionTileMotionVariants({ enabled: motion }),
         className,
       )}
       data-slot="action-tile"

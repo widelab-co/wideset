@@ -224,7 +224,7 @@ exports[`FileUpload Snapshots > matches snapshot for the Area dropzone 1`] = `
   data-slot="file-upload"
 >
   <div
-    class="rounded-ws-container-md gap-ws-5 p-ws-16 relative flex flex-col items-center justify-center bg-ws-dynamic-secondary-alpha-default text-ws-static-base [--dropzone-stroke:var(--border-color-ws-dynamic-secondary-default)] focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default cursor-pointer hover:bg-ws-dynamic-secondary-alpha-hover hover:[--dropzone-stroke:var(--border-color-ws-dynamic-secondary-hover)] active:bg-ws-dynamic-secondary-alpha-pressed active:[--dropzone-stroke:var(--border-color-ws-dynamic-secondary-pressed)] transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+    class="rounded-ws-container-md gap-ws-5 p-ws-16 relative flex flex-col items-center justify-center bg-ws-dynamic-secondary-alpha-default text-ws-static-base [--dropzone-stroke:var(--border-color-ws-dynamic-secondary-default)] focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default cursor-pointer hover:bg-ws-dynamic-secondary-alpha-hover hover:[--dropzone-stroke:var(--border-color-ws-dynamic-secondary-hover)] active:bg-ws-dynamic-secondary-alpha-pressed active:[--dropzone-stroke:var(--border-color-ws-dynamic-secondary-pressed)] transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
     data-slot="file-upload-dropzone"
     role="button"
     tabindex="0"

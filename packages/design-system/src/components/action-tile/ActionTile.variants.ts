@@ -1,6 +1,6 @@
 import { cva } from 'class-variance-authority';
 
-import { hoverTintMotion, pressMotion } from '../../motion/recipes';
+import { hoverTintMotion } from '../../motion/recipes';
 
 export const actionTileVariants = cva(
   `rounded-ws-container-md focus-visible:outline-ws-dynamic-primary-strong-default focus-visible:wds-focus-visible min-h-ws-20 gap-ws-7 px-ws-9 py-ws-7 flex w-full items-center text-left`,
@@ -40,8 +40,6 @@ export const actionTileVariants = cva(
 export const actionTileMotionVariants = cva('', {
   variants: {
     enabled: { true: hoverTintMotion, false: '' },
-    isInteractive: { true: '', false: '' },
   },
-  compoundVariants: [{ enabled: true, isInteractive: true, className: pressMotion }],
-  defaultVariants: { enabled: true, isInteractive: false },
+  defaultVariants: { enabled: true },
 });

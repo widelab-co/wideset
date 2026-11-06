@@ -8,10 +8,3 @@ export const comboBoxTriggerMotionVariants = cva('', {
   },
   defaultVariants: { enabled: true },
 });
-
-export const comboBoxContentMotionVariants = cva('', {
-  variants: {
-    enabled: { true: 'origin-(--radix-popover-content-transform-origin)', false: '' },
-  },
-  defaultVariants: { enabled: true },
-});

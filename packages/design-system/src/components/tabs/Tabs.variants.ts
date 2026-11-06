@@ -1,7 +1,7 @@
 import { cva } from 'class-variance-authority';
 import { cn } from 'src/lib/utils';
 
-import { hoverTintMotion, pressMotion } from '../../motion/recipes';
+import { hoverTintMotion } from '../../motion/recipes';
 
 export const tabsVariants = cva(`text-ws-static-base flex flex-col`, {
   variants: {
@@ -133,7 +133,7 @@ export const tabsItemVariants = cva(
 export const tabsItemMotionVariants = cva('', {
   variants: {
     enabled: {
-      true: cn(hoverTintMotion, pressMotion),
+      true: hoverTintMotion,
       false: '',
     },
   },

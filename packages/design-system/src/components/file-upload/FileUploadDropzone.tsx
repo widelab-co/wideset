@@ -78,7 +78,7 @@ export const FileUploadDropzone = ({
       {...areaProps}
       className={cn(
         dropzoneVariants({ type, disabled, isDragActive }),
-        dropzoneMotionVariants({ enabled: motion, type }),
+        dropzoneMotionVariants({ enabled: motion }),
         zoneProps?.className,
       )}
     >

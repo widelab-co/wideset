@@ -1,7 +1,7 @@
 import { cva } from 'class-variance-authority';
 import { cn } from 'src/lib/utils';
 
-import { hoverTintMotion, pressMotion } from '../../motion/recipes';
+import { hoverTintMotion } from '../../motion/recipes';
 
 export const datePickerTriggerVariants = cva('focus-within:outline-hidden', {
   variants: {
@@ -28,7 +28,7 @@ export const datePickerTriggerVariants = cva('focus-within:outline-hidden', {
 
 export const datePickerTriggerMotionVariants = cva('', {
   variants: {
-    enabled: { true: cn(hoverTintMotion, pressMotion), false: '' },
+    enabled: { true: hoverTintMotion, false: '' },
   },
   defaultVariants: { enabled: true },
 });

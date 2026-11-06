@@ -28,10 +28,10 @@ export const tooltipContentMotionVariants = cva('', {
       true: cn(
         'origin-radix-tooltip',
         'transition-none',
-        'animate-in fade-in-0 zoom-in-95',
+        'animate-in fade-in-0 zoom-in-(--ws-motion-scale-small)',
         'duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-smooth-out)',
         'data-[state=instant-open]:animate-none',
-        'data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95',
+        'data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-(--ws-motion-scale-small)',
         'data-[state=closed]:duration-(--ws-motion-duration-quick)',
       ),
       false: '',

@@ -7,7 +7,6 @@ import { ScrollArea } from '../scroll-area/ScrollArea';
 import { selectContentVariants } from '../select/Select.variants';
 import { useComboBoxContext } from './ComboBox.context';
 import type { ComboBoxContentProps } from './ComboBox.types';
-import { comboBoxContentMotionVariants } from './ComboBox.variants';
 
 const ComboBoxContent = React.forwardRef<HTMLDivElement, ComboBoxContentProps>(
   ({ children, className, defaultMotion, ...props }, ref) => {
@@ -22,7 +21,6 @@ const ComboBoxContent = React.forwardRef<HTMLDivElement, ComboBoxContentProps>(
         // `document?.body` still throws on the server: `document` is not declared there at all.
         className={cn(
           selectContentVariants({ position: 'popper' }),
-          comboBoxContentMotionVariants({ enabled: motion }),
           'max-h-[var(--radix-popover-content-available-height)] w-[var(--radix-popover-trigger-width)] min-w-[var(--radix-popover-trigger-width)]',
           className,
         )}
