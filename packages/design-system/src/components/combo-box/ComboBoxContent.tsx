@@ -28,6 +28,8 @@ const ComboBoxContent = React.forwardRef<HTMLDivElement, ComboBoxContentProps>(
         )}
         onOpenAutoFocus={(e) => e.preventDefault()}
         onCloseAutoFocus={(e) => e.preventDefault()}
+        // 10px short of the window edge, as Select's list: cut to fit, it still visibly ends.
+        collisionPadding={10}
         {...props}
       >
         <ScrollArea defaultMotion={motion} className="max-h-[18rem]">

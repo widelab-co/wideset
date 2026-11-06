@@ -234,6 +234,21 @@ describe('FilterButton', () => {
     });
   });
 
+  describe('List height', () => {
+    it('stops the list at 18rem and at the room left in the window', async () => {
+      const user = userEvent.setup();
+      render(<FilterButton options={options} onChange={() => {}} />);
+
+      await user.click(screen.getByRole('button', { name: 'Filter' }));
+
+      const list = screen.getByRole('listbox', { name: 'Filter' });
+      expect(list.closest('[data-slot="popup-container"]')).toHaveClass(
+        'max-h-[var(--radix-popover-content-available-height)]',
+      );
+      expect(list.closest('[data-slot="scroll-area"]')).toHaveClass('max-h-[18rem]');
+    });
+  });
+
   describe('Custom className', () => {
     it('merges custom className with default classes', () => {
       render(
