@@ -127,7 +127,7 @@ exports[`TimePicker Snapshots > matches snapshot with 12h format 1`] = `
         [data-radix-select-viewport]{scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch;}[data-radix-select-viewport]::-webkit-scrollbar{display:none}
       </style>
       <div
-        class="p-ws-3 flex max-h-[18rem] flex-col overflow-y-auto"
+        class="p-ws-3 !wds-scrollbar flex max-h-[18rem] flex-col overflow-y-auto"
         data-radix-select-viewport=""
         role="presentation"
         style="position: relative; flex: 1 1 0%; overflow: hidden auto;"
@@ -2432,7 +2432,7 @@ exports[`TimePicker Snapshots > matches snapshot with custom min/max 1`] = `
         [data-radix-select-viewport]{scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch;}[data-radix-select-viewport]::-webkit-scrollbar{display:none}
       </style>
       <div
-        class="p-ws-3 flex max-h-[18rem] flex-col overflow-y-auto"
+        class="p-ws-3 !wds-scrollbar flex max-h-[18rem] flex-col overflow-y-auto"
         data-radix-select-viewport=""
         role="presentation"
         style="position: relative; flex: 1 1 0%; overflow: hidden auto;"
@@ -3012,7 +3012,7 @@ exports[`TimePicker Snapshots > matches snapshot with default props 1`] = `
         [data-radix-select-viewport]{scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch;}[data-radix-select-viewport]::-webkit-scrollbar{display:none}
       </style>
       <div
-        class="p-ws-3 flex max-h-[18rem] flex-col overflow-y-auto"
+        class="p-ws-3 !wds-scrollbar flex max-h-[18rem] flex-col overflow-y-auto"
         data-radix-select-viewport=""
         role="presentation"
         style="position: relative; flex: 1 1 0%; overflow: hidden auto;"

@@ -7,7 +7,7 @@ exports[`Textarea Snapshots > Variant: danger > matches snapshot for size lg 1`]
 >
   <textarea
     aria-invalid="true"
-    class="text-ws-static-strong relative flex items-center box-border h-full min-h-lh resize-none overflow-auto overscroll-auto outline-hidden typography-body-lg px-ws-9 py-ws-8 w-full max-w-full"
+    class="text-ws-static-strong relative flex items-center box-border h-full min-h-lh resize-none overflow-auto overscroll-auto outline-hidden wds-scrollbar typography-body-lg px-ws-9 py-ws-8 w-full max-w-full"
     placeholder="Textarea"
   />
 </div>
@@ -20,7 +20,7 @@ exports[`Textarea Snapshots > Variant: danger > matches snapshot for size lg dis
 >
   <textarea
     aria-invalid="true"
-    class="text-ws-static-strong relative flex items-center box-border h-full min-h-lh resize-none overflow-auto overscroll-auto outline-hidden typography-body-lg px-ws-9 py-ws-8 w-full max-w-full"
+    class="text-ws-static-strong relative flex items-center box-border h-full min-h-lh resize-none overflow-auto overscroll-auto outline-hidden wds-scrollbar typography-body-lg px-ws-9 py-ws-8 w-full max-w-full"
     data-disabled="true"
     disabled=""
     placeholder="Textarea"
@@ -35,7 +35,7 @@ exports[`Textarea Snapshots > Variant: danger > matches snapshot for size md 1`]
 >
   <textarea
     aria-invalid="true"
-    class="text-ws-static-strong relative flex items-center box-border h-full min-h-lh resize-none overflow-auto overscroll-auto outline-hidden typography-body-md px-ws-9 py-ws-6 w-full max-w-full"
+    class="text-ws-static-strong relative flex items-center box-border h-full min-h-lh resize-none overflow-auto overscroll-auto outline-hidden wds-scrollbar typography-body-md px-ws-9 py-ws-6 w-full max-w-full"
     placeholder="Textarea"
   />
 </div>
@@ -48,7 +48,7 @@ exports[`Textarea Snapshots > Variant: danger > matches snapshot for size md dis
 >
   <textarea
     aria-invalid="true"
-    class="text-ws-static-strong relative flex items-center box-border h-full min-h-lh resize-none overflow-auto overscroll-auto outline-hidden typography-body-md px-ws-9 py-ws-6 w-full max-w-full"
+    class="text-ws-static-strong relative flex items-center box-border h-full min-h-lh resize-none overflow-auto overscroll-auto outline-hidden wds-scrollbar typography-body-md px-ws-9 py-ws-6 w-full max-w-full"
     data-disabled="true"
     disabled=""
     placeholder="Textarea"
@@ -63,7 +63,7 @@ exports[`Textarea Snapshots > Variant: danger > matches snapshot for size sm 1`]
 >
   <textarea
     aria-invalid="true"
-    class="text-ws-static-strong relative flex items-center box-border h-full min-h-lh resize-none overflow-auto overscroll-auto outline-hidden typography-body-md px-ws-7 py-ws-4 w-full max-w-full"
+    class="text-ws-static-strong relative flex items-center box-border h-full min-h-lh resize-none overflow-auto overscroll-auto outline-hidden wds-scrollbar typography-body-md px-ws-7 py-ws-4 w-full max-w-full"
     placeholder="Textarea"
   />
 </div>
@@ -76,7 +76,7 @@ exports[`Textarea Snapshots > Variant: danger > matches snapshot for size sm dis
 >
   <textarea
     aria-invalid="true"
-    class="text-ws-static-strong relative flex items-center box-border h-full min-h-lh resize-none overflow-auto overscroll-auto outline-hidden typography-body-md px-ws-7 py-ws-4 w-full max-w-full"
+    class="text-ws-static-strong relative flex items-center box-border h-full min-h-lh resize-none overflow-auto overscroll-auto outline-hidden wds-scrollbar typography-body-md px-ws-7 py-ws-4 w-full max-w-full"
     data-disabled="true"
     disabled=""
     placeholder="Textarea"
@@ -90,7 +90,7 @@ exports[`Textarea Snapshots > Variant: primary > matches snapshot for size lg 1`
   data-slot="textarea"
 >
   <textarea
-    class="text-ws-static-strong relative flex items-center box-border h-full min-h-lh resize-none overflow-auto overscroll-auto outline-hidden typography-body-lg px-ws-9 py-ws-8 w-full max-w-full"
+    class="text-ws-static-strong relative flex items-center box-border h-full min-h-lh resize-none overflow-auto overscroll-auto outline-hidden wds-scrollbar typography-body-lg px-ws-9 py-ws-8 w-full max-w-full"
     placeholder="Textarea"
   />
 </div>
@@ -102,7 +102,7 @@ exports[`Textarea Snapshots > Variant: primary > matches snapshot for size lg di
   data-slot="textarea"
 >
   <textarea
-    class="text-ws-static-strong relative flex items-center box-border h-full min-h-lh resize-none overflow-auto overscroll-auto outline-hidden typography-body-lg px-ws-9 py-ws-8 w-full max-w-full"
+    class="text-ws-static-strong relative flex items-center box-border h-full min-h-lh resize-none overflow-auto overscroll-auto outline-hidden wds-scrollbar typography-body-lg px-ws-9 py-ws-8 w-full max-w-full"
     data-disabled="true"
     disabled=""
     placeholder="Textarea"
@@ -116,7 +116,7 @@ exports[`Textarea Snapshots > Variant: primary > matches snapshot for size md 1`
   data-slot="textarea"
 >
   <textarea
-    class="text-ws-static-strong relative flex items-center box-border h-full min-h-lh resize-none overflow-auto overscroll-auto outline-hidden typography-body-md px-ws-9 py-ws-6 w-full max-w-full"
+    class="text-ws-static-strong relative flex items-center box-border h-full min-h-lh resize-none overflow-auto overscroll-auto outline-hidden wds-scrollbar typography-body-md px-ws-9 py-ws-6 w-full max-w-full"
     placeholder="Textarea"
   />
 </div>
@@ -128,7 +128,7 @@ exports[`Textarea Snapshots > Variant: primary > matches snapshot for size md di
   data-slot="textarea"
 >
   <textarea
-    class="text-ws-static-strong relative flex items-center box-border h-full min-h-lh resize-none overflow-auto overscroll-auto outline-hidden typography-body-md px-ws-9 py-ws-6 w-full max-w-full"
+    class="text-ws-static-strong relative flex items-center box-border h-full min-h-lh resize-none overflow-auto overscroll-auto outline-hidden wds-scrollbar typography-body-md px-ws-9 py-ws-6 w-full max-w-full"
     data-disabled="true"
     disabled=""
     placeholder="Textarea"
@@ -142,7 +142,7 @@ exports[`Textarea Snapshots > Variant: primary > matches snapshot for size sm 1`
   data-slot="textarea"
 >
   <textarea
-    class="text-ws-static-strong relative flex items-center box-border h-full min-h-lh resize-none overflow-auto overscroll-auto outline-hidden typography-body-md px-ws-7 py-ws-4 w-full max-w-full"
+    class="text-ws-static-strong relative flex items-center box-border h-full min-h-lh resize-none overflow-auto overscroll-auto outline-hidden wds-scrollbar typography-body-md px-ws-7 py-ws-4 w-full max-w-full"
     placeholder="Textarea"
   />
 </div>
@@ -154,7 +154,7 @@ exports[`Textarea Snapshots > Variant: primary > matches snapshot for size sm di
   data-slot="textarea"
 >
   <textarea
-    class="text-ws-static-strong relative flex items-center box-border h-full min-h-lh resize-none overflow-auto overscroll-auto outline-hidden typography-body-md px-ws-7 py-ws-4 w-full max-w-full"
+    class="text-ws-static-strong relative flex items-center box-border h-full min-h-lh resize-none overflow-auto overscroll-auto outline-hidden wds-scrollbar typography-body-md px-ws-7 py-ws-4 w-full max-w-full"
     data-disabled="true"
     disabled=""
     placeholder="Textarea"
@@ -168,7 +168,7 @@ exports[`Textarea Snapshots > matches snapshot with defaultValue 1`] = `
   data-slot="textarea"
 >
   <textarea
-    class="text-ws-static-strong relative flex items-center box-border h-full min-h-lh resize-none overflow-auto overscroll-auto outline-hidden typography-body-md px-ws-9 py-ws-6 w-full max-w-full"
+    class="text-ws-static-strong relative flex items-center box-border h-full min-h-lh resize-none overflow-auto overscroll-auto outline-hidden wds-scrollbar typography-body-md px-ws-9 py-ws-6 w-full max-w-full"
     placeholder="Textarea"
   >
     Some predefined text
@@ -182,7 +182,7 @@ exports[`Textarea Snapshots > matches snapshot with rows and cols 1`] = `
   data-slot="textarea"
 >
   <textarea
-    class="text-ws-static-strong relative flex items-center box-border h-full min-h-lh resize-none overflow-auto overscroll-auto outline-hidden typography-body-md px-ws-9 py-ws-6 w-auto"
+    class="text-ws-static-strong relative flex items-center box-border h-full min-h-lh resize-none overflow-auto overscroll-auto outline-hidden wds-scrollbar typography-body-md px-ws-9 py-ws-6 w-auto"
     cols="50"
     placeholder="Textarea"
     rows="4"

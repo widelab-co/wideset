@@ -50,7 +50,7 @@ exports[`Popup Snapshots > matches snapshot for default popup 1`] = `
         </h2>
       </div>
       <div
-        class="overflow-hidden grow"
+        class="relative isolate flex flex-col overflow-hidden grow"
         data-slot="scroll-area"
         dir="ltr"
         style="position: relative; --radix-scroll-area-corner-width: 0px; --radix-scroll-area-corner-height: 0px;"
@@ -59,7 +59,7 @@ exports[`Popup Snapshots > matches snapshot for default popup 1`] = `
           [data-radix-scroll-area-viewport]{scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch;}[data-radix-scroll-area-viewport]::-webkit-scrollbar{display:none}
         </style>
         <div
-          class="h-full w-full max-w-full min-w-0 pr-ws-6"
+          class="min-h-0 w-full flex-auto rounded-[inherit] focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default focus-visible:-outline-offset-2 [&>div]:!block"
           data-radix-scroll-area-viewport=""
           data-slot="scroll-area-viewport"
           style="overflow-x: hidden; overflow-y: scroll;"
@@ -163,7 +163,7 @@ exports[`Popup Snapshots > matches snapshot for persistent popup 1`] = `
         </h2>
       </div>
       <div
-        class="overflow-hidden grow"
+        class="relative isolate flex flex-col overflow-hidden grow"
         data-slot="scroll-area"
         dir="ltr"
         style="position: relative; --radix-scroll-area-corner-width: 0px; --radix-scroll-area-corner-height: 0px;"
@@ -172,7 +172,7 @@ exports[`Popup Snapshots > matches snapshot for persistent popup 1`] = `
           [data-radix-scroll-area-viewport]{scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch;}[data-radix-scroll-area-viewport]::-webkit-scrollbar{display:none}
         </style>
         <div
-          class="h-full w-full max-w-full min-w-0 pr-ws-6"
+          class="min-h-0 w-full flex-auto rounded-[inherit] focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default focus-visible:-outline-offset-2 [&>div]:!block"
           data-radix-scroll-area-viewport=""
           data-slot="scroll-area-viewport"
           style="overflow-x: hidden; overflow-y: scroll;"
@@ -250,7 +250,7 @@ exports[`Popup Snapshots > matches snapshot for popup with description 1`] = `
         </h2>
       </div>
       <div
-        class="overflow-hidden grow"
+        class="relative isolate flex flex-col overflow-hidden grow"
         data-slot="scroll-area"
         dir="ltr"
         style="position: relative; --radix-scroll-area-corner-width: 0px; --radix-scroll-area-corner-height: 0px;"
@@ -259,7 +259,7 @@ exports[`Popup Snapshots > matches snapshot for popup with description 1`] = `
           [data-radix-scroll-area-viewport]{scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch;}[data-radix-scroll-area-viewport]::-webkit-scrollbar{display:none}
         </style>
         <div
-          class="h-full w-full max-w-full min-w-0 pr-ws-6"
+          class="min-h-0 w-full flex-auto rounded-[inherit] focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default focus-visible:-outline-offset-2 [&>div]:!block"
           data-radix-scroll-area-viewport=""
           data-slot="scroll-area-viewport"
           style="overflow-x: hidden; overflow-y: scroll;"
@@ -358,7 +358,7 @@ exports[`Popup Snapshots > matches snapshot for popup with footer 1`] = `
         </h2>
       </div>
       <div
-        class="overflow-hidden grow"
+        class="relative isolate flex flex-col overflow-hidden grow"
         data-slot="scroll-area"
         dir="ltr"
         style="position: relative; --radix-scroll-area-corner-width: 0px; --radix-scroll-area-corner-height: 0px;"
@@ -367,7 +367,7 @@ exports[`Popup Snapshots > matches snapshot for popup with footer 1`] = `
           [data-radix-scroll-area-viewport]{scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch;}[data-radix-scroll-area-viewport]::-webkit-scrollbar{display:none}
         </style>
         <div
-          class="h-full w-full max-w-full min-w-0 pr-ws-6"
+          class="min-h-0 w-full flex-auto rounded-[inherit] focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default focus-visible:-outline-offset-2 [&>div]:!block"
           data-radix-scroll-area-viewport=""
           data-slot="scroll-area-viewport"
           style="overflow-x: hidden; overflow-y: scroll;"
@@ -460,7 +460,7 @@ exports[`Popup Snapshots > matches snapshot for popup with header only 1`] = `
         </h2>
       </div>
       <div
-        class="overflow-hidden grow"
+        class="relative isolate flex flex-col overflow-hidden grow"
         data-slot="scroll-area"
         dir="ltr"
         style="position: relative; --radix-scroll-area-corner-width: 0px; --radix-scroll-area-corner-height: 0px;"
@@ -469,7 +469,7 @@ exports[`Popup Snapshots > matches snapshot for popup with header only 1`] = `
           [data-radix-scroll-area-viewport]{scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch;}[data-radix-scroll-area-viewport]::-webkit-scrollbar{display:none}
         </style>
         <div
-          class="h-full w-full max-w-full min-w-0 pr-ws-6"
+          class="min-h-0 w-full flex-auto rounded-[inherit] focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default focus-visible:-outline-offset-2 [&>div]:!block"
           data-radix-scroll-area-viewport=""
           data-slot="scroll-area-viewport"
           style="overflow-x: hidden; overflow-y: scroll;"

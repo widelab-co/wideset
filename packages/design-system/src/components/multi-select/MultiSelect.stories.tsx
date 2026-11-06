@@ -399,6 +399,44 @@ export const Clearable: Story = {
   render: (args) => <MultiSelect {...args} portalContainer={document.body} />,
 };
 
+export const WithScroll: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'A long list stops at 18rem and scrolls in a `ScrollArea`; the search field scrolls with it.',
+      },
+    },
+  },
+  args: {
+    ...Default.args,
+    placeholder: 'Countries',
+    hasSearch: true,
+    options: [
+      'Austria',
+      'Belgium',
+      'Bulgaria',
+      'Croatia',
+      'Cyprus',
+      'Czechia',
+      'Denmark',
+      'Estonia',
+      'Finland',
+      'France',
+      'Germany',
+      'Greece',
+      'Hungary',
+      'Ireland',
+      'Italy',
+      'Poland',
+      'Portugal',
+      'Spain',
+      'Sweden',
+    ].map((label) => ({ label, value: label.toLowerCase() })),
+  },
+  render: (args) => <MultiSelect {...args} portalContainer={document.body} />,
+};
+
 export const MixedOptionVariants: Story = {
   parameters: {
     docs: {

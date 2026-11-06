@@ -4,6 +4,7 @@ import { cn } from 'src/lib/utils';
 
 import { useDefaultMotion } from '../../motion/MotionProvider';
 import { DropdownMenu } from '../dropdown/DropdownMenu';
+import { ScrollArea } from '../scroll-area/ScrollArea';
 import { useSelectContext } from './Select.context';
 import type { SelectContentProps } from './Select.types';
 import { selectContentMotionVariants, selectContentVariants } from './Select.variants';
@@ -35,15 +36,18 @@ export const SelectContent = React.forwardRef<
           portalContainer={portalContainer}
           defaultMotion={motion}
           className={cn(
-            // Figma's Dropdown Menu container: Gap/3 (4px) inset, Gap/0 between rows.
             // Width floor: never narrower than the trigger nor the Size/28 menu
             // minimum (min-width beats DropdownMenu.Content's max-w cap).
-            'p-ws-3 flex max-h-[18rem] min-w-[max(var(--radix-dropdown-menu-trigger-width),var(--spacing-ws-28))] flex-col overflow-auto',
+            'p-ws-0 flex max-h-[18rem] min-w-[max(var(--radix-dropdown-menu-trigger-width),var(--spacing-ws-28))] flex-col overflow-hidden',
             className,
           )}
           {...props}
         >
-          {children}
+          {/* Figma's Dropdown Menu container: Gap/3 (4px) inset, Gap/0 between rows. The inset
+              is inside the scroll area, so the bar runs along the menu's edge. */}
+          <ScrollArea defaultMotion={motion} className="min-h-0">
+            <div className="p-ws-3 flex flex-col">{children}</div>
+          </ScrollArea>
         </DropdownMenu.Content>
       );
     }
@@ -66,7 +70,10 @@ export const SelectContent = React.forwardRef<
           position={position}
           {...props}
         >
-          <SelectPrimitive.Viewport className="p-ws-3 flex max-h-[18rem] flex-col overflow-y-auto">
+          {/* Radix Select scrolls this viewport itself (it keeps the chosen option in view and
+              positions the list from it), so it keeps its native bar, styled like ScrollArea's.
+              `!` beats the unlayered rule Radix injects to hide that bar. */}
+          <SelectPrimitive.Viewport className="p-ws-3 !wds-scrollbar flex max-h-[18rem] flex-col overflow-y-auto">
             {children}
           </SelectPrimitive.Viewport>
         </SelectPrimitive.Content>

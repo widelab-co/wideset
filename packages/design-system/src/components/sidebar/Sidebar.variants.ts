@@ -10,7 +10,7 @@ export const sidebarVariants = cva(
     variants: {
       collapsed: {
         true: 'pr-ws-5 w-[3.25rem] items-center',
-        // The right padding holds a scrollable section's bar (8px + 2px gap), so every part, the
+        // The right padding holds a scrollable section's bar (its 10px strip), so every part, the
         // scrolling one included, ends on the same right edge.
         false: 'pr-ws-6 w-[16.25rem]',
       },
