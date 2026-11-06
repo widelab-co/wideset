@@ -109,19 +109,21 @@ const items = await searchItems();
     <link rel="icon" href="/favicon.png" />
     <script is:inline define:vars={{ THEME_KEY, RADIUS_KEY }}>
       // Appearance before first paint. Same keys and rules as src/lib/theme.ts and radius.ts.
-      // On wideset.co the shared shell has already set data-theme (its cookie or the system's
-      // choice, before this script); that wins, so the docs open in the theme the landing had.
+      // On wideset.co (the edge marks <html data-wsh-section>) the preference is the site's:
+      // the shell's cookie holds light or dark, no cookie means system. It replaces the docs'
+      // own setting, so the docs open with the preference the landing had.
       try {
-        var shell = document.documentElement.getAttribute('data-theme');
+        var root = document.documentElement;
         var saved = localStorage.getItem(THEME_KEY);
+        if (root.hasAttribute('data-wsh-section')) {
+          var cookie = document.cookie.match(/(?:^|;\s*)wideset-theme=(light|dark)(?:;|$)/);
+          saved = cookie ? cookie[1] : 'system';
+          localStorage.setItem(THEME_KEY, saved);
+        }
         var dark =
-          shell === 'dark' ||
-          (!shell &&
-            (saved === 'dark' ||
-              ((saved === 'system' || !saved) &&
-                matchMedia('(prefers-color-scheme: dark)').matches)));
-        document.documentElement.classList.toggle('dark', dark);
-        if (shell === 'light' || shell === 'dark') localStorage.setItem(THEME_KEY, shell);
+          saved === 'dark' ||
+          ((saved === 'system' || !saved) && matchMedia('(prefers-color-scheme: dark)').matches);
+        root.classList.toggle('dark', dark);
       } catch (e) {}
     </script>
   </head>
