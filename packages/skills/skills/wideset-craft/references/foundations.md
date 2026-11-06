@@ -6,7 +6,7 @@ The shared rules behind every screen. Token lists and scales are on the docs sit
 
 - Clickable: `dynamic`. Reports a state: `semantic`. Only tells categories apart: `non-semantic`. Anything else: `static`. A delete button is `dynamic-danger`, an error banner is `semantic-negative`, and `non-semantic` red or green never means error or success.
 - Text on a filled surface takes that surface's `on-*` pair, never `text-ws-static-*`.
-- Surfaces stack in order: `bg-ws-static-background`, then `-foreground` or `-container`, then `-overlay`. Your own floating layer takes `bg-ws-static-overlay` and `shadow-ws-medium`.
+- The sidebar and the page share one white surface: `Sidebar` is `bg-ws-static-foreground` with its subtle right line (its default), `main` takes `bg-ws-static-foreground`. Never a grey page beside the white sidebar. Above the page, surfaces stack `-container`, then `-overlay`.
 - No class for what you need: a role variable, `bg-(--ws-static-fill-container)`. A primitive such as `--ws-colors-light-brand-600` does not switch in dark.
 - Steps are indices: `ws-3` 4px, `ws-5` 8px, `ws-7` 12px, `ws-9` 16px, `ws-11` 20px, `ws-12` 24px, `ws-14` 32px, `ws-16` 40px. A value outside the scale is an arbitrary one (`w-[22rem]`), not `w-64`.
 - A custom element beside a `size="md"` control takes `h-ws-forms-md` and `rounded-ws-control-lg`. Inner radius is outer radius minus padding.

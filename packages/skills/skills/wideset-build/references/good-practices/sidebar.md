@@ -22,9 +22,32 @@
 
 // Don't: children on a plain item (the type forbids it); use label
 <Sidebar.Item href="/projects">Projects</Sidebar.Item>
+
+// Do: a named group of items
+<Sidebar.Group label="Core team">
+  <Sidebar.Item href="/issues" icon={RiStackLine} label="Issues" />
+</Sidebar.Group>
+
+// Don't: a hand-made heading with its own icon; it falls out of line with the items
+<div className="flex items-center gap-ws-3"><RiTeamLine /> Core team</div>
+
+// Do: one level of children, indented by the item itself
+<Sidebar.Item href="/pages/important" icon={RiFileTextLine} label="Important" nested />
+
+// Don't: a hand-made tree with a guide line
+<div className="ml-ws-9 border-l pl-ws-3"><Sidebar.Item … /></div>
+
+// Do: a count on the row's edge
+<Sidebar.Item href="/inbox" icon={RiInboxLine} label="Inbox" suffix={3} />
+
+// Don't: an absolutely placed count over the row; it misses the shared right edge
+<div className="relative"><Sidebar.Item … /><span className="absolute right-ws-5">3</span></div>
 ```
 
 ## Gotchas
+
+- A row action (a "…" menu) is a button and cannot sit in `suffix`: the row is a link. Lay it
+  over the row's right edge as a sibling, at the suffix's inset.
 
 - `Sidebar.Section` renders nothing in a mode it has no `Sidebar.Expanded` / `Sidebar.Collapsed`
   child for. Content put straight into a Section without them disappears.

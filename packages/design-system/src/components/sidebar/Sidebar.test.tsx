@@ -17,6 +17,81 @@ describe('Sidebar', () => {
         expect(screen.getByText('Test content')).toBeInTheDocument();
       });
 
+      // Figma's Sidebar: the page's white with a subtle line on its right edge.
+      it("is Figma's default: white, with a subtle line on its right edge", () => {
+        const { container } = render(
+          <Sidebar>
+            <div>Test content</div>
+          </Sidebar>,
+        );
+        const root = container.querySelector('[data-slot="sidebar"]');
+        expect(root).toHaveClass('bg-ws-static-foreground', 'border-r', 'border-ws-static-subtle');
+      });
+    });
+
+    describe('Sidebar.Item suffix and Sidebar.Footer', () => {
+      const renderNav = (collapsed = false) =>
+        render(
+          <Sidebar collapsed={collapsed}>
+            <Sidebar.Section>
+              <Sidebar.Expanded>
+                <Sidebar.Item href="#" label="Inbox" suffix="3" />
+              </Sidebar.Expanded>
+              <Sidebar.Collapsed>
+                <Sidebar.Item href="#" label="Inbox" suffix="3" />
+              </Sidebar.Collapsed>
+            </Sidebar.Section>
+            <Sidebar.Footer data-testid="footer">Account</Sidebar.Footer>
+          </Sidebar>,
+        );
+
+      it('puts the suffix on the row edge, after a label that takes the rest', () => {
+        renderNav();
+        const suffix = screen.getByText('3');
+        expect(suffix).toHaveAttribute('data-slot', 'sidebar-item-suffix');
+        expect(suffix).toHaveClass('shrink-0', 'text-ws-static-subtle');
+        expect(screen.getByText('Inbox')).toHaveClass('flex-1', 'truncate');
+      });
+
+      it('hides the suffix when collapsed', () => {
+        renderNav(true);
+        expect(screen.queryByText('3')).not.toBeInTheDocument();
+      });
+
+      it('pins the footer to the bottom with the section inset', () => {
+        renderNav();
+        const footer = screen.getByTestId('footer');
+        expect(footer).toHaveAttribute('data-slot', 'sidebar-footer');
+        expect(footer).toHaveClass('mt-auto', 'w-full', 'shrink-0');
+      });
+
+      // A tree once came out with a hand-drawn guide line; Figma's Level 1 is indent only.
+      const renderNested = (collapsed = false) =>
+        render(
+          <Sidebar collapsed={collapsed}>
+            <Sidebar.Section>
+              <Sidebar.Expanded>
+                <Sidebar.Item href="#" label="Important" nested />
+              </Sidebar.Expanded>
+              <Sidebar.Collapsed>
+                <Sidebar.Item href="#" label="Important" nested />
+              </Sidebar.Collapsed>
+            </Sidebar.Section>
+          </Sidebar>,
+        );
+
+      it('indents a nested item so its icon starts under the parent label', () => {
+        renderNested();
+        expect(screen.getByRole('link', { name: 'Important' })).toHaveClass(
+          'pl-[calc(var(--spacing-ws-5)*2+var(--spacing-ws-10))]',
+        );
+      });
+
+      it('lines a nested item up with the rest when collapsed', () => {
+        renderNested(true);
+        expect(screen.getByRole('link', { name: 'Important' }).className).not.toMatch(/pl-\[/);
+      });
+
       it('should apply custom className', () => {
         const { container } = render(
           <Sidebar className="custom-class">
@@ -96,6 +171,53 @@ describe('Sidebar', () => {
         await user.click(trigger);
         expect(handleChange).toHaveBeenCalledWith(true);
       });
+    });
+  });
+
+  describe('Sidebar.Group', () => {
+    const renderGroup = (collapsed: boolean) =>
+      render(
+        <Sidebar collapsed={collapsed}>
+          <Sidebar.Section>
+            <Sidebar.Expanded>
+              <Sidebar.Group label="Core team" data-testid="group">
+                <Sidebar.Item href="#" label="Issues" />
+              </Sidebar.Group>
+            </Sidebar.Expanded>
+            <Sidebar.Collapsed>
+              <Sidebar.Group label="Core team" data-testid="group">
+                <Sidebar.Item href="#" label="Issues" />
+              </Sidebar.Group>
+            </Sidebar.Collapsed>
+          </Sidebar.Section>
+        </Sidebar>,
+      );
+
+    it('names its items with the heading', () => {
+      renderGroup(false);
+      const group = screen.getByRole('group', { name: 'Core team' });
+      expect(group).toContainElement(screen.getByRole('link', { name: 'Issues' }));
+    });
+
+    it('draws the heading as Figma does: caption strong, subtle, item-aligned padding', () => {
+      renderGroup(false);
+      expect(screen.getByText('Core team')).toHaveClass(
+        'typography-caption-strong-md',
+        'text-ws-static-subtle',
+        'px-ws-5',
+        'py-ws-3',
+      );
+    });
+
+    it('keeps the name for screen readers but hides the heading when collapsed', () => {
+      renderGroup(true);
+      expect(screen.getByText('Core team')).toHaveClass('sr-only');
+      expect(screen.getByRole('group', { name: 'Core team' })).toBeInTheDocument();
+    });
+
+    it('marks its slot and spreads rest props', () => {
+      renderGroup(false);
+      expect(screen.getByTestId('group')).toHaveAttribute('data-slot', 'sidebar-group');
     });
   });
 

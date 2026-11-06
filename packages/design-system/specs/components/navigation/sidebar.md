@@ -7,10 +7,12 @@ parts:
   [
     Sidebar,
     SidebarHeader,
+    SidebarFooter,
     SidebarSection,
     SidebarExpanded,
     SidebarCollapsed,
     SidebarItem,
+    SidebarGroup,
     SidebarTrigger,
   ]
 related: [Tabs, Breadcrumbs, Sidepanel]
@@ -88,6 +90,16 @@ The root fills its parent's height; place it in a full-height flex row next to t
 
 - Labels are page names, one or two words, sentence case.
 - Every item has an icon: collapsed mode shows nothing else.
+- A count or badge on a row is its `suffix` (`suffix={3}`): it sits on the row's right edge,
+  in line with every other suffix. Never position it yourself.
+- What sits at the bottom (an invite button, the account switcher) goes in `Sidebar.Footer`, which
+  keeps the sections' inset so its edges line up with theirs.
+- A child page under an item (pages inside "Pages") is `nested`: indented so its icon starts under
+  the parent's label, one level deep, with its own icon. The indent is the whole cue: never draw a
+  guide line or add margins to build a tree.
+- Items that belong together under a name (a team, a workspace) go in `Sidebar.Group label="…"`.
+  The heading is text only and lines up with the item icons; collapsed, it is hidden and still
+  names the group for screen readers.
 - Prefer hiding a page the user will never reach over showing it disabled.
 
 ## Accessibility
@@ -108,9 +120,32 @@ The root fills its parent's height; place it in a full-height flex row next to t
 
 // Don't: children on a plain item (the type forbids it); use label
 <Sidebar.Item href="/projects">Projects</Sidebar.Item>
+
+// Do: a named group of items
+<Sidebar.Group label="Core team">
+  <Sidebar.Item href="/issues" icon={RiStackLine} label="Issues" />
+</Sidebar.Group>
+
+// Don't: a hand-made heading with its own icon; it falls out of line with the items
+<div className="flex items-center gap-ws-3"><RiTeamLine /> Core team</div>
+
+// Do: one level of children, indented by the item itself
+<Sidebar.Item href="/pages/important" icon={RiFileTextLine} label="Important" nested />
+
+// Don't: a hand-made tree with a guide line
+<div className="ml-ws-9 border-l pl-ws-3"><Sidebar.Item … /></div>
+
+// Do: a count on the row's edge
+<Sidebar.Item href="/inbox" icon={RiInboxLine} label="Inbox" suffix={3} />
+
+// Don't: an absolutely placed count over the row; it misses the shared right edge
+<div className="relative"><Sidebar.Item … /><span className="absolute right-ws-5">3</span></div>
 ```
 
 ## Gotchas
+
+- A row action (a "…" menu) is a button and cannot sit in `suffix`: the row is a link. Lay it
+  over the row's right edge as a sibling, at the suffix's inset.
 
 - `Sidebar.Section` renders nothing in a mode it has no `Sidebar.Expanded` / `Sidebar.Collapsed`
   child for. Content put straight into a Section without them disappears.

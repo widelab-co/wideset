@@ -16,6 +16,9 @@ export type SidebarProps = React.HTMLAttributes<HTMLDivElement> & {
 /** Props for the Sidebar header — the title/branding row. Never scrolls; hidden when empty. */
 export type SidebarHeaderProps = React.HTMLAttributes<HTMLDivElement>;
 
+/** Props for the sidebar's bottom area (invite, account). Pinned to the bottom, never scrolls. */
+export type SidebarFooterProps = React.HTMLAttributes<HTMLDivElement>;
+
 /** Props for a Sidebar section wrapper that groups expanded and collapsed content slots. */
 export type SidebarSectionProps = React.HTMLAttributes<HTMLDivElement> & {
   /** Makes the section fill the remaining height and scroll its overflow inside a `ScrollArea`. */
@@ -40,6 +43,17 @@ type SidebarItemBaseProps = Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 
   icon?: RemixiconComponentType;
   /** Row label. Hidden when the sidebar is collapsed, where it falls back to `aria-label`. */
   label?: React.ReactNode;
+  /**
+   * Trailing content on the row's right edge: a count (`3`) or a `StatusBadge`. Not interactive,
+   * since the row is a link. Hidden when the sidebar is collapsed.
+   */
+  suffix?: React.ReactNode;
+  /**
+   * A child of the item above it (Figma `Nesting=Level 1`), e.g. a page inside "Pages": indented
+   * so its icon starts under the parent's label. One level only; the indent is the whole cue, so
+   * draw no guide line. Collapsed, nested items line up like the rest.
+   */
+  nested?: boolean;
   /** Marks the row as the current page: active styling plus `aria-current="page"`. */
   active?: boolean;
   /** Blocks navigation and applies disabled styling via `aria-disabled`. */
@@ -78,4 +92,16 @@ export type SidebarContextValue = {
   motion: boolean;
   /** The root element's `id`, referenced by the trigger's `aria-controls`. */
   sidebarId: string;
+};
+
+/** Props for a named group of items inside a `Sidebar.Section`. */
+export type SidebarGroupProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'children'> & {
+  /**
+   * The group's heading, e.g. a team name. Text only: the heading aligns with the item icons
+   * below it, so it takes no icon of its own. Hidden when the sidebar is collapsed, where it
+   * still names the group for screen readers.
+   */
+  label: React.ReactNode;
+  /** The group's `Sidebar.Item`s. */
+  children?: React.ReactNode;
 };

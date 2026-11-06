@@ -4,7 +4,7 @@ exports[`Select Snapshots > Size: lg > matches snapshot for border lg 1`] = `
 <button
   aria-autocomplete="none"
   aria-expanded="false"
-  class="text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base border-ws-dynamic-secondary-default shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-md h-ws-forms-lg max-h-ws-forms-lg rounded-ws-control-xl px-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+  class="group/select-trigger text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden text-left whitespace-nowrap outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base border-ws-dynamic-secondary-default shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-md h-ws-forms-lg max-h-ws-forms-lg rounded-ws-control-xl px-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
   data-danger="false"
   data-placeholder=""
   data-slot="select-trigger"
@@ -14,7 +14,7 @@ exports[`Select Snapshots > Size: lg > matches snapshot for border lg 1`] = `
   type="button"
 >
   <div
-    class="truncate"
+    class="flex min-w-0 flex-1 items-center"
   >
     <span
       data-slot="select-value"
@@ -44,7 +44,7 @@ exports[`Select Snapshots > Size: lg > matches snapshot for border lg disabled 1
 <button
   aria-autocomplete="none"
   aria-expanded="false"
-  class="text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base border-ws-dynamic-secondary-default shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-md h-ws-forms-lg max-h-ws-forms-lg rounded-ws-control-xl px-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+  class="group/select-trigger text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden text-left whitespace-nowrap outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base border-ws-dynamic-secondary-default shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-md h-ws-forms-lg max-h-ws-forms-lg rounded-ws-control-xl px-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
   data-danger="false"
   data-disabled="true"
   data-placeholder=""
@@ -56,7 +56,7 @@ exports[`Select Snapshots > Size: lg > matches snapshot for border lg disabled 1
   type="button"
 >
   <div
-    class="truncate"
+    class="flex min-w-0 flex-1 items-center"
   >
     <span
       data-slot="select-value"
@@ -91,7 +91,7 @@ exports[`Select Snapshots > Size: lg > matches snapshot for border lg with clear
   <button
     aria-autocomplete="none"
     aria-expanded="false"
-    class="text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base border-ws-dynamic-secondary-default shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-md h-ws-forms-lg max-h-ws-forms-lg rounded-ws-control-xl px-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+    class="group/select-trigger text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden text-left whitespace-nowrap outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base border-ws-dynamic-secondary-default shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-md h-ws-forms-lg max-h-ws-forms-lg rounded-ws-control-xl px-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
     data-danger="false"
     data-slot="select-trigger"
     data-state="closed"
@@ -100,10 +100,10 @@ exports[`Select Snapshots > Size: lg > matches snapshot for border lg with clear
     type="button"
   >
     <div
-      class="truncate"
+      class="flex min-w-0 flex-1 items-center"
     >
       <span
-        class="min-w-0 flex-1 pr-ws-19"
+        class="min-w-0 flex-1 truncate pr-ws-19"
       >
         Poland
       </span>
@@ -152,7 +152,7 @@ exports[`Select Snapshots > Size: lg > matches snapshot for border lg with dange
 <button
   aria-autocomplete="none"
   aria-expanded="false"
-  class="text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-danger-strong-hover active:not-data-[disabled=true]:border-ws-dynamic-danger-strong-pressed focus-visible:not-active:border-ws-dynamic-danger-strong-default focus-visible:not-active:shadow-ws-forms-active-danger typography-label-md h-ws-forms-lg max-h-ws-forms-lg rounded-ws-control-xl px-ws-9 border-ws-dynamic-danger-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+  class="group/select-trigger text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden text-left whitespace-nowrap outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-danger-strong-hover active:not-data-[disabled=true]:border-ws-dynamic-danger-strong-pressed focus-visible:not-active:border-ws-dynamic-danger-strong-default focus-visible:not-active:shadow-ws-forms-active-danger typography-label-md h-ws-forms-lg max-h-ws-forms-lg rounded-ws-control-xl px-ws-9 border-ws-dynamic-danger-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
   data-danger="true"
   data-placeholder=""
   data-slot="select-trigger"
@@ -162,7 +162,7 @@ exports[`Select Snapshots > Size: lg > matches snapshot for border lg with dange
   type="button"
 >
   <div
-    class="truncate"
+    class="flex min-w-0 flex-1 items-center"
   >
     <span
       data-slot="select-value"
@@ -192,7 +192,7 @@ exports[`Select Snapshots > Size: lg > matches snapshot for border lg with hideA
 <button
   aria-autocomplete="none"
   aria-expanded="false"
-  class="text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base border-ws-dynamic-secondary-default shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-md h-ws-forms-lg max-h-ws-forms-lg rounded-ws-control-xl px-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+  class="group/select-trigger text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden text-left whitespace-nowrap outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base border-ws-dynamic-secondary-default shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-md h-ws-forms-lg max-h-ws-forms-lg rounded-ws-control-xl px-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
   data-danger="false"
   data-placeholder=""
   data-slot="select-trigger"
@@ -202,7 +202,7 @@ exports[`Select Snapshots > Size: lg > matches snapshot for border lg with hideA
   type="button"
 >
   <div
-    class="truncate"
+    class="flex min-w-0 flex-1 items-center"
   >
     <span
       data-slot="select-value"
@@ -218,7 +218,7 @@ exports[`Select Snapshots > Size: lg > matches snapshot for border lg with value
 <button
   aria-autocomplete="none"
   aria-expanded="false"
-  class="text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base border-ws-dynamic-secondary-default shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-md h-ws-forms-lg max-h-ws-forms-lg rounded-ws-control-xl px-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+  class="group/select-trigger text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden text-left whitespace-nowrap outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base border-ws-dynamic-secondary-default shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-md h-ws-forms-lg max-h-ws-forms-lg rounded-ws-control-xl px-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
   data-danger="false"
   data-slot="select-trigger"
   data-state="closed"
@@ -227,10 +227,10 @@ exports[`Select Snapshots > Size: lg > matches snapshot for border lg with value
   type="button"
 >
   <div
-    class="truncate"
+    class="flex min-w-0 flex-1 items-center"
   >
     <span
-      class="min-w-0 flex-1"
+      class="min-w-0 flex-1 truncate"
     >
       Poland
     </span>
@@ -256,7 +256,7 @@ exports[`Select Snapshots > Size: lg > matches snapshot for ghost lg 1`] = `
 <button
   aria-autocomplete="none"
   aria-expanded="false"
-  class="text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled border border-transparent bg-transparent hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-md h-ws-forms-lg max-h-ws-forms-lg rounded-ws-control-xl px-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+  class="group/select-trigger text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden text-left whitespace-nowrap outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled border border-transparent bg-transparent hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-md h-ws-forms-lg max-h-ws-forms-lg rounded-ws-control-xl px-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
   data-danger="false"
   data-placeholder=""
   data-slot="select-trigger"
@@ -266,7 +266,7 @@ exports[`Select Snapshots > Size: lg > matches snapshot for ghost lg 1`] = `
   type="button"
 >
   <div
-    class="truncate"
+    class="flex min-w-0 flex-1 items-center"
   >
     <span
       data-slot="select-value"
@@ -277,7 +277,7 @@ exports[`Select Snapshots > Size: lg > matches snapshot for ghost lg 1`] = `
   </div>
   <svg
     aria-hidden="true"
-    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-7"
+    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-7 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
     fill="currentColor"
     focusable="false"
     height="24"
@@ -296,7 +296,7 @@ exports[`Select Snapshots > Size: lg > matches snapshot for ghost lg disabled 1`
 <button
   aria-autocomplete="none"
   aria-expanded="false"
-  class="text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled border border-transparent bg-transparent hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-md h-ws-forms-lg max-h-ws-forms-lg rounded-ws-control-xl px-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+  class="group/select-trigger text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden text-left whitespace-nowrap outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled border border-transparent bg-transparent hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-md h-ws-forms-lg max-h-ws-forms-lg rounded-ws-control-xl px-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
   data-danger="false"
   data-disabled="true"
   data-placeholder=""
@@ -308,7 +308,7 @@ exports[`Select Snapshots > Size: lg > matches snapshot for ghost lg disabled 1`
   type="button"
 >
   <div
-    class="truncate"
+    class="flex min-w-0 flex-1 items-center"
   >
     <span
       data-slot="select-value"
@@ -319,7 +319,7 @@ exports[`Select Snapshots > Size: lg > matches snapshot for ghost lg disabled 1`
   </div>
   <svg
     aria-hidden="true"
-    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-7"
+    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-7 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
     data-disabled="true"
     fill="currentColor"
     focusable="false"
@@ -343,7 +343,7 @@ exports[`Select Snapshots > Size: lg > matches snapshot for ghost lg with cleara
   <button
     aria-autocomplete="none"
     aria-expanded="false"
-    class="text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled border border-transparent bg-transparent hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-md h-ws-forms-lg max-h-ws-forms-lg rounded-ws-control-xl px-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+    class="group/select-trigger text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden text-left whitespace-nowrap outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled border border-transparent bg-transparent hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-md h-ws-forms-lg max-h-ws-forms-lg rounded-ws-control-xl px-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
     data-danger="false"
     data-slot="select-trigger"
     data-state="closed"
@@ -352,17 +352,17 @@ exports[`Select Snapshots > Size: lg > matches snapshot for ghost lg with cleara
     type="button"
   >
     <div
-      class="truncate"
+      class="flex min-w-0 flex-1 items-center"
     >
       <span
-        class="min-w-0 flex-1 pr-ws-19"
+        class="min-w-0 flex-1 truncate pr-ws-19"
       >
         Poland
       </span>
     </div>
     <svg
       aria-hidden="true"
-      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-7"
+      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-7 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
       fill="currentColor"
       focusable="false"
       height="24"
@@ -404,7 +404,7 @@ exports[`Select Snapshots > Size: lg > matches snapshot for ghost lg with danger
 <button
   aria-autocomplete="none"
   aria-expanded="false"
-  class="text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled border border-transparent bg-transparent hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-danger-strong-hover active:not-data-[disabled=true]:border-ws-dynamic-danger-strong-pressed focus-visible:not-active:border-ws-dynamic-danger-strong-default focus-visible:not-active:shadow-ws-forms-active-danger typography-label-md h-ws-forms-lg max-h-ws-forms-lg rounded-ws-control-xl px-ws-9 not-data-[disabled=true]:border-ws-dynamic-danger-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+  class="group/select-trigger text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden text-left whitespace-nowrap outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled border border-transparent bg-transparent hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-danger-strong-hover active:not-data-[disabled=true]:border-ws-dynamic-danger-strong-pressed focus-visible:not-active:border-ws-dynamic-danger-strong-default focus-visible:not-active:shadow-ws-forms-active-danger typography-label-md h-ws-forms-lg max-h-ws-forms-lg rounded-ws-control-xl px-ws-9 not-data-[disabled=true]:border-ws-dynamic-danger-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
   data-danger="true"
   data-placeholder=""
   data-slot="select-trigger"
@@ -414,7 +414,7 @@ exports[`Select Snapshots > Size: lg > matches snapshot for ghost lg with danger
   type="button"
 >
   <div
-    class="truncate"
+    class="flex min-w-0 flex-1 items-center"
   >
     <span
       data-slot="select-value"
@@ -425,7 +425,7 @@ exports[`Select Snapshots > Size: lg > matches snapshot for ghost lg with danger
   </div>
   <svg
     aria-hidden="true"
-    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-7"
+    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-7 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
     fill="currentColor"
     focusable="false"
     height="24"
@@ -444,7 +444,7 @@ exports[`Select Snapshots > Size: lg > matches snapshot for ghost lg with hideAr
 <button
   aria-autocomplete="none"
   aria-expanded="false"
-  class="text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled border border-transparent bg-transparent hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-md h-ws-forms-lg max-h-ws-forms-lg rounded-ws-control-xl px-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+  class="group/select-trigger text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden text-left whitespace-nowrap outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled border border-transparent bg-transparent hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-md h-ws-forms-lg max-h-ws-forms-lg rounded-ws-control-xl px-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
   data-danger="false"
   data-placeholder=""
   data-slot="select-trigger"
@@ -454,7 +454,7 @@ exports[`Select Snapshots > Size: lg > matches snapshot for ghost lg with hideAr
   type="button"
 >
   <div
-    class="truncate"
+    class="flex min-w-0 flex-1 items-center"
   >
     <span
       data-slot="select-value"
@@ -470,7 +470,7 @@ exports[`Select Snapshots > Size: lg > matches snapshot for ghost lg with value 
 <button
   aria-autocomplete="none"
   aria-expanded="false"
-  class="text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled border border-transparent bg-transparent hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-md h-ws-forms-lg max-h-ws-forms-lg rounded-ws-control-xl px-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+  class="group/select-trigger text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden text-left whitespace-nowrap outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled border border-transparent bg-transparent hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-md h-ws-forms-lg max-h-ws-forms-lg rounded-ws-control-xl px-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
   data-danger="false"
   data-slot="select-trigger"
   data-state="closed"
@@ -479,17 +479,17 @@ exports[`Select Snapshots > Size: lg > matches snapshot for ghost lg with value 
   type="button"
 >
   <div
-    class="truncate"
+    class="flex min-w-0 flex-1 items-center"
   >
     <span
-      class="min-w-0 flex-1"
+      class="min-w-0 flex-1 truncate"
     >
       Poland
     </span>
   </div>
   <svg
     aria-hidden="true"
-    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-7"
+    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-7 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
     fill="currentColor"
     focusable="false"
     height="24"
@@ -508,7 +508,7 @@ exports[`Select Snapshots > Size: md > matches snapshot for border md 1`] = `
 <button
   aria-autocomplete="none"
   aria-expanded="false"
-  class="text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base border-ws-dynamic-secondary-default shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-md max-h-ws-forms-md rounded-ws-control-lg px-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+  class="group/select-trigger text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden text-left whitespace-nowrap outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base border-ws-dynamic-secondary-default shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-md max-h-ws-forms-md rounded-ws-control-lg px-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
   data-danger="false"
   data-placeholder=""
   data-slot="select-trigger"
@@ -518,7 +518,7 @@ exports[`Select Snapshots > Size: md > matches snapshot for border md 1`] = `
   type="button"
 >
   <div
-    class="truncate"
+    class="flex min-w-0 flex-1 items-center"
   >
     <span
       data-slot="select-value"
@@ -548,7 +548,7 @@ exports[`Select Snapshots > Size: md > matches snapshot for border md disabled 1
 <button
   aria-autocomplete="none"
   aria-expanded="false"
-  class="text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base border-ws-dynamic-secondary-default shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-md max-h-ws-forms-md rounded-ws-control-lg px-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+  class="group/select-trigger text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden text-left whitespace-nowrap outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base border-ws-dynamic-secondary-default shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-md max-h-ws-forms-md rounded-ws-control-lg px-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
   data-danger="false"
   data-disabled="true"
   data-placeholder=""
@@ -560,7 +560,7 @@ exports[`Select Snapshots > Size: md > matches snapshot for border md disabled 1
   type="button"
 >
   <div
-    class="truncate"
+    class="flex min-w-0 flex-1 items-center"
   >
     <span
       data-slot="select-value"
@@ -595,7 +595,7 @@ exports[`Select Snapshots > Size: md > matches snapshot for border md with clear
   <button
     aria-autocomplete="none"
     aria-expanded="false"
-    class="text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base border-ws-dynamic-secondary-default shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-md max-h-ws-forms-md rounded-ws-control-lg px-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+    class="group/select-trigger text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden text-left whitespace-nowrap outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base border-ws-dynamic-secondary-default shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-md max-h-ws-forms-md rounded-ws-control-lg px-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
     data-danger="false"
     data-slot="select-trigger"
     data-state="closed"
@@ -604,10 +604,10 @@ exports[`Select Snapshots > Size: md > matches snapshot for border md with clear
     type="button"
   >
     <div
-      class="truncate"
+      class="flex min-w-0 flex-1 items-center"
     >
       <span
-        class="min-w-0 flex-1 pr-ws-16"
+        class="min-w-0 flex-1 truncate pr-ws-16"
       >
         Poland
       </span>
@@ -656,7 +656,7 @@ exports[`Select Snapshots > Size: md > matches snapshot for border md with dange
 <button
   aria-autocomplete="none"
   aria-expanded="false"
-  class="text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-danger-strong-hover active:not-data-[disabled=true]:border-ws-dynamic-danger-strong-pressed focus-visible:not-active:border-ws-dynamic-danger-strong-default focus-visible:not-active:shadow-ws-forms-active-danger typography-label-sm h-ws-forms-md max-h-ws-forms-md rounded-ws-control-lg px-ws-9 border-ws-dynamic-danger-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+  class="group/select-trigger text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden text-left whitespace-nowrap outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-danger-strong-hover active:not-data-[disabled=true]:border-ws-dynamic-danger-strong-pressed focus-visible:not-active:border-ws-dynamic-danger-strong-default focus-visible:not-active:shadow-ws-forms-active-danger typography-label-sm h-ws-forms-md max-h-ws-forms-md rounded-ws-control-lg px-ws-9 border-ws-dynamic-danger-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
   data-danger="true"
   data-placeholder=""
   data-slot="select-trigger"
@@ -666,7 +666,7 @@ exports[`Select Snapshots > Size: md > matches snapshot for border md with dange
   type="button"
 >
   <div
-    class="truncate"
+    class="flex min-w-0 flex-1 items-center"
   >
     <span
       data-slot="select-value"
@@ -696,7 +696,7 @@ exports[`Select Snapshots > Size: md > matches snapshot for border md with hideA
 <button
   aria-autocomplete="none"
   aria-expanded="false"
-  class="text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base border-ws-dynamic-secondary-default shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-md max-h-ws-forms-md rounded-ws-control-lg px-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+  class="group/select-trigger text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden text-left whitespace-nowrap outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base border-ws-dynamic-secondary-default shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-md max-h-ws-forms-md rounded-ws-control-lg px-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
   data-danger="false"
   data-placeholder=""
   data-slot="select-trigger"
@@ -706,7 +706,7 @@ exports[`Select Snapshots > Size: md > matches snapshot for border md with hideA
   type="button"
 >
   <div
-    class="truncate"
+    class="flex min-w-0 flex-1 items-center"
   >
     <span
       data-slot="select-value"
@@ -722,7 +722,7 @@ exports[`Select Snapshots > Size: md > matches snapshot for border md with value
 <button
   aria-autocomplete="none"
   aria-expanded="false"
-  class="text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base border-ws-dynamic-secondary-default shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-md max-h-ws-forms-md rounded-ws-control-lg px-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+  class="group/select-trigger text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden text-left whitespace-nowrap outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base border-ws-dynamic-secondary-default shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-md max-h-ws-forms-md rounded-ws-control-lg px-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
   data-danger="false"
   data-slot="select-trigger"
   data-state="closed"
@@ -731,10 +731,10 @@ exports[`Select Snapshots > Size: md > matches snapshot for border md with value
   type="button"
 >
   <div
-    class="truncate"
+    class="flex min-w-0 flex-1 items-center"
   >
     <span
-      class="min-w-0 flex-1"
+      class="min-w-0 flex-1 truncate"
     >
       Poland
     </span>
@@ -760,7 +760,7 @@ exports[`Select Snapshots > Size: md > matches snapshot for ghost md 1`] = `
 <button
   aria-autocomplete="none"
   aria-expanded="false"
-  class="text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled border border-transparent bg-transparent hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-md max-h-ws-forms-md rounded-ws-control-lg px-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+  class="group/select-trigger text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden text-left whitespace-nowrap outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled border border-transparent bg-transparent hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-md max-h-ws-forms-md rounded-ws-control-lg px-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
   data-danger="false"
   data-placeholder=""
   data-slot="select-trigger"
@@ -770,7 +770,7 @@ exports[`Select Snapshots > Size: md > matches snapshot for ghost md 1`] = `
   type="button"
 >
   <div
-    class="truncate"
+    class="flex min-w-0 flex-1 items-center"
   >
     <span
       data-slot="select-value"
@@ -781,7 +781,7 @@ exports[`Select Snapshots > Size: md > matches snapshot for ghost md 1`] = `
   </div>
   <svg
     aria-hidden="true"
-    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-4 ml-ws-6"
+    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-4 ml-ws-6 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
     fill="currentColor"
     focusable="false"
     height="24"
@@ -800,7 +800,7 @@ exports[`Select Snapshots > Size: md > matches snapshot for ghost md disabled 1`
 <button
   aria-autocomplete="none"
   aria-expanded="false"
-  class="text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled border border-transparent bg-transparent hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-md max-h-ws-forms-md rounded-ws-control-lg px-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+  class="group/select-trigger text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden text-left whitespace-nowrap outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled border border-transparent bg-transparent hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-md max-h-ws-forms-md rounded-ws-control-lg px-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
   data-danger="false"
   data-disabled="true"
   data-placeholder=""
@@ -812,7 +812,7 @@ exports[`Select Snapshots > Size: md > matches snapshot for ghost md disabled 1`
   type="button"
 >
   <div
-    class="truncate"
+    class="flex min-w-0 flex-1 items-center"
   >
     <span
       data-slot="select-value"
@@ -823,7 +823,7 @@ exports[`Select Snapshots > Size: md > matches snapshot for ghost md disabled 1`
   </div>
   <svg
     aria-hidden="true"
-    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-4 ml-ws-6"
+    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-4 ml-ws-6 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
     data-disabled="true"
     fill="currentColor"
     focusable="false"
@@ -847,7 +847,7 @@ exports[`Select Snapshots > Size: md > matches snapshot for ghost md with cleara
   <button
     aria-autocomplete="none"
     aria-expanded="false"
-    class="text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled border border-transparent bg-transparent hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-md max-h-ws-forms-md rounded-ws-control-lg px-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+    class="group/select-trigger text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden text-left whitespace-nowrap outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled border border-transparent bg-transparent hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-md max-h-ws-forms-md rounded-ws-control-lg px-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
     data-danger="false"
     data-slot="select-trigger"
     data-state="closed"
@@ -856,17 +856,17 @@ exports[`Select Snapshots > Size: md > matches snapshot for ghost md with cleara
     type="button"
   >
     <div
-      class="truncate"
+      class="flex min-w-0 flex-1 items-center"
     >
       <span
-        class="min-w-0 flex-1 pr-ws-16"
+        class="min-w-0 flex-1 truncate pr-ws-16"
       >
         Poland
       </span>
     </div>
     <svg
       aria-hidden="true"
-      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-4 ml-ws-6"
+      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-4 ml-ws-6 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
       fill="currentColor"
       focusable="false"
       height="24"
@@ -908,7 +908,7 @@ exports[`Select Snapshots > Size: md > matches snapshot for ghost md with danger
 <button
   aria-autocomplete="none"
   aria-expanded="false"
-  class="text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled border border-transparent bg-transparent hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-danger-strong-hover active:not-data-[disabled=true]:border-ws-dynamic-danger-strong-pressed focus-visible:not-active:border-ws-dynamic-danger-strong-default focus-visible:not-active:shadow-ws-forms-active-danger typography-label-sm h-ws-forms-md max-h-ws-forms-md rounded-ws-control-lg px-ws-9 not-data-[disabled=true]:border-ws-dynamic-danger-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+  class="group/select-trigger text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden text-left whitespace-nowrap outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled border border-transparent bg-transparent hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-danger-strong-hover active:not-data-[disabled=true]:border-ws-dynamic-danger-strong-pressed focus-visible:not-active:border-ws-dynamic-danger-strong-default focus-visible:not-active:shadow-ws-forms-active-danger typography-label-sm h-ws-forms-md max-h-ws-forms-md rounded-ws-control-lg px-ws-9 not-data-[disabled=true]:border-ws-dynamic-danger-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
   data-danger="true"
   data-placeholder=""
   data-slot="select-trigger"
@@ -918,7 +918,7 @@ exports[`Select Snapshots > Size: md > matches snapshot for ghost md with danger
   type="button"
 >
   <div
-    class="truncate"
+    class="flex min-w-0 flex-1 items-center"
   >
     <span
       data-slot="select-value"
@@ -929,7 +929,7 @@ exports[`Select Snapshots > Size: md > matches snapshot for ghost md with danger
   </div>
   <svg
     aria-hidden="true"
-    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-4 ml-ws-6"
+    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-4 ml-ws-6 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
     fill="currentColor"
     focusable="false"
     height="24"
@@ -948,7 +948,7 @@ exports[`Select Snapshots > Size: md > matches snapshot for ghost md with hideAr
 <button
   aria-autocomplete="none"
   aria-expanded="false"
-  class="text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled border border-transparent bg-transparent hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-md max-h-ws-forms-md rounded-ws-control-lg px-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+  class="group/select-trigger text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden text-left whitespace-nowrap outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled border border-transparent bg-transparent hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-md max-h-ws-forms-md rounded-ws-control-lg px-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
   data-danger="false"
   data-placeholder=""
   data-slot="select-trigger"
@@ -958,7 +958,7 @@ exports[`Select Snapshots > Size: md > matches snapshot for ghost md with hideAr
   type="button"
 >
   <div
-    class="truncate"
+    class="flex min-w-0 flex-1 items-center"
   >
     <span
       data-slot="select-value"
@@ -974,7 +974,7 @@ exports[`Select Snapshots > Size: md > matches snapshot for ghost md with value 
 <button
   aria-autocomplete="none"
   aria-expanded="false"
-  class="text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled border border-transparent bg-transparent hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-md max-h-ws-forms-md rounded-ws-control-lg px-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+  class="group/select-trigger text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden text-left whitespace-nowrap outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled border border-transparent bg-transparent hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-md max-h-ws-forms-md rounded-ws-control-lg px-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
   data-danger="false"
   data-slot="select-trigger"
   data-state="closed"
@@ -983,17 +983,17 @@ exports[`Select Snapshots > Size: md > matches snapshot for ghost md with value 
   type="button"
 >
   <div
-    class="truncate"
+    class="flex min-w-0 flex-1 items-center"
   >
     <span
-      class="min-w-0 flex-1"
+      class="min-w-0 flex-1 truncate"
     >
       Poland
     </span>
   </div>
   <svg
     aria-hidden="true"
-    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-4 ml-ws-6"
+    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-4 ml-ws-6 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
     fill="currentColor"
     focusable="false"
     height="24"
@@ -1012,7 +1012,7 @@ exports[`Select Snapshots > Size: sm > matches snapshot for border sm 1`] = `
 <button
   aria-autocomplete="none"
   aria-expanded="false"
-  class="text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base border-ws-dynamic-secondary-default shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-sm max-h-ws-forms-sm rounded-ws-control-lg px-ws-7 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+  class="group/select-trigger text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden text-left whitespace-nowrap outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base border-ws-dynamic-secondary-default shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-sm max-h-ws-forms-sm rounded-ws-control-lg px-ws-7 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
   data-danger="false"
   data-placeholder=""
   data-slot="select-trigger"
@@ -1022,7 +1022,7 @@ exports[`Select Snapshots > Size: sm > matches snapshot for border sm 1`] = `
   type="button"
 >
   <div
-    class="truncate"
+    class="flex min-w-0 flex-1 items-center"
   >
     <span
       data-slot="select-value"
@@ -1052,7 +1052,7 @@ exports[`Select Snapshots > Size: sm > matches snapshot for border sm disabled 1
 <button
   aria-autocomplete="none"
   aria-expanded="false"
-  class="text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base border-ws-dynamic-secondary-default shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-sm max-h-ws-forms-sm rounded-ws-control-lg px-ws-7 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+  class="group/select-trigger text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden text-left whitespace-nowrap outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base border-ws-dynamic-secondary-default shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-sm max-h-ws-forms-sm rounded-ws-control-lg px-ws-7 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
   data-danger="false"
   data-disabled="true"
   data-placeholder=""
@@ -1064,7 +1064,7 @@ exports[`Select Snapshots > Size: sm > matches snapshot for border sm disabled 1
   type="button"
 >
   <div
-    class="truncate"
+    class="flex min-w-0 flex-1 items-center"
   >
     <span
       data-slot="select-value"
@@ -1099,7 +1099,7 @@ exports[`Select Snapshots > Size: sm > matches snapshot for border sm with clear
   <button
     aria-autocomplete="none"
     aria-expanded="false"
-    class="text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base border-ws-dynamic-secondary-default shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-sm max-h-ws-forms-sm rounded-ws-control-lg px-ws-7 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+    class="group/select-trigger text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden text-left whitespace-nowrap outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base border-ws-dynamic-secondary-default shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-sm max-h-ws-forms-sm rounded-ws-control-lg px-ws-7 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
     data-danger="false"
     data-slot="select-trigger"
     data-state="closed"
@@ -1108,10 +1108,10 @@ exports[`Select Snapshots > Size: sm > matches snapshot for border sm with clear
     type="button"
   >
     <div
-      class="truncate"
+      class="flex min-w-0 flex-1 items-center"
     >
       <span
-        class="min-w-0 flex-1 pr-ws-11"
+        class="min-w-0 flex-1 truncate pr-ws-11"
       >
         Poland
       </span>
@@ -1160,7 +1160,7 @@ exports[`Select Snapshots > Size: sm > matches snapshot for border sm with dange
 <button
   aria-autocomplete="none"
   aria-expanded="false"
-  class="text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-danger-strong-hover active:not-data-[disabled=true]:border-ws-dynamic-danger-strong-pressed focus-visible:not-active:border-ws-dynamic-danger-strong-default focus-visible:not-active:shadow-ws-forms-active-danger typography-label-sm h-ws-forms-sm max-h-ws-forms-sm rounded-ws-control-lg px-ws-7 border-ws-dynamic-danger-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+  class="group/select-trigger text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden text-left whitespace-nowrap outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-danger-strong-hover active:not-data-[disabled=true]:border-ws-dynamic-danger-strong-pressed focus-visible:not-active:border-ws-dynamic-danger-strong-default focus-visible:not-active:shadow-ws-forms-active-danger typography-label-sm h-ws-forms-sm max-h-ws-forms-sm rounded-ws-control-lg px-ws-7 border-ws-dynamic-danger-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
   data-danger="true"
   data-placeholder=""
   data-slot="select-trigger"
@@ -1170,7 +1170,7 @@ exports[`Select Snapshots > Size: sm > matches snapshot for border sm with dange
   type="button"
 >
   <div
-    class="truncate"
+    class="flex min-w-0 flex-1 items-center"
   >
     <span
       data-slot="select-value"
@@ -1200,7 +1200,7 @@ exports[`Select Snapshots > Size: sm > matches snapshot for border sm with hideA
 <button
   aria-autocomplete="none"
   aria-expanded="false"
-  class="text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base border-ws-dynamic-secondary-default shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-sm max-h-ws-forms-sm rounded-ws-control-lg px-ws-7 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+  class="group/select-trigger text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden text-left whitespace-nowrap outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base border-ws-dynamic-secondary-default shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-sm max-h-ws-forms-sm rounded-ws-control-lg px-ws-7 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
   data-danger="false"
   data-placeholder=""
   data-slot="select-trigger"
@@ -1210,7 +1210,7 @@ exports[`Select Snapshots > Size: sm > matches snapshot for border sm with hideA
   type="button"
 >
   <div
-    class="truncate"
+    class="flex min-w-0 flex-1 items-center"
   >
     <span
       data-slot="select-value"
@@ -1226,7 +1226,7 @@ exports[`Select Snapshots > Size: sm > matches snapshot for border sm with value
 <button
   aria-autocomplete="none"
   aria-expanded="false"
-  class="text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base border-ws-dynamic-secondary-default shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-sm max-h-ws-forms-sm rounded-ws-control-lg px-ws-7 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+  class="group/select-trigger text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden text-left whitespace-nowrap outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base border-ws-dynamic-secondary-default shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-sm max-h-ws-forms-sm rounded-ws-control-lg px-ws-7 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
   data-danger="false"
   data-slot="select-trigger"
   data-state="closed"
@@ -1235,10 +1235,10 @@ exports[`Select Snapshots > Size: sm > matches snapshot for border sm with value
   type="button"
 >
   <div
-    class="truncate"
+    class="flex min-w-0 flex-1 items-center"
   >
     <span
-      class="min-w-0 flex-1"
+      class="min-w-0 flex-1 truncate"
     >
       Poland
     </span>
@@ -1264,7 +1264,7 @@ exports[`Select Snapshots > Size: sm > matches snapshot for ghost sm 1`] = `
 <button
   aria-autocomplete="none"
   aria-expanded="false"
-  class="text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled border border-transparent bg-transparent hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-sm max-h-ws-forms-sm rounded-ws-control-lg px-ws-7 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+  class="group/select-trigger text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden text-left whitespace-nowrap outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled border border-transparent bg-transparent hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-sm max-h-ws-forms-sm rounded-ws-control-lg px-ws-7 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
   data-danger="false"
   data-placeholder=""
   data-slot="select-trigger"
@@ -1274,7 +1274,7 @@ exports[`Select Snapshots > Size: sm > matches snapshot for ghost sm 1`] = `
   type="button"
 >
   <div
-    class="truncate"
+    class="flex min-w-0 flex-1 items-center"
   >
     <span
       data-slot="select-value"
@@ -1285,7 +1285,7 @@ exports[`Select Snapshots > Size: sm > matches snapshot for ghost sm 1`] = `
   </div>
   <svg
     aria-hidden="true"
-    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-5"
+    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-5 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
     fill="currentColor"
     focusable="false"
     height="24"
@@ -1304,7 +1304,7 @@ exports[`Select Snapshots > Size: sm > matches snapshot for ghost sm disabled 1`
 <button
   aria-autocomplete="none"
   aria-expanded="false"
-  class="text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled border border-transparent bg-transparent hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-sm max-h-ws-forms-sm rounded-ws-control-lg px-ws-7 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+  class="group/select-trigger text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden text-left whitespace-nowrap outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled border border-transparent bg-transparent hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-sm max-h-ws-forms-sm rounded-ws-control-lg px-ws-7 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
   data-danger="false"
   data-disabled="true"
   data-placeholder=""
@@ -1316,7 +1316,7 @@ exports[`Select Snapshots > Size: sm > matches snapshot for ghost sm disabled 1`
   type="button"
 >
   <div
-    class="truncate"
+    class="flex min-w-0 flex-1 items-center"
   >
     <span
       data-slot="select-value"
@@ -1327,7 +1327,7 @@ exports[`Select Snapshots > Size: sm > matches snapshot for ghost sm disabled 1`
   </div>
   <svg
     aria-hidden="true"
-    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-5"
+    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-5 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
     data-disabled="true"
     fill="currentColor"
     focusable="false"
@@ -1351,7 +1351,7 @@ exports[`Select Snapshots > Size: sm > matches snapshot for ghost sm with cleara
   <button
     aria-autocomplete="none"
     aria-expanded="false"
-    class="text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled border border-transparent bg-transparent hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-sm max-h-ws-forms-sm rounded-ws-control-lg px-ws-7 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+    class="group/select-trigger text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden text-left whitespace-nowrap outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled border border-transparent bg-transparent hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-sm max-h-ws-forms-sm rounded-ws-control-lg px-ws-7 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
     data-danger="false"
     data-slot="select-trigger"
     data-state="closed"
@@ -1360,17 +1360,17 @@ exports[`Select Snapshots > Size: sm > matches snapshot for ghost sm with cleara
     type="button"
   >
     <div
-      class="truncate"
+      class="flex min-w-0 flex-1 items-center"
     >
       <span
-        class="min-w-0 flex-1 pr-ws-11"
+        class="min-w-0 flex-1 truncate pr-ws-11"
       >
         Poland
       </span>
     </div>
     <svg
       aria-hidden="true"
-      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-5"
+      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-5 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
       fill="currentColor"
       focusable="false"
       height="24"
@@ -1412,7 +1412,7 @@ exports[`Select Snapshots > Size: sm > matches snapshot for ghost sm with danger
 <button
   aria-autocomplete="none"
   aria-expanded="false"
-  class="text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled border border-transparent bg-transparent hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-danger-strong-hover active:not-data-[disabled=true]:border-ws-dynamic-danger-strong-pressed focus-visible:not-active:border-ws-dynamic-danger-strong-default focus-visible:not-active:shadow-ws-forms-active-danger typography-label-sm h-ws-forms-sm max-h-ws-forms-sm rounded-ws-control-lg px-ws-7 not-data-[disabled=true]:border-ws-dynamic-danger-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+  class="group/select-trigger text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden text-left whitespace-nowrap outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled border border-transparent bg-transparent hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-danger-strong-hover active:not-data-[disabled=true]:border-ws-dynamic-danger-strong-pressed focus-visible:not-active:border-ws-dynamic-danger-strong-default focus-visible:not-active:shadow-ws-forms-active-danger typography-label-sm h-ws-forms-sm max-h-ws-forms-sm rounded-ws-control-lg px-ws-7 not-data-[disabled=true]:border-ws-dynamic-danger-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
   data-danger="true"
   data-placeholder=""
   data-slot="select-trigger"
@@ -1422,7 +1422,7 @@ exports[`Select Snapshots > Size: sm > matches snapshot for ghost sm with danger
   type="button"
 >
   <div
-    class="truncate"
+    class="flex min-w-0 flex-1 items-center"
   >
     <span
       data-slot="select-value"
@@ -1433,7 +1433,7 @@ exports[`Select Snapshots > Size: sm > matches snapshot for ghost sm with danger
   </div>
   <svg
     aria-hidden="true"
-    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-5"
+    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-5 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
     fill="currentColor"
     focusable="false"
     height="24"
@@ -1452,7 +1452,7 @@ exports[`Select Snapshots > Size: sm > matches snapshot for ghost sm with hideAr
 <button
   aria-autocomplete="none"
   aria-expanded="false"
-  class="text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled border border-transparent bg-transparent hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-sm max-h-ws-forms-sm rounded-ws-control-lg px-ws-7 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+  class="group/select-trigger text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden text-left whitespace-nowrap outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled border border-transparent bg-transparent hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-sm max-h-ws-forms-sm rounded-ws-control-lg px-ws-7 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
   data-danger="false"
   data-placeholder=""
   data-slot="select-trigger"
@@ -1462,7 +1462,7 @@ exports[`Select Snapshots > Size: sm > matches snapshot for ghost sm with hideAr
   type="button"
 >
   <div
-    class="truncate"
+    class="flex min-w-0 flex-1 items-center"
   >
     <span
       data-slot="select-value"
@@ -1478,7 +1478,7 @@ exports[`Select Snapshots > Size: sm > matches snapshot for ghost sm with value 
 <button
   aria-autocomplete="none"
   aria-expanded="false"
-  class="text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled border border-transparent bg-transparent hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-sm max-h-ws-forms-sm rounded-ws-control-lg px-ws-7 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+  class="group/select-trigger text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden text-left whitespace-nowrap outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled border border-transparent bg-transparent hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-sm max-h-ws-forms-sm rounded-ws-control-lg px-ws-7 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
   data-danger="false"
   data-slot="select-trigger"
   data-state="closed"
@@ -1487,17 +1487,17 @@ exports[`Select Snapshots > Size: sm > matches snapshot for ghost sm with value 
   type="button"
 >
   <div
-    class="truncate"
+    class="flex min-w-0 flex-1 items-center"
   >
     <span
-      class="min-w-0 flex-1"
+      class="min-w-0 flex-1 truncate"
     >
       Poland
     </span>
   </div>
   <svg
     aria-hidden="true"
-    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-5"
+    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-5 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
     fill="currentColor"
     focusable="false"
     height="24"
@@ -1516,7 +1516,7 @@ exports[`Select Snapshots > Sub-components snapshots > matches snapshot with Sel
 <button
   aria-autocomplete="none"
   aria-expanded="false"
-  class="text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base border-ws-dynamic-secondary-default shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-md max-h-ws-forms-md rounded-ws-control-lg px-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+  class="group/select-trigger text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden text-left whitespace-nowrap outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base border-ws-dynamic-secondary-default shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-md max-h-ws-forms-md rounded-ws-control-lg px-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
   data-danger="false"
   data-placeholder=""
   data-slot="select-trigger"
@@ -1552,7 +1552,7 @@ exports[`Select Snapshots > Sub-components snapshots > matches snapshot with Sel
 <button
   aria-autocomplete="none"
   aria-expanded="false"
-  class="text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base border-ws-dynamic-secondary-default shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-md max-h-ws-forms-md rounded-ws-control-lg px-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+  class="group/select-trigger text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden text-left whitespace-nowrap outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base border-ws-dynamic-secondary-default shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-md max-h-ws-forms-md rounded-ws-control-lg px-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
   data-danger="false"
   data-placeholder=""
   data-slot="select-trigger"
@@ -1588,7 +1588,7 @@ exports[`Select Snapshots > Sub-components snapshots > matches snapshot with Sel
 <button
   aria-autocomplete="none"
   aria-expanded="false"
-  class="text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base border-ws-dynamic-secondary-default shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-md max-h-ws-forms-md rounded-ws-control-lg px-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+  class="group/select-trigger text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden text-left whitespace-nowrap outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base border-ws-dynamic-secondary-default shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-md max-h-ws-forms-md rounded-ws-control-lg px-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
   data-danger="false"
   data-placeholder=""
   data-slot="select-trigger"
@@ -1624,7 +1624,7 @@ exports[`Select Snapshots > With prefix options > matches snapshot with prefix o
 <button
   aria-autocomplete="none"
   aria-expanded="false"
-  class="text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base border-ws-dynamic-secondary-default shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-md max-h-ws-forms-md rounded-ws-control-lg px-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+  class="group/select-trigger text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden text-left whitespace-nowrap outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base border-ws-dynamic-secondary-default shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-md max-h-ws-forms-md rounded-ws-control-lg px-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
   data-danger="false"
   data-slot="select-trigger"
   data-state="closed"
@@ -1633,7 +1633,7 @@ exports[`Select Snapshots > With prefix options > matches snapshot with prefix o
   type="button"
 >
   <div
-    class="flex h-full items-center"
+    class="flex min-w-0 flex-1 items-center h-full"
   >
     <div
       class="text-ws-static-subtle border-ws-static-base data-[disabled=true]:border-ws-static-base flex h-full shrink-0 items-center justify-center border-r data-[disabled=true]:opacity-50 mr-ws-7 -ml-ws-8 px-ws-5"
@@ -1652,7 +1652,7 @@ exports[`Select Snapshots > With prefix options > matches snapshot with prefix o
       </svg>
     </div>
     <span
-      class="min-w-0 flex-1"
+      class="min-w-0 flex-1 truncate"
     >
       Calendar Events
     </span>
@@ -1678,7 +1678,7 @@ exports[`Select Snapshots > With prefix options > matches snapshot with prefix o
 <button
   aria-autocomplete="none"
   aria-expanded="false"
-  class="text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base border-ws-dynamic-secondary-default shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-md max-h-ws-forms-md rounded-ws-control-lg px-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+  class="group/select-trigger text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden text-left whitespace-nowrap outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base border-ws-dynamic-secondary-default shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-md max-h-ws-forms-md rounded-ws-control-lg px-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
   data-danger="false"
   data-placeholder=""
   data-slot="select-trigger"
@@ -1688,7 +1688,7 @@ exports[`Select Snapshots > With prefix options > matches snapshot with prefix o
   type="button"
 >
   <div
-    class="truncate"
+    class="flex min-w-0 flex-1 items-center"
   >
     <span
       data-slot="select-value"

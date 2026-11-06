@@ -83,3 +83,9 @@ export type TableBodyProps = React.HTMLAttributes<HTMLTableSectionElement>;
 
 /** The table section containing summary rows. */
 export type TableFootProps = React.HTMLAttributes<HTMLTableSectionElement>;
+
+/**
+ * A second line under a cell's label, e.g. a project's summary under its name. Use it in `md`
+ * and `lg` tables; an `sm` row has no room for two lines.
+ */
+export type TableCellDescriptionProps = React.HTMLAttributes<HTMLSpanElement>;
