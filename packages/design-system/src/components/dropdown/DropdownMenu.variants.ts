@@ -1,6 +1,23 @@
 import { cva } from 'class-variance-authority';
 import { cn } from 'src/lib/utils';
 
+/** Figma's Dropdown Menu surface, shared by `DropdownMenu.Content` and `DropdownMenu.SubContent`. */
+export const dropdownMenuContentClassName = cn(
+  // Hard rule for floating menus: never narrower than Size/28 (10rem — Bootstrap's floor; shadcn
+  // uses 8rem, Material 112dp). Trigger-matching popovers (Select/MultiSelect) override the floor
+  // with max(trigger, Size/28).
+  'min-w-ws-28',
+  'rounded-ws-container-sm p-ws-3 outline-hidden',
+  'bg-ws-static-overlay text-ws-dynamic-secondary-default shadow-ws-medium z-ws-popout',
+);
+
+/**
+ * A menu row, shared by `Item`, `RadioItem` and `SubTrigger`; `ListItem` draws the rest. Figma
+ * pins the row's min-height to `Size/14` (32px); ListItem's padding (Gap/3 + 20px content +
+ * Gap/3) only reaches 28px on its own.
+ */
+export const dropdownMenuItemClassName = 'min-h-ws-14 outline-hidden';
+
 export const dropdownMenuContentMotionVariants = cva('', {
   variants: {
     enabled: {

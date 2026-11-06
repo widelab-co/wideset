@@ -212,7 +212,7 @@ exports[`DropdownMenu > DropdownMenu Snapshots > matches snapshot for dropdown w
   </div>
   <div
     aria-orientation="horizontal"
-    class="border-ws-static-base -mx-ws-3 my-ws-4 border-t"
+    class="border-ws-static-base -mx-ws-3 my-[5.5px] border-t"
     data-slot="dropdown-menu-separator"
     role="separator"
   />

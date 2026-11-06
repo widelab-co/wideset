@@ -413,6 +413,86 @@ describe('DropdownMenu', () => {
       expect(handleSelect).toHaveBeenCalledTimes(1);
     });
   });
+
+  // Figma's Dropdown Menu draws these parts as Menu Item rows (Single Select, Divider) on the
+  // menu surface; they used to render as bare Radix parts.
+  describe('Figma parts', () => {
+    const renderMenu = () =>
+      render(
+        <DropdownMenu open modal={false}>
+          <DropdownMenu.Trigger>Open</DropdownMenu.Trigger>
+          <DropdownMenu.Content>
+            <DropdownMenu.RadioGroup value="name">
+              <DropdownMenu.RadioItem value="name">Name</DropdownMenu.RadioItem>
+              <DropdownMenu.RadioItem value="date">Date</DropdownMenu.RadioItem>
+            </DropdownMenu.RadioGroup>
+            <DropdownMenu.Separator />
+            <DropdownMenu.Sub open>
+              <DropdownMenu.SubTrigger>Share</DropdownMenu.SubTrigger>
+              <DropdownMenu.SubContent data-testid="sub-content">
+                <DropdownMenu.Item>Copy link</DropdownMenu.Item>
+              </DropdownMenu.SubContent>
+            </DropdownMenu.Sub>
+          </DropdownMenu.Content>
+        </DropdownMenu>,
+      );
+
+    it('draws radio items as menu rows', () => {
+      renderMenu();
+
+      expect(screen.getByRole('menuitemradio', { name: 'Date' })).toHaveClass(
+        'min-h-ws-14',
+        'px-ws-5',
+        'py-ws-3',
+        'rounded-ws-control-md',
+      );
+    });
+
+    it('checks only the selected radio item', () => {
+      renderMenu();
+
+      const selected = screen.getByRole('menuitemradio', { name: 'Name' });
+      expect(selected).toHaveAttribute('data-state', 'checked');
+      expect(selected.querySelector('svg')).toBeInTheDocument();
+      expect(screen.getByRole('menuitemradio', { name: 'Date' }).querySelector('svg')).toBeNull();
+    });
+
+    it('draws the sub trigger as a menu row with a chevron', () => {
+      renderMenu();
+
+      const trigger = screen.getByRole('menuitem', { name: 'Share' });
+      expect(trigger).toHaveClass('min-h-ws-14', 'px-ws-5', 'py-ws-3', 'rounded-ws-control-md');
+      expect(trigger.querySelector('[data-slot="list-item-suffix"] svg')).toBeInTheDocument();
+    });
+
+    it('keeps the sub trigger filled while its submenu is open', () => {
+      renderMenu();
+
+      const trigger = screen.getByRole('menuitem', { name: 'Share' });
+      expect(trigger).toHaveAttribute('data-state', 'open');
+      expect(trigger).toHaveClass('data-[state=open]:bg-ws-dynamic-secondary-alpha-hover');
+    });
+
+    it('gives the submenu the menu surface', () => {
+      renderMenu();
+
+      expect(screen.getByTestId('sub-content')).toHaveClass(
+        'min-w-ws-28',
+        'rounded-ws-container-sm',
+        'p-ws-3',
+        'bg-ws-static-overlay',
+        'shadow-ws-medium',
+        'z-ws-popout',
+      );
+    });
+
+    it('keeps the separator row at 12px, as Figma draws it', () => {
+      renderMenu();
+
+      // 5.5px + the 1px border + 5.5px; `my-ws-4` made it 13px.
+      expect(screen.getByRole('separator')).toHaveClass('my-[5.5px]', 'border-t');
+    });
+  });
 });
 
 describe('data-slot', () => {

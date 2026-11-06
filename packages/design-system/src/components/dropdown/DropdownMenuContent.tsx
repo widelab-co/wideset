@@ -5,7 +5,10 @@ import { cn } from 'src/lib/utils';
 import { useDefaultMotion } from '../../motion/MotionProvider';
 import { DropdownMenuContext, DropdownMenuPortalContext } from './DropdownMenu.context';
 import type { DropdownMenuContentProps } from './DropdownMenu.types';
-import { dropdownMenuContentMotionVariants } from './DropdownMenu.variants';
+import {
+  dropdownMenuContentClassName,
+  dropdownMenuContentMotionVariants,
+} from './DropdownMenu.variants';
 
 export const DropdownMenuContent = React.forwardRef<
   React.ComponentRef<typeof DropdownMenuPrimitive.Content>,
@@ -52,13 +55,7 @@ export const DropdownMenuContent = React.forwardRef<
           onCloseAutoFocus={handleCloseAutoFocus}
           onPointerDown={handlePointerDown}
           className={cn(
-            // Hard rule for floating menus: never narrower than Size/28 (10rem —
-            // Bootstrap's floor; shadcn uses 8rem, Material 112dp). Trigger-matching
-            // popovers (Select/MultiSelect) override the floor with
-            // max(trigger, Size/28).
-            'min-w-ws-28',
-            'rounded-ws-container-sm p-ws-3 outline-hidden',
-            'bg-ws-static-overlay text-ws-dynamic-secondary-default shadow-ws-medium z-ws-popout',
+            dropdownMenuContentClassName,
             dropdownMenuContentMotionVariants({ enabled: motion }),
             className,
           )}

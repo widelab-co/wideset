@@ -1,8 +1,17 @@
 'use client';
 
 import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
+import { RiArrowRightSLine } from '@remixicon/react';
 import * as React from 'react';
+import { cn } from '@/lib/wideset/utils';
 
+import { ListItem } from '../list-item/ListItem';
+import { useDropdownMenuContext } from './DropdownMenu.context';
+import {
+  dropdownMenuContentClassName,
+  dropdownMenuContentMotionVariants,
+  dropdownMenuItemClassName,
+} from './DropdownMenu.variants';
 import { DropdownMenuContent } from './DropdownMenuContent';
 import { DropdownMenuItem } from './DropdownMenuItem';
 import { DropdownMenuLabel } from './DropdownMenuLabel';
@@ -77,28 +86,78 @@ DropdownMenuItemIndicator.displayName = 'DropdownMenu.ItemIndicator';
 DropdownMenu.ItemIndicator = DropdownMenuItemIndicator;
 export const DropdownMenuSub = DropdownMenuPrimitive.Sub;
 DropdownMenu.Sub = DropdownMenuSub;
+// A Single Select row with Figma's Suffix chevron (arrow-right-s-line, 16px in a 24px box); it
+// keeps the hover fill while its submenu is open.
 export const DropdownMenuSubTrigger = React.forwardRef<
   React.ComponentRef<typeof DropdownMenuPrimitive.SubTrigger>,
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.SubTrigger>
->((props, ref) => (
-  <DropdownMenuPrimitive.SubTrigger ref={ref} data-slot="dropdown-menu-sub-trigger" {...props} />
-));
+>(({ className, children, ...props }, ref) => {
+  const { motion } = useDropdownMenuContext();
+
+  return (
+    <DropdownMenuPrimitive.SubTrigger
+      ref={ref}
+      data-slot="dropdown-menu-sub-trigger"
+      className={cn(
+        dropdownMenuItemClassName,
+        'data-[state=open]:bg-ws-dynamic-secondary-alpha-hover',
+        className,
+      )}
+      {...props}
+      asChild
+    >
+      <ListItem defaultMotion={motion}>
+        {children}
+        <ListItem.Suffix className="size-ws-12 justify-center">
+          <RiArrowRightSLine aria-hidden="true" focusable="false" className="size-ws-9" />
+        </ListItem.Suffix>
+      </ListItem>
+    </DropdownMenuPrimitive.SubTrigger>
+  );
+});
 DropdownMenuSubTrigger.displayName = 'DropdownMenu.SubTrigger';
 DropdownMenu.SubTrigger = DropdownMenuSubTrigger;
 export const DropdownMenuSubContent = React.forwardRef<
   React.ComponentRef<typeof DropdownMenuPrimitive.SubContent>,
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.SubContent>
->((props, ref) => (
-  <DropdownMenuPrimitive.SubContent ref={ref} data-slot="dropdown-menu-sub-content" {...props} />
-));
+>(({ className, ...props }, ref) => {
+  const { motion } = useDropdownMenuContext();
+
+  return (
+    <DropdownMenuPrimitive.SubContent
+      ref={ref}
+      data-slot="dropdown-menu-sub-content"
+      className={cn(
+        dropdownMenuContentClassName,
+        dropdownMenuContentMotionVariants({ enabled: motion }),
+        className,
+      )}
+      {...props}
+    />
+  );
+});
 DropdownMenuSubContent.displayName = 'DropdownMenu.SubContent';
 DropdownMenu.SubContent = DropdownMenuSubContent;
+// Figma's Single Select row: ListItem paints the checked fill and the check from Radix's
+// `data-state`, so no ItemIndicator is needed.
 export const DropdownMenuRadioItem = React.forwardRef<
   React.ComponentRef<typeof DropdownMenuPrimitive.RadioItem>,
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.RadioItem>
->((props, ref) => (
-  <DropdownMenuPrimitive.RadioItem ref={ref} data-slot="dropdown-menu-radio-item" {...props} />
-));
+>(({ className, children, ...props }, ref) => {
+  const { motion } = useDropdownMenuContext();
+
+  return (
+    <DropdownMenuPrimitive.RadioItem
+      ref={ref}
+      data-slot="dropdown-menu-radio-item"
+      className={cn(dropdownMenuItemClassName, className)}
+      {...props}
+      asChild
+    >
+      <ListItem defaultMotion={motion}>{children}</ListItem>
+    </DropdownMenuPrimitive.RadioItem>
+  );
+});
 DropdownMenuRadioItem.displayName = 'DropdownMenu.RadioItem';
 DropdownMenu.RadioItem = DropdownMenuRadioItem;
 
