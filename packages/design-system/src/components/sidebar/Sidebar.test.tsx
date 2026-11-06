@@ -222,6 +222,53 @@ describe('Sidebar', () => {
   });
 
   describe('Sidebar.Section', () => {
+    // A collapsed rail once centred its items 5px left of the trigger: the scroll gutter stayed.
+    it('keeps a collapsed scrollable section on the rail centre line, with no bar gutter', () => {
+      const { container, rerender } = render(
+        <Sidebar collapsed>
+          <Sidebar.Section scrollable>
+            <Sidebar.Collapsed>
+              <Sidebar.Item href="#" label="Inbox" />
+            </Sidebar.Collapsed>
+          </Sidebar.Section>
+        </Sidebar>,
+      );
+      const viewport = () => container.querySelector('[data-slot="scroll-area-viewport"]');
+      expect(viewport()).not.toHaveClass('pr-ws-6');
+      rerender(
+        <Sidebar collapsed={false}>
+          <Sidebar.Section scrollable>
+            <Sidebar.Expanded>
+              <Sidebar.Item href="#" label="Inbox" />
+            </Sidebar.Expanded>
+          </Sidebar.Section>
+        </Sidebar>,
+      );
+      expect(viewport()).toHaveClass('pr-ws-6');
+    });
+
+    it('centres a collapsed header and footer on the same line', () => {
+      render(
+        <Sidebar collapsed>
+          <Sidebar.Header data-testid="header">Mark</Sidebar.Header>
+          <Sidebar.Footer data-testid="footer">Account</Sidebar.Footer>
+        </Sidebar>,
+      );
+      expect(screen.getByTestId('header')).toHaveClass('flex', 'flex-col', 'items-center');
+      expect(screen.getByTestId('footer')).toHaveClass('flex', 'flex-col', 'items-center');
+    });
+
+    it('leaves an expanded header and footer as plain blocks', () => {
+      render(
+        <Sidebar collapsed={false}>
+          <Sidebar.Header data-testid="header">Mark</Sidebar.Header>
+          <Sidebar.Footer data-testid="footer">Account</Sidebar.Footer>
+        </Sidebar>,
+      );
+      expect(screen.getByTestId('header')).not.toHaveClass('items-center');
+      expect(screen.getByTestId('footer')).not.toHaveClass('items-center');
+    });
+
     it('should render Sidebar.Expanded content when sidebar is expanded', () => {
       render(
         <Sidebar collapsed={false}>
