@@ -1,0 +1,104 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`NavigationBar > Snapshots > matches snapshot for a bar with links and actions 1`] = `
+<header
+  class="gap-ws-9 px-ws-12 h-ws-20 flex shrink-0 items-center border-ws-static-base border-b"
+  data-slot="navigation-bar"
+>
+  <div
+    class="gap-ws-5 flex shrink-0 items-center"
+    data-slot="navigation-bar-start"
+  >
+    <button
+      aria-label="Open menu"
+      type="button"
+    />
+  </div>
+  <nav
+    aria-label="Main"
+    class="gap-ws-3 flex min-w-0 items-center"
+    data-slot="navigation-bar-nav"
+  >
+    <a
+      aria-current="page"
+      class="typography-label-strong-sm rounded-ws-control-lg gap-ws-5 px-ws-5 py-ws-3 min-h-ws-14 flex min-w-0 cursor-pointer items-center no-underline focus-visible:wds-focus-visible outline-ws-static-inverse-background hover:not-aria-disabled:bg-ws-dynamic-secondary-alpha-hover active:not-aria-disabled:bg-ws-dynamic-secondary-alpha-pressed aria-disabled:text-ws-static-subtle aria-disabled:pointer-events-none aria-disabled:cursor-default bg-ws-dynamic-tertiary-alpha-strong-default text-ws-static-strong transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+      data-slot="navigation-bar-item"
+      href="/"
+    >
+      <svg
+        aria-hidden="true"
+        class="size-ws-10 shrink-0"
+        data-testid="icon"
+        focusable="false"
+      />
+      <span
+        class="min-w-0 truncate"
+      >
+        Dashboard
+      </span>
+    </a>
+    <a
+      class="typography-label-strong-sm rounded-ws-control-lg gap-ws-5 px-ws-5 py-ws-3 min-h-ws-14 flex min-w-0 cursor-pointer items-center no-underline focus-visible:wds-focus-visible outline-ws-static-inverse-background hover:not-aria-disabled:bg-ws-dynamic-secondary-alpha-hover active:not-aria-disabled:bg-ws-dynamic-secondary-alpha-pressed aria-disabled:text-ws-static-subtle aria-disabled:pointer-events-none aria-disabled:cursor-default bg-ws-dynamic-secondary-alpha-default text-ws-static-base transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+      data-slot="navigation-bar-item"
+      href="/products"
+    >
+      <svg
+        aria-hidden="true"
+        class="size-ws-10 shrink-0 text-ws-static-subtle opacity-75"
+        data-testid="icon"
+        focusable="false"
+      />
+      <span
+        class="min-w-0 truncate"
+      >
+        Products
+      </span>
+      <span
+        class="flex shrink-0"
+      >
+        New
+      </span>
+    </a>
+    <a
+      aria-disabled="true"
+      class="typography-label-strong-sm rounded-ws-control-lg gap-ws-5 px-ws-5 py-ws-3 min-h-ws-14 flex min-w-0 cursor-pointer items-center no-underline focus-visible:wds-focus-visible outline-ws-static-inverse-background hover:not-aria-disabled:bg-ws-dynamic-secondary-alpha-hover active:not-aria-disabled:bg-ws-dynamic-secondary-alpha-pressed aria-disabled:text-ws-static-subtle aria-disabled:pointer-events-none aria-disabled:cursor-default bg-ws-dynamic-secondary-alpha-default text-ws-static-base transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+      data-slot="navigation-bar-item"
+      href="/tasks"
+      tabindex="-1"
+    >
+      <svg
+        aria-hidden="true"
+        class="size-ws-10 shrink-0 text-ws-static-subtle opacity-75"
+        data-testid="icon"
+        focusable="false"
+      />
+      <span
+        class="min-w-0 truncate"
+      >
+        Tasks
+      </span>
+    </a>
+  </nav>
+  <div
+    class="gap-ws-9 ml-auto flex shrink-0 items-center"
+    data-slot="navigation-bar-end"
+  >
+    <div
+      class="gap-ws-3 flex items-center"
+      data-slot="navigation-bar-actions"
+    >
+      <button
+        aria-label="Settings"
+        type="button"
+      />
+    </div>
+  </div>
+</header>
+`;
+
+exports[`NavigationBar > Snapshots > matches snapshot without the divider 1`] = `
+<header
+  class="gap-ws-9 px-ws-12 h-ws-20 flex shrink-0 items-center"
+  data-slot="navigation-bar"
+/>
+`;
