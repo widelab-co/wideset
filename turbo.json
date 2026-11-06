@@ -3,11 +3,11 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "env": ["REGISTRY_URL", "DOCS_URL", "PUBLIC_STORYBOOK_URL"],
+      "env": ["REGISTRY_URL", "DOCS_URL", "PUBLIC_STORYBOOK_URL", "PUBLIC_CF_ANALYTICS_TOKEN"],
       "outputs": ["dist/**"]
     },
     "build:storybook": {
-      "env": ["REGISTRY_URL"],
+      "env": ["REGISTRY_URL", "PUBLIC_CF_ANALYTICS_TOKEN"],
       "outputs": ["storybook-static/**"]
     },
     "dev": {

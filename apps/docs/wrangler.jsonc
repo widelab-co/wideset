@@ -6,17 +6,22 @@
 //   PRs     → `wrangler versions upload --preview-alias <branch>` on this Worker, which gives
 //             https://<branch>-wideset-docs.<account>.workers.dev
 // Astro writes a 404.html, so unknown paths (a missing registry item too) answer with a 404 status.
+// worker/index.mjs runs for /r/* only and counts registry downloads; production has the dataset.
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "wideset-docs",
+  "main": "./worker/index.mjs",
   "compatibility_date": "2026-10-01",
   "workers_dev": true,
   "preview_urls": true,
   "assets": {
     "directory": "./dist",
+    "binding": "ASSETS",
+    "run_worker_first": ["/r/*"],
     "not_found_handling": "404-page",
     "html_handling": "auto-trailing-slash",
   },
+  "analytics_engine_datasets": [{ "binding": "REGISTRY_DOWNLOADS", "dataset": "wideset_registry" }],
   "env": {
     "develop": {
       "name": "wideset-docs-develop",
@@ -24,6 +29,8 @@
       "preview_urls": true,
       "assets": {
         "directory": "./dist",
+        "binding": "ASSETS",
+        "run_worker_first": ["/r/*"],
         "not_found_handling": "404-page",
         "html_handling": "auto-trailing-slash",
       },

@@ -25,6 +25,14 @@ const config: StorybookConfig = {
   core: {
     builder: '@storybook/builder-vite',
   },
+  // Cloudflare Web Analytics, in the manager rather than preview-head.html: the preview is the
+  // story iframe, which reloads on its own. Only production builds get a token (build.yaml).
+  managerHead: (head) => {
+    const token = process.env.PUBLIC_CF_ANALYTICS_TOKEN;
+    if (!token) return head;
+    const beacon = JSON.stringify({ token }).replace(/"/g, '&quot;');
+    return `${head}<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="${beacon}"></script>`;
+  },
   async viteFinal(config) {
     return mergeConfig(config, {
       css: {
