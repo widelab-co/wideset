@@ -266,6 +266,36 @@ describe('Avatar', () => {
     });
   });
 
+  describe('Focus ring', () => {
+    // A bare `wds-focus-visible` draws the outline all the time; the
+    // `focus-visible:` variant keeps it to keyboard focus.
+    const ringClasses = (element: Element) =>
+      element.className
+        .split(/\s+/)
+        .filter((name) => name.includes('wds-focus-visible') || name.includes('outline-ws-'));
+    const keyboardOnly = [
+      'focus-visible:wds-focus-visible',
+      'focus-visible:outline-ws-dynamic-primary-strong-default',
+    ];
+
+    it('should draw the ring of a clickable avatar only on keyboard focus', () => {
+      const { container } = render(<Avatar initials="WD" onClick={() => {}} />);
+
+      expect(ringClasses(container.firstElementChild as HTMLElement)).toEqual(keyboardOnly);
+    });
+
+    it('should draw the ring of a clickable +N only on keyboard focus', () => {
+      render(
+        <Avatar.Group>
+          <Avatar initials="WD" />
+          <Avatar.More onClick={() => {}}>+2</Avatar.More>
+        </Avatar.Group>,
+      );
+
+      expect(ringClasses(screen.getByRole('button', { name: '+2' }))).toEqual(keyboardOnly);
+    });
+  });
+
   describe('Selection', () => {
     const sizes = ['xs', 'sm', 'md', 'lg', 'xl', '2xl'] as const;
     const radiusOf = (classes: string) => classes.match(/rounded-\S+/)?.[0] ?? null;

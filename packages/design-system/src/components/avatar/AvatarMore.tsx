@@ -14,7 +14,7 @@ const AvatarMore = ({ size, shape, className, children, onClick, ...props }: Mor
   const styles = cn(
     onClick
       ? [
-          'wds-focus-visible outline-ws-dynamic-primary-strong-default cursor-pointer',
+          'focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default cursor-pointer',
           'hover:bg-ws-dynamic-secondary-alpha-strong-hover',
           'active:bg-ws-dynamic-secondary-alpha-strong-pressed',
         ].join(' ')
