@@ -7,6 +7,11 @@ SegmentedControl and the form controls already animate with Wideset's motion tok
 down for reduced motion. **Do not add your own transitions, keyframes or animation libraries to a
 screen.**
 
+**Only buttons press (a subtle scale); fields, tabs, menus, list rows, tiles and calendar cells
+answer with colour, never with a scale or bounce.** Fields and their menus stay still: a select,
+combobox, filter, picker or dropdown menu opens and closes with a short fade, no zoom or slide.
+Hold anything you build yourself to the same rule.
+
 ## Why
 
 Motion that was never designed together is the loudest inconsistency there is: one panel slides
