@@ -247,6 +247,28 @@ describe('Sidebar', () => {
       expect(viewport()).toHaveClass('pr-ws-6');
     });
 
+    it('centres a collapsed header and footer on the same line', () => {
+      render(
+        <Sidebar collapsed>
+          <Sidebar.Header data-testid="header">Mark</Sidebar.Header>
+          <Sidebar.Footer data-testid="footer">Account</Sidebar.Footer>
+        </Sidebar>,
+      );
+      expect(screen.getByTestId('header')).toHaveClass('flex', 'flex-col', 'items-center');
+      expect(screen.getByTestId('footer')).toHaveClass('flex', 'flex-col', 'items-center');
+    });
+
+    it('leaves an expanded header and footer as plain blocks', () => {
+      render(
+        <Sidebar collapsed={false}>
+          <Sidebar.Header data-testid="header">Mark</Sidebar.Header>
+          <Sidebar.Footer data-testid="footer">Account</Sidebar.Footer>
+        </Sidebar>,
+      );
+      expect(screen.getByTestId('header')).not.toHaveClass('items-center');
+      expect(screen.getByTestId('footer')).not.toHaveClass('items-center');
+    });
+
     it('should render Sidebar.Expanded content when sidebar is expanded', () => {
       render(
         <Sidebar collapsed={false}>
