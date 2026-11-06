@@ -11,6 +11,7 @@ const SidebarRoot = React.forwardRef<HTMLDivElement, SidebarProps>(
     {
       defaultCollapsed,
       collapsed,
+      surface = 'page',
       onCollapsedChange,
       defaultMotion,
       id: idProp,
@@ -50,7 +51,7 @@ const SidebarRoot = React.forwardRef<HTMLDivElement, SidebarProps>(
           data-slot="sidebar"
           data-state={isCollapsed ? 'collapsed' : 'expanded'}
           className={cn(
-            sidebarVariants({ collapsed: isCollapsed }),
+            sidebarVariants({ collapsed: isCollapsed, surface }),
             sidebarMotionVariants({ enabled: motion }),
             className,
           )}

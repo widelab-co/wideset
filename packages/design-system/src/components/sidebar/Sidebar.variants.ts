@@ -3,11 +3,18 @@ import { cva } from 'class-variance-authority';
 import { sidebarCollapseMotion } from '../../motion/recipes';
 
 export const sidebarVariants = cva(
-  // Figma Sidebar: Static/Fill/Foreground with a 1px Static/Stroke/Subtle line on its right edge,
-  // beside a page on the same white.
-  'bg-ws-static-foreground border-ws-static-subtle gap-ws-7 pl-ws-5 py-ws-7 relative flex h-full flex-col overflow-hidden border-r',
+  'gap-ws-7 pl-ws-5 py-ws-7 relative flex h-full flex-col overflow-hidden',
   {
     variants: {
+      // Figma Sidebar: Static/Fill/Foreground with a 1px Static/Stroke/Subtle line on its right
+      // edge (page, Flat). Figma's Communication tints it with Static/Fill/Alpha/Subtle and drops
+      // the line (tinted, Frame). Figma's Calendar removes both and shows the grey app frame
+      // around an inset page (frame, Inset and Canvas).
+      surface: {
+        page: 'bg-ws-static-foreground border-ws-static-subtle border-r',
+        tinted: 'bg-ws-static-alpha-subtle',
+        frame: 'bg-transparent',
+      },
       collapsed: {
         true: 'pr-ws-5 w-[3.25rem] items-center',
         // The right padding holds a scrollable section's bar (8px + 2px gap), so every part, the
@@ -15,7 +22,7 @@ export const sidebarVariants = cva(
         false: 'pr-ws-6 w-[16.25rem]',
       },
     },
-    defaultVariants: { collapsed: false },
+    defaultVariants: { collapsed: false, surface: 'page' },
   },
 );
 

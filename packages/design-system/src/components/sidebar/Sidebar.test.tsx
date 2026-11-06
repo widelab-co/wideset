@@ -27,6 +27,30 @@ describe('Sidebar', () => {
         const root = container.querySelector('[data-slot="sidebar"]');
         expect(root).toHaveClass('bg-ws-static-foreground', 'border-r', 'border-ws-static-subtle');
       });
+
+      // Frame: a grey tint over the app's white, no line (Figma Communication).
+      it('tints itself with no line with surface="tinted"', () => {
+        const { container } = render(
+          <Sidebar surface="tinted">
+            <div>Test content</div>
+          </Sidebar>,
+        );
+        const root = container.querySelector('[data-slot="sidebar"]');
+        expect(root).toHaveClass('bg-ws-static-alpha-subtle');
+        expect(root?.className).not.toMatch(/\bborder-r\b/);
+      });
+
+      // Inset and Canvas: the sidebar shows the app frame behind it, with no line.
+      it('shows the app frame behind it with surface="frame"', () => {
+        const { container } = render(
+          <Sidebar surface="frame">
+            <div>Test content</div>
+          </Sidebar>,
+        );
+        const root = container.querySelector('[data-slot="sidebar"]');
+        expect(root).toHaveClass('bg-transparent');
+        expect(root?.className).not.toMatch(/\bborder-r\b|bg-ws-static-foreground/);
+      });
     });
 
     describe('Sidebar.Item suffix and Sidebar.Footer', () => {

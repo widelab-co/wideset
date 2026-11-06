@@ -11,6 +11,14 @@ export type SidebarProps = React.HTMLAttributes<HTMLDivElement> & {
   collapsed?: boolean;
   /** Fired when the collapsed state changes. Receives the new `collapsed` value. */
   onCollapsedChange?: (collapsed: boolean) => void;
+  /**
+   * What the sidebar sits on, set by the app's visual direction (see the directions pattern).
+   * `page`: the page's white with a subtle line on its right edge (Flat, Figma's default).
+   * `tinted`: a grey tint over the app's white, no line (Frame).
+   * `frame`: no fill and no line, so it shows the grey app frame (`bg-ws-static-background` on the
+   * root) around an inset page (Inset, Canvas).
+   */
+  surface?: 'page' | 'tinted' | 'frame';
 } & MotionProps;
 
 /** Props for the Sidebar header — the title/branding row. Never scrolls; hidden when empty. */

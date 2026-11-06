@@ -70,15 +70,16 @@ The root fills its parent's height; place it in a full-height flex row next to t
 
 ## Choosing props
 
-| Prop               | Value                         | Use for                                                         |
-| ------------------ | ----------------------------- | --------------------------------------------------------------- |
-| `defaultCollapsed` | boolean                       | Start collapsed, sidebar owns the state.                        |
-| `collapsed`        | boolean + `onCollapsedChange` | You own the state (persisted preference, responsive rules).     |
-| `scrollable`       | on `Sidebar.Section`          | The one section that takes the remaining height and scrolls.    |
-| `icon` / `label`   | on `Sidebar.Item`             | Remix icon component and visible label; both, always.           |
-| `active`           | on `Sidebar.Item`             | The current page; one per sidebar.                              |
-| `disabled`         | on `Sidebar.Item`             | A page the user's plan or role does not include yet.            |
-| `asChild`          | on `Sidebar.Item`             | Render as a router `Link`; icon and label are injected into it. |
+| Prop               | Value                                 | Use for                                                                                                                                                                                                                       |
+| ------------------ | ------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `surface`          | `page` (default), `tinted` or `frame` | `page`: white with a subtle right line (Flat). `tinted`: a grey tint, no line (Frame). `frame`: no fill, no line, on the grey app frame around an inset page (Inset, Canvas). See [directions](../../patterns/directions.md). |
+| `defaultCollapsed` | boolean                               | Start collapsed, sidebar owns the state.                                                                                                                                                                                      |
+| `collapsed`        | boolean + `onCollapsedChange`         | You own the state (persisted preference, responsive rules).                                                                                                                                                                   |
+| `scrollable`       | on `Sidebar.Section`                  | The one section that takes the remaining height and scrolls.                                                                                                                                                                  |
+| `icon` / `label`   | on `Sidebar.Item`                     | Remix icon component and visible label; both, always.                                                                                                                                                                         |
+| `active`           | on `Sidebar.Item`                     | The current page; one per sidebar.                                                                                                                                                                                            |
+| `disabled`         | on `Sidebar.Item`                     | A page the user's plan or role does not include yet.                                                                                                                                                                          |
+| `asChild`          | on `Sidebar.Item`                     | Render as a router `Link`; icon and label are injected into it.                                                                                                                                                               |
 
 ## States
 
