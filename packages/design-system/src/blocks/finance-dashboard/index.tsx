@@ -18,8 +18,8 @@ export default function FinanceDashboard() {
     <div className="bg-ws-static-foreground flex h-dvh">
       <div className="flex min-w-0 flex-1 flex-col">
         <TopBar />
-        <main className="min-h-0 flex-1 overflow-y-auto">
-          <div className="gap-ws-16 px-ws-18 py-ws-16 flex flex-col">
+        <main className="px-ws-18 min-h-0 flex-1 overflow-y-auto">
+          <div className="gap-ws-16 py-ws-16 mx-auto flex w-full max-w-[80rem] flex-col">
             <div className="gap-ws-13 flex items-center justify-between">
               <h1 className="typography-subtitle-lg text-ws-static-strong">Overview</h1>
               <Button size="sm">

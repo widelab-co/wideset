@@ -54,7 +54,7 @@ export function Transactions({ className }: { className?: string }) {
 
       <DropdownMenu>
         <DropdownMenu.Trigger asChild>
-          <Button variant="secondary" preset="border" size="sm" className="mt-auto self-start">
+          <Button variant="secondary" preset="border" size="sm" className="mt-ws-25 self-start">
             {filter.label}
             <Button.Icon icon={RiArrowDownSLine} />
           </Button>

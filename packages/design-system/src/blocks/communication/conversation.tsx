@@ -234,14 +234,17 @@ export function Conversation({
       </header>
 
       <div ref={scroller} className="min-h-0 flex-1 overflow-y-auto">
-        <ol aria-label="Messages" className="p-ws-9 gap-ws-7 flex flex-col">
+        <ol
+          aria-label="Messages"
+          className="p-ws-9 gap-ws-7 mx-auto flex w-full max-w-[48rem] flex-col"
+        >
           {thread.map((message) => (
             <MessageItem key={message.id} message={message} />
           ))}
         </ol>
       </div>
 
-      <form onSubmit={send} className="p-ws-5 shrink-0">
+      <form onSubmit={send} className="p-ws-5 mx-auto w-full max-w-[48rem] shrink-0">
         <div className="bg-ws-static-alpha-subtle rounded-ws-container-lg p-ws-3 gap-ws-3 flex flex-col">
           <div className="px-ws-4 flex items-center justify-between">
             <div className="gap-ws-2 flex">

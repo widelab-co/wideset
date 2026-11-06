@@ -20,7 +20,7 @@ export function VolumePanel({ onClose }: { onClose: () => void }) {
   return (
     <aside
       aria-labelledby="monthly-volume-title"
-      className="bg-ws-static-alpha-subtle border-ws-static-subtle rounded-ws-container-lg my-ws-9 mr-ws-9 relative flex w-[27.5rem] shrink-0 flex-col border"
+      className="bg-ws-static-alpha-subtle border-ws-static-subtle rounded-ws-container-lg my-ws-9 mr-ws-9 relative flex w-[27.5rem] shrink-0 flex-col overflow-y-auto border"
     >
       <IconButton
         variant="secondary"
@@ -61,7 +61,7 @@ export function VolumePanel({ onClose }: { onClose: () => void }) {
         ))}
       </Tabs>
 
-      <section aria-labelledby="card-types-title" className="px-ws-14 pb-ws-18 mt-auto">
+      <section aria-labelledby="card-types-title" className="px-ws-14 pb-ws-18 mt-ws-26">
         <div className="flex items-center justify-between">
           <h3 id="card-types-title" className="typography-subtitle-sm text-ws-static-strong">
             Volume by Card Type

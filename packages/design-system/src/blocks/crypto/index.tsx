@@ -9,7 +9,9 @@ export default function Crypto() {
   return (
     <div className="bg-ws-static-background flex min-h-dvh flex-col">
       <TopBar />
-      <main className="gap-ws-16 pr-ws-5 pb-ws-5 pl-ws-16 flex flex-1">
+      {/* 6px under the cards, not Figma's 8: the 111px gap above "Transactions"' button rounds
+          up to the 112px token, and 8 would push a 960px-tall window into a 1px scroll. */}
+      <main className="gap-ws-16 pr-ws-5 pb-ws-4 pl-ws-16 mx-auto flex w-full max-w-[90rem] flex-1 items-start">
         <SwapForm className="w-[26.5rem] shrink-0" />
         <div className="bg-ws-static-foreground rounded-ws-container-md pt-ws-16 pr-ws-14 pl-ws-16 flex min-w-0 flex-1 flex-col">
           <Balance />

@@ -61,7 +61,7 @@ export function Distribution({ className }: { className?: string }) {
         })}
       </svg>
 
-      <ul className="gap-ws-7 mt-auto flex flex-col">
+      <ul className="gap-ws-7 mt-ws-21 flex flex-col">
         {DISTRIBUTION.map((item) => (
           <li key={item.name} className="gap-ws-6 flex items-center">
             <span
