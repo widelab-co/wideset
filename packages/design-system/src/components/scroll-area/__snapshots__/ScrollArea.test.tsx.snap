@@ -1,0 +1,37 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ScrollArea > Rendering > matches the snapshot 1`] = `
+<div>
+  <div
+    class="relative isolate flex flex-col overflow-hidden h-[16rem]"
+    data-slot="scroll-area"
+    dir="ltr"
+    style="position: relative; --radix-scroll-area-corner-width: 0px; --radix-scroll-area-corner-height: 0px;"
+  >
+    <style>
+      [data-radix-scroll-area-viewport]{scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch;}[data-radix-scroll-area-viewport]::-webkit-scrollbar{display:none}
+    </style>
+    <div
+      class="min-h-0 w-full flex-auto rounded-[inherit] focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default focus-visible:-outline-offset-2 [&>div]:!block"
+      data-radix-scroll-area-viewport=""
+      data-slot="scroll-area-viewport"
+      style="overflow-x: hidden; overflow-y: scroll;"
+    >
+      <div
+        style="min-width: 100%; display: table;"
+      >
+        <p>
+          Release notes
+        </p>
+      </div>
+    </div>
+    <div
+      class="group/scrollbar p-ws-2 z-[calc(var(--ws-z-index-sticky)+1)] flex touch-none select-none empty:pointer-events-none data-[state=hidden]:pointer-events-none data-[state=hidden]:opacity-0 w-ws-6 hover:px-ws-1 active:px-ws-1 transition-[opacity,padding] ease-(--ws-motion-ease-out) duration-(--ws-motion-duration-quick) data-[state=hidden]:duration-(--ws-motion-duration-fast) *:transition-colors *:duration-(--ws-motion-duration-quick)"
+      data-orientation="vertical"
+      data-slot="scroll-area-scrollbar"
+      data-state="visible"
+      style="position: absolute; top: 0px; right: 0px; bottom: var(--radix-scroll-area-corner-height); --radix-scroll-area-thumb-height: 18px;"
+    />
+  </div>
+</div>
+`;

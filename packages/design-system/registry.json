@@ -612,9 +612,9 @@
     },
     {
       "name": "scroll-area",
-      "type": "registry:component",
+      "type": "registry:ui",
       "title": "ScrollArea",
-      "description": "ScrollArea adds styled, cross-browser scrollbars to overflowing content.",
+      "description": "A region that keeps its size and scrolls its content behind Wideset's own thin scrollbar, which floats over the content and shows while you hover or scroll.",
       "files": [
         {
           "path": "src/components/scroll-area/ScrollArea.tsx",

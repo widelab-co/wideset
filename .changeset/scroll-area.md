@@ -1,0 +1,6 @@
+---
+'@wideset/react': minor
+'@wideset/skills': patch
+---
+
+New `ScrollArea`: a region that keeps its size and scrolls behind Wideset's own thin scrollbar, which floats over the content, shows while you hover or scroll and fades out (`orientation`, `scrollbarVisibility`, `scrollbarGutter`); when nothing inside can take focus it becomes a tab stop, so the keyboard can scroll it. Every scrolling part now uses it: `Modal.Body` (which used the browser's bar), `Sidepanel.Content`, `Popup.Content`, `Card.Content`, a `scrollable` `Sidebar.Section`, and the lists of `ComboBox`, `FilterButton` and `MultiSelect`. `Select`'s list, which Radix scrolls itself, and `Textarea` get the same look on their native bar from the new `wds-scrollbar` utility, also meant for the page. The bar no longer takes 10px from the right of bordered `Card.Content`, `Popup.Content` and `Sidepanel.Content`, whose padding now holds it, and a collapsed `Sidebar` keeps the icons of a scrollable section on the rail's centre line. `Modal.Body` passes `className` and its other props to the padded content inside the scroll area: padding and layout classes work as before. Skills: a ScrollArea spec, and `wideset-craft` makes scrolling regions a `ScrollArea`, never a bare `overflow-auto`.
