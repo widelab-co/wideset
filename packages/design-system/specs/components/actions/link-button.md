@@ -4,7 +4,7 @@ import: import { LinkButton } from '@wideset/react'
 group: actions
 status: stable
 parts: [LinkButton, LinkButtonTruncatedText]
-related: [Button, IconButton]
+related: [Button, IconButton, TextLink]
 docs: https://wideset-docs.widelab.workers.dev/components/link-button
 storybook: components-button-linkbutton--default
 ---
@@ -16,10 +16,11 @@ storybook: components-button-linkbutton--default
 ## When to use
 
 - Activation goes to another page or URL: "View invoices", "Billing settings".
-- A standalone route under a form or in a card, or a link inside a sentence (`underlined`).
+- A standalone route under a form or in a card.
 
 ## When not to use
 
+- A link inside a sentence → `TextLink`; it keeps the sentence's type.
 - The control does something here (save, submit, open a dialog) → `Button`.
 - A filled call to action that navigates → `Button asChild` around an `<a>`.
 - Icon-only navigation → `IconButton asChild` around an `<a>`.
@@ -43,17 +44,17 @@ Renders an `<a>`. `LinkButtonTruncatedText` is `Button.TruncatedText` re-exporte
 
 ## Choosing props
 
-| Prop         | Value               | Use for                                                         |
-| ------------ | ------------------- | --------------------------------------------------------------- |
-| `variant`    | `primary` (default) | The main route out of a view.                                   |
-|              | `secondary`         | A supporting route.                                             |
-|              | `danger`            | A destination that is risky (account deletion).                 |
-|              | `success`           | The next step after a win.                                      |
-|              | `inverse`           | Dark or coloured surfaces only.                                 |
-| `size`       | `sm` (default)      | Body text, cards, table rows.                                   |
-|              | `lg`                | A standalone route that needs presence, e.g. under a form.      |
-| `underlined` | `false` (default)   | Turn on inside a sentence, where colour alone does not mark it. |
-| `asChild`    | `true`              | Router links: styling goes on your link element.                |
+| Prop         | Value               | Use for                                                    |
+| ------------ | ------------------- | ---------------------------------------------------------- |
+| `variant`    | `primary` (default) | The main route out of a view.                              |
+|              | `secondary`         | A supporting route.                                        |
+|              | `danger`            | A destination that is risky (account deletion).            |
+|              | `success`           | The next step after a win.                                 |
+|              | `inverse`           | Dark or coloured surfaces only.                            |
+| `size`       | `sm` (default)      | Body text, cards, table rows.                              |
+|              | `lg`                | A standalone route that needs presence, e.g. under a form. |
+| `underlined` | `false` (default)   | Turn on where colour alone does not mark it as a link.     |
+| `asChild`    | `true`              | Router links: styling goes on your link element.           |
 
 ## States
 
@@ -74,7 +75,10 @@ Renders an `<a>`. `LinkButtonTruncatedText` is `Button.TruncatedText` re-exporte
 ## Do / Don't
 
 ```tsx
-// Do
+// Do: a standalone route
+<LinkButton href="/billing" size="lg">See billing</LinkButton>
+
+// Don't: inside a sentence (button padding and label weight); use TextLink
 <p>Payments moved. <LinkButton href="/billing" underlined>See billing</LinkButton></p>
 
 // Don't: a link that performs an action

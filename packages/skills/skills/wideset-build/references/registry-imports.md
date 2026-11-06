@@ -184,6 +184,7 @@ A member such as `Card.Header` comes with `Card`; its named form, `CardHeader`, 
 - `import { TextInputInput } from '@/components/ui/wideset/text-input/TextInputInput';`
 - `import { TextInputPrefix } from '@/components/ui/wideset/text-input/TextInputPrefix';`
 - `import { TextInputSuffix } from '@/components/ui/wideset/text-input/TextInputSuffix';`
+- `import { TextLink } from '@/components/ui/wideset/text-link/TextLink';`
 - `import { Textarea } from '@/components/ui/wideset/textarea/Textarea';`
 - `import { Tile } from '@/components/ui/wideset/tile/Tile';`
 - `import { TileCheckbox } from '@/components/ui/wideset/tile/TileCheckbox';`
@@ -259,6 +260,7 @@ A member such as `Card.Header` comes with `Card`; its named form, `CardHeader`, 
 - `import type { TextInputButtonProps, TextInputClearButtonProps, TextInputIconButtonProps, TextInputIconProps, TextInputInputProps, TextInputProps } from '@/components/ui/wideset/text-input/TextInput.types';`
 - `import type { TextInputPrefixProps } from '@/components/ui/wideset/text-input/TextInputPrefix';`
 - `import type { TextInputSuffixProps } from '@/components/ui/wideset/text-input/TextInputSuffix';`
+- `import type { TextLinkProps } from '@/components/ui/wideset/text-link/TextLink.types';`
 - `import type { TextareaProps } from '@/components/ui/wideset/textarea/Textarea.types';`
 - `import type { DescriptionProps as TileDescriptionProps, IconProps as TileIconProps, IndicatorProps as TileIndicatorProps, TileCheckboxProps, TileProps, TileRadioGroupProps, TileRadioProps, TitleProps as TileTitleProps } from '@/components/ui/wideset/tile/Tile.types';`
 - `import type { TimePickerProps } from '@/components/ui/wideset/timepicker/Timepicker.types';`
