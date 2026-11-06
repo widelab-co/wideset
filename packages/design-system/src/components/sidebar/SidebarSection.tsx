@@ -28,8 +28,15 @@ const SidebarSection = ({ scrollable, children, className, ...props }: SidebarSe
     >
       {scrollable ? (
         // Expanded, the bar sits in the sidebar's right padding (-mr), so the items end where the
-        // header and footer end instead of 10px short of them.
-        <ScrollArea className={cn('h-full', !isCollapsed && '-mr-ws-6')}>{children}</ScrollArea>
+        // header and footer end instead of 10px short of them. Collapsed, the rail keeps one
+        // centre line: a bar's gutter would push every item 5px left of the trigger and the
+        // footer, so the section reserves none and scrolls by wheel, touch and keyboard.
+        <ScrollArea
+          className={cn('h-full', !isCollapsed && '-mr-ws-6')}
+          indicatorHidden={isCollapsed}
+        >
+          {children}
+        </ScrollArea>
       ) : (
         children
       )}
