@@ -46,7 +46,7 @@ export const SelectTrigger = React.forwardRef<
       <RiArrowDownSLine
         aria-hidden="true"
         focusable="false"
-        className={cn(selectTriggerIconVariants({ size }))}
+        className={cn(selectTriggerIconVariants({ size, preset }))}
         data-disabled={props.disabled}
       />
     );
