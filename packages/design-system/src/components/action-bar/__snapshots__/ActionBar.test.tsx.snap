@@ -1,540 +1,661 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`ActionBar Snapshots > align > matches snapshot for align=center 1`] = `
+exports[`ActionBar Snapshots > matches snapshot for align=center 1`] = `
 <div
-  class="rounded-ws-container-lg bg-ws-static-overlay shadow-ws-medium px-ws-11 py-ws-9 z-ws-sticky fixed flex items-center data-[state=closed]:pointer-events-none data-[state=closed]:opacity-0 bottom-ws-9 left-1/2 -translate-x-1/2 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 ease-(--ws-motion-ease-smooth-out) data-[state=open]:duration-(--ws-motion-duration-slow) data-[state=closed]:duration-(--ws-motion-duration-medium) data-[state=open]:slide-in-from-bottom-ws-4 data-[state=closed]:slide-out-to-bottom-ws-4 gap-ws-19"
+  class="z-ws-sticky fixed flex w-max items-center gap-ws-5 p-ws-2 rounded-ws-container-md bg-ws-static-background shadow-ws-high data-[state=closed]:pointer-events-none data-[state=closed]:opacity-0 bottom-ws-9 left-1/2 -translate-x-1/2 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 ease-(--ws-motion-ease-smooth-out) data-[state=open]:duration-(--ws-motion-duration-slow) data-[state=closed]:duration-(--ws-motion-duration-medium) data-[state=open]:slide-in-from-bottom-ws-4 data-[state=closed]:slide-out-to-bottom-ws-4"
   data-slot="action-bar"
   data-state="open"
+  data-testid="bar"
 >
-  <div
-    class="gap-ws-9 flex items-center"
+  <p
+    class="px-ws-7 typography-label-sm text-ws-static-strong whitespace-nowrap"
+    data-slot="action-bar-count"
+    role="status"
   >
+    4 rows selected
+  </p>
+  <div
+    class="gap-ws-3 px-ws-7 py-ws-4 flex items-center self-stretch rounded-ws-control-xl bg-ws-static-foreground shadow-ws-controls-control"
+    data-slot="action-bar-actions"
+  >
+    <div
+      class="not-last:me-ws-11 flex"
+      data-slot="action-bar-select-all"
+    >
+      <div
+        class="gap-ws-5 flex w-fit"
+      >
+        <button
+          aria-checked="mixed"
+          class="group relative flex cursor-pointer border disabled:wds-disabled focus-visible:wds-focus-visible radix-state-unchecked:disabled:border-ws-dynamic-secondary-disabled radix-state-unchecked:disabled:bg-ws-static-alpha-subtle radix-state-checked:disabled:border-none radix-state-checked:disabled:bg-ws-dynamic-primary-disabled radix-state-indeterminate:disabled:border-none radix-state-indeterminate:disabled:bg-ws-dynamic-primary-disabled w-ws-control-md h-ws-control-md rounded-ws-control-md outline-ws-dynamic-primary-strong-default disabled:text-ws-dynamic-on-primary-disabled focus-visible:bg-ws-static-highlight-base radix-state-unchecked:border-ws-static-strong radix-state-unchecked:bg-ws-static-highlight-base radix-state-unchecked:hover:border-ws-dynamic-secondary-hover radix-state-unchecked:active:border-ws-dynamic-secondary-pressed radix-state-checked:border-none radix-state-checked:bg-ws-dynamic-primary-default radix-state-checked:hover:bg-ws-dynamic-primary-hover radix-state-checked:hover:text-ws-dynamic-on-primary-hover radix-state-checked:active:bg-ws-dynamic-primary-pressed radix-state-checked:active:text-ws-dynamic-on-primary-pressed radix-state-indeterminate:border-none radix-state-indeterminate:bg-ws-dynamic-primary-default radix-state-indeterminate:hover:bg-ws-dynamic-primary-hover radix-state-indeterminate:hover:text-ws-dynamic-on-primary-hover radix-state-indeterminate:active:bg-ws-dynamic-primary-pressed radix-state-indeterminate:active:text-ws-dynamic-on-primary-pressed transition-[background-color,border-color] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-smooth-out)"
+          data-slot="checkbox"
+          data-state="indeterminate"
+          id="_r_j_"
+          role="checkbox"
+          type="button"
+          value="on"
+        >
+          <span
+            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-in fade-in-0 zoom-in-[0.4] fill-mode-both duration-(--ws-motion-duration-fast) ease-(--ws-motion-ease-bounce)"
+            data-state="indeterminate"
+            style="pointer-events: none;"
+          >
+            <svg
+              aria-hidden="true"
+              class="remixicon group-radix-state-indeterminate:hidden group-radix-state-unchecked:hidden size-ws-9 text-ws-dynamic-on-primary-default group-disabled:text-ws-dynamic-on-primary-disabled"
+              fill="currentColor"
+              focusable="false"
+              height="24"
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M9.9997 15.1709L19.1921 5.97852L20.6063 7.39273L9.9997 17.9993L3.63574 11.6354L5.04996 10.2212L9.9997 15.1709Z"
+              />
+            </svg>
+            <div
+              class="group-radix-state-checked:hidden group-radix-state-unchecked:hidden h-[2px] bg-(--ws-dynamic-text-on-primary-default) group-disabled:bg-(--ws-dynamic-text-on-primary-disabled) w-[10px]"
+            />
+          </span>
+        </button>
+        <label
+          class="typography-label-sm text-ws-static-base gap-ws-3 flex flex-col cursor-pointer"
+          data-slot="checkbox-label"
+          for="_r_j_"
+        >
+          Select all
+        </label>
+      </div>
+    </div>
     <button
-      aria-label="Close"
-      class="whitespace-nowrap box-border relative inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default shrink-0 px-0 border typography-label-strong-sm gap-ws-2 rounded-ws-control-lg h-ws-forms-sm w-ws-forms-sm border-ws-dynamic-secondary-default shadow-ws-controls-control bg-ws-static-highlight-subtle text-ws-dynamic-secondary-default outline-ws-dynamic-primary-strong-default hover:border-ws-dynamic-secondary-hover hover:text-ws-dynamic-secondary-hover active:border-ws-dynamic-secondary-pressed active:text-ws-dynamic-secondary-pressed disabled:border-ws-dynamic-secondary-disabled disabled:text-ws-dynamic-secondary-disabled transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
-      data-slot="icon-button"
+      class="w-fit whitespace-nowrap box-border relative inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default typography-label-strong-sm h-ws-forms-sm gap-ws-2 rounded-ws-control-lg px-ws-6 bg-ws-dynamic-secondary-default shadow-ws-controls-control text-ws-dynamic-on-secondary-default outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-hover hover:text-ws-dynamic-on-secondary-hover active:bg-ws-dynamic-secondary-pressed active:text-ws-dynamic-on-secondary-pressed disabled:bg-ws-dynamic-secondary-disabled disabled:text-ws-dynamic-on-secondary-disabled transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+      data-slot="button"
       type="button"
     >
-      <svg
-        aria-hidden="true"
-        class="remixicon shrink-0 h-ws-9 w-ws-9"
-        data-slot="button-icon"
-        fill="currentColor"
-        focusable="false"
-        height="24"
-        viewBox="0 0 24 24"
-        width="24"
-        xmlns="http://www.w3.org/2000/svg"
+      <span
+        class="px-ws-2"
       >
-        <path
-          d="M11.9997 10.5865L16.9495 5.63672L18.3637 7.05093L13.4139 12.0007L18.3637 16.9504L16.9495 18.3646L11.9997 13.4149L7.04996 18.3646L5.63574 16.9504L10.5855 12.0007L5.63574 7.05093L7.04996 5.63672L11.9997 10.5865Z"
-        />
-      </svg>
+        Publish
+      </span>
     </button>
-    <span
-      class="text-ws-static-base typography-label-strong-sm tracking-ws-tight-25 font-ws-medium whitespace-nowrap"
+    <button
+      class="w-fit whitespace-nowrap box-border relative inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default typography-label-strong-sm h-ws-forms-sm gap-ws-2 rounded-ws-control-lg px-ws-6 bg-ws-dynamic-danger-alpha-default text-ws-dynamic-danger-default outline-ws-dynamic-danger-strong-default hover:bg-ws-dynamic-danger-alpha-hover hover:text-ws-dynamic-danger-hover active:bg-ws-dynamic-danger-alpha-pressed active:text-ws-dynamic-danger-pressed disabled:text-ws-dynamic-danger-disabled disabled:bg-none transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+      data-slot="button"
+      type="button"
     >
-      2 selected
-    </span>
-  </div>
-  <div
-    class="gap-ws-5 flex min-w-0 items-center"
-  >
-    <span>
-      Action
-    </span>
+      <span
+        class="px-ws-2"
+      >
+        Delete
+      </span>
+    </button>
   </div>
 </div>
 `;
 
-exports[`ActionBar Snapshots > align > matches snapshot for align=left 1`] = `
+exports[`ActionBar Snapshots > matches snapshot for align=left 1`] = `
 <div
-  class="rounded-ws-container-lg bg-ws-static-overlay shadow-ws-medium px-ws-11 py-ws-9 z-ws-sticky fixed flex items-center data-[state=closed]:pointer-events-none data-[state=closed]:opacity-0 bottom-ws-9 left-ws-9 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 ease-(--ws-motion-ease-smooth-out) data-[state=open]:duration-(--ws-motion-duration-slow) data-[state=closed]:duration-(--ws-motion-duration-medium) data-[state=open]:slide-in-from-bottom-ws-4 data-[state=closed]:slide-out-to-bottom-ws-4 gap-ws-19"
+  class="z-ws-sticky fixed flex w-max items-center gap-ws-5 p-ws-2 rounded-ws-container-md bg-ws-static-background shadow-ws-high data-[state=closed]:pointer-events-none data-[state=closed]:opacity-0 bottom-ws-9 left-ws-9 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 ease-(--ws-motion-ease-smooth-out) data-[state=open]:duration-(--ws-motion-duration-slow) data-[state=closed]:duration-(--ws-motion-duration-medium) data-[state=open]:slide-in-from-bottom-ws-4 data-[state=closed]:slide-out-to-bottom-ws-4"
   data-slot="action-bar"
   data-state="open"
+  data-testid="bar"
 >
-  <div
-    class="gap-ws-9 flex items-center"
+  <p
+    class="px-ws-7 typography-label-sm text-ws-static-strong whitespace-nowrap"
+    data-slot="action-bar-count"
+    role="status"
   >
+    4 rows selected
+  </p>
+  <div
+    class="gap-ws-3 px-ws-7 py-ws-4 flex items-center self-stretch rounded-ws-control-xl bg-ws-static-foreground shadow-ws-controls-control"
+    data-slot="action-bar-actions"
+  >
+    <div
+      class="not-last:me-ws-11 flex"
+      data-slot="action-bar-select-all"
+    >
+      <div
+        class="gap-ws-5 flex w-fit"
+      >
+        <button
+          aria-checked="mixed"
+          class="group relative flex cursor-pointer border disabled:wds-disabled focus-visible:wds-focus-visible radix-state-unchecked:disabled:border-ws-dynamic-secondary-disabled radix-state-unchecked:disabled:bg-ws-static-alpha-subtle radix-state-checked:disabled:border-none radix-state-checked:disabled:bg-ws-dynamic-primary-disabled radix-state-indeterminate:disabled:border-none radix-state-indeterminate:disabled:bg-ws-dynamic-primary-disabled w-ws-control-md h-ws-control-md rounded-ws-control-md outline-ws-dynamic-primary-strong-default disabled:text-ws-dynamic-on-primary-disabled focus-visible:bg-ws-static-highlight-base radix-state-unchecked:border-ws-static-strong radix-state-unchecked:bg-ws-static-highlight-base radix-state-unchecked:hover:border-ws-dynamic-secondary-hover radix-state-unchecked:active:border-ws-dynamic-secondary-pressed radix-state-checked:border-none radix-state-checked:bg-ws-dynamic-primary-default radix-state-checked:hover:bg-ws-dynamic-primary-hover radix-state-checked:hover:text-ws-dynamic-on-primary-hover radix-state-checked:active:bg-ws-dynamic-primary-pressed radix-state-checked:active:text-ws-dynamic-on-primary-pressed radix-state-indeterminate:border-none radix-state-indeterminate:bg-ws-dynamic-primary-default radix-state-indeterminate:hover:bg-ws-dynamic-primary-hover radix-state-indeterminate:hover:text-ws-dynamic-on-primary-hover radix-state-indeterminate:active:bg-ws-dynamic-primary-pressed radix-state-indeterminate:active:text-ws-dynamic-on-primary-pressed transition-[background-color,border-color] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-smooth-out)"
+          data-slot="checkbox"
+          data-state="indeterminate"
+          id="_r_i_"
+          role="checkbox"
+          type="button"
+          value="on"
+        >
+          <span
+            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-in fade-in-0 zoom-in-[0.4] fill-mode-both duration-(--ws-motion-duration-fast) ease-(--ws-motion-ease-bounce)"
+            data-state="indeterminate"
+            style="pointer-events: none;"
+          >
+            <svg
+              aria-hidden="true"
+              class="remixicon group-radix-state-indeterminate:hidden group-radix-state-unchecked:hidden size-ws-9 text-ws-dynamic-on-primary-default group-disabled:text-ws-dynamic-on-primary-disabled"
+              fill="currentColor"
+              focusable="false"
+              height="24"
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M9.9997 15.1709L19.1921 5.97852L20.6063 7.39273L9.9997 17.9993L3.63574 11.6354L5.04996 10.2212L9.9997 15.1709Z"
+              />
+            </svg>
+            <div
+              class="group-radix-state-checked:hidden group-radix-state-unchecked:hidden h-[2px] bg-(--ws-dynamic-text-on-primary-default) group-disabled:bg-(--ws-dynamic-text-on-primary-disabled) w-[10px]"
+            />
+          </span>
+        </button>
+        <label
+          class="typography-label-sm text-ws-static-base gap-ws-3 flex flex-col cursor-pointer"
+          data-slot="checkbox-label"
+          for="_r_i_"
+        >
+          Select all
+        </label>
+      </div>
+    </div>
     <button
-      aria-label="Close"
-      class="whitespace-nowrap box-border relative inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default shrink-0 px-0 border typography-label-strong-sm gap-ws-2 rounded-ws-control-lg h-ws-forms-sm w-ws-forms-sm border-ws-dynamic-secondary-default shadow-ws-controls-control bg-ws-static-highlight-subtle text-ws-dynamic-secondary-default outline-ws-dynamic-primary-strong-default hover:border-ws-dynamic-secondary-hover hover:text-ws-dynamic-secondary-hover active:border-ws-dynamic-secondary-pressed active:text-ws-dynamic-secondary-pressed disabled:border-ws-dynamic-secondary-disabled disabled:text-ws-dynamic-secondary-disabled transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
-      data-slot="icon-button"
+      class="w-fit whitespace-nowrap box-border relative inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default typography-label-strong-sm h-ws-forms-sm gap-ws-2 rounded-ws-control-lg px-ws-6 bg-ws-dynamic-secondary-default shadow-ws-controls-control text-ws-dynamic-on-secondary-default outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-hover hover:text-ws-dynamic-on-secondary-hover active:bg-ws-dynamic-secondary-pressed active:text-ws-dynamic-on-secondary-pressed disabled:bg-ws-dynamic-secondary-disabled disabled:text-ws-dynamic-on-secondary-disabled transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+      data-slot="button"
       type="button"
     >
-      <svg
-        aria-hidden="true"
-        class="remixicon shrink-0 h-ws-9 w-ws-9"
-        data-slot="button-icon"
-        fill="currentColor"
-        focusable="false"
-        height="24"
-        viewBox="0 0 24 24"
-        width="24"
-        xmlns="http://www.w3.org/2000/svg"
+      <span
+        class="px-ws-2"
       >
-        <path
-          d="M11.9997 10.5865L16.9495 5.63672L18.3637 7.05093L13.4139 12.0007L18.3637 16.9504L16.9495 18.3646L11.9997 13.4149L7.04996 18.3646L5.63574 16.9504L10.5855 12.0007L5.63574 7.05093L7.04996 5.63672L11.9997 10.5865Z"
-        />
-      </svg>
+        Publish
+      </span>
     </button>
-    <span
-      class="text-ws-static-base typography-label-strong-sm tracking-ws-tight-25 font-ws-medium whitespace-nowrap"
+    <button
+      class="w-fit whitespace-nowrap box-border relative inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default typography-label-strong-sm h-ws-forms-sm gap-ws-2 rounded-ws-control-lg px-ws-6 bg-ws-dynamic-danger-alpha-default text-ws-dynamic-danger-default outline-ws-dynamic-danger-strong-default hover:bg-ws-dynamic-danger-alpha-hover hover:text-ws-dynamic-danger-hover active:bg-ws-dynamic-danger-alpha-pressed active:text-ws-dynamic-danger-pressed disabled:text-ws-dynamic-danger-disabled disabled:bg-none transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+      data-slot="button"
+      type="button"
     >
-      2 selected
-    </span>
-  </div>
-  <div
-    class="gap-ws-5 flex min-w-0 items-center"
-  >
-    <span>
-      Action
-    </span>
+      <span
+        class="px-ws-2"
+      >
+        Delete
+      </span>
+    </button>
   </div>
 </div>
 `;
 
-exports[`ActionBar Snapshots > align > matches snapshot for align=right 1`] = `
+exports[`ActionBar Snapshots > matches snapshot for align=right 1`] = `
 <div
-  class="rounded-ws-container-lg bg-ws-static-overlay shadow-ws-medium px-ws-11 py-ws-9 z-ws-sticky fixed flex items-center data-[state=closed]:pointer-events-none data-[state=closed]:opacity-0 bottom-ws-9 right-ws-9 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 ease-(--ws-motion-ease-smooth-out) data-[state=open]:duration-(--ws-motion-duration-slow) data-[state=closed]:duration-(--ws-motion-duration-medium) data-[state=open]:slide-in-from-bottom-ws-4 data-[state=closed]:slide-out-to-bottom-ws-4 gap-ws-19"
+  class="z-ws-sticky fixed flex w-max items-center gap-ws-5 p-ws-2 rounded-ws-container-md bg-ws-static-background shadow-ws-high data-[state=closed]:pointer-events-none data-[state=closed]:opacity-0 bottom-ws-9 right-ws-9 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 ease-(--ws-motion-ease-smooth-out) data-[state=open]:duration-(--ws-motion-duration-slow) data-[state=closed]:duration-(--ws-motion-duration-medium) data-[state=open]:slide-in-from-bottom-ws-4 data-[state=closed]:slide-out-to-bottom-ws-4"
   data-slot="action-bar"
   data-state="open"
+  data-testid="bar"
 >
-  <div
-    class="gap-ws-9 flex items-center"
+  <p
+    class="px-ws-7 typography-label-sm text-ws-static-strong whitespace-nowrap"
+    data-slot="action-bar-count"
+    role="status"
   >
+    4 rows selected
+  </p>
+  <div
+    class="gap-ws-3 px-ws-7 py-ws-4 flex items-center self-stretch rounded-ws-control-xl bg-ws-static-foreground shadow-ws-controls-control"
+    data-slot="action-bar-actions"
+  >
+    <div
+      class="not-last:me-ws-11 flex"
+      data-slot="action-bar-select-all"
+    >
+      <div
+        class="gap-ws-5 flex w-fit"
+      >
+        <button
+          aria-checked="mixed"
+          class="group relative flex cursor-pointer border disabled:wds-disabled focus-visible:wds-focus-visible radix-state-unchecked:disabled:border-ws-dynamic-secondary-disabled radix-state-unchecked:disabled:bg-ws-static-alpha-subtle radix-state-checked:disabled:border-none radix-state-checked:disabled:bg-ws-dynamic-primary-disabled radix-state-indeterminate:disabled:border-none radix-state-indeterminate:disabled:bg-ws-dynamic-primary-disabled w-ws-control-md h-ws-control-md rounded-ws-control-md outline-ws-dynamic-primary-strong-default disabled:text-ws-dynamic-on-primary-disabled focus-visible:bg-ws-static-highlight-base radix-state-unchecked:border-ws-static-strong radix-state-unchecked:bg-ws-static-highlight-base radix-state-unchecked:hover:border-ws-dynamic-secondary-hover radix-state-unchecked:active:border-ws-dynamic-secondary-pressed radix-state-checked:border-none radix-state-checked:bg-ws-dynamic-primary-default radix-state-checked:hover:bg-ws-dynamic-primary-hover radix-state-checked:hover:text-ws-dynamic-on-primary-hover radix-state-checked:active:bg-ws-dynamic-primary-pressed radix-state-checked:active:text-ws-dynamic-on-primary-pressed radix-state-indeterminate:border-none radix-state-indeterminate:bg-ws-dynamic-primary-default radix-state-indeterminate:hover:bg-ws-dynamic-primary-hover radix-state-indeterminate:hover:text-ws-dynamic-on-primary-hover radix-state-indeterminate:active:bg-ws-dynamic-primary-pressed radix-state-indeterminate:active:text-ws-dynamic-on-primary-pressed transition-[background-color,border-color] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-smooth-out)"
+          data-slot="checkbox"
+          data-state="indeterminate"
+          id="_r_k_"
+          role="checkbox"
+          type="button"
+          value="on"
+        >
+          <span
+            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-in fade-in-0 zoom-in-[0.4] fill-mode-both duration-(--ws-motion-duration-fast) ease-(--ws-motion-ease-bounce)"
+            data-state="indeterminate"
+            style="pointer-events: none;"
+          >
+            <svg
+              aria-hidden="true"
+              class="remixicon group-radix-state-indeterminate:hidden group-radix-state-unchecked:hidden size-ws-9 text-ws-dynamic-on-primary-default group-disabled:text-ws-dynamic-on-primary-disabled"
+              fill="currentColor"
+              focusable="false"
+              height="24"
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M9.9997 15.1709L19.1921 5.97852L20.6063 7.39273L9.9997 17.9993L3.63574 11.6354L5.04996 10.2212L9.9997 15.1709Z"
+              />
+            </svg>
+            <div
+              class="group-radix-state-checked:hidden group-radix-state-unchecked:hidden h-[2px] bg-(--ws-dynamic-text-on-primary-default) group-disabled:bg-(--ws-dynamic-text-on-primary-disabled) w-[10px]"
+            />
+          </span>
+        </button>
+        <label
+          class="typography-label-sm text-ws-static-base gap-ws-3 flex flex-col cursor-pointer"
+          data-slot="checkbox-label"
+          for="_r_k_"
+        >
+          Select all
+        </label>
+      </div>
+    </div>
     <button
-      aria-label="Close"
-      class="whitespace-nowrap box-border relative inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default shrink-0 px-0 border typography-label-strong-sm gap-ws-2 rounded-ws-control-lg h-ws-forms-sm w-ws-forms-sm border-ws-dynamic-secondary-default shadow-ws-controls-control bg-ws-static-highlight-subtle text-ws-dynamic-secondary-default outline-ws-dynamic-primary-strong-default hover:border-ws-dynamic-secondary-hover hover:text-ws-dynamic-secondary-hover active:border-ws-dynamic-secondary-pressed active:text-ws-dynamic-secondary-pressed disabled:border-ws-dynamic-secondary-disabled disabled:text-ws-dynamic-secondary-disabled transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
-      data-slot="icon-button"
+      class="w-fit whitespace-nowrap box-border relative inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default typography-label-strong-sm h-ws-forms-sm gap-ws-2 rounded-ws-control-lg px-ws-6 bg-ws-dynamic-secondary-default shadow-ws-controls-control text-ws-dynamic-on-secondary-default outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-hover hover:text-ws-dynamic-on-secondary-hover active:bg-ws-dynamic-secondary-pressed active:text-ws-dynamic-on-secondary-pressed disabled:bg-ws-dynamic-secondary-disabled disabled:text-ws-dynamic-on-secondary-disabled transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+      data-slot="button"
       type="button"
     >
-      <svg
-        aria-hidden="true"
-        class="remixicon shrink-0 h-ws-9 w-ws-9"
-        data-slot="button-icon"
-        fill="currentColor"
-        focusable="false"
-        height="24"
-        viewBox="0 0 24 24"
-        width="24"
-        xmlns="http://www.w3.org/2000/svg"
+      <span
+        class="px-ws-2"
       >
-        <path
-          d="M11.9997 10.5865L16.9495 5.63672L18.3637 7.05093L13.4139 12.0007L18.3637 16.9504L16.9495 18.3646L11.9997 13.4149L7.04996 18.3646L5.63574 16.9504L10.5855 12.0007L5.63574 7.05093L7.04996 5.63672L11.9997 10.5865Z"
-        />
-      </svg>
+        Publish
+      </span>
     </button>
-    <span
-      class="text-ws-static-base typography-label-strong-sm tracking-ws-tight-25 font-ws-medium whitespace-nowrap"
+    <button
+      class="w-fit whitespace-nowrap box-border relative inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default typography-label-strong-sm h-ws-forms-sm gap-ws-2 rounded-ws-control-lg px-ws-6 bg-ws-dynamic-danger-alpha-default text-ws-dynamic-danger-default outline-ws-dynamic-danger-strong-default hover:bg-ws-dynamic-danger-alpha-hover hover:text-ws-dynamic-danger-hover active:bg-ws-dynamic-danger-alpha-pressed active:text-ws-dynamic-danger-pressed disabled:text-ws-dynamic-danger-disabled disabled:bg-none transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+      data-slot="button"
+      type="button"
     >
-      2 selected
-    </span>
-  </div>
-  <div
-    class="gap-ws-5 flex min-w-0 items-center"
-  >
-    <span>
-      Action
-    </span>
+      <span
+        class="px-ws-2"
+      >
+        Delete
+      </span>
+    </button>
   </div>
 </div>
 `;
 
-exports[`ActionBar Snapshots > amountSelected > matches snapshot with amountSelected omitted 1`] = `
+exports[`ActionBar Snapshots > matches snapshot for position=bottom 1`] = `
 <div
-  class="rounded-ws-container-lg bg-ws-static-overlay shadow-ws-medium px-ws-11 py-ws-9 z-ws-sticky fixed flex items-center data-[state=closed]:pointer-events-none data-[state=closed]:opacity-0 bottom-ws-9 left-1/2 -translate-x-1/2 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 ease-(--ws-motion-ease-smooth-out) data-[state=open]:duration-(--ws-motion-duration-slow) data-[state=closed]:duration-(--ws-motion-duration-medium) data-[state=open]:slide-in-from-bottom-ws-4 data-[state=closed]:slide-out-to-bottom-ws-4 gap-ws-19"
+  class="z-ws-sticky fixed flex w-max items-center gap-ws-5 p-ws-2 rounded-ws-container-md bg-ws-static-background shadow-ws-high data-[state=closed]:pointer-events-none data-[state=closed]:opacity-0 bottom-ws-9 left-1/2 -translate-x-1/2 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 ease-(--ws-motion-ease-smooth-out) data-[state=open]:duration-(--ws-motion-duration-slow) data-[state=closed]:duration-(--ws-motion-duration-medium) data-[state=open]:slide-in-from-bottom-ws-4 data-[state=closed]:slide-out-to-bottom-ws-4"
   data-slot="action-bar"
   data-state="open"
+  data-testid="bar"
 >
-  <div
-    class="gap-ws-9 flex items-center"
+  <p
+    class="px-ws-7 typography-label-sm text-ws-static-strong whitespace-nowrap"
+    data-slot="action-bar-count"
+    role="status"
   >
+    4 rows selected
+  </p>
+  <div
+    class="gap-ws-3 px-ws-7 py-ws-4 flex items-center self-stretch rounded-ws-control-xl bg-ws-static-foreground shadow-ws-controls-control"
+    data-slot="action-bar-actions"
+  >
+    <div
+      class="not-last:me-ws-11 flex"
+      data-slot="action-bar-select-all"
+    >
+      <div
+        class="gap-ws-5 flex w-fit"
+      >
+        <button
+          aria-checked="mixed"
+          class="group relative flex cursor-pointer border disabled:wds-disabled focus-visible:wds-focus-visible radix-state-unchecked:disabled:border-ws-dynamic-secondary-disabled radix-state-unchecked:disabled:bg-ws-static-alpha-subtle radix-state-checked:disabled:border-none radix-state-checked:disabled:bg-ws-dynamic-primary-disabled radix-state-indeterminate:disabled:border-none radix-state-indeterminate:disabled:bg-ws-dynamic-primary-disabled w-ws-control-md h-ws-control-md rounded-ws-control-md outline-ws-dynamic-primary-strong-default disabled:text-ws-dynamic-on-primary-disabled focus-visible:bg-ws-static-highlight-base radix-state-unchecked:border-ws-static-strong radix-state-unchecked:bg-ws-static-highlight-base radix-state-unchecked:hover:border-ws-dynamic-secondary-hover radix-state-unchecked:active:border-ws-dynamic-secondary-pressed radix-state-checked:border-none radix-state-checked:bg-ws-dynamic-primary-default radix-state-checked:hover:bg-ws-dynamic-primary-hover radix-state-checked:hover:text-ws-dynamic-on-primary-hover radix-state-checked:active:bg-ws-dynamic-primary-pressed radix-state-checked:active:text-ws-dynamic-on-primary-pressed radix-state-indeterminate:border-none radix-state-indeterminate:bg-ws-dynamic-primary-default radix-state-indeterminate:hover:bg-ws-dynamic-primary-hover radix-state-indeterminate:hover:text-ws-dynamic-on-primary-hover radix-state-indeterminate:active:bg-ws-dynamic-primary-pressed radix-state-indeterminate:active:text-ws-dynamic-on-primary-pressed transition-[background-color,border-color] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-smooth-out)"
+          data-slot="checkbox"
+          data-state="indeterminate"
+          id="_r_h_"
+          role="checkbox"
+          type="button"
+          value="on"
+        >
+          <span
+            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-in fade-in-0 zoom-in-[0.4] fill-mode-both duration-(--ws-motion-duration-fast) ease-(--ws-motion-ease-bounce)"
+            data-state="indeterminate"
+            style="pointer-events: none;"
+          >
+            <svg
+              aria-hidden="true"
+              class="remixicon group-radix-state-indeterminate:hidden group-radix-state-unchecked:hidden size-ws-9 text-ws-dynamic-on-primary-default group-disabled:text-ws-dynamic-on-primary-disabled"
+              fill="currentColor"
+              focusable="false"
+              height="24"
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M9.9997 15.1709L19.1921 5.97852L20.6063 7.39273L9.9997 17.9993L3.63574 11.6354L5.04996 10.2212L9.9997 15.1709Z"
+              />
+            </svg>
+            <div
+              class="group-radix-state-checked:hidden group-radix-state-unchecked:hidden h-[2px] bg-(--ws-dynamic-text-on-primary-default) group-disabled:bg-(--ws-dynamic-text-on-primary-disabled) w-[10px]"
+            />
+          </span>
+        </button>
+        <label
+          class="typography-label-sm text-ws-static-base gap-ws-3 flex flex-col cursor-pointer"
+          data-slot="checkbox-label"
+          for="_r_h_"
+        >
+          Select all
+        </label>
+      </div>
+    </div>
     <button
-      aria-label="Close"
-      class="whitespace-nowrap box-border relative inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default shrink-0 px-0 border typography-label-strong-sm gap-ws-2 rounded-ws-control-lg h-ws-forms-sm w-ws-forms-sm border-ws-dynamic-secondary-default shadow-ws-controls-control bg-ws-static-highlight-subtle text-ws-dynamic-secondary-default outline-ws-dynamic-primary-strong-default hover:border-ws-dynamic-secondary-hover hover:text-ws-dynamic-secondary-hover active:border-ws-dynamic-secondary-pressed active:text-ws-dynamic-secondary-pressed disabled:border-ws-dynamic-secondary-disabled disabled:text-ws-dynamic-secondary-disabled transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
-      data-slot="icon-button"
+      class="w-fit whitespace-nowrap box-border relative inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default typography-label-strong-sm h-ws-forms-sm gap-ws-2 rounded-ws-control-lg px-ws-6 bg-ws-dynamic-secondary-default shadow-ws-controls-control text-ws-dynamic-on-secondary-default outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-hover hover:text-ws-dynamic-on-secondary-hover active:bg-ws-dynamic-secondary-pressed active:text-ws-dynamic-on-secondary-pressed disabled:bg-ws-dynamic-secondary-disabled disabled:text-ws-dynamic-on-secondary-disabled transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+      data-slot="button"
       type="button"
     >
-      <svg
-        aria-hidden="true"
-        class="remixicon shrink-0 h-ws-9 w-ws-9"
-        data-slot="button-icon"
-        fill="currentColor"
-        focusable="false"
-        height="24"
-        viewBox="0 0 24 24"
-        width="24"
-        xmlns="http://www.w3.org/2000/svg"
+      <span
+        class="px-ws-2"
       >
-        <path
-          d="M11.9997 10.5865L16.9495 5.63672L18.3637 7.05093L13.4139 12.0007L18.3637 16.9504L16.9495 18.3646L11.9997 13.4149L7.04996 18.3646L5.63574 16.9504L10.5855 12.0007L5.63574 7.05093L7.04996 5.63672L11.9997 10.5865Z"
-        />
-      </svg>
+        Publish
+      </span>
     </button>
-  </div>
-  <div
-    class="gap-ws-5 flex min-w-0 items-center"
-  >
-    <span>
-      Action
-    </span>
+    <button
+      class="w-fit whitespace-nowrap box-border relative inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default typography-label-strong-sm h-ws-forms-sm gap-ws-2 rounded-ws-control-lg px-ws-6 bg-ws-dynamic-danger-alpha-default text-ws-dynamic-danger-default outline-ws-dynamic-danger-strong-default hover:bg-ws-dynamic-danger-alpha-hover hover:text-ws-dynamic-danger-hover active:bg-ws-dynamic-danger-alpha-pressed active:text-ws-dynamic-danger-pressed disabled:text-ws-dynamic-danger-disabled disabled:bg-none transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+      data-slot="button"
+      type="button"
+    >
+      <span
+        class="px-ws-2"
+      >
+        Delete
+      </span>
+    </button>
   </div>
 </div>
 `;
 
-exports[`ActionBar Snapshots > amountSelected > matches snapshot with amountSelected=0 1`] = `
+exports[`ActionBar Snapshots > matches snapshot for position=top 1`] = `
 <div
-  class="rounded-ws-container-lg bg-ws-static-overlay shadow-ws-medium px-ws-11 py-ws-9 z-ws-sticky fixed flex items-center data-[state=closed]:pointer-events-none data-[state=closed]:opacity-0 bottom-ws-9 left-1/2 -translate-x-1/2 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 ease-(--ws-motion-ease-smooth-out) data-[state=open]:duration-(--ws-motion-duration-slow) data-[state=closed]:duration-(--ws-motion-duration-medium) data-[state=open]:slide-in-from-bottom-ws-4 data-[state=closed]:slide-out-to-bottom-ws-4 gap-ws-19"
+  class="z-ws-sticky fixed flex w-max items-center gap-ws-5 p-ws-2 rounded-ws-container-md bg-ws-static-background shadow-ws-high data-[state=closed]:pointer-events-none data-[state=closed]:opacity-0 top-ws-9 left-1/2 -translate-x-1/2 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 ease-(--ws-motion-ease-smooth-out) data-[state=open]:duration-(--ws-motion-duration-slow) data-[state=closed]:duration-(--ws-motion-duration-medium) data-[state=open]:ws-slide-in-from-top-4 data-[state=closed]:ws-slide-out-to-top-4"
   data-slot="action-bar"
   data-state="open"
+  data-testid="bar"
 >
-  <div
-    class="gap-ws-9 flex items-center"
+  <p
+    class="px-ws-7 typography-label-sm text-ws-static-strong whitespace-nowrap"
+    data-slot="action-bar-count"
+    role="status"
   >
+    4 rows selected
+  </p>
+  <div
+    class="gap-ws-3 px-ws-7 py-ws-4 flex items-center self-stretch rounded-ws-control-xl bg-ws-static-foreground shadow-ws-controls-control"
+    data-slot="action-bar-actions"
+  >
+    <div
+      class="not-last:me-ws-11 flex"
+      data-slot="action-bar-select-all"
+    >
+      <div
+        class="gap-ws-5 flex w-fit"
+      >
+        <button
+          aria-checked="mixed"
+          class="group relative flex cursor-pointer border disabled:wds-disabled focus-visible:wds-focus-visible radix-state-unchecked:disabled:border-ws-dynamic-secondary-disabled radix-state-unchecked:disabled:bg-ws-static-alpha-subtle radix-state-checked:disabled:border-none radix-state-checked:disabled:bg-ws-dynamic-primary-disabled radix-state-indeterminate:disabled:border-none radix-state-indeterminate:disabled:bg-ws-dynamic-primary-disabled w-ws-control-md h-ws-control-md rounded-ws-control-md outline-ws-dynamic-primary-strong-default disabled:text-ws-dynamic-on-primary-disabled focus-visible:bg-ws-static-highlight-base radix-state-unchecked:border-ws-static-strong radix-state-unchecked:bg-ws-static-highlight-base radix-state-unchecked:hover:border-ws-dynamic-secondary-hover radix-state-unchecked:active:border-ws-dynamic-secondary-pressed radix-state-checked:border-none radix-state-checked:bg-ws-dynamic-primary-default radix-state-checked:hover:bg-ws-dynamic-primary-hover radix-state-checked:hover:text-ws-dynamic-on-primary-hover radix-state-checked:active:bg-ws-dynamic-primary-pressed radix-state-checked:active:text-ws-dynamic-on-primary-pressed radix-state-indeterminate:border-none radix-state-indeterminate:bg-ws-dynamic-primary-default radix-state-indeterminate:hover:bg-ws-dynamic-primary-hover radix-state-indeterminate:hover:text-ws-dynamic-on-primary-hover radix-state-indeterminate:active:bg-ws-dynamic-primary-pressed radix-state-indeterminate:active:text-ws-dynamic-on-primary-pressed transition-[background-color,border-color] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-smooth-out)"
+          data-slot="checkbox"
+          data-state="indeterminate"
+          id="_r_g_"
+          role="checkbox"
+          type="button"
+          value="on"
+        >
+          <span
+            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-in fade-in-0 zoom-in-[0.4] fill-mode-both duration-(--ws-motion-duration-fast) ease-(--ws-motion-ease-bounce)"
+            data-state="indeterminate"
+            style="pointer-events: none;"
+          >
+            <svg
+              aria-hidden="true"
+              class="remixicon group-radix-state-indeterminate:hidden group-radix-state-unchecked:hidden size-ws-9 text-ws-dynamic-on-primary-default group-disabled:text-ws-dynamic-on-primary-disabled"
+              fill="currentColor"
+              focusable="false"
+              height="24"
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M9.9997 15.1709L19.1921 5.97852L20.6063 7.39273L9.9997 17.9993L3.63574 11.6354L5.04996 10.2212L9.9997 15.1709Z"
+              />
+            </svg>
+            <div
+              class="group-radix-state-checked:hidden group-radix-state-unchecked:hidden h-[2px] bg-(--ws-dynamic-text-on-primary-default) group-disabled:bg-(--ws-dynamic-text-on-primary-disabled) w-[10px]"
+            />
+          </span>
+        </button>
+        <label
+          class="typography-label-sm text-ws-static-base gap-ws-3 flex flex-col cursor-pointer"
+          data-slot="checkbox-label"
+          for="_r_g_"
+        >
+          Select all
+        </label>
+      </div>
+    </div>
     <button
-      aria-label="Close"
-      class="whitespace-nowrap box-border relative inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default shrink-0 px-0 border typography-label-strong-sm gap-ws-2 rounded-ws-control-lg h-ws-forms-sm w-ws-forms-sm border-ws-dynamic-secondary-default shadow-ws-controls-control bg-ws-static-highlight-subtle text-ws-dynamic-secondary-default outline-ws-dynamic-primary-strong-default hover:border-ws-dynamic-secondary-hover hover:text-ws-dynamic-secondary-hover active:border-ws-dynamic-secondary-pressed active:text-ws-dynamic-secondary-pressed disabled:border-ws-dynamic-secondary-disabled disabled:text-ws-dynamic-secondary-disabled transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
-      data-slot="icon-button"
+      class="w-fit whitespace-nowrap box-border relative inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default typography-label-strong-sm h-ws-forms-sm gap-ws-2 rounded-ws-control-lg px-ws-6 bg-ws-dynamic-secondary-default shadow-ws-controls-control text-ws-dynamic-on-secondary-default outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-hover hover:text-ws-dynamic-on-secondary-hover active:bg-ws-dynamic-secondary-pressed active:text-ws-dynamic-on-secondary-pressed disabled:bg-ws-dynamic-secondary-disabled disabled:text-ws-dynamic-on-secondary-disabled transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+      data-slot="button"
       type="button"
     >
-      <svg
-        aria-hidden="true"
-        class="remixicon shrink-0 h-ws-9 w-ws-9"
-        data-slot="button-icon"
-        fill="currentColor"
-        focusable="false"
-        height="24"
-        viewBox="0 0 24 24"
-        width="24"
-        xmlns="http://www.w3.org/2000/svg"
+      <span
+        class="px-ws-2"
       >
-        <path
-          d="M11.9997 10.5865L16.9495 5.63672L18.3637 7.05093L13.4139 12.0007L18.3637 16.9504L16.9495 18.3646L11.9997 13.4149L7.04996 18.3646L5.63574 16.9504L10.5855 12.0007L5.63574 7.05093L7.04996 5.63672L11.9997 10.5865Z"
-        />
-      </svg>
+        Publish
+      </span>
     </button>
-    <span
-      class="text-ws-static-base typography-label-strong-sm tracking-ws-tight-25 font-ws-medium whitespace-nowrap"
+    <button
+      class="w-fit whitespace-nowrap box-border relative inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default typography-label-strong-sm h-ws-forms-sm gap-ws-2 rounded-ws-control-lg px-ws-6 bg-ws-dynamic-danger-alpha-default text-ws-dynamic-danger-default outline-ws-dynamic-danger-strong-default hover:bg-ws-dynamic-danger-alpha-hover hover:text-ws-dynamic-danger-hover active:bg-ws-dynamic-danger-alpha-pressed active:text-ws-dynamic-danger-pressed disabled:text-ws-dynamic-danger-disabled disabled:bg-none transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+      data-slot="button"
+      type="button"
     >
-      0 selected
-    </span>
-  </div>
-  <div
-    class="gap-ws-5 flex min-w-0 items-center"
-  >
-    <span>
-      Action
-    </span>
+      <span
+        class="px-ws-2"
+      >
+        Delete
+      </span>
+    </button>
   </div>
 </div>
 `;
 
-exports[`ActionBar Snapshots > amountSelected > matches snapshot with amountSelected=5 1`] = `
-<div
-  class="rounded-ws-container-lg bg-ws-static-overlay shadow-ws-medium px-ws-11 py-ws-9 z-ws-sticky fixed flex items-center data-[state=closed]:pointer-events-none data-[state=closed]:opacity-0 bottom-ws-9 left-1/2 -translate-x-1/2 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 ease-(--ws-motion-ease-smooth-out) data-[state=open]:duration-(--ws-motion-duration-slow) data-[state=closed]:duration-(--ws-motion-duration-medium) data-[state=open]:slide-in-from-bottom-ws-4 data-[state=closed]:slide-out-to-bottom-ws-4 gap-ws-19"
-  data-slot="action-bar"
-  data-state="open"
->
-  <div
-    class="gap-ws-9 flex items-center"
-  >
-    <button
-      aria-label="Close"
-      class="whitespace-nowrap box-border relative inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default shrink-0 px-0 border typography-label-strong-sm gap-ws-2 rounded-ws-control-lg h-ws-forms-sm w-ws-forms-sm border-ws-dynamic-secondary-default shadow-ws-controls-control bg-ws-static-highlight-subtle text-ws-dynamic-secondary-default outline-ws-dynamic-primary-strong-default hover:border-ws-dynamic-secondary-hover hover:text-ws-dynamic-secondary-hover active:border-ws-dynamic-secondary-pressed active:text-ws-dynamic-secondary-pressed disabled:border-ws-dynamic-secondary-disabled disabled:text-ws-dynamic-secondary-disabled transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
-      data-slot="icon-button"
-      type="button"
-    >
-      <svg
-        aria-hidden="true"
-        class="remixicon shrink-0 h-ws-9 w-ws-9"
-        data-slot="button-icon"
-        fill="currentColor"
-        focusable="false"
-        height="24"
-        viewBox="0 0 24 24"
-        width="24"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M11.9997 10.5865L16.9495 5.63672L18.3637 7.05093L13.4139 12.0007L18.3637 16.9504L16.9495 18.3646L11.9997 13.4149L7.04996 18.3646L5.63574 16.9504L10.5855 12.0007L5.63574 7.05093L7.04996 5.63672L11.9997 10.5865Z"
-        />
-      </svg>
-    </button>
-    <span
-      class="text-ws-static-base typography-label-strong-sm tracking-ws-tight-25 font-ws-medium whitespace-nowrap"
-    >
-      5 selected
-    </span>
-  </div>
-  <div
-    class="gap-ws-5 flex min-w-0 items-center"
-  >
-    <span>
-      Action
-    </span>
-  </div>
-</div>
-`;
-
-exports[`ActionBar Snapshots > isOpen states > matches snapshot when closed 1`] = `
+exports[`ActionBar Snapshots > matches snapshot when closed 1`] = `
 <div
   aria-hidden="true"
-  class="rounded-ws-container-lg bg-ws-static-overlay shadow-ws-medium px-ws-11 py-ws-9 z-ws-sticky fixed flex items-center data-[state=closed]:pointer-events-none data-[state=closed]:opacity-0 bottom-ws-9 left-1/2 -translate-x-1/2 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 ease-(--ws-motion-ease-smooth-out) data-[state=open]:duration-(--ws-motion-duration-slow) data-[state=closed]:duration-(--ws-motion-duration-medium) data-[state=open]:slide-in-from-bottom-ws-4 data-[state=closed]:slide-out-to-bottom-ws-4 gap-ws-19"
+  class="z-ws-sticky fixed flex w-max items-center gap-ws-5 p-ws-2 rounded-ws-container-md bg-ws-static-background shadow-ws-high data-[state=closed]:pointer-events-none data-[state=closed]:opacity-0 bottom-ws-9 left-1/2 -translate-x-1/2 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 ease-(--ws-motion-ease-smooth-out) data-[state=open]:duration-(--ws-motion-duration-slow) data-[state=closed]:duration-(--ws-motion-duration-medium) data-[state=open]:slide-in-from-bottom-ws-4 data-[state=closed]:slide-out-to-bottom-ws-4"
   data-slot="action-bar"
   data-state="closed"
+  data-testid="bar"
   inert=""
 >
-  <div
-    class="gap-ws-9 flex items-center"
+  <p
+    class="px-ws-7 typography-label-sm text-ws-static-strong whitespace-nowrap"
+    data-slot="action-bar-count"
+    role="status"
   >
+    4 rows selected
+  </p>
+  <div
+    class="gap-ws-3 px-ws-7 py-ws-4 flex items-center self-stretch rounded-ws-control-xl bg-ws-static-foreground shadow-ws-controls-control"
+    data-slot="action-bar-actions"
+  >
+    <div
+      class="not-last:me-ws-11 flex"
+      data-slot="action-bar-select-all"
+    >
+      <div
+        class="gap-ws-5 flex w-fit"
+      >
+        <button
+          aria-checked="mixed"
+          class="group relative flex cursor-pointer border disabled:wds-disabled focus-visible:wds-focus-visible radix-state-unchecked:disabled:border-ws-dynamic-secondary-disabled radix-state-unchecked:disabled:bg-ws-static-alpha-subtle radix-state-checked:disabled:border-none radix-state-checked:disabled:bg-ws-dynamic-primary-disabled radix-state-indeterminate:disabled:border-none radix-state-indeterminate:disabled:bg-ws-dynamic-primary-disabled w-ws-control-md h-ws-control-md rounded-ws-control-md outline-ws-dynamic-primary-strong-default disabled:text-ws-dynamic-on-primary-disabled focus-visible:bg-ws-static-highlight-base radix-state-unchecked:border-ws-static-strong radix-state-unchecked:bg-ws-static-highlight-base radix-state-unchecked:hover:border-ws-dynamic-secondary-hover radix-state-unchecked:active:border-ws-dynamic-secondary-pressed radix-state-checked:border-none radix-state-checked:bg-ws-dynamic-primary-default radix-state-checked:hover:bg-ws-dynamic-primary-hover radix-state-checked:hover:text-ws-dynamic-on-primary-hover radix-state-checked:active:bg-ws-dynamic-primary-pressed radix-state-checked:active:text-ws-dynamic-on-primary-pressed radix-state-indeterminate:border-none radix-state-indeterminate:bg-ws-dynamic-primary-default radix-state-indeterminate:hover:bg-ws-dynamic-primary-hover radix-state-indeterminate:hover:text-ws-dynamic-on-primary-hover radix-state-indeterminate:active:bg-ws-dynamic-primary-pressed radix-state-indeterminate:active:text-ws-dynamic-on-primary-pressed transition-[background-color,border-color] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-smooth-out)"
+          data-slot="checkbox"
+          data-state="indeterminate"
+          id="_r_f_"
+          role="checkbox"
+          type="button"
+          value="on"
+        >
+          <span
+            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-in fade-in-0 zoom-in-[0.4] fill-mode-both duration-(--ws-motion-duration-fast) ease-(--ws-motion-ease-bounce)"
+            data-state="indeterminate"
+            style="pointer-events: none;"
+          >
+            <svg
+              aria-hidden="true"
+              class="remixicon group-radix-state-indeterminate:hidden group-radix-state-unchecked:hidden size-ws-9 text-ws-dynamic-on-primary-default group-disabled:text-ws-dynamic-on-primary-disabled"
+              fill="currentColor"
+              focusable="false"
+              height="24"
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M9.9997 15.1709L19.1921 5.97852L20.6063 7.39273L9.9997 17.9993L3.63574 11.6354L5.04996 10.2212L9.9997 15.1709Z"
+              />
+            </svg>
+            <div
+              class="group-radix-state-checked:hidden group-radix-state-unchecked:hidden h-[2px] bg-(--ws-dynamic-text-on-primary-default) group-disabled:bg-(--ws-dynamic-text-on-primary-disabled) w-[10px]"
+            />
+          </span>
+        </button>
+        <label
+          class="typography-label-sm text-ws-static-base gap-ws-3 flex flex-col cursor-pointer"
+          data-slot="checkbox-label"
+          for="_r_f_"
+        >
+          Select all
+        </label>
+      </div>
+    </div>
     <button
-      aria-label="Close"
-      class="whitespace-nowrap box-border relative inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default shrink-0 px-0 border typography-label-strong-sm gap-ws-2 rounded-ws-control-lg h-ws-forms-sm w-ws-forms-sm border-ws-dynamic-secondary-default shadow-ws-controls-control bg-ws-static-highlight-subtle text-ws-dynamic-secondary-default outline-ws-dynamic-primary-strong-default hover:border-ws-dynamic-secondary-hover hover:text-ws-dynamic-secondary-hover active:border-ws-dynamic-secondary-pressed active:text-ws-dynamic-secondary-pressed disabled:border-ws-dynamic-secondary-disabled disabled:text-ws-dynamic-secondary-disabled transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
-      data-slot="icon-button"
+      class="w-fit whitespace-nowrap box-border relative inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default typography-label-strong-sm h-ws-forms-sm gap-ws-2 rounded-ws-control-lg px-ws-6 bg-ws-dynamic-secondary-default shadow-ws-controls-control text-ws-dynamic-on-secondary-default outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-hover hover:text-ws-dynamic-on-secondary-hover active:bg-ws-dynamic-secondary-pressed active:text-ws-dynamic-on-secondary-pressed disabled:bg-ws-dynamic-secondary-disabled disabled:text-ws-dynamic-on-secondary-disabled transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+      data-slot="button"
       type="button"
     >
-      <svg
-        aria-hidden="true"
-        class="remixicon shrink-0 h-ws-9 w-ws-9"
-        data-slot="button-icon"
-        fill="currentColor"
-        focusable="false"
-        height="24"
-        viewBox="0 0 24 24"
-        width="24"
-        xmlns="http://www.w3.org/2000/svg"
+      <span
+        class="px-ws-2"
       >
-        <path
-          d="M11.9997 10.5865L16.9495 5.63672L18.3637 7.05093L13.4139 12.0007L18.3637 16.9504L16.9495 18.3646L11.9997 13.4149L7.04996 18.3646L5.63574 16.9504L10.5855 12.0007L5.63574 7.05093L7.04996 5.63672L11.9997 10.5865Z"
-        />
-      </svg>
+        Publish
+      </span>
     </button>
-    <span
-      class="text-ws-static-base typography-label-strong-sm tracking-ws-tight-25 font-ws-medium whitespace-nowrap"
+    <button
+      class="w-fit whitespace-nowrap box-border relative inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default typography-label-strong-sm h-ws-forms-sm gap-ws-2 rounded-ws-control-lg px-ws-6 bg-ws-dynamic-danger-alpha-default text-ws-dynamic-danger-default outline-ws-dynamic-danger-strong-default hover:bg-ws-dynamic-danger-alpha-hover hover:text-ws-dynamic-danger-hover active:bg-ws-dynamic-danger-alpha-pressed active:text-ws-dynamic-danger-pressed disabled:text-ws-dynamic-danger-disabled disabled:bg-none transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+      data-slot="button"
+      type="button"
     >
-      3 selected
-    </span>
-  </div>
-  <div
-    class="gap-ws-5 flex min-w-0 items-center"
-  >
-    <span>
-      Action
-    </span>
+      <span
+        class="px-ws-2"
+      >
+        Delete
+      </span>
+    </button>
   </div>
 </div>
 `;
 
-exports[`ActionBar Snapshots > isOpen states > matches snapshot when open 1`] = `
+exports[`ActionBar Snapshots > matches snapshot when open 1`] = `
 <div
-  class="rounded-ws-container-lg bg-ws-static-overlay shadow-ws-medium px-ws-11 py-ws-9 z-ws-sticky fixed flex items-center data-[state=closed]:pointer-events-none data-[state=closed]:opacity-0 bottom-ws-9 left-1/2 -translate-x-1/2 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 ease-(--ws-motion-ease-smooth-out) data-[state=open]:duration-(--ws-motion-duration-slow) data-[state=closed]:duration-(--ws-motion-duration-medium) data-[state=open]:slide-in-from-bottom-ws-4 data-[state=closed]:slide-out-to-bottom-ws-4 gap-ws-19"
+  class="z-ws-sticky fixed flex w-max items-center gap-ws-5 p-ws-2 rounded-ws-container-md bg-ws-static-background shadow-ws-high data-[state=closed]:pointer-events-none data-[state=closed]:opacity-0 bottom-ws-9 left-1/2 -translate-x-1/2 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 ease-(--ws-motion-ease-smooth-out) data-[state=open]:duration-(--ws-motion-duration-slow) data-[state=closed]:duration-(--ws-motion-duration-medium) data-[state=open]:slide-in-from-bottom-ws-4 data-[state=closed]:slide-out-to-bottom-ws-4"
   data-slot="action-bar"
   data-state="open"
+  data-testid="bar"
 >
-  <div
-    class="gap-ws-9 flex items-center"
+  <p
+    class="px-ws-7 typography-label-sm text-ws-static-strong whitespace-nowrap"
+    data-slot="action-bar-count"
+    role="status"
   >
+    4 rows selected
+  </p>
+  <div
+    class="gap-ws-3 px-ws-7 py-ws-4 flex items-center self-stretch rounded-ws-control-xl bg-ws-static-foreground shadow-ws-controls-control"
+    data-slot="action-bar-actions"
+  >
+    <div
+      class="not-last:me-ws-11 flex"
+      data-slot="action-bar-select-all"
+    >
+      <div
+        class="gap-ws-5 flex w-fit"
+      >
+        <button
+          aria-checked="mixed"
+          class="group relative flex cursor-pointer border disabled:wds-disabled focus-visible:wds-focus-visible radix-state-unchecked:disabled:border-ws-dynamic-secondary-disabled radix-state-unchecked:disabled:bg-ws-static-alpha-subtle radix-state-checked:disabled:border-none radix-state-checked:disabled:bg-ws-dynamic-primary-disabled radix-state-indeterminate:disabled:border-none radix-state-indeterminate:disabled:bg-ws-dynamic-primary-disabled w-ws-control-md h-ws-control-md rounded-ws-control-md outline-ws-dynamic-primary-strong-default disabled:text-ws-dynamic-on-primary-disabled focus-visible:bg-ws-static-highlight-base radix-state-unchecked:border-ws-static-strong radix-state-unchecked:bg-ws-static-highlight-base radix-state-unchecked:hover:border-ws-dynamic-secondary-hover radix-state-unchecked:active:border-ws-dynamic-secondary-pressed radix-state-checked:border-none radix-state-checked:bg-ws-dynamic-primary-default radix-state-checked:hover:bg-ws-dynamic-primary-hover radix-state-checked:hover:text-ws-dynamic-on-primary-hover radix-state-checked:active:bg-ws-dynamic-primary-pressed radix-state-checked:active:text-ws-dynamic-on-primary-pressed radix-state-indeterminate:border-none radix-state-indeterminate:bg-ws-dynamic-primary-default radix-state-indeterminate:hover:bg-ws-dynamic-primary-hover radix-state-indeterminate:hover:text-ws-dynamic-on-primary-hover radix-state-indeterminate:active:bg-ws-dynamic-primary-pressed radix-state-indeterminate:active:text-ws-dynamic-on-primary-pressed transition-[background-color,border-color] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-smooth-out)"
+          data-slot="checkbox"
+          data-state="indeterminate"
+          id="_r_e_"
+          role="checkbox"
+          type="button"
+          value="on"
+        >
+          <span
+            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-in fade-in-0 zoom-in-[0.4] fill-mode-both duration-(--ws-motion-duration-fast) ease-(--ws-motion-ease-bounce)"
+            data-state="indeterminate"
+            style="pointer-events: none;"
+          >
+            <svg
+              aria-hidden="true"
+              class="remixicon group-radix-state-indeterminate:hidden group-radix-state-unchecked:hidden size-ws-9 text-ws-dynamic-on-primary-default group-disabled:text-ws-dynamic-on-primary-disabled"
+              fill="currentColor"
+              focusable="false"
+              height="24"
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M9.9997 15.1709L19.1921 5.97852L20.6063 7.39273L9.9997 17.9993L3.63574 11.6354L5.04996 10.2212L9.9997 15.1709Z"
+              />
+            </svg>
+            <div
+              class="group-radix-state-checked:hidden group-radix-state-unchecked:hidden h-[2px] bg-(--ws-dynamic-text-on-primary-default) group-disabled:bg-(--ws-dynamic-text-on-primary-disabled) w-[10px]"
+            />
+          </span>
+        </button>
+        <label
+          class="typography-label-sm text-ws-static-base gap-ws-3 flex flex-col cursor-pointer"
+          data-slot="checkbox-label"
+          for="_r_e_"
+        >
+          Select all
+        </label>
+      </div>
+    </div>
     <button
-      aria-label="Close"
-      class="whitespace-nowrap box-border relative inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default shrink-0 px-0 border typography-label-strong-sm gap-ws-2 rounded-ws-control-lg h-ws-forms-sm w-ws-forms-sm border-ws-dynamic-secondary-default shadow-ws-controls-control bg-ws-static-highlight-subtle text-ws-dynamic-secondary-default outline-ws-dynamic-primary-strong-default hover:border-ws-dynamic-secondary-hover hover:text-ws-dynamic-secondary-hover active:border-ws-dynamic-secondary-pressed active:text-ws-dynamic-secondary-pressed disabled:border-ws-dynamic-secondary-disabled disabled:text-ws-dynamic-secondary-disabled transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
-      data-slot="icon-button"
+      class="w-fit whitespace-nowrap box-border relative inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default typography-label-strong-sm h-ws-forms-sm gap-ws-2 rounded-ws-control-lg px-ws-6 bg-ws-dynamic-secondary-default shadow-ws-controls-control text-ws-dynamic-on-secondary-default outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-hover hover:text-ws-dynamic-on-secondary-hover active:bg-ws-dynamic-secondary-pressed active:text-ws-dynamic-on-secondary-pressed disabled:bg-ws-dynamic-secondary-disabled disabled:text-ws-dynamic-on-secondary-disabled transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+      data-slot="button"
       type="button"
     >
-      <svg
-        aria-hidden="true"
-        class="remixicon shrink-0 h-ws-9 w-ws-9"
-        data-slot="button-icon"
-        fill="currentColor"
-        focusable="false"
-        height="24"
-        viewBox="0 0 24 24"
-        width="24"
-        xmlns="http://www.w3.org/2000/svg"
+      <span
+        class="px-ws-2"
       >
-        <path
-          d="M11.9997 10.5865L16.9495 5.63672L18.3637 7.05093L13.4139 12.0007L18.3637 16.9504L16.9495 18.3646L11.9997 13.4149L7.04996 18.3646L5.63574 16.9504L10.5855 12.0007L5.63574 7.05093L7.04996 5.63672L11.9997 10.5865Z"
-        />
-      </svg>
+        Publish
+      </span>
     </button>
-    <span
-      class="text-ws-static-base typography-label-strong-sm tracking-ws-tight-25 font-ws-medium whitespace-nowrap"
-    >
-      3 selected
-    </span>
-  </div>
-  <div
-    class="gap-ws-5 flex min-w-0 items-center"
-  >
-    <span>
-      Action
-    </span>
-  </div>
-</div>
-`;
-
-exports[`ActionBar Snapshots > onClose > matches snapshot with onClose provided 1`] = `
-<div
-  class="rounded-ws-container-lg bg-ws-static-overlay shadow-ws-medium px-ws-11 py-ws-9 z-ws-sticky fixed flex items-center data-[state=closed]:pointer-events-none data-[state=closed]:opacity-0 bottom-ws-9 left-1/2 -translate-x-1/2 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 ease-(--ws-motion-ease-smooth-out) data-[state=open]:duration-(--ws-motion-duration-slow) data-[state=closed]:duration-(--ws-motion-duration-medium) data-[state=open]:slide-in-from-bottom-ws-4 data-[state=closed]:slide-out-to-bottom-ws-4 gap-ws-19"
-  data-slot="action-bar"
-  data-state="open"
->
-  <div
-    class="gap-ws-9 flex items-center"
-  >
     <button
-      aria-label="Close"
-      class="whitespace-nowrap box-border relative inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default shrink-0 px-0 border typography-label-strong-sm gap-ws-2 rounded-ws-control-lg h-ws-forms-sm w-ws-forms-sm border-ws-dynamic-secondary-default shadow-ws-controls-control bg-ws-static-highlight-subtle text-ws-dynamic-secondary-default outline-ws-dynamic-primary-strong-default hover:border-ws-dynamic-secondary-hover hover:text-ws-dynamic-secondary-hover active:border-ws-dynamic-secondary-pressed active:text-ws-dynamic-secondary-pressed disabled:border-ws-dynamic-secondary-disabled disabled:text-ws-dynamic-secondary-disabled transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
-      data-slot="icon-button"
+      class="w-fit whitespace-nowrap box-border relative inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default typography-label-strong-sm h-ws-forms-sm gap-ws-2 rounded-ws-control-lg px-ws-6 bg-ws-dynamic-danger-alpha-default text-ws-dynamic-danger-default outline-ws-dynamic-danger-strong-default hover:bg-ws-dynamic-danger-alpha-hover hover:text-ws-dynamic-danger-hover active:bg-ws-dynamic-danger-alpha-pressed active:text-ws-dynamic-danger-pressed disabled:text-ws-dynamic-danger-disabled disabled:bg-none transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+      data-slot="button"
       type="button"
     >
-      <svg
-        aria-hidden="true"
-        class="remixicon shrink-0 h-ws-9 w-ws-9"
-        data-slot="button-icon"
-        fill="currentColor"
-        focusable="false"
-        height="24"
-        viewBox="0 0 24 24"
-        width="24"
-        xmlns="http://www.w3.org/2000/svg"
+      <span
+        class="px-ws-2"
       >
-        <path
-          d="M11.9997 10.5865L16.9495 5.63672L18.3637 7.05093L13.4139 12.0007L18.3637 16.9504L16.9495 18.3646L11.9997 13.4149L7.04996 18.3646L5.63574 16.9504L10.5855 12.0007L5.63574 7.05093L7.04996 5.63672L11.9997 10.5865Z"
-        />
-      </svg>
+        Delete
+      </span>
     </button>
-    <span
-      class="text-ws-static-base typography-label-strong-sm tracking-ws-tight-25 font-ws-medium whitespace-nowrap"
-    >
-      3 selected
-    </span>
-  </div>
-  <div
-    class="gap-ws-5 flex min-w-0 items-center"
-  >
-    <span>
-      Action
-    </span>
-  </div>
-</div>
-`;
-
-exports[`ActionBar Snapshots > onClose > matches snapshot without onClose 1`] = `
-<div
-  class="rounded-ws-container-lg bg-ws-static-overlay shadow-ws-medium px-ws-11 py-ws-9 z-ws-sticky fixed flex items-center data-[state=closed]:pointer-events-none data-[state=closed]:opacity-0 bottom-ws-9 left-1/2 -translate-x-1/2 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 ease-(--ws-motion-ease-smooth-out) data-[state=open]:duration-(--ws-motion-duration-slow) data-[state=closed]:duration-(--ws-motion-duration-medium) data-[state=open]:slide-in-from-bottom-ws-4 data-[state=closed]:slide-out-to-bottom-ws-4 gap-ws-19"
-  data-slot="action-bar"
-  data-state="open"
->
-  <div
-    class="gap-ws-9 flex items-center"
-  >
-    <span
-      class="text-ws-static-base typography-label-strong-sm tracking-ws-tight-25 font-ws-medium whitespace-nowrap"
-    >
-      3 selected
-    </span>
-  </div>
-  <div
-    class="gap-ws-5 flex min-w-0 items-center"
-  >
-    <span>
-      Action
-    </span>
-  </div>
-</div>
-`;
-
-exports[`ActionBar Snapshots > position > matches snapshot for position=bottom 1`] = `
-<div
-  class="rounded-ws-container-lg bg-ws-static-overlay shadow-ws-medium px-ws-11 py-ws-9 z-ws-sticky fixed flex items-center data-[state=closed]:pointer-events-none data-[state=closed]:opacity-0 bottom-ws-9 left-1/2 -translate-x-1/2 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 ease-(--ws-motion-ease-smooth-out) data-[state=open]:duration-(--ws-motion-duration-slow) data-[state=closed]:duration-(--ws-motion-duration-medium) data-[state=open]:slide-in-from-bottom-ws-4 data-[state=closed]:slide-out-to-bottom-ws-4 gap-ws-19"
-  data-slot="action-bar"
-  data-state="open"
->
-  <div
-    class="gap-ws-9 flex items-center"
-  >
-    <button
-      aria-label="Close"
-      class="whitespace-nowrap box-border relative inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default shrink-0 px-0 border typography-label-strong-sm gap-ws-2 rounded-ws-control-lg h-ws-forms-sm w-ws-forms-sm border-ws-dynamic-secondary-default shadow-ws-controls-control bg-ws-static-highlight-subtle text-ws-dynamic-secondary-default outline-ws-dynamic-primary-strong-default hover:border-ws-dynamic-secondary-hover hover:text-ws-dynamic-secondary-hover active:border-ws-dynamic-secondary-pressed active:text-ws-dynamic-secondary-pressed disabled:border-ws-dynamic-secondary-disabled disabled:text-ws-dynamic-secondary-disabled transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
-      data-slot="icon-button"
-      type="button"
-    >
-      <svg
-        aria-hidden="true"
-        class="remixicon shrink-0 h-ws-9 w-ws-9"
-        data-slot="button-icon"
-        fill="currentColor"
-        focusable="false"
-        height="24"
-        viewBox="0 0 24 24"
-        width="24"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M11.9997 10.5865L16.9495 5.63672L18.3637 7.05093L13.4139 12.0007L18.3637 16.9504L16.9495 18.3646L11.9997 13.4149L7.04996 18.3646L5.63574 16.9504L10.5855 12.0007L5.63574 7.05093L7.04996 5.63672L11.9997 10.5865Z"
-        />
-      </svg>
-    </button>
-    <span
-      class="text-ws-static-base typography-label-strong-sm tracking-ws-tight-25 font-ws-medium whitespace-nowrap"
-    >
-      2 selected
-    </span>
-  </div>
-  <div
-    class="gap-ws-5 flex min-w-0 items-center"
-  >
-    <span>
-      Action
-    </span>
-  </div>
-</div>
-`;
-
-exports[`ActionBar Snapshots > position > matches snapshot for position=top 1`] = `
-<div
-  class="rounded-ws-container-lg bg-ws-static-overlay shadow-ws-medium px-ws-11 py-ws-9 z-ws-sticky fixed flex items-center data-[state=closed]:pointer-events-none data-[state=closed]:opacity-0 top-ws-9 left-1/2 -translate-x-1/2 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 ease-(--ws-motion-ease-smooth-out) data-[state=open]:duration-(--ws-motion-duration-slow) data-[state=closed]:duration-(--ws-motion-duration-medium) data-[state=open]:ws-slide-in-from-top-4 data-[state=closed]:ws-slide-out-to-top-4 gap-ws-19"
-  data-slot="action-bar"
-  data-state="open"
->
-  <div
-    class="gap-ws-9 flex items-center"
-  >
-    <button
-      aria-label="Close"
-      class="whitespace-nowrap box-border relative inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default shrink-0 px-0 border typography-label-strong-sm gap-ws-2 rounded-ws-control-lg h-ws-forms-sm w-ws-forms-sm border-ws-dynamic-secondary-default shadow-ws-controls-control bg-ws-static-highlight-subtle text-ws-dynamic-secondary-default outline-ws-dynamic-primary-strong-default hover:border-ws-dynamic-secondary-hover hover:text-ws-dynamic-secondary-hover active:border-ws-dynamic-secondary-pressed active:text-ws-dynamic-secondary-pressed disabled:border-ws-dynamic-secondary-disabled disabled:text-ws-dynamic-secondary-disabled transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
-      data-slot="icon-button"
-      type="button"
-    >
-      <svg
-        aria-hidden="true"
-        class="remixicon shrink-0 h-ws-9 w-ws-9"
-        data-slot="button-icon"
-        fill="currentColor"
-        focusable="false"
-        height="24"
-        viewBox="0 0 24 24"
-        width="24"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M11.9997 10.5865L16.9495 5.63672L18.3637 7.05093L13.4139 12.0007L18.3637 16.9504L16.9495 18.3646L11.9997 13.4149L7.04996 18.3646L5.63574 16.9504L10.5855 12.0007L5.63574 7.05093L7.04996 5.63672L11.9997 10.5865Z"
-        />
-      </svg>
-    </button>
-    <span
-      class="text-ws-static-base typography-label-strong-sm tracking-ws-tight-25 font-ws-medium whitespace-nowrap"
-    >
-      2 selected
-    </span>
-  </div>
-  <div
-    class="gap-ws-5 flex min-w-0 items-center"
-  >
-    <span>
-      Action
-    </span>
   </div>
 </div>
 `;

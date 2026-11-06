@@ -26,8 +26,8 @@ depth; in dark, each layer up is a lighter grey.
 | Class                                                       | Use for                                                                          |
 | ----------------------------------------------------------- | -------------------------------------------------------------------------------- |
 | `shadow-ws-low`                                             | A small raised element inside a control (segmented control thumb)                |
-| `shadow-ws-medium`                                          | Menus, dropdowns, toasts, floating bars (`ActionBar`)                            |
-| `shadow-ws-high`                                            | Modals and popups                                                                |
+| `shadow-ws-medium`                                          | Menus, dropdowns, toasts                                                         |
+| `shadow-ws-high`                                            | Modals, popups and floating bars (`ActionBar`)                                   |
 | `shadow-ws-controls-control`                                | The 1px lift under filled and bordered buttons                                   |
 | `shadow-ws-forms-base`                                      | Rest state of text inputs and select triggers                                    |
 | `shadow-ws-forms-active` · `shadow-ws-forms-active-danger`  | Focus halo on form fields (see [borders.md](borders.md))                         |

@@ -10,19 +10,19 @@ Source: `packages/design-system/src/styles/tokens/theme-desktop-semantic.css`
 
 ## Classes
 
-| Class                       | rem   | px   | Used by                                                   |
-| --------------------------- | ----- | ---- | --------------------------------------------------------- |
-| `rounded-ws-control-none`   | 0     | 0    | Square control                                            |
-| `rounded-ws-control-sm`     | 0.25  | 4    | Checkbox, Tag, StatusBadge                                |
-| `rounded-ws-control-md`     | 0.375 | 6    | `xs` Button, Chip, Tooltip, list and menu items, segments |
-| `rounded-ws-control-lg`     | 0.5   | 8    | `sm`/`md` Button, TextInput, Select (the default control) |
-| `rounded-ws-control-xl`     | 0.625 | 10   | `lg` Button, TextInput, Select                            |
-| `rounded-ws-control-full`   | pill  | pill | Pill Tag and StatusBadge, Slider, pill Tabs               |
-| `rounded-ws-container-none` | 0     | 0    | Edge-to-edge surface                                      |
-| `rounded-ws-container-sm`   | 0.5   | 8    | DropdownMenu, Select list, Textarea                       |
-| `rounded-ws-container-md`   | 0.75  | 12   | Modal, Tile, ActionTile, InlineAlert, Accordion item      |
-| `rounded-ws-container-lg`   | 1     | 16   | Card, Popup, Sidepanel, ActionBar, Toast                  |
-| `rounded-ws-container-xl`   | 1.25  | 20   | Largest surface                                           |
+| Class                       | rem   | px   | Used by                                                         |
+| --------------------------- | ----- | ---- | --------------------------------------------------------------- |
+| `rounded-ws-control-none`   | 0     | 0    | Square control                                                  |
+| `rounded-ws-control-sm`     | 0.25  | 4    | Checkbox, Tag, StatusBadge                                      |
+| `rounded-ws-control-md`     | 0.375 | 6    | `xs` Button, Chip, Tooltip, list and menu items, segments       |
+| `rounded-ws-control-lg`     | 0.5   | 8    | `sm`/`md` Button, TextInput, Select (the default control)       |
+| `rounded-ws-control-xl`     | 0.625 | 10   | `lg` Button, TextInput, Select                                  |
+| `rounded-ws-control-full`   | pill  | pill | Pill Tag and StatusBadge, Slider, pill Tabs                     |
+| `rounded-ws-container-none` | 0     | 0    | Edge-to-edge surface                                            |
+| `rounded-ws-container-sm`   | 0.5   | 8    | DropdownMenu, Select list, Textarea                             |
+| `rounded-ws-container-md`   | 0.75  | 12   | Modal, Tile, ActionTile, ActionBar, InlineAlert, Accordion item |
+| `rounded-ws-container-lg`   | 1     | 16   | Card, Popup, Sidepanel, Toast                                   |
+| `rounded-ws-container-xl`   | 1.25  | 20   | Largest surface                                                 |
 
 Side variants work as usual: `rounded-b-ws-container-lg`.
 

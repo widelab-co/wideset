@@ -14,6 +14,9 @@ A member such as `Card.Header` comes with `Card`; its named form, `CardHeader`, 
 - `import { AccordionTitle } from '@/components/ui/wideset/accordion/AccordionTitle';`
 - `import { AccordionTrigger } from '@/components/ui/wideset/accordion/AccordionTrigger';`
 - `import { ActionBar } from '@/components/ui/wideset/action-bar/ActionBar';`
+- `import { ActionBarActions } from '@/components/ui/wideset/action-bar/ActionBarActions';`
+- `import { ActionBarCount } from '@/components/ui/wideset/action-bar/ActionBarCount';`
+- `import { ActionBarSelectAll } from '@/components/ui/wideset/action-bar/ActionBarSelectAll';`
 - `import { ActionTile } from '@/components/ui/wideset/action-tile/ActionTile';`
 - `import { ActionTileDescription } from '@/components/ui/wideset/action-tile/ActionTileDescription';`
 - `import { ActionTileEntity } from '@/components/ui/wideset/action-tile/ActionTileEntity';`
@@ -211,7 +214,7 @@ A member such as `Card.Header` comes with `Card`; its named form, `CardHeader`, 
 ## Types
 
 - `import type { AccordionCaptionProps, AccordionContentProps, AccordionIconProps, AccordionItemProps, AccordionProps, AccordionTitleProps, AccordionTriggerProps } from '@/components/ui/wideset/accordion/Accordion.types';`
-- `import type { ActionBarProps } from '@/components/ui/wideset/action-bar/ActionBar.types';`
+- `import type { ActionBarActionsProps, ActionBarCountProps, ActionBarProps, ActionBarSelectAllProps } from '@/components/ui/wideset/action-bar/ActionBar.types';`
 - `import type { ActionTileProps, DescriptionProps as ActionTileDescriptionProps, EntityProps as ActionTileEntityProps, IconProps as ActionTileIconProps, TitleProps as ActionTileTitleProps } from '@/components/ui/wideset/action-tile/ActionTile.types';`
 - `import type { AvatarColor } from '@/components/ui/wideset/avatar/Avatar.colors';`
 - `import type { AgentProps as AvatarAgentProps, AvatarGroupContextType, AvatarProps, GroupProps as AvatarGroupProps, IconProps as AvatarIconProps, ImageProps as AvatarImageProps, InitialsProps as AvatarInitialsProps, MoreProps as AvatarMoreProps, StatusProps as AvatarStatusProps } from '@/components/ui/wideset/avatar/Avatar.types';`
