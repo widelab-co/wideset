@@ -59,7 +59,7 @@ needed:
 - **CI green**: `Build & validate` and `Changeset present`;
 - **every review conversation resolved**, CodeRabbit's included.
 
-Maintainers review within two working days. Blockers get **Request changes**. Small remarks get
+Blockers get **Request changes**. Small remarks get
 **Approve** and the author fixes them before merging; a new push does not dismiss the approval.
 The author merges, or turns on **auto-merge** so the PR squash-merges itself once green.
 Reviewers (people and agents) use the `wideset-code-review` skill: risk zones, then Safety /
