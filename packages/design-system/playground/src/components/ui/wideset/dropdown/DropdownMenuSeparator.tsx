@@ -13,7 +13,9 @@ export const DropdownMenuSeparator = React.forwardRef<
   <DropdownMenuPrimitive.Separator
     ref={ref}
     data-slot="dropdown-menu-separator"
-    className={cn('border-ws-static-base -mx-ws-3 my-ws-4 border-t', className)}
+    // Figma's Divider row is 12px: Gap/4 (6px) above and below a 1px line drawn out of flow.
+    // The border here is in flow, so each margin gives up half of it to keep the row at 12px.
+    className={cn('border-ws-static-base -mx-ws-3 my-[5.5px] border-t', className)}
     {...props}
   />
 ));
