@@ -124,6 +124,8 @@ in the snippet will point into `node_modules/@wideset/react/` then.
 
 - [Table](components/data-display/table.md): records compared across rows; sorting, selection and
   paging are your state.
+- [Spreadsheet](components/data-display/spreadsheet.md): a dense grid worked cell by cell, with a
+  pinned header and row numbers; not a list of rows to open, that is Table.
 - [ListItem](components/data-display/list-item.md): one compact row; the row inside menus and
   selects.
 - [Avatar](components/data-display/avatar.md): a person, team or the agent orb next to a name.
@@ -169,6 +171,8 @@ classes.
 - [Form page](patterns/form-page.md): FormFields, validation, submit and cancel.
 - [List and filters](patterns/list-and-filters.md): search, filters, table, pagination, empty and
   loading.
+- [Dense data](patterns/dense-data.md): when a screen is spreadsheet-like; Spreadsheet vs Table vs
+  ListItem, density, numbers.
 - [Detail in a sidepanel](patterns/detail-in-sidepanel.md): row → Sidepanel with focus return.
 - [Confirm destructive](patterns/confirm-destructive.md): Modal or StatusModal + a danger Button.
 - [Page feedback](patterns/page-feedback.md): which feedback component for which message.
