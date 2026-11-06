@@ -18,6 +18,9 @@ export type FormFieldProps = VariantProps<typeof formFieldVariants> & {
   helperText?: string;
   /** Id of the helper or error text. Generated when omitted. */
   helperTextId?: string;
-  /** Field label content; connect it to the control with matching IDs. */
+  /**
+   * Field label content; connect it to the control with matching IDs. Pass `null` when the
+   * control labels itself (a `Checkbox` with `label`): the field then renders no label row.
+   */
   label: ReactNode;
 } & Omit<FieldLabelProps, 'children' | 'className' | 'description'>;
