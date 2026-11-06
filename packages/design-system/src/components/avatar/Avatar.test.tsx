@@ -20,6 +20,24 @@ describe('Avatar', () => {
       expect(screen.getByText('WD')).toBeInTheDocument();
     });
 
+    it('should show one letter at xs and sm, where two crowd the circle', () => {
+      const { rerender } = render(<Avatar initials="AS" size="xs" />);
+      expect(screen.getByText('A')).toBeInTheDocument();
+      rerender(<Avatar initials="AS" size="sm" />);
+      expect(screen.getByText('A')).toBeInTheDocument();
+      rerender(<Avatar initials="AS" size="md" />);
+      expect(screen.getByText('AS')).toBeInTheDocument();
+    });
+
+    it('should take the one-letter size from its group and keep a letter whole', () => {
+      render(
+        <Avatar.Group size="sm">
+          <Avatar initials="ŁK" />
+        </Avatar.Group>,
+      );
+      expect(screen.getByText('Ł')).toBeInTheDocument();
+    });
+
     it('should render avatars in group', () => {
       render(
         <Avatar.Group data-testid="avatar-group">
