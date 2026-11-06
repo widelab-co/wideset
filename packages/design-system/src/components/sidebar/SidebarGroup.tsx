@@ -3,7 +3,11 @@ import { cn } from 'src/lib/utils';
 
 import { useSidebarContext } from './Sidebar.context';
 import type { SidebarGroupProps } from './Sidebar.types';
-import { sidebarGroupLabelVariants, sidebarGroupVariants } from './Sidebar.variants';
+import {
+  sidebarGroupActionVariants,
+  sidebarGroupLabelVariants,
+  sidebarGroupVariants,
+} from './Sidebar.variants';
 
 /**
  * A named run of items inside a section: Figma's Sidebar Item `Type=Group` heading above them.
@@ -11,9 +15,21 @@ import { sidebarGroupLabelVariants, sidebarGroupVariants } from './Sidebar.varia
  * accessible name but is not drawn.
  */
 const SidebarGroup = React.forwardRef<HTMLDivElement, SidebarGroupProps>(
-  ({ label, children, className, ...props }, ref) => {
+  ({ label, action, children, className, ...props }, ref) => {
     const { isCollapsed } = useSidebarContext();
     const labelId = React.useId();
+    const showAction = action != null && !isCollapsed;
+    const heading = (
+      <div
+        id={labelId}
+        className={cn(
+          sidebarGroupLabelVariants({ collapsed: isCollapsed }),
+          showAction && 'min-w-0 flex-1',
+        )}
+      >
+        {label}
+      </div>
+    );
     return (
       <div
         ref={ref}
@@ -23,9 +39,16 @@ const SidebarGroup = React.forwardRef<HTMLDivElement, SidebarGroupProps>(
         {...props}
         className={cn(sidebarGroupVariants(), className)}
       >
-        <div id={labelId} className={sidebarGroupLabelVariants({ collapsed: isCollapsed })}>
-          {label}
-        </div>
+        {showAction ? (
+          <div className="flex min-w-0 items-center">
+            {heading}
+            <div data-slot="sidebar-group-action" className={sidebarGroupActionVariants()}>
+              {action}
+            </div>
+          </div>
+        ) : (
+          heading
+        )}
         {children}
       </div>
     );

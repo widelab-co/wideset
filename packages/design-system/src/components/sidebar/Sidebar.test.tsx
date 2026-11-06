@@ -51,6 +51,25 @@ describe('Sidebar', () => {
         expect(root).toHaveClass('bg-transparent');
         expect(root?.className).not.toMatch(/\bborder-r\b|bg-ws-static-foreground/);
       });
+
+      // Beside an inset page the nav sits centred in its column: as far from the window edge as
+      // from the page (right padding plus the page's ml-ws-5), not hugging the window.
+      it('centres the nav between the window edge and the page with surface="frame"', () => {
+        const { container, rerender } = render(
+          <Sidebar surface="frame">
+            <div>Test content</div>
+          </Sidebar>,
+        );
+        const root = () => container.querySelector('[data-slot="sidebar"]');
+        expect(root()).toHaveClass('pl-ws-10', 'pr-ws-6');
+        expect(root()).not.toHaveClass('pl-ws-5');
+        rerender(
+          <Sidebar surface="frame" collapsed>
+            <div>Test content</div>
+          </Sidebar>,
+        );
+        expect(root()).toHaveClass('pl-ws-9', 'pr-ws-5', 'w-[3.75rem]');
+      });
     });
 
     describe('Sidebar.Item suffix and Sidebar.Footer', () => {
@@ -75,6 +94,25 @@ describe('Sidebar', () => {
         expect(suffix).toHaveAttribute('data-slot', 'sidebar-item-suffix');
         expect(suffix).toHaveClass('shrink-0', 'text-ws-static-subtle');
         expect(screen.getByText('Inbox')).toHaveClass('flex-1', 'truncate');
+      });
+
+      it('shows a shortcut only on hover or keyboard focus with suffixOnHover', () => {
+        render(
+          <Sidebar>
+            <Sidebar.Section>
+              <Sidebar.Expanded>
+                <Sidebar.Item href="#" label="Inbox" suffix="⌘1" suffixOnHover />
+                <Sidebar.Item href="#" label="Drafts" suffix="3" />
+              </Sidebar.Expanded>
+            </Sidebar.Section>
+          </Sidebar>,
+        );
+        expect(screen.getByText('⌘1')).toHaveClass(
+          'opacity-0',
+          'group-hover/sidebar-item:opacity-100',
+          'group-focus-visible/sidebar-item:opacity-100',
+        );
+        expect(screen.getByText('3')).not.toHaveClass('opacity-0');
       });
 
       it('hides the suffix when collapsed', () => {
@@ -242,6 +280,37 @@ describe('Sidebar', () => {
     it('marks its slot and spreads rest props', () => {
       renderGroup(false);
       expect(screen.getByTestId('group')).toHaveAttribute('data-slot', 'sidebar-group');
+    });
+
+    const renderAction = (collapsed: boolean) => {
+      const group = (
+        <Sidebar.Group label="Shared" action={<button type="button">Add a shared page</button>}>
+          <Sidebar.Item href="#" label="Boosts" />
+        </Sidebar.Group>
+      );
+      return render(
+        <Sidebar collapsed={collapsed}>
+          <Sidebar.Section>
+            <Sidebar.Expanded>{group}</Sidebar.Expanded>
+            <Sidebar.Collapsed>{group}</Sidebar.Collapsed>
+          </Sidebar.Section>
+        </Sidebar>,
+      );
+    };
+
+    // A "+" once sat flush with the edge, out of line with the shortcuts and the header's arrow.
+    it('ends the heading with its action, 4px in like the item suffixes', () => {
+      renderAction(false);
+      const action = screen.getByRole('button', { name: 'Add a shared page' }).parentElement;
+      expect(action).toHaveAttribute('data-slot', 'sidebar-group-action');
+      expect(action).toHaveClass('mr-ws-3', 'shrink-0');
+      expect(screen.getByText('Shared')).toHaveClass('flex-1', 'truncate');
+    });
+
+    it('hides the action when collapsed', () => {
+      renderAction(true);
+      expect(screen.queryByRole('button', { name: 'Add a shared page' })).not.toBeInTheDocument();
+      expect(screen.getByRole('group', { name: 'Shared' })).toBeInTheDocument();
     });
   });
 
