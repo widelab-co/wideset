@@ -12,6 +12,8 @@ The pages here and on the docs site are written once. Their examples import from
 
 ## Before you write
 
+0. **For a new app, pick its visual direction and start from its screen.** Once per app, before the first screen: [directions](references/specs/patterns/directions.md) describes Flat (one white surface, lines; the default), Frame (navigation on the grey frame, page white), Inset (page a raised card on the grey frame) and Canvas (grey page, content in white cards). If the person gave a screenshot or a reference, match its surround; otherwise ask, or take Flat. Then start from the closest whole screen rather than an empty file: `https://wideset-docs.widelab.workers.dev/blocks/<id>.md` (`kanban`, `process`, `finance-dashboard` for Flat, `communication` for Frame, `calendar` for Inset, `crypto` for Canvas) holds its code. Keep its surround and replace its content. In an existing app, keep the direction it already has.
+
 1. **Find the screen's pattern** and copy its structure:
 
    | Building                                  | Read                                                                       |

@@ -73,22 +73,22 @@ Four more habits apply to every screen:
 
 When nothing in the request says otherwise, use exactly these:
 
-| Decision           | Default                                                                                                                                 |
-| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------- |
-| Control height     | `md` (40px): Button, IconButton, TextInput, Select, MultiSelect, ComboBox, SegmentedControl; `FilterButton size="md"`, `Chip size="lg"` |
-| Page tabs          | `Tabs size="lg"`; `Tabs` inside a card or panel keep their default `sm`                                                                 |
-| Page surface       | `main` is white (`bg-ws-static-foreground`), like the `Sidebar` beside it; cards on it are `Card` bordered                              |
-| Page title         | `typography-subtitle-lg text-ws-static-strong` (32px), one per page                                                                     |
-| Section title      | `typography-subtitle-xs` or `Card.Title`                                                                                                |
-| Body / description | `typography-body-md text-ws-static-subtle`                                                                                              |
-| Text colours       | `text-ws-static-strong` (headings, key values), `-base` (body), `-subtle` (secondary, metadata)                                         |
-| Page padding       | `p-ws-12` (24px); page sections `gap-ws-16` (40px); inside a card `gap-ws-12` (24px)                                                    |
-| Composed side rail | `w-[20rem]` (never under 18rem), `p-ws-12`; items `gap-ws-11`, parts of an item `gap-ws-3`; nothing touches the edge                    |
-| Content width      | forms and reading `max-w-[40rem]`; composed pages `max-w-[80rem] mx-auto`; tables may fill                                              |
-| Primary action     | `<Button>` (primary, filled), one per view                                                                                              |
-| Secondary action   | `<Button variant="secondary" preset="border">`                                                                                          |
-| Tertiary / in-row  | `preset="ghost"` or `IconButton` with an `aria-label`                                                                                   |
-| Icons              | Remix line icons (`Ri…Line`), passed to the component; size comes from the control                                                      |
+| Decision           | Default                                                                                                                                   |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| Control height     | `md` (40px): Button, IconButton, TextInput, Select, MultiSelect, ComboBox, SegmentedControl; `FilterButton size="md"`, `Chip size="lg"`   |
+| Page tabs          | `Tabs size="lg"`; `Tabs` inside a card or panel keep their default `sm`                                                                   |
+| Page surface       | Set once per app by its visual direction; in Flat (the default) `main` is white like the `Sidebar` beside it, cards on it `Card` bordered |
+| Page title         | `typography-subtitle-lg text-ws-static-strong` (32px), one per page                                                                       |
+| Section title      | `typography-subtitle-xs` or `Card.Title`                                                                                                  |
+| Body / description | `typography-body-md text-ws-static-subtle`                                                                                                |
+| Text colours       | `text-ws-static-strong` (headings, key values), `-base` (body), `-subtle` (secondary, metadata)                                           |
+| Page padding       | `p-ws-12` (24px); page sections `gap-ws-16` (40px); inside a card `gap-ws-12` (24px)                                                      |
+| Composed side rail | `w-[20rem]` (never under 18rem), `p-ws-12`; items `gap-ws-11`, parts of an item `gap-ws-3`; nothing touches the edge                      |
+| Content width      | forms and reading `max-w-[40rem]`; composed pages `max-w-[80rem] mx-auto`; tables may fill                                                |
+| Primary action     | `<Button>` (primary, filled), one per view                                                                                                |
+| Secondary action   | `<Button variant="secondary" preset="border">`                                                                                            |
+| Tertiary / in-row  | `preset="ghost"` or `IconButton` with an `aria-label`                                                                                     |
+| Icons              | Remix line icons (`Ri…Line`), passed to the component; size comes from the control                                                        |
 
 Pass the sizes in the first two rows explicitly: they are not those components' defaults.
 

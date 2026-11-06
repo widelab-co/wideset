@@ -2,6 +2,9 @@
 
 > The frame every screen sits in: collapsible navigation on the left, the page on the right.
 
+Pick the app's [visual direction](directions.md) first: it decides the surround below (the
+example is Flat, the default). The structure here is the same in every direction.
+
 ## Problem
 
 An app needs persistent navigation, a scrolling content area, one place for page-level alerts

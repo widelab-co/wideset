@@ -1,6 +1,6 @@
 # Layout scaffolds
 
-Start from one of these. Each describes the layout you write; components fill it. The shell around them is the app-shell pattern in `wideset-build`.
+Start from one of these. Each describes the layout you write; components fill it. The shell around them is the app-shell pattern in `wideset-build`, in the app's visual direction (Flat, Frame, Inset or Canvas; the directions pattern there). For a whole new app, start from the closest starting point instead (`https://wideset-docs.widelab.workers.dev/blocks.md`): a finished screen in its direction beats a scaffold.
 
 ## List page
 
