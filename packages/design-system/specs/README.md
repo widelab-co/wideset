@@ -129,6 +129,8 @@ in the snippet will point into `node_modules/@wideset/react/` then.
 - [Avatar](components/data-display/avatar.md): a person, team or the agent orb next to a name.
 - [Tag](components/data-display/tag.md): a static category label; colour is categorical.
 - [StatusBadge](components/data-display/status-badge.md): a static state label.
+- [Shortcut](components/data-display/shortcut.md): the keys that run an action, at the end of a
+  menu row or in help text; it only shows them.
 
 ### [Layout](components/layout/README.md)
 

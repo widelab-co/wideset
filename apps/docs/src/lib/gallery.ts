@@ -15,6 +15,7 @@ const SIZES: Record<string, GallerySize> = {
   'helper-text': 'sm',
   'icon-button': 'sm',
   'link-button': 'sm',
+  shortcut: 'sm',
   sidepanel: 'sm',
   'split-button': 'sm',
   'status-badge': 'sm',

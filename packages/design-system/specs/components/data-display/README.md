@@ -1,8 +1,8 @@
 # Data display
 
-Components that present records and their attributes: rows of data, people, categories and
-states. They show; they don't collect input. Selection and filtering live in `selection` and
-`inputs`; feedback messages live in `feedback`.
+Components that present records and their attributes: rows of data, people, categories, states
+and keyboard shortcuts. They show; they don't collect input. Selection and filtering live in
+`selection` and `inputs`; feedback messages live in `feedback`.
 
 ## Pick the right one
 
@@ -12,6 +12,8 @@ states. They show; they don't collect input. Selection and filtering live in `se
 - [Avatar](avatar.md) — a person, team or agent next to a name; `Avatar.Group` for several.
 - [Tag](tag.md) — which category something belongs to; colour is categorical.
 - [StatusBadge](status-badge.md) — what state something is in; colour is semantic.
+- [Shortcut](shortcut.md) — the keys that run an action, at the end of a menu row or in help
+  text; it only shows them, your app listens for them.
 
 ## Tag vs StatusBadge vs Chip
 
