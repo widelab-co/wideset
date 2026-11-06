@@ -89,6 +89,7 @@ When nothing in the request says otherwise, use exactly these:
 | Secondary action   | `<Button variant="secondary" preset="border">`                                                                                          |
 | Tertiary / in-row  | `preset="ghost"` or `IconButton` with an `aria-label`                                                                                   |
 | Icons              | Remix line icons (`Ri…Line`), passed to the component; size comes from the control                                                      |
+| Scrolling regions  | `ScrollArea`, never a bare `overflow-auto`; `wds-scrollbar` only where you cannot wrap (the page, a `textarea`)                         |
 
 Pass the sizes in the first two rows explicitly: they are not those components' defaults.
 

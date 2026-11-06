@@ -160,7 +160,7 @@ export function ProjectList({ projects, loading }: { projects: Project[]; loadin
 - **Compact paging.** `type="overflow"` on `Pagination` for narrow areas.
 - **Bulk actions.** `selectionMode="multiple"` on `Table`, a `Checkbox` per row, `selected` on
   each `Table.Row`; selection is an array of ids you keep. `ActionBar` can carry the bulk actions.
-- **Long tables.** `stickyHeader` inside a `max-h-[…] overflow-y-auto` container.
+- **Long tables.** `stickyHeader` inside a `ScrollArea` with a `max-h-[…]`.
 - **One-line records** (files, people). A `ul` of `li` > `ListItem` inside a `Card` instead of
   `Table`. ListItem always looks clickable; if rows open something, prefer `ActionTile`.
 - **Server-side data.** Same structure; `pagesCount` comes from the server total, and `loading`
