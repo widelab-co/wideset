@@ -29,15 +29,17 @@ export function Columns({ main, aside }: { main: ReactNode; aside: ReactNode }) 
 
 ## Navigation
 
-| Width        | Shell                                                                |
-| ------------ | -------------------------------------------------------------------- |
-| Under `md`   | One column; the same items open in a left `Sidepanel` from a top bar |
-| `md` to `lg` | `Sidebar` with `collapsed`, so items show their icons only           |
-| `lg` and up  | The full `Sidebar`                                                   |
+| Width        | Shell                                                                                  |
+| ------------ | -------------------------------------------------------------------------------------- |
+| Under `md`   | One column; the same items open in a left `Sidepanel` from a top bar (`NavigationBar`) |
+| `md` to `lg` | `Sidebar` with `collapsed`, so items show their icons only                             |
+| `lg` and up  | The full `Sidebar`                                                                     |
 
 Keep the items in one array so both forms stay in step, and close the panel on navigation. Under
-`md`, open `Sidepanel side="left"` from a menu `IconButton` (with `aria-label`). `Sidebar` has no
-drawer mode of its own: drive `collapsed` / `onCollapsedChange` from your layout code.
+`md`, open `Sidepanel side="left"` from the menu `IconButton` (with `aria-label`) in
+`NavigationBar.Start`. `Sidebar` has no drawer mode of its own: drive `collapsed` /
+`onCollapsedChange` from your layout code. A product whose links sit in a `NavigationBar` hides
+`NavigationBar.Nav` under `md` (`hidden md:flex`) and opens the same links from that menu button.
 
 ## Tables
 

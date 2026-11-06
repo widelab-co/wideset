@@ -97,6 +97,12 @@ A member such as `Card.Header` comes with `Card`; its named form, `CardHeader`, 
 - `import { MultiSelect, MultiSelectContent, MultiSelectGroup, MultiSelectLabel, MultiSelectSeparator, MultiSelectTrigger } from '@/components/ui/wideset/multi-select/MultiSelect';`
 - `import { MultiSelectOption } from '@/components/ui/wideset/multi-select/MultiSelectOption';`
 - `import { MultiSelectValue } from '@/components/ui/wideset/multi-select/MultiSelectValue';`
+- `import { NavigationBar } from '@/components/ui/wideset/navigation-bar/NavigationBar';`
+- `import { NavigationBarActions } from '@/components/ui/wideset/navigation-bar/NavigationBarActions';`
+- `import { NavigationBarEnd } from '@/components/ui/wideset/navigation-bar/NavigationBarEnd';`
+- `import { NavigationBarItem } from '@/components/ui/wideset/navigation-bar/NavigationBarItem';`
+- `import { NavigationBarNav } from '@/components/ui/wideset/navigation-bar/NavigationBarNav';`
+- `import { NavigationBarStart } from '@/components/ui/wideset/navigation-bar/NavigationBarStart';`
 - `import { Pagination } from '@/components/ui/wideset/pagination/Pagination';`
 - `import { PaginationNumbers } from '@/components/ui/wideset/pagination/PaginationNumbers';`
 - `import { PaginationOverflow } from '@/components/ui/wideset/pagination/PaginationOverflow';`
@@ -237,6 +243,7 @@ A member such as `Card.Header` comes with `Card`; its named form, `CardHeader`, 
 - `import type { ListItemContentProps, ListItemDescriptionProps, ListItemLabelProps, ListItemPrefixProps, ListItemProps, ListItemSuffixProps, ListItemWithSubComponents } from '@/components/ui/wideset/list-item/ListItem.types';`
 - `import type { ModalBodyProps, ModalCloseProps, ModalContentProps, ModalDescriptionProps, ModalFooterProps, ModalHeaderProps, ModalOverlayProps, ModalProps, ModalTitleProps, ModalTriggerProps } from '@/components/ui/wideset/modal/Modal.types';`
 - `import type { MultiSelectContentProps, MultiSelectGroupProps, MultiSelectLabelProps, MultiSelectOptionProps, MultiSelectOptionType, MultiSelectProps, MultiSelectSeparatorProps, MultiSelectTriggerProps, MultiSelectValueProps } from '@/components/ui/wideset/multi-select/MultiSelect.types';`
+- `import type { NavigationBarActionsProps, NavigationBarEndProps, NavigationBarItemProps, NavigationBarNavProps, NavigationBarProps, NavigationBarStartProps } from '@/components/ui/wideset/navigation-bar/NavigationBar.types';`
 - `import type { PaginationNumbersProps, PaginationOverflowProps, PaginationProps, PaginationRowsPerPageProps, PaginationType } from '@/components/ui/wideset/pagination/Pagination.types';`
 - `import type { PopupCloseProps, PopupContainerProps, PopupContentProps, PopupDescriptionProps, PopupFooterProps, PopupHeaderProps, PopupProps, PopupTitleProps, PopupTriggerProps } from '@/components/ui/wideset/popup/Popup.types';`
 - `import type { ProgressBarProps } from '@/components/ui/wideset/progress-bar/ProgressBar.types';`

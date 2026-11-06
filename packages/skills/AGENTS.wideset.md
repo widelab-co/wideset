@@ -63,6 +63,7 @@ Type is one class: `typography-subtitle-lg`, `typography-body-md`, `typography-l
 - Breadcrumbs: the path to the current page.
 - Pagination: page through a collection; it never slices data.
 - Sidebar: the permanent app navigation that collapses to icons.
+- NavigationBar: the top bar: a handful of page links or the path to the page, with app-wide tools at the end.
 - ProgressStepper: named, ordered steps of a flow.
 - Modal: a blocking dialog for a short decision or small form.
 - StatusModal: a blocking dialog whose message is a status.

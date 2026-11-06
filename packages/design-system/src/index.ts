@@ -265,6 +265,20 @@ export type {
 } from './components/multi-select/MultiSelect.types';
 export { MultiSelectOption } from './components/multi-select/MultiSelectOption';
 export { MultiSelectValue } from './components/multi-select/MultiSelectValue';
+export { NavigationBar } from './components/navigation-bar/NavigationBar';
+export type {
+  NavigationBarActionsProps,
+  NavigationBarEndProps,
+  NavigationBarItemProps,
+  NavigationBarNavProps,
+  NavigationBarProps,
+  NavigationBarStartProps,
+} from './components/navigation-bar/NavigationBar.types';
+export { NavigationBarActions } from './components/navigation-bar/NavigationBarActions';
+export { NavigationBarEnd } from './components/navigation-bar/NavigationBarEnd';
+export { NavigationBarItem } from './components/navigation-bar/NavigationBarItem';
+export { NavigationBarNav } from './components/navigation-bar/NavigationBarNav';
+export { NavigationBarStart } from './components/navigation-bar/NavigationBarStart';
 export { Pagination } from './components/pagination/Pagination';
 export type {
   PaginationNumbersProps,
