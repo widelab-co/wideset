@@ -366,6 +366,9 @@ export { SelectOption } from './components/select/SelectOption';
 export { SelectSearch } from './components/select/SelectSearch';
 export { SelectSeparator } from './components/select/SelectSeparator';
 export { SelectTrigger } from './components/select/SelectTrigger';
+export { Shortcut } from './components/shortcut/Shortcut';
+export type { ShortcutKeyProps, ShortcutProps } from './components/shortcut/Shortcut.types';
+export { ShortcutKey } from './components/shortcut/ShortcutKey';
 export { Sidebar } from './components/sidebar/Sidebar';
 export type {
   SidebarCollapsedProps,

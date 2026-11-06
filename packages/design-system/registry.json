@@ -663,6 +663,19 @@
       ]
     },
     {
+      "name": "shortcut",
+      "type": "registry:ui",
+      "title": "Shortcut",
+      "description": "Shortcut shows the keyboard shortcut for an action: its keys, in the order they are pressed.",
+      "files": [
+        {
+          "path": "src/components/shortcut/Shortcut.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/wideset/shortcut/Shortcut.tsx"
+        }
+      ]
+    },
+    {
       "name": "sidebar",
       "type": "registry:ui",
       "title": "Sidebar",

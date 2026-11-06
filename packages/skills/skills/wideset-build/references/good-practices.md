@@ -75,6 +75,7 @@ One file per component: when to use it, when not, do and don't, and gotchas. Rea
 - [Avatar](good-practices/avatar.md): a person, team or the agent orb next to a name.
 - [Tag](good-practices/tag.md): a static category label; colour is categorical.
 - [StatusBadge](good-practices/status-badge.md): a static state label.
+- [Shortcut](good-practices/shortcut.md): the keys that run an action, at the end of a menu row or in help text; it only shows them.
 
 ## [Layout](specs/components/layout/README.md)
 
