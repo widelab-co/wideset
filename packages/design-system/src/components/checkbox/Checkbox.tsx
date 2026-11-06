@@ -30,6 +30,7 @@ const Checkbox = React.forwardRef<React.ComponentRef<typeof CheckboxPrimitive.Ro
       disabled,
       defaultMotion,
       children,
+      'aria-describedby': ariaDescribedBy,
       ...props
     },
     ref,
@@ -37,6 +38,12 @@ const Checkbox = React.forwardRef<React.ComponentRef<typeof CheckboxPrimitive.Ro
     const fallbackId = React.useId();
     const motion = useDefaultMotion(defaultMotion);
     const checkboxId = id || fallbackId;
+    const descriptionId = `${checkboxId}-description`;
+    const [composedDescriptionId, setComposedDescriptionId] = React.useState<string>();
+    const describedBy =
+      [ariaDescribedBy, label && description ? descriptionId : composedDescriptionId]
+        .filter(Boolean)
+        .join(' ') || undefined;
 
     const checkboxElement = (
       <CheckboxPrimitive.Root
@@ -48,6 +55,7 @@ const Checkbox = React.forwardRef<React.ComponentRef<typeof CheckboxPrimitive.Ro
           className,
         )}
         disabled={disabled}
+        aria-describedby={describedBy}
         data-slot="checkbox"
         {...props}
       >
@@ -67,28 +75,38 @@ const Checkbox = React.forwardRef<React.ComponentRef<typeof CheckboxPrimitive.Ro
       </CheckboxPrimitive.Root>
     );
     return (
-      <CheckboxContext.Provider value={{ disabled, id: checkboxId }}>
+      <CheckboxContext.Provider
+        value={{
+          disabled,
+          id: checkboxId,
+          descriptionId,
+          onDescriptionIdChange: setComposedDescriptionId,
+        }}
+      >
         {label ? (
           <div className={cn('gap-ws-5 flex w-fit')}>
             {checkboxElement}
-            <Label.Root
-              data-slot="checkbox-label"
-              htmlFor={checkboxId}
-              className={cn(
-                'typography-label-sm text-ws-static-base gap-ws-3 flex flex-col',
-                disabled ? 'text-ws-static-subtle pointer-events-none' : 'cursor-pointer',
-              )}
-            >
-              {label}
+            <div className="gap-ws-3 flex flex-col">
+              <Label.Root
+                data-slot="checkbox-label"
+                htmlFor={checkboxId}
+                className={cn(
+                  'typography-label-sm text-ws-static-base',
+                  disabled ? 'text-ws-static-subtle pointer-events-none' : 'cursor-pointer',
+                )}
+              >
+                {label}
+              </Label.Root>
               {description && (
                 <div
+                  id={descriptionId}
                   data-slot="checkbox-description"
                   className="text-ws-static-subtle typography-body-sm"
                 >
                   {description}
                 </div>
               )}
-            </Label.Root>
+            </div>
           </div>
         ) : children ? (
           <div className={cn('gap-ws-5 flex w-fit')}>
