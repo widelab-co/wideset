@@ -37,17 +37,22 @@ export const SelectContent = React.forwardRef<
           data-slot="select-content"
           portalContainer={portalContainer}
           defaultMotion={motion}
+          // The primitive path's margin (Radix Select's default): a list cut to fit the window
+          // still ends visibly short of its edge.
+          collisionPadding={10}
           className={cn(
             // Width floor: never narrower than the trigger nor the Size/28 menu
             // minimum (min-width beats DropdownMenu.Content's max-w cap).
-            'p-ws-0 flex max-h-[18rem] min-w-[max(var(--radix-dropdown-menu-trigger-width),var(--spacing-ws-28))] flex-col overflow-hidden',
+            // Height: no taller than the room left to the window edge, as on the primitive path;
+            // the list inside stops at 18rem, so it shrinks only in a short window.
+            'p-ws-0 flex max-h-[var(--radix-dropdown-menu-content-available-height)] min-w-[max(var(--radix-dropdown-menu-trigger-width),var(--spacing-ws-28))] flex-col overflow-hidden',
             className,
           )}
           {...props}
         >
           {/* Figma's Dropdown Menu container: Gap/3 (4px) inset, Gap/0 between rows. The inset
               is inside the scroll area, so the bar runs along the menu's edge. */}
-          <ScrollArea defaultMotion={motion} className="min-h-0">
+          <ScrollArea defaultMotion={motion} className="max-h-[18rem] min-h-0">
             <div className="p-ws-3 flex flex-col">{children}</div>
           </ScrollArea>
         </DropdownMenu.Content>
