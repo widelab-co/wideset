@@ -68,13 +68,16 @@ export const selectTriggerMotionVariants = cva('', {
 });
 
 export const selectTriggerIconVariants = cva(
-  'text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0',
+  'text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled shrink-0',
   {
     variants: {
+      // Figma's Single Select puts the arrow in an icon button 4px in from the right edge (2px at
+      // lg), after the value's own padding: 16 / 20 / 22px after the value, 8 / 12 / 14px before
+      // the edge, and a 20px arrow at lg. lg's 22px is Gap/9 plus the icon's Gap/4 inset.
       size: {
-        sm: '-mr-ws-3 ml-ws-5',
-        md: '-mr-ws-4 ml-ws-6',
-        lg: '-mr-ws-3 ml-ws-7',
+        sm: 'size-ws-9 ml-ws-9 -mr-ws-3',
+        md: 'size-ws-9 ml-ws-11 -mr-ws-3',
+        lg: 'size-ws-11 ml-[calc(var(--spacing-ws-9)+var(--spacing-ws-4))] -mr-ws-2',
       },
       // Ghost reads as a value, not a control: its arrow shows only while the trigger is hovered,
       // focused or open, and always on touch screens, which have no hover. It keeps its space, so

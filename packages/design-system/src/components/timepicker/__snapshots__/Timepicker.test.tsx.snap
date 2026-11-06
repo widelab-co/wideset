@@ -31,7 +31,7 @@ exports[`TimePicker Snapshots > matches snapshot when disabled 1`] = `
       </div>
       <svg
         aria-hidden="true"
-        class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-4 ml-ws-6"
+        class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled shrink-0 size-ws-9 ml-ws-11 -mr-ws-3"
         data-disabled="true"
         fill="currentColor"
         focusable="false"
@@ -92,7 +92,7 @@ exports[`TimePicker Snapshots > matches snapshot with 12h format 1`] = `
       </div>
       <svg
         aria-hidden="true"
-        class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-4 ml-ws-6"
+        class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled shrink-0 size-ws-9 ml-ws-11 -mr-ws-3"
         fill="currentColor"
         focusable="false"
         height="24"
@@ -2397,7 +2397,7 @@ exports[`TimePicker Snapshots > matches snapshot with custom min/max 1`] = `
       </div>
       <svg
         aria-hidden="true"
-        class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-4 ml-ws-6"
+        class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled shrink-0 size-ws-9 ml-ws-11 -mr-ws-3"
         fill="currentColor"
         focusable="false"
         height="24"
@@ -2977,7 +2977,7 @@ exports[`TimePicker Snapshots > matches snapshot with default props 1`] = `
       </div>
       <svg
         aria-hidden="true"
-        class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-4 ml-ws-6"
+        class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled shrink-0 size-ws-9 ml-ws-11 -mr-ws-3"
         fill="currentColor"
         focusable="false"
         height="24"

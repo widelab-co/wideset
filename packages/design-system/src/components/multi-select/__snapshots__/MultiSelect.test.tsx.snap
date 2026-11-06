@@ -25,7 +25,7 @@ exports[`MultiSelect Snapshots > Size: lg > matches snapshot for border lg 1`] =
     </div>
     <svg
       aria-hidden="true"
-      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-7"
+      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled shrink-0 size-ws-11 -mr-ws-2 ml-[calc(var(--spacing-ws-9)+var(--spacing-ws-4))]"
       fill="currentColor"
       focusable="false"
       height="24"
@@ -90,7 +90,7 @@ exports[`MultiSelect Snapshots > Size: lg > matches snapshot for border lg clear
     </div>
     <svg
       aria-hidden="true"
-      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-7"
+      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled shrink-0 size-ws-11 -mr-ws-2 ml-[calc(var(--spacing-ws-9)+var(--spacing-ws-4))]"
       fill="currentColor"
       focusable="false"
       height="24"
@@ -153,7 +153,7 @@ exports[`MultiSelect Snapshots > Size: lg > matches snapshot for border lg dange
     </div>
     <svg
       aria-hidden="true"
-      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-7"
+      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled shrink-0 size-ws-11 -mr-ws-2 ml-[calc(var(--spacing-ws-9)+var(--spacing-ws-4))]"
       fill="currentColor"
       focusable="false"
       height="24"
@@ -196,7 +196,7 @@ exports[`MultiSelect Snapshots > Size: lg > matches snapshot for border lg disab
     </div>
     <svg
       aria-hidden="true"
-      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-7"
+      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled shrink-0 size-ws-11 -mr-ws-2 ml-[calc(var(--spacing-ws-9)+var(--spacing-ws-4))]"
       data-disabled="true"
       fill="currentColor"
       focusable="false"
@@ -314,7 +314,7 @@ exports[`MultiSelect Snapshots > Size: lg > matches snapshot for border lg with 
     </div>
     <svg
       aria-hidden="true"
-      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-7"
+      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled shrink-0 size-ws-11 -mr-ws-2 ml-[calc(var(--spacing-ws-9)+var(--spacing-ws-4))]"
       fill="currentColor"
       focusable="false"
       height="24"
@@ -355,7 +355,7 @@ exports[`MultiSelect Snapshots > Size: lg > matches snapshot for ghost lg 1`] = 
     </div>
     <svg
       aria-hidden="true"
-      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-7 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
+      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled shrink-0 size-ws-11 -mr-ws-2 ml-[calc(var(--spacing-ws-9)+var(--spacing-ws-4))] opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
       fill="currentColor"
       focusable="false"
       height="24"
@@ -420,7 +420,7 @@ exports[`MultiSelect Snapshots > Size: lg > matches snapshot for ghost lg cleara
     </div>
     <svg
       aria-hidden="true"
-      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-7 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
+      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled shrink-0 size-ws-11 -mr-ws-2 ml-[calc(var(--spacing-ws-9)+var(--spacing-ws-4))] opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
       fill="currentColor"
       focusable="false"
       height="24"
@@ -483,7 +483,7 @@ exports[`MultiSelect Snapshots > Size: lg > matches snapshot for ghost lg danger
     </div>
     <svg
       aria-hidden="true"
-      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-7 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
+      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled shrink-0 size-ws-11 -mr-ws-2 ml-[calc(var(--spacing-ws-9)+var(--spacing-ws-4))] opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
       fill="currentColor"
       focusable="false"
       height="24"
@@ -526,7 +526,7 @@ exports[`MultiSelect Snapshots > Size: lg > matches snapshot for ghost lg disabl
     </div>
     <svg
       aria-hidden="true"
-      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-7 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
+      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled shrink-0 size-ws-11 -mr-ws-2 ml-[calc(var(--spacing-ws-9)+var(--spacing-ws-4))] opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
       data-disabled="true"
       fill="currentColor"
       focusable="false"
@@ -644,7 +644,7 @@ exports[`MultiSelect Snapshots > Size: lg > matches snapshot for ghost lg with v
     </div>
     <svg
       aria-hidden="true"
-      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-7 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
+      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled shrink-0 size-ws-11 -mr-ws-2 ml-[calc(var(--spacing-ws-9)+var(--spacing-ws-4))] opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
       fill="currentColor"
       focusable="false"
       height="24"
@@ -685,7 +685,7 @@ exports[`MultiSelect Snapshots > Size: md > matches snapshot for border md 1`] =
     </div>
     <svg
       aria-hidden="true"
-      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-4 ml-ws-6"
+      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled shrink-0 size-ws-9 ml-ws-11 -mr-ws-3"
       fill="currentColor"
       focusable="false"
       height="24"
@@ -750,7 +750,7 @@ exports[`MultiSelect Snapshots > Size: md > matches snapshot for border md clear
     </div>
     <svg
       aria-hidden="true"
-      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-4 ml-ws-6"
+      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled shrink-0 size-ws-9 ml-ws-11 -mr-ws-3"
       fill="currentColor"
       focusable="false"
       height="24"
@@ -813,7 +813,7 @@ exports[`MultiSelect Snapshots > Size: md > matches snapshot for border md dange
     </div>
     <svg
       aria-hidden="true"
-      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-4 ml-ws-6"
+      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled shrink-0 size-ws-9 ml-ws-11 -mr-ws-3"
       fill="currentColor"
       focusable="false"
       height="24"
@@ -856,7 +856,7 @@ exports[`MultiSelect Snapshots > Size: md > matches snapshot for border md disab
     </div>
     <svg
       aria-hidden="true"
-      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-4 ml-ws-6"
+      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled shrink-0 size-ws-9 ml-ws-11 -mr-ws-3"
       data-disabled="true"
       fill="currentColor"
       focusable="false"
@@ -974,7 +974,7 @@ exports[`MultiSelect Snapshots > Size: md > matches snapshot for border md with 
     </div>
     <svg
       aria-hidden="true"
-      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-4 ml-ws-6"
+      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled shrink-0 size-ws-9 ml-ws-11 -mr-ws-3"
       fill="currentColor"
       focusable="false"
       height="24"
@@ -1015,7 +1015,7 @@ exports[`MultiSelect Snapshots > Size: md > matches snapshot for ghost md 1`] = 
     </div>
     <svg
       aria-hidden="true"
-      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-4 ml-ws-6 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
+      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled shrink-0 size-ws-9 ml-ws-11 -mr-ws-3 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
       fill="currentColor"
       focusable="false"
       height="24"
@@ -1080,7 +1080,7 @@ exports[`MultiSelect Snapshots > Size: md > matches snapshot for ghost md cleara
     </div>
     <svg
       aria-hidden="true"
-      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-4 ml-ws-6 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
+      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled shrink-0 size-ws-9 ml-ws-11 -mr-ws-3 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
       fill="currentColor"
       focusable="false"
       height="24"
@@ -1143,7 +1143,7 @@ exports[`MultiSelect Snapshots > Size: md > matches snapshot for ghost md danger
     </div>
     <svg
       aria-hidden="true"
-      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-4 ml-ws-6 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
+      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled shrink-0 size-ws-9 ml-ws-11 -mr-ws-3 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
       fill="currentColor"
       focusable="false"
       height="24"
@@ -1186,7 +1186,7 @@ exports[`MultiSelect Snapshots > Size: md > matches snapshot for ghost md disabl
     </div>
     <svg
       aria-hidden="true"
-      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-4 ml-ws-6 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
+      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled shrink-0 size-ws-9 ml-ws-11 -mr-ws-3 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
       data-disabled="true"
       fill="currentColor"
       focusable="false"
@@ -1304,7 +1304,7 @@ exports[`MultiSelect Snapshots > Size: md > matches snapshot for ghost md with v
     </div>
     <svg
       aria-hidden="true"
-      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-4 ml-ws-6 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
+      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled shrink-0 size-ws-9 ml-ws-11 -mr-ws-3 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
       fill="currentColor"
       focusable="false"
       height="24"
@@ -1345,7 +1345,7 @@ exports[`MultiSelect Snapshots > Size: sm > matches snapshot for border sm 1`] =
     </div>
     <svg
       aria-hidden="true"
-      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-5"
+      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled shrink-0 size-ws-9 ml-ws-9 -mr-ws-3"
       fill="currentColor"
       focusable="false"
       height="24"
@@ -1410,7 +1410,7 @@ exports[`MultiSelect Snapshots > Size: sm > matches snapshot for border sm clear
     </div>
     <svg
       aria-hidden="true"
-      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-5"
+      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled shrink-0 size-ws-9 ml-ws-9 -mr-ws-3"
       fill="currentColor"
       focusable="false"
       height="24"
@@ -1473,7 +1473,7 @@ exports[`MultiSelect Snapshots > Size: sm > matches snapshot for border sm dange
     </div>
     <svg
       aria-hidden="true"
-      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-5"
+      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled shrink-0 size-ws-9 ml-ws-9 -mr-ws-3"
       fill="currentColor"
       focusable="false"
       height="24"
@@ -1516,7 +1516,7 @@ exports[`MultiSelect Snapshots > Size: sm > matches snapshot for border sm disab
     </div>
     <svg
       aria-hidden="true"
-      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-5"
+      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled shrink-0 size-ws-9 ml-ws-9 -mr-ws-3"
       data-disabled="true"
       fill="currentColor"
       focusable="false"
@@ -1634,7 +1634,7 @@ exports[`MultiSelect Snapshots > Size: sm > matches snapshot for border sm with 
     </div>
     <svg
       aria-hidden="true"
-      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-5"
+      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled shrink-0 size-ws-9 ml-ws-9 -mr-ws-3"
       fill="currentColor"
       focusable="false"
       height="24"
@@ -1675,7 +1675,7 @@ exports[`MultiSelect Snapshots > Size: sm > matches snapshot for ghost sm 1`] = 
     </div>
     <svg
       aria-hidden="true"
-      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-5 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
+      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled shrink-0 size-ws-9 ml-ws-9 -mr-ws-3 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
       fill="currentColor"
       focusable="false"
       height="24"
@@ -1740,7 +1740,7 @@ exports[`MultiSelect Snapshots > Size: sm > matches snapshot for ghost sm cleara
     </div>
     <svg
       aria-hidden="true"
-      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-5 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
+      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled shrink-0 size-ws-9 ml-ws-9 -mr-ws-3 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
       fill="currentColor"
       focusable="false"
       height="24"
@@ -1803,7 +1803,7 @@ exports[`MultiSelect Snapshots > Size: sm > matches snapshot for ghost sm danger
     </div>
     <svg
       aria-hidden="true"
-      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-5 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
+      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled shrink-0 size-ws-9 ml-ws-9 -mr-ws-3 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
       fill="currentColor"
       focusable="false"
       height="24"
@@ -1846,7 +1846,7 @@ exports[`MultiSelect Snapshots > Size: sm > matches snapshot for ghost sm disabl
     </div>
     <svg
       aria-hidden="true"
-      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-5 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
+      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled shrink-0 size-ws-9 ml-ws-9 -mr-ws-3 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
       data-disabled="true"
       fill="currentColor"
       focusable="false"
@@ -1964,7 +1964,7 @@ exports[`MultiSelect Snapshots > Size: sm > matches snapshot for ghost sm with v
     </div>
     <svg
       aria-hidden="true"
-      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-5 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
+      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled shrink-0 size-ws-9 ml-ws-9 -mr-ws-3 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
       fill="currentColor"
       focusable="false"
       height="24"
