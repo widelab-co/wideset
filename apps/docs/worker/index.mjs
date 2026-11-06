@@ -3,7 +3,7 @@
  * wrangler.jsonc).
  *
  * Only production has the REGISTRY_DOWNLOADS binding, so staging and previews count nothing.
- * Stores no IP address. Querying: docs/internal/wideset-hosting.md §4.
+ * Stores no IP address.
  */
 /* global URL */
 // registry.json is the index of items, not an item.
