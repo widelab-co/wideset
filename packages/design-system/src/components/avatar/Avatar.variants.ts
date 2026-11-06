@@ -25,7 +25,8 @@ export const avatarVariants = cva(
         square: '',
       },
       hasStatus: {
-        true: 'mask-[radial-gradient(circle_at_calc(100%-var(--mask-position))_calc(100%-var(--mask-position)),transparent_var(--mask-radius),black_calc(var(--mask-radius)_+_var(--mask-edge)))] [-webkit-mask-image:radial-gradient(circle_at_calc(100%-var(--mask-position))_calc(100%-var(--mask-position)),transparent_var(--mask-radius),black_calc(var(--mask-radius)_+_var(--mask-edge)))]',
+        // `no-clip` keeps the group ring (an outline, outside the box) from being masked away.
+        true: 'mask-[radial-gradient(circle_at_calc(100%-var(--mask-position))_calc(100%-var(--mask-position)),transparent_var(--mask-radius),black_calc(var(--mask-radius)_+_var(--mask-edge)))] [mask-clip:no-clip] [-webkit-mask-clip:no-clip] [-webkit-mask-image:radial-gradient(circle_at_calc(100%-var(--mask-position))_calc(100%-var(--mask-position)),transparent_var(--mask-radius),black_calc(var(--mask-radius)_+_var(--mask-edge)))]',
         false: '',
       },
     },
@@ -55,10 +56,26 @@ export const groupVariants = cva('is-group group', {
       '2xl': '-space-x-ws-4',
     },
     layout: {
-      row: 'isolate flex flex-nowrap items-center whitespace-nowrap',
+      row: [
+        'isolate flex flex-nowrap items-center whitespace-nowrap',
+        // Figma strokes each avatar of a row outside, Border Width/md in Static/Fill/Container,
+        // so every avatar cuts a gap into the one it overlaps. An outline is that outside
+        // stroke: it follows the avatar's radius and never moves the layout. It goes on the
+        // avatar box (the root's first child); `Avatar.More` sits behind and overlaps nothing.
+        '[&>[data-slot=avatar]>:first-child]:outline-2',
+        '[&>[data-slot=avatar]>:first-child]:outline-ws-static-container',
+      ].join(' '),
       grid: 'gap-ws-3 flex flex-wrap space-x-0',
     },
   },
+  compoundVariants: [
+    // Figma's Large row strokes Border Width/lg (3px); xl and 2xl have no Figma group and follow it.
+    {
+      layout: 'row',
+      size: ['lg', 'xl', '2xl'],
+      class: '[&>[data-slot=avatar]>:first-child]:outline-3',
+    },
+  ],
   defaultVariants: {
     size: 'md',
     layout: 'row',

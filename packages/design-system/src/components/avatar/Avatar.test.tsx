@@ -6,6 +6,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { Avatar } from './Avatar';
 import { avatarRoundedOrb, avatarSquareOrb } from './Avatar.assets';
 import { AVATAR_COLORS, getAvatarColor } from './Avatar.colors';
+import type { GroupProps } from './Avatar.types';
 import { avatarVariants, moreVariants, selectionRingVariants } from './Avatar.variants';
 
 describe('Avatar', () => {
@@ -343,6 +344,61 @@ describe('Avatar', () => {
 
       rerender(<Avatar selected />);
       expect(ringOf(container)).not.toBeNull();
+    });
+  });
+
+  // Figma's Avatar Group (7807:149985) strokes each avatar of a row outside, Border Width/md
+  // (lg on Large) in Static/Fill/Container, the paint the Side Panel header gives it.
+  describe('Group ring', () => {
+    const ringOn = '[&>[data-slot=avatar]>:first-child]:';
+    const renderGroup = (props: Partial<GroupProps> = {}) =>
+      render(
+        <Avatar.Group data-testid="group" {...props}>
+          <Avatar initials="AB" status="online" />
+          <Avatar initials="CD" />
+          <Avatar.More>+3</Avatar.More>
+        </Avatar.Group>,
+      );
+
+    it('should ring each avatar of a row 2px in the container colour', () => {
+      renderGroup();
+
+      expect(screen.getByTestId('group')).toHaveClass(
+        `${ringOn}outline-2`,
+        `${ringOn}outline-ws-static-container`,
+      );
+    });
+
+    it.each(['lg', 'xl', '2xl'] as const)('should widen the ring to 3px at %s', (size) => {
+      renderGroup({ size });
+
+      const group = screen.getByTestId('group');
+      expect(group).toHaveClass(`${ringOn}outline-3`, `${ringOn}outline-ws-static-container`);
+      expect(group).not.toHaveClass(`${ringOn}outline-2`);
+    });
+
+    it('should not ring a grid, where avatars do not overlap', () => {
+      renderGroup({ layout: 'grid' });
+
+      expect(screen.getByTestId('group').className).not.toContain('outline');
+    });
+
+    it('should draw the ring on the avatar box, the first child of each avatar', () => {
+      const { container } = renderGroup();
+
+      const roots = container.querySelectorAll('[data-slot="avatar"]');
+      expect(roots[0].firstElementChild).toHaveAttribute('data-slot', 'avatar-initials');
+      expect(roots[1].firstElementChild).toHaveAttribute('data-slot', 'avatar-initials');
+    });
+
+    it('should keep the ring when a status dot masks the avatar box', () => {
+      // A mask clips everything outside the border box, the outline included, unless no-clip.
+      renderGroup();
+
+      expect(screen.getByText('AB')).toHaveClass(
+        '[mask-clip:no-clip]',
+        '[-webkit-mask-clip:no-clip]',
+      );
     });
   });
 
