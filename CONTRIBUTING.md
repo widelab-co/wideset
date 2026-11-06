@@ -61,7 +61,7 @@ needed:
 
 Blockers get **Request changes**. Small remarks get
 **Approve** and the author fixes them before merging; a new push does not dismiss the approval.
-The author merges, or turns on **auto-merge** so the PR squash-merges itself once green.
+The author merges, or turns on **auto-merge** so the PR merges itself once green.
 Reviewers (people and agents) use the `wideset-code-review` skill: risk zones, then Safety /
 Standards / Intent, then a verdict.
 
