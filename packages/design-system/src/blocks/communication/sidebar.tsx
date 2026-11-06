@@ -12,6 +12,7 @@ import {
 } from '@wideset/react';
 import { useState } from 'react';
 
+import { BrandMark } from './brand-mark';
 import {
   account,
   categories,
@@ -189,7 +190,7 @@ export function CommunicationSidebar() {
         <Sidebar.Expanded>
           <div className="gap-ws-9 flex flex-col">
             <div className="gap-ws-7 py-ws-3 pl-ws-5 flex items-center">
-              <Avatar shape="square" initials={workspace.initials} color="brand" />
+              <BrandMark />
               <span className="typography-label-strong-sm text-ws-dynamic-secondary-default min-w-0 flex-1 truncate">
                 {workspace.name}
               </span>
@@ -203,7 +204,7 @@ export function CommunicationSidebar() {
         </Sidebar.Expanded>
         <Sidebar.Collapsed>
           <div className="gap-ws-7 flex flex-col items-center">
-            <Avatar shape="square" initials={workspace.initials} color="brand" />
+            <BrandMark label={workspace.name} />
             <Sidebar.Trigger />
           </div>
         </Sidebar.Collapsed>

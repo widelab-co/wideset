@@ -2,6 +2,7 @@ import { type RemixiconComponentType, RiMenuLine } from '@remixicon/react';
 import { Avatar, cn, DropdownMenu, IconButton, ListItem } from '@wideset/react';
 import { type AnchorHTMLAttributes, useState } from 'react';
 
+import { BrandMark } from './brand-mark';
 import { ACCOUNT, NAV } from './data';
 
 /** Figma "Navigation Bar" on the grey canvas, no fill and no line: brand, navigation, account. */
@@ -19,7 +20,7 @@ export function TopBar() {
             icon={RiMenuLine}
             aria-label="Open menu"
           />
-          <Avatar shape="square" initials="W" color="brand" role="img" aria-label="Wideset" />
+          <BrandMark label="Wideset" />
         </div>
         <nav aria-label="Main" className="gap-ws-3 flex items-center">
           {NAV.map((item) => (

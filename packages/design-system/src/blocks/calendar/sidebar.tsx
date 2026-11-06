@@ -19,6 +19,7 @@ import {
 } from '@wideset/react';
 import { useState } from 'react';
 
+import { BrandMark } from './brand-mark';
 import {
   account,
   footerLinks,
@@ -89,7 +90,7 @@ export function CalendarSidebar() {
       <Sidebar.Header>
         <div className="gap-ws-9 flex flex-col">
           <div className="gap-ws-7 pt-ws-3 pb-ws-7 flex items-center">
-            <Avatar shape="square" initials={workspace.initials} color="brand" />
+            <BrandMark className="size-ws-15" />
             <div className="flex min-w-0 flex-1 flex-col">
               <span className="typography-label-strong-sm text-ws-dynamic-secondary-default truncate">
                 {workspace.name}

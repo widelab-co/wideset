@@ -1,7 +1,8 @@
 import { type RemixiconComponentType, RiCornerUpRightFill } from '@remixicon/react';
-import { Avatar, cn, Sidebar } from '@wideset/react';
+import { cn, Sidebar } from '@wideset/react';
 import { useState } from 'react';
 
+import { BrandMark } from './brand-mark';
 import { navigation, type ShortcutColor, shortcuts } from './data';
 
 const TILE: Record<ShortcutColor, string> = {
@@ -76,7 +77,7 @@ export function ProcessSidebar() {
       <Sidebar.Header>
         <Sidebar.Expanded>
           <div className="gap-ws-7 py-ws-3 pl-ws-5 flex items-center">
-            <Avatar shape="square" initials="W" color="brand" />
+            <BrandMark />
             <span className="typography-label-strong-sm text-ws-dynamic-secondary-default min-w-0 flex-1 truncate">
               Wideset
             </span>

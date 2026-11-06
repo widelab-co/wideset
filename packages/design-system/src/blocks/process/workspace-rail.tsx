@@ -2,6 +2,7 @@ import { RiAddLine } from '@remixicon/react';
 import { Avatar } from '@wideset/react';
 import { useState } from 'react';
 
+import { BrandMark } from './brand-mark';
 import { account, workspaces } from './data';
 
 /**
@@ -27,12 +28,25 @@ export function WorkspaceRail() {
             onClick={() => setCurrent(workspace.id)}
             className="rounded-ws-control-lg focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default flex"
           >
-            <Avatar
-              shape="square"
-              initials={workspace.initials}
-              color={workspace.color}
-              selected={current === workspace.id}
-            />
+            {workspace.id === 'wideset' ? (
+              // The product's own workspace shows its mark; the ring is Avatar's selection ring.
+              <span className="relative flex">
+                <BrandMark />
+                {current === workspace.id && (
+                  <span
+                    aria-hidden="true"
+                    className="outline-ws-dynamic-primary-strong-default rounded-ws-control-lg pointer-events-none absolute inset-0 outline-2 outline-offset-2 outline-solid"
+                  />
+                )}
+              </span>
+            ) : (
+              <Avatar
+                shape="square"
+                initials={workspace.initials}
+                color={workspace.color}
+                selected={current === workspace.id}
+              />
+            )}
           </button>
         ))}
         <button

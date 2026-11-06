@@ -2,6 +2,7 @@ import { type RemixiconComponentType, RiArrowDownSLine, RiFlashlightFill } from 
 import { Avatar, cn, Sidebar } from '@wideset/react';
 import { useState } from 'react';
 
+import { BrandMark } from './brand-mark';
 import { account, navigation, type SpaceColor, spaceGroups, workspace } from './data';
 
 const TILE: Record<SpaceColor, string> = {
@@ -79,7 +80,7 @@ export function KanbanSidebar() {
         <Sidebar.Expanded>
           <div className="gap-ws-7 flex flex-col">
             <div className="gap-ws-7 py-ws-3 pl-ws-5 flex items-center">
-              <Avatar shape="square" initials="W" color="brand" />
+              <BrandMark />
               <span className="typography-label-strong-sm text-ws-dynamic-secondary-default min-w-0 flex-1 truncate">
                 Wideset
               </span>
