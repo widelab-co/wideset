@@ -107,6 +107,8 @@ in the snippet will point into `node_modules/@wideset/react/` then.
   data.
 - [Sidebar](components/navigation/sidebar.md): the permanent app navigation that collapses to
   icons.
+- [NavigationBar](components/navigation/navigation-bar.md): the top bar: a handful of page links
+  or the path to the page, with app-wide tools at the end.
 - [ProgressStepper](components/navigation/progress-stepper.md): named, ordered steps of a flow.
 
 ### [Overlays](components/overlays/README.md)
@@ -165,7 +167,8 @@ in the snippet will point into `node_modules/@wideset/react/` then.
 Wideset has no page templates; patterns are compositions of real components with `ws` layout
 classes.
 
-- [App shell](patterns/app-shell.md): Sidebar next to the one scrolling main area.
+- [App shell](patterns/app-shell.md): Sidebar next to the one scrolling main area, or a
+  NavigationBar above it.
 - [Form page](patterns/form-page.md): FormFields, validation, submit and cancel.
 - [List and filters](patterns/list-and-filters.md): search, filters, table, pagination, empty and
   loading.

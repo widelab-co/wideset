@@ -99,6 +99,18 @@ active={…}><Link to="/projects" /></Sidebar.Item>`. Icon and label are injecte
 grid-cols-[repeat(auto-fit,minmax(16rem,1fr))] gap-ws-11`) or stack sections with `gap-ws-12`.
 - **Page-level notice.** `SystemAlert` as the first child of the content column, above the
   header (see [page-feedback](page-feedback.md)).
+- **Top bar.** A product with a handful of areas puts them in a
+  [`NavigationBar`](../components/navigation/navigation-bar.md) above `main` instead of a
+  `Sidebar`: a column with the bar first and `main` under it, the only scroll container. On a
+  nested page the bar shows `Breadcrumbs` in place of its links. Drop its line
+  (`divider={false}`) when the page opens with a large title.
+
+```tsx
+<div className="bg-ws-static-foreground flex h-dvh flex-col">
+  <NavigationBar>…</NavigationBar>
+  <main className="min-h-0 flex-1 overflow-y-auto">…</main>
+</div>
+```
 
 ## Rules
 
@@ -114,13 +126,13 @@ grid-cols-[repeat(auto-fit,minmax(16rem,1fr))] gap-ws-11`) or stack sections wit
 
 ## When a sidebar is wrong
 
-| Product                                         | Shell                                                            |
-| ----------------------------------------------- | ---------------------------------------------------------------- |
-| Two or three sections                           | Top [`Tabs`](../components/navigation/tabs.md) or a plain header |
-| Marketing or docs                               | Your own header: `Sidebar` is app navigation                     |
-| Focused single-task flow (checkout, onboarding) | No navigation; `ProgressStepper` and one column                  |
-| Editor or canvas                                | A toolbar, with panels that open on demand                       |
-| Embedded widget                                 | No shell                                                         |
+| Product                                         | Shell                                                                      |
+| ----------------------------------------------- | -------------------------------------------------------------------------- |
+| Up to about five areas                          | [`NavigationBar`](../components/navigation/navigation-bar.md) above `main` |
+| Marketing or docs                               | Your own header: `Sidebar` and `NavigationBar` are app navigation          |
+| Focused single-task flow (checkout, onboarding) | No navigation; `ProgressStepper` and one column                            |
+| Editor or canvas                                | A toolbar, with panels that open on demand                                 |
+| Embedded widget                                 | No shell                                                                   |
 
 Do not add a sidebar to a one-page tool to make it look like an app. On small screens the shell
 changes shape: see [responsive](../foundations/responsive.md).
