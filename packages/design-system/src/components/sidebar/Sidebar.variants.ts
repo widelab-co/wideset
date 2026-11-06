@@ -3,9 +3,9 @@ import { cva } from 'class-variance-authority';
 import { sidebarCollapseMotion } from '../../motion/recipes';
 
 export const sidebarVariants = cva(
-  // The app frame sits on the grey canvas; the page beside it (`main`) is the white foreground.
-  // That contrast is the split: no border, which would stand alone beside an inset page card.
-  'bg-ws-static-background gap-ws-7 pl-ws-5 py-ws-7 relative flex h-full flex-col overflow-hidden',
+  // Figma Sidebar: Static/Fill/Foreground with a 1px Static/Stroke/Subtle line on its right edge,
+  // beside a page on the same white.
+  'bg-ws-static-foreground border-ws-static-subtle gap-ws-7 pl-ws-5 py-ws-7 relative flex h-full flex-col overflow-hidden border-r',
   {
     variants: {
       collapsed: {

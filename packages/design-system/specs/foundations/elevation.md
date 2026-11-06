@@ -10,16 +10,17 @@ Stacking order (`z-index`) is a separate concern → [z-index.md](z-index.md).
 
 | Layer    | Fill class                | Shadow (light)       | Examples                                          |
 | -------- | ------------------------- | -------------------- | ------------------------------------------------- |
-| Frame    | `bg-ws-static-background` | none                 | `Sidebar`, the space around the page              |
-| Page     | `bg-ws-static-foreground` | none, border instead | `main` beside the `Sidebar`                       |
+| Ground   | `bg-ws-static-background` | none                 | Behind content blocks when a page needs a ground  |
+| App      | `bg-ws-static-foreground` | none, border instead | `Sidebar` and `main`, split by the sidebar's line |
 | Content  | `bg-ws-static-container`  | none, border instead | `Card`, `Table`, `Sidepanel`                      |
 | Floating | `bg-ws-static-overlay`    | `shadow-ws-medium`   | `DropdownMenu`, `Select` list, `Tooltip`, `Toast` |
 | Dialog   | `bg-ws-static-overlay`    | `shadow-ws-high`     | `Modal`, `Popup`, `StatusModal`                   |
 | Backdrop | `bg-ws-static-scrim-base` | none                 | Behind `Modal` and `Sidepanel`                    |
 
-The navigation sits on the grey frame and the page on white, as in most product apps: `Sidebar`
-is `bg-ws-static-background` and `main` takes `bg-ws-static-foreground`. Never the other way round:
-a grey page beside a white sidebar makes the work look like the background.
+By default the sidebar and the page share one white surface, as in Figma: `Sidebar` is
+`bg-ws-static-foreground` with a `border-ws-static-subtle` line on its right edge, and `main` takes
+`bg-ws-static-foreground`. A grey page beside the white sidebar makes the work look like the
+background.
 
 Content blocks on the page are flat: separate them with `border-ws-static-base`, not a shadow
 (`Card` bordered does exactly this). In light, the grey canvas against white containers gives the

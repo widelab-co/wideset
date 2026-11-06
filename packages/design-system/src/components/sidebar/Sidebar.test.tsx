@@ -17,30 +17,15 @@ describe('Sidebar', () => {
         expect(screen.getByText('Test content')).toBeInTheDocument();
       });
 
-      // The app frame is grey and the page beside it white, as in most product apps; a white
-      // sidebar beside a grey page made the work look like the background.
-      it('sits on the grey app frame, not the white page surface', () => {
+      // Figma's Sidebar: the page's white with a subtle line on its right edge.
+      it("is Figma's default: white, with a subtle line on its right edge", () => {
         const { container } = render(
           <Sidebar>
             <div>Test content</div>
           </Sidebar>,
         );
         const root = container.querySelector('[data-slot="sidebar"]');
-        expect(root).toHaveClass('bg-ws-static-background');
-        expect(root).not.toHaveClass('bg-ws-static-foreground');
-      });
-
-      // The grey frame against the white page is the split; a border stood alone as a stray
-      // line beside an inset page card.
-      it('draws no border of its own', () => {
-        const { container } = render(
-          <Sidebar>
-            <div>Test content</div>
-          </Sidebar>,
-        );
-        expect(container.querySelector('[data-slot="sidebar"]')?.className).not.toMatch(
-          /\bborder(-r)?\b/,
-        );
+        expect(root).toHaveClass('bg-ws-static-foreground', 'border-r', 'border-ws-static-subtle');
       });
     });
 

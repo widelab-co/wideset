@@ -77,7 +77,7 @@ When nothing in the request says otherwise, use exactly these:
 | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------- |
 | Control height     | `md` (40px): Button, IconButton, TextInput, Select, MultiSelect, ComboBox, SegmentedControl; `FilterButton size="md"`, `Chip size="lg"` |
 | Page tabs          | `Tabs size="lg"`; `Tabs` inside a card or panel keep their default `sm`                                                                 |
-| Page surface       | `main` is white (`bg-ws-static-foreground`) beside the grey `Sidebar` frame; cards on it are `Card` bordered                            |
+| Page surface       | `main` is white (`bg-ws-static-foreground`), like the `Sidebar` beside it; cards on it are `Card` bordered                              |
 | Page title         | `typography-subtitle-lg text-ws-static-strong` (32px), one per page                                                                     |
 | Section title      | `typography-subtitle-xs` or `Card.Title`                                                                                                |
 | Body / description | `typography-body-md text-ws-static-subtle`                                                                                              |

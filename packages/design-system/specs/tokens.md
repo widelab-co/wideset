@@ -37,7 +37,7 @@ the class: `--ws-static-fill-container` → `bg-ws-static-container`, `--ws-stat
 | Job                                        | Class                                                                                                                        |
 | ------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------- |
 | App page (`main` beside a `Sidebar`)       | `bg-ws-static-foreground`                                                                                                    |
-| App frame (`Sidebar`, space around a page) | `bg-ws-static-background`                                                                                                    |
+| Ground behind content blocks               | `bg-ws-static-background`                                                                                                    |
 | Card, table, panel                         | `bg-ws-static-container`                                                                                                     |
 | Menu, popover, modal                       | `bg-ws-static-overlay`                                                                                                       |
 | Form field rest fill                       | `bg-ws-static-highlight-base`                                                                                                |

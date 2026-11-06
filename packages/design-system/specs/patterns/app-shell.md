@@ -104,8 +104,8 @@ grid-cols-[repeat(auto-fit,minmax(16rem,1fr))] gap-ws-11`) or stack sections wit
 
 - A `Sidebar.Section` renders nothing in a mode where it has no matching `Sidebar.Expanded` or
   `Sidebar.Collapsed` child, so give it both, as the example does.
-- `Sidebar` sits on the grey frame (`bg-ws-static-background`, its own default); `main` is white
-  (`bg-ws-static-foreground`). Cards on the page stay `Card` bordered on that white.
+- `Sidebar` and `main` share one white surface (`bg-ws-static-foreground`); the sidebar's own
+  subtle line on its right edge is the split. Cards on the page stay `Card` bordered on that white.
 - `min-w-0` on `main` stops a wide table from pushing the layout out. Only `main` scrolls.
 - One active item, set by you from the current path.
 - Keep the top level to about seven items; group the rest in sections instead of nesting deeply.
@@ -139,8 +139,8 @@ changes shape: see [responsive](../foundations/responsive.md).
 ## Anti-patterns
 
 - Wrapping the page in a `Card`, or the sidebar and page in one bordered box.
-- A grey page (`bg-ws-static-background`) on `main`: the work then looks like the background.
-  The page is white; the grey belongs to the frame.
+- A grey page (`bg-ws-static-background`) on `main` beside the white sidebar: the work then looks
+  like the background.
 - Letting `body` scroll instead of `main`: the sidebar then scrolls away. Keep `h-dvh` on the
   row and `overflow-y-auto` on `main`.
 - A second `ToastProvider` per page: toasts then stack in two places.
