@@ -14,6 +14,7 @@ import { useArgs } from 'storybook/preview-api';
 
 import { exampleStory } from '../../stories/example';
 import { Avatar } from '../avatar/Avatar';
+import { Button } from '../button/Button';
 import { IconButton } from '../button/IconButton';
 import { ListItem } from '../list-item/ListItem';
 import { Switch } from '../switch/Switch';
@@ -453,4 +454,61 @@ export const Composition: Story = {
       </DropdownMenu>
     );
   },
+};
+
+const folders = [
+  'Inbox',
+  'Archive',
+  'Design',
+  'Engineering',
+  'Marketing',
+  'Sales',
+  'Support',
+  'Finance',
+  'Legal',
+  'Hiring',
+  'Onboarding',
+  'Roadmap',
+  'Research',
+  'Releases',
+  'Brand',
+  'Website',
+  'Mobile app',
+  'Partners',
+  'Events',
+  'Q1 planning',
+  'Q2 planning',
+  'Q3 planning',
+  'Q4 planning',
+];
+
+export const LongMenu: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'A menu taller than the window: it stops 10px short of the window edge and scrolls the rest.',
+      },
+    },
+  },
+  render: () => (
+    <DropdownMenu>
+      <DropdownMenu.Trigger asChild>
+        <Button variant="secondary" preset="border">
+          Move to
+          <Button.Icon icon={RiArrowDownSLine} />
+        </Button>
+      </DropdownMenu.Trigger>
+      <DropdownMenu.Content align="start">
+        {folders.map((folder) => (
+          <DropdownMenu.Item key={folder}>
+            <ListItem.Prefix>
+              <RiFolderLine className="size-ws-9" />
+            </ListItem.Prefix>
+            <ListItem.Label>{folder}</ListItem.Label>
+          </DropdownMenu.Item>
+        ))}
+      </DropdownMenu.Content>
+    </DropdownMenu>
+  ),
 };

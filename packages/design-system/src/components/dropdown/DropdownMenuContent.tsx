@@ -18,6 +18,8 @@ export const DropdownMenuContent = React.forwardRef<
     {
       className,
       sideOffset = 4,
+      // Radix Select's margin: a menu cut to fit the window still ends visibly short of its edge.
+      collisionPadding = 10,
       onCloseAutoFocus,
       onPointerDown,
       portalContainer,
@@ -52,6 +54,7 @@ export const DropdownMenuContent = React.forwardRef<
           ref={ref}
           data-slot="dropdown-menu-content"
           sideOffset={sideOffset}
+          collisionPadding={collisionPadding}
           onCloseAutoFocus={handleCloseAutoFocus}
           onPointerDown={handlePointerDown}
           className={cn(
