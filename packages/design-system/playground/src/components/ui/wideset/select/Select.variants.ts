@@ -1,7 +1,7 @@
 import { cva } from 'class-variance-authority';
 import { cn } from '@/lib/wideset/utils';
 
-import { hoverTintMotion, pressMotion } from '@/lib/wideset/motion/recipes';
+import { hoverTintMotion, menuFadeMotion } from '@/lib/wideset/motion/recipes';
 
 export const selectTriggerVariants = cva(
   cn(
@@ -62,7 +62,7 @@ export const selectTriggerVariants = cva(
 
 export const selectTriggerMotionVariants = cva('', {
   variants: {
-    enabled: { true: cn(hoverTintMotion, pressMotion), false: '' },
+    enabled: { true: hoverTintMotion, false: '' },
   },
   defaultVariants: { enabled: true },
 });
@@ -155,17 +155,7 @@ export const selectContentVariants = cva(
 
 export const selectContentMotionVariants = cva('', {
   variants: {
-    enabled: {
-      true: cn(
-        'origin-radix-select',
-        'transition-none',
-        'animate-in fade-in-0 zoom-in-95',
-        'duration-(--ws-motion-duration-fast) ease-(--ws-motion-ease-smooth-out)',
-        'data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95',
-        'data-[state=closed]:duration-(--ws-motion-duration-quick)',
-      ),
-      false: '',
-    },
+    enabled: { true: menuFadeMotion, false: '' },
   },
   defaultVariants: { enabled: true },
 });
