@@ -92,6 +92,7 @@ in the snippet will point into `node_modules/@wideset/react/` then.
 
 ### [Feedback](components/feedback/README.md)
 
+- [Illustration](components/feedback/illustration.md): a drawing for an empty state, a first run or an announcement; not an icon.
 - [InlineAlert](components/feedback/inline-alert.md): persistent feedback attached to one section.
 - [SystemAlert](components/feedback/system-alert.md): a product-wide banner at the top of the page.
 - [Toast](components/feedback/toast.md): brief floating feedback through `useToast`.

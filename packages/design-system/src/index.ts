@@ -189,6 +189,12 @@ export { FilterButton } from './components/filter-button/FilterButton';
 export type { FilterButtonProps } from './components/filter-button/FilterButton.types';
 export { FormField } from './components/form-field/FormField';
 export type { FormFieldProps } from './components/form-field/FormField.types';
+export { Illustration } from './components/illustration/Illustration';
+export type {
+  IllustrationName,
+  IllustrationProps,
+  IllustrationSize,
+} from './components/illustration/Illustration.types';
 export { InlineAlert } from './components/inline-alert/InlineAlert';
 export { useInlineAlert } from './components/inline-alert/InlineAlert.hooks';
 export type {
