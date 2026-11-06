@@ -70,7 +70,8 @@ only through FormField's props.
 
 Validation is yours; FormField shows the message. For a single child element it adds the helper
 or error id to the control's `aria-describedby` (keeping ids already there) and sets
-`aria-invalid` while `errorText` is set. The red look is not automatic: set `variant="danger"` on
+`aria-invalid` while `errorText` is set. The error text is a `role="alert"`, so a screen reader
+announces it when it appears. The red look is not automatic: set `variant="danger"` on
 the TextInput, Textarea, Select, MultiSelect or ComboBox. Show errors after blur or submit, not on
 the first keystroke; `useShake` on the control flags a rejected submit with motion.
 
