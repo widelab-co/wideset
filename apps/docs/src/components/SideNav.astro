@@ -27,7 +27,7 @@ const holds = (item: NavSection['items'][number]) =>
   item.children?.some((child) => child.href === current) ?? false;
 ---
 
-<aside class="docs-scroll sticky top-14 hidden h-[calc(100vh-3.5rem)] w-[256px] shrink-0 overflow-y-auto px-ws-9 pt-ws-7 pb-ws-12 lg:block">
+<aside class="docs-scroll sticky top-[var(--docs-top)] hidden h-[calc(100vh-var(--docs-top))] w-[256px] shrink-0 overflow-y-auto px-ws-9 pt-ws-7 pb-ws-12 lg:block">
   {sections.map((section, index) => (
     <div class:list={[index > 0 && 'mt-ws-13']}>
       {section.label && (

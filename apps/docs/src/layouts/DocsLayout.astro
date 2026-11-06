@@ -4,10 +4,12 @@ import '@wideset/react/styles';
 import '../styles/docs.css';
 import '../generated/light-scope.css';
 
+import SearchPalette from '../components/SearchPalette';
 import SideNav from '../components/SideNav.astro';
 import TopBar from '../components/TopBar.astro';
 import { areaOf, componentsNav, docsNav, type NavSection } from '../lib/nav';
 import { RADIUS_KEY } from '../lib/radius';
+import { searchItems } from '../lib/search';
 import { THEME_KEY } from '../lib/theme';
 
 /**
@@ -32,8 +34,17 @@ interface Props {
    * instead of beside an empty column.
    */
   frame?: boolean;
+  /** Keep the page out of search results (and the sitemap): e.g. a component with no description yet. */
+  noindex?: boolean;
 }
-const { title, description, wide = false, full = false, frame = false } = Astro.props;
+const {
+  title,
+  description,
+  wide = false,
+  full = false,
+  frame = false,
+  noindex = false,
+} = Astro.props;
 
 const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
 const area = areaOf(pathname);
@@ -47,31 +58,84 @@ const hasRail = Astro.slots.has('rail');
  */
 const gallery = frame && full;
 const hasToc = (frame && !gallery) || Astro.slots.has('toc');
+
+/**
+ * SEO head. `site` is DOCS_URL: https://wideset.co when built for the shared domain, where the
+ * edge serves these pages; the canonical, Open Graph and breadcrumbs all use it.
+ */
+const site = Astro.site ?? new URL('https://wideset-docs.widelab.workers.dev');
+const canonical = new URL(pathname, site).href;
+const fullTitle = `${title} — Wideset`;
+const markdown = /^\/(docs|components)\/[^/]+$/.test(pathname) ? `${pathname}.md` : null;
+const crumbs = [
+  { name: 'Wideset', url: new URL('/', site).href },
+  area === 'components'
+    ? { name: 'Components', url: new URL('/components', site).href }
+    : { name: 'Docs', url: new URL('/docs/introduction', site).href },
+  { name: title, url: canonical },
+].filter((crumb, index, all) => all.findIndex((other) => other.url === crumb.url) === index);
+const breadcrumbs = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: crumbs.map((crumb, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    name: crumb.name,
+    item: crumb.url,
+  })),
+};
+const items = await searchItems();
 ---
 
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title} — Wideset</title>
+    <title>{fullTitle}</title>
     <meta name="description" content={description} />
     {/* The workers.dev address is temporary; a custom domain (DOCS_URL) is indexed. */}
-    {Astro.site?.hostname.endsWith('.workers.dev') && <meta name="robots" content="noindex" />}
+    {(noindex || Astro.site?.hostname.endsWith('.workers.dev')) && (
+      <meta name="robots" content="noindex" />
+    )}
+    <link rel="canonical" href={canonical} />
+    {markdown && <link rel="alternate" type="text/markdown" href={markdown} />}
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Wideset" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary" />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbs)} />
     <link rel="icon" href="/favicon.png" />
     <script is:inline define:vars={{ THEME_KEY, RADIUS_KEY }}>
       // Appearance before first paint. Same keys and rules as src/lib/theme.ts and radius.ts.
+      // On wideset.co the shared shell has already set data-theme (its cookie or the system's
+      // choice, before this script); that wins, so the docs open in the theme the landing had.
       try {
+        var shell = document.documentElement.getAttribute('data-theme');
         var saved = localStorage.getItem(THEME_KEY);
         var dark =
-          saved === 'dark' ||
-          ((saved === 'system' || !saved) && matchMedia('(prefers-color-scheme: dark)').matches);
+          shell === 'dark' ||
+          (!shell &&
+            (saved === 'dark' ||
+              ((saved === 'system' || !saved) &&
+                matchMedia('(prefers-color-scheme: dark)').matches)));
         document.documentElement.classList.toggle('dark', dark);
+        if (shell === 'light' || shell === 'dark') localStorage.setItem(THEME_KEY, shell);
       } catch (e) {}
     </script>
   </head>
   <body class="min-h-screen">
-    <TopBar area={area} />
-    <div class="flex min-h-screen pt-ws-19">
+    {/*
+      Site contract: on wideset.co the edge replaces this element with the shared header (and
+      the footer below with the shared footer). The top bar inside is what the docs show on
+      their own, without the edge.
+    */}
+    <wideset-header>
+      <TopBar area={area} />
+    </wideset-header>
+    <SearchPalette items={items} client:load />
+    <div class="docs-shell-offset flex min-h-screen">
       {sections.length > 0 && <SideNav sections={sections} current={pathname} />}
       <main
         class:list={[
@@ -91,7 +155,7 @@ const hasToc = (frame && !gallery) || Astro.slots.has('toc');
       {hasToc && (
         <aside
           class:list={[
-            'fixed top-14 z-10 hidden h-[calc(100vh-3.5rem)] w-0 xl:block',
+            'fixed top-[var(--docs-top)] z-10 hidden h-[calc(100vh-var(--docs-top))] w-0 xl:block',
             hasRail ? 'right-[296px]' : 'right-0',
           ]}
         >
@@ -101,7 +165,7 @@ const hasToc = (frame && !gallery) || Astro.slots.has('toc');
         </aside>
       )}
       {hasRail && (
-        <aside class="fixed top-14 right-0 hidden h-[calc(100vh-3.5rem)] w-[296px] pt-ws-11 pr-ws-12 xl:block">
+        <aside class="fixed top-[var(--docs-top)] right-0 hidden h-[calc(100vh-var(--docs-top))] w-[296px] pt-ws-11 pr-ws-12 xl:block">
           <div class="docs-scroll flex max-h-full flex-col gap-ws-7 overflow-y-auto pb-ws-12">
             <slot name="rail" />
             <a
@@ -114,5 +178,9 @@ const hasToc = (frame && !gallery) || Astro.slots.has('toc');
         </aside>
       )}
     </div>
+    <wideset-footer></wideset-footer>
+    <script>
+      import '../lib/site-contract';
+    </script>
   </body>
 </html>

@@ -22,6 +22,10 @@ const library = (path) =>
 export default defineConfig({
   // The deploy job in build.yaml sets DOCS_URL per environment (develop, PR previews).
   site: process.env.DOCS_URL || 'https://wideset-docs.widelab.workers.dev',
+  // Site contract (wideset-edge/SITE_CONTRACT.md): the docs' assets live under /_docs/, so they
+  // never collide with the landing's on the shared domain; pages have no trailing slash.
+  build: { assets: '_docs' },
+  trailingSlash: 'never',
   integrations: [react(), mdx()],
   prefetch: { prefetchAll: true, defaultStrategy: 'hover' },
   // Code in the Markdown pages carries both themes as variables, like the CodeBlock island;

@@ -1,14 +1,15 @@
-import { RiSearchLine } from '@remixicon/react';
 import { Modal, Search } from '@wideset/react';
 import { useEffect, useState } from 'react';
 
-export type SearchItem = { title: string; href: string; group: string };
+import type { SearchItem } from '../lib/search';
+
+export type { SearchItem };
 
 /**
- * Search across the docs: a field in the top bar that opens a dialog listing every page
- * and component. Type to narrow, click to go; ⌘K / Ctrl+K from anywhere.
- * ds-exempt: the trigger is a button dressed as a field, because a real input that only
- * opens a dialog would promise typing it does not accept; the results are plain links.
+ * Search across the docs: a dialog listing every page and component. Type to narrow, click to
+ * go. It opens on ⌘K / Ctrl+K and on `wideset:search-open`, the event both the shared site
+ * header and the stand-alone top bar's trigger send (lib/site-contract.ts), so the page has one
+ * palette whichever header it shows.
  */
 const SearchPalette = ({ items }: { items: SearchItem[] }) => {
   const [open, setOpen] = useState(false);
@@ -21,8 +22,19 @@ const SearchPalette = ({ items }: { items: SearchItem[] }) => {
         setOpen((was) => !was);
       }
     };
+    const pending = window as Window & { __widesetSearchPending?: boolean };
+    const onOpen = () => {
+      pending.__widesetSearchPending = false;
+      setOpen(true);
+    };
+    // Pressed before this island hydrated (lib/site-contract.ts remembered it).
+    if (pending.__widesetSearchPending) onOpen();
     window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
+    document.addEventListener('wideset:search-open', onOpen);
+    return () => {
+      window.removeEventListener('keydown', onKey);
+      document.removeEventListener('wideset:search-open', onOpen);
+    };
   }, []);
 
   const needle = query.trim().toLowerCase();
@@ -32,18 +44,6 @@ const SearchPalette = ({ items }: { items: SearchItem[] }) => {
 
   return (
     <>
-      <button
-        type="button"
-        onClick={() => setOpen(true)}
-        className="flex h-ws-forms-sm w-[15rem] items-center gap-ws-5 rounded-ws-control-lg border border-ws-static-subtle bg-ws-static-alpha-subtle px-ws-6 text-left typography-body-md text-ws-static-subtle hover:text-ws-static-base"
-        aria-label="Search the documentation"
-      >
-        <RiSearchLine size={16} className="shrink-0" />
-        <span className="min-w-0 flex-1 truncate">Search documentation…</span>
-        <kbd className="rounded-ws-control-sm border border-ws-static-subtle px-ws-4 font-sans typography-caption-md text-ws-static-subtle">
-          ⌘K
-        </kbd>
-      </button>
       <Modal open={open} onOpenChange={setOpen}>
         <Modal.Content>
           <Modal.Header>

@@ -408,3 +408,19 @@
 .docs-code-fallback {
   white-space: pre;
 }
+
+/* Site contract: the header's height. The stand-alone top bar is fixed and 3.5rem tall; on
+   wideset.co the edge marks <html data-wsh-section> and the shared header is sticky, in the flow,
+   --wsh-height tall (its own stylesheet sets it), so the content needs no offset of its own. */
+:root {
+  --docs-top: 3.5rem;
+}
+:root[data-wsh-section] {
+  --docs-top: var(--wsh-height, 4rem);
+}
+.docs-shell-offset {
+  padding-top: 3.5rem;
+}
+:root[data-wsh-section] .docs-shell-offset {
+  padding-top: 0;
+}

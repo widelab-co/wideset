@@ -91,7 +91,12 @@ const th =
 const td = 'px-ws-9 py-ws-6 align-top';
 ---
 
-<DocsLayout title={entry.title} description={entry.description ?? entry.title} frame>
+<DocsLayout
+  title={entry.title}
+  description={entry.description ?? entry.title}
+  frame
+  noindex={!entry.description}
+>
   <div class="flex flex-wrap items-center gap-ws-5">
     <h1 class="text-ws-static-strong typography-subtitle-lg tracking-ws-tight-50">{entry.title}</h1>
     {since && (
