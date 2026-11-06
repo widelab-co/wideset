@@ -12,6 +12,7 @@ import {
   switchThumbVariants,
   switchVariants,
 } from './Switch.variants';
+import { SwitchDescription } from './SwitchDescription';
 import { SwitchLabel } from './SwitchLabel';
 
 const Switch = React.forwardRef<React.ComponentRef<typeof SwitchPrimitive.Root>, SwitchProps>(
@@ -33,20 +34,20 @@ const Switch = React.forwardRef<React.ComponentRef<typeof SwitchPrimitive.Root>,
     const motion = useDefaultMotion(defaultMotion);
     const switchId = id || fallbackId;
 
-    const containerClassName = cn(
-      'gap-ws-7 flex w-fit items-center',
-      {
-        'flex-row-reverse': labelPosition === 'left',
-        'cursor-pointer': !disabled,
-        'pointer-events-none': disabled,
-      },
-      className,
-    );
+    const containerClassName = cn('gap-ws-7 flex w-fit items-center', {
+      'flex-row-reverse': labelPosition === 'left',
+      'cursor-pointer': !disabled,
+      'pointer-events-none': disabled,
+    });
 
     const switchRoot = (
       <SwitchPrimitive.Root
         ref={ref}
-        className={cn(switchVariants({ size }), switchMotionVariants({ enabled: motion }))}
+        className={cn(
+          switchVariants({ size }),
+          switchMotionVariants({ enabled: motion }),
+          className,
+        )}
         id={switchId}
         disabled={disabled}
         data-slot="switch"
@@ -89,5 +90,6 @@ const Switch = React.forwardRef<React.ComponentRef<typeof SwitchPrimitive.Root>,
 
 Switch.displayName = 'Switch';
 Switch.Label = SwitchLabel;
+Switch.Description = SwitchDescription;
 
-export { Switch };
+export { Switch, SwitchDescription, SwitchLabel };

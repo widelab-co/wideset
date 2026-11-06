@@ -20,18 +20,19 @@ const meta = {
       description: {
         component: `Switch is a binary toggle control — use it for settings that take immediate effect without a confirmation step.
 
-Pass a string to \`label\` for a simple inline label. Use \`Switch.Label\` as a child when the label needs richer content such as multi-line text or additional markup.
+Pass a string to \`label\` for a simple inline label. Use \`Switch.Label\` and \`Switch.Description\` as children when the label needs richer content or supporting text.
 
 Use Checkbox for selections submitted with a form.
 
 **Composition:**
 \`\`\`
 <Switch>           — root, controls checked/disabled/size/label/labelPosition
-  <Switch.Label>   — alternative to the label prop for rich label content
+  <Switch.Label>         — alternative to the label prop for rich label content
+  <Switch.Description>   — supporting text under the label
 </Switch>
 \`\`\`
 
-> **Note:** \`label\` and \`children\` are mutually exclusive. Use \`label\` for a plain string; use \`Switch.Label\` as a child when you need richer content. If both are provided, \`label\` takes precedence and \`children\` is ignored.`,
+> **Note:** \`label\` and \`children\` are mutually exclusive, and the types reject passing both. Use \`label\` for a plain string; use \`Switch.Label\` as a child when you need richer content. \`className\`, \`ref\` and the remaining props all land on the switch control.`,
       },
     },
   },
@@ -176,10 +177,22 @@ export const LabelAlignments: Story = {
     labelPosition: { table: { disable: true } },
     label: { table: { disable: true } },
   },
-  render: (args) => (
+  render: ({ size, disabled, defaultChecked }) => (
     <div className="gap-ws-8 flex flex-col items-start">
-      <Switch {...args} label="Label left" labelPosition="left" />
-      <Switch {...args} label="Label right" labelPosition="right" />
+      <Switch
+        size={size}
+        disabled={disabled}
+        defaultChecked={defaultChecked}
+        label="Label left"
+        labelPosition="left"
+      />
+      <Switch
+        size={size}
+        disabled={disabled}
+        defaultChecked={defaultChecked}
+        label="Label right"
+        labelPosition="right"
+      />
     </div>
   ),
   args: Default.args,
@@ -246,7 +259,7 @@ export const Composition: Story = {
     docs: {
       description: {
         story:
-          'Use `Switch.Label` as a child instead of the `label` prop when you need richer label content such as multi-line text or additional markup.',
+          'Use `Switch.Label` and `Switch.Description` as children instead of the `label` prop when you need richer label content or supporting text.',
       },
     },
   },
@@ -254,13 +267,16 @@ export const Composition: Story = {
     label: { table: { disable: true } },
     children: { table: { disable: true } },
   },
-  render: (args) => (
-    <Switch {...args}>
+  render: ({ size, labelPosition, disabled, defaultChecked }) => (
+    <Switch
+      size={size}
+      labelPosition={labelPosition}
+      disabled={disabled}
+      defaultChecked={defaultChecked}
+    >
       <Switch.Label>Label</Switch.Label>
+      <Switch.Description>This is description</Switch.Description>
     </Switch>
   ),
-  args: {
-    ...Default.args,
-    label: undefined,
-  },
+  args: Default.args,
 };

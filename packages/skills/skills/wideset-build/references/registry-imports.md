@@ -155,8 +155,7 @@ A member such as `Card.Header` comes with `Card`; its named form, `CardHeader`, 
 - `import { StatusModalFooter } from '@/components/ui/wideset/status-modal/StatusModalFooter';`
 - `import { StatusModalOverlay } from '@/components/ui/wideset/status-modal/StatusModalOverlay';`
 - `import { StatusModalTitle } from '@/components/ui/wideset/status-modal/StatusModalTitle';`
-- `import { Switch } from '@/components/ui/wideset/switch/Switch';`
-- `import { SwitchLabel } from '@/components/ui/wideset/switch/SwitchLabel';`
+- `import { Switch, SwitchDescription, SwitchLabel } from '@/components/ui/wideset/switch/Switch';`
 - `import { SystemAlert } from '@/components/ui/wideset/system-alert/SystemAlert';`
 - `import { SystemAlertAction } from '@/components/ui/wideset/system-alert/SystemAlertAction';`
 - `import { SystemAlertMessage } from '@/components/ui/wideset/system-alert/SystemAlertMessage';`

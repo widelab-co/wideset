@@ -3,7 +3,7 @@ name: Switch
 import: import { Switch } from '@wideset/react'
 group: selection
 status: stable
-parts: [Switch, SwitchLabel]
+parts: [Switch, SwitchLabel, SwitchDescription]
 related: [Checkbox, SegmentedControl, TileIndicator]
 docs: https://wideset-docs.widelab.workers.dev/components/switch
 storybook: components-switch--default
@@ -35,10 +35,12 @@ storybook: components-switch--default
 // Composed
 <Switch defaultChecked>
   <Switch.Label>Email notifications</Switch.Label>
+  <Switch.Description>One summary a day, at 9:00.</Switch.Description>
 </Switch>
 ```
 
-`Switch.Label` and `SwitchLabel` are the same component.
+`Switch.Label` and `SwitchLabel` are the same component, as are `Switch.Description` and
+`SwitchDescription`.
 
 ## Choosing props
 
@@ -92,13 +94,13 @@ Keep one size within a list of switches.
 
 ## Gotchas
 
-- `className` lands on the row container (switch plus label), unlike `Checkbox`, where it styles
-  the box. `ref` still points at the switch control (`button` with `role="switch"`).
-- `label` wins over children: pass one or the other.
-- There is no `variant` and no description part. Put supporting text in the composed children, or
-  near the switch.
+- `className`, `ref` and the remaining props all land on the switch control (`button` with
+  `role="switch"`), as in `Checkbox`. Lay the row out from a wrapper.
+- `label` and children are mutually exclusive; the types reject passing both.
+- There is no `variant` and no `description` prop. Supporting text is `Switch.Description` in the
+  composed children.
 - `Switch.Label` throws outside a `Switch`; it takes `htmlFor` from it.
-- DOM hooks: `data-slot="switch"`, `"switch-label"`.
+- DOM hooks: `data-slot="switch"`, `"switch-label"`, `"switch-description"`.
 
 ## API
 

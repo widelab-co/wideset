@@ -5,6 +5,7 @@ import type React from 'react';
 
 import type { MotionProps } from '@/lib/wideset/motion/Motion.types';
 import type { switchVariants } from './Switch.variants';
+import type { SwitchDescription } from './SwitchDescription';
 import type { SwitchLabel } from './SwitchLabel';
 
 export type SwitchContextType = {
@@ -15,8 +16,7 @@ export type SwitchContextType = {
 /** The text label associated with `Switch`. */
 export type SwitchLabelProps = React.ComponentPropsWithoutRef<typeof Label.Root>;
 
-/** A binary setting that takes effect immediately. */
-export type SwitchProps = Omit<React.ComponentProps<typeof RadixSwitch.Root>, 'children'> &
+type SwitchPropsBase = Omit<React.ComponentProps<typeof RadixSwitch.Root>, 'children'> &
   MotionProps &
   VariantProps<typeof switchVariants> & {
     /**
@@ -25,19 +25,27 @@ export type SwitchProps = Omit<React.ComponentProps<typeof RadixSwitch.Root>, 'c
      * @default 'right'
      */
     labelPosition?: 'left' | 'right';
-    /**
-     * Label of the switch
-     */
-    label?: string;
-    /**
-     * Label as children
-     */
-    children?: React.ReactNode;
   };
+
+type SwitchPropsWithLabel = SwitchPropsBase & {
+  /** Shorthand label, mutually exclusive with composed children. */
+  label: string;
+  children?: never;
+};
+
+type SwitchPropsWithChildren = SwitchPropsBase & {
+  label?: never;
+  /** Composed label and description. Use instead of the shorthand label. */
+  children?: React.ReactNode;
+};
+
+/** A binary setting that takes effect immediately. */
+export type SwitchProps = SwitchPropsWithLabel | SwitchPropsWithChildren;
 
 export type SwitchWithVariants = React.ForwardRefExoticComponent<
   React.PropsWithoutRef<SwitchProps> &
     React.RefAttributes<React.ComponentRef<typeof RadixSwitch.Root>>
 > & {
   Label: typeof SwitchLabel;
+  Description: typeof SwitchDescription;
 };

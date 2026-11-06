@@ -435,9 +435,8 @@ export { StatusModalContent } from './components/status-modal/StatusModalContent
 export { StatusModalFooter } from './components/status-modal/StatusModalFooter';
 export { StatusModalOverlay } from './components/status-modal/StatusModalOverlay';
 export { StatusModalTitle } from './components/status-modal/StatusModalTitle';
-export { Switch } from './components/switch/Switch';
+export { Switch, SwitchDescription, SwitchLabel } from './components/switch/Switch';
 export type { SwitchLabelProps, SwitchProps } from './components/switch/Switch.types';
-export { SwitchLabel } from './components/switch/SwitchLabel';
 export { SystemAlert } from './components/system-alert/SystemAlert';
 export type {
   SystemAlertActionProps,
