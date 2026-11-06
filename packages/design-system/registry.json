@@ -819,6 +819,19 @@
       ]
     },
     {
+      "name": "text-link",
+      "type": "registry:ui",
+      "title": "TextLink",
+      "description": "TextLink is a link inside running text: it keeps the size and weight of the sentence around it and adds the primary colour and an underline.",
+      "files": [
+        {
+          "path": "src/components/text-link/TextLink.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/wideset/text-link/TextLink.tsx"
+        }
+      ]
+    },
+    {
       "name": "textarea",
       "type": "registry:ui",
       "title": "Textarea",

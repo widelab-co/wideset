@@ -44,6 +44,8 @@ in the snippet will point into `node_modules/@wideset/react/` then.
 - [IconButton](components/actions/icon-button.md): an icon-only action; `aria-label` is required.
 - [LinkButton](components/actions/link-button.md): text-style navigation that keeps link
   semantics.
+- [TextLink](components/actions/text-link.md): a link inside a sentence; it takes the sentence's
+  type.
 - [SplitButton](components/actions/split-button.md): a default action plus a menu of related
   alternatives.
 - [FilterButton](components/actions/filter-button.md): a compact multi-select toolbar filter; in a

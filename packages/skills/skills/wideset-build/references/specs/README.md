@@ -30,6 +30,8 @@ Sources of truth, in order: Figma → code → specs.
 - [IconButton](../good-practices/icon-button.md): an icon-only action; `aria-label` is required.
 - [LinkButton](../good-practices/link-button.md): text-style navigation that keeps link
   semantics.
+- [TextLink](../good-practices/text-link.md): a link inside a sentence; it takes the sentence's
+  type.
 - [SplitButton](../good-practices/split-button.md): a default action plus a menu of related
   alternatives.
 - [FilterButton](../good-practices/filter-button.md): a compact multi-select toolbar filter; in a

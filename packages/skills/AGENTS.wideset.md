@@ -29,6 +29,7 @@ Type is one class: `typography-subtitle-lg`, `typography-body-md`, `typography-l
 - Button: an action with a visible label; `variant` is meaning, `preset` is emphasis, one `filled` per view.
 - IconButton: an icon-only action; `aria-label` is required.
 - LinkButton: text-style navigation that keeps link semantics.
+- TextLink: a link inside a sentence; it takes the sentence's type.
 - SplitButton: a default action plus a menu of related alternatives.
 - FilterButton: a compact multi-select toolbar filter; in a form use MultiSelect.
 - ActionBar: a floating bulk-action bar while items are selected.
