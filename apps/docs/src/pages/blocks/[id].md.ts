@@ -1,10 +1,10 @@
 import type { APIRoute } from 'astro';
 
-import { blockById, blockMarkdown, BLOCKS } from '../../lib/blocks';
+import { blockById, blockMarkdown, ENTRIES } from '../../lib/blocks';
 
 /** `/blocks/<id>.md`: one starting point with every file to copy. */
 export function getStaticPaths() {
-  return BLOCKS.map((block) => ({ params: { id: block.id } }));
+  return ENTRIES.map((block) => ({ params: { id: block.id } }));
 }
 
 export const GET: APIRoute = ({ params, site }) =>

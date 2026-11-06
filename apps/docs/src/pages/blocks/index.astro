@@ -4,15 +4,30 @@ import DocsLayout from '../../layouts/DocsLayout.astro';
 import {
   blocksByDirection,
   DIRECTION_SUMMARY,
+  type Entry,
   inlineCode,
+  isScreen,
   NAVIGATION_TITLE,
+  PANEL_SUMMARY,
+  PANELS,
 } from '../../lib/blocks';
 
 /**
  * Starting points: the four visual directions, each with the whole screens rebuilt from the
- * Wideset Core Figma file. Every card frames the block's preview page.
+ * Wideset Core Figma file, then the panels that open over any of them. Every card frames the
+ * block's preview page.
  */
-const groups = blocksByDirection().filter((group) => group.blocks.length > 0);
+const groups: { id: string; title: string; summary: string; blocks: Entry[] }[] = [
+  ...blocksByDirection()
+    .filter((group) => group.blocks.length > 0)
+    .map((group) => ({
+      id: `direction-${group.direction}`,
+      title: group.title,
+      summary: DIRECTION_SUMMARY[group.direction],
+      blocks: group.blocks,
+    })),
+  { id: 'panels', title: 'Panels', summary: PANEL_SUMMARY, blocks: PANELS },
+];
 ---
 
 <DocsLayout
@@ -32,11 +47,11 @@ const groups = blocksByDirection().filter((group) => group.blocks.length > 0);
     </p>
   </div>
   {groups.map((group) => (
-    <section class="@container mt-ws-18" aria-labelledby={`direction-${group.direction}`}>
+    <section class="@container mt-ws-18" aria-labelledby={group.id}>
       <div class="docs-prose">
-        <h2 id={`direction-${group.direction}`}>{group.title}</h2>
+        <h2 id={group.id}>{group.title}</h2>
         <p class="text-ws-static-subtle">
-          {inlineCode(DIRECTION_SUMMARY[group.direction]).map((part) =>
+          {inlineCode(group.summary).map((part) =>
             part.code ? <code>{part.text}</code> : part.text,
           )}
         </p>
@@ -51,10 +66,12 @@ const groups = blocksByDirection().filter((group) => group.blocks.length > 0);
               <BlockPreviewFrame id={block.id} title={block.title} client:visible />
               <span class="text-ws-static-strong mt-ws-7 px-ws-6 typography-label-strong-sm">
                 {block.title}
-                <span class="text-ws-static-subtle typography-label-sm">
-                  {' '}
-                  · {NAVIGATION_TITLE[block.navigation]}
-                </span>
+                {isScreen(block) && (
+                  <span class="text-ws-static-subtle typography-label-sm">
+                    {' '}
+                    · {NAVIGATION_TITLE[block.navigation]}
+                  </span>
+                )}
               </span>
               <span class="text-ws-static-subtle line-clamp-2 px-ws-6 typography-body-md">
                 {block.description}

@@ -1,6 +1,6 @@
 import { getCollection } from 'astro:content';
 
-import { blocksByDirection } from './blocks';
+import { blocksByDirection, PANELS } from './blocks';
 import { type NavItem, navSections as componentSections } from './catalog';
 
 /**
@@ -49,7 +49,7 @@ export const docsNav = async (): Promise<NavSection[]> => {
 
 export const componentsNav = (): NavSection[] => componentSections;
 
-/** Starting points, grouped by visual direction, after the overview. */
+/** Starting points, grouped by visual direction, after the overview; then the panels. */
 export const blocksNav = (): NavSection[] => [
   { items: [{ title: 'Overview', href: '/blocks' }] },
   ...blocksByDirection()
@@ -58,6 +58,10 @@ export const blocksNav = (): NavSection[] => [
       label: group.title,
       items: group.blocks.map((block) => ({ title: block.title, href: `/blocks/${block.id}` })),
     })),
+  {
+    label: 'Panels',
+    items: PANELS.map((panel) => ({ title: panel.title, href: `/blocks/${panel.id}` })),
+  },
 ];
 
 /** Which area a path belongs to; decides the active tab and the left column. */

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ComponentType } from 'react';
 
-import { BLOCKS, DIRECTION_TITLE, NAVIGATION_TITLE } from '../../blocks';
+import { BLOCKS, DIRECTION_TITLE, NAVIGATION_TITLE, PANELS } from '../../blocks';
 
 /*
   The starting points: whole screens in src/blocks/<id>/, one story each, full screen. The docs
@@ -24,7 +24,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Whole screens to start a new app from, rebuilt 1:1 from the Wideset Core Figma file, one per visual direction (Flat, Frame, Inset, Canvas). Copy the closest one, keep its surround, replace its content.',
+          'Whole screens to start a new app from, rebuilt 1:1 from the Wideset Core Figma file, in each visual direction (Flat, Frame, Inset, Canvas), plus the panels that open over them. Copy the closest one, keep its surround, replace its content.',
       },
     },
   },
@@ -42,9 +42,20 @@ const story = (id: string): Story => {
   };
 };
 
+const panelStory = (id: string): Story => {
+  const panel = PANELS.find((entry) => entry.id === id)!;
+  return {
+    name: `${panel.title} (panel)`,
+    args: { id },
+    parameters: { docs: { description: { story: panel.description } } },
+  };
+};
+
 export const Kanban = story('kanban');
 export const Process = story('process');
 export const FinanceDashboard = story('finance-dashboard');
+export const Gantt = story('gantt');
 export const Communication = story('communication');
 export const Calendar = story('calendar');
 export const Crypto = story('crypto');
+export const TaskSidepanel = panelStory('task-sidepanel');

@@ -3,12 +3,12 @@ import '@fontsource-variable/inter';
 import '@wideset/react/styles';
 import '../../../styles/docs.css';
 import BlockFrame from '../../../components/BlockFrame';
-import { BLOCKS, blockById } from '../../../lib/blocks';
+import { blockById, ENTRIES } from '../../../lib/blocks';
 import { THEME_KEY } from '../../../lib/theme';
 
 /** A block alone at full size: what the docs cards frame, and what "Open full screen" opens. */
 export function getStaticPaths() {
-  return BLOCKS.map((block) => ({ params: { id: block.id } }));
+  return ENTRIES.map((block) => ({ params: { id: block.id } }));
 }
 const block = blockById(Astro.params.id!)!;
 ---

@@ -1,10 +1,12 @@
 /**
- * The blocks, in reading order: whole screens to start a new app from, one per folder beside this
- * file, each rebuilt 1:1 from the Wideset Core Figma file. The docs site and the tests read this
- * list; a folder missing from it (or the other way round) fails `src/__tests__/blocks.test.tsx`.
+ * The blocks, in reading order: whole screens to start a new app from (`BLOCKS`) and the panels
+ * that open over any of them (`PANELS`), one per folder beside this file, each rebuilt 1:1 from the
+ * Wideset Core Figma file. The docs site and the tests read these lists; a folder missing from them
+ * (or the other way round) fails `src/__tests__/blocks.test.tsx`.
  */
 export type BlockDirection = 'flat' | 'frame' | 'inset' | 'canvas';
-export type BlockNavigation = 'sidebar' | 'rail' | 'top-bar';
+/** `takeover`: a window over the app, no sidebar, a top bar with back and breadcrumbs. */
+export type BlockNavigation = 'sidebar' | 'rail' | 'top-bar' | 'takeover';
 
 export type BlockMeta = {
   /** Folder name and URL segment. */
@@ -43,6 +45,14 @@ export const BLOCKS: BlockMeta[] = [
       'An overview under a top bar: key figures, charts, a transactions table and a side panel.',
   },
   {
+    id: 'gantt',
+    title: 'Gantt',
+    direction: 'flat',
+    navigation: 'takeover',
+    description:
+      'A plan over the app: a top bar to leave by, people and their tasks beside a timeline of months, and a task open in a side panel.',
+  },
+  {
     id: 'communication',
     title: 'Communication',
     direction: 'frame',
@@ -68,6 +78,24 @@ export const BLOCKS: BlockMeta[] = [
   },
 ];
 
+/** A part that opens over a screen. It belongs to no direction: it keeps its own look over any. */
+export type PanelMeta = {
+  /** Folder name and URL segment. */
+  id: string;
+  title: string;
+  /** One sentence: what the panel holds, so a reader knows when to start from it. */
+  description: string;
+};
+
+export const PANELS: PanelMeta[] = [
+  {
+    id: 'task-sidepanel',
+    title: 'Task side panel',
+    description:
+      'A record’s detail beside the page: its properties, subtasks, tabs over an activity timeline, and keyboard hints.',
+  },
+];
+
 export const DIRECTION_TITLE: Record<BlockDirection, string> = {
   flat: 'Flat',
   frame: 'Frame',
@@ -79,4 +107,5 @@ export const NAVIGATION_TITLE: Record<BlockNavigation, string> = {
   sidebar: 'Sidebar',
   rail: 'Rail and sidebar',
   'top-bar': 'Top bar',
+  takeover: 'Takeover',
 };

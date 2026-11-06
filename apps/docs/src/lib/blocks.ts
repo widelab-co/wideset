@@ -3,15 +3,27 @@ import {
   BLOCKS,
   DIRECTION_TITLE,
   NAVIGATION_TITLE,
+  type PanelMeta,
+  PANELS,
 } from '../../../../packages/design-system/src/blocks/index';
 
 /**
- * The starting points: whole screens in packages/design-system/src/blocks/<id>/, listed by the
- * manifest beside them. The server side reads their files as text for the code and the Markdown;
- * the browser loads only the one block a preview shows (src/components/BlockFrame.tsx).
+ * The starting points: whole screens and the panels that open over them, in
+ * packages/design-system/src/blocks/<id>/, listed by the manifest beside them. The server side
+ * reads their files as text for the code and the Markdown; the browser loads only the one block a
+ * preview shows (src/components/BlockFrame.tsx).
  */
-export { BLOCKS, DIRECTION_TITLE, NAVIGATION_TITLE };
-export type { BlockMeta };
+export { BLOCKS, DIRECTION_TITLE, NAVIGATION_TITLE, PANELS };
+export type { BlockMeta, PanelMeta };
+
+/** A page under /blocks: a screen, or a panel. */
+export type Entry = BlockMeta | PanelMeta;
+export const ENTRIES: Entry[] = [...BLOCKS, ...PANELS];
+export const isScreen = (entry: Entry): entry is BlockMeta => 'direction' in entry;
+
+/** What a panel is, in one line; the counterpart of a direction's summary. */
+export const PANEL_SUMMARY =
+  'A panel opens over any screen and keeps its own look in every direction: it has no direction of its own.';
 
 const sources = import.meta.glob<string>(
   '../../../../packages/design-system/src/blocks/*/*.{ts,tsx}',
@@ -29,7 +41,7 @@ export const filesOf = (id: string): BlockFile[] => {
     .sort((a, b) => rank(a.name) - rank(b.name) || a.name.localeCompare(b.name));
 };
 
-export const blockById = (id: string) => BLOCKS.find((block) => block.id === id);
+export const blockById = (id: string) => ENTRIES.find((entry) => entry.id === id);
 
 export const blocksByDirection = () =>
   (Object.keys(DIRECTION_TITLE) as BlockMeta['direction'][]).map((direction) => ({
@@ -62,18 +74,29 @@ export const blocksMarkdown = (site: URL) =>
       (block) =>
         `- [${block.title}](${new URL(`/blocks/${block.id}.md`, site).href}) (${DIRECTION_TITLE[block.direction]}, ${NAVIGATION_TITLE[block.navigation].toLowerCase()}): ${block.description}`,
     ).join('\n')}`,
+    `## Panels\n\n${PANEL_SUMMARY}\n\n${PANELS.map(
+      (panel) =>
+        `- [${panel.title}](${new URL(`/blocks/${panel.id}.md`, site).href}): ${panel.description}`,
+    ).join('\n')}`,
   ].join('\n\n');
 
 /** A block as Markdown, for a model: what it is, its surround, then every file to copy. */
-export const blockMarkdown = (block: BlockMeta, site: URL) => {
+export const blockMarkdown = (block: Entry, site: URL) => {
   const files = filesOf(block.id);
+  const index = new URL('/blocks.md', site).href;
   return [
     `# ${block.title}`,
     block.description,
-    `Direction: **${DIRECTION_TITLE[block.direction]}** · Navigation: **${NAVIGATION_TITLE[block.navigation]}**. ` +
-      `The direction is the app's surround; keep it on every screen. All four, and every starting point: ${new URL('/blocks.md', site).href}`,
+    isScreen(block)
+      ? `Direction: **${DIRECTION_TITLE[block.direction]}** · Navigation: **${NAVIGATION_TITLE[block.navigation]}**. ` +
+        `The direction is the app's surround; keep it on every screen. All four, and every starting point: ${index}`
+      : `${PANEL_SUMMARY} Every starting point: ${index}`,
     '## Use it',
-    `Copy the files below into one folder of your app (for example \`src/screens/${block.id}/\`), keep the surround (the root element, \`Sidebar\` and \`main\`), and replace the content and \`data.ts\` with yours. The code imports \`@wideset/react\`; in registry mode take each import from the registry-imports reference. Preview: ${new URL(`/blocks/${block.id}/preview`, site).href}`,
+    `${
+      isScreen(block)
+        ? `Copy the files below into one folder of your app (for example \`src/screens/${block.id}/\`), keep the surround (the root element, \`Sidebar\` and \`main\`), and replace the content and \`data.ts\` with yours.`
+        : `Copy the files below into one folder of your app (for example \`src/panels/${block.id}/\`), render the panel from the screen that opens it, and replace its content and \`data.ts\` with yours.`
+    } The code imports \`@wideset/react\`; in registry mode take each import from the registry-imports reference. Preview: ${new URL(`/blocks/${block.id}/preview`, site).href}`,
     `## Files\n\n${files.map((file) => `### ${file.name}\n\n${fence(file.name.endsWith('.ts') ? 'ts' : 'tsx', file.code)}`).join('\n\n')}`,
   ].join('\n\n');
 };

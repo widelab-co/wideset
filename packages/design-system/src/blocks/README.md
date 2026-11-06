@@ -15,7 +15,12 @@ src/blocks/<id>/data.ts       its sample content
 
 Every block is one of four visual directions. A direction decides only what surrounds the
 content: what the navigation sits on, how the page meets the background and how content blocks
-are drawn. Navigation is a separate choice: a `Sidebar`, a rail beside a sidebar, or a top bar.
+are drawn. Navigation is a separate choice: a `Sidebar`, a rail beside a sidebar, a top bar, or a
+takeover (a window over the app with a top bar to leave by: back and breadcrumbs, as in Gantt).
+
+Panels are blocks too, listed apart (`PANELS` in `index.ts`): they open over a screen of any
+direction and keep their own look. The task side panel is one; Gantt shows the same panel open on a
+task, as a byte-identical copy that a test keeps in step.
 
 ## The four directions
 
@@ -91,8 +96,14 @@ grey take `bg-ws-static-highlight-base`.
   hex, no inline styles.
 - What Wideset has no component for (a top-bar nav item, a keyboard shortcut chip, a chat bubble,
   a calendar month grid, a kanban column, a chart) is composed inside the block from `ws` tokens
-  and named in the block's report as a candidate component.
-- People are `Avatar` with initials and a colour; no photos or other binary assets. Brand marks are
-  `Avatar shape="square"` with initials. Icons are Remix.
+  and gets its own component pull request, Figma's component first; the block switches to the
+  component once it lands.
+- People are `Avatar` with initials and a colour; no photos or other binary assets. The product's
+  mark is the block's own `brand-mark.tsx` (Figma's workspace Thumbnail on inverse tokens, 32px,
+  36px in a larger switcher); other workspaces are `Avatar shape="square"` with initials. Icons
+  are Remix.
+- Past 1440px the frame keeps filling the window and the content stops growing
+  (`mx-auto w-full max-w-[80rem]`; a thread reads at 48rem); boards, calendars and timelines may
+  fill. Panels stack their sections from the top. At 1440×960 nothing scrolls.
 - Sample content is static, in `data.ts`. Interactions a starting point needs work (selection,
   tabs, toggles); nothing talks to a server.

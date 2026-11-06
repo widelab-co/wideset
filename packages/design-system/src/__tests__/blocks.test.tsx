@@ -2,18 +2,22 @@ import { cleanup, render } from '@testing-library/react';
 import type { ComponentType } from 'react';
 import { afterEach, describe, expect, it } from 'vitest';
 
-import { BLOCKS } from '../blocks';
+import { BLOCKS, PANELS } from '../blocks';
+import ganttPanelSource from '../blocks/gantt/task-sidepanel.tsx?raw';
+import panelSource from '../blocks/task-sidepanel/task-sidepanel.tsx?raw';
 
 /*
-  Blocks (src/blocks/<id>/index.tsx) are whole screens a consumer copies as a starting point, listed
-  in reading order by src/blocks/index.ts (the docs site reads that list). Each one must be listed,
-  and must render on its own, in light and in dark, with nothing missing from the library.
+  Blocks (src/blocks/<id>/index.tsx) are whole screens, and panels that open over them, a consumer
+  copies as a starting point, listed in reading order by src/blocks/index.ts (the docs site reads
+  those lists). Each one must be listed, and must render on its own, in light and in dark, with
+  nothing missing from the library.
 */
 const modules = import.meta.glob<{ default: ComponentType }>('../blocks/*/index.tsx', {
   eager: true,
 });
 const idOf = (path: string) => path.split('/').at(-2)!;
 const entries = Object.entries(modules).map(([path, module]) => [idOf(path), module] as const);
+const listed = [...BLOCKS, ...PANELS];
 
 afterEach(() => {
   cleanup();
@@ -22,11 +26,16 @@ afterEach(() => {
 
 describe('blocks', () => {
   it('lists every block folder in the manifest, and nothing else', () => {
-    expect(entries.map(([id]) => id).sort()).toEqual(BLOCKS.map((block) => block.id).sort());
+    expect(entries.map(([id]) => id).sort()).toEqual(listed.map((block) => block.id).sort());
   });
 
   it('gives every block a one-sentence description', () => {
-    for (const block of BLOCKS) expect(block.description, block.id).toMatch(/^[A-Z].+\.$/);
+    for (const block of listed) expect(block.description, block.id).toMatch(/^[A-Z].+\.$/);
+  });
+
+  // Blocks are copied whole, so Gantt carries its own copy of the task side panel: one source.
+  it('keeps Gantt’s task side panel identical to the task-sidepanel block’s', () => {
+    expect(ganttPanelSource).toBe(panelSource);
   });
 
   it.each(entries)('%s renders', (_, module) => {

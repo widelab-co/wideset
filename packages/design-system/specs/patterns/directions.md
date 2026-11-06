@@ -113,6 +113,11 @@ surround.
 | `communication`     | Frame     | Sidebar        |
 | `calendar`          | Inset     | Sidebar        |
 | `crypto`            | Canvas    | Top bar        |
+| `gantt`             | Flat      | Takeover       |
+
+A takeover is a window over the app with no sidebar: a top bar with back and breadcrumbs, then the
+work (Gantt). Panels open over any direction and keep their own look; start a record's detail
+from `task-sidepanel` (`https://wideset-docs.widelab.workers.dev/blocks/task-sidepanel.md`).
 
 ## Rules
 
