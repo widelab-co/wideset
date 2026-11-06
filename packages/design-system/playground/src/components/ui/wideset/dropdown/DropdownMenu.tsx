@@ -120,13 +120,14 @@ DropdownMenu.SubTrigger = DropdownMenuSubTrigger;
 export const DropdownMenuSubContent = React.forwardRef<
   React.ComponentRef<typeof DropdownMenuPrimitive.SubContent>,
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.SubContent>
->(({ className, ...props }, ref) => {
+>(({ className, collisionPadding = 10, ...props }, ref) => {
   const { motion } = useDropdownMenuContext();
 
   return (
     <DropdownMenuPrimitive.SubContent
       ref={ref}
       data-slot="dropdown-menu-sub-content"
+      collisionPadding={collisionPadding}
       className={cn(
         dropdownMenuContentClassName,
         dropdownMenuContentMotionVariants({ enabled: motion }),

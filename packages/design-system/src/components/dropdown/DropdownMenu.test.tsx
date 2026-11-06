@@ -493,6 +493,35 @@ describe('DropdownMenu', () => {
       expect(screen.getByRole('separator')).toHaveClass('my-[5.5px]', 'border-t');
     });
   });
+
+  // A 23-item menu in a 360px-tall window opened with its top ~500px above the window: the surface
+  // had no height cap and no scroll region.
+  describe('Window height', () => {
+    it('caps the menu and its submenu at the room left in the window and scrolls the rest', () => {
+      render(
+        <DropdownMenu open modal={false}>
+          <DropdownMenu.Trigger>Open</DropdownMenu.Trigger>
+          <DropdownMenu.Content>
+            <DropdownMenu.Sub open>
+              <DropdownMenu.SubTrigger>Move to</DropdownMenu.SubTrigger>
+              <DropdownMenu.SubContent>
+                <DropdownMenu.Item>Archive</DropdownMenu.Item>
+              </DropdownMenu.SubContent>
+            </DropdownMenu.Sub>
+          </DropdownMenu.Content>
+        </DropdownMenu>,
+      );
+
+      const menus = screen.getAllByRole('menu');
+      expect(menus).toHaveLength(2);
+      for (const menu of menus) {
+        expect(menu).toHaveClass(
+          'max-h-[var(--radix-dropdown-menu-content-available-height)]',
+          'overflow-y-auto',
+        );
+      }
+    });
+  });
 });
 
 describe('data-slot', () => {

@@ -9,6 +9,10 @@ export const dropdownMenuContentClassName = cn(
   'min-w-ws-28',
   'rounded-ws-container-sm p-ws-3 outline-hidden',
   'bg-ws-static-overlay text-ws-dynamic-secondary-default shadow-ws-medium z-ws-popout',
+  // Never taller than the room Radix leaves to the window edge (both parts set the variable): a
+  // long menu scrolls instead of running off the window. A list that scrolls itself inside (Select
+  // through this surface) sets its own overflow and keeps a single scroll region.
+  'max-h-[var(--radix-dropdown-menu-content-available-height)] overflow-y-auto',
 );
 
 /**
