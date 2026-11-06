@@ -72,7 +72,10 @@ are split by `border-ws-static-subtle` lines, never by gaps of grey.
 
 The card is 12px from the top, right and bottom edges and 8px from the sidebar, with a 16px
 radius and `shadow-ws-low` (none in dark, where the lighter surface carries the lift). The page
-scrolls inside the card, so the card's corners stay put.
+scrolls inside the card, so the card's corners stay put. The `frame` sidebar centres its nav in
+its column: 18px from the window edge, as far as from the card. A line inside it (above the
+account) keeps that inset; run edge to edge it stops in the grey before the card and reads as
+broken.
 
 ### Canvas
 
@@ -122,10 +125,18 @@ surround.
 - Inside the page, separate with what the direction uses: lines in Flat and Frame, the card edge
   in Inset, white sections in Canvas. A `Card` inside a Flat page is bordered; Canvas sections are
   the cards, so do not put a bordered `Card` inside one.
+- Wider than 1440px, the surround keeps filling the window (sidebar, rail, top bar, edge panels)
+  and the content stops growing: the page's title row and everything under it share one
+  `mx-auto w-full max-w-[80rem]` column (`wideset-craft`, content width). Boards and calendars,
+  which are canvases, may keep filling. A side panel stacks its sections from the top with a
+  section gap; spread over a tall window they drift apart.
 
 ## Anti-patterns
 
 - Choosing a direction per screen. Users notice before they can say why.
 - A `Sidebar` restyled through `className` (a fill, a border) instead of `surface`.
 - An Inset card that scrolls with the page: the corners then scroll away. Scroll inside it.
+- An Inset sidebar hugging the window edge, or a line in it running edge to edge.
+- A dashboard stretched across a 2560px window: tables whose columns drift apart, a chart three
+  times its designed width, a panel section pinned to the panel's bottom.
 - A Canvas page whose sections have borders or shadows: the grey ground already separates them.

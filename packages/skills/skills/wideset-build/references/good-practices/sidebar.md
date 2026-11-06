@@ -42,6 +42,14 @@
 
 // Don't: an absolutely placed count over the row; it misses the shared right edge
 <div className="relative"><Sidebar.Item … /><span className="absolute right-ws-5">3</span></div>
+
+// Do: the group's "+" in its action slot, a shortcut that shows on hover
+<Sidebar.Group label="Shared" action={<IconButton size="xs" preset="ghost" variant="secondary" icon={RiAddLine} aria-label="Add a shared page" />}>
+  <Sidebar.Item href="/inbox" icon={RiInboxLine} label="Inbox" suffix="⌘1" suffixOnHover />
+</Sidebar.Group>
+
+// Don't: a "+" laid over the heading by hand; it lands off the suffixes' edge
+<div className="relative"><Sidebar.Group label="Shared">…</Sidebar.Group><IconButton className="absolute right-ws-0 top-ws-0" … /></div>
 ```
 
 ## Gotchas

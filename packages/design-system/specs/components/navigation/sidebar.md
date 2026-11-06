@@ -70,16 +70,18 @@ The root fills its parent's height; place it in a full-height flex row next to t
 
 ## Choosing props
 
-| Prop               | Value                                 | Use for                                                                                                                                                                                                                       |
-| ------------------ | ------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `surface`          | `page` (default), `tinted` or `frame` | `page`: white with a subtle right line (Flat). `tinted`: a grey tint, no line (Frame). `frame`: no fill, no line, on the grey app frame around an inset page (Inset, Canvas). See [directions](../../patterns/directions.md). |
-| `defaultCollapsed` | boolean                               | Start collapsed, sidebar owns the state.                                                                                                                                                                                      |
-| `collapsed`        | boolean + `onCollapsedChange`         | You own the state (persisted preference, responsive rules).                                                                                                                                                                   |
-| `scrollable`       | on `Sidebar.Section`                  | The one section that takes the remaining height and scrolls.                                                                                                                                                                  |
-| `icon` / `label`   | on `Sidebar.Item`                     | Remix icon component and visible label; both, always.                                                                                                                                                                         |
-| `active`           | on `Sidebar.Item`                     | The current page; one per sidebar.                                                                                                                                                                                            |
-| `disabled`         | on `Sidebar.Item`                     | A page the user's plan or role does not include yet.                                                                                                                                                                          |
-| `asChild`          | on `Sidebar.Item`                     | Render as a router `Link`; icon and label are injected into it.                                                                                                                                                               |
+| Prop               | Value                                 | Use for                                                                                                                                                                                                                                                                             |
+| ------------------ | ------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `surface`          | `page` (default), `tinted` or `frame` | `page`: white with a subtle right line (Flat). `tinted`: a grey tint, no line (Frame). `frame`: no fill, no line, on the grey app frame around an inset page (Inset, Canvas), the nav centred between the window edge and the page. See [directions](../../patterns/directions.md). |
+| `suffixOnHover`    | on `Sidebar.Item`                     | A keyboard shortcut in `suffix`: shown on hover and keyboard focus only, its space kept. Counts and badges stay visible.                                                                                                                                                            |
+| `action`           | on `Sidebar.Group`                    | One `IconButton size="xs"` for the whole group (a "+" that adds a page), ending the heading row on the suffixes' edge.                                                                                                                                                              |
+| `defaultCollapsed` | boolean                               | Start collapsed, sidebar owns the state.                                                                                                                                                                                                                                            |
+| `collapsed`        | boolean + `onCollapsedChange`         | You own the state (persisted preference, responsive rules).                                                                                                                                                                                                                         |
+| `scrollable`       | on `Sidebar.Section`                  | The one section that takes the remaining height and scrolls.                                                                                                                                                                                                                        |
+| `icon` / `label`   | on `Sidebar.Item`                     | Remix icon component and visible label; both, always.                                                                                                                                                                                                                               |
+| `active`           | on `Sidebar.Item`                     | The current page; one per sidebar.                                                                                                                                                                                                                                                  |
+| `disabled`         | on `Sidebar.Item`                     | A page the user's plan or role does not include yet.                                                                                                                                                                                                                                |
+| `asChild`          | on `Sidebar.Item`                     | Render as a router `Link`; icon and label are injected into it.                                                                                                                                                                                                                     |
 
 ## States
 
@@ -100,7 +102,14 @@ The root fills its parent's height; place it in a full-height flex row next to t
   guide line or add margins to build a tree.
 - Items that belong together under a name (a team, a workspace) go in `Sidebar.Group label="…"`.
   The heading is text only and lines up with the item icons; collapsed, it is hidden and still
-  names the group for screen readers.
+  names the group for screen readers. Its one action (a "+") is the group's `action`.
+- Everything on the right of the sidebar ends on one edge: suffixes, the group's action, the
+  arrows in the header and the footer. Use the slots; an absolutely placed button misses the edge.
+- A keyboard shortcut (`⌘1`) is a hint: put it in `suffix` with `suffixOnHover`, so it shows on
+  hover and keyboard focus and the column stays quiet.
+- A line across the sidebar (above the account, between groups): on `page` it may run edge to
+  edge, where it meets the sidebar's own right line; on `frame` it keeps the nav's inset, because
+  edge to edge it stops short of the page and reads as broken.
 - Prefer hiding a page the user will never reach over showing it disabled.
 
 ## Accessibility
@@ -141,6 +150,14 @@ The root fills its parent's height; place it in a full-height flex row next to t
 
 // Don't: an absolutely placed count over the row; it misses the shared right edge
 <div className="relative"><Sidebar.Item … /><span className="absolute right-ws-5">3</span></div>
+
+// Do: the group's "+" in its action slot, a shortcut that shows on hover
+<Sidebar.Group label="Shared" action={<IconButton size="xs" preset="ghost" variant="secondary" icon={RiAddLine} aria-label="Add a shared page" />}>
+  <Sidebar.Item href="/inbox" icon={RiInboxLine} label="Inbox" suffix="⌘1" suffixOnHover />
+</Sidebar.Group>
+
+// Don't: a "+" laid over the heading by hand; it lands off the suffixes' edge
+<div className="relative"><Sidebar.Group label="Shared">…</Sidebar.Group><IconButton className="absolute right-ws-0 top-ws-0" … /></div>
 ```
 
 ## Gotchas
