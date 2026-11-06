@@ -39,6 +39,19 @@ export const listItemVariants = cva(
   },
 );
 
+// Figma's selected Menu Item: a 20px check-line in Dynamic/Text/Primary/Default, Primary/Disabled
+// on a disabled row (read from the row's aria-disabled, which Radix items set). Danger rows have
+// no selected state in Figma, so their check keeps the row's colour.
+export const listItemCheckVariants = cva('size-ws-11 shrink-0', {
+  variants: {
+    variant: {
+      primary: 'text-ws-dynamic-primary-default in-aria-disabled:text-ws-dynamic-primary-disabled',
+      danger: '',
+    },
+  },
+  defaultVariants: { variant: 'primary' },
+});
+
 export const listItemMotionVariants = cva('', {
   variants: {
     enabled: { true: cn(hoverTintMotion, pressMotion), false: '' },

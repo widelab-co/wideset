@@ -7,7 +7,11 @@ import { cn } from '@/lib/wideset/utils';
 import { useDefaultMotion } from '@/lib/wideset/motion/MotionProvider';
 import { ListItemContext } from './ListItem.context';
 import type { ListItemProps, ListItemWithSubComponents } from './ListItem.types';
-import { listItemMotionVariants, listItemVariants } from './ListItem.variants';
+import {
+  listItemCheckVariants,
+  listItemMotionVariants,
+  listItemVariants,
+} from './ListItem.variants';
 import { ListItemContent } from './ListItemContent';
 import { ListItemDescription } from './ListItemDescription';
 import { ListItemLabel } from './ListItemLabel';
@@ -45,7 +49,11 @@ const ListItem = forwardRef<HTMLDivElement, ListItemProps>(
         >
           {children}
           {shouldDisplayCheckmark && props['data-state'] === 'checked' && (
-            <RiCheckLine aria-hidden="true" focusable="false" className="size-ws-10 shrink-0" />
+            <RiCheckLine
+              aria-hidden="true"
+              focusable="false"
+              className={listItemCheckVariants({ variant })}
+            />
           )}
         </div>
       </ListItemContext.Provider>
