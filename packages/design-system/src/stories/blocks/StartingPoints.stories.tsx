@@ -24,7 +24,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Whole screens to start a new app from, rebuilt 1:1 from the Wideset Core Figma file, in each visual direction (Flat, Frame, Inset, Canvas), plus the panels that open over them. Copy the closest one, keep its surround, replace its content.',
+          'Whole screens to start a new app from, rebuilt 1:1 from the Wideset Core Figma file, in each visual direction (Flat, Frame, Inset, Canvas), with the sign-in and sign-up screens before the app, plus the panels that open over them. Copy the closest one, keep its surround, replace its content.',
       },
     },
   },
@@ -58,5 +58,8 @@ export const Gantt = story('gantt');
 export const AiChat = story('ai-chat');
 export const Communication = story('communication');
 export const Calendar = story('calendar');
+export const SignIn = story('sign-in');
+export const SignInCard = story('sign-in-card');
+export const SignUp = story('sign-up');
 export const Crypto = story('crypto');
 export const TaskSidepanel = panelStory('task-sidepanel');

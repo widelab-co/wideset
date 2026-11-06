@@ -6,6 +6,17 @@ import { BLOCKS, PANELS } from '../blocks';
 import ganttPanelSource from '../blocks/gantt/task-sidepanel.tsx?raw';
 import panelSource from '../blocks/task-sidepanel/task-sidepanel.tsx?raw';
 
+// The sign-in and sign-up screens share their card, and the two sign-in screens their form.
+const authSources = import.meta.glob<string>(
+  '../blocks/{sign-in,sign-in-card,sign-up}/{app-icon,auth-card,sign-in-form}.tsx',
+  { query: '?raw', import: 'default', eager: true },
+);
+const SHARED = {
+  'app-icon.tsx': ['sign-in', 'sign-in-card', 'sign-up'],
+  'auth-card.tsx': ['sign-in', 'sign-in-card', 'sign-up'],
+  'sign-in-form.tsx': ['sign-in', 'sign-in-card'],
+};
+
 /*
   Blocks (src/blocks/<id>/index.tsx) are whole screens, and panels that open over them, a consumer
   copies as a starting point, listed in reading order by src/blocks/index.ts (the docs site reads
@@ -37,6 +48,15 @@ describe('blocks', () => {
   it('keeps Gantt’s task side panel identical to the task-sidepanel block’s', () => {
     expect(ganttPanelSource).toBe(panelSource);
   });
+
+  it.each(Object.entries(SHARED))(
+    'keeps %s identical in every screen that carries it',
+    (file, ids) => {
+      const copies = ids.map((id) => authSources[`../blocks/${id}/${file}`]);
+      expect(copies.every((copy) => typeof copy === 'string')).toBe(true);
+      for (const copy of copies) expect(copy).toBe(copies[0]);
+    },
+  );
 
   it.each(entries)('%s renders', (_, module) => {
     const Block = module.default;

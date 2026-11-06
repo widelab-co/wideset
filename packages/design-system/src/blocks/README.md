@@ -15,8 +15,10 @@ src/blocks/<id>/data.ts       its sample content
 
 Every block is one of four visual directions. A direction decides only what surrounds the
 content: what the navigation sits on, how the page meets the background and how content blocks
-are drawn. Navigation is a separate choice: a `Sidebar`, a rail beside a sidebar, a top bar, or a
-takeover (a window over the app with a top bar to leave by: back and breadcrumbs, as in Gantt).
+are drawn. Navigation is a separate choice: a `Sidebar`, a rail beside a sidebar, a top bar, a
+takeover (a window over the app with a top bar to leave by: back and breadcrumbs, as in Gantt), or
+none, for the screens before the app (sign in and sign up: a raised card on the grey ground, its
+footer the way out; see `specs/patterns/auth.md`).
 
 Panels are blocks too, listed apart (`PANELS` in `index.ts`): they open over a screen of any
 direction and keep their own look. The task side panel is one; Gantt shows the same panel open on a
@@ -28,7 +30,7 @@ task, as a byte-identical copy that a test keeps in step.
 | ---------- | ------------------------------------------------------------- | ------------------------ |
 | **Flat**   | One white surface; lines split navigation, header and content | Kanban, Process, Finance |
 | **Frame**  | Navigation on a grey tint; the page white and full-bleed      | Communication            |
-| **Inset**  | Navigation on the grey frame; the page is a raised white card | Calendar                 |
+| **Inset**  | Navigation on the grey frame; the page is a raised white card | Calendar, Sign In        |
 | **Canvas** | Grey page, top bar on it, content in white cards              | Crypto                   |
 
 ### Flat
@@ -100,8 +102,9 @@ grey take `bg-ws-static-highlight-base`.
   component once it lands.
 - People are `Avatar` with initials and a colour; no photos or other binary assets. The product's
   mark is the block's own `brand-mark.tsx` (Figma's workspace Thumbnail on inverse tokens, 32px,
-  36px in a larger switcher); other workspaces are `Avatar shape="square"` with initials. Icons
-  are Remix.
+  36px in a larger switcher); other workspaces are `Avatar shape="square"` with initials. The
+  sign-in screens show the app icon instead (`app-icon.tsx`, Figma's glass tile, the same in
+  dark). Icons are Remix.
 - Past 1440px the frame keeps filling the window and the content stops growing
   (`mx-auto w-full max-w-[80rem]`; a thread reads at 48rem); boards, calendars and timelines may
   fill. Panels stack their sections from the top. At 1440×960 nothing scrolls.

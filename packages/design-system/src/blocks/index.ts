@@ -5,8 +5,11 @@
  * (or the other way round) fails `src/__tests__/blocks.test.tsx`.
  */
 export type BlockDirection = 'flat' | 'frame' | 'inset' | 'canvas';
-/** `takeover`: a window over the app, no sidebar, a top bar with back and breadcrumbs. */
-export type BlockNavigation = 'sidebar' | 'rail' | 'top-bar' | 'takeover';
+/**
+ * `takeover`: a window over the app, no sidebar, a top bar with back and breadcrumbs. `none`: a
+ * screen before the app (sign in, sign up), with no app navigation at all.
+ */
+export type BlockNavigation = 'sidebar' | 'rail' | 'top-bar' | 'takeover' | 'none';
 
 export type BlockMeta = {
   /** Folder name and URL segment. */
@@ -77,6 +80,30 @@ export const BLOCKS: BlockMeta[] = [
       'A month calendar on a raised page: views and filters in the header, events in the grid.',
   },
   {
+    id: 'sign-in',
+    title: 'Sign in',
+    direction: 'inset',
+    navigation: 'none',
+    description:
+      'A sign-in screen in two raised cards: the form, with its help links and keyboard hints, beside a picture of the product.',
+  },
+  {
+    id: 'sign-in-card',
+    title: 'Sign in card',
+    direction: 'inset',
+    navigation: 'none',
+    description:
+      'The same sign-in form alone in one centred card, for a product with nothing to show beside it.',
+  },
+  {
+    id: 'sign-up',
+    title: 'Sign up',
+    direction: 'inset',
+    navigation: 'none',
+    description:
+      'Creating an account in the sign-in card: name, work e-mail, a password you can reveal, and the terms.',
+  },
+  {
     id: 'crypto',
     title: 'Crypto',
     direction: 'canvas',
@@ -116,4 +143,5 @@ export const NAVIGATION_TITLE: Record<BlockNavigation, string> = {
   rail: 'Rail and sidebar',
   'top-bar': 'Top bar',
   takeover: 'Takeover',
+  none: 'No navigation',
 };
