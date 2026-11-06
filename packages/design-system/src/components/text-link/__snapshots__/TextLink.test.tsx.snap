@@ -1,0 +1,21 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`TextLink Snapshots > matches snapshot 1`] = `
+<a
+  class="text-ws-dynamic-primary-default underline hover:text-ws-dynamic-primary-hover active:text-ws-dynamic-primary-pressed focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default rounded-ws-control-sm"
+  data-slot="text-link"
+  href="/reset-password"
+>
+  reset your password
+</a>
+`;
+
+exports[`TextLink Snapshots > matches snapshot with asChild 1`] = `
+<a
+  class="text-ws-dynamic-primary-default underline hover:text-ws-dynamic-primary-hover active:text-ws-dynamic-primary-pressed focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default rounded-ws-control-sm"
+  data-slot="text-link"
+  href="/terms"
+>
+  Terms of service
+</a>
+`;

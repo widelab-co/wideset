@@ -502,6 +502,8 @@ export type { TextInputPrefixProps } from './components/text-input/TextInputPref
 export { TextInputPrefix } from './components/text-input/TextInputPrefix';
 export type { TextInputSuffixProps } from './components/text-input/TextInputSuffix';
 export { TextInputSuffix } from './components/text-input/TextInputSuffix';
+export { TextLink } from './components/text-link/TextLink';
+export type { TextLinkProps } from './components/text-link/TextLink.types';
 export { Textarea } from './components/textarea/Textarea';
 export type { TextareaProps } from './components/textarea/Textarea.types';
 export { Tile } from './components/tile/Tile';
