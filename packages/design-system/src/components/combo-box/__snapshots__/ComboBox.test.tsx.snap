@@ -174,7 +174,7 @@ exports[`ComboBox > snapshots > should match snapshot for opened dropdown with o
   </div>
   <div
     data-radix-popper-content-wrapper=""
-    style="position: fixed; left: 0px; top: 0px; transform: translate(0px, 8px); min-width: max-content; --radix-popper-available-width: 0px; --radix-popper-available-height: -8px; --radix-popper-anchor-width: 0px; --radix-popper-anchor-height: 0px; --radix-popper-transform-origin: 0% 0px;"
+    style="position: fixed; left: 0px; top: 0px; transform: translate(0px, 8px); min-width: max-content; --radix-popper-available-width: -20px; --radix-popper-available-height: -18px; --radix-popper-anchor-width: 0px; --radix-popper-anchor-height: 0px; --radix-popper-transform-origin: 0% 0px;"
   >
     <div
       class="flex flex-col outline-hidden origin-radix-popover transition-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:ws-slide-in-from-top-2 data-[side=left]:slide-in-from-right-ws-2 data-[side=right]:ws-slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-ws-2 ease-(--ws-motion-ease-smooth-out) data-[state=open]:duration-(--ws-motion-duration-fast) data-[state=closed]:duration-(--ws-motion-duration-quick) rounded-ws-container-sm z-ws-popout overflow-hidden bg-ws-static-overlay shadow-ws-medium data-[side=bottom]:translate-y-ws-1 data-[side=left]:-translate-x-ws-1 data-[side=right]:translate-x-ws-1 data-[side=top]:-translate-y-ws-1 origin-(--radix-popover-content-transform-origin) max-h-[var(--radix-popover-content-available-height)] w-[var(--radix-popover-trigger-width)] min-w-[var(--radix-popover-trigger-width)]"

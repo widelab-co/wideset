@@ -168,8 +168,10 @@ export const FilterButton = React.forwardRef<HTMLButtonElement, FilterButtonProp
         <Popup.Container
           // Width floor: max(trigger, Size/28) so the list neither shrinks below
           // the menu minimum nor jumps around as the trigger's own width
-          // changes with the selection summary.
-          className="rounded-ws-container-sm z-ws-popout w-auto min-w-[max(var(--radix-popover-trigger-width),var(--spacing-ws-28))] overflow-hidden"
+          // changes with the selection summary. Height: no taller than the room left to the
+          // window edge, 10px short of it as Select's list; the list inside stops at 18rem.
+          className="rounded-ws-container-sm z-ws-popout max-h-[var(--radix-popover-content-available-height)] w-auto min-w-[max(var(--radix-popover-trigger-width),var(--spacing-ws-28))] overflow-hidden"
+          collisionPadding={10}
           defaultMotion={motion}
           onOpenAutoFocus={(e) => {
             e.preventDefault();

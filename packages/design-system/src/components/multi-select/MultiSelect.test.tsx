@@ -955,3 +955,16 @@ describe('MultiSelect data-slot', () => {
     });
   });
 });
+
+describe('MultiSelect list height', () => {
+  it('stops the list at 18rem and at the room left in the window', async () => {
+    const user = userEvent.setup();
+    render(<MultiSelect options={baseOptions} placeholder="Select countries" />);
+
+    await user.click(screen.getByRole('button', { name: /select countries/i }));
+
+    const menu = await screen.findByRole('menu');
+    expect(menu).toHaveClass('max-h-[var(--radix-dropdown-menu-content-available-height)]');
+    expect(menu.querySelector('[data-slot="scroll-area"]')).toHaveClass('max-h-[18rem]');
+  });
+});
