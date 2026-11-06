@@ -65,6 +65,7 @@ describe('Switch', () => {
 
     it('renders label and ignores children when both are provided', () => {
       render(
+        // @ts-expect-error label and children are mutually exclusive
         <Switch label="String label">
           <Switch.Label>Composed label</Switch.Label>
         </Switch>,
@@ -138,6 +139,13 @@ describe('Switch', () => {
       render(<Switch data-testid="custom-switch" aria-label="Toggle setting" />);
       const switchElement = screen.getByTestId('custom-switch');
       expect(switchElement).toHaveAttribute('aria-label', 'Toggle setting');
+    });
+
+    it('puts className on the same element as ref', () => {
+      const ref = { current: null as HTMLButtonElement | null };
+      render(<Switch ref={ref} label="Label" className="custom-class" />);
+      expect(ref.current).toBe(screen.getByRole('switch'));
+      expect(ref.current).toHaveClass('custom-class');
     });
 
     it('should handle data attributes', () => {
@@ -236,6 +244,23 @@ describe('Switch', () => {
       const label = screen.getByTestId('custom-label');
       expect(label).toHaveClass('custom-label-class');
       expect(label).toHaveAttribute('aria-label', 'Custom label');
+    });
+  });
+
+  describe('Switch.Description', () => {
+    it('renders next to Switch.Label and forwards attributes', () => {
+      render(
+        <Switch>
+          <Switch.Label>Email notifications</Switch.Label>
+          <Switch.Description className="custom-class" data-testid="description">
+            Sent once a day
+          </Switch.Description>
+        </Switch>,
+      );
+      const description = screen.getByText('Sent once a day');
+      expect(description).toHaveAttribute('data-slot', 'switch-description');
+      expect(description).toHaveClass('custom-class');
+      expect(description).toHaveAttribute('data-testid', 'description');
     });
   });
 
