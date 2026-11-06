@@ -1,6 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
+import { Checkbox } from '../checkbox/Checkbox';
+import { RadioButton } from '../radio-button/RadioButton';
 import { TextInput } from '../text-input/TextInput';
 import { FormField } from './FormField';
 
@@ -265,5 +267,52 @@ describe('FormField Snapshots', () => {
     );
 
     expect(container.firstChild).toMatchSnapshot();
+  });
+});
+
+describe('FormField spacing', () => {
+  it('stacks the label, the control and the helper text Gap/4 apart', () => {
+    const { container } = render(
+      <FormField label="Email" helperText="We send receipts here.">
+        <input aria-label="Email" />
+      </FormField>,
+    );
+    expect(container.firstChild).toHaveClass('gap-ws-4');
+    expect(screen.getByRole('textbox').parentElement).toHaveClass('gap-ws-4');
+  });
+
+  it('spaces a checkbox or radio group Gap/7 from its label and helper text', () => {
+    render(
+      <>
+        <FormField label="Alerts" helperText="Pick any.">
+          <Checkbox.Group aria-label="Alerts">
+            <Checkbox label="Email" />
+          </Checkbox.Group>
+        </FormField>
+        <FormField label="Plan" helperText="Pick one.">
+          <RadioButton.Group aria-label="Plan">
+            <RadioButton value="free" label="Free" />
+          </RadioButton.Group>
+        </FormField>
+      </>,
+    );
+    for (const [group, slot] of [
+      [screen.getByRole('group', { name: 'Alerts' }), 'checkbox-group'],
+      [screen.getByRole('radiogroup', { name: 'Plan' }), 'radio-button-group'],
+    ] as const) {
+      const gap = `has-[[data-slot=${slot}]]:gap-ws-7`;
+      expect(group).toHaveAttribute('data-slot', slot);
+      expect(group.parentElement).toHaveClass(gap);
+      expect(group.closest('[data-slot="form-field"]')).toHaveClass(gap);
+    }
+  });
+
+  it('puts the horizontal helper text Gap/3 under the label', () => {
+    render(
+      <FormField variant="horizontal" label="Name" helperText="Shown on invoices.">
+        <input aria-label="Name" />
+      </FormField>,
+    );
+    expect(screen.getByText('Shown on invoices.').parentElement).toHaveClass('gap-ws-3');
   });
 });

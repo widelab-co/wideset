@@ -1,6 +1,7 @@
 import { cva } from 'class-variance-authority';
 
-export const helperTextVariants = cva('typography-body-sm gap-ws-3 flex items-center', {
+// py-ws-3: Figma's Helper Text pads its line Gap/3 above and below (a 24px row).
+export const helperTextVariants = cva('typography-body-sm gap-ws-3 py-ws-3 flex items-center', {
   variants: {
     state: {
       default: 'text-ws-static-subtle',
