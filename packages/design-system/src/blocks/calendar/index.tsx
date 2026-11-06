@@ -4,13 +4,12 @@ import {
   RiArrowRightSLine,
   RiCalendarScheduleLine,
   RiCloseLargeFill,
-  RiComputerLine,
   RiFilter3Line,
   RiMoreFill,
   RiSearchLine,
   RiSortDesc,
 } from '@remixicon/react';
-import { Avatar, Button, IconButton, Tabs } from '@wideset/react';
+import { Avatar, Button, IconButton, Illustration, Tabs } from '@wideset/react';
 import { useState } from 'react';
 
 import { announcement, events, members, openMonth, page, selectedDay, today, views } from './data';
@@ -39,9 +38,9 @@ function AnnouncementCard({ onDismiss }: { onDismiss: () => void }) {
       aria-labelledby="calendar-announcement-title"
       className="bg-ws-static-overlay rounded-ws-container-lg shadow-ws-high p-ws-12 gap-ws-12 right-ws-11 bottom-ws-11 absolute flex w-[20.625rem] flex-col"
     >
-      {/* Stand-in for Figma's "Computer" illustration: Wideset ships no illustrations. */}
-      <div className="flex h-[8.75rem] items-center justify-center">
-        <RiComputerLine aria-hidden="true" className="size-ws-24 text-ws-static-base" />
+      {/* Figma's Illustration=Computer, Size=Small, centred in the card's 140px art row. */}
+      <div className="flex items-center justify-center">
+        <Illustration illustration="computer" size="sm" />
       </div>
       <IconButton
         {...ghost}
