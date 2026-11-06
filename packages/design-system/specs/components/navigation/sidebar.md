@@ -86,6 +86,8 @@ The root fills its parent's height; place it in a full-height flex row next to t
 ## States
 
 - Expanded / collapsed: the root carries `data-state="expanded" | "collapsed"`.
+- Collapsed, everything sits on the rail's centre line: the header's trigger and mark, every item
+  icon, the footer's avatar. Nothing in the rail is offset to make room for a scrollbar.
 - Item active (`aria-current="page"`), hover, pressed, focus, disabled (`aria-disabled`, out of
   the tab order, click blocked).
 
