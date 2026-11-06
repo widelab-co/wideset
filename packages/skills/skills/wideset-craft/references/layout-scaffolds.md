@@ -55,6 +55,10 @@ Title, one sentence, the fields, the footer. Past three or four fields, or when 
 
 A flow of several steps gets its own page. One question per step, Back on the far left, Continue on the right.
 
+## Sign in and sign up
+
+Before the app, so no navigation: one raised card, `max-w-[38.75rem]`, centred on the grey page; on wide windows the sign-in card can sit beside a picture of the product. Title, the fields, one full-width `lg` submit, a help line with the reset links, a footer with Back and the other screen. See the auth pattern in `wideset-build` and the `sign-in`, `sign-in-card` and `sign-up` starting points.
+
 ## Empty state
 
 Centred inside its region: a short heading, one sentence on what appears here, one action. No illustration is better than a decorative one.

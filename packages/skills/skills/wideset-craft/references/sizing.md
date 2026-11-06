@@ -82,8 +82,9 @@ emphasis is the primary colour, not size.
 - **Inline actions in a table row or a list item**: ghost `IconButton` `size="sm"` or `xs`; the
   row, not the page, sets their scale.
 - **Modal and Sidepanel footers**: the same size as the page they open from (`md` by default).
-- **A single hero action** (empty state, sign-in) stays `md`; centring and space make it the focal
-  point, not a bigger size.
+- **A single hero action** (empty state, result) stays `md`; centring and space make it the focal
+  point, not a bigger size. The exception is the submit of a sign-in or sign-up card: Figma's Sign
+  In draws it `lg` (48px) and full width under `md` fields, the only filled button on the screen.
 - **Checkbox and Switch in a form** use `lg` (their default) so their label lines up with field
   values.
 

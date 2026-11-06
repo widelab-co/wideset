@@ -16,6 +16,7 @@ Every example here uses only real exports and props; copy the structure, not the
 | [Confirm a destructive action](confirm-destructive.md) | `Modal` / `StatusModal` with a `danger` button, async-safe.                                |
 | [Page feedback](page-feedback.md)                      | Choosing and placing `InlineAlert`, `SystemAlert`, `Toast`, `ProgressBar`.                 |
 | [Composition laws](composition.md)                     | Rules between components: state ownership, overlays, row actions, loading.                 |
+| [Sign in and sign up](auth.md)                         | The screens before the app: the card, field rules, errors that name no half, keyboard.     |
 
 Shared rules:
 

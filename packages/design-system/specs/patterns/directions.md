@@ -12,7 +12,8 @@ the content. Left to chance, every screen picks its own surround and the app loo
 Pick one direction for the whole app and keep it on every screen.
 
 A direction is independent of where the navigation goes. Every direction works with a `Sidebar`,
-with a workspace rail beside a `Sidebar`, or with a top bar.
+with a workspace rail beside a `Sidebar`, or with a top bar. The screens before the app (sign in,
+sign up) have no navigation at all: a raised card on the grey ground ([auth](auth.md)).
 
 ## The four directions
 
@@ -115,10 +116,15 @@ surround.
 | `crypto`            | Canvas    | Top bar        |
 | `gantt`             | Flat      | Takeover       |
 | `ai-chat`           | Flat      | Top bar        |
+| `sign-in`           | Inset     | No navigation  |
+| `sign-in-card`      | Inset     | No navigation  |
+| `sign-up`           | Inset     | No navigation  |
 
 A takeover is a window over the app with no sidebar: a top bar with back and breadcrumbs, then the
-work (Gantt). Panels open over any direction and keep their own look; start a record's detail
-from `task-sidepanel` (`https://wideset-docs.widelab.workers.dev/blocks/task-sidepanel.md`).
+work (Gantt). The sign-in screens come before the app: the form in a raised card on the grey ground,
+beside a picture of the product (`sign-in`) or alone (`sign-in-card`), and `sign-up` in the same
+card ([auth](auth.md)). Panels open over any direction and keep their own look; start a record's
+detail from `task-sidepanel` (`https://wideset-docs.widelab.workers.dev/blocks/task-sidepanel.md`).
 
 ## Rules
 
