@@ -30,7 +30,7 @@ const ACTIONS = [
 
 export default function NavigationBarBreadcrumbs() {
   return (
-    <div className="w-[64rem] max-w-full">
+    <div className="w-[64rem]">
       <NavigationBar>
         <NavigationBar.Start>
           <IconButton

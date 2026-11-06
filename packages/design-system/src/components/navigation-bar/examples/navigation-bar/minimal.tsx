@@ -9,7 +9,7 @@ import { IconButton, NavigationBar } from '@wideset/react';
 
 export default function NavigationBarMinimal() {
   return (
-    <div className="w-[40rem] max-w-full">
+    <div className="w-[40rem]">
       <NavigationBar>
         <NavigationBar.Start>
           <Logo />

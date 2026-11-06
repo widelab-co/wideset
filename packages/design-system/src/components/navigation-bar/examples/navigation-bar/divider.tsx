@@ -9,7 +9,7 @@ import { Button, NavigationBar } from '@wideset/react';
 
 export default function NavigationBarDivider() {
   return (
-    <div className="gap-ws-12 flex w-[40rem] max-w-full flex-col">
+    <div className="gap-ws-12 flex w-[40rem] flex-col">
       <div className="rounded-ws-container-md border-ws-static-base bg-ws-static-foreground overflow-hidden border">
         <NavigationBar>
           <Pages current="Products" />

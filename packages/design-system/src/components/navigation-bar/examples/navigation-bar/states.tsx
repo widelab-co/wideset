@@ -10,7 +10,7 @@ import { NavigationBar, Tag } from '@wideset/react';
 
 export default function NavigationBarStates() {
   return (
-    <div className="w-[40rem] max-w-full">
+    <div className="w-[40rem]">
       <NavigationBar>
         <NavigationBar.Nav>
           <NavigationBar.Item href="#" icon={RiHome5Line} label="Dashboard" active />
