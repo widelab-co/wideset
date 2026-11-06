@@ -12,6 +12,7 @@ Every example here uses only real exports and props; copy the structure, not the
 | [App shell](app-shell.md)                              | The frame: `Sidebar` beside a scrolling `main`, one `ToastProvider`.                       |
 | [Form page](form-page.md)                              | `FormField`s around inputs, field errors, save failure, submit and cancel.                 |
 | [List with search and filters](list-and-filters.md)    | `Table` + search `TextInput` + `FilterButton` + `Pagination`, empty and loading states.    |
+| [Dense data](dense-data.md)                            | Spreadsheet-like screens: `Spreadsheet` vs `Table` vs `ListItem`, density, numbers.        |
 | [Detail in a side panel](detail-in-sidepanel.md)       | Open one row's detail in `Sidepanel`, act, return focus to the row.                        |
 | [Confirm a destructive action](confirm-destructive.md) | `Modal` / `StatusModal` with a `danger` button, async-safe.                                |
 | [Page feedback](page-feedback.md)                      | Choosing and placing `InlineAlert`, `SystemAlert`, `Toast`, `ProgressBar`.                 |
