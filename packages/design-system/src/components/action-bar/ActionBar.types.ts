@@ -1,21 +1,55 @@
 import type { VariantProps } from 'class-variance-authority';
-import type { ComponentPropsWithoutRef, ReactNode } from 'react';
+import type {
+  ForwardRefExoticComponent,
+  HTMLAttributes,
+  PropsWithoutRef,
+  ReactNode,
+  RefAttributes,
+} from 'react';
 
 import type { MotionProps } from '../../motion/Motion.types';
+import type { CheckboxProps } from '../checkbox/Checkbox.types';
 import type { actionBarVariants } from './ActionBar.variants';
+import type { ActionBarActions } from './ActionBarActions';
+import type { ActionBarCount } from './ActionBarCount';
+import type { ActionBarSelectAll } from './ActionBarSelectAll';
 
-/** Floating actions for the current selection. */
-export type ActionBarProps = {
-  /** Selected item count, or a count and formatter tuple for a custom selection label. */
-  amountSelected?: number | [count: number, format: (amount: number) => ReactNode];
-  /** Controls visibility of the action bar. Defaults to `false`. */
-  isOpen?: boolean;
-  /** Called when the close button is activated; clear the selection or hide the bar in response. */
-  onClose?: () => void;
-  /** Action content rendered after the close button and selected count — typically buttons or icon buttons. */
-  children?: ReactNode;
-  /** Accessible label for the close button. Defaults to `'Close'`. */
-  closeAriaLabel?: string;
-} & Omit<ComponentPropsWithoutRef<'div'>, 'children'> &
+/** A floating bar of actions for the current selection. */
+export type ActionBarProps = HTMLAttributes<HTMLDivElement> &
   VariantProps<typeof actionBarVariants> &
-  MotionProps;
+  MotionProps & {
+    /**
+     * Shows the bar. Keep it mounted and tie this to "the selection is not empty", so the bar
+     * can animate out. Closed, it is `inert` and hidden from assistive technology. Defaults to
+     * `false`.
+     */
+    isOpen?: boolean;
+    /** `ActionBar.Count`, then `ActionBar.Actions`. */
+    children?: ReactNode;
+  };
+
+/** The selection count, read out politely when it changes. */
+export type ActionBarCountProps = HTMLAttributes<HTMLParagraphElement> & {
+  /** What is selected, as text: "4 rows selected". */
+  children?: ReactNode;
+};
+
+/** The raised segment that holds Select all and the actions for the selection. */
+export type ActionBarActionsProps = HTMLAttributes<HTMLDivElement> & {
+  /** `ActionBar.SelectAll` first, then buttons and icon buttons of size `sm`. */
+  children?: ReactNode;
+};
+
+/** The checkbox that selects every item, and clears the selection once all are selected. */
+export type ActionBarSelectAllProps = Omit<CheckboxProps, 'label' | 'description' | 'children'> & {
+  /** Visible label of the checkbox. Defaults to `'Select all'`. */
+  label?: string;
+};
+
+export type ActionBarWithSubComponents = ForwardRefExoticComponent<
+  PropsWithoutRef<ActionBarProps> & RefAttributes<HTMLDivElement>
+> & {
+  Count: typeof ActionBarCount;
+  Actions: typeof ActionBarActions;
+  SelectAll: typeof ActionBarSelectAll;
+};

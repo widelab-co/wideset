@@ -22,7 +22,7 @@ there; fix its composition instead.
 
 ## What the page does on its own
 
-- **Only with two or more parts.** A one-part component (Action Bar, Avatar, Checkbox) has no
+- **Only with two or more parts.** A one-part component (Divider, Checkbox) has no
   Anatomy section and no table-of-contents entry: one name beside the playground's own drawing
   says nothing. Do not write an `anatomy()` for it. A component whose exports are kinds of one
   thing rather than pieces of it (Pagination's Numbers and Overflow are its two `type`s) sets

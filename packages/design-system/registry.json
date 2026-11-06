@@ -193,7 +193,7 @@
       "name": "action-bar",
       "type": "registry:ui",
       "title": "ActionBar",
-      "description": "ActionBar is a fixed floating toolbar that appears at the top or bottom of the screen, used to surface contextual actions when items are selected.",
+      "description": "ActionBar is a floating bar that appears while items are selected, with the selection count, Select all and the actions for the selection.",
       "files": [
         {
           "path": "src/components/action-bar/ActionBar.tsx",

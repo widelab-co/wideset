@@ -1,8 +1,14 @@
 import { cva } from 'class-variance-authority';
 import { cn } from 'src/lib/utils';
 
+// Figma 15244:10530. Padding (2) and gap (8) are unbound in Figma; Gap/2 and Gap/5 carry them.
+// w-max keeps the centred bar from shrinking to the half of the viewport `left-1/2` leaves it.
 export const actionBarVariants = cva(
-  'rounded-ws-container-lg bg-ws-static-overlay shadow-ws-medium gap-ws-5 px-ws-11 py-ws-9 z-ws-sticky fixed flex items-center data-[state=closed]:pointer-events-none data-[state=closed]:opacity-0',
+  cn(
+    'z-ws-sticky fixed flex w-max items-center',
+    'gap-ws-5 p-ws-2 rounded-ws-container-md bg-ws-static-background shadow-ws-high',
+    'data-[state=closed]:pointer-events-none data-[state=closed]:opacity-0',
+  ),
   {
     variants: {
       position: {
