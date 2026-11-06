@@ -105,6 +105,9 @@ The root fills its parent's height; place it in a full-height flex row next to t
   names the group for screen readers. Its one action (a "+") is the group's `action`.
 - Everything on the right of the sidebar ends on one edge: suffixes, the group's action, the
   arrows in the header and the footer. Use the slots; an absolutely placed button misses the edge.
+- Every icon button in the sidebar is the same `IconButton size="xs"` (secondary, ghost), 4px in
+  from the content edge: the header's switcher arrow and a group's "+" then read as one family,
+  with the same hover box. A 32px arrow beside a 24px "+" looks like two different controls.
 - A keyboard shortcut (`⌘1`) is a hint: put it in `suffix` with `suffixOnHover`, so it shows on
   hover and keyboard focus and the column stays quiet.
 - A line across the sidebar (above the account, between groups): on `page` it may run edge to

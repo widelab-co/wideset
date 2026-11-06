@@ -100,12 +100,14 @@ export function CalendarSidebar() {
             </div>
             <DropdownMenu>
               <DropdownMenu.Trigger asChild>
+                {/* The same button as the groups' "+": xs, 4px in, its icon on the suffixes' edge. */}
                 <IconButton
                   icon={RiArrowDownSLine}
                   variant="secondary"
                   preset="ghost"
-                  size="sm"
+                  size="xs"
                   aria-label="Switch workspace"
+                  className="mr-ws-3"
                 />
               </DropdownMenu.Trigger>
               <DropdownMenu.Content align="end">
