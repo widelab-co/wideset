@@ -185,6 +185,9 @@ A member such as `Card.Header` comes with `Card`; its named form, `CardHeader`, 
 - `import { TextInputPrefix } from '@/components/ui/wideset/text-input/TextInputPrefix';`
 - `import { TextInputSuffix } from '@/components/ui/wideset/text-input/TextInputSuffix';`
 - `import { Textarea } from '@/components/ui/wideset/textarea/Textarea';`
+- `import { Thumbnail } from '@/components/ui/wideset/thumbnail/Thumbnail';`
+- `import { ThumbnailIcon } from '@/components/ui/wideset/thumbnail/ThumbnailIcon';`
+- `import { ThumbnailImage } from '@/components/ui/wideset/thumbnail/ThumbnailImage';`
 - `import { Tile } from '@/components/ui/wideset/tile/Tile';`
 - `import { TileCheckbox } from '@/components/ui/wideset/tile/TileCheckbox';`
 - `import { TileDescription } from '@/components/ui/wideset/tile/TileDescription';`
@@ -260,6 +263,7 @@ A member such as `Card.Header` comes with `Card`; its named form, `CardHeader`, 
 - `import type { TextInputPrefixProps } from '@/components/ui/wideset/text-input/TextInputPrefix';`
 - `import type { TextInputSuffixProps } from '@/components/ui/wideset/text-input/TextInputSuffix';`
 - `import type { TextareaProps } from '@/components/ui/wideset/textarea/Textarea.types';`
+- `import type { ThumbnailIconProps, ThumbnailImageProps, ThumbnailProps, ThumbnailSize, ThumbnailType } from '@/components/ui/wideset/thumbnail/Thumbnail.types';`
 - `import type { DescriptionProps as TileDescriptionProps, IconProps as TileIconProps, IndicatorProps as TileIndicatorProps, TileCheckboxProps, TileProps, TileRadioGroupProps, TileRadioProps, TitleProps as TileTitleProps } from '@/components/ui/wideset/tile/Tile.types';`
 - `import type { TimePickerProps } from '@/components/ui/wideset/timepicker/Timepicker.types';`
 - `import type { ToastActionProps, ToastContainerProps, ToastContextType, ToastDescriptionProps, ToastIconActionProps, ToastItem, ToastMessageProps, ToastPosition, ToastProps, ToastProviderProps, ToastShowOptions, ToastStatus, ToastVariant, ToastWithSubComponents } from '@/components/ui/wideset/toast/Toast.types';`

@@ -19,6 +19,7 @@ const SIZES: Record<string, GallerySize> = {
   'split-button': 'sm',
   'status-badge': 'sm',
   'status-modal': 'sm',
+  thumbnail: 'sm',
   // Tall: a month grid, a stack of options, a tooltip drawn open.
   calendar: 'lg',
   card: 'lg',

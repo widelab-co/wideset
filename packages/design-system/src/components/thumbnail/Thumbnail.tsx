@@ -3,13 +3,14 @@ import {
   RiBarChartFill,
   RiFilePdf2Fill,
   RiFileTextFill,
-  RiImageFill,
+  RiImage2Fill,
   RiTableFill,
-  RiVidiconFill,
+  RiVideoOnFill,
 } from '@remixicon/react';
-import { forwardRef } from 'react';
+import { forwardRef, isValidElement } from 'react';
 import { cn } from 'src/lib/utils';
 
+import { ThumbnailContext } from './Thumbnail.context';
 import type {
   ThumbnailFileType,
   ThumbnailProps,
@@ -20,30 +21,33 @@ import {
   thumbnailTextVariants,
   thumbnailVariants,
 } from './Thumbnail.variants';
-import { ThumbnailContext } from './ThumbnailContext';
 import { ThumbnailIcon } from './ThumbnailIcon';
 import { ThumbnailImage } from './ThumbnailImage';
 
 /**
  * Figma draws Material glyphs here (`picture_as_pdf`, `table_chart`,
- * `description`, `videocam`, `image`); these are their Remix counterparts.
+ * `description`, `videocam`, `image`, Round style); these are the closest Remix
+ * shapes: filled, the video camera without a dot, the picture as a filled frame.
  */
 const FILE_TYPE_ICONS: Record<ThumbnailFileType, RemixiconComponentType> = {
   pdf: RiFilePdf2Fill,
   spreadsheet: RiTableFill,
   document: RiFileTextFill,
-  video: RiVidiconFill,
-  picture: RiImageFill,
+  video: RiVideoOnFill,
+  picture: RiImage2Fill,
 };
 
 /**
- * A small square tile that stands for a thing — a document, an image, a brand.
+ * A small square tile that stands for a thing: a file, a project, an integration.
  * The content mode follows the prop you pass: `icon` for a glyph, `src` for a
- * picture, `text` for a letter, or `type` for one of the fixed file kinds.
+ * picture, `text` for a letter, or `type` for a logo or one of the fixed file kinds.
  */
 export const Thumbnail = forwardRef<HTMLDivElement, ThumbnailProps>(
   ({ className, size, children, type, icon: Icon, src, alt, text, ...props }, ref) => {
-    const resolvedType = type ?? (src ? 'image' : text !== undefined ? 'text' : 'icon');
+    // A composed `Thumbnail.Image` fills the tile like `src` does, so it gets no purple behind it.
+    const imageChild = isValidElement(children) && children.type === ThumbnailImage;
+    const resolvedType =
+      type ?? (src || imageChild ? 'image' : text !== undefined ? 'text' : 'icon');
 
     const renderContent = () => {
       if (children) return children;

@@ -73,6 +73,7 @@ One file per component: when to use it, when not, do and don't, and gotchas. Rea
 - [Table](good-practices/table.md): records compared across rows; sorting, selection and paging are your state.
 - [ListItem](good-practices/list-item.md): one compact row; the row inside menus and selects.
 - [Avatar](good-practices/avatar.md): a person, team or the agent orb next to a name.
+- [Thumbnail](good-practices/thumbnail.md): a file kind, project, app logo or small picture next to its name; people are Avatar.
 - [Tag](good-practices/tag.md): a static category label; colour is categorical.
 - [StatusBadge](good-practices/status-badge.md): a static state label.
 

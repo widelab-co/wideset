@@ -833,9 +833,9 @@
     },
     {
       "name": "thumbnail",
-      "type": "registry:component",
+      "type": "registry:ui",
       "title": "Thumbnail",
-      "description": "A small square tile that stands for a thing.",
+      "description": "Thumbnail is a small square tile that stands for a thing next to its name: a file, a project, an integration.",
       "files": [
         {
           "path": "src/components/thumbnail/Thumbnail.tsx",

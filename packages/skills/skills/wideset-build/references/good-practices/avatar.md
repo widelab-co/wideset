@@ -10,7 +10,8 @@
 
 - A category or label → `Tag`.
 - A status or count → `StatusBadge`.
-- A file or product picture → an `img` in `Card.Media`, or `FileItem` for uploads.
+- A file, project, app or product next to its name → `Thumbnail`; a large picture → an `img` in
+  `Card.Media`; uploads → `FileItem`.
 - A decorative icon in a row → the Remix icon itself in `ListItem.Prefix`.
 
 ## Do / Don't

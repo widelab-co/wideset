@@ -173,7 +173,7 @@ describe('FileItem', () => {
           <FileItem.Thumbnail name="budget.xlsx" type="pdf" />
         </FileItem>,
       );
-      expect(container.querySelector('[class*="e96949"]')).toBeInTheDocument();
+      expect(container.querySelector('.bg-ws-non-semantic-red-strong')).toBeInTheDocument();
 
       rerender(
         <FileItem>

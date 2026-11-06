@@ -127,6 +127,8 @@ in the snippet will point into `node_modules/@wideset/react/` then.
 - [ListItem](components/data-display/list-item.md): one compact row; the row inside menus and
   selects.
 - [Avatar](components/data-display/avatar.md): a person, team or the agent orb next to a name.
+- [Thumbnail](components/data-display/thumbnail.md): a file kind, project, app logo or small
+  picture next to its name; people are Avatar.
 - [Tag](components/data-display/tag.md): a static category label; colour is categorical.
 - [StatusBadge](components/data-display/status-badge.md): a static state label.
 

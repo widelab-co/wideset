@@ -1,9 +1,19 @@
-import { RiBarChartFill, RiMusic2Fill } from '@remixicon/react';
+import { RiFlashlightFill } from '@remixicon/react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
+import { exampleStory } from '../../stories/example';
+import FileTypesExample from './examples/thumbnail/file-types';
+import fileTypesSource from './examples/thumbnail/file-types?raw';
+import InATableExample from './examples/thumbnail/in-a-table';
+import inATableSource from './examples/thumbnail/in-a-table?raw';
+import SizesExample from './examples/thumbnail/sizes';
+import sizesSource from './examples/thumbnail/sizes?raw';
+import TypesExample from './examples/thumbnail/types';
+import typesSource from './examples/thumbnail/types?raw';
 import { Thumbnail } from './Thumbnail';
-import { getThumbnailType } from './Thumbnail.logic';
-import type { ThumbnailFileType, ThumbnailSize, ThumbnailType } from './Thumbnail.types';
+import type { ThumbnailSize, ThumbnailType } from './Thumbnail.types';
+import { ThumbnailIcon } from './ThumbnailIcon';
+import { ThumbnailImage } from './ThumbnailImage';
 
 const sizes: ThumbnailSize[] = ['xs', 'sm', 'md', 'lg', 'xl'];
 const types: ThumbnailType[] = [
@@ -18,23 +28,32 @@ const types: ThumbnailType[] = [
   'picture',
 ];
 
-const PHOTO =
-  'https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?&w=128&h=128&dpr=2&q=80';
-const LOGO =
-  'data:image/svg+xml;utf8,' +
-  encodeURIComponent(
-    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#1877F2"/><path d="M15.6 12.9l.5-3.1h-3v-2c0-.9.4-1.7 1.8-1.7h1.4V3.4S15 3.2 13.8 3.2c-2.6 0-4.3 1.6-4.3 4.4v2.3H6.8v3.1h2.7V21h3.4v-8.1h2.7z" fill="#fff"/></svg>',
-  );
+const PRODUCT_PHOTO =
+  'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?&w=128&h=128&dpr=2&q=80&fit=crop';
 
 const meta = {
-  title: 'Helper Components/Thumbnail',
+  title: 'Components/Thumbnail',
   tags: ['autodocs'],
   component: Thumbnail,
+  subcomponents: {
+    'Thumbnail.Icon': ThumbnailIcon,
+    'Thumbnail.Image': ThumbnailImage,
+  },
   parameters: {
     docs: {
       description: {
-        component:
-          'A small square tile that stands for a thing. The content mode follows the prop you pass — `icon` for a glyph, `src` for a picture, `text` for a letter, `type="logo"` with `src` for a brand — or `type` names one of the fixed file kinds (`pdf`, `spreadsheet`, `document`, `video`, `picture`), which carry their own glyph and hue. `getThumbnailType(name, mimeType)` picks that kind for you from a file.',
+        component: `Thumbnail is a small square tile that stands for a thing next to its name: a file, a project, an integration.
+The content follows the prop you pass: \`icon\` for a glyph on the purple tile, \`src\` for a picture, \`type="logo"\` with \`src\` for a logo on a white tile, \`text\` for a letter or two, or \`type\` for one of the five file kinds, which carry their own glyph and hue.
+
+Use Avatar for people, teams and companies. Inside a FileItem use FileItem.Thumbnail, which reads the kind off the file name. For a large preview use Card.Media.
+
+**Optional Composition:**
+\`\`\`
+<Thumbnail>           — the tile: size, type, background and radius
+  <Thumbnail.Icon />  — a glyph with props of its own, instead of \`icon\`
+  <Thumbnail.Image /> — a picture with img props of its own, instead of \`src\`
+</Thumbnail>
+\`\`\``,
       },
     },
   },
@@ -42,47 +61,58 @@ const meta = {
     size: {
       control: 'radio',
       options: sizes,
-      description: 'Figma `Size` — 16 / 20 / 24 / 32 / 40px.',
+      description:
+        'Figma `Size`: `xs` 16, `sm` 20, `md` 24, `lg` 32, `xl` 40px. The corner radius, the glyph and the text style step with it.',
       table: {
         category: 'Appearance',
-        type: { summary: sizes.join(' | ') },
-        defaultValue: { summary: 'md' },
+        type: { summary: sizes.map((size) => `'${size}'`).join(' | ') },
+        defaultValue: { summary: "'md'" },
       },
     },
     type: {
       control: 'select',
       options: types,
       description:
-        'Figma `Type`. Inferred from `src` / `text` / `icon` when omitted; required for `logo` and the file kinds.',
+        'Figma `Type`. Follows the content prop when left out (`src` → `image`, `text` → `text`, otherwise `icon`); required for `logo` and the five file kinds, whose glyph and hue are fixed.',
       table: {
         category: 'Appearance',
-        type: { summary: types.join(' | ') },
-        defaultValue: { summary: 'icon' },
+        type: { summary: types.map((type) => `'${type}'`).join(' | ') },
+        defaultValue: { summary: "'icon'" },
       },
     },
     icon: {
       control: false,
-      description: 'Glyph for `type="icon"`. Defaults to a bar chart.',
+      description:
+        'Remix icon drawn on the purple tile, as a component (`icon={RiFolder3Fill}`). Defaults to a bar chart, as in Figma.',
       table: { category: 'Content', type: { summary: 'RemixiconComponentType' } },
     },
     src: {
       control: 'text',
-      description: 'Picture for `type="image"` (fills the tile) or `type="logo"` (glyph-sized).',
+      description:
+        'URL of the picture (`image`, cropped to fill the tile) or of the logo (`type="logo"`, drawn at glyph size on a white tile).',
       table: { category: 'Content', type: { summary: 'string' } },
     },
     alt: {
       control: 'text',
-      description: 'Alternative text for `src`. Use `""` when decorative.',
+      description:
+        'Alternative text for `src`. Pass `""` when a name next to the thumbnail already says what it is.',
       table: { category: 'Content', type: { summary: 'string' } },
     },
     text: {
       control: 'text',
-      description: 'A letter or two for `type="text"`.',
+      description:
+        'The letters drawn on the tile for `type="text"`: an initial or two, never a word.',
       table: { category: 'Content', type: { summary: 'string' } },
     },
+    children: {
+      control: false,
+      description:
+        'Replaces the generated content: `Thumbnail.Icon` or `Thumbnail.Image` with props of their own.',
+      table: { category: 'Content', type: { summary: 'ReactNode' } },
+    },
     className: {
-      description: 'Additional CSS classes merged with the thumbnail root.',
       control: 'text',
+      description: 'Classes merged onto the tile, for layout (margins, alignment) only.',
       table: { category: 'Appearance', type: { summary: 'string' } },
     },
   },
@@ -98,178 +128,36 @@ export const Default: Story = {
   },
 };
 
-const Labelled = ({ label, children }: { label: string; children: React.ReactNode }) => (
-  <div className="gap-ws-4 flex flex-col items-center">
-    {children}
-    <span className="typography-caption-sm text-ws-static-subtle">{label}</span>
-  </div>
-);
+export const Types: Story = exampleStory(TypesExample, typesSource);
 
-export const Sizes: Story = {
-  argTypes: { size: { control: false } },
+export const FileTypes: Story = exampleStory(FileTypesExample, fileTypesSource);
+
+export const Sizes: Story = exampleStory(SizesExample, sizesSource);
+
+export const InATable: Story = exampleStory(InATableExample, inATableSource);
+
+export const Composition: Story = {
   render: () => (
-    <div className="gap-ws-8 flex items-end">
-      {sizes.map((size) => (
-        <Labelled key={size} label={size}>
-          <Thumbnail size={size} />
-        </Labelled>
-      ))}
+    <div className="gap-ws-7 flex items-center">
+      <Thumbnail size="xl">
+        <Thumbnail.Icon icon={RiFlashlightFill} />
+      </Thumbnail>
+      <Thumbnail size="xl">
+        <Thumbnail.Image
+          src={PRODUCT_PHOTO}
+          alt="Wireless headphones"
+          loading="lazy"
+          decoding="async"
+        />
+      </Thumbnail>
     </div>
   ),
   parameters: {
     docs: {
       description: {
         story:
-          'The five Figma sizes. The glyph steps 12 / 12 / 16 / 20 / 24 and the radius 4 / 6 / 6 / 8 / 8.',
+          'Compose the content yourself only when it needs props of its own: `Thumbnail.Image` takes every `img` attribute (`loading`, `srcSet`, `onError`), `Thumbnail.Icon` every SVG one. The tile keeps its size, radius and background, and a composed image gets no purple behind it.',
       },
     },
   },
-};
-
-const contentFor = (type: ThumbnailType, size: ThumbnailSize) => {
-  switch (type) {
-    case 'image':
-      return <Thumbnail size={size} src={PHOTO} alt="" />;
-    case 'logo':
-      return <Thumbnail size={size} type="logo" src={LOGO} alt="Facebook" />;
-    case 'text':
-      return <Thumbnail size={size} text="W" />;
-    case 'icon':
-      return <Thumbnail size={size} icon={RiBarChartFill} />;
-    default:
-      return <Thumbnail size={size} type={type} />;
-  }
-};
-
-export const Types: Story = {
-  argTypes: { size: { control: false }, type: { control: false } },
-  render: () => (
-    <table className="border-spacing-x-ws-8 border-spacing-y-ws-5 border-separate">
-      <thead>
-        <tr>
-          <th />
-          {sizes.map((size) => (
-            <th key={size} className="typography-caption-sm text-ws-static-subtle text-center">
-              {size}
-            </th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {types.map((type) => (
-          <tr key={type}>
-            <th className="typography-label-sm text-ws-static-subtle text-left capitalize">
-              {type}
-            </th>
-            {sizes.map((size) => (
-              <td key={size} className="text-center">
-                <div className="flex justify-center">{contentFor(type, size)}</div>
-              </td>
-            ))}
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'Figma’s `Type` × `Size` matrix. `icon`, `image`, `logo` and `text` take content from you; the five file kinds are fixed.',
-      },
-    },
-  },
-};
-
-export const WithIcon: Story = {
-  render: () => (
-    <div className="gap-ws-8 flex items-center">
-      <Labelled label="default">
-        <Thumbnail size="lg" />
-      </Labelled>
-      <Labelled label="custom Icon">
-        <Thumbnail size="lg" icon={RiMusic2Fill} />
-      </Labelled>
-    </div>
-  ),
-};
-
-export const WithImage: Story = {
-  render: () => (
-    <div className="gap-ws-8 flex items-end">
-      {sizes.map((size) => (
-        <Labelled key={size} label={size}>
-          <Thumbnail size={size} src={PHOTO} alt={`Thumbnail ${size}`} />
-        </Labelled>
-      ))}
-    </div>
-  ),
-};
-
-export const WithLogo: Story = {
-  render: () => (
-    <div className="gap-ws-8 flex items-end">
-      {sizes.map((size) => (
-        <Labelled key={size} label={size}>
-          <Thumbnail size={size} type="logo" src={LOGO} alt="Facebook" />
-        </Labelled>
-      ))}
-    </div>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'A logo sits at glyph size on a white tile with a subtle border, so any brand mark reads against any page.',
-      },
-    },
-  },
-};
-
-export const WithText: Story = {
-  render: () => (
-    <div className="gap-ws-8 flex items-end">
-      {sizes.map((size) => (
-        <Labelled key={size} label={size}>
-          <Thumbnail size={size} text="W" />
-        </Labelled>
-      ))}
-    </div>
-  ),
-};
-
-const files = ['report.pdf', 'budget.xlsx', 'brief.docx', 'clip.mp4', 'photo.jpg', 'archive.zip'];
-
-export const FromFile: Story = {
-  render: () => (
-    <div className="gap-ws-8 flex items-end">
-      {files.map((name) => (
-        <Labelled key={name} label={name}>
-          <Thumbnail size="lg" type={getThumbnailType(name)} />
-        </Labelled>
-      ))}
-    </div>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story:
-          '`getThumbnailType(name, mimeType?)` maps a file to one of the file kinds — MIME type first, extension second, `document` for anything it does not recognise (the `.zip` here).',
-      },
-    },
-  },
-};
-
-export const FileKinds: Story = {
-  render: () => (
-    <div className="gap-ws-8 flex items-end">
-      {(['pdf', 'spreadsheet', 'document', 'video', 'picture'] as ThumbnailFileType[]).map(
-        (type) => (
-          <Labelled key={type} label={type}>
-            <Thumbnail size="lg" type={type} />
-          </Labelled>
-        ),
-      )}
-    </div>
-  ),
 };

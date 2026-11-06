@@ -73,6 +73,7 @@ Type is one class: `typography-subtitle-lg`, `typography-body-md`, `typography-l
 - Table: records compared across rows; sorting, selection and paging are your state.
 - ListItem: one compact row; the row inside menus and selects.
 - Avatar: a person, team or the agent orb next to a name.
+- Thumbnail: a file kind, project, app logo or small picture next to its name; people are Avatar.
 - Tag: a static category label; colour is categorical.
 - StatusBadge: a static state label.
 - Card: a bounded surface for one subject; not clickable, not a page wrapper.
