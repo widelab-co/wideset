@@ -78,6 +78,7 @@ Type is one class: `typography-subtitle-lg`, `typography-body-md`, `typography-l
 - Card: a bounded surface for one subject; not clickable, not a page wrapper.
 - Accordion: named sections opened in place.
 - Divider: a horizontal separator, optionally labelled.
+- ScrollArea: a region that scrolls with Wideset's thin bar; never a bare `overflow-auto`, `wds-scrollbar` only where you cannot wrap.
 
 ## Skills
 

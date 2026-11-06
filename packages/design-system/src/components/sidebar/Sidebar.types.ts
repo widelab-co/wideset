@@ -21,7 +21,10 @@ export type SidebarFooterProps = React.HTMLAttributes<HTMLDivElement>;
 
 /** Props for a Sidebar section wrapper that groups expanded and collapsed content slots. */
 export type SidebarSectionProps = React.HTMLAttributes<HTMLDivElement> & {
-  /** Makes the section fill the remaining height and scroll its overflow inside a `ScrollArea`. */
+  /**
+   * Makes the section fill the remaining height and scroll its overflow inside a `ScrollArea`.
+   * Collapsed, it scrolls with no bar and no gutter, so the icons stay on the rail's centre line.
+   */
   scrollable?: boolean;
 };
 

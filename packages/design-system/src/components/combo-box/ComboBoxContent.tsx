@@ -3,6 +3,7 @@ import { cn } from 'src/lib/utils';
 
 import { useDefaultMotion } from '../../motion/MotionProvider';
 import { Popup } from '../popup/Popup';
+import { ScrollArea } from '../scroll-area/ScrollArea';
 import { selectContentVariants } from '../select/Select.variants';
 import { useComboBoxContext } from './ComboBox.context';
 import type { ComboBoxContentProps } from './ComboBox.types';
@@ -29,13 +30,15 @@ const ComboBoxContent = React.forwardRef<HTMLDivElement, ComboBoxContentProps>(
         onCloseAutoFocus={(e) => e.preventDefault()}
         {...props}
       >
-        <ul id={contentId} role="listbox" className="p-ws-3 max-h-[18rem] overflow-y-auto">
-          {typeof children === 'function'
-            ? filteredOptions.map((option) => (
-                <React.Fragment key={option.value}>{children(option)}</React.Fragment>
-              ))
-            : children}
-        </ul>
+        <ScrollArea defaultMotion={motion} className="max-h-[18rem]">
+          <ul id={contentId} role="listbox" className="p-ws-3">
+            {typeof children === 'function'
+              ? filteredOptions.map((option) => (
+                  <React.Fragment key={option.value}>{children(option)}</React.Fragment>
+                ))
+              : children}
+          </ul>
+        </ScrollArea>
       </Popup.Container>
     ) : null;
   },

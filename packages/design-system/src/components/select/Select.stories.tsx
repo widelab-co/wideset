@@ -368,6 +368,42 @@ export const Clearable: Story = {
   },
 };
 
+const countryOptions: SelectOptionType[] = [
+  'Austria',
+  'Belgium',
+  'Bulgaria',
+  'Croatia',
+  'Cyprus',
+  'Czechia',
+  'Denmark',
+  'Estonia',
+  'Finland',
+  'France',
+  'Germany',
+  'Greece',
+  'Hungary',
+  'Ireland',
+  'Italy',
+  'Latvia',
+  'Lithuania',
+  'Poland',
+  'Portugal',
+  'Spain',
+  'Sweden',
+].map((label) => ({ label, value: label.toLowerCase() }));
+
+export const WithScroll: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'A long list stops at 18rem and scrolls. Radix Select scrolls the list itself, so it keeps the native bar, drawn thin and trackless like ScrollArea’s (`wds-scrollbar`).',
+      },
+    },
+  },
+  args: { ...Default.args, options: countryOptions, placeholder: 'Country' },
+};
+
 export const MixedOptionVariants: Story = {
   parameters: {
     docs: {

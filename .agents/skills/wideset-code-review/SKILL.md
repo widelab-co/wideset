@@ -78,7 +78,7 @@ beyond a one-line fix), `RELEASING.md` (changesets). On top of them, the Wideset
    one top-level component per folder, controlled + uncontrolled, discriminated unions. A plain prop is fine for a single
    value (`icon={RiCheckLine}`) or where siblings already do it; a deviation must be argued in the PR.
 2. **Styling through variants.** Every visual axis lives in `Component.variants.ts` as CVA; ternaries picking classes in
-   `.tsx` are the tell. Exception: a small component with no variant axis (`FieldLabel`, `ScrollArea`, `Search`) keeps its
+   `.tsx` are the tell. Exception: a small component with no variant axis (`FieldLabel`, `Search`) keeps its
    classes inline. `ws` tokens or arbitrary values only; a visual change matches Figma, "looks better" is not a reason.
 3. **Changesets bump by consumer impact.** Every consumer-facing change ships one; first line = changelog entry. A breaking
    change to one component's API (rename, removal, compound split, changed default) is **`minor` with a Breaking paragraph

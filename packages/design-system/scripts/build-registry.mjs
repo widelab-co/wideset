@@ -208,7 +208,7 @@ export function buildRegistry({ root = ROOT, out, base, version, commit } = {}) 
   for (const item of items) {
     const files = new Map(); // abs → { target, type, content }
     const deps = new Set();
-    // registry:component is an internal building block (FieldLabel, ScrollArea): installed with the
+    // registry:component is an internal building block (FieldLabel, Thumbnail): installed with the
     // components that use it, never listed on its own; it needs the same styles and utils.
     const registryDeps = new Set(
       item.type === 'registry:ui' || item.type === 'registry:component' ? IMPLICIT_UI_DEPS : [],

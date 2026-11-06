@@ -194,3 +194,78 @@ export const Composition: Story = {
     </Modal>
   ),
 };
+
+const AGREEMENT = [
+  [
+    'Scope',
+    'This agreement covers the personal data your workspace stores in Wideset Cloud: member profiles, comments, uploaded files and the audit log.',
+  ],
+  [
+    'Our role',
+    'You are the controller of that data and we process it only on your documented instructions, which are this agreement and the settings you choose in the workspace.',
+  ],
+  [
+    'Sub-processors',
+    'We use a short list of sub-processors for hosting, email delivery and support tooling. We tell workspace owners 30 days before we add one, and you may object in that time.',
+  ],
+  [
+    'Security',
+    'Data is encrypted in transit and at rest, access is limited to staff who need it for support, and every access is logged and reviewed monthly.',
+  ],
+  [
+    'Incidents',
+    'If we become aware of a breach affecting your data we notify the workspace owners within 48 hours, with what we know and what we are doing about it.',
+  ],
+  [
+    'Deletion',
+    'When you delete the workspace we erase its data within 30 days, and its backups within 90 days, unless the law requires us to keep it longer.',
+  ],
+  [
+    'Audits',
+    'Once a year, on 30 days notice, you may audit our compliance with this agreement, or rely on our most recent independent audit report instead.',
+  ],
+];
+
+export const LongBody: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'When the content is taller than the viewport, the modal stops at its edge and the body scrolls in a `ScrollArea` between the fixed header and footer. A body with nothing to tab to becomes a tab stop, so the keyboard can scroll it; opening still focuses the first action.',
+      },
+    },
+  },
+  render: () => (
+    <Modal>
+      <Modal.Trigger asChild>
+        <Button size="md">Review agreement</Button>
+      </Modal.Trigger>
+      <Modal.Content>
+        <Modal.Header>
+          <Modal.Title>Data processing agreement</Modal.Title>
+          <Modal.Description>
+            Read it before you invite members from outside your company.
+          </Modal.Description>
+        </Modal.Header>
+        <Modal.Body className="gap-ws-9 flex flex-col">
+          {AGREEMENT.map(([title, text]) => (
+            <section key={title} className="gap-ws-3 flex flex-col">
+              <h3 className="typography-label-strong-md text-ws-static-strong">{title}</h3>
+              <p className="typography-body-md text-ws-static-base">{text}</p>
+            </section>
+          ))}
+        </Modal.Body>
+        <Modal.Footer>
+          <Modal.Close asChild>
+            <Button variant="secondary" preset="border">
+              Not now
+            </Button>
+          </Modal.Close>
+          <Modal.Close asChild>
+            <Button preset="filled">Accept</Button>
+          </Modal.Close>
+        </Modal.Footer>
+      </Modal.Content>
+    </Modal>
+  ),
+};

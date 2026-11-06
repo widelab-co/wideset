@@ -1,14 +1,19 @@
 import { cn } from 'src/lib/utils';
 
+import { ScrollArea } from '../scroll-area/ScrollArea';
+import { useModal } from './Modal.context';
 import type { ModalBodyProps } from './Modal.types';
 
-const ModalBody = ({ className, ...props }: ModalBodyProps) => (
-  <div
-    data-slot="modal-body"
-    className={cn('p-ws-11 grow overflow-y-auto', className)}
-    {...props}
-  />
-);
+/** The part between header and footer that scrolls when the modal reaches the viewport's height. */
+const ModalBody = ({ className, ...props }: ModalBodyProps) => {
+  const { motion } = useModal();
+
+  return (
+    <ScrollArea defaultMotion={motion} className="min-h-0 grow">
+      <div data-slot="modal-body" className={cn('p-ws-11', className)} {...props} />
+    </ScrollArea>
+  );
+};
 
 ModalBody.displayName = 'Modal.Body';
 

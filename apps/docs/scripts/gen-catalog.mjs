@@ -4,7 +4,7 @@
  *
  * - one entry per `*.stories.tsx` whose component the library exports (`src/index.ts`): the
  *   `button` folder holds Button, IconButton, LinkButton and SplitButton, so stories are the
- *   unit, not folders; a story of an internal component (FieldLabel, ScrollArea) has no page;
+ *   unit, not folders; a story of an internal component (FieldLabel, Thumbnail) has no page;
  * - one list, "Components"; a story title with three segments (`Components/Button/IconButton`)
  *   folds the component under its family in the left column;
  * - the description is the first sentence of the meta's `parameters.docs.description.component`;

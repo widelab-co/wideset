@@ -27,9 +27,16 @@ const SidebarSection = ({ scrollable, children, className, ...props }: SidebarSe
       {...props}
     >
       {scrollable ? (
-        // Expanded, the bar sits in the sidebar's right padding (-mr), so the items end where the
-        // header and footer end instead of 10px short of them.
-        <ScrollArea className={cn('h-full', !isCollapsed && '-mr-ws-6')}>{children}</ScrollArea>
+        // Expanded, the bar and its gutter sit in the sidebar's right padding (-mr), so the items
+        // end where the header and footer end. Collapsed, a gutter would pull the items off the
+        // rail's centre line, so there is none and no bar; the rail still scrolls.
+        <ScrollArea
+          scrollbarGutter={!isCollapsed}
+          scrollbarVisibility={isCollapsed ? 'never' : 'hover'}
+          className={cn('h-full', !isCollapsed && '-mr-ws-6')}
+        >
+          {children}
+        </ScrollArea>
       ) : (
         children
       )}

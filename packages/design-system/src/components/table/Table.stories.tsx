@@ -7,6 +7,7 @@ import { Avatar } from '../avatar/Avatar';
 import { Button } from '../button/Button';
 import { Checkbox } from '../checkbox/Checkbox';
 import { ProgressBar } from '../progress-bar/ProgressBar';
+import { ScrollArea } from '../scroll-area/ScrollArea';
 import { StatusBadge as Badge } from '../status-badge/StatusBadge';
 import { Switch } from '../switch/Switch';
 import { Tag } from '../tag/Tag';
@@ -754,11 +755,11 @@ export const StickyHeader: Story = {
     docs: {
       description: {
         story:
-          'The `stickyHeader` prop pins the header row to the top of the scroll container. The table must be inside a height-constrained container with `overflow-y: auto` or `overflow-y: scroll`. A solid background is applied automatically (`hasBackground` defaults to `true`) so scrolling rows do not show through the header.',
+          'The `stickyHeader` prop pins the header row to the top of the scroll container. The table must be inside a height-constrained `ScrollArea`. A solid background is applied automatically (`hasBackground` defaults to `true`) so scrolling rows do not show through the header.',
       },
       source: {
         code: `
-          <div className="h-44 overflow-y-scroll">
+          <ScrollArea className="h-44">
             <Table stickyHeader>
               <Table.Head>
                 <Table.Row>
@@ -776,13 +777,13 @@ export const StickyHeader: Story = {
                 {/* …more rows */}
               </Table.Body>
             </Table>
-          </div>
+          </ScrollArea>
         `,
       },
     },
   },
   render: () => (
-    <div className="h-44 overflow-y-scroll">
+    <ScrollArea className="h-44">
       <Table stickyHeader>
         <Table.Head>
           <Table.Row>
@@ -829,7 +830,7 @@ export const StickyHeader: Story = {
           </Table.Row>
         </Table.Body>
       </Table>
-    </div>
+    </ScrollArea>
   ),
 };
 
@@ -838,11 +839,11 @@ export const StickyColumn: Story = {
     docs: {
       description: {
         story:
-          'The `stickyColumn` prop pins the first column to the left edge of the scroll container. The table must be inside a width-constrained container with `overflow-x: auto` or `overflow-x: scroll`. A solid background is applied automatically (`hasBackground` defaults to `true`) so scrolling columns do not show through the sticky column.',
+          'The `stickyColumn` prop pins the first column to the left edge of the scroll container. The table must be inside a width-constrained `ScrollArea` with `orientation="horizontal"`. A solid background is applied automatically (`hasBackground` defaults to `true`) so scrolling columns do not show through the sticky column.',
       },
       source: {
         code: `
-          <div className="w-96 overflow-x-scroll">
+          <ScrollArea orientation="horizontal" className="w-96">
             <Table stickyColumn className="w-[600px]">
               <Table.Head>
                 <Table.Row>
@@ -864,13 +865,13 @@ export const StickyColumn: Story = {
                 {/* …more rows */}
               </Table.Body>
             </Table>
-          </div>
+          </ScrollArea>
         `,
       },
     },
   },
   render: () => (
-    <div className="w-96 overflow-x-scroll">
+    <ScrollArea orientation="horizontal" className="w-96">
       <Table stickyColumn className="w-[600px]">
         <Table.Head>
           <Table.Row>
@@ -905,7 +906,7 @@ export const StickyColumn: Story = {
           </Table.Row>
         </Table.Body>
       </Table>
-    </div>
+    </ScrollArea>
   ),
 };
 

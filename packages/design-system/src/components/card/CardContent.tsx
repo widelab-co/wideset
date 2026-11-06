@@ -9,7 +9,13 @@ const CardContent = ({ className, contentClassName, ...props }: CardContentProps
   const { variant } = useCardContext();
 
   return (
-    <ScrollArea data-slot="card-content" className={cn('grow', className)}>
+    // Bordered content is padded and its padding holds the bar; flat content runs to the edge,
+    // so it keeps a gutter.
+    <ScrollArea
+      data-slot="card-content"
+      scrollbarGutter={variant === 'flat'}
+      className={cn('grow', className)}
+    >
       <div className={cn(cardContentVariants({ variant }), contentClassName)} {...props} />
     </ScrollArea>
   );

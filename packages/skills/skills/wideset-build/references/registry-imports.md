@@ -118,6 +118,7 @@ A member such as `Card.Header` comes with `Card`; its named form, `CardHeader`, 
 - `import { ProgressTrackerStep } from '@/components/ui/wideset/progress-tracker/ProgressTrackerStep';`
 - `import { RadioButton, RadioButtonDescription, RadioButtonLabel } from '@/components/ui/wideset/radio-button/RadioButton';`
 - `import { RadioButtonGroup } from '@/components/ui/wideset/radio-button/RadioButtonGroup';`
+- `import { ScrollArea } from '@/components/ui/wideset/scroll-area/ScrollArea';`
 - `import { Search } from '@/components/ui/wideset/search/Search';`
 - `import { SegmentedControl } from '@/components/ui/wideset/segmented-control/SegmentedControl';`
 - `import { SegmentedControlIcon } from '@/components/ui/wideset/segmented-control/SegmentedControlIcon';`
@@ -246,6 +247,7 @@ A member such as `Card.Header` comes with `Card`; its named form, `CardHeader`, 
 - `import type { ProgressStepperIconProps, ProgressStepperOrientation, ProgressStepperProps, ProgressStepperStepProps } from '@/components/ui/wideset/progress-stepper/ProgressStepper.types';`
 - `import type { ProgressTrackerContextValue, ProgressTrackerProps, ProgressTrackerStepProps, ProgressTrackerWithSubComponents } from '@/components/ui/wideset/progress-tracker/ProgressTracker.types';`
 - `import type { RadioButtonGroupProps, RadioButtonProps } from '@/components/ui/wideset/radio-button/RadioButton.types';`
+- `import type { ScrollAreaProps } from '@/components/ui/wideset/scroll-area/ScrollArea.types';`
 - `import type { SearchProps } from '@/components/ui/wideset/search/Search.types';`
 - `import type { SegmentedControlIconProps, SegmentedControlItemProps, SegmentedControlProps, SegmentedControlWithSubComponents } from '@/components/ui/wideset/segmented-control/SegmentedControl.types';`
 - `import type { SelectContentProps, SelectGroupProps, SelectItemIndicatorProps, SelectItemTextProps, SelectLabelProps, SelectOptionProps, SelectOptionType, SelectProps, SelectRootProps, SelectScrollDownButtonProps, SelectScrollUpButtonProps, SelectSearchProps, SelectSeparatorProps, SelectTriggerProps, SelectValueProps } from '@/components/ui/wideset/select/Select.types';`

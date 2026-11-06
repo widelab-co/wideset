@@ -119,10 +119,10 @@ Native `table` / `thead` / `tbody` / `tfoot` / `tr` / `th` / `td`. Named exports
 // Don't: truncate on an auto-layout table — the column widens instead of clipping
 <Table truncate>…</Table>
 
-// Do: sticky header inside a height-limited scroll container
-<div className="max-h-[24rem] overflow-y-auto">
+// Do: sticky header inside a height-limited ScrollArea
+<ScrollArea className="max-h-[24rem]">
   <Table stickyHeader>…</Table>
-</div>
+</ScrollArea>
 ```
 
 - Don't add `striped` and `separated` to a short table; row lines are enough.
@@ -149,8 +149,8 @@ Native `table` / `thead` / `tbody` / `tfoot` / `tr` / `th` / `td`. Named exports
 - `size` sets minimum row height; rows grow when content wraps. Use `truncate`, not a fixed height.
 - `truncate` only clips with constrained widths: `table-fixed` on `Table` plus `w-*` on
   `Table.Header`, or `max-w-*` on the cell. The full text is in the `title` attribute.
-- Sticky header / column need the scroll container (`overflow-y-auto` with a max height,
-  `overflow-x-auto` with a width limit); they set `hasBackground` for you.
+- Sticky header / column need a scroll container: a `ScrollArea` with a max height, or
+  `orientation="horizontal"` (`both` for both) with a width limit. They set `hasBackground` for you.
 - Sorting, selection and pagination are your state; Table renders, it does not sort or slice data.
   Large data sets: paginate with `Pagination` or virtualize at the data layer.
 - `sortable` without `onSort` renders a sort button that does nothing.

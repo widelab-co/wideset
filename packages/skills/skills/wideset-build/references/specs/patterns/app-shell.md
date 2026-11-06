@@ -16,17 +16,18 @@ ToastProvider                       — once, around the whole app
   ├ Sidebar                         — navigation; owns collapsed state
   │ ├ Sidebar.Header                — product name + Sidebar.Trigger
   │ └ Sidebar.Section scrollable    — nav > Sidebar.Item, in Expanded and Collapsed
-  └ main.flex-1.overflow-y-auto     — the only scroll container for page content
-    ├ SystemAlert                   — optional, page-level notice, first
-    ├ header                        — Breadcrumbs (optional), h1, page actions
-    └ page content                  — Cards, Table, forms …
+  └ ScrollArea.flex-1               — the only scroll container for page content
+    └ main
+      ├ SystemAlert                 — optional, page-level notice, first
+      ├ header                      — Breadcrumbs (optional), h1, page actions
+      └ page content                — Cards, Table, forms …
 ```
 
 ## Example
 
 ```tsx
 import { RiDashboardLine, RiFolder3Line, RiSettings3Line } from '@remixicon/react';
-import { Button, Sidebar, ToastProvider } from '@wideset/react';
+import { Button, ScrollArea, Sidebar, ToastProvider } from '@wideset/react';
 import type { ReactNode } from 'react';
 
 const NAV = [
@@ -73,15 +74,15 @@ export function AppShell({ current, children }: { current: string; children: Rea
           </Sidebar.Section>
         </Sidebar>
 
-        <main className="bg-ws-static-foreground min-w-0 flex-1 overflow-y-auto">
-          <div className="gap-ws-12 p-ws-12 flex flex-col">
+        <ScrollArea className="bg-ws-static-foreground min-w-0 flex-1">
+          <main className="gap-ws-12 p-ws-12 flex flex-col">
             <header className="gap-ws-9 flex flex-wrap items-center justify-between">
               <h1 className="typography-title-sm text-ws-static-strong">Projects</h1>
               <Button>New project</Button>
             </header>
             {children}
-          </div>
-        </main>
+          </main>
+        </ScrollArea>
       </div>
     </ToastProvider>
   );
@@ -106,7 +107,8 @@ grid-cols-[repeat(auto-fit,minmax(16rem,1fr))] gap-ws-11`) or stack sections wit
   `Sidebar.Collapsed` child, so give it both, as the example does.
 - `Sidebar` and `main` share one white surface (`bg-ws-static-foreground`); the sidebar's own
   subtle line on its right edge is the split. Cards on the page stay `Card` bordered on that white.
-- `min-w-0` on `main` stops a wide table from pushing the layout out. Only `main` scrolls.
+- `min-w-0` on the `ScrollArea` stops a wide table from pushing the layout out. Only it scrolls,
+  with Wideset's thin bar; a bare `overflow-y-auto` would show the browser's own.
 - One active item, set by you from the current path.
 - Keep the top level to about seven items; group the rest in sections instead of nesting deeply.
 - Hide pages the user will never reach. `disabled` is for something they could unlock.
@@ -142,7 +144,7 @@ changes shape: see responsive.
 - A grey page (`bg-ws-static-background`) on `main` beside the white sidebar: the work then looks
   like the background.
 - Letting `body` scroll instead of `main`: the sidebar then scrolls away. Keep `h-dvh` on the
-  row and `overflow-y-auto` on `main`.
+  row and the page in the `ScrollArea`.
 - A second `ToastProvider` per page: toasts then stack in two places.
 - Building navigation from `Button`s or `ListItem`s; use `Sidebar.Item` (it renders an `<a>`).
 - Plain Tailwind spacing (`p-6`, `gap-4`) or palette colours; use `p-ws-*`, `gap-ws-*`,

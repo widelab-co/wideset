@@ -7,6 +7,8 @@ export const textareaVariants = cva(
   cn(
     'text-ws-static-strong relative flex items-center',
     'box-border h-full min-h-lh resize-none overflow-auto overscroll-auto outline-hidden',
+    // A textarea cannot sit in a ScrollArea; its native bar gets the same look.
+    'wds-scrollbar',
   ),
   {
     variants: {

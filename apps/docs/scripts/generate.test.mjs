@@ -59,9 +59,9 @@ describe('gen-props: props tables', () => {
 describe('gen-catalog', () => {
   it('has one page per public component, internal ones left out', () => {
     const ids = catalog.map((entry) => entry.id);
-    for (const id of ['button', 'icon-button', 'tabs', 'list-item', 'dropdown-menu'])
+    for (const id of ['button', 'icon-button', 'tabs', 'list-item', 'dropdown-menu', 'scroll-area'])
       assert.ok(ids.includes(id), id);
-    for (const id of ['field-label', 'helper-text', 'scroll-area', 'thumbnail'])
+    for (const id of ['field-label', 'helper-text', 'thumbnail'])
       assert.ok(!ids.includes(id), `${id} is internal`);
   });
 

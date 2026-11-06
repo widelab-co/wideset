@@ -136,7 +136,7 @@ The full checklist is the `wideset-component-convention` skill. The rules that m
   colour with `currentColor`. Never inline an `<svg>` for something Remix already has.
 - **Public or internal.** A component is public when `src/index.ts` exports it: it then has a
   docs page, a `registry:ui` item and examples. A building block other components are made of
-  (FieldLabel, HelperText, ScrollArea, Thumbnail) is internal: not exported, `registry:component`
+  (FieldLabel, HelperText, Thumbnail) is internal: not exported, `registry:component`
   in `registry.json` (installed with what uses it, not listed), stories under `Helper Components/`.
 - **Registry.** Every component also ships as a shadcn registry item, generated from `src/` by
   `scripts/build-registry.mjs`; the build fails rather than ship something broken. So: a new

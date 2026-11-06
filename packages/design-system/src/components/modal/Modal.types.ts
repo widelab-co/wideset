@@ -24,7 +24,10 @@ export type ModalCloseProps = ComponentPropsWithoutRef<typeof ModalPrimitive.Clo
 /** The header area for a title and supporting content. */
 export type ModalHeaderProps = HTMLAttributes<HTMLDivElement>;
 
-/** The main content area. */
+/**
+ * The main content area. It scrolls in a `ScrollArea` once the modal reaches the viewport's
+ * height; `className` and the other props go to the padded content inside it.
+ */
 export type ModalBodyProps = HTMLAttributes<HTMLDivElement>;
 
 /** The action area beneath the main content. */
