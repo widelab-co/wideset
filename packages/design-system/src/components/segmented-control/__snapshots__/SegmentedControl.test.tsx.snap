@@ -2,7 +2,7 @@
 
 exports[`SegmentedControl Snapshots > Disabled state > matches snapshot for disabled control 1`] = `
 <div
-  class="bg-ws-static-alpha-base p-ws-2 inline-flex w-fit rounded-ws-control-lg h-ws-forms-md gap-ws-2 relative isolate *:data-[state=on]:bg-transparent! *:data-[state=on]:shadow-none!"
+  class="bg-ws-static-alpha-base p-ws-2 inset-shadow-(--ws-elevation-forms-base) inline-flex w-fit rounded-ws-control-lg h-ws-forms-md gap-ws-2 relative isolate *:data-[state=on]:bg-transparent! *:data-[state=on]:shadow-none!"
   data-slot="segmented-control"
   dir="ltr"
   role="radiogroup"
@@ -11,7 +11,7 @@ exports[`SegmentedControl Snapshots > Disabled state > matches snapshot for disa
 >
   <button
     aria-checked="true"
-    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-15 gap-ws-5 px-ws-9 py-ws-4 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center [&[data-state=off]:enabled:not(:focus-visible)>[data-slot=segmented-control-icon]]:text-ws-static-base focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-15 gap-ws-5 px-ws-9 py-ws-4 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
     data-disabled=""
     data-radix-collection-item=""
     data-slot="segmented-control-item"
@@ -25,7 +25,7 @@ exports[`SegmentedControl Snapshots > Disabled state > matches snapshot for disa
   </button>
   <button
     aria-checked="false"
-    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-15 gap-ws-5 px-ws-9 py-ws-4 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center [&[data-state=off]:enabled:not(:focus-visible)>[data-slot=segmented-control-icon]]:text-ws-static-base focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-15 gap-ws-5 px-ws-9 py-ws-4 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
     data-disabled=""
     data-radix-collection-item=""
     data-slot="segmented-control-item"
@@ -39,7 +39,7 @@ exports[`SegmentedControl Snapshots > Disabled state > matches snapshot for disa
   </button>
   <span
     aria-hidden="true"
-    class="bg-ws-static-highlight-base shadow-ws-low pointer-events-none absolute top-0 left-0 -z-[var(--ws-z-index-base)] rounded-ws-control-md"
+    class="bg-ws-static-highlight-strong shadow-ws-low pointer-events-none absolute top-0 left-0 -z-[var(--ws-z-index-base)] rounded-ws-control-md"
     style="width: 0px; height: 0px; transform: translate(0px, 0px); opacity: 0;"
   />
 </div>
@@ -47,7 +47,7 @@ exports[`SegmentedControl Snapshots > Disabled state > matches snapshot for disa
 
 exports[`SegmentedControl Snapshots > Disabled state > matches snapshot for disabled item 1`] = `
 <div
-  class="bg-ws-static-alpha-base p-ws-2 inline-flex w-fit rounded-ws-control-lg h-ws-forms-md gap-ws-2 relative isolate *:data-[state=on]:bg-transparent! *:data-[state=on]:shadow-none!"
+  class="bg-ws-static-alpha-base p-ws-2 inset-shadow-(--ws-elevation-forms-base) inline-flex w-fit rounded-ws-control-lg h-ws-forms-md gap-ws-2 relative isolate *:data-[state=on]:bg-transparent! *:data-[state=on]:shadow-none!"
   data-slot="segmented-control"
   dir="ltr"
   role="radiogroup"
@@ -56,7 +56,7 @@ exports[`SegmentedControl Snapshots > Disabled state > matches snapshot for disa
 >
   <button
     aria-checked="true"
-    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-15 gap-ws-5 px-ws-9 py-ws-4 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center [&[data-state=off]:enabled:not(:focus-visible)>[data-slot=segmented-control-icon]]:text-ws-static-base focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-15 gap-ws-5 px-ws-9 py-ws-4 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
     data-radix-collection-item=""
     data-slot="segmented-control-item"
     data-state="on"
@@ -68,7 +68,7 @@ exports[`SegmentedControl Snapshots > Disabled state > matches snapshot for disa
   </button>
   <button
     aria-checked="false"
-    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-15 gap-ws-5 px-ws-9 py-ws-4 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center [&[data-state=off]:enabled:not(:focus-visible)>[data-slot=segmented-control-icon]]:text-ws-static-base focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-15 gap-ws-5 px-ws-9 py-ws-4 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
     data-disabled=""
     data-radix-collection-item=""
     data-slot="segmented-control-item"
@@ -82,7 +82,7 @@ exports[`SegmentedControl Snapshots > Disabled state > matches snapshot for disa
   </button>
   <span
     aria-hidden="true"
-    class="bg-ws-static-highlight-base shadow-ws-low pointer-events-none absolute top-0 left-0 -z-[var(--ws-z-index-base)] rounded-ws-control-md"
+    class="bg-ws-static-highlight-strong shadow-ws-low pointer-events-none absolute top-0 left-0 -z-[var(--ws-z-index-base)] rounded-ws-control-md"
     style="width: 0px; height: 0px; transform: translate(0px, 0px); opacity: 1;"
   />
 </div>
@@ -90,7 +90,7 @@ exports[`SegmentedControl Snapshots > Disabled state > matches snapshot for disa
 
 exports[`SegmentedControl Snapshots > Layout variants > matches snapshot for variant fullWidth 1`] = `
 <div
-  class="bg-ws-static-alpha-base p-ws-2 flex w-full rounded-ws-control-lg h-ws-forms-md gap-ws-2 relative isolate *:data-[state=on]:bg-transparent! *:data-[state=on]:shadow-none!"
+  class="bg-ws-static-alpha-base p-ws-2 inset-shadow-(--ws-elevation-forms-base) flex w-full rounded-ws-control-lg h-ws-forms-md gap-ws-2 relative isolate *:data-[state=on]:bg-transparent! *:data-[state=on]:shadow-none!"
   data-slot="segmented-control"
   dir="ltr"
   role="radiogroup"
@@ -99,7 +99,7 @@ exports[`SegmentedControl Snapshots > Layout variants > matches snapshot for var
 >
   <button
     aria-checked="true"
-    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-15 gap-ws-5 px-ws-9 py-ws-4 flex-1 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center [&[data-state=off]:enabled:not(:focus-visible)>[data-slot=segmented-control-icon]]:text-ws-static-base focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-15 gap-ws-5 px-ws-9 py-ws-4 flex-1 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
     data-radix-collection-item=""
     data-slot="segmented-control-item"
     data-state="on"
@@ -111,7 +111,7 @@ exports[`SegmentedControl Snapshots > Layout variants > matches snapshot for var
   </button>
   <button
     aria-checked="false"
-    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-15 gap-ws-5 px-ws-9 py-ws-4 flex-1 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center [&[data-state=off]:enabled:not(:focus-visible)>[data-slot=segmented-control-icon]]:text-ws-static-base focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-15 gap-ws-5 px-ws-9 py-ws-4 flex-1 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
     data-radix-collection-item=""
     data-slot="segmented-control-item"
     data-state="off"
@@ -123,7 +123,7 @@ exports[`SegmentedControl Snapshots > Layout variants > matches snapshot for var
   </button>
   <span
     aria-hidden="true"
-    class="bg-ws-static-highlight-base shadow-ws-low pointer-events-none absolute top-0 left-0 -z-[var(--ws-z-index-base)] rounded-ws-control-md"
+    class="bg-ws-static-highlight-strong shadow-ws-low pointer-events-none absolute top-0 left-0 -z-[var(--ws-z-index-base)] rounded-ws-control-md"
     style="width: 0px; height: 0px; transform: translate(0px, 0px); opacity: 1;"
   />
 </div>
@@ -131,7 +131,7 @@ exports[`SegmentedControl Snapshots > Layout variants > matches snapshot for var
 
 exports[`SegmentedControl Snapshots > Layout variants > matches snapshot for variant regular 1`] = `
 <div
-  class="bg-ws-static-alpha-base p-ws-2 inline-flex w-fit rounded-ws-control-lg h-ws-forms-md gap-ws-2 relative isolate *:data-[state=on]:bg-transparent! *:data-[state=on]:shadow-none!"
+  class="bg-ws-static-alpha-base p-ws-2 inset-shadow-(--ws-elevation-forms-base) inline-flex w-fit rounded-ws-control-lg h-ws-forms-md gap-ws-2 relative isolate *:data-[state=on]:bg-transparent! *:data-[state=on]:shadow-none!"
   data-slot="segmented-control"
   dir="ltr"
   role="radiogroup"
@@ -140,7 +140,7 @@ exports[`SegmentedControl Snapshots > Layout variants > matches snapshot for var
 >
   <button
     aria-checked="true"
-    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-15 gap-ws-5 px-ws-9 py-ws-4 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center [&[data-state=off]:enabled:not(:focus-visible)>[data-slot=segmented-control-icon]]:text-ws-static-base focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-15 gap-ws-5 px-ws-9 py-ws-4 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
     data-radix-collection-item=""
     data-slot="segmented-control-item"
     data-state="on"
@@ -152,7 +152,7 @@ exports[`SegmentedControl Snapshots > Layout variants > matches snapshot for var
   </button>
   <button
     aria-checked="false"
-    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-15 gap-ws-5 px-ws-9 py-ws-4 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center [&[data-state=off]:enabled:not(:focus-visible)>[data-slot=segmented-control-icon]]:text-ws-static-base focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-15 gap-ws-5 px-ws-9 py-ws-4 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
     data-radix-collection-item=""
     data-slot="segmented-control-item"
     data-state="off"
@@ -164,7 +164,7 @@ exports[`SegmentedControl Snapshots > Layout variants > matches snapshot for var
   </button>
   <span
     aria-hidden="true"
-    class="bg-ws-static-highlight-base shadow-ws-low pointer-events-none absolute top-0 left-0 -z-[var(--ws-z-index-base)] rounded-ws-control-md"
+    class="bg-ws-static-highlight-strong shadow-ws-low pointer-events-none absolute top-0 left-0 -z-[var(--ws-z-index-base)] rounded-ws-control-md"
     style="width: 0px; height: 0px; transform: translate(0px, 0px); opacity: 1;"
   />
 </div>
@@ -172,7 +172,7 @@ exports[`SegmentedControl Snapshots > Layout variants > matches snapshot for var
 
 exports[`SegmentedControl Snapshots > Size and variant combinations > matches snapshot for size lg and variant fullWidth 1`] = `
 <div
-  class="bg-ws-static-alpha-base p-ws-2 flex w-full rounded-ws-control-xl h-ws-forms-lg gap-ws-3 relative isolate *:data-[state=on]:bg-transparent! *:data-[state=on]:shadow-none!"
+  class="bg-ws-static-alpha-base p-ws-2 inset-shadow-(--ws-elevation-forms-base) flex w-full rounded-ws-control-xl h-ws-forms-lg gap-ws-3 relative isolate *:data-[state=on]:bg-transparent! *:data-[state=on]:shadow-none!"
   data-slot="segmented-control"
   dir="ltr"
   role="radiogroup"
@@ -181,7 +181,7 @@ exports[`SegmentedControl Snapshots > Size and variant combinations > matches sn
 >
   <button
     aria-checked="true"
-    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-md rounded-ws-control-lg min-w-ws-17 gap-ws-5 px-ws-11 py-ws-7 flex-1 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center [&[data-state=off]:enabled:not(:focus-visible)>[data-slot=segmented-control-icon]]:text-ws-static-base focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-md rounded-ws-control-lg min-w-ws-17 gap-ws-5 px-ws-11 py-ws-7 flex-1 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
     data-radix-collection-item=""
     data-slot="segmented-control-item"
     data-state="on"
@@ -193,7 +193,7 @@ exports[`SegmentedControl Snapshots > Size and variant combinations > matches sn
   </button>
   <button
     aria-checked="false"
-    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-md rounded-ws-control-lg min-w-ws-17 gap-ws-5 px-ws-11 py-ws-7 flex-1 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center [&[data-state=off]:enabled:not(:focus-visible)>[data-slot=segmented-control-icon]]:text-ws-static-base focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-md rounded-ws-control-lg min-w-ws-17 gap-ws-5 px-ws-11 py-ws-7 flex-1 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
     data-radix-collection-item=""
     data-slot="segmented-control-item"
     data-state="off"
@@ -205,7 +205,7 @@ exports[`SegmentedControl Snapshots > Size and variant combinations > matches sn
   </button>
   <button
     aria-checked="false"
-    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-md rounded-ws-control-lg min-w-ws-17 gap-ws-5 px-ws-11 py-ws-7 flex-1 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center [&[data-state=off]:enabled:not(:focus-visible)>[data-slot=segmented-control-icon]]:text-ws-static-base focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-md rounded-ws-control-lg min-w-ws-17 gap-ws-5 px-ws-11 py-ws-7 flex-1 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
     data-radix-collection-item=""
     data-slot="segmented-control-item"
     data-state="off"
@@ -217,7 +217,7 @@ exports[`SegmentedControl Snapshots > Size and variant combinations > matches sn
   </button>
   <span
     aria-hidden="true"
-    class="bg-ws-static-highlight-base shadow-ws-low pointer-events-none absolute top-0 left-0 -z-[var(--ws-z-index-base)] rounded-ws-control-lg"
+    class="bg-ws-static-highlight-strong shadow-ws-low pointer-events-none absolute top-0 left-0 -z-[var(--ws-z-index-base)] rounded-ws-control-lg"
     style="width: 0px; height: 0px; transform: translate(0px, 0px); opacity: 1;"
   />
 </div>
@@ -225,7 +225,7 @@ exports[`SegmentedControl Snapshots > Size and variant combinations > matches sn
 
 exports[`SegmentedControl Snapshots > Size and variant combinations > matches snapshot for size lg and variant regular 1`] = `
 <div
-  class="bg-ws-static-alpha-base p-ws-2 inline-flex w-fit rounded-ws-control-xl h-ws-forms-lg gap-ws-3 relative isolate *:data-[state=on]:bg-transparent! *:data-[state=on]:shadow-none!"
+  class="bg-ws-static-alpha-base p-ws-2 inset-shadow-(--ws-elevation-forms-base) inline-flex w-fit rounded-ws-control-xl h-ws-forms-lg gap-ws-3 relative isolate *:data-[state=on]:bg-transparent! *:data-[state=on]:shadow-none!"
   data-slot="segmented-control"
   dir="ltr"
   role="radiogroup"
@@ -234,7 +234,7 @@ exports[`SegmentedControl Snapshots > Size and variant combinations > matches sn
 >
   <button
     aria-checked="true"
-    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-md rounded-ws-control-lg min-w-ws-17 gap-ws-5 px-ws-11 py-ws-7 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center [&[data-state=off]:enabled:not(:focus-visible)>[data-slot=segmented-control-icon]]:text-ws-static-base focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-md rounded-ws-control-lg min-w-ws-17 gap-ws-5 px-ws-11 py-ws-7 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
     data-radix-collection-item=""
     data-slot="segmented-control-item"
     data-state="on"
@@ -246,7 +246,7 @@ exports[`SegmentedControl Snapshots > Size and variant combinations > matches sn
   </button>
   <button
     aria-checked="false"
-    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-md rounded-ws-control-lg min-w-ws-17 gap-ws-5 px-ws-11 py-ws-7 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center [&[data-state=off]:enabled:not(:focus-visible)>[data-slot=segmented-control-icon]]:text-ws-static-base focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-md rounded-ws-control-lg min-w-ws-17 gap-ws-5 px-ws-11 py-ws-7 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
     data-radix-collection-item=""
     data-slot="segmented-control-item"
     data-state="off"
@@ -258,7 +258,7 @@ exports[`SegmentedControl Snapshots > Size and variant combinations > matches sn
   </button>
   <button
     aria-checked="false"
-    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-md rounded-ws-control-lg min-w-ws-17 gap-ws-5 px-ws-11 py-ws-7 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center [&[data-state=off]:enabled:not(:focus-visible)>[data-slot=segmented-control-icon]]:text-ws-static-base focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-md rounded-ws-control-lg min-w-ws-17 gap-ws-5 px-ws-11 py-ws-7 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
     data-radix-collection-item=""
     data-slot="segmented-control-item"
     data-state="off"
@@ -270,7 +270,7 @@ exports[`SegmentedControl Snapshots > Size and variant combinations > matches sn
   </button>
   <span
     aria-hidden="true"
-    class="bg-ws-static-highlight-base shadow-ws-low pointer-events-none absolute top-0 left-0 -z-[var(--ws-z-index-base)] rounded-ws-control-lg"
+    class="bg-ws-static-highlight-strong shadow-ws-low pointer-events-none absolute top-0 left-0 -z-[var(--ws-z-index-base)] rounded-ws-control-lg"
     style="width: 0px; height: 0px; transform: translate(0px, 0px); opacity: 1;"
   />
 </div>
@@ -278,7 +278,7 @@ exports[`SegmentedControl Snapshots > Size and variant combinations > matches sn
 
 exports[`SegmentedControl Snapshots > Size and variant combinations > matches snapshot for size md and variant fullWidth 1`] = `
 <div
-  class="bg-ws-static-alpha-base p-ws-2 flex w-full rounded-ws-control-lg h-ws-forms-md gap-ws-2 relative isolate *:data-[state=on]:bg-transparent! *:data-[state=on]:shadow-none!"
+  class="bg-ws-static-alpha-base p-ws-2 inset-shadow-(--ws-elevation-forms-base) flex w-full rounded-ws-control-lg h-ws-forms-md gap-ws-2 relative isolate *:data-[state=on]:bg-transparent! *:data-[state=on]:shadow-none!"
   data-slot="segmented-control"
   dir="ltr"
   role="radiogroup"
@@ -287,7 +287,7 @@ exports[`SegmentedControl Snapshots > Size and variant combinations > matches sn
 >
   <button
     aria-checked="true"
-    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-15 gap-ws-5 px-ws-9 py-ws-4 flex-1 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center [&[data-state=off]:enabled:not(:focus-visible)>[data-slot=segmented-control-icon]]:text-ws-static-base focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-15 gap-ws-5 px-ws-9 py-ws-4 flex-1 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
     data-radix-collection-item=""
     data-slot="segmented-control-item"
     data-state="on"
@@ -299,7 +299,7 @@ exports[`SegmentedControl Snapshots > Size and variant combinations > matches sn
   </button>
   <button
     aria-checked="false"
-    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-15 gap-ws-5 px-ws-9 py-ws-4 flex-1 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center [&[data-state=off]:enabled:not(:focus-visible)>[data-slot=segmented-control-icon]]:text-ws-static-base focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-15 gap-ws-5 px-ws-9 py-ws-4 flex-1 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
     data-radix-collection-item=""
     data-slot="segmented-control-item"
     data-state="off"
@@ -311,7 +311,7 @@ exports[`SegmentedControl Snapshots > Size and variant combinations > matches sn
   </button>
   <button
     aria-checked="false"
-    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-15 gap-ws-5 px-ws-9 py-ws-4 flex-1 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center [&[data-state=off]:enabled:not(:focus-visible)>[data-slot=segmented-control-icon]]:text-ws-static-base focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-15 gap-ws-5 px-ws-9 py-ws-4 flex-1 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
     data-radix-collection-item=""
     data-slot="segmented-control-item"
     data-state="off"
@@ -323,7 +323,7 @@ exports[`SegmentedControl Snapshots > Size and variant combinations > matches sn
   </button>
   <span
     aria-hidden="true"
-    class="bg-ws-static-highlight-base shadow-ws-low pointer-events-none absolute top-0 left-0 -z-[var(--ws-z-index-base)] rounded-ws-control-md"
+    class="bg-ws-static-highlight-strong shadow-ws-low pointer-events-none absolute top-0 left-0 -z-[var(--ws-z-index-base)] rounded-ws-control-md"
     style="width: 0px; height: 0px; transform: translate(0px, 0px); opacity: 1;"
   />
 </div>
@@ -331,7 +331,7 @@ exports[`SegmentedControl Snapshots > Size and variant combinations > matches sn
 
 exports[`SegmentedControl Snapshots > Size and variant combinations > matches snapshot for size md and variant regular 1`] = `
 <div
-  class="bg-ws-static-alpha-base p-ws-2 inline-flex w-fit rounded-ws-control-lg h-ws-forms-md gap-ws-2 relative isolate *:data-[state=on]:bg-transparent! *:data-[state=on]:shadow-none!"
+  class="bg-ws-static-alpha-base p-ws-2 inset-shadow-(--ws-elevation-forms-base) inline-flex w-fit rounded-ws-control-lg h-ws-forms-md gap-ws-2 relative isolate *:data-[state=on]:bg-transparent! *:data-[state=on]:shadow-none!"
   data-slot="segmented-control"
   dir="ltr"
   role="radiogroup"
@@ -340,7 +340,7 @@ exports[`SegmentedControl Snapshots > Size and variant combinations > matches sn
 >
   <button
     aria-checked="true"
-    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-15 gap-ws-5 px-ws-9 py-ws-4 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center [&[data-state=off]:enabled:not(:focus-visible)>[data-slot=segmented-control-icon]]:text-ws-static-base focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-15 gap-ws-5 px-ws-9 py-ws-4 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
     data-radix-collection-item=""
     data-slot="segmented-control-item"
     data-state="on"
@@ -352,7 +352,7 @@ exports[`SegmentedControl Snapshots > Size and variant combinations > matches sn
   </button>
   <button
     aria-checked="false"
-    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-15 gap-ws-5 px-ws-9 py-ws-4 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center [&[data-state=off]:enabled:not(:focus-visible)>[data-slot=segmented-control-icon]]:text-ws-static-base focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-15 gap-ws-5 px-ws-9 py-ws-4 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
     data-radix-collection-item=""
     data-slot="segmented-control-item"
     data-state="off"
@@ -364,7 +364,7 @@ exports[`SegmentedControl Snapshots > Size and variant combinations > matches sn
   </button>
   <button
     aria-checked="false"
-    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-15 gap-ws-5 px-ws-9 py-ws-4 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center [&[data-state=off]:enabled:not(:focus-visible)>[data-slot=segmented-control-icon]]:text-ws-static-base focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-15 gap-ws-5 px-ws-9 py-ws-4 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
     data-radix-collection-item=""
     data-slot="segmented-control-item"
     data-state="off"
@@ -376,7 +376,7 @@ exports[`SegmentedControl Snapshots > Size and variant combinations > matches sn
   </button>
   <span
     aria-hidden="true"
-    class="bg-ws-static-highlight-base shadow-ws-low pointer-events-none absolute top-0 left-0 -z-[var(--ws-z-index-base)] rounded-ws-control-md"
+    class="bg-ws-static-highlight-strong shadow-ws-low pointer-events-none absolute top-0 left-0 -z-[var(--ws-z-index-base)] rounded-ws-control-md"
     style="width: 0px; height: 0px; transform: translate(0px, 0px); opacity: 1;"
   />
 </div>
@@ -384,7 +384,7 @@ exports[`SegmentedControl Snapshots > Size and variant combinations > matches sn
 
 exports[`SegmentedControl Snapshots > Size and variant combinations > matches snapshot for size sm and variant fullWidth 1`] = `
 <div
-  class="bg-ws-static-alpha-base p-ws-2 flex w-full rounded-ws-control-lg h-ws-forms-sm gap-ws-2 relative isolate *:data-[state=on]:bg-transparent! *:data-[state=on]:shadow-none!"
+  class="bg-ws-static-alpha-base p-ws-2 inset-shadow-(--ws-elevation-forms-base) flex w-full rounded-ws-control-lg h-ws-forms-sm gap-ws-2 relative isolate *:data-[state=on]:bg-transparent! *:data-[state=on]:shadow-none!"
   data-slot="segmented-control"
   dir="ltr"
   role="radiogroup"
@@ -393,7 +393,7 @@ exports[`SegmentedControl Snapshots > Size and variant combinations > matches sn
 >
   <button
     aria-checked="true"
-    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-13 gap-ws-5 px-ws-7 py-ws-3 flex-1 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center [&[data-state=off]:enabled:not(:focus-visible)>[data-slot=segmented-control-icon]]:text-ws-static-base focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-13 gap-ws-5 px-ws-7 py-ws-3 flex-1 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
     data-radix-collection-item=""
     data-slot="segmented-control-item"
     data-state="on"
@@ -405,7 +405,7 @@ exports[`SegmentedControl Snapshots > Size and variant combinations > matches sn
   </button>
   <button
     aria-checked="false"
-    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-13 gap-ws-5 px-ws-7 py-ws-3 flex-1 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center [&[data-state=off]:enabled:not(:focus-visible)>[data-slot=segmented-control-icon]]:text-ws-static-base focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-13 gap-ws-5 px-ws-7 py-ws-3 flex-1 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
     data-radix-collection-item=""
     data-slot="segmented-control-item"
     data-state="off"
@@ -417,7 +417,7 @@ exports[`SegmentedControl Snapshots > Size and variant combinations > matches sn
   </button>
   <button
     aria-checked="false"
-    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-13 gap-ws-5 px-ws-7 py-ws-3 flex-1 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center [&[data-state=off]:enabled:not(:focus-visible)>[data-slot=segmented-control-icon]]:text-ws-static-base focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-13 gap-ws-5 px-ws-7 py-ws-3 flex-1 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
     data-radix-collection-item=""
     data-slot="segmented-control-item"
     data-state="off"
@@ -429,7 +429,7 @@ exports[`SegmentedControl Snapshots > Size and variant combinations > matches sn
   </button>
   <span
     aria-hidden="true"
-    class="bg-ws-static-highlight-base shadow-ws-low pointer-events-none absolute top-0 left-0 -z-[var(--ws-z-index-base)] rounded-ws-control-md"
+    class="bg-ws-static-highlight-strong shadow-ws-low pointer-events-none absolute top-0 left-0 -z-[var(--ws-z-index-base)] rounded-ws-control-md"
     style="width: 0px; height: 0px; transform: translate(0px, 0px); opacity: 1;"
   />
 </div>
@@ -437,7 +437,7 @@ exports[`SegmentedControl Snapshots > Size and variant combinations > matches sn
 
 exports[`SegmentedControl Snapshots > Size and variant combinations > matches snapshot for size sm and variant regular 1`] = `
 <div
-  class="bg-ws-static-alpha-base p-ws-2 inline-flex w-fit rounded-ws-control-lg h-ws-forms-sm gap-ws-2 relative isolate *:data-[state=on]:bg-transparent! *:data-[state=on]:shadow-none!"
+  class="bg-ws-static-alpha-base p-ws-2 inset-shadow-(--ws-elevation-forms-base) inline-flex w-fit rounded-ws-control-lg h-ws-forms-sm gap-ws-2 relative isolate *:data-[state=on]:bg-transparent! *:data-[state=on]:shadow-none!"
   data-slot="segmented-control"
   dir="ltr"
   role="radiogroup"
@@ -446,7 +446,7 @@ exports[`SegmentedControl Snapshots > Size and variant combinations > matches sn
 >
   <button
     aria-checked="true"
-    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-13 gap-ws-5 px-ws-7 py-ws-3 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center [&[data-state=off]:enabled:not(:focus-visible)>[data-slot=segmented-control-icon]]:text-ws-static-base focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-13 gap-ws-5 px-ws-7 py-ws-3 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
     data-radix-collection-item=""
     data-slot="segmented-control-item"
     data-state="on"
@@ -458,7 +458,7 @@ exports[`SegmentedControl Snapshots > Size and variant combinations > matches sn
   </button>
   <button
     aria-checked="false"
-    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-13 gap-ws-5 px-ws-7 py-ws-3 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center [&[data-state=off]:enabled:not(:focus-visible)>[data-slot=segmented-control-icon]]:text-ws-static-base focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-13 gap-ws-5 px-ws-7 py-ws-3 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
     data-radix-collection-item=""
     data-slot="segmented-control-item"
     data-state="off"
@@ -470,7 +470,7 @@ exports[`SegmentedControl Snapshots > Size and variant combinations > matches sn
   </button>
   <button
     aria-checked="false"
-    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-13 gap-ws-5 px-ws-7 py-ws-3 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center [&[data-state=off]:enabled:not(:focus-visible)>[data-slot=segmented-control-icon]]:text-ws-static-base focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-13 gap-ws-5 px-ws-7 py-ws-3 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
     data-radix-collection-item=""
     data-slot="segmented-control-item"
     data-state="off"
@@ -482,7 +482,7 @@ exports[`SegmentedControl Snapshots > Size and variant combinations > matches sn
   </button>
   <span
     aria-hidden="true"
-    class="bg-ws-static-highlight-base shadow-ws-low pointer-events-none absolute top-0 left-0 -z-[var(--ws-z-index-base)] rounded-ws-control-md"
+    class="bg-ws-static-highlight-strong shadow-ws-low pointer-events-none absolute top-0 left-0 -z-[var(--ws-z-index-base)] rounded-ws-control-md"
     style="width: 0px; height: 0px; transform: translate(0px, 0px); opacity: 1;"
   />
 </div>
@@ -490,7 +490,7 @@ exports[`SegmentedControl Snapshots > Size and variant combinations > matches sn
 
 exports[`SegmentedControl Snapshots > Size variants > matches snapshot for size lg 1`] = `
 <div
-  class="bg-ws-static-alpha-base p-ws-2 inline-flex w-fit rounded-ws-control-xl h-ws-forms-lg gap-ws-3 relative isolate *:data-[state=on]:bg-transparent! *:data-[state=on]:shadow-none!"
+  class="bg-ws-static-alpha-base p-ws-2 inset-shadow-(--ws-elevation-forms-base) inline-flex w-fit rounded-ws-control-xl h-ws-forms-lg gap-ws-3 relative isolate *:data-[state=on]:bg-transparent! *:data-[state=on]:shadow-none!"
   data-slot="segmented-control"
   dir="ltr"
   role="radiogroup"
@@ -499,7 +499,7 @@ exports[`SegmentedControl Snapshots > Size variants > matches snapshot for size 
 >
   <button
     aria-checked="true"
-    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-md rounded-ws-control-lg min-w-ws-17 gap-ws-5 px-ws-11 py-ws-7 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center [&[data-state=off]:enabled:not(:focus-visible)>[data-slot=segmented-control-icon]]:text-ws-static-base focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-md rounded-ws-control-lg min-w-ws-17 gap-ws-5 px-ws-11 py-ws-7 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
     data-radix-collection-item=""
     data-slot="segmented-control-item"
     data-state="on"
@@ -511,7 +511,7 @@ exports[`SegmentedControl Snapshots > Size variants > matches snapshot for size 
   </button>
   <button
     aria-checked="false"
-    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-md rounded-ws-control-lg min-w-ws-17 gap-ws-5 px-ws-11 py-ws-7 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center [&[data-state=off]:enabled:not(:focus-visible)>[data-slot=segmented-control-icon]]:text-ws-static-base focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-md rounded-ws-control-lg min-w-ws-17 gap-ws-5 px-ws-11 py-ws-7 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
     data-radix-collection-item=""
     data-slot="segmented-control-item"
     data-state="off"
@@ -523,7 +523,7 @@ exports[`SegmentedControl Snapshots > Size variants > matches snapshot for size 
   </button>
   <span
     aria-hidden="true"
-    class="bg-ws-static-highlight-base shadow-ws-low pointer-events-none absolute top-0 left-0 -z-[var(--ws-z-index-base)] rounded-ws-control-lg"
+    class="bg-ws-static-highlight-strong shadow-ws-low pointer-events-none absolute top-0 left-0 -z-[var(--ws-z-index-base)] rounded-ws-control-lg"
     style="width: 0px; height: 0px; transform: translate(0px, 0px); opacity: 1;"
   />
 </div>
@@ -531,7 +531,7 @@ exports[`SegmentedControl Snapshots > Size variants > matches snapshot for size 
 
 exports[`SegmentedControl Snapshots > Size variants > matches snapshot for size md 1`] = `
 <div
-  class="bg-ws-static-alpha-base p-ws-2 inline-flex w-fit rounded-ws-control-lg h-ws-forms-md gap-ws-2 relative isolate *:data-[state=on]:bg-transparent! *:data-[state=on]:shadow-none!"
+  class="bg-ws-static-alpha-base p-ws-2 inset-shadow-(--ws-elevation-forms-base) inline-flex w-fit rounded-ws-control-lg h-ws-forms-md gap-ws-2 relative isolate *:data-[state=on]:bg-transparent! *:data-[state=on]:shadow-none!"
   data-slot="segmented-control"
   dir="ltr"
   role="radiogroup"
@@ -540,7 +540,7 @@ exports[`SegmentedControl Snapshots > Size variants > matches snapshot for size 
 >
   <button
     aria-checked="true"
-    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-15 gap-ws-5 px-ws-9 py-ws-4 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center [&[data-state=off]:enabled:not(:focus-visible)>[data-slot=segmented-control-icon]]:text-ws-static-base focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-15 gap-ws-5 px-ws-9 py-ws-4 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
     data-radix-collection-item=""
     data-slot="segmented-control-item"
     data-state="on"
@@ -552,7 +552,7 @@ exports[`SegmentedControl Snapshots > Size variants > matches snapshot for size 
   </button>
   <button
     aria-checked="false"
-    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-15 gap-ws-5 px-ws-9 py-ws-4 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center [&[data-state=off]:enabled:not(:focus-visible)>[data-slot=segmented-control-icon]]:text-ws-static-base focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-15 gap-ws-5 px-ws-9 py-ws-4 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
     data-radix-collection-item=""
     data-slot="segmented-control-item"
     data-state="off"
@@ -564,7 +564,7 @@ exports[`SegmentedControl Snapshots > Size variants > matches snapshot for size 
   </button>
   <span
     aria-hidden="true"
-    class="bg-ws-static-highlight-base shadow-ws-low pointer-events-none absolute top-0 left-0 -z-[var(--ws-z-index-base)] rounded-ws-control-md"
+    class="bg-ws-static-highlight-strong shadow-ws-low pointer-events-none absolute top-0 left-0 -z-[var(--ws-z-index-base)] rounded-ws-control-md"
     style="width: 0px; height: 0px; transform: translate(0px, 0px); opacity: 1;"
   />
 </div>
@@ -572,7 +572,7 @@ exports[`SegmentedControl Snapshots > Size variants > matches snapshot for size 
 
 exports[`SegmentedControl Snapshots > Size variants > matches snapshot for size sm 1`] = `
 <div
-  class="bg-ws-static-alpha-base p-ws-2 inline-flex w-fit rounded-ws-control-lg h-ws-forms-sm gap-ws-2 relative isolate *:data-[state=on]:bg-transparent! *:data-[state=on]:shadow-none!"
+  class="bg-ws-static-alpha-base p-ws-2 inset-shadow-(--ws-elevation-forms-base) inline-flex w-fit rounded-ws-control-lg h-ws-forms-sm gap-ws-2 relative isolate *:data-[state=on]:bg-transparent! *:data-[state=on]:shadow-none!"
   data-slot="segmented-control"
   dir="ltr"
   role="radiogroup"
@@ -581,7 +581,7 @@ exports[`SegmentedControl Snapshots > Size variants > matches snapshot for size 
 >
   <button
     aria-checked="true"
-    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-13 gap-ws-5 px-ws-7 py-ws-3 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center [&[data-state=off]:enabled:not(:focus-visible)>[data-slot=segmented-control-icon]]:text-ws-static-base focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-13 gap-ws-5 px-ws-7 py-ws-3 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
     data-radix-collection-item=""
     data-slot="segmented-control-item"
     data-state="on"
@@ -593,7 +593,7 @@ exports[`SegmentedControl Snapshots > Size variants > matches snapshot for size 
   </button>
   <button
     aria-checked="false"
-    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-13 gap-ws-5 px-ws-7 py-ws-3 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center [&[data-state=off]:enabled:not(:focus-visible)>[data-slot=segmented-control-icon]]:text-ws-static-base focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-13 gap-ws-5 px-ws-7 py-ws-3 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
     data-radix-collection-item=""
     data-slot="segmented-control-item"
     data-state="off"
@@ -605,7 +605,7 @@ exports[`SegmentedControl Snapshots > Size variants > matches snapshot for size 
   </button>
   <span
     aria-hidden="true"
-    class="bg-ws-static-highlight-base shadow-ws-low pointer-events-none absolute top-0 left-0 -z-[var(--ws-z-index-base)] rounded-ws-control-md"
+    class="bg-ws-static-highlight-strong shadow-ws-low pointer-events-none absolute top-0 left-0 -z-[var(--ws-z-index-base)] rounded-ws-control-md"
     style="width: 0px; height: 0px; transform: translate(0px, 0px); opacity: 1;"
   />
 </div>
@@ -613,7 +613,7 @@ exports[`SegmentedControl Snapshots > Size variants > matches snapshot for size 
 
 exports[`SegmentedControl Snapshots > With icons > matches snapshot for Icon subcomponent with size lg 1`] = `
 <div
-  class="bg-ws-static-alpha-base p-ws-2 inline-flex w-fit rounded-ws-control-xl h-ws-forms-lg gap-ws-3 relative isolate *:data-[state=on]:bg-transparent! *:data-[state=on]:shadow-none!"
+  class="bg-ws-static-alpha-base p-ws-2 inset-shadow-(--ws-elevation-forms-base) inline-flex w-fit rounded-ws-control-xl h-ws-forms-lg gap-ws-3 relative isolate *:data-[state=on]:bg-transparent! *:data-[state=on]:shadow-none!"
   data-slot="segmented-control"
   dir="ltr"
   role="radiogroup"
@@ -623,7 +623,7 @@ exports[`SegmentedControl Snapshots > With icons > matches snapshot for Icon sub
   <button
     aria-checked="true"
     aria-label="Done"
-    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-md rounded-ws-control-lg min-w-ws-17 gap-ws-5 p-ws-8 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center [&[data-state=off]:enabled:not(:focus-visible)>[data-slot=segmented-control-icon]]:text-ws-static-base focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-md rounded-ws-control-lg min-w-ws-17 gap-ws-5 p-ws-8 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
     data-radix-collection-item=""
     data-slot="segmented-control-item"
     data-state="on"
@@ -650,7 +650,7 @@ exports[`SegmentedControl Snapshots > With icons > matches snapshot for Icon sub
   <button
     aria-checked="false"
     aria-label="Close"
-    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-md rounded-ws-control-lg min-w-ws-17 gap-ws-5 p-ws-8 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center [&[data-state=off]:enabled:not(:focus-visible)>[data-slot=segmented-control-icon]]:text-ws-static-base focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-md rounded-ws-control-lg min-w-ws-17 gap-ws-5 p-ws-8 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
     data-radix-collection-item=""
     data-slot="segmented-control-item"
     data-state="off"
@@ -676,7 +676,7 @@ exports[`SegmentedControl Snapshots > With icons > matches snapshot for Icon sub
   </button>
   <span
     aria-hidden="true"
-    class="bg-ws-static-highlight-base shadow-ws-low pointer-events-none absolute top-0 left-0 -z-[var(--ws-z-index-base)] rounded-ws-control-lg"
+    class="bg-ws-static-highlight-strong shadow-ws-low pointer-events-none absolute top-0 left-0 -z-[var(--ws-z-index-base)] rounded-ws-control-lg"
     style="width: 0px; height: 0px; transform: translate(0px, 0px); opacity: 1;"
   />
 </div>
@@ -684,7 +684,7 @@ exports[`SegmentedControl Snapshots > With icons > matches snapshot for Icon sub
 
 exports[`SegmentedControl Snapshots > With icons > matches snapshot for Icon subcomponent with size md 1`] = `
 <div
-  class="bg-ws-static-alpha-base p-ws-2 inline-flex w-fit rounded-ws-control-lg h-ws-forms-md gap-ws-2 relative isolate *:data-[state=on]:bg-transparent! *:data-[state=on]:shadow-none!"
+  class="bg-ws-static-alpha-base p-ws-2 inset-shadow-(--ws-elevation-forms-base) inline-flex w-fit rounded-ws-control-lg h-ws-forms-md gap-ws-2 relative isolate *:data-[state=on]:bg-transparent! *:data-[state=on]:shadow-none!"
   data-slot="segmented-control"
   dir="ltr"
   role="radiogroup"
@@ -694,7 +694,7 @@ exports[`SegmentedControl Snapshots > With icons > matches snapshot for Icon sub
   <button
     aria-checked="true"
     aria-label="Done"
-    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-15 gap-ws-5 p-ws-6 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center [&[data-state=off]:enabled:not(:focus-visible)>[data-slot=segmented-control-icon]]:text-ws-static-base focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-15 gap-ws-5 p-ws-6 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
     data-radix-collection-item=""
     data-slot="segmented-control-item"
     data-state="on"
@@ -721,7 +721,7 @@ exports[`SegmentedControl Snapshots > With icons > matches snapshot for Icon sub
   <button
     aria-checked="false"
     aria-label="Close"
-    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-15 gap-ws-5 p-ws-6 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center [&[data-state=off]:enabled:not(:focus-visible)>[data-slot=segmented-control-icon]]:text-ws-static-base focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-15 gap-ws-5 p-ws-6 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
     data-radix-collection-item=""
     data-slot="segmented-control-item"
     data-state="off"
@@ -747,7 +747,7 @@ exports[`SegmentedControl Snapshots > With icons > matches snapshot for Icon sub
   </button>
   <span
     aria-hidden="true"
-    class="bg-ws-static-highlight-base shadow-ws-low pointer-events-none absolute top-0 left-0 -z-[var(--ws-z-index-base)] rounded-ws-control-md"
+    class="bg-ws-static-highlight-strong shadow-ws-low pointer-events-none absolute top-0 left-0 -z-[var(--ws-z-index-base)] rounded-ws-control-md"
     style="width: 0px; height: 0px; transform: translate(0px, 0px); opacity: 1;"
   />
 </div>
@@ -755,7 +755,7 @@ exports[`SegmentedControl Snapshots > With icons > matches snapshot for Icon sub
 
 exports[`SegmentedControl Snapshots > With icons > matches snapshot for Icon subcomponent with size sm 1`] = `
 <div
-  class="bg-ws-static-alpha-base p-ws-2 inline-flex w-fit rounded-ws-control-lg h-ws-forms-sm gap-ws-2 relative isolate *:data-[state=on]:bg-transparent! *:data-[state=on]:shadow-none!"
+  class="bg-ws-static-alpha-base p-ws-2 inset-shadow-(--ws-elevation-forms-base) inline-flex w-fit rounded-ws-control-lg h-ws-forms-sm gap-ws-2 relative isolate *:data-[state=on]:bg-transparent! *:data-[state=on]:shadow-none!"
   data-slot="segmented-control"
   dir="ltr"
   role="radiogroup"
@@ -765,7 +765,7 @@ exports[`SegmentedControl Snapshots > With icons > matches snapshot for Icon sub
   <button
     aria-checked="true"
     aria-label="Done"
-    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-13 gap-ws-5 p-ws-4 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center [&[data-state=off]:enabled:not(:focus-visible)>[data-slot=segmented-control-icon]]:text-ws-static-base focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-13 gap-ws-5 p-ws-4 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
     data-radix-collection-item=""
     data-slot="segmented-control-item"
     data-state="on"
@@ -792,7 +792,7 @@ exports[`SegmentedControl Snapshots > With icons > matches snapshot for Icon sub
   <button
     aria-checked="false"
     aria-label="Close"
-    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-13 gap-ws-5 p-ws-4 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center [&[data-state=off]:enabled:not(:focus-visible)>[data-slot=segmented-control-icon]]:text-ws-static-base focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-13 gap-ws-5 p-ws-4 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
     data-radix-collection-item=""
     data-slot="segmented-control-item"
     data-state="off"
@@ -818,7 +818,7 @@ exports[`SegmentedControl Snapshots > With icons > matches snapshot for Icon sub
   </button>
   <span
     aria-hidden="true"
-    class="bg-ws-static-highlight-base shadow-ws-low pointer-events-none absolute top-0 left-0 -z-[var(--ws-z-index-base)] rounded-ws-control-md"
+    class="bg-ws-static-highlight-strong shadow-ws-low pointer-events-none absolute top-0 left-0 -z-[var(--ws-z-index-base)] rounded-ws-control-md"
     style="width: 0px; height: 0px; transform: translate(0px, 0px); opacity: 1;"
   />
 </div>
@@ -826,7 +826,7 @@ exports[`SegmentedControl Snapshots > With icons > matches snapshot for Icon sub
 
 exports[`SegmentedControl Snapshots > With icons > matches snapshot for icon items with size lg 1`] = `
 <div
-  class="bg-ws-static-alpha-base p-ws-2 inline-flex w-fit rounded-ws-control-xl h-ws-forms-lg gap-ws-3 relative isolate *:data-[state=on]:bg-transparent! *:data-[state=on]:shadow-none!"
+  class="bg-ws-static-alpha-base p-ws-2 inset-shadow-(--ws-elevation-forms-base) inline-flex w-fit rounded-ws-control-xl h-ws-forms-lg gap-ws-3 relative isolate *:data-[state=on]:bg-transparent! *:data-[state=on]:shadow-none!"
   data-slot="segmented-control"
   dir="ltr"
   role="radiogroup"
@@ -836,7 +836,7 @@ exports[`SegmentedControl Snapshots > With icons > matches snapshot for icon ite
   <button
     aria-checked="true"
     aria-label="Done"
-    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-md rounded-ws-control-lg min-w-ws-17 gap-ws-5 p-ws-8 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center [&[data-state=off]:enabled:not(:focus-visible)>[data-slot=segmented-control-icon]]:text-ws-static-base focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-md rounded-ws-control-lg min-w-ws-17 gap-ws-5 p-ws-8 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
     data-radix-collection-item=""
     data-slot="segmented-control-item"
     data-state="on"
@@ -863,7 +863,7 @@ exports[`SegmentedControl Snapshots > With icons > matches snapshot for icon ite
   <button
     aria-checked="false"
     aria-label="Close"
-    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-md rounded-ws-control-lg min-w-ws-17 gap-ws-5 p-ws-8 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center [&[data-state=off]:enabled:not(:focus-visible)>[data-slot=segmented-control-icon]]:text-ws-static-base focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-md rounded-ws-control-lg min-w-ws-17 gap-ws-5 p-ws-8 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
     data-radix-collection-item=""
     data-slot="segmented-control-item"
     data-state="off"
@@ -889,7 +889,7 @@ exports[`SegmentedControl Snapshots > With icons > matches snapshot for icon ite
   </button>
   <span
     aria-hidden="true"
-    class="bg-ws-static-highlight-base shadow-ws-low pointer-events-none absolute top-0 left-0 -z-[var(--ws-z-index-base)] rounded-ws-control-lg"
+    class="bg-ws-static-highlight-strong shadow-ws-low pointer-events-none absolute top-0 left-0 -z-[var(--ws-z-index-base)] rounded-ws-control-lg"
     style="width: 0px; height: 0px; transform: translate(0px, 0px); opacity: 1;"
   />
 </div>
@@ -897,7 +897,7 @@ exports[`SegmentedControl Snapshots > With icons > matches snapshot for icon ite
 
 exports[`SegmentedControl Snapshots > With icons > matches snapshot for icon items with size md 1`] = `
 <div
-  class="bg-ws-static-alpha-base p-ws-2 inline-flex w-fit rounded-ws-control-lg h-ws-forms-md gap-ws-2 relative isolate *:data-[state=on]:bg-transparent! *:data-[state=on]:shadow-none!"
+  class="bg-ws-static-alpha-base p-ws-2 inset-shadow-(--ws-elevation-forms-base) inline-flex w-fit rounded-ws-control-lg h-ws-forms-md gap-ws-2 relative isolate *:data-[state=on]:bg-transparent! *:data-[state=on]:shadow-none!"
   data-slot="segmented-control"
   dir="ltr"
   role="radiogroup"
@@ -907,7 +907,7 @@ exports[`SegmentedControl Snapshots > With icons > matches snapshot for icon ite
   <button
     aria-checked="true"
     aria-label="Done"
-    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-15 gap-ws-5 p-ws-6 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center [&[data-state=off]:enabled:not(:focus-visible)>[data-slot=segmented-control-icon]]:text-ws-static-base focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-15 gap-ws-5 p-ws-6 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
     data-radix-collection-item=""
     data-slot="segmented-control-item"
     data-state="on"
@@ -934,7 +934,7 @@ exports[`SegmentedControl Snapshots > With icons > matches snapshot for icon ite
   <button
     aria-checked="false"
     aria-label="Close"
-    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-15 gap-ws-5 p-ws-6 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center [&[data-state=off]:enabled:not(:focus-visible)>[data-slot=segmented-control-icon]]:text-ws-static-base focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-15 gap-ws-5 p-ws-6 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
     data-radix-collection-item=""
     data-slot="segmented-control-item"
     data-state="off"
@@ -960,7 +960,7 @@ exports[`SegmentedControl Snapshots > With icons > matches snapshot for icon ite
   </button>
   <span
     aria-hidden="true"
-    class="bg-ws-static-highlight-base shadow-ws-low pointer-events-none absolute top-0 left-0 -z-[var(--ws-z-index-base)] rounded-ws-control-md"
+    class="bg-ws-static-highlight-strong shadow-ws-low pointer-events-none absolute top-0 left-0 -z-[var(--ws-z-index-base)] rounded-ws-control-md"
     style="width: 0px; height: 0px; transform: translate(0px, 0px); opacity: 1;"
   />
 </div>
@@ -968,7 +968,7 @@ exports[`SegmentedControl Snapshots > With icons > matches snapshot for icon ite
 
 exports[`SegmentedControl Snapshots > With icons > matches snapshot for icon items with size sm 1`] = `
 <div
-  class="bg-ws-static-alpha-base p-ws-2 inline-flex w-fit rounded-ws-control-lg h-ws-forms-sm gap-ws-2 relative isolate *:data-[state=on]:bg-transparent! *:data-[state=on]:shadow-none!"
+  class="bg-ws-static-alpha-base p-ws-2 inset-shadow-(--ws-elevation-forms-base) inline-flex w-fit rounded-ws-control-lg h-ws-forms-sm gap-ws-2 relative isolate *:data-[state=on]:bg-transparent! *:data-[state=on]:shadow-none!"
   data-slot="segmented-control"
   dir="ltr"
   role="radiogroup"
@@ -978,7 +978,7 @@ exports[`SegmentedControl Snapshots > With icons > matches snapshot for icon ite
   <button
     aria-checked="true"
     aria-label="Done"
-    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-13 gap-ws-5 p-ws-4 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center [&[data-state=off]:enabled:not(:focus-visible)>[data-slot=segmented-control-icon]]:text-ws-static-base focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-13 gap-ws-5 p-ws-4 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
     data-radix-collection-item=""
     data-slot="segmented-control-item"
     data-state="on"
@@ -1005,7 +1005,7 @@ exports[`SegmentedControl Snapshots > With icons > matches snapshot for icon ite
   <button
     aria-checked="false"
     aria-label="Close"
-    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-13 gap-ws-5 p-ws-4 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+    class="text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center [&[data-state=off]:enabled:not(:focus-visible)>[data-slot=segmented-control-icon]]:text-ws-static-base focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none disabled:bg-transparent disabled:shadow-none disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none data-disabled:bg-transparent data-disabled:shadow-none data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none disabled:hover:bg-transparent disabled:active:bg-transparent disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent typography-label-strong-sm rounded-ws-control-md min-w-ws-13 gap-ws-5 p-ws-4 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
     data-radix-collection-item=""
     data-slot="segmented-control-item"
     data-state="off"
@@ -1031,7 +1031,7 @@ exports[`SegmentedControl Snapshots > With icons > matches snapshot for icon ite
   </button>
   <span
     aria-hidden="true"
-    class="bg-ws-static-highlight-base shadow-ws-low pointer-events-none absolute top-0 left-0 -z-[var(--ws-z-index-base)] rounded-ws-control-md"
+    class="bg-ws-static-highlight-strong shadow-ws-low pointer-events-none absolute top-0 left-0 -z-[var(--ws-z-index-base)] rounded-ws-control-md"
     style="width: 0px; height: 0px; transform: translate(0px, 0px); opacity: 1;"
   />
 </div>
