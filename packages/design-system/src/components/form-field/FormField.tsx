@@ -28,6 +28,8 @@ export const FormField = React.forwardRef<HTMLDivElement | HTMLFieldSetElement, 
     const generatedHelperTextId = React.useId();
     const helperTextId = helperTextIdProp || generatedHelperTextId;
     const hasHelperText = Boolean(errorText || helperText);
+    // No label (Figma's Label=false, e.g. a Checkbox that labels itself): no <label> and no gap.
+    const hasLabel = label != null && label !== false && label !== '';
 
     const helperTextComponent = hasHelperText ? (
       <HelperText state={errorText ? 'error' : 'default'} showIcon={!!errorText} id={helperTextId}>
@@ -53,10 +55,13 @@ export const FormField = React.forwardRef<HTMLDivElement | HTMLFieldSetElement, 
 
     const content = (
       <>
-        <div className={formFieldLabelVariants({ variant })}>
-          <FieldLabel {...props}>{label}</FieldLabel>
-          {variant === 'horizontal' && helperTextComponent}
-        </div>
+        {/* Horizontal keeps the label column, so the control lines up with labelled fields. */}
+        {(hasLabel || variant === 'horizontal') && (
+          <div className={formFieldLabelVariants({ variant })}>
+            {hasLabel && <FieldLabel {...props}>{label}</FieldLabel>}
+            {variant === 'horizontal' && helperTextComponent}
+          </div>
+        )}
         <div className={formFieldContentVariants({ variant })}>
           {control}
           {variant === 'vertical' && helperTextComponent}

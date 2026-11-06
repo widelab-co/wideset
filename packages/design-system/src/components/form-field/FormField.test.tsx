@@ -316,3 +316,32 @@ describe('FormField spacing', () => {
     expect(screen.getByText('Shown on invoices.').parentElement).toHaveClass('gap-ws-3');
   });
 });
+
+// After the snapshots: their ids come from React's useId counter, which these renders advance.
+describe('FormField without a label', () => {
+  const terms = (variant?: 'vertical' | 'horizontal') => (
+    <FormField label={null} variant={variant} errorText="Accept the terms to continue.">
+      <Checkbox id="terms" label="I accept the terms" />
+    </FormField>
+  );
+
+  it('renders no label row, so the control starts at the top', () => {
+    const { container } = render(terms());
+    expect(container.querySelector('[data-slot="field-label"]')).not.toBeInTheDocument();
+    expect(container.firstChild?.childNodes).toHaveLength(1);
+  });
+
+  it('still links the error text to the control', () => {
+    render(terms());
+    const checkbox = screen.getByRole('checkbox', { name: 'I accept the terms' });
+    expect(checkbox).toHaveAccessibleDescription('Accept the terms to continue.');
+    expect(checkbox).toHaveAttribute('aria-invalid', 'true');
+  });
+
+  it('keeps the label column in the horizontal layout, holding the helper text', () => {
+    const { container } = render(terms('horizontal'));
+    const labelColumn = container.firstElementChild?.firstElementChild;
+    expect(container.querySelector('[data-slot="field-label"]')).not.toBeInTheDocument();
+    expect(labelColumn).toContainElement(screen.getByText('Accept the terms to continue.'));
+  });
+});
