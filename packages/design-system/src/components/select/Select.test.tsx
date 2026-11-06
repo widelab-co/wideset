@@ -652,6 +652,20 @@ describe('Select', () => {
     });
   });
 
+  describe('Arrow placement', () => {
+    // Figma's Single Select: the arrow sits 8 / 12 / 14px from the right edge and 16 / 20 / 22px
+    // after the value, and is 20px at lg.
+    it.each([
+      ['sm', ['size-ws-9', 'ml-ws-9', '-mr-ws-3']],
+      ['md', ['size-ws-9', 'ml-ws-11', '-mr-ws-3']],
+      ['lg', ['size-ws-11', 'ml-[calc(var(--spacing-ws-9)+var(--spacing-ws-4))]', '-mr-ws-2']],
+    ] as const)('places the %s arrow where Figma does', (size, classes) => {
+      render(<Select options={baseOptions} size={size} placeholder="Select country" />);
+      const arrow = screen.getByRole('combobox').querySelector('svg');
+      expect(arrow).toHaveClass(...classes);
+    });
+  });
+
   describe('Hide arrow', () => {
     it('shows arrow by default', () => {
       render(<Select options={baseOptions} placeholder="Select country" />);

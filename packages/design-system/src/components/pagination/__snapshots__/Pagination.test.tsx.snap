@@ -38,7 +38,7 @@ exports[`Pagination Snapshots > matches snapshot for composable API 1`] = `
       </div>
       <svg
         aria-hidden="true"
-        class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-5"
+        class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled shrink-0 size-ws-9 ml-ws-9 -mr-ws-3"
         fill="currentColor"
         focusable="false"
         height="24"
@@ -489,7 +489,7 @@ exports[`Pagination Snapshots > matches snapshot for overflow type 1`] = `
         </div>
         <svg
           aria-hidden="true"
-          class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-5"
+          class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled shrink-0 size-ws-9 ml-ws-9 -mr-ws-3"
           fill="currentColor"
           focusable="false"
           height="24"
@@ -578,7 +578,7 @@ exports[`Pagination Snapshots > matches snapshot with rows per page 1`] = `
       </div>
       <svg
         aria-hidden="true"
-        class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-5"
+        class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled shrink-0 size-ws-9 ml-ws-9 -mr-ws-3"
         fill="currentColor"
         focusable="false"
         height="24"
