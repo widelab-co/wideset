@@ -37,6 +37,10 @@ Only buttons press: `Button`, `IconButton`, `SplitButton` and `Chip` shrink a li
 (`--ws-motion-scale-small`) while held. Fields, tabs, menus, list rows, tiles and calendar cells
 answer with colour, never with a scale or bounce.
 
+Nothing bounces. A checkbox's tick and a radio's dot still grow in when checked, on
+`--ws-motion-ease-out`, so they settle at their size instead of overshooting it; the box around
+them only changes colour.
+
 Fields and their menus stay still. The lists of `Select`, `MultiSelect`, `ComboBox`,
 `FilterButton` and `DropdownMenu`, the date and time pickers and `Popup` open and close with a
 short fade (`--ws-motion-duration-quick`, `--ws-motion-ease-out`): no zoom, no slide.
@@ -121,6 +125,8 @@ const { ref, shake } = useShake<HTMLInputElement>();
   `defaultMotion={false}` first.
 - A press scale on anything that is not a button, or a zoom or slide on a menu or picker you
   build yourself.
+- A bounce: `--ws-motion-ease-bounce` and `-bounce-strong` overshoot their target and read as a
+  jump. No component uses them; a mark that appears grows in on `--ws-motion-ease-out`.
 
 ## Light and dark
 

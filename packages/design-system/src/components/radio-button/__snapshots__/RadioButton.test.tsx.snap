@@ -29,7 +29,7 @@ exports[`RadioButton Snapshots > matches snapshot for checked radio button 1`] =
       value="option1"
     >
       <span
-        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-in fade-in-0 zoom-in-[0.4] fill-mode-both duration-(--ws-motion-duration-fast) ease-(--ws-motion-ease-bounce)"
+        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-in fade-in-0 zoom-in-[0.4] fill-mode-both duration-(--ws-motion-duration-fast) ease-(--ws-motion-ease-out)"
         data-state="checked"
       >
         <div
@@ -150,7 +150,7 @@ exports[`RadioButton Snapshots > matches snapshot for disabled checked radio but
       value="option1"
     >
       <span
-        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-in fade-in-0 zoom-in-[0.4] fill-mode-both duration-(--ws-motion-duration-fast) ease-(--ws-motion-ease-bounce)"
+        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-in fade-in-0 zoom-in-[0.4] fill-mode-both duration-(--ws-motion-duration-fast) ease-(--ws-motion-ease-out)"
         data-disabled=""
         data-state="checked"
       >

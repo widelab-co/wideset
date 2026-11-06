@@ -12,6 +12,8 @@ answer with colour, never with a scale or bounce.** Fields and their menus stay 
 combobox, filter, picker or dropdown menu opens and closes with a short fade, no zoom or slide.
 Hold anything you build yourself to the same rule.
 
+Nothing bounces: a checkbox tick or radio dot grows in on `ease-out` and settles at its size; the box only changes colour.
+
 ## Why
 
 Motion that was never designed together is the loudest inconsistency there is: one panel slides

@@ -34,6 +34,17 @@ describe('Press', () => {
   });
 });
 
+describe('Bounce', () => {
+  // A checkbox's tick and a radio's dot once popped in past their size on ease-bounce.
+  it('is used by no component: marks grow in on ease-out, never past their size', () => {
+    const bouncing = readdirSync(COMPONENTS, { recursive: true, encoding: 'utf8' })
+      .filter((file) => file.endsWith('.variants.ts'))
+      .filter((file) => /ease-bounce/.test(readFileSync(join(COMPONENTS, file), 'utf8')))
+      .map((file) => basename(file, '.variants.ts'));
+    expect(bouncing).toEqual([]);
+  });
+});
+
 describe('Menus', () => {
   it('fade in and out on the quick duration token, with no zoom or slide', () => {
     expect(menuFadeMotion).not.toMatch(/zoom-|slide-/);
