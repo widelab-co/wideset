@@ -1,0 +1,70 @@
+---
+import { RiExternalLinkLine, RiMarkdownLine } from '@remixicon/react';
+
+import BlockPreviewFrame from '../../components/BlockPreviewFrame';
+import CodeBlock from '../../components/CodeBlock';
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import {
+  BLOCKS,
+  blockById,
+  DIRECTION_SUMMARY,
+  DIRECTION_TITLE,
+  filesOf,
+  inlineCode,
+  NAVIGATION_TITLE,
+} from '../../lib/blocks';
+
+/** One starting point: what it is, its direction, a light and a dark preview, every file. */
+export function getStaticPaths() {
+  return BLOCKS.map((block) => ({ params: { id: block.id } }));
+}
+const block = blockById(Astro.params.id!)!;
+const files = filesOf(block.id);
+const link =
+  'text-ws-static-base hover:text-ws-static-strong inline-flex items-center gap-ws-3 typography-label-sm';
+---
+
+<DocsLayout title={block.title} description={block.description} frame>
+  <div class="docs-prose">
+    <h1>{block.title}</h1>
+    <p class="text-ws-static-subtle">{block.description}</p>
+    <p class="text-ws-static-subtle">
+      <strong class="text-ws-static-strong">{DIRECTION_TITLE[block.direction]}</strong>·{' '}
+      {NAVIGATION_TITLE[block.navigation]}.{' '}
+      {inlineCode(DIRECTION_SUMMARY[block.direction]).map((part) =>
+        part.code ? <code>{part.text}</code> : part.text,
+      )}
+    </p>
+  </div>
+  <div class="mt-ws-9 flex flex-wrap items-center gap-ws-11">
+    <a class={link} href={`/blocks/${block.id}/preview`} target="_blank" rel="noopener">
+      <RiExternalLinkLine aria-hidden="true" className="size-ws-9" /> Open full screen
+    </a>
+    <a class={link} href={`/blocks/${block.id}.md`}>
+      <RiMarkdownLine aria-hidden="true" className="size-ws-9" /> Markdown for agents
+    </a>
+  </div>
+  <section class="mt-ws-12 flex flex-col gap-ws-9" aria-label="Preview">
+    <BlockPreviewFrame id={block.id} title={block.title} theme="light" client:visible />
+    <BlockPreviewFrame id={block.id} title={`${block.title} (dark)`} theme="dark" client:visible />
+  </section>
+  <section class="mt-ws-18" aria-labelledby="files">
+    <div class="docs-prose">
+      <h2 id="files">Files</h2>
+      <p class="text-ws-static-subtle">
+        Copy the folder into your app, keep the surround (the root element, the navigation and
+        <code>main</code>) and replace the content and <code>data.ts</code>.
+      </p>
+    </div>
+    {files.map((file) => (
+      <div class="mt-ws-9">
+        <h3 class="text-ws-static-strong typography-label-strong-sm mb-ws-5">{file.name}</h3>
+        <CodeBlock
+          code={file.code}
+          lang={file.name.endsWith('.ts') ? 'ts' : 'tsx'}
+          client:visible
+        />
+      </div>
+    ))}
+  </section>
+</DocsLayout>

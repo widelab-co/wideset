@@ -6,7 +6,7 @@ import '../generated/light-scope.css';
 
 import SideNav from '../components/SideNav.astro';
 import TopBar from '../components/TopBar.astro';
-import { areaOf, componentsNav, docsNav, type NavSection } from '../lib/nav';
+import { areaOf, blocksNav, componentsNav, docsNav, type NavSection } from '../lib/nav';
 import { RADIUS_KEY } from '../lib/radius';
 import { THEME_KEY } from '../lib/theme';
 
@@ -38,7 +38,13 @@ const { title, description, wide = false, full = false, frame = false } = Astro.
 const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
 const area = areaOf(pathname);
 const sections: NavSection[] =
-  area === 'docs' ? await docsNav() : area === 'components' ? componentsNav() : [];
+  area === 'docs'
+    ? await docsNav()
+    : area === 'components'
+      ? componentsNav()
+      : area === 'blocks'
+        ? blocksNav()
+        : [];
 const hasRail = Astro.slots.has('rail');
 /**
  * The reading column is centred in the space between the left column and the right one, so the
