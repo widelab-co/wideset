@@ -32,6 +32,11 @@ const block = blockById(Astro.params.id!)!;
     </script>
   </head>
   <body class="bg-ws-static-foreground">
+    <script is:inline>
+      // Framed by a docs page (BlockPreviewFrame), the preview is a picture: nothing in it takes
+      // focus, so a block that focuses its first field on load cannot pull the page to it.
+      if (window.top !== window.self) document.body.inert = true;
+    </script>
     <BlockFrame id={block.id} client:only="react" />
   </body>
 </html>

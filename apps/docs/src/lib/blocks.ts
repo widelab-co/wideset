@@ -94,7 +94,7 @@ export const blockMarkdown = (block: Entry, site: URL) => {
     '## Use it',
     `${
       isScreen(block)
-        ? `Copy the files below into one folder of your app (for example \`src/screens/${block.id}/\`), keep the surround (the root element, \`Sidebar\` and \`main\`), and replace the content and \`data.ts\` with yours.`
+        ? `Copy the files below into one folder of your app (for example \`src/screens/${block.id}/\`), keep the surround (the root element, the navigation and \`main\`), and replace the content and \`data.ts\` with yours.`
         : `Copy the files below into one folder of your app (for example \`src/panels/${block.id}/\`), render the panel from the screen that opens it, and replace its content and \`data.ts\` with yours.`
     } The code imports \`@wideset/react\`; in registry mode take each import from the registry-imports reference. Preview: ${new URL(`/blocks/${block.id}/preview`, site).href}`,
     `## Files\n\n${files.map((file) => `### ${file.name}\n\n${fence(file.name.endsWith('.ts') ? 'ts' : 'tsx', file.code)}`).join('\n\n')}`,
