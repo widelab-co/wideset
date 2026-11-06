@@ -1,3 +1,8 @@
+# This hostname (workers.dev) is never indexed: the public copy is wideset.co, where wideset-edge
+# removes this header. Site contract: wideset-edge/SITE_CONTRACT.md.
+/*
+  X-Robots-Tag: noindex
+
 # Cloudflare Workers static assets honour this file. The registry (public/r, written by
 # scripts/gen-registry.mjs) is regenerated on every deploy: a short cache, so a consumer never
 # installs a stale item after a release, and CORS, so browser tools can read it.

@@ -1,9 +1,7 @@
 ---
-import { RiGithubLine } from '@remixicon/react';
+import { RiGithubLine, RiSearchLine } from '@remixicon/react';
 
-import { entries } from '../lib/catalog';
-import { AREAS, docsNav, GITHUB_URL, STORYBOOK_URL, type Area } from '../lib/nav';
-import SearchPalette, { type SearchItem } from './SearchPalette';
+import { AREAS, GITHUB_URL, STORYBOOK_URL, type Area } from '../lib/nav';
 import ThemeToggle from './ThemeToggle';
 import { WidesetWordmark } from './Wordmark';
 
@@ -19,22 +17,6 @@ const tab = (active: boolean) =>
       ? 'bg-ws-static-alpha-subtle text-ws-static-strong'
       : 'text-ws-static-subtle hover:text-ws-static-strong',
   ].join(' ');
-
-const searchItems: SearchItem[] = [
-  ...AREAS.map((item) => ({ title: item.label, href: item.href, group: 'Sections' })),
-  ...(await docsNav()).flatMap((section) =>
-    section.items.map((item) => ({
-      title: item.title,
-      href: item.href,
-      group: section.label ?? 'Docs',
-    })),
-  ),
-  ...entries.map((entry) => ({
-    title: entry.title,
-    href: `/components/${entry.id}`,
-    group: 'Components',
-  })),
-];
 ---
 
 <header class="docs-topbar fixed inset-x-0 top-0 z-30 flex h-ws-19 items-center gap-ws-11 px-ws-12">
@@ -57,7 +39,19 @@ const searchItems: SearchItem[] = [
     ))}
   </nav>
   <div class="ml-auto flex items-center gap-ws-5">
-    <SearchPalette items={searchItems} client:load />
+    {/* ds-exempt: a button dressed as a field; it opens the palette (SearchPalette). */}
+    <button
+      type="button"
+      data-docs-search
+      class="flex h-ws-forms-sm w-[15rem] items-center gap-ws-5 rounded-ws-control-lg border border-ws-static-subtle bg-ws-static-alpha-subtle px-ws-6 text-left typography-body-md text-ws-static-subtle hover:text-ws-static-base"
+      aria-label="Search the documentation"
+    >
+      <RiSearchLine size={16} className="shrink-0" />
+      <span class="min-w-0 flex-1 truncate">Search documentation…</span>
+      <kbd class="rounded-ws-control-sm border border-ws-static-subtle px-ws-4 font-sans typography-caption-md text-ws-static-subtle">
+        ⌘K
+      </kbd>
+    </button>
     <a
       href={STORYBOOK_URL}
       target="_blank"
