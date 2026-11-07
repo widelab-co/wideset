@@ -48,6 +48,14 @@ export const BLOCKS: BlockMeta[] = [
       'An overview under a top bar: key figures, charts, a transactions table and a side panel.',
   },
   {
+    id: 'spreadsheet',
+    title: 'Spreadsheet',
+    direction: 'flat',
+    navigation: 'top-bar',
+    description:
+      'A table worked in cell by cell under a top bar: view tools, typed columns that sort, a summary under each header, row selection and a status bar.',
+  },
+  {
     id: 'gantt',
     title: 'Gantt',
     direction: 'flat',

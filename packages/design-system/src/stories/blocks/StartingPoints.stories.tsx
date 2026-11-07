@@ -54,6 +54,7 @@ const panelStory = (id: string): Story => {
 export const Kanban = story('kanban');
 export const Process = story('process');
 export const FinanceDashboard = story('finance-dashboard');
+export const Spreadsheet = story('spreadsheet');
 export const Gantt = story('gantt');
 export const AiChat = story('ai-chat');
 export const Communication = story('communication');
