@@ -741,8 +741,11 @@ describe('SegmentedControl', () => {
     it('should colour the icon of an unselected, enabled, unfocused segment Static/Text/Base', () => {
       renderControl();
 
-      expect(screen.getByRole('radio', { name: 'Line' })).toHaveClass(
-        '[&[data-state=off]:enabled:not(:focus-visible)>[data-slot=segmented-control-icon]]:text-ws-static-base',
+      const segment = screen.getByRole('radio', { name: 'Line' });
+      // The rule keys on the attribute itself, so check the segment really carries it.
+      expect(segment).toHaveAttribute('aria-checked', 'false');
+      expect(segment).toHaveClass(
+        '[&[aria-checked=false]:enabled:not(:focus-visible)>[data-slot=segmented-control-icon]]:text-ws-static-base',
       );
     });
   });

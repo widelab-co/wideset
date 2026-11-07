@@ -30,8 +30,9 @@ export const segmentedControlItemVariants = cva(
   cn(
     'text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center',
     // Figma: an unselected segment's icon is Static/Text/Base; selected, focused and disabled
-    // segments keep the item's text colour.
-    '[&[data-state=off]:enabled:not(:focus-visible)>[data-slot=segmented-control-icon]]:text-ws-static-base',
+    // segments keep the item's text colour. Keyed on aria-checked, which a toggle-group item and a
+    // radio item both set, so the rule does not depend on which primitive draws the segment.
+    '[&[aria-checked=false]:enabled:not(:focus-visible)>[data-slot=segmented-control-icon]]:text-ws-static-base',
     'focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default',
     'hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed',
     'data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low',
