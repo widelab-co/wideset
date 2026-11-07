@@ -76,7 +76,7 @@ Choose by what the thing does. These pairs get mixed up most:
 - Table selection and sorting are yours: the table reports, you hold the state and sort the rows.
 - Handlers differ: `Select` uses `onValueChange(value)`, `ComboBox` uses `onChange(value)` and `TextInput` uses `onChange(event)`.
 - Overlays stack themselves. Do not add `z-*` to them.
-- `p-4` is Tailwind's 1rem, while `p-ws-4` is Wideset's 0.375rem.
+- `p-4` is Tailwind's 1rem, while `p-ws-4` is Wideset's 0.375rem. Zero is `p-ws-0` too, never `p-0` or `mt-0`.
 
 ## Styling and content
 
