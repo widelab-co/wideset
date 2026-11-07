@@ -11,6 +11,10 @@ holds more than the screen. A list of cards or a roomy table wastes the space an
 columns; a hand-built grid of `div`s loses the keyboard and the screen reader. `Spreadsheet` is
 the dense grid; `Table` stays the default for records read a row at a time.
 
+A whole screen starts from the `spreadsheet` starting point (Wideset Core's Clients table: view
+tools, column summaries, row selection, a status bar), its code at
+`https://wideset-docs.widelab.workers.dev/blocks/spreadsheet.md`.
+
 ## Is the screen spreadsheet-like?
 
 Most of these hold:

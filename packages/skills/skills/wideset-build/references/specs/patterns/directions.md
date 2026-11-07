@@ -111,6 +111,7 @@ surround.
 | `kanban`            | Flat      | Sidebar        |
 | `process`           | Flat      | Rail + sidebar |
 | `finance-dashboard` | Flat      | Top bar        |
+| `spreadsheet`       | Flat      | Top bar        |
 | `communication`     | Frame     | Sidebar        |
 | `calendar`          | Inset     | Sidebar        |
 | `crypto`            | Canvas    | Top bar        |
