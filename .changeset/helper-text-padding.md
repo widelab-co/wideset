@@ -2,4 +2,4 @@
 '@wideset/react': patch
 ---
 
-HelperText has Figma's `py-ws-3` padding by default. FormField stacks its label, control and helper text with `gap-ws-4`, as in Figma, so the helper text sits 10px below the control (was 6px) with 4px under it. ProgressBar keeps 12px from the bar to its description. HelperText also merges a passed `className` with its own classes instead of replacing them.
+FormField's helper and error text sit 10px below the control (was 6px) with 4px under them, matching Figma; ProgressBar keeps 12px from the bar to its description, now with 4px under it. Both come from the internal HelperText, which now has Figma's `py-ws-3` padding and merges a passed `className` with its own classes instead of replacing them.
