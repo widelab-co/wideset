@@ -204,3 +204,17 @@ describe('LinkButton focus', () => {
     },
   );
 });
+
+describe('LinkButton size', () => {
+  it.each(['sm', 'lg'] as const)(
+    "pads the %s link with Figma's Gap/5 × Gap/3 (8 × 4px)",
+    (size) => {
+      render(
+        <LinkButton href="/test" size={size}>
+          Link
+        </LinkButton>,
+      );
+      expect(screen.getByRole('link', { name: 'Link' })).toHaveClass('px-ws-5', 'py-ws-3');
+    },
+  );
+});
