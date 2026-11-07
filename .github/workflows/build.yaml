@@ -259,8 +259,9 @@ jobs:
               await github.rest.issues.createComment({ owner, repo, issue_number, body });
             }
 
-  # A PR into develop that changes shipping code (packages/design-system/src or cli, minus stories,
-  # tests, snapshots, Figma specs and docs pages; or the skills in packages/skills) must add a file in .changeset/. Nothing to release:
+  # A PR into develop that changes shipping code (packages/design-system/src or packages/cli/src,
+  # minus stories, tests, snapshots, Figma specs and docs pages; packages/cli/package.json; or the
+  # skills in packages/skills) must add a file in .changeset/. Nothing to release:
   # `pnpm changeset --empty`. Same rule as the pre-push hook: scripts/check-changeset.mjs.
   changeset:
     name: Changeset present

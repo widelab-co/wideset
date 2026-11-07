@@ -360,11 +360,12 @@ describe('what ships', () => {
     expect(noInstall.map((file) => relative(REPO, file))).toEqual([]);
   });
 
-  // The skills describe the library, so Changesets must release them under one version.
-  it('shares one version with the library through a fixed changeset group', () => {
+  // The skills describe the library, and tell agents to run the CLI, so Changesets must release
+  // all three under one version.
+  it('shares one version with the library and the CLI through a fixed changeset group', () => {
     const config = JSON.parse(read(join(REPO, '.changeset/config.json'))) as { fixed: string[][] };
     const group = config.fixed.find((names) => names.includes('@wideset/skills'));
-    expect(group).toContain('@wideset/react');
+    expect(group).toEqual(expect.arrayContaining(['@wideset/react', 'wideset']));
   });
 
   it('has no Claude-only includes or paths inside skills', () => {

@@ -16,12 +16,12 @@ Start by finding out what the project already has:
 
 ## Choose a mode
 
-|         | Package (`npm`)                 | Scaffolding (`registry`)                                        |
-| ------- | ------------------------------- | --------------------------------------------------------------- |
-| Install | `npm install @wideset/react`    | `components.json`, then `npx shadcn@latest add @wideset/button` |
-| Code    | In `node_modules`, not editable | Copied into the repo, yours to edit                             |
-| Updates | Through semver                  | None; the code is yours from then on                            |
-| Import  | `from '@wideset/react'`         | `from '@/components/ui/wideset/button/Button'`                  |
+|         | Package (`npm`)                 | Scaffolding (`registry`)                          |
+| ------- | ------------------------------- | ------------------------------------------------- |
+| Install | `npm install @wideset/react`    | `npx wideset init`, then `npx wideset add button` |
+| Code    | In `node_modules`, not editable | Copied into the repo, yours to edit               |
+| Updates | Through semver                  | None; the code is yours from then on              |
+| Import  | `from '@wideset/react'`         | `from '@/components/ui/wideset/button/Button'`    |
 
 Use the mode the project already uses. Never mix both in one app. For a new project, prefer the package when it should receive fixes, and the registry when it needs heavy custom branding.
 
@@ -53,7 +53,18 @@ The `theme` entry ships tokens and utilities only. To use `radix-*` or `animate-
 
 ## Stylesheets (registry mode)
 
-The shadcn CLI does the copying; you do not need shadcn's components or theme, or `shadcn init`. Add this `components.json` to the project root (Vite shown; for Next.js use `"rsc": true`, `"css": "app/globals.css"` and `@/` at the project root). The `@/*` alias must exist in `tsconfig.json`, and in `vite.config.ts` for Vite.
+The Wideset CLI sets the project up and copies components through the shadcn CLI; you do not need shadcn's components or theme, or `shadcn init`:
+
+```bash
+npx wideset init               # once: components.json, @/* alias, stylesheets and their import
+npx wideset add button select  # any components, with what they depend on; `npx wideset list` shows them
+```
+
+`init` writes `components.json`, adds the `@/*` alias to `tsconfig.json` (and `vite.config.ts` for Vite), adds `@wideset/styles` (plus `@wideset/preflight` in apps without Tailwind) and imports them in the app entry. In a project that already uses shadcn it keeps `components.json` and only registers the `@wideset` namespace. `add` runs `init` itself the first time. `npx wideset init --dry-run` prints what it would change. When `init` lists a step to do by hand, do it.
+
+### Without the Wideset CLI
+
+Only when `npx wideset` cannot run. Add this `components.json` to the project root (Vite shown; for Next.js use `"rsc": true`, `"css": "app/globals.css"` and `@/` at the project root). The `@/*` alias must exist in `tsconfig.json`, and in `vite.config.ts` for Vite.
 
 ```json
 {
@@ -80,13 +91,19 @@ The shadcn CLI does the copying; you do not need shadcn's components or theme, o
 
 A project already using shadcn keeps its file and runs `npx shadcn@latest registry add @wideset=https://wideset-docs.widelab.workers.dev/r/{name}.json`.
 
+Then add components with `npx shadcn@latest add @wideset/button`.
+
 Every component brings `styles/wideset.css`. Import it once in the app entry:
 
 ```tsx
 import '@/styles/wideset.css';
 ```
 
-Apps without Tailwind also add `@wideset/preflight` and import `@/styles/wideset-preflight.css` first. For your own Tailwind build, add `@wideset/theme` and import `./styles/wideset-theme.css` after `tailwindcss` in the entry CSS.
+Apps without Tailwind also add `@wideset/preflight` and import `@/styles/wideset-preflight.css` first.
+
+### Either way
+
+For your own Tailwind build, add `@wideset/theme` (`npx wideset add theme`) and import `./styles/wideset-theme.css` after `tailwindcss` in the entry CSS.
 
 Shared code comes along with the components that need it. The list of items is `https://wideset-docs.widelab.workers.dev/r/registry.json`.
 
