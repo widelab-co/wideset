@@ -3,27 +3,36 @@ import { cn } from 'src/lib/utils';
 
 import { hoverTintMotion } from '../../motion/recipes';
 
-export const segmentedControlVariants = cva('bg-ws-static-alpha-base p-ws-2', {
-  variants: {
-    variant: {
-      regular: 'inline-flex w-fit',
-      fullWidth: 'flex w-full',
+// Figma's track carries a raw inner shadow (0 1px 1px, #000 2%) bound to no style or variable;
+// Forms/Base has the same geometry, so it is drawn inset from that token.
+export const segmentedControlVariants = cva(
+  'bg-ws-static-alpha-base p-ws-2 inset-shadow-(--ws-elevation-forms-base)',
+  {
+    variants: {
+      variant: {
+        regular: 'inline-flex w-fit',
+        fullWidth: 'flex w-full',
+      },
+      size: {
+        sm: 'rounded-ws-control-lg h-ws-forms-sm gap-ws-2',
+        md: 'rounded-ws-control-lg h-ws-forms-md gap-ws-2',
+        lg: 'rounded-ws-control-xl h-ws-forms-lg gap-ws-3',
+      },
     },
-    size: {
-      sm: 'rounded-ws-control-lg h-ws-forms-sm gap-ws-2',
-      md: 'rounded-ws-control-lg h-ws-forms-md gap-ws-2',
-      lg: 'rounded-ws-control-xl h-ws-forms-lg gap-ws-3',
+    defaultVariants: {
+      variant: 'regular',
+      size: 'md',
     },
   },
-  defaultVariants: {
-    variant: 'regular',
-    size: 'md',
-  },
-});
+);
 
 export const segmentedControlItemVariants = cva(
   cn(
     'text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center',
+    // Figma: an unselected segment's icon is Static/Text/Base; selected, focused and disabled
+    // segments keep the item's text colour. Keyed on aria-checked, which a toggle-group item and a
+    // radio item both set, so the rule does not depend on which primitive draws the segment.
+    '[&[aria-checked=false]:enabled:not(:focus-visible)>[data-slot=segmented-control-icon]]:text-ws-static-base',
     'focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default',
     'hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed',
     'data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low',
@@ -83,7 +92,7 @@ export const segmentedControlGlideVariants = cva('', {
 });
 
 export const segmentedControlPillVariants = cva(
-  'bg-ws-static-highlight-base shadow-ws-low pointer-events-none absolute top-0 left-0 -z-[var(--ws-z-index-base)]',
+  'bg-ws-static-highlight-strong shadow-ws-low pointer-events-none absolute top-0 left-0 -z-[var(--ws-z-index-base)]',
   {
     variants: {
       size: {

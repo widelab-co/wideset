@@ -712,6 +712,44 @@ describe('SegmentedControl', () => {
     });
   });
 
+  // Values read from Figma's Segmented Control component set (557:61066, items 557:61311).
+  describe('Figma', () => {
+    const renderControl = () =>
+      render(
+        <SegmentedControl aria-label="Chart" defaultValue="bar" defaultMotion>
+          <SegmentedControl.Item value="bar" icon={RiCheckboxCircleFill} aria-label="Bar" />
+          <SegmentedControl.Item value="line" icon={RiCloseLine} aria-label="Line" />
+        </SegmentedControl>,
+      );
+
+    it('should fill the sliding selection like a selected segment, with highlight-strong', () => {
+      renderControl();
+
+      const pill = screen.getByRole('radiogroup').querySelector(':scope > span[aria-hidden]');
+      expect(pill).toHaveClass('bg-ws-static-highlight-strong');
+      expect(pill).not.toHaveClass('bg-ws-static-highlight-base');
+    });
+
+    it('should draw the inner shadow of the track', () => {
+      renderControl();
+
+      expect(screen.getByRole('radiogroup')).toHaveClass(
+        'inset-shadow-(--ws-elevation-forms-base)',
+      );
+    });
+
+    it('should colour the icon of an unselected, enabled, unfocused segment Static/Text/Base', () => {
+      renderControl();
+
+      const segment = screen.getByRole('radio', { name: 'Line' });
+      // The rule keys on the attribute itself, so check the segment really carries it.
+      expect(segment).toHaveAttribute('aria-checked', 'false');
+      expect(segment).toHaveClass(
+        '[&[aria-checked=false]:enabled:not(:focus-visible)>[data-slot=segmented-control-icon]]:text-ws-static-base',
+      );
+    });
+  });
+
   describe('Group name', () => {
     it('should expose aria-label as the accessible name of the group', () => {
       render(
