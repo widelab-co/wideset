@@ -302,3 +302,11 @@ describe('Circle type', () => {
     expect(bar).not.toHaveAttribute('max');
   });
 });
+
+describe('Spacing', () => {
+  it("puts the description 12px under the bar: the 8px gap plus the helper text's 4px padding", () => {
+    render(<ProgressBar label="Upload" description="2 of 4 files" value={50} />);
+    expect(screen.getByRole('progressbar')).not.toHaveClass('mb-ws-3');
+    expect(screen.getByText('2 of 4 files')).toHaveClass('py-ws-3');
+  });
+});

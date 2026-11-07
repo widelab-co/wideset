@@ -22,6 +22,11 @@ describe('HelperText', () => {
     expect(screen.getByText('Helper text')).toBeInTheDocument();
   });
 
+  it("pads its line 4px above and below, like Figma's Helper Text", () => {
+    render(<HelperText>Helper text</HelperText>);
+    expect(screen.getByText('Helper text')).toHaveClass('py-ws-3');
+  });
+
   it('returns null when children is empty and showIcon is false', () => {
     const { container } = render(<HelperText showIcon={false}></HelperText>);
     expect(container.firstChild).toBeNull();

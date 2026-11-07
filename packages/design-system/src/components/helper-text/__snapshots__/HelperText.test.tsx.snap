@@ -2,7 +2,7 @@
 
 exports[`HelperText Snapshots > matches snapshot for state default 1`] = `
 <span
-  class="typography-body-sm gap-ws-3 flex items-center text-ws-static-subtle"
+  class="typography-body-sm gap-ws-3 py-ws-3 flex items-center text-ws-static-subtle"
   data-slot="helper-text"
 >
   Helper text
@@ -11,7 +11,7 @@ exports[`HelperText Snapshots > matches snapshot for state default 1`] = `
 
 exports[`HelperText Snapshots > matches snapshot for state error 1`] = `
 <span
-  class="typography-body-sm gap-ws-3 flex items-center text-ws-semantic-negative"
+  class="typography-body-sm gap-ws-3 py-ws-3 flex items-center text-ws-semantic-negative"
   data-slot="helper-text"
 >
   Helper text
@@ -20,7 +20,7 @@ exports[`HelperText Snapshots > matches snapshot for state error 1`] = `
 
 exports[`HelperText Snapshots > matches snapshot for state success 1`] = `
 <span
-  class="typography-body-sm gap-ws-3 flex items-center text-ws-semantic-positive"
+  class="typography-body-sm gap-ws-3 py-ws-3 flex items-center text-ws-semantic-positive"
   data-slot="helper-text"
 >
   Helper text
@@ -29,7 +29,7 @@ exports[`HelperText Snapshots > matches snapshot for state success 1`] = `
 
 exports[`HelperText Snapshots > matches snapshot for state warning 1`] = `
 <span
-  class="typography-body-sm gap-ws-3 flex items-center text-ws-semantic-notice"
+  class="typography-body-sm gap-ws-3 py-ws-3 flex items-center text-ws-semantic-notice"
   data-slot="helper-text"
 >
   Helper text
@@ -38,7 +38,7 @@ exports[`HelperText Snapshots > matches snapshot for state warning 1`] = `
 
 exports[`HelperText Snapshots > matches snapshot without icon 1`] = `
 <span
-  class="typography-body-sm gap-ws-3 flex items-center text-ws-semantic-negative"
+  class="typography-body-sm gap-ws-3 py-ws-3 flex items-center text-ws-semantic-negative"
   data-slot="helper-text"
 >
   Helper text
