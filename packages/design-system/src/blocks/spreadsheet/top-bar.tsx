@@ -2,11 +2,12 @@ import { RiArrowDownSLine, RiNotification3Line, RiSearchLine } from '@remixicon/
 import { Avatar, cn, IconButton, TextInput } from '@wideset/react';
 import { type AnchorHTMLAttributes, useState } from 'react';
 
+import { BrandMark } from './brand-mark';
 import { ACCOUNT, PAGES, TABLE } from './data';
 
 /**
- * Figma's top bar on the white page, a line below it: the table and its switcher, the table's
- * pages, then search and the account.
+ * Figma's top bar on the white page, a line below it: the product mark, the table and its
+ * switcher, the table's pages, then search and the account.
  */
 export function TopBar() {
   const [current, setCurrent] = useState(PAGES[0].href);
@@ -14,15 +15,19 @@ export function TopBar() {
   return (
     <header className="border-ws-static-base h-ws-19 px-ws-11 flex shrink-0 items-center justify-between border-b">
       <div className="gap-ws-12 flex items-center">
-        <div className="gap-ws-5 flex items-center">
-          <h1 className="typography-subtitle-xs text-ws-dynamic-secondary-default">{TABLE}</h1>
-          <IconButton
-            variant="secondary"
-            preset="ghost"
-            size="xs"
-            icon={RiArrowDownSLine}
-            aria-label="Switch table"
-          />
+        {/* One mark in every screen: this one has no sidebar, so the top bar carries it. */}
+        <div className="gap-ws-7 flex items-center">
+          <BrandMark label="Wideset" />
+          <div className="gap-ws-5 flex items-center">
+            <h1 className="typography-subtitle-xs text-ws-dynamic-secondary-default">{TABLE}</h1>
+            <IconButton
+              variant="secondary"
+              preset="ghost"
+              size="xs"
+              icon={RiArrowDownSLine}
+              aria-label="Switch table"
+            />
+          </div>
         </div>
         <nav aria-label={TABLE} className="gap-ws-3 flex items-center">
           {PAGES.map((page) => (
