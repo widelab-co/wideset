@@ -174,3 +174,33 @@ describe('LinkButton data-slot', () => {
     expect(container.querySelector('[data-slot="button-truncated-text"]')).toBeInTheDocument();
   });
 });
+
+describe('LinkButton focus', () => {
+  it('draws the shared focus-visible ring and no dead focus class', () => {
+    render(<LinkButton href="/test">Link</LinkButton>);
+    const link = screen.getByRole('link', { name: 'Link' });
+    expect(link).toHaveClass('focus-visible:wds-focus-visible');
+    expect(link).not.toHaveClass('focus-visible:wds-focus');
+  });
+
+  it("rounds the focused link with Figma's Corner Radius/Control/sm", () => {
+    render(<LinkButton href="/test">Link</LinkButton>);
+    const link = screen.getByRole('link', { name: 'Link' });
+    expect(link).toHaveClass('rounded-ws-control-sm');
+    expect(link).not.toHaveClass('rounded-ws-control-md');
+  });
+
+  it.each(['primary', 'secondary', 'danger', 'success', 'inverse'] as const)(
+    "fills the focused %s link with the variant's Alpha/Default fill",
+    (variant) => {
+      render(
+        <LinkButton href="/test" variant={variant}>
+          Link
+        </LinkButton>,
+      );
+      expect(screen.getByRole('link', { name: 'Link' })).toHaveClass(
+        `focus-visible:bg-ws-dynamic-${variant}-alpha-default`,
+      );
+    },
+  );
+});
