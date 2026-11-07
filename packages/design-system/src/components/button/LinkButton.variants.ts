@@ -49,9 +49,10 @@ export const linkButtonVariants = cva(
           '[&[aria-disabled="true"]]:text-ws-dynamic-inverse-disabled',
         ),
       },
+      // Figma pads both sizes Gap/5 × Gap/3 (8 × 4px); size switches the label only.
       size: {
-        sm: 'typography-label-strong-sm px-ws-6 py-ws-3',
-        lg: 'typography-label-strong-md px-ws-9 py-ws-4',
+        sm: 'typography-label-strong-sm px-ws-5 py-ws-3',
+        lg: 'typography-label-strong-md px-ws-5 py-ws-3',
       },
     },
     defaultVariants: {
