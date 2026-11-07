@@ -91,7 +91,8 @@ export const checkboxIndicatorMotionVariants = cva('', {
     enabled: {
       true: cn(
         'animate-in fade-in-0 zoom-in-[0.4]',
-        'fill-mode-both duration-(--ws-motion-duration-fast) ease-(--ws-motion-ease-bounce)',
+        // Grows in without overshooting: the mark appears, nothing jumps past its size.
+        'fill-mode-both duration-(--ws-motion-duration-fast) ease-(--ws-motion-ease-out)',
       ),
       false: '',
     },

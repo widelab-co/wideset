@@ -155,7 +155,7 @@ exports[`Checkbox Snapshots > matches snapshot for checked checkbox 1`] = `
     value="on"
   >
     <span
-      class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-in fade-in-0 zoom-in-[0.4] fill-mode-both duration-(--ws-motion-duration-fast) ease-(--ws-motion-ease-bounce)"
+      class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-in fade-in-0 zoom-in-[0.4] fill-mode-both duration-(--ws-motion-duration-fast) ease-(--ws-motion-ease-out)"
       data-state="checked"
       style="pointer-events: none;"
     >
@@ -298,7 +298,7 @@ exports[`Checkbox Snapshots > matches snapshot for disabled checked checkbox 1`]
     value="on"
   >
     <span
-      class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-in fade-in-0 zoom-in-[0.4] fill-mode-both duration-(--ws-motion-duration-fast) ease-(--ws-motion-ease-bounce)"
+      class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-in fade-in-0 zoom-in-[0.4] fill-mode-both duration-(--ws-motion-duration-fast) ease-(--ws-motion-ease-out)"
       data-disabled=""
       data-state="checked"
       style="pointer-events: none;"
@@ -347,7 +347,7 @@ exports[`Checkbox Snapshots > matches snapshot for indeterminate checkbox 1`] = 
     value="on"
   >
     <span
-      class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-in fade-in-0 zoom-in-[0.4] fill-mode-both duration-(--ws-motion-duration-fast) ease-(--ws-motion-ease-bounce)"
+      class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-in fade-in-0 zoom-in-[0.4] fill-mode-both duration-(--ws-motion-duration-fast) ease-(--ws-motion-ease-out)"
       data-state="indeterminate"
       style="pointer-events: none;"
     >

@@ -1,7 +1,7 @@
 import { cva } from 'class-variance-authority';
 import { cn } from 'src/lib/utils';
 
-import { hoverTintMotion, pressMotion } from '../../motion/recipes';
+import { hoverTintMotion } from '../../motion/recipes';
 
 /* The dashed frame is an SVG <rect> drawn by FileUploadDropzone, not a CSS
    border: Figma's dash is exactly 4 on / 4 off, and CSS `border-dashed` has a
@@ -60,10 +60,8 @@ export const dropzoneVariants = cva(
 export const dropzoneMotionVariants = cva('', {
   variants: {
     enabled: { true: hoverTintMotion, false: '' },
-    type: { area: '', button: '' },
   },
-  compoundVariants: [{ enabled: true, type: 'area', className: pressMotion }],
-  defaultVariants: { enabled: true, type: 'area' },
+  defaultVariants: { enabled: true },
 });
 
 export const dropzoneStrokeMotionVariants = cva('', {

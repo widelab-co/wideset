@@ -10,7 +10,7 @@ exports[`Breadcrumbs > Snapshots > should match snapshot for breadcrumbs with sl
   >
     <li>
       <button
-        class="outline-ws-dynamic-primary-strong-default typography-caption-md h-ws-forms-sm min-h-ws-forms-sm rounded-ws-control-lg bg-ws-dynamic-secondary-alpha-default text-ws-static-subtle gap-ws-3 px-ws-5 flex items-center focus-visible:wds-focus-visible hover:bg-ws-dynamic-secondary-alpha-hover focus-visible:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed cursor-pointer transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+        class="outline-ws-dynamic-primary-strong-default typography-caption-md h-ws-forms-sm min-h-ws-forms-sm rounded-ws-control-lg bg-ws-dynamic-secondary-alpha-default text-ws-static-subtle gap-ws-3 px-ws-5 flex items-center focus-visible:wds-focus-visible hover:bg-ws-dynamic-secondary-alpha-hover focus-visible:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed cursor-pointer transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
         data-slot="breadcrumbs-item"
         tabindex="0"
         type="button"
@@ -39,7 +39,7 @@ exports[`Breadcrumbs > Snapshots > should match snapshot for breadcrumbs with sl
     </li>
     <li>
       <button
-        class="outline-ws-dynamic-primary-strong-default typography-caption-md h-ws-forms-sm min-h-ws-forms-sm rounded-ws-control-lg bg-ws-dynamic-secondary-alpha-default text-ws-static-subtle gap-ws-3 px-ws-5 flex items-center focus-visible:wds-focus-visible hover:bg-ws-dynamic-secondary-alpha-hover focus-visible:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed cursor-pointer transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+        class="outline-ws-dynamic-primary-strong-default typography-caption-md h-ws-forms-sm min-h-ws-forms-sm rounded-ws-control-lg bg-ws-dynamic-secondary-alpha-default text-ws-static-subtle gap-ws-3 px-ws-5 flex items-center focus-visible:wds-focus-visible hover:bg-ws-dynamic-secondary-alpha-hover focus-visible:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed cursor-pointer transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
         data-slot="breadcrumbs-item"
         tabindex="0"
         type="button"
@@ -70,7 +70,7 @@ exports[`Breadcrumbs > Snapshots > should match snapshot for breadcrumbs with sl
       <button
         aria-current="page"
         aria-disabled="true"
-        class="outline-ws-dynamic-primary-strong-default typography-caption-md h-ws-forms-sm min-h-ws-forms-sm rounded-ws-control-lg bg-ws-dynamic-secondary-alpha-default gap-ws-3 px-ws-5 flex items-center text-ws-static-base wds-disabled transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+        class="outline-ws-dynamic-primary-strong-default typography-caption-md h-ws-forms-sm min-h-ws-forms-sm rounded-ws-control-lg bg-ws-dynamic-secondary-alpha-default gap-ws-3 px-ws-5 flex items-center text-ws-static-base wds-disabled transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
         data-slot="breadcrumbs-item"
         tabindex="-1"
         type="button"
@@ -96,7 +96,7 @@ exports[`Breadcrumbs > Snapshots > should match snapshot for composable breadcru
   >
     <li>
       <button
-        class="outline-ws-dynamic-primary-strong-default typography-caption-md h-ws-forms-sm min-h-ws-forms-sm rounded-ws-control-lg bg-ws-dynamic-secondary-alpha-default text-ws-static-subtle gap-ws-3 px-ws-5 flex items-center focus-visible:wds-focus-visible hover:bg-ws-dynamic-secondary-alpha-hover focus-visible:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed cursor-pointer transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+        class="outline-ws-dynamic-primary-strong-default typography-caption-md h-ws-forms-sm min-h-ws-forms-sm rounded-ws-control-lg bg-ws-dynamic-secondary-alpha-default text-ws-static-subtle gap-ws-3 px-ws-5 flex items-center focus-visible:wds-focus-visible hover:bg-ws-dynamic-secondary-alpha-hover focus-visible:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed cursor-pointer transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
         data-slot="breadcrumbs-item"
         tabindex="0"
         type="button"
@@ -121,7 +121,7 @@ exports[`Breadcrumbs > Snapshots > should match snapshot for composable breadcru
     </li>
     <li>
       <button
-        class="outline-ws-dynamic-primary-strong-default typography-caption-md h-ws-forms-sm min-h-ws-forms-sm rounded-ws-control-lg bg-ws-dynamic-secondary-alpha-default text-ws-static-subtle gap-ws-3 px-ws-5 flex items-center focus-visible:wds-focus-visible hover:bg-ws-dynamic-secondary-alpha-hover focus-visible:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed cursor-pointer transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+        class="outline-ws-dynamic-primary-strong-default typography-caption-md h-ws-forms-sm min-h-ws-forms-sm rounded-ws-control-lg bg-ws-dynamic-secondary-alpha-default text-ws-static-subtle gap-ws-3 px-ws-5 flex items-center focus-visible:wds-focus-visible hover:bg-ws-dynamic-secondary-alpha-hover focus-visible:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed cursor-pointer transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
         data-slot="breadcrumbs-item"
         tabindex="0"
         type="button"
@@ -148,7 +148,7 @@ exports[`Breadcrumbs > Snapshots > should match snapshot for composable breadcru
       <button
         aria-current="page"
         aria-disabled="true"
-        class="outline-ws-dynamic-primary-strong-default typography-caption-md h-ws-forms-sm min-h-ws-forms-sm rounded-ws-control-lg bg-ws-dynamic-secondary-alpha-default gap-ws-3 px-ws-5 flex items-center text-ws-static-base wds-disabled transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+        class="outline-ws-dynamic-primary-strong-default typography-caption-md h-ws-forms-sm min-h-ws-forms-sm rounded-ws-control-lg bg-ws-dynamic-secondary-alpha-default gap-ws-3 px-ws-5 flex items-center text-ws-static-base wds-disabled transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
         data-slot="breadcrumbs-item"
         tabindex="-1"
         type="button"

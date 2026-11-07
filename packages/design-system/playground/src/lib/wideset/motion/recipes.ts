@@ -8,10 +8,28 @@ export const boxFillMotion =
 export const hoverTintMotion =
   'transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)';
 
-/** Compose with hoverTintMotion for press feedback and a smooth release. */
+/**
+ * Compose with hoverTintMotion for press feedback and a smooth release. Buttons only (Button,
+ * IconButton, SplitButton, Chip): fields, tabs, menus, list rows, tiles and calendar cells answer
+ * a press with colour, never with a scale.
+ */
 export const pressMotion = cn(
   'active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro)',
   'active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)',
+);
+
+/**
+ * Menus, selects, comboboxes and pickers (every Popup, DropdownMenu and Select list): a short
+ * fade in and out, no zoom or slide. Each duration carries its state variant because
+ * animate-in / animate-out set their own 150ms at that specificity; transition-none keeps the
+ * durations off every other property.
+ */
+export const menuFadeMotion = cn(
+  'transition-none ease-(--ws-motion-ease-out)',
+  'data-[state=open]:animate-in data-[state=open]:fade-in-0',
+  'data-[state=open]:duration-(--ws-motion-duration-quick)',
+  'data-[state=closed]:animate-out data-[state=closed]:fade-out-0',
+  'data-[state=closed]:duration-(--ws-motion-duration-quick)',
 );
 
 export const switchTrackMotion =

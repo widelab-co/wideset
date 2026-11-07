@@ -13,23 +13,37 @@ Docs: `https://wideset-docs.widelab.workers.dev/docs/motion` · Source:
 | ------------------------------------------------------ | --------------------------------- | ---------------------------------------------------- |
 | `--ws-motion-duration-stagger`                         | 40ms                              | Per-item offset in a staggered list                  |
 | `--ws-motion-duration-micro`                           | 80ms                              | Press feedback, hover tint, one shake segment        |
-| `--ws-motion-duration-quick`                           | 150ms                             | Closing (menu, tooltip, modal), text swap, checkbox  |
-| `--ws-motion-duration-fast`                            | 250ms                             | Opening (menu, modal), icon swap, tabs pill          |
+| `--ws-motion-duration-quick`                           | 150ms                             | Menus, closing (tooltip, modal), text swap, checkbox |
+| `--ws-motion-duration-fast`                            | 250ms                             | Opening (modal), icon swap, tabs pill                |
 | `--ws-motion-duration-medium`                          | 350ms                             | Switch thumb, panel close, toast close               |
 | `--ws-motion-duration-slow`                            | 400ms                             | Sidebar collapse, panel open, skeleton reveal        |
 | `--ws-motion-duration-very-slow`                       | 500ms                             | Emphasis: success check, badge appear                |
 | `--ws-motion-ease-smooth-out`                          | cubic-bezier(0.22, 1, 0.36, 1)    | Open, close, slide, resize                           |
 | `--ws-motion-ease-in-out`                              | ease-in-out                       | Cross-fades (icon swap, text swap)                   |
-| `--ws-motion-ease-out`                                 | ease-out                          | Tooltip, hover tint                                  |
+| `--ws-motion-ease-out`                                 | ease-out                          | Menus, tooltip, hover tint                           |
 | `--ws-motion-ease-linear`                              | linear                            | Shimmer, spinners, shake envelope                    |
 | `--ws-motion-ease-bounce`                              | cubic-bezier(0.34, 1.36, 0.64, 1) | Pop-ins: badge, indicator                            |
 | `--ws-motion-ease-bounce-strong`                       | cubic-bezier(0.34, 1.85, 0.64, 1) | Stronger pop-in                                      |
 | `--ws-motion-distance-{micro,small,base,medium,large}` | 4 / 6 / 8 / 12 / 30px             | Text swap, shake, slide-in, text reveal, check badge |
-| `--ws-motion-scale-{large,medium,small,tiny}`          | 0.96 / 0.97 / 0.98 / 0.99         | Modal, dropdown open, button press, dropdown close   |
+| `--ws-motion-scale-{large,medium,small,tiny}`          | 0.96 / 0.97 / 0.98 / 0.99         | Modal, toast, button press and tooltip, unused       |
 | `--ws-motion-blur-{small,medium,large}`                | 2 / 3 / 8px                       | Swaps and panel reveal, page slide, success check    |
 
 Rule of thumb: opening is `fast` + `smooth-out`, closing is `quick`, hover and press are
-`micro`/`quick` + `ease-out`. Exits are shorter than entrances.
+`micro`/`quick` + `ease-out`. Exits are shorter than entrances. Menus fade both ways on `quick`.
+
+## What moves
+
+Only buttons press: `Button`, `IconButton`, `SplitButton` and `Chip` shrink a little
+(`--ws-motion-scale-small`) while held. Fields, tabs, menus, list rows, tiles and calendar cells
+answer with colour, never with a scale or bounce.
+
+Nothing bounces. A checkbox's tick and a radio's dot still grow in when checked, on
+`--ws-motion-ease-out`, so they settle at their size instead of overshooting it; the box around
+them only changes colour.
+
+Fields and their menus stay still. The lists of `Select`, `MultiSelect`, `ComboBox`,
+`FilterButton` and `DropdownMenu`, the date and time pickers and `Popup` open and close with a
+short fade (`--ws-motion-duration-quick`, `--ws-motion-ease-out`): no zoom, no slide.
 
 ## Using the tokens in your own UI
 
@@ -109,6 +123,10 @@ const { ref, shake } = useShake<HTMLInputElement>();
 - Tailwind timing classes (`duration-300`, `ease-in-out`, `delay-150`) on Wideset-adjacent UI.
 - Re-implementing a component's built-in animation with your own keyframes; use
   `defaultMotion={false}` first.
+- A press scale on anything that is not a button, or a zoom or slide on a menu or picker you
+  build yourself.
+- A bounce: `--ws-motion-ease-bounce` and `-bounce-strong` overshoot their target and read as a
+  jump. No component uses them; a mark that appears grows in on `--ws-motion-ease-out`.
 
 ## Light and dark
 
