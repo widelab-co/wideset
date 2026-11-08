@@ -73,31 +73,32 @@ Four more habits apply to every screen:
 
 When nothing in the request says otherwise, use exactly these:
 
-| Decision           | Default                                                                                                                                                                      |
-| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Control height     | `md` (40px): Button, IconButton, TextInput, Select, MultiSelect, ComboBox, SegmentedControl; `FilterButton size="md"`, `Chip size="lg"`                                      |
-| Page tabs          | `Tabs size="lg"`; `Tabs` inside a card or panel keep their default `sm`                                                                                                      |
-| Page surface       | Set once per app by its visual direction; in Flat (the default) `main` is white like the `Sidebar` beside it, cards on it `Card` bordered                                    |
-| Page title         | `typography-subtitle-lg text-ws-static-strong` (32px), one per page                                                                                                          |
-| Section title      | `typography-subtitle-xs` or `Card.Title`                                                                                                                                     |
-| Body / description | `typography-body-md text-ws-static-subtle`                                                                                                                                   |
-| Text colours       | `text-ws-static-strong` (headings, key values), `-base` (body), `-subtle` (secondary, metadata)                                                                              |
-| Page padding       | `p-ws-12` (24px); page sections `gap-ws-16` (40px); inside a card `gap-ws-12` (24px)                                                                                         |
-| Composed side rail | `w-[20rem]` (never under 18rem), `p-ws-12`; items `gap-ws-11`, parts of an item `gap-ws-3`; nothing touches the edge                                                         |
-| Content width      | forms and reading `max-w-[40rem]`; composed pages `max-w-[80rem] mx-auto`; tables may fill                                                                                   |
-| Wide windows       | past 1440px the frame (sidebar, top bar, edge panels) keeps filling the window; the content column stops at its cap and centres                                              |
-| Side panel         | sections stack from the top with a section gap; never spread over the panel's height (`justify-between`, `mt-auto`)                                                          |
-| Trailing edge      | counts, shortcuts, group actions and arrows in one column end on one right edge: use the `suffix` / `action` slots, not `absolute`                                           |
-| Shortcut hints     | shown on hover and keyboard focus (`Sidebar.Item suffixOnHover`), never all the time                                                                                         |
-| Row targets        | a row that does one thing is one button or link across the whole row: hover fill on the whole row, inset focus ring; never only its text                                     |
-| Nested corners     | a shape around a round one is a pill, and its curve shares the centre: inset the round item by the same padding on every side (a coin in a picker, an avatar in a chip)      |
-| Round controls     | a round control is round in every state: give the button itself the full radius, never a round wrapper around a square hover, press or focus ring                            |
-| Shadows in flow    | cards inside a grey column or board take the lightest shadow (`shadow-ws-forms-base`); Elevation/Low and up are for raised surfaces (an inset page, a floating panel or bar) |
-| Product mark       | one mark in every screen, its size set by the place (32px in a sidebar or top bar, 36px in a larger switcher), drawn with tokens so it inverts in dark                       |
-| Primary action     | `<Button>` (primary, filled), one per view                                                                                                                                   |
-| Secondary action   | `<Button variant="secondary" preset="border">`                                                                                                                               |
-| Tertiary / in-row  | `preset="ghost"` or `IconButton` with an `aria-label`                                                                                                                        |
-| Icons              | Remix line icons (`Ri…Line`), passed to the component; size comes from the control                                                                                           |
+| Decision           | Default                                                                                                                                                                                                     |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Control height     | `md` (40px): Button, IconButton, TextInput, Select, MultiSelect, ComboBox, SegmentedControl; `FilterButton size="md"`, `Chip size="lg"`                                                                     |
+| Page tabs          | `Tabs size="lg"`; `Tabs` inside a card or panel keep their default `sm`                                                                                                                                     |
+| Page surface       | Set once per app by its visual direction; in Flat (the default) `main` is white like the `Sidebar` beside it, cards on it `Card` bordered                                                                   |
+| Page title         | `typography-subtitle-lg text-ws-static-strong` (32px), one per page                                                                                                                                         |
+| Section title      | `typography-subtitle-xs` or `Card.Title`                                                                                                                                                                    |
+| Body / description | `typography-body-md text-ws-static-subtle`                                                                                                                                                                  |
+| Text colours       | `text-ws-static-strong` (headings, key values), `-base` (body), `-subtle` (secondary, metadata)                                                                                                             |
+| Page padding       | `p-ws-12` (24px); page sections `gap-ws-16` (40px); inside a card `gap-ws-12` (24px)                                                                                                                        |
+| Composed side rail | `w-[20rem]` (never under 18rem), `p-ws-12`; items `gap-ws-11`, parts of an item `gap-ws-3`; nothing touches the edge                                                                                        |
+| Content width      | forms and reading `max-w-[40rem]`; composed pages `max-w-[80rem] mx-auto`; tables may fill                                                                                                                  |
+| Wide windows       | past 1440px the frame (sidebar, top bar, edge panels) keeps filling the window; the content column stops at its cap and centres                                                                             |
+| Side panel         | sections stack from the top with a section gap; never spread over the panel's height (`justify-between`, `mt-auto`)                                                                                         |
+| Trailing edge      | counts, shortcuts, group actions and arrows in one column end on one right edge: use the `suffix` / `action` slots, not `absolute`                                                                          |
+| Shortcut hints     | shown on hover and keyboard focus (`Sidebar.Item suffixOnHover`), never all the time                                                                                                                        |
+| Row targets        | a row that does one thing is one button or link across the whole row: hover fill on the whole row, inset focus ring; never only its text                                                                    |
+| Nested corners     | a shape around a round one is a pill, and its curve shares the centre: inset the round item by the same padding on every side (a coin in a picker, an avatar in a chip)                                     |
+| Round controls     | a round control is round in every state: give the button itself the full radius, never a round wrapper around a square hover, press or focus ring                                                           |
+| Shadows in flow    | cards inside a grey column or board take the lightest shadow (`shadow-ws-forms-base`); Elevation/Low and up are for raised surfaces (an inset page, a floating panel or bar)                                |
+| Product mark       | one mark in every screen, its size set by the place (32px in a sidebar or top bar, 36px in a larger switcher), drawn with tokens so it inverts in dark                                                      |
+| Primary action     | `<Button>` (primary, filled), one per view                                                                                                                                                                  |
+| Secondary action   | `<Button variant="secondary" preset="border">`                                                                                                                                                              |
+| Tertiary / in-row  | `preset="ghost"` or `IconButton` with an `aria-label`                                                                                                                                                       |
+| Icon button size   | the height of the controls beside it, one height per bar: the screen's size (`md`; `sm` in a compact screen, where `Sidebar.Trigger` already is); `xs` only for actions inside a row, card or column header |
+| Icons              | Remix line icons (`Ri…Line`), passed to the component; size comes from the control                                                                                                                          |
 
 Pass the sizes in the first two rows explicitly: they are not those components' defaults.
 
