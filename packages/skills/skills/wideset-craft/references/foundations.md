@@ -9,7 +9,7 @@ The shared rules behind every screen. Token lists and scales are on the docs sit
 - The sidebar and the page share one white surface: `Sidebar` is `bg-ws-static-foreground` with its subtle right line (its default), `main` takes `bg-ws-static-foreground`. Never a grey page beside the white sidebar. Above the page, surfaces stack `-container`, then `-overlay`.
 - No class for what you need: a role variable, `bg-(--ws-static-fill-container)`. A primitive such as `--ws-colors-light-brand-600` does not switch in dark.
 - Steps are indices: `ws-3` 4px, `ws-5` 8px, `ws-7` 12px, `ws-9` 16px, `ws-11` 20px, `ws-12` 24px, `ws-14` 32px, `ws-16` 40px. A value outside the scale is an arbitrary one (`w-[22rem]`), not `w-64`.
-- A custom element beside a `size="md"` control takes `h-ws-forms-md` and `rounded-ws-control-lg`. Inner radius is outer radius minus padding.
+- A custom element beside a control takes that control's height and radius: `h-ws-forms-sm` and `rounded-ws-control-lg` beside the default `size="sm"`. Inner radius is outer radius minus padding.
 - A sticky page header takes `z-ws-sticky`; page layout stays at or below that band. No numbers, and a `transform` or `filter` parent traps a child's z-index.
 - `cn()` reads `border-ws-width-*` and a border colour as one group and drops one. Use `border` or `border-2` beside a colour class. Two shadow classes in one `cn()` also keep only the last.
 - No `dark:` fix for a shadow or colour, no `duration-300` next to Wideset components, and no tracking on top of a `typography-*` class.

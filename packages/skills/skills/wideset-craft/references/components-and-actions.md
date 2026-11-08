@@ -44,7 +44,7 @@ A Modal that scrolls or a page with one checkbox both mean the container is wron
   (`RiMoreLine`) when there are more than two.
 - **A row of buttons holds only buttons.** Every action beside a `Button` (a form or card footer,
   a page header) is a `Button` or `IconButton` of the same size, even one that navigates
-  (`Button asChild` around an `<a>`). `LinkButton` has no 40px height and no hover fill, so in
+  (`Button asChild` around an `<a>`). `LinkButton` has no control height and no hover fill, so in
   that row it reads as dead text, even when a reference draws plain text there. It belongs in
   a sentence or alone under a form or card.
 - **Placement**: page actions top right in the header, primary rightmost. Form and dialog actions

@@ -14,8 +14,8 @@ decimals or units force reading every cell.
 
 ## Tables
 
-- `Table` row height matches the screen's control size (`sm` 40px by default; `md` 48px for roomy
-  pages, see [sizing.md](sizing.md)).
+- `Table` rows are `sm` (40px) by default, the smallest Table; `md` 48px for large screens (see
+  [sizing.md](sizing.md)). Denser, cell-by-cell work is a `Spreadsheet`.
 - A screen people work through cell by cell (many columns, more rows than fit, a pinned header and
   row numbers) is a `Spreadsheet`, not a wider `Table`: 32px rows and 12px text, every value on one
   line, numbers right-aligned in tabular figures. See the dense-data pattern in `wideset-build`.
