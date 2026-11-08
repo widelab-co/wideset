@@ -20,10 +20,12 @@ export default function Process() {
       <ProcessSidebar />
       <main className="flex min-w-0 flex-1 flex-col overflow-y-auto">
         <header className="border-ws-static-base h-ws-20 px-ws-14 gap-ws-14 flex shrink-0 items-center border-b">
-          <div className="gap-ws-7 flex min-w-0 flex-1 items-center">
+          {/* A bar's icon buttons are sm, like the Sidebar trigger beside it; gap-ws-5 keeps the
+              arrow 16px from the title, as before. */}
+          <div className="gap-ws-5 flex min-w-0 flex-1 items-center">
             <IconButton
               icon={RiArrowLeftLine}
-              size="xs"
+              size="sm"
               variant="secondary"
               preset="ghost"
               aria-label="Back to experiences"

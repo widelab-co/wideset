@@ -122,14 +122,12 @@ export default function Calendar() {
                 <div className="gap-ws-3 flex">
                   <IconButton
                     {...ghost}
-                    size="xs"
                     icon={RiArrowLeftSLine}
                     aria-label="Previous month"
                     onClick={() => setMonth(month - 1)}
                   />
                   <IconButton
                     {...ghost}
-                    size="xs"
                     icon={RiArrowRightSLine}
                     aria-label="Next month"
                     onClick={() => setMonth(month + 1)}
