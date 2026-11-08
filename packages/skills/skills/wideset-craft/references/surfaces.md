@@ -5,7 +5,10 @@
 ### The rule
 
 The brand colour marks **one thing per view: the primary action** (a filled `Button`, default
-variant) and the selected state of navigation (Sidebar, Tabs, SegmentedControl do this themselves).
+variant), plus whatever selected state a component draws itself (Tabs, SegmentedControl). A
+selected row you build (the open item in a list, a picked card) is neutral, like the active
+`Sidebar.Item`: `bg-ws-dynamic-tertiary-alpha-strong-default` and `text-ws-static-strong`, never
+a brand tint. One look for "selected" on the whole screen, whatever the column.
 Everything else is neutral: text in three greys, surfaces in two whites, borders in one line
 colour. Status colours (positive, negative, notice, info) appear only to say a status, through the
 components that carry them: `StatusBadge`, `InlineAlert`, `SystemAlert`, Toast, `Button
