@@ -59,7 +59,7 @@ Choose by what the thing does. These pairs get mixed up most:
 | Something clickable or removable            | `Chip`                | `Tag`                |
 | A short decision or small form that blocks  | `Modal`               | `Sidepanel`          |
 | Detail or a long form beside the page       | `Sidepanel`           | `Modal`              |
-| Going to another page, styled as a button   | `LinkButton`          | `Button` + `onClick` |
+| Going to another page, as a text link       | `LinkButton`          | `Button` + `onClick` |
 | A search field                              | `TextInput`, composed | `Search`             |
 
 ## What compiles and still breaks

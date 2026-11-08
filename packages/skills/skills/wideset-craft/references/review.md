@@ -45,7 +45,7 @@ When a screen feels generic, the fix is almost never another element. In order, 
 
 ## Common tells of generated UI
 
-- Mixed control heights in one row.
+- Mixed control heights in one row, including a text `LinkButton` beside a `Button`.
 - A 48px page title above 14px content, and a 20px intro paragraph in between.
 - Every button filled; or the primary not the rightmost.
 - Cards inside cards; a card around a single line.
