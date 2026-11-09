@@ -8,6 +8,7 @@ import { FieldLabel } from '../field-label/FieldLabel';
 import { HelperText } from '../helper-text/HelperText';
 import type { ProgressBarProps } from './ProgressBar.types';
 import {
+  progressBarCircleArcVariants,
   progressBarCircleIconVariants,
   progressBarCircleMotionVariants,
   progressBarIndicatorMotionVariants,
@@ -58,39 +59,45 @@ const ProgressBar = React.forwardRef<
       const dashArray = circumference;
       const offset = circumference * (1 - fraction);
 
+      const ring = (
+        <svg
+          width={size}
+          height={size}
+          viewBox={`0 0 ${size} ${size}`}
+          className="shrink-0"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <circle
+            cx={size / 2}
+            cy={size / 2}
+            r={radius}
+            className="fill-none stroke-(--border-color-ws-dynamic-secondary-default)"
+            strokeWidth={strokeWidth}
+          />
+          <circle
+            cx={size / 2}
+            cy={size / 2}
+            r={radius}
+            className={cn(
+              progressBarCircleArcVariants({
+                variant: variant === 'success' || variant === 'error' ? 'default' : variant,
+              }),
+              progressBarCircleMotionVariants({ enabled: motion }),
+            )}
+            strokeWidth={strokeWidth}
+            strokeLinecap="round"
+            strokeDasharray={dashArray}
+            strokeDashoffset={offset}
+            transform={`rotate(-90 ${size / 2} ${size / 2})`}
+          />
+        </svg>
+      );
+
       const icons: Record<typeof variant, React.ReactNode> = {
-        default: (
-          <svg
-            width={size}
-            height={size}
-            viewBox={`0 0 ${size} ${size}`}
-            className="shrink-0"
-            aria-hidden="true"
-            focusable="false"
-          >
-            <circle
-              cx={size / 2}
-              cy={size / 2}
-              r={radius}
-              className="fill-none stroke-(--border-color-ws-dynamic-secondary-default)"
-              strokeWidth={strokeWidth}
-            />
-            <circle
-              cx={size / 2}
-              cy={size / 2}
-              r={radius}
-              className={cn(
-                'stroke-ws-dynamic-primary-default fill-none',
-                progressBarCircleMotionVariants({ enabled: motion }),
-              )}
-              strokeWidth={strokeWidth}
-              strokeLinecap="round"
-              strokeDasharray={dashArray}
-              strokeDashoffset={offset}
-              transform={`rotate(-90 ${size / 2} ${size / 2})`}
-            />
-          </svg>
-        ),
+        default: ring,
+        neutral: ring,
+        warning: ring,
         success: (
           <RiCheckboxCircleFill
             aria-hidden="true"
@@ -165,8 +172,8 @@ const ProgressBar = React.forwardRef<
         {description && (
           <HelperText
             key={variant}
-            state={variant}
-            showIcon={variant === 'success' || variant === 'error'}
+            state={variant === 'neutral' ? 'default' : variant}
+            showIcon={variant === 'success' || variant === 'error' || variant === 'warning'}
           >
             {description}
           </HelperText>

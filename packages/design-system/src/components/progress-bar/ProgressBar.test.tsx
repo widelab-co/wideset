@@ -181,6 +181,42 @@ describe('ProgressBar', () => {
   });
 });
 
+describe('Variant colours', () => {
+  it.each([
+    ['default', 'bg-ws-dynamic-primary-default'],
+    ['neutral', 'bg-ws-semantic-inverse-neutral'],
+    ['warning', 'bg-(--ws-semantic-stroke-notice)'],
+    ['success', 'bg-(--ws-semantic-stroke-positive)'],
+    ['error', 'bg-(--ws-semantic-stroke-negative)'],
+  ] as const)('fills the %s bar with %s', (variant, className) => {
+    const { container } = render(<ProgressBar variant={variant} value={50} />);
+    expect(container.querySelector('[role="progressbar"] > div')).toHaveClass(className);
+  });
+
+  it.each([
+    ['default', 'stroke-ws-dynamic-primary-default'],
+    ['neutral', 'stroke-(--ws-semantic-fill-inverse-neutral)'],
+    ['warning', 'stroke-(--ws-semantic-stroke-notice)'],
+  ] as const)('draws the %s circle arc with %s', (variant, className) => {
+    const { container } = render(<ProgressBar type="circle" variant={variant} value={50} />);
+    expect(container.querySelectorAll('circle')[1]).toHaveClass(className);
+  });
+
+  it('adds a warning icon to the description of the warning variant', () => {
+    const { container } = render(
+      <ProgressBar variant="warning" description="Close to the limit" value={92} />,
+    );
+    expect(container.querySelector('svg')).toBeInTheDocument();
+  });
+
+  it('keeps the neutral description without an icon', () => {
+    const { container } = render(
+      <ProgressBar variant="neutral" description="64 of 100 GB used" value={64} />,
+    );
+    expect(container.querySelector('svg')).not.toBeInTheDocument();
+  });
+});
+
 // Snapshot Tests
 describe('ProgressBar Snapshots', () => {
   it('matches snapshot for default progress bar', () => {
@@ -194,7 +230,7 @@ describe('ProgressBar Snapshots', () => {
   });
 
   it('matches snapshot for all variants', () => {
-    const variants = ['default', 'success', 'error'] as const;
+    const variants = ['default', 'neutral', 'warning', 'success', 'error'] as const;
 
     variants.forEach((variant) => {
       const { container } = render(<ProgressBar variant={variant} value={50} />);

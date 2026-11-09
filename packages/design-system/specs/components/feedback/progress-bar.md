@@ -17,6 +17,8 @@ storybook: components-progressbar--default
 
 - An upload, import or long task the user is watching, with a known percentage.
 - A compact percentage in a table row, file list or sidebar (`type="circle"`).
+- A quantity against a limit: seats, storage, API calls (`variant="neutral"`, `warning` near the
+  limit).
 
 ## When not to use
 
@@ -42,9 +44,11 @@ One component, no parts.
 | ------------- | --------------- | ---------------------------------------------------------------- |
 | `type`        | `bar` (default) | Full width of its container, with label and description.         |
 |               | `circle`        | Compact inline percentage where a bar does not fit.              |
-| `variant`     | `default`       | Still running.                                                   |
-|               | `success`       | Finished. Circle shows a check icon; description gets one too.   |
-|               | `error`         | Failed. Circle shows an error icon; say what to do next.         |
+| `variant`     | `default`       | A task progressing: upload, import, sync. Brand fill.            |
+|               | `neutral`       | A quantity against a limit: usage, seats, storage. Dark fill.    |
+|               | `warning`       | Close to the limit. Amber; description gets a warning icon.      |
+|               | `error`         | Over the limit, or failed. Circle shows an error icon.           |
+|               | `success`       | Done. Circle shows a check icon; description gets one too.       |
 | `value`       | `0`–`max`       | Clamped into range; `max` defaults to `100`.                     |
 | `label`       | string          | Bar: visible label that names it. Circle: the accessible name.   |
 | `description` | string          | Bar only: what is happening or what went wrong.                  |
@@ -52,27 +56,36 @@ One component, no parts.
 
 ## States
 
-- Running → `variant="default"`; done → `success`; failed → `error`. Change `variant` yourself;
-  reaching `100` does not switch it.
+- A task: running → `variant="default"`; done → `success`; failed → `error`.
+- A meter: normal → `neutral`; close to the limit → `warning`; over it → `error`. Pick the
+  threshold yourself (around 80–90 %).
+- Change `variant` yourself; reaching a value does not switch it.
 
 ## Content
 
 - Label: the task, as a noun phrase: "Uploading assets".
 - Description: the count or the outcome: "12 of 18 files uploaded", "Upload stopped: 9 files
-  failed. Try again."
+  failed. Try again.", "92% of this month's limit. Calls stop at 100,000."
 
 ## Accessibility
 
 - Both types render `role="progressbar"` with the value.
 - Name it: `label` on a bar; `aria-label` (or `label`) on a circle. Without either, the name falls
   back to "Progress".
-- Success and error add an icon, so colour is not the only signal.
+- Warning, success and error add an icon to the description, so colour is not the only signal.
+  `neutral` has none: give a meter a description with the numbers.
 
 ## Do / Don't
 
 ```tsx
 // Do: switch variant when the task ends
 <ProgressBar variant="success" value={100} label="Uploading assets" description="All 18 files uploaded" />
+
+// Do: a usage meter in neutral, not the brand colour
+<ProgressBar variant="neutral" value={24} max={40} label="Seats" description="24 of 40 seats assigned" />
+
+// Don't: a page of usage meters in the default brand fill
+<ProgressBar value={64} label="Storage" />   // → variant="neutral"
 
 // Don't: description on a circle (not rendered)
 <ProgressBar type="circle" value={40} description="4 of 10" />

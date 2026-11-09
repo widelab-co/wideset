@@ -4,6 +4,8 @@
 
 - An upload, import or long task the user is watching, with a known percentage.
 - A compact percentage in a table row, file list or sidebar (`type="circle"`).
+- A quantity against a limit: seats, storage, API calls (`variant="neutral"`, `warning` near the
+  limit).
 
 ## When not to use
 
@@ -16,6 +18,12 @@
 ```tsx
 // Do: switch variant when the task ends
 <ProgressBar variant="success" value={100} label="Uploading assets" description="All 18 files uploaded" />
+
+// Do: a usage meter in neutral, not the brand colour
+<ProgressBar variant="neutral" value={24} max={40} label="Seats" description="24 of 40 seats assigned" />
+
+// Don't: a page of usage meters in the default brand fill
+<ProgressBar value={64} label="Storage" />   // → variant="neutral"
 
 // Don't: description on a circle (not rendered)
 <ProgressBar type="circle" value={40} description="4 of 10" />

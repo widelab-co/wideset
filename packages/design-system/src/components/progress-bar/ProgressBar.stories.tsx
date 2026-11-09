@@ -4,12 +4,20 @@ import { useEffect, useState } from 'react';
 import { exampleStory } from '../../stories/example';
 import TypesExample from './examples/progress-bar/types';
 import typesSource from './examples/progress-bar/types?raw';
+import UsageMetersExample from './examples/progress-bar/usage-meters';
+import usageMetersSource from './examples/progress-bar/usage-meters?raw';
 import VariantsExample from './examples/progress-bar/variants';
 import variantsSource from './examples/progress-bar/variants?raw';
 import { ProgressBar } from './ProgressBar';
 import type { ProgressBarProps } from './ProgressBar.types';
 
-const variants: ProgressBarProps['variant'][] = ['default', 'success', 'error'];
+const variants: ProgressBarProps['variant'][] = [
+  'default',
+  'neutral',
+  'warning',
+  'success',
+  'error',
+];
 const types: NonNullable<ProgressBarProps['type']>[] = ['bar', 'circle'];
 
 const meta = {
@@ -24,6 +32,8 @@ ProgressBar communicates the progress of a task or loading operation.
 Two display types are available:
 - \`bar\` — a horizontal progress track with optional label, percentage, and helper text
 - \`circle\` — a compact inline circular indicator; replaces the ring with an icon on success / error
+
+Use \`neutral\` for a quantity against a limit (seats, storage, API calls) so a page of meters does not fill with the brand colour, and \`warning\` when it nears the limit.
         `,
       },
     },
@@ -51,7 +61,7 @@ Two display types are available:
       options: variants,
       table: {
         category: 'Appearance',
-        type: { summary: "'default' | 'success' | 'error'" },
+        type: { summary: "'default' | 'neutral' | 'warning' | 'success' | 'error'" },
         defaultValue: { summary: 'default' },
       },
     },
@@ -114,6 +124,8 @@ export const Types: Story = exampleStory(TypesExample, typesSource);
 
 export const Variants: Story = exampleStory(VariantsExample, variantsSource);
 
+export const UsageMeters: Story = exampleStory(UsageMetersExample, usageMetersSource);
+
 export const Animated: Story = {
   parameters: {
     docs: {
@@ -172,7 +184,7 @@ export const CircleVariant: Story = {
     docs: {
       description: {
         story:
-          'Circle indicators for all three variants: `default` shows a progress ring, `success` replaces it with a check icon, `error` replaces it with an error icon.',
+          'Circle indicators for every variant: `default`, `neutral` and `warning` show a progress ring in their colour, `success` replaces it with a check icon, `error` replaces it with an error icon.',
       },
     },
   },
