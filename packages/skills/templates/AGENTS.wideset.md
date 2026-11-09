@@ -22,7 +22,7 @@ Before writing UI, load the `wideset-build` skill. Its specs say which component
 
 Surfaces `bg-ws-static-background` `bg-ws-static-container` `bg-ws-static-overlay`; text `text-ws-static-strong` `text-ws-static-base` `text-ws-static-subtle`; borders `border-ws-static-subtle` `border-ws-static-base` `border-ws-static-strong`.
 
-Type is one class: `typography-subtitle-lg`, `typography-body-md`, `typography-label-sm`, `typography-number-md`. Spacing: `ws-3` 0.25rem, `ws-5` 0.5rem, `ws-7` 0.75rem, `ws-9` 1rem, `ws-12` 1.5rem, `ws-14` 2rem. Your own `ws` classes need `@import '@wideset/react/theme'` in your Tailwind entry CSS.
+Type is one class: `typography-title-md`, `typography-body-md`, `typography-label-sm`, `typography-number-md`. Spacing: `ws-3` 0.25rem, `ws-5` 0.5rem, `ws-7` 0.75rem, `ws-9` 1rem, `ws-12` 1.5rem, `ws-14` 2rem. Your own `ws` classes need `@import '@wideset/react/theme'` in your Tailwind entry CSS.
 
 ## Components
 

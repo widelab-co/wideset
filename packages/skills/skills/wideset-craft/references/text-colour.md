@@ -23,10 +23,12 @@ something else?** Stop → `strong`. Read → `base`. Understand something else 
 
 Little of the page, and only what a person scans for:
 
-- The page title and section titles ("What changed").
+- The page title (`typography-title-md`) and card and section titles (`typography-subtitle-xs`,
+  "What changed").
 - The title of each item: a card's title, a list row's title, an item name in a table's first
   column ("Finance", "Customer Service").
-- Key figures: the number a KPI is about ("131", "73%"), a total, a price.
+- Key figures: the number a KPI is about ("131", "73%"; `typography-title-md` in a KPI row,
+  `typography-title-lg` for the one figure a page is about), a total, a price.
 - The one column that matters in a table ("Utilization": 92%, 82%, …), so the eye finds it without
   reading the others.
 - The selected thing: the active tab, the current page in the sidebar, the highlighted week in a

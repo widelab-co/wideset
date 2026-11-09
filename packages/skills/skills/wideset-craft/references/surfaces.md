@@ -71,13 +71,13 @@ Report and detail pages, as a role map:
 
 | Text                                         | Class                                                                                |
 | -------------------------------------------- | ------------------------------------------------------------------------------------ |
-| Page title                                   | `typography-subtitle-lg text-ws-static-strong`                                       |
+| Page title                                   | `typography-title-md text-ws-static-strong`                                          |
 | Lede under the title (report, article)       | `typography-body-lg text-ws-static-base`; on a product page `typography-body-md`     |
 | Section title                                | `typography-subtitle-xs text-ws-static-strong`                                       |
-| Card or insight title                        | `typography-label-strong-md text-ws-static-strong`                                   |
+| Card or insight title                        | `typography-subtitle-xs text-ws-static-strong` (`Card.Title`)                        |
 | Card body, description                       | `typography-body-md text-ws-static-base`                                             |
 | Figure label ("Active users")                | `typography-label-sm text-ws-static-subtle`                                          |
-| Key figure                                   | `typography-subtitle-md text-ws-static-strong tabular-nums`                          |
+| Key figure in a KPI row                      | `typography-title-md text-ws-static-strong tabular-nums`                             |
 | Change beside a figure                       | `StatusBadge` `positive` / `negative`, `size="sm"`, then "vs. last week" in `subtle` |
 | Supporting figures under a key figure        | `typography-body-md text-ws-static-base tabular-nums`                                |
 | Metadata, dates, axis and column labels      | `typography-caption-md text-ws-static-subtle`                                        |
