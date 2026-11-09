@@ -80,7 +80,7 @@ When nothing in the request says otherwise, use exactly these:
 | Page canvas        | `bg-ws-static-background` (off-white); content on `Card` (white `bg-ws-static-container`)                                                                                             |
 | Page title         | `typography-subtitle-lg text-ws-static-strong` (32px), one per page                                                                                                                   |
 | Section title      | `typography-subtitle-xs` or `Card.Title`                                                                                                                                              |
-| Body / description | `typography-body-md text-ws-static-subtle`                                                                                                                                            |
+| Body / description | `typography-body-md text-ws-static-base`; labels and metadata `-subtle`                                                                                                               |
 | Text colours       | `text-ws-static-strong` (headings, key values), `-base` (body), `-subtle` (secondary, metadata)                                                                                       |
 | Page padding       | `p-ws-12` (24px); page sections `gap-ws-16` (40px); inside a card `gap-ws-12` (24px)                                                                                                  |
 | Content width      | forms and reading `max-w-[40rem]`; composed pages `max-w-[80rem] mx-auto`; tables may fill                                                                                            |

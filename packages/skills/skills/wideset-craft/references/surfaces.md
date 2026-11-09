@@ -34,11 +34,11 @@ The main call to action is the default `Button` (primary, brand colour). No near
 
 ## Text colours
 
-| Token                   | Use                                                     |
-| ----------------------- | ------------------------------------------------------- |
-| `text-ws-static-strong` | Titles, key values, the thing to read first             |
-| `text-ws-static-base`   | Body text that is read in full                          |
-| `text-ws-static-subtle` | Descriptions, metadata, secondary columns, placeholders |
+| Token                   | Use                                                                 |
+| ----------------------- | ------------------------------------------------------------------- |
+| `text-ws-static-strong` | Titles, key values, the thing to read first                         |
+| `text-ws-static-base`   | What you read: lede, descriptions, body, supporting numbers, values |
+| `text-ws-static-subtle` | What only labels: metadata, labels, column headers, placeholders    |
 
 Three levels; never `opacity-*` to make a fourth. In light mode `strong` and `base` are nearly the
 same near-black, so they read as one step: the contrast that builds hierarchy is `strong` (or
@@ -51,29 +51,34 @@ title of each item in a list, and the key figures (a price, an error rate, a tot
 or file names inside a section, values beside a label in a header, and message authors are `base`;
 labels and metadata are `subtle`. If a quarter of a screen's text is `strong`, nothing leads.
 
-### Two colours carry a page
+### Three colours, three jobs
 
-A calm page reads in two colours: `strong` for what you look for (titles, item names, figures, the
-one column that matters) and `subtle` for everything that explains it (the lede under the title,
-descriptions, labels, supporting numbers, metadata). Rank the explaining text by size, not by a
-third grey: lede `typography-body-lg`, descriptions `typography-body-md`, metadata
-`typography-caption-md`, all `subtle`. Keep `base` for text read in full inside content: field
-values, messages, comments, the default table cell.
+Every text on a page has one of three jobs, and each job has one colour:
+
+- **Look for** (`strong`): titles, item names, figures, the one column that matters.
+- **Read** (`base`): the lede under the title, descriptions, card and body text, supporting
+  numbers, field values, messages.
+- **Label** (`subtle`): field and figure labels, metadata, dates, column headers, axis labels,
+  "vs. last week".
+
+Size ranks text inside a job (lede `typography-body-lg`, body `typography-body-md`), never a fourth
+grey. A screen with no `base` text has lost a level: its labels and its reading text look the same.
 
 Report and detail pages, as a role map:
 
 | Text                                         | Class                                                                                |
 | -------------------------------------------- | ------------------------------------------------------------------------------------ |
 | Page title                                   | `typography-subtitle-lg text-ws-static-strong`                                       |
-| Lede under the title                         | `typography-body-lg text-ws-static-subtle`                                           |
+| Lede under the title                         | `typography-body-lg text-ws-static-base`                                             |
 | Section title                                | `typography-subtitle-xs text-ws-static-strong`                                       |
 | Card or insight title                        | `typography-label-strong-md text-ws-static-strong`                                   |
-| Card body, description                       | `typography-body-md text-ws-static-subtle`                                           |
+| Card body, description                       | `typography-body-md text-ws-static-base`                                             |
 | Figure label ("Active users")                | `typography-label-sm text-ws-static-subtle`                                          |
 | Key figure                                   | `typography-subtitle-md text-ws-static-strong tabular-nums`                          |
 | Change beside a figure                       | `StatusBadge` `positive` / `negative`, `size="sm"`, then "vs. last week" in `subtle` |
+| Supporting figures under a key figure        | `typography-body-md text-ws-static-base tabular-nums`                                |
 | Metadata, dates, axis and column labels      | `typography-caption-md text-ws-static-subtle`                                        |
-| Table: item names / numbers / the key column | `strong` / `subtle tabular-nums` / `strong tabular-nums`                             |
+| Table: item names / numbers / the key column | `strong` / `base tabular-nums` / `strong tabular-nums`                               |
 
 ## Status colour budget
 

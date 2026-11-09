@@ -21,7 +21,7 @@ their own text at 14px, so matching that band keeps your text and the components
 | Page title (one per page)  | `typography-subtitle-lg text-ws-static-strong`                        | 32 / 40            |
 | Section title              | `typography-subtitle-xs text-ws-static-strong`                        | 18 / 24            |
 | Card title                 | `Card.Title` (its own style); outside a Card `typography-subtitle-sm` | 20 / 28            |
-| Body, descriptions         | `typography-body-md text-ws-static-subtle`                            | 14 / 20            |
+| Body, descriptions         | `typography-body-md text-ws-static-base`                              | 14 / 20            |
 | Emphasis inside body       | `typography-body-strong-md` or `text-ws-static-strong`                | 14 / 20            |
 | Field and list labels      | `typography-label-sm` (components set this themselves)                | 14 / 20            |
 | Metadata, timestamps, help | `typography-caption-md text-ws-static-subtle`                         | 12 / 16            |
@@ -51,7 +51,7 @@ Use these in this order before you reach for a bigger size:
 // Do: one title, weight and colour carry the rest
 <header className="gap-ws-3 flex flex-col">
   <h1 className="typography-subtitle-lg text-ws-static-strong">Orders</h1>
-  <p className="typography-body-md text-ws-static-subtle">
+  <p className="typography-body-md text-ws-static-base">
     Every order from all locations, newest first.
   </p>
 </header>
