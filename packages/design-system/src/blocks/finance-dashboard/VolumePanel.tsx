@@ -48,7 +48,7 @@ export function VolumePanel({ onClose }: { onClose: () => void }) {
         </Tabs.List>
         {MONTHLY_VOLUME.map((tab) => (
           <Tabs.Content key={tab.value} value={tab.value} className="px-ws-14 pt-ws-18">
-            <p className="typography-subtitle-lg text-ws-static-strong tabular-nums">
+            <p className="typography-title-md text-ws-static-strong tabular-nums">
               {formatUsd(tab.amount)}
             </p>
             <p className="mt-ws-9 typography-body-lg text-ws-static-subtle">

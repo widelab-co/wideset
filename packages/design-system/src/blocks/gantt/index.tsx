@@ -24,7 +24,7 @@ export default function Gantt() {
       <TopBar />
       <main className="flex min-h-0 flex-1 flex-col">
         <div className="px-ws-11 pt-ws-13 pb-ws-11 flex shrink-0 items-center justify-between">
-          <h1 className="typography-subtitle-md text-ws-static-strong">Marketing</h1>
+          <h1 className="typography-title-sm text-ws-static-strong">Marketing</h1>
           <div className="gap-ws-12 flex items-center">
             <Avatar.Group size="md" className="w-auto">
               {viewers.map((viewer) => (

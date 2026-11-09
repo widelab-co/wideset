@@ -164,7 +164,7 @@ function AmountField({
           autoComplete="off"
           value={side.amount}
           onChange={(event) => onChange({ ...side, amount: event.target.value })}
-          className="typography-subtitle-md text-ws-static-strong w-full bg-transparent tabular-nums outline-none"
+          className="typography-title-sm text-ws-static-strong w-full bg-transparent tabular-nums outline-none"
         />
         <span className="typography-number-xs text-ws-static-subtle">{formatUsd(usd)}</span>
       </div>

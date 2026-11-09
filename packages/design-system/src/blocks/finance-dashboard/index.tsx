@@ -21,7 +21,7 @@ export default function FinanceDashboard() {
         <main className="px-ws-18 min-h-0 flex-1 overflow-y-auto">
           <div className="gap-ws-16 py-ws-16 mx-auto flex w-full max-w-[80rem] flex-col">
             <div className="gap-ws-13 flex items-center justify-between">
-              <h1 className="typography-subtitle-lg text-ws-static-strong">Overview</h1>
+              <h1 className="typography-title-sm text-ws-static-strong">Overview</h1>
               <Button size="sm">
                 <Button.Icon icon={RiAddLine} />
                 New payment
@@ -36,7 +36,7 @@ export default function FinanceDashboard() {
                 >
                   <p className="typography-label-sm text-ws-static-subtle">{figure.label}</p>
                   <p className="gap-ws-5 flex items-baseline">
-                    <span className="typography-subtitle-md text-ws-static-strong tabular-nums">
+                    <span className="typography-title-md text-ws-static-strong tabular-nums">
                       {formatCount(figure.value)}
                     </span>
                     <Change value={figure.change} />

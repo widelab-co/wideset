@@ -58,7 +58,7 @@ export default function Process() {
             aria-labelledby={headingId}
             className="gap-ws-14 flex w-full max-w-[53.4375rem] flex-col"
           >
-            <h2 id={headingId} className="typography-subtitle-lg text-ws-static-strong">
+            <h2 id={headingId} className="typography-title-sm text-ws-static-strong">
               Choose type of experience
             </h2>
             <Tabs type="ghost" defaultValue="training" className="gap-ws-14">

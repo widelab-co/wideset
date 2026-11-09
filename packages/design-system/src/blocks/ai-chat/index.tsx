@@ -22,7 +22,7 @@ export default function AiChat() {
           <div className="px-ws-5 flex flex-col items-start">
             <Avatar agent size="lg" alt="" />
             {/* Figma's gradient runs in sRGB; Tailwind's default (oklab) brightens the middle. */}
-            <h1 className="mt-ws-10 text-ws-800 leading-ws-800 tracking-ws-tight-50 font-ws-medium from-ws-non-semantic-brand-strong to-ws-non-semantic-pink-strong bg-linear-to-r/srgb bg-clip-text text-transparent">
+            <h1 className="mt-ws-10 typography-title-md from-ws-non-semantic-brand-strong to-ws-non-semantic-pink-strong bg-linear-to-r/srgb bg-clip-text text-transparent">
               Hello {USER.firstName},
               <br />
               What would you like to know?

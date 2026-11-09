@@ -172,7 +172,7 @@ function Total({
         <span className="typography-label-sm text-ws-static-subtle">{label}</span>
       </div>
       <div className="gap-ws-5 flex items-baseline">
-        <span className="typography-subtitle-md text-ws-static-strong tabular-nums">
+        <span className="typography-title-md text-ws-static-strong tabular-nums">
           {formatUsdWhole(total)}
         </span>
         <Change value={change}>last year</Change>

@@ -58,7 +58,7 @@ export function SignUpForm() {
       aria-labelledby={`${id}-title`}
       className="gap-ws-12 flex w-full flex-col"
     >
-      <h1 id={`${id}-title`} className="typography-subtitle-lg text-ws-static-strong">
+      <h1 id={`${id}-title`} className="typography-title-md text-ws-static-strong">
         Create a Wideset account
       </h1>
       <FormField label="Full name" htmlFor={`${id}-name`} errorText={errors.name}>

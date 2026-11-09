@@ -14,9 +14,7 @@ export function Balance() {
       className="gap-ws-16 flex min-h-[16.25rem] items-end justify-between"
     >
       <div className="gap-ws-11 flex max-w-[18.25rem] flex-col">
-        <p className="typography-subtitle-lg text-ws-static-strong tabular-nums">
-          {formatUsd(total)}
-        </p>
+        <p className="typography-title-lg text-ws-static-strong tabular-nums">{formatUsd(total)}</p>
         <p className="typography-body-md text-ws-static-subtle">
           The combined value of all your cryptocurrency holdings across your wallet calculated in
           your preferred fiat currency
