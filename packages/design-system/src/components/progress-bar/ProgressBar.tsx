@@ -146,9 +146,6 @@ const ProgressBar = React.forwardRef<
           asChild={asChild}
           className={cn(
             'h-ws-3 relative w-full overflow-hidden rounded-full bg-(--ws-dynamic-stroke-secondary-default)',
-            // Figma puts a Gap/3 top padding on the Helper Text instance; the
-            // 8px above it is the Main frame's Gap/5. Together: 12px bar → text.
-            Boolean(description) && 'mb-ws-3',
             className,
           )}
           aria-labelledby={label ? labelId : undefined}
