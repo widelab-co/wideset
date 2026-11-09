@@ -139,3 +139,32 @@ export const tabsItemMotionVariants = cva('', {
   },
   defaultVariants: { enabled: true },
 });
+
+// The count's digits sit Gap/5 (8px) after the label in every type and size, as in Figma.
+// The item's own gap differs per type and size (see `tabsItemVariants`), so the count adds
+// or takes back the difference with a margin.
+export const tabsCountVariants = cva('', {
+  variants: {
+    type: {
+      regular: '',
+      fullWidth: '',
+      pills: '',
+      ghost: '',
+    },
+    size: {
+      sm: '',
+      lg: '',
+    },
+  },
+  compoundVariants: [
+    { type: ['regular', 'fullWidth'], size: 'sm', className: 'ml-ws-3' },
+    { type: 'pills', size: 'sm', className: 'ml-ws-4' },
+    { type: 'pills', size: 'lg', className: 'ml-ws-3' },
+    { type: 'ghost', size: 'sm', className: 'ml-ws-2' },
+    { type: 'ghost', size: 'lg', className: '-ml-ws-2' },
+  ],
+  defaultVariants: {
+    type: 'regular',
+    size: 'sm',
+  },
+});

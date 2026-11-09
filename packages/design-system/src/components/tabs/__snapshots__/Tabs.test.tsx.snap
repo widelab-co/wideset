@@ -789,7 +789,7 @@ exports[`Tabs Snapshots > matches snapshot for tabs with icon and count 1`] = `
         Tab with Icon and Count
       </span>
       <span
-        class="h-ws-11 min-w-ws-11 px-ws-4 inline-flex shrink-0 items-center justify-center rounded-ws-control-full border-ws-static-base border bg-transparent typography-caption-strong-md text-ws-static-subtle whitespace-nowrap tabular-nums ml-ws-3"
+        class="typography-label-sm text-ws-static-subtle inline-flex shrink-0 items-center whitespace-nowrap tabular-nums ml-ws-3"
         data-slot="tabs-count"
       >
         42

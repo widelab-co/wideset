@@ -787,3 +787,31 @@ describe('Tabs Snapshots', () => {
     });
   });
 });
+
+// Kept after the snapshots: each render takes Radix ids, and the snapshots record them.
+describe('Tabs.Count offset', () => {
+  it.each([
+    ['regular', 'sm', 'ml-ws-3'],
+    ['regular', 'lg', undefined],
+    ['fullWidth', 'sm', 'ml-ws-3'],
+    ['fullWidth', 'lg', undefined],
+    ['pills', 'sm', 'ml-ws-4'],
+    ['pills', 'lg', 'ml-ws-3'],
+    ['ghost', 'sm', 'ml-ws-2'],
+    ['ghost', 'lg', '-ml-ws-2'],
+  ] as const)('offsets the count to Gap/5 after the label (%s, %s)', (type, size, margin) => {
+    render(
+      <Tabs defaultValue="tab1" type={type} size={size}>
+        <Tabs.List>
+          <Tabs.Item value="tab1">
+            <Tabs.Label>Members</Tabs.Label>
+            <Tabs.Count>5</Tabs.Count>
+          </Tabs.Item>
+        </Tabs.List>
+      </Tabs>,
+    );
+    const count = screen.getByText('5');
+    const margins = [...count.classList].filter((c) => /^-?ml-/.test(c));
+    expect(margins).toEqual(margin ? [margin] : []);
+  });
+});
