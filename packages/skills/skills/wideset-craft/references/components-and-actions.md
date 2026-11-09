@@ -60,9 +60,9 @@ A Modal that scrolls or a page with one checkbox both mean the container is wron
 ```tsx
 // Do: one primary, rightmost; secondary as border; overflow for the rest
 <div className="gap-ws-5 flex items-center">
-  <IconButton icon={RiMoreLine} preset="ghost" variant="secondary" aria-label="More actions" />
-  <Button variant="secondary" preset="border">Export</Button>
-  <Button>Create order</Button>
+  <IconButton size="sm" icon={RiMoreLine} preset="ghost" variant="secondary" aria-label="More actions" />
+  <Button size="sm" variant="secondary" preset="border">Export</Button>
+  <Button size="sm">Create order</Button>
 </div>
 
 // Don't: three filled buttons competing, the primary not last

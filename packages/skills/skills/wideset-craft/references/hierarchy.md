@@ -30,7 +30,7 @@ export function PageHeader() {
           142 open, 18 overdue. Totals are in your billing currency.
         </p>
       </div>
-      <Button>
+      <Button size="sm">
         <Button.Icon icon={RiAddLine} />
         New invoice
       </Button>
