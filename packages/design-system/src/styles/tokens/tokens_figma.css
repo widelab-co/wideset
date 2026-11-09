@@ -828,7 +828,7 @@
   --non-semantic-text-yellow-on-subtle: var(--colors-light-yellow-1100);
   --semantic-fill-info: var(--colors-light-blue-opacity-600-16);
   --semantic-fill-negative: var(--colors-light-red-opacity-600-16);
-  --semantic-fill-neutral: var(--colors-light-neutral-opacity-1200-12);
+  --semantic-fill-neutral: var(--colors-light-neutral-opacity-1200-8);
   --semantic-fill-notice: var(--colors-light-yellow-opacity-700-16);
   --semantic-fill-positive: var(--colors-light-green-opacity-600-16);
   --semantic-fill-inverse-info: var(--colors-light-indigo-600);

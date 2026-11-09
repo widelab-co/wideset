@@ -208,7 +208,7 @@
   --ws-non-semantic-text-yellow-on-subtle: var(--ws-colors-light-yellow-1100);
   --ws-semantic-fill-info: var(--ws-colors-light-indigo-opacity-600-16);
   --ws-semantic-fill-negative: var(--ws-colors-light-red-opacity-600-16);
-  --ws-semantic-fill-neutral: var(--ws-colors-light-neutral-opacity-1200-12);
+  --ws-semantic-fill-neutral: var(--ws-colors-light-neutral-opacity-1200-8);
   --ws-semantic-fill-notice: var(--ws-colors-light-yellow-opacity-700-16);
   --ws-semantic-fill-positive: var(--ws-colors-light-green-opacity-600-16);
   --ws-semantic-fill-inverse-info: var(--ws-colors-light-indigo-600);
