@@ -66,6 +66,8 @@ Server Components.
 | ---------------------------- | ----------------------------------------- | --------------------------------------------------------------------- |
 | `variant`                    | `bordered` (default)                      | Cards on the page background, or that must read as separate items.    |
 |                              | `flat`                                    | Cards inside a panel or section that already frames them.             |
+| `divider`                    | `false` (default)                         | Small cards: a figure, a payment method, contacts. Space separates.   |
+|                              | `true`                                    | Heavy content: a table, a list, a form with a footer of actions.      |
 | `ratio` (Media)              | `16/9` (default), any CSS ratio or number | Keeps the media box stable before the image loads.                    |
 | `asChild` (Title)            | `true`                                    | Set the heading level: `<Card.Title asChild><h2>…</h2></Card.Title>`. |
 | `contentClassName` (Content) | classes                                   | Override the inner padding of `Card.Content`.                         |
@@ -102,7 +104,9 @@ that is selected is a `Tile`.
 ```
 
 - Don't nest bordered cards; inner groups use `variant="flat"` or plain layout.
-- Don't put a `Divider` between header and content; the bordered card draws it.
+- Don't put a `Divider` between header and content; set `divider` on the card.
+- Don't set `divider` on a small card: the lines cut it into slivers and detach the title from
+  the content it opens.
 
 ## Gotchas
 
@@ -114,6 +118,9 @@ that is selected is a `Tile`.
   it first (or last) so the edges line up.
 - `Card.Header`, `Card.Content`, `Card.Footer` and `Card.Media` throw outside `<Card>`.
 - Card spans its container (`w-full`); size it with the parent grid or a width class.
+- Without `divider`, the header→content and content→footer gaps are the content's own 20px
+  padding. `divider` only draws lines in a `bordered` card; a `flat` card has no frame to
+  divide.
 
 ## API
 

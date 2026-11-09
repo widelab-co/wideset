@@ -184,6 +184,42 @@ describe('Card data-slot', () => {
   });
 });
 
+describe('Card divider', () => {
+  const renderCard = (divider?: boolean) =>
+    render(
+      <Card divider={divider}>
+        <Card.Header aria-label="Header">
+          <Card.Title>Weekly report</Card.Title>
+        </Card.Header>
+        <Card.Content>Body</Card.Content>
+        <Card.Footer aria-label="Footer">Footer</Card.Footer>
+      </Card>,
+    );
+
+  it('draws no header or footer line by default', () => {
+    renderCard();
+    expect(screen.getByLabelText('Header')).not.toHaveClass('[&:not(:last-child)]:border-b');
+    expect(screen.getByLabelText('Footer')).not.toHaveClass('[&:not(:first-child)]:border-t');
+  });
+
+  it('closes the gap padding by default so the content padding is the whole gap', () => {
+    renderCard();
+    expect(screen.getByLabelText('Header')).toHaveClass('[&:has(+[data-slot=card-content])]:pb-0');
+    expect(screen.getByLabelText('Footer')).toHaveClass('[[data-slot=card-content]+&]:pt-0');
+  });
+
+  it('draws a line under the header and above the footer with divider', () => {
+    renderCard(true);
+    expect(screen.getByLabelText('Header')).toHaveClass('[&:not(:last-child)]:border-b');
+    expect(screen.getByLabelText('Footer')).toHaveClass('[&:not(:first-child)]:border-t');
+  });
+
+  it('does not pass divider to the DOM', () => {
+    const { container } = renderCard(true);
+    expect(container.querySelector('[data-slot="card"]')).not.toHaveAttribute('divider');
+  });
+});
+
 describe('Card.Title', () => {
   it('renders an h3 by default', () => {
     render(<Card.Title>Weekly report</Card.Title>);

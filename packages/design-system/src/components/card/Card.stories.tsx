@@ -11,6 +11,8 @@ import { Tag } from '../tag/Tag';
 import { TextInput } from '../text-input/TextInput';
 import { Card } from './Card';
 import type { CardProps } from './Card.types';
+import DividerExample from './examples/card/divider';
+import dividerSource from './examples/card/divider?raw';
 import MediaExample from './examples/card/media';
 import mediaSource from './examples/card/media?raw';
 import VariantsExample from './examples/card/variants';
@@ -61,6 +63,14 @@ Do not use it as a general page-layout wrapper or for flows that need modal-styl
         category: 'Appearance',
         type: { summary: "'bordered' | 'flat'" },
         defaultValue: { summary: 'bordered' },
+      },
+    },
+    divider: {
+      control: 'boolean',
+      table: {
+        category: 'Appearance',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
       },
     },
     className: {
@@ -162,11 +172,14 @@ export const Default: Story = {
   ),
   args: {
     variant: 'bordered',
+    divider: false,
     className: 'w-100',
   },
 };
 
 export const Variants: Story = exampleStory(VariantsExample, variantsSource);
+
+export const Divider: Story = exampleStory(DividerExample, dividerSource);
 
 export const Media: Story = exampleStory(MediaExample, mediaSource);
 

@@ -29,7 +29,9 @@
 ```
 
 - Don't nest bordered cards; inner groups use `variant="flat"` or plain layout.
-- Don't put a `Divider` between header and content; the bordered card draws it.
+- Don't put a `Divider` between header and content; set `divider` on the card.
+- Don't set `divider` on a small card: the lines cut it into slivers and detach the title from
+  the content it opens.
 
 ## Gotchas
 
@@ -41,3 +43,6 @@
   it first (or last) so the edges line up.
 - `Card.Header`, `Card.Content`, `Card.Footer` and `Card.Media` throw outside `<Card>`.
 - Card spans its container (`w-full`); size it with the parent grid or a width class.
+- Without `divider`, the header→content and content→footer gaps are the content's own 20px
+  padding. `divider` only draws lines in a `bordered` card; a `flat` card has no frame to
+  divide.
