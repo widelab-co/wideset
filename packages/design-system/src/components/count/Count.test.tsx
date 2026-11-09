@@ -68,13 +68,49 @@ describe('Count', () => {
 
       const count = screen.getByText('12');
       expect(count).toHaveClass('ml-ws-3');
-      expect(count).toHaveClass('rounded-ws-control-full');
+      expect(count).toHaveClass('tabular-nums');
+    });
+  });
+
+  describe('contained', () => {
+    it('is plain text by default, with no border or pill', () => {
+      render(<Count>12</Count>);
+
+      const count = screen.getByText('12');
+      expect(count).not.toHaveClass('border');
+      expect(count).not.toHaveClass('rounded-ws-control-full');
+    });
+
+    it('draws an outlined pill when contained', () => {
+      render(<Count contained>12</Count>);
+
+      const count = screen.getByText('12');
+      expect(count).toHaveClass('border', 'border-ws-static-strong', 'rounded-ws-control-full');
+      expect(count).toHaveClass('h-ws-12', 'min-w-ws-12', 'px-ws-5');
+    });
+
+    it('keeps the same type and colour in both looks', () => {
+      render(
+        <>
+          <Count>1</Count>
+          <Count contained>2</Count>
+        </>,
+      );
+
+      for (const text of ['1', '2'])
+        expect(screen.getByText(text)).toHaveClass('typography-label-sm', 'text-ws-static-subtle');
     });
   });
 
   describe('Snapshots', () => {
     it('matches snapshot', () => {
       const { container } = render(<Count>12</Count>);
+
+      expect(container.firstChild).toMatchSnapshot();
+    });
+
+    it('matches snapshot when contained', () => {
+      const { container } = render(<Count contained>12</Count>);
 
       expect(container.firstChild).toMatchSnapshot();
     });

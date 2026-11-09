@@ -1,8 +1,7 @@
 /**
  * A count sits right after its label and is read with it ("Members 8"), so the label gives it
- * meaning; a count on its own, or next to an icon only, needs an `aria-label` on the parent.
- * Cap long numbers ("99+"). A count says how many, never what state: a state is a `StatusBadge`,
- * a category a `Tag`.
+ * meaning and the count stays a plain grey number. Cap long numbers ("99+"). A count says how
+ * many, never what state: a state is a `StatusBadge`, a category a `Tag`.
  */
 import { Count, Tabs } from '@wideset/react';
 

@@ -2,7 +2,16 @@
 
 exports[`Count > Snapshots > matches snapshot 1`] = `
 <span
-  class="h-ws-11 min-w-ws-11 px-ws-4 inline-flex shrink-0 items-center justify-center rounded-ws-control-full border-ws-static-base border bg-transparent typography-caption-strong-md text-ws-static-subtle whitespace-nowrap tabular-nums"
+  class="typography-label-sm text-ws-static-subtle inline-flex shrink-0 items-center whitespace-nowrap tabular-nums"
+  data-slot="count"
+>
+  12
+</span>
+`;
+
+exports[`Count > Snapshots > matches snapshot when contained 1`] = `
+<span
+  class="typography-label-sm text-ws-static-subtle inline-flex shrink-0 items-center whitespace-nowrap tabular-nums h-ws-12 min-w-ws-12 px-ws-5 rounded-ws-control-full border-ws-static-strong justify-center border"
   data-slot="count"
 >
   12

@@ -22,6 +22,14 @@
   <Count>99+</Count>
 </h3>
 
+// Do: contained beside an icon, the noun for screen readers
+<RiChat3Line aria-hidden className="size-ws-9" />
+<Count contained>12</Count>
+<span className="sr-only">comments</span>
+
+// Don't: a pill beside a text label
+<h3>Active <Count contained>3</Count></h3>  // → <Count>3</Count>
+
 // Don't: a status as a count
 <Count>Overdue</Count>                       // → <StatusBadge color="negative">Overdue</StatusBadge>
 
@@ -31,5 +39,6 @@
 
 ## Gotchas
 
-- Inside `Tabs.Item` use `Tabs.Count`, not `Count`: it adds the offset the tab layout needs.
-- `className` is for layout (a margin); the look is fixed.
+- Inside `Tabs.Item` use `Tabs.Count`, not `Count`: it sets the digits 8px after the label in
+  every tab type and size.
+- `className` is for layout (a margin); the look is `contained` or not, nothing else.
