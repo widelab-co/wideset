@@ -163,6 +163,21 @@
       "docs": "Import it before wideset.css. Vite: `import '@/styles/wideset-preflight.css'` in main.tsx."
     },
     {
+      "name": "font",
+      "type": "registry:item",
+      "title": "Wideset font",
+      "description": "Variable Inter as the page font, self-hosted through Fontsource. wideset init adds it by default; skip it with --no-font to keep your own font.",
+      "dependencies": ["@fontsource-variable/inter@^5.2.8"],
+      "files": [
+        {
+          "path": "src/styles/font.css",
+          "type": "registry:file",
+          "target": "styles/wideset-font.css"
+        }
+      ],
+      "docs": "Import it once, after your other stylesheets. Vite: `import '@/styles/wideset-font.css'` in main.tsx."
+    },
+    {
       "name": "theme",
       "type": "registry:item",
       "title": "Wideset theme",

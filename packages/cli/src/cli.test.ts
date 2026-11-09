@@ -290,11 +290,61 @@ describe('wideset init', () => {
     // No Tailwind in a fresh Vite app, so it gets the reset, imported before the styles.
     expect(shadcn).toEqual([
       ['add', '--yes', '--overwrite', '--silent', '@wideset/preflight', '@wideset/styles'],
+      ['add', '--yes', '--silent', '@wideset/font'],
     ]);
     expect(read('src/main.tsx').split('\n').slice(0, 2)).toEqual([
       "import '@/styles/wideset-preflight.css'",
       "import '@/styles/wideset.css'",
     ]);
+  });
+
+  it('adds Inter and imports it after the stylesheets the template already imports', async () => {
+    viteApp();
+    await run(['init', '--registry', REGISTRY]);
+    const imports = read('src/main.tsx').trimEnd().split('\n');
+    expect(imports.at(-1)).toBe("import '@/styles/wideset-font.css'");
+    expect(imports.indexOf("import './index.css'")).toBeLessThan(imports.length - 1);
+  });
+
+  it('--no-font leaves the page font alone', async () => {
+    viteApp();
+    const { shadcn, out } = await run(['init', '--registry', REGISTRY, '--no-font']);
+    expect(shadcn.flat()).not.toContain('@wideset/font');
+    expect(read('src/main.tsx')).not.toContain('wideset-font');
+    expect(out).toContain('font: left as it is (--no-font)');
+  });
+
+  it('keeps a font the project brought itself', async () => {
+    viteApp();
+    write(
+      'package.json',
+      JSON.stringify({
+        devDependencies: { vite: '^8.0.0' },
+        dependencies: { '@fontsource-variable/geist': '^5.0.0' },
+      }),
+    );
+    const { shadcn, out } = await run(['init', '--registry', REGISTRY]);
+    expect(shadcn.flat()).not.toContain('@wideset/font');
+    expect(out).toContain('font: kept yours (@fontsource-variable/geist)');
+  });
+
+  it('does not bring the font back once it was removed', async () => {
+    viteApp();
+    await run(['init', '--registry', REGISTRY]);
+    write('src/main.tsx', read('src/main.tsx').replace("import '@/styles/wideset-font.css'\n", ''));
+    const { shadcn } = await run(['init']);
+    expect(shadcn.flat()).not.toContain('@wideset/font');
+    expect(read('src/main.tsx')).not.toContain('wideset-font');
+  });
+
+  it('keeps the import of a font file that is already there', async () => {
+    viteApp();
+    await run(['init', '--registry', REGISTRY]);
+    write('src/styles/wideset-font.css', 'body { font-family: Georgia; }\n');
+    const { shadcn } = await run(['init']);
+    expect(shadcn.flat()).not.toContain('@wideset/font');
+    expect(read('src/styles/wideset-font.css')).toBe('body { font-family: Georgia; }\n');
+    expect(read('src/main.tsx')).toContain("import '@/styles/wideset-font.css'");
   });
 
   it('changes nothing on a second run', async () => {
@@ -384,6 +434,7 @@ describe('wideset add', () => {
     );
     expect(shadcn).toEqual([
       ['add', '--yes', '--overwrite', '--silent', '@wideset/preflight', '@wideset/styles'],
+      ['add', '--yes', '--silent', '@wideset/font'],
       ['add', '--yes', '@wideset/button'],
     ]);
   });

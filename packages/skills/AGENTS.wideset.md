@@ -24,6 +24,8 @@ Surfaces `bg-ws-static-background` `bg-ws-static-container` `bg-ws-static-overla
 
 Type is one class: `typography-subtitle-lg`, `typography-body-md`, `typography-label-sm`, `typography-number-md`. Spacing: `ws-3` 0.25rem, `ws-5` 0.5rem, `ws-7` 0.75rem, `ws-9` 1rem, `ws-12` 1.5rem, `ws-14` 2rem. Your own `ws` classes need `@import '@wideset/react/theme'` in your Tailwind entry CSS.
 
+Font: the page font is variable Inter, set through `--font-ws-sans`; `wideset init` adds it as `styles/wideset-font.css`. Text that looks heavier than the design means no variable font is loaded: load `wideset-setup`.
+
 ## Components
 
 - Button: an action with a visible label; `variant` is meaning, `preset` is emphasis, one `filled` per view.

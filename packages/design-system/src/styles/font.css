@@ -1,0 +1,10 @@
+/* Default page font, added by `wideset init`. Keep it a variable font: the weights are 480 and 520. */
+@import '@fontsource-variable/inter/index.css';
+
+:root {
+  --font-ws-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+}
+
+body {
+  font-family: var(--font-ws-sans);
+}
