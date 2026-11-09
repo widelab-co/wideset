@@ -56,6 +56,34 @@ exports[`ProgressBar Snapshots > matches snapshot for all variants > ProgressBar
 </div>
 `;
 
+exports[`ProgressBar Snapshots > matches snapshot for all variants > ProgressBar with neutral variant 1`] = `
+<div
+  class="gap-ws-5 flex w-full flex-col"
+>
+  <div
+    aria-label="Progress"
+    aria-valuemax="100"
+    aria-valuemin="0"
+    aria-valuenow="50"
+    aria-valuetext="50%"
+    class="h-ws-3 relative w-full overflow-hidden rounded-full bg-(--ws-dynamic-stroke-secondary-default)"
+    data-max="100"
+    data-slot="progress-bar"
+    data-state="loading"
+    data-value="50"
+    role="progressbar"
+  >
+    <div
+      class="size-full flex-1 rounded-full bg-ws-semantic-inverse-neutral transition-transform duration-(--ws-motion-duration-medium) ease-(--ws-motion-ease-smooth-out)"
+      data-max="100"
+      data-state="loading"
+      data-value="50"
+      style="transform: translateX(-50%);"
+    />
+  </div>
+</div>
+`;
+
 exports[`ProgressBar Snapshots > matches snapshot for all variants > ProgressBar with success variant 1`] = `
 <div
   class="gap-ws-5 flex w-full flex-col"
@@ -75,6 +103,34 @@ exports[`ProgressBar Snapshots > matches snapshot for all variants > ProgressBar
   >
     <div
       class="size-full flex-1 rounded-full bg-(--ws-semantic-stroke-positive) transition-transform duration-(--ws-motion-duration-medium) ease-(--ws-motion-ease-smooth-out)"
+      data-max="100"
+      data-state="loading"
+      data-value="50"
+      style="transform: translateX(-50%);"
+    />
+  </div>
+</div>
+`;
+
+exports[`ProgressBar Snapshots > matches snapshot for all variants > ProgressBar with warning variant 1`] = `
+<div
+  class="gap-ws-5 flex w-full flex-col"
+>
+  <div
+    aria-label="Progress"
+    aria-valuemax="100"
+    aria-valuemin="0"
+    aria-valuenow="50"
+    aria-valuetext="50%"
+    class="h-ws-3 relative w-full overflow-hidden rounded-full bg-(--ws-dynamic-stroke-secondary-default)"
+    data-max="100"
+    data-slot="progress-bar"
+    data-state="loading"
+    data-value="50"
+    role="progressbar"
+  >
+    <div
+      class="size-full flex-1 rounded-full bg-(--ws-semantic-stroke-notice) transition-transform duration-(--ws-motion-duration-medium) ease-(--ws-motion-ease-smooth-out)"
       data-max="100"
       data-state="loading"
       data-value="50"
@@ -117,7 +173,7 @@ exports[`ProgressBar Snapshots > matches snapshot for circle progress bar 1`] = 
       stroke-width="2.5"
     />
     <circle
-      class="stroke-ws-dynamic-primary-default fill-none transition-[stroke-dashoffset] ease-linear"
+      class="fill-none stroke-ws-dynamic-primary-default transition-[stroke-dashoffset] ease-linear"
       cx="10"
       cy="10"
       r="8.75"
@@ -147,7 +203,7 @@ exports[`ProgressBar Snapshots > matches snapshot for complete progress bar 1`] 
       >
         <label
           class="text-ws-static-strong typography-label-strong-sm gap-ws-3 flex min-w-0 flex-wrap items-center"
-          id="_r_r_"
+          id="_r_17_"
         >
           <span
             class="min-w-0 break-words"
@@ -164,7 +220,7 @@ exports[`ProgressBar Snapshots > matches snapshot for complete progress bar 1`] 
     </span>
   </div>
   <div
-    aria-labelledby="_r_r_"
+    aria-labelledby="_r_17_"
     aria-valuemax="100"
     aria-valuemin="0"
     aria-valuenow="90"
@@ -285,7 +341,7 @@ exports[`ProgressBar Snapshots > matches snapshot for progress bar with label 1`
       >
         <label
           class="text-ws-static-strong typography-label-strong-sm gap-ws-3 flex min-w-0 flex-wrap items-center"
-          id="_r_p_"
+          id="_r_15_"
         >
           <span
             class="min-w-0 break-words"
@@ -302,7 +358,7 @@ exports[`ProgressBar Snapshots > matches snapshot for progress bar with label 1`
     </span>
   </div>
   <div
-    aria-labelledby="_r_p_"
+    aria-labelledby="_r_15_"
     aria-valuemax="100"
     aria-valuemin="0"
     aria-valuenow="75"
