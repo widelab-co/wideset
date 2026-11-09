@@ -99,6 +99,11 @@ The repository is set up for Claude Code, Codex, Cursor, Copilot and Gemini CLI:
 the shared instruction file, and skills live in `.agents/skills/`. Agents follow the same conventions and
 review process as everyone else.
 
+Designers on the team change styles, motion, stories and docs on short `design/<topic>` branches
+with an agent and the `wideset-design-contribution` skill: one topic and one handoff file per
+branch, a draft PR into `develop`, and a developer who merges, adapts or declines it. The developer
+who merges adds the changeset.
+
 ## License
 
 By contributing you agree that your contributions are licensed under the
