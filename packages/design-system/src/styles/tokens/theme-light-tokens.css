@@ -264,7 +264,7 @@
   --ws-static-stroke-inverse-base: var(--ws-colors-light-neutral-opacity-0-12);
   --ws-static-stroke-inverse-strong: var(--ws-colors-light-neutral-opacity-0-24);
   --ws-static-stroke-inverse-subtle: var(--ws-colors-light-neutral-opacity-0-8);
-  --ws-static-text-base: var(--ws-colors-light-neutral-900);
+  --ws-static-text-base: var(--ws-colors-light-neutral-800);
   --ws-static-text-strong: var(--ws-colors-light-neutral-1100);
   --ws-static-text-subtle: var(--ws-colors-light-neutral-700);
   --ws-static-text-inverse-base: var(--ws-colors-light-neutral-300);

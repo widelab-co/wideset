@@ -884,7 +884,7 @@
   --static-stroke-inverse-base: var(--colors-light-neutral-opacity-0-12);
   --static-stroke-inverse-strong: var(--colors-light-neutral-opacity-0-24);
   --static-stroke-inverse-subtle: var(--colors-light-neutral-opacity-0-8);
-  --static-text-base: var(--colors-light-neutral-900);
+  --static-text-base: var(--colors-light-neutral-800);
   --static-text-strong: var(--colors-light-neutral-1100);
   --static-text-subtle: var(--colors-light-neutral-700);
   --static-text-inverse-base: var(--colors-light-neutral-300);
