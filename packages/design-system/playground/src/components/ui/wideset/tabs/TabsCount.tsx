@@ -1,6 +1,6 @@
 'use client';
 
-import { StatusBadge } from '@/components/ui/wideset/status-badge/StatusBadge';
+import { Count } from '@/components/ui/wideset/count/Count';
 import { cn } from '@/lib/wideset/utils';
 
 import { useTabsContext } from './Tabs.context';
@@ -16,16 +16,9 @@ const TabsCount = ({ children, className }: TabsCountProps) => {
   const needsOffset = isUnderlined && size !== 'lg';
 
   return (
-    <StatusBadge
-      data-slot="tabs-count"
-      color="neutral"
-      emphasis="low"
-      shape="rounded"
-      size="sm"
-      className={cn(needsOffset && 'ml-ws-3', className)}
-    >
+    <Count data-slot="tabs-count" className={cn(needsOffset && 'ml-ws-3', className)}>
       {children}
-    </StatusBadge>
+    </Count>
   );
 };
 

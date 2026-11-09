@@ -1,4 +1,4 @@
-import { StatusBadge } from 'src/components/status-badge/StatusBadge';
+import { Count } from 'src/components/count/Count';
 import { cn } from 'src/lib/utils';
 
 import { useTabsContext } from './Tabs.context';
@@ -14,16 +14,9 @@ const TabsCount = ({ children, className }: TabsCountProps) => {
   const needsOffset = isUnderlined && size !== 'lg';
 
   return (
-    <StatusBadge
-      data-slot="tabs-count"
-      color="neutral"
-      emphasis="low"
-      shape="rounded"
-      size="sm"
-      className={cn(needsOffset && 'ml-ws-3', className)}
-    >
+    <Count data-slot="tabs-count" className={cn(needsOffset && 'ml-ws-3', className)}>
       {children}
-    </StatusBadge>
+    </Count>
   );
 };
 

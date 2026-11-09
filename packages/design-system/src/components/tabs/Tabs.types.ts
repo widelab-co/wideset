@@ -68,7 +68,7 @@ export type TabsLabelProps = React.HTMLAttributes<HTMLSpanElement>;
 
 /** A count displayed beside a tab label. */
 export type TabsCountProps = {
-  /** Count displayed inside the badge. */
+  /** The quantity, rendered as a `Count`: a number or a short capped value such as `99+`. */
   children?: React.ReactNode;
   /** Additional CSS classes for layout overrides. */
   className?: string;

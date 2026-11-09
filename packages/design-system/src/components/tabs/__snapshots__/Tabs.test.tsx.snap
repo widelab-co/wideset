@@ -788,12 +788,12 @@ exports[`Tabs Snapshots > matches snapshot for tabs with icon and count 1`] = `
       >
         Tab with Icon and Count
       </span>
-      <div
-        class="inline-flex shrink-0 items-center justify-center focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default typography-caption-strong-md h-ws-11 min-w-ws-11 gap-ws-2 px-ws-4 has-[>svg:only-child]:w-ws-11 has-[>svg:only-child]:px-0 rounded-ws-control-full bg-ws-semantic-neutral text-ws-semantic-on-subtle-neutral ml-ws-3"
+      <span
+        class="h-ws-11 min-w-ws-11 px-ws-4 inline-flex shrink-0 items-center justify-center rounded-ws-control-full border-ws-static-base border bg-transparent typography-caption-strong-md text-ws-static-subtle whitespace-nowrap tabular-nums ml-ws-3"
         data-slot="tabs-count"
       >
         42
-      </div>
+      </span>
     </button>
     <span
       aria-hidden="true"
