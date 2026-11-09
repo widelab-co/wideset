@@ -53,6 +53,9 @@ labels and metadata are `subtle`. If a quarter of a screen's text is `strong`, n
 
 ### Three colours, three jobs
 
+The full guide, with examples for every kind of text, accent and status colour, is
+[text-colour.md](text-colour.md).
+
 Every text on a page has one of three jobs, and each job has one colour:
 
 - **Look for** (`strong`): titles, item names, figures, the one column that matters.

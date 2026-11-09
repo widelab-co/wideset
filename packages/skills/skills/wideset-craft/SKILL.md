@@ -57,6 +57,7 @@ code. Read the reference before you apply a rule for the first time in a session
 | 11  | **States are part of the design.** Every list, table and panel has its empty, loading and error state designed with the same care as the full one.                                                                                                   | [components-and-actions.md](references/components-and-actions.md) |
 | 12  | **Data reads in columns.** Numbers right-aligned with `tabular-nums`, consistent decimals and units, text left, status as a badge.                                                                                                                   | [data.md](references/data.md)                                     |
 | 13  | **Motion belongs to the components.** Do not add your own transitions; the components animate with Wideset's motion tokens and respect reduced motion.                                                                                               | [motion.md](references/motion.md)                                 |
+| 14  | **Colour by job.** Text that is looked for is `strong`, text that is read is `base`, text that only labels is `subtle`; brand, status and chart highlight colours each appear only for a reason in the data.                                         | [text-colour.md](references/text-colour.md)                       |
 
 Four more habits apply to every screen:
 
