@@ -23,9 +23,9 @@ export type SliderThumbProps = MotionProps &
 /** A single value or range selected along a track. */
 export type SliderProps = React.ComponentPropsWithoutRef<typeof SliderPrimitive.Root> &
   MotionProps & {
-    /** Number of thumbs: `single` for one value, `range` for two endpoints. Defaults to `single`. */
+    /** @deprecated The value's length sets the number of thumbs. */
     type?: 'single' | 'range';
-    /** Position of composed labels around the slider. */
+    /** @deprecated Compose `Slider.Label` next to the slider. */
     labels?: 'left' | 'right' | 'side' | 'bottom';
     /** Show tooltip with current value */
     showTooltipValue?: ShowTooltipValue;
@@ -35,6 +35,8 @@ export type SliderProps = React.ComponentPropsWithoutRef<typeof SliderPrimitive.
     'aria-labelledby'?: string;
     /** Accessible name per thumb, in order, e.g. `['Minimum price', 'Maximum price']`. */
     thumbAriaLabels?: string[];
+    /** Content rendered inside the slider, after the thumbs. */
+    children?: React.ReactNode;
   };
 
 export type SliderWithVariants = React.ForwardRefExoticComponent<
