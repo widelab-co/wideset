@@ -8,6 +8,7 @@
 // wideset.co is shared with the landing page: the docs own only the paths routed here, so every
 // file the site serves lives under one of them (assets under /_docs, see astro.config.mjs). The
 // rest of wideset.co goes to the landing page. URLs have no trailing slash (drop-trailing-slash).
+// A route matches a query string only when it ends in `*`, so every pattern does.
 // Astro writes a 404.html, so unknown paths (a missing registry item too) answer with a 404 status.
 {
   "$schema": "node_modules/wrangler/config-schema.json",
@@ -22,8 +23,8 @@
     { "pattern": "wideset.co/components*", "zone_name": "wideset.co" },
     { "pattern": "wideset.co/r/*", "zone_name": "wideset.co" },
     { "pattern": "wideset.co/_docs/*", "zone_name": "wideset.co" },
-    { "pattern": "wideset.co/llms.txt", "zone_name": "wideset.co" },
-    { "pattern": "wideset.co/llms-full.txt", "zone_name": "wideset.co" },
+    { "pattern": "wideset.co/llms.txt*", "zone_name": "wideset.co" },
+    { "pattern": "wideset.co/llms-full.txt*", "zone_name": "wideset.co" },
     { "pattern": "wideset.co/.well-known/agent-skills/*", "zone_name": "wideset.co" },
   ],
   "assets": {

@@ -84,6 +84,21 @@ jobs:
       - name: Build Storybook
         run: pnpm build:storybook
 
+      # changesets/action neither versions nor publishes while only empty changesets are pending
+      # (it logs "All changesets are empty" and stops), and on develop it opens no Version PR to
+      # consume them. An empty changeset releases nothing, so on main it is dropped from the
+      # checkout (not committed) and the action falls through to publishing.
+      - name: Drop empty changesets
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          for f in .changeset/*.md; do
+            [ "$(basename "$f")" = README.md ] && continue
+            if [ "$(sed -n '1,2p' "$f" | tr -d '\r' | paste -sd '|')" = '---|---' ]; then
+              echo "empty changeset: $f"
+              rm "$f"
+            fi
+          done
+
       # Publish before deploying so a failed publish does not ship a half release.
       # No pending changesets on main (consumed on develop) => publish mode only.
       - name: Publish to npm
