@@ -57,6 +57,7 @@ One file per component: when to use it, when not, do and don't, and gotchas. Rea
 - [Breadcrumbs](good-practices/breadcrumbs.md): the path to the current page.
 - [Pagination](good-practices/pagination.md): page through a collection; it never slices data.
 - [Sidebar](good-practices/sidebar.md): the permanent app navigation that collapses to icons.
+- [NavigationBar](good-practices/navigation-bar.md): the top bar: a handful of page links or the path to the page, with app-wide tools at the end.
 - [ProgressStepper](good-practices/progress-stepper.md): named, ordered steps of a flow.
 
 ## [Overlays](specs/components/overlays/README.md)

@@ -93,6 +93,8 @@ Sources of truth, in order: Figma → code → specs.
   data.
 - [Sidebar](../good-practices/sidebar.md): the permanent app navigation that collapses to
   icons.
+- [NavigationBar](../good-practices/navigation-bar.md): the top bar: a handful of page links
+  or the path to the page, with app-wide tools at the end.
 - [ProgressStepper](../good-practices/progress-stepper.md): named, ordered steps of a flow.
 
 ### [Overlays](components/overlays/README.md)
@@ -128,7 +130,8 @@ Sources of truth, in order: Figma → code → specs.
 Wideset has no page templates; patterns are compositions of real components with `ws` layout
 classes.
 
-- [App shell](patterns/app-shell.md): Sidebar next to the one scrolling main area.
+- [App shell](patterns/app-shell.md): Sidebar next to the one scrolling main area, or a
+  NavigationBar above it.
 - [Form page](patterns/form-page.md): FormFields, validation, submit and cancel.
 - [List and filters](patterns/list-and-filters.md): search, filters, table, pagination, empty and
   loading.

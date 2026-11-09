@@ -28,6 +28,7 @@ const SIZES: Record<string, GallerySize> = {
   // Wider than half the grid.
   'action-bar': 'wide',
   'inline-alert': 'wide',
+  'navigation-bar': 'wide',
   'progress-stepper': 'wide',
   'system-alert': 'wide',
   // A whole app sidebar, top to bottom.
