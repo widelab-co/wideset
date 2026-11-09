@@ -51,6 +51,30 @@ title of each item in a list, and the key figures (a price, an error rate, a tot
 or file names inside a section, values beside a label in a header, and message authors are `base`;
 labels and metadata are `subtle`. If a quarter of a screen's text is `strong`, nothing leads.
 
+### Two colours carry a page
+
+A calm page reads in two colours: `strong` for what you look for (titles, item names, figures, the
+one column that matters) and `subtle` for everything that explains it (the lede under the title,
+descriptions, labels, supporting numbers, metadata). Rank the explaining text by size, not by a
+third grey: lede `typography-body-lg`, descriptions `typography-body-md`, metadata
+`typography-caption-md`, all `subtle`. Keep `base` for text read in full inside content: field
+values, messages, comments, the default table cell.
+
+Report and detail pages, as a role map:
+
+| Text                                         | Class                                                                                |
+| -------------------------------------------- | ------------------------------------------------------------------------------------ |
+| Page title                                   | `typography-subtitle-lg text-ws-static-strong`                                       |
+| Lede under the title                         | `typography-body-lg text-ws-static-subtle`                                           |
+| Section title                                | `typography-subtitle-xs text-ws-static-strong`                                       |
+| Card or insight title                        | `typography-label-strong-md text-ws-static-strong`                                   |
+| Card body, description                       | `typography-body-md text-ws-static-subtle`                                           |
+| Figure label ("Active users")                | `typography-label-sm text-ws-static-subtle`                                          |
+| Key figure                                   | `typography-subtitle-md text-ws-static-strong tabular-nums`                          |
+| Change beside a figure                       | `StatusBadge` `positive` / `negative`, `size="sm"`, then "vs. last week" in `subtle` |
+| Metadata, dates, axis and column labels      | `typography-caption-md text-ws-static-subtle`                                        |
+| Table: item names / numbers / the key column | `strong` / `subtle tabular-nums` / `strong tabular-nums`                             |
+
 ## Status colour budget
 
 A status colour says "act on this". Give it only to states that ask for action now (a failure, a
