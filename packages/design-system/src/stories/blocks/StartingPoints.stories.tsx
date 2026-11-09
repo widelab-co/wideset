@@ -21,6 +21,7 @@ const meta = {
   component: BlockById,
   parameters: {
     layout: 'fullscreen',
+    bleed: true,
     docs: {
       description: {
         component:
