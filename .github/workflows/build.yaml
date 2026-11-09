@@ -259,7 +259,7 @@ jobs:
               await github.rest.issues.createComment({ owner, repo, issue_number, body });
             }
 
-  # A PR into develop that changes shipping code (packages/design-system/src or cli, minus stories,
+  # A PR into develop that changes shipping code (packages/design-system/src or packages/cli/src, or packages/cli/package.json, minus stories,
   # tests, snapshots, Figma specs and docs pages; or the skills in packages/skills) must add a file in .changeset/. Nothing to release:
   # `pnpm changeset --empty`. Same rule as the pre-push hook: scripts/check-changeset.mjs.
   changeset:
@@ -316,7 +316,7 @@ jobs:
           if ! files=$(git diff --name-only "$range" -- \
             packages/design-system/src packages/design-system/registry.json \
             packages/design-system/scripts packages/design-system/package.json pnpm-lock.yaml \
-            packages/design-system/vite.config.ts packages/design-system/cli .github/workflows/build.yaml \
+            packages/design-system/vite.config.ts packages/cli .github/workflows/build.yaml \
             packages/skills apps/docs/scripts .claude-plugin \
             2>/dev/null); then
             echo "run=true" >> "$GITHUB_OUTPUT"
@@ -373,7 +373,7 @@ jobs:
             *)    node scripts/registry-smoke.mjs --shard "${{ matrix.shard }}" ;;
           esac
 
-  # The `wideset` CLI (shipped in @wideset/react) on real starter projects: npm create vite, create-next-app, and
+  # The `wideset` CLI (packages/cli, as npm packs it) on real starter projects: npm create vite, create-next-app, and
   # that Next app after shadcn init. Each runs the packed CLI (init, list, add button, skills, info) and the
   # project's own build.
   cli-smoke:
@@ -455,9 +455,21 @@ jobs:
       pull-requests: write # open/update the "Version Packages" PR
 
     steps:
+      # A PR opened or pushed with the built-in GITHUB_TOKEN triggers no workflows, so the
+      # required checks would never run on it. The wideset-release GitHub App token does trigger
+      # them. Until the App is configured this falls back to GITHUB_TOKEN (PR opens, checks don't).
+      - name: Release App token
+        id: app-token
+        if: vars.RELEASE_APP_ID != ''
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ vars.RELEASE_APP_ID }}
+          private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
+
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          token: ${{ steps.app-token.outputs.token || secrets.GITHUB_TOKEN }}
 
       # Version comes from `packageManager` in package.json.
       - uses: pnpm/action-setup@v4
@@ -479,7 +491,7 @@ jobs:
           title: 'Version Packages'
           commit: 'Version Packages'
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token || secrets.GITHUB_TOKEN }}
 
   chromatic:
     name: Publish to Chromatic

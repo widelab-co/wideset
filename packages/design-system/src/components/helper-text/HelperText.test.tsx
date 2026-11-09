@@ -44,17 +44,15 @@ describe('HelperText', () => {
     expect(element).toHaveClass('custom-class');
   });
 
-  it('keeps base classes next to a custom className', () => {
+  it('keeps its own classes next to a custom className', () => {
     render(
       <HelperText state="error" className="custom-class">
         Helper text
       </HelperText>,
     );
-    expect(screen.getByText('Helper text')).toHaveClass(
-      'custom-class',
-      'typography-body-sm',
-      'text-ws-semantic-negative',
-    );
+    const element = screen.getByText('Helper text');
+    expect(element).toHaveClass('custom-class', 'typography-body-sm', 'py-ws-3');
+    expect(element).toHaveClass('text-ws-semantic-negative');
   });
 
   describe('Error announcement', () => {

@@ -594,13 +594,20 @@ describe('shadcn arguments', () => {
 });
 
 describe('package', () => {
+  const manifest = (path: string) => JSON.parse(readFileSync(resolve(__dirname, path), 'utf8'));
+
   it('runs an exact shadcn version, the one the registry smoke tests pin', () => {
     expect(SHADCN_VERSION).toMatch(/^\d+\.\d+\.\d+$/);
+    expect(SHADCN_VERSION).toBe(
+      manifest('../../design-system/package.json').devDependencies.shadcn,
+    );
   });
 
-  it('ships the CLI as the wideset command', () => {
-    const pkg = JSON.parse(readFileSync(resolve(__dirname, '../package.json'), 'utf8'));
-    expect(pkg.bin).toEqual({ wideset: './cli/wideset.mjs' });
-    expect(pkg.files).toContain('cli');
+  it('ships the CLI as the wideset command, with no runtime dependencies', () => {
+    const pkg = manifest('../package.json');
+    expect(pkg.name).toBe('wideset');
+    expect(pkg.bin).toEqual({ wideset: './src/wideset.mjs' });
+    expect(pkg.files).toContain('src');
+    expect(pkg.dependencies).toBeUndefined();
   });
 });
