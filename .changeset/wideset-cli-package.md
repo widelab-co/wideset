@@ -1,4 +1,4 @@
 ---
 ---
 
-The `wideset` CLI moves out of `@wideset/react` into its own `wideset` package, released with it at 1.0.0. Neither package is published yet, so this releases nothing.
+The `wideset` CLI moves out of `@wideset/react` (which drops its `bin`) into its own `wideset` package, published for the first time with the next release. Empty: neither package is on npm yet, so there is no version to bump.

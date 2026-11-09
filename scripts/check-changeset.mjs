@@ -6,7 +6,8 @@
 //
 // "Ships to consumers" = a file under packages/design-system/src/ or packages/cli/src/ (the CLI)
 // that is not a story, test, snapshot, Figma spec or docs page (those never reach dist/ or the
-// registry), or the consumer skills in packages/skills, Markdown included: that is their content.
+// registry); packages/cli/package.json, since the CLI reads its shadcn pin from it at runtime;
+// or the consumer skills in packages/skills, Markdown included: that is their content.
 // Anything else (CI, docs/, scripts, tooling, contributor skills in .agents/) is internal and
 // needs nothing.
 //
@@ -22,6 +23,8 @@ if (!base) {
 }
 
 const SHIPPING = /^packages\/(design-system|cli)\/src\//;
+// The CLI's package.json ships in its tarball and pins the shadcn version `wideset add` runs.
+const SHIPPING_FILES = /^packages\/cli\/package\.json$/;
 const SHIPPING_SKILLS =
   /^packages\/skills\/(skills\/|agents\/|cursor\/|AGENTS\.wideset\.md$|\.claude-plugin\/)/;
 const NOT_SHIPPING = [
@@ -51,7 +54,10 @@ const diff = (filter) =>
     .filter(Boolean);
 
 const shipping = diff('ACMD').filter(
-  (f) => SHIPPING_SKILLS.test(f) || (SHIPPING.test(f) && !NOT_SHIPPING.some((re) => re.test(f))),
+  (f) =>
+    SHIPPING_FILES.test(f) ||
+    SHIPPING_SKILLS.test(f) ||
+    (SHIPPING.test(f) && !NOT_SHIPPING.some((re) => re.test(f))),
 );
 const changesets = diff('A').filter(
   (f) => /^\.changeset\/[^/]+\.md$/.test(f) && !f.endsWith('README.md'),

@@ -117,7 +117,7 @@ installs four Agent Skills (setup, build, craft, review) for the agents you use.
 
 | Package                                    | Description                                                                        | README                                     |
 | ------------------------------------------ | ---------------------------------------------------------------------------------- | ------------------------------------------ |
-| [`@wideset/react`](packages/design-system) | Components, tokens and stylesheets, the shadcn registry, and the `wideset` CLI     | [README](packages/design-system/README.md) |
+| [`@wideset/react`](packages/design-system) | Components, tokens and stylesheets, and the shadcn registry                        | [README](packages/design-system/README.md) |
 | [`wideset`](packages/cli)                  | The `wideset` CLI: `npx wideset init`, `add`, `skills`, over the shadcn CLI        | [README](packages/cli/README.md)           |
 | [`@wideset/skills`](packages/skills)       | Agent Skills and rules for coding agents, generated from the library's usage specs | [README](packages/skills/README.md)        |
 | [`apps/docs`](apps/docs)                   | The documentation site (Astro), with the registry and `llms.txt`                   | [README](apps/docs/README.md)              |

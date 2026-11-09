@@ -365,6 +365,7 @@ describe('what ships', () => {
     const config = JSON.parse(read(join(REPO, '.changeset/config.json'))) as { fixed: string[][] };
     const group = config.fixed.find((names) => names.includes('@wideset/skills'));
     expect(group).toContain('@wideset/react');
+    expect(group).toContain('wideset');
   });
 
   it('has no Claude-only includes or paths inside skills', () => {

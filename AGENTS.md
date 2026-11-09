@@ -212,7 +212,7 @@ design can bind it.
 - Branch from `develop`, name it `<type>/<description>` (`feature/…`, `fix/…`, `chore/…`).
 - Commits: conventional style, e.g. `feat(button): …`, `fix(modal): …`, `docs: …`, `chore(ci): …`.
 - A change to a file that ships (`src/` or `packages/cli/src/`, minus stories, tests, snapshots, Figma specs
-  (`*.figma-spec.json`) and `.mdx`/`.md`) needs a changeset (`pnpm changeset`, one consumer-facing
+  (`*.figma-spec.json`) and `.mdx`/`.md`; plus `packages/cli/package.json`, which pins shadcn) needs a changeset (`pnpm changeset`, one consumer-facing
   line), or
   `pnpm changeset --empty` with the reason when nothing is released. The consumer skills
   (`packages/skills/{skills,agents,cursor,AGENTS.wideset.md,.claude-plugin}`) ship too, Markdown
