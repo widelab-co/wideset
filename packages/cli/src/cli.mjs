@@ -335,10 +335,7 @@ async function skills(ctx) {
   }
 
   if (dryRun) log('\nDry run: nothing was changed.');
-  else
-    log(
-      '\nDone. Your agent can run `npx --no-install wideset info --json` and load the wideset-* skills.',
-    );
+  else log('\nDone. Your agent can run `npx wideset info --json` and load the wideset-* skills.');
   return 0;
 }
 

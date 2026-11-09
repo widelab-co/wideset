@@ -259,7 +259,7 @@ jobs:
               await github.rest.issues.createComment({ owner, repo, issue_number, body });
             }
 
-  # A PR into develop that changes shipping code (packages/design-system/src or cli, minus stories,
+  # A PR into develop that changes shipping code (packages/design-system/src or packages/cli/src, or packages/cli/package.json, minus stories,
   # tests, snapshots, Figma specs and docs pages; or the skills in packages/skills) must add a file in .changeset/. Nothing to release:
   # `pnpm changeset --empty`. Same rule as the pre-push hook: scripts/check-changeset.mjs.
   changeset:
@@ -316,7 +316,7 @@ jobs:
           if ! files=$(git diff --name-only "$range" -- \
             packages/design-system/src packages/design-system/registry.json \
             packages/design-system/scripts packages/design-system/package.json pnpm-lock.yaml \
-            packages/design-system/vite.config.ts packages/design-system/cli .github/workflows/build.yaml \
+            packages/design-system/vite.config.ts packages/cli .github/workflows/build.yaml \
             packages/skills apps/docs/scripts .claude-plugin \
             2>/dev/null); then
             echo "run=true" >> "$GITHUB_OUTPUT"
@@ -373,7 +373,7 @@ jobs:
             *)    node scripts/registry-smoke.mjs --shard "${{ matrix.shard }}" ;;
           esac
 
-  # The `wideset` CLI (shipped in @wideset/react) on real starter projects: npm create vite, create-next-app, and
+  # The `wideset` CLI (packages/cli, as npm packs it) on real starter projects: npm create vite, create-next-app, and
   # that Next app after shadcn init. Each runs the packed CLI (init, list, add button, skills, info) and the
   # project's own build.
   cli-smoke:

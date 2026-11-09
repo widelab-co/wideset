@@ -341,17 +341,23 @@ describe('what ships', () => {
     expect(shippedFiles.filter((file) => internal.test(read(file)))).toEqual([]);
   });
 
-  // `wideset` is not on public npm yet, so a bare `npx wideset` would run whoever registers the name.
-  it('never tells anyone to fetch the wideset CLI', () => {
-    const released = [
-      join(REPO, 'packages/design-system/registry.json'),
-      join(REPO, '.changeset/wideset-skills-cli.md'),
-      join(REPO, '.changeset/wideset-skills-package.md'),
-    ];
-    const bare = [...shippedFiles, ...released].filter(
-      (file) => existsSync(file) && /npx\s+wideset\b/.test(read(file)),
+  // `npx wideset` fetches the CLI from npm, so the name it fetches must be the package in this
+  // repository; and `--no-install` would fail, since @wideset/react does not ship the command.
+  it('runs the wideset CLI as the published wideset package', () => {
+    const cli = JSON.parse(read(join(REPO, 'packages/cli/package.json'))) as {
+      name: string;
+      private?: boolean;
+      bin: Record<string, string>;
+    };
+    expect(cli.name).toBe('wideset');
+    expect(cli.private).toBeUndefined();
+    expect(Object.keys(cli.bin)).toEqual(['wideset']);
+
+    const released = [join(REPO, 'packages/design-system/registry.json')];
+    const noInstall = [...shippedFiles, ...released].filter((file) =>
+      /npx\s+--no-install\s+wideset\b/.test(read(file)),
     );
-    expect(bare.map((file) => relative(REPO, file))).toEqual([]);
+    expect(noInstall.map((file) => relative(REPO, file))).toEqual([]);
   });
 
   // The skills describe the library, so Changesets must release them under one version.
@@ -359,6 +365,7 @@ describe('what ships', () => {
     const config = JSON.parse(read(join(REPO, '.changeset/config.json'))) as { fixed: string[][] };
     const group = config.fixed.find((names) => names.includes('@wideset/skills'));
     expect(group).toContain('@wideset/react');
+    expect(group).toContain('wideset');
   });
 
   it('has no Claude-only includes or paths inside skills', () => {

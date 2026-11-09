@@ -28,7 +28,7 @@ pnpm changeset       # add a changeset for a consumer-facing change
 pnpm build:registry  # shadcn registry → packages/design-system/public/r/ (runs build:lib first; the registry ships dist/*.css)
 pnpm test:registry   # install registry items into fresh Vite and Next.js apps, type-check and build
 pnpm playground      # build + serve the registry, refresh packages/design-system/playground/, run it on http://localhost:5174
-pnpm test:cli        # the wideset CLI (packages/design-system/cli) on fresh create-vite / create-next-app projects
+pnpm test:cli        # the wideset CLI (packages/cli) on fresh create-vite / create-next-app projects
 pnpm build:skills    # regenerate packages/skills from the library (part of pnpm build)
 pnpm test:skills     # the skills' npm, skills CLI and well-known channels, in fresh projects
 ```
@@ -47,6 +47,7 @@ Repository root:
 
 ```
 packages/design-system/        the library, published as @wideset/react (see below)
+packages/cli/                  the `wideset` CLI (init / add / list / skills / info over the shadcn CLI), published as `wideset`, plain ESM
 packages/skills/               consumer agent skills, @wideset/skills; references are copied from packages/design-system/specs
 .claude-plugin/                the Claude Code and Codex plugin marketplace (points at packages/skills)
 apps/docs/                     the documentation site (Astro); see apps/docs/README.md
@@ -68,7 +69,6 @@ src/lib/utils.ts               cn() + tailwind-merge config for custom size toke
 specs/                         agent-facing usage specs: components by group, foundations, tokens, patterns (specs/README.md)
 src/__tests__/                 active gates: named exports, built client boundary, examples
 src/app/                       local Vite demo (pnpm --filter @wideset/react dev), not the library entry
-cli/                           the `wideset` command the package ships (init / add / list over the shadcn CLI), plain ESM
 scripts/build-registry.mjs     shadcn registry build (registry.json lists the entry files); playground/ is the demo consumer app
 .storybook/                    Storybook config; preview.tsx auto-wires on* props as actions
 ```
@@ -211,8 +211,8 @@ design can bind it.
 
 - Branch from `develop`, name it `<type>/<description>` (`feature/…`, `fix/…`, `chore/…`).
 - Commits: conventional style, e.g. `feat(button): …`, `fix(modal): …`, `docs: …`, `chore(ci): …`.
-- A change to a file that ships (`src/` or `cli/`, minus stories, tests, snapshots, Figma specs
-  (`*.figma-spec.json`) and `.mdx`/`.md`) needs a changeset (`pnpm changeset`, one consumer-facing
+- A change to a file that ships (`src/` or `packages/cli/src/`, minus stories, tests, snapshots, Figma specs
+  (`*.figma-spec.json`) and `.mdx`/`.md`; plus `packages/cli/package.json`, which pins shadcn) needs a changeset (`pnpm changeset`, one consumer-facing
   line), or
   `pnpm changeset --empty` with the reason when nothing is released. The consumer skills
   (`packages/skills/{skills,agents,cursor,AGENTS.wideset.md,.claude-plugin}`) ship too, Markdown

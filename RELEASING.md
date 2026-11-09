@@ -1,8 +1,8 @@
 # Releasing
 
-How we version, change-log, and publish `@wideset/react`. The package lives in
-`packages/design-system/`; its `package.json` and `CHANGELOG.md` are the ones Changesets bumps and
-writes. Commands run from the repository root.
+How we version, change-log, and publish `@wideset/react` and the `wideset` CLI. They live in
+`packages/design-system/` and `packages/cli/`; their `package.json` and `CHANGELOG.md` files are the
+ones Changesets bumps and writes, to one shared version. Commands run from the repository root.
 
 We use **[Changesets](https://github.com/changesets/changesets)** to manage [semantic versioning](https://semver.org/) and the changelog. Changesets is not an alternative to semver — it is a tool that turns small, per‑PR intent files into the right version bump + a generated `CHANGELOG.md`, so nobody has to run `npm version` by hand or write the changelog manually.
 
@@ -60,11 +60,13 @@ A breaking change does **not** automatically mean a major release. Component-lev
 
 ### When a changeset is required
 
-The rule is mechanical, by file path. A branch needs a changeset when it changes a file that **ships**: anything under `packages/design-system/src/` or `packages/design-system/cli/` except
+The rule is mechanical, by file path. A branch needs a changeset when it changes a file that **ships**: anything under `packages/design-system/src/` or `packages/cli/src/` except
 
 - stories (`*.stories.tsx`), tests (`*.test.ts(x)`, `__tests__/`), snapshots (`__snapshots__/`, `*.snap`)
 - Figma specs (`*.figma-spec.json`)
 - docs pages (`*.mdx`, `*.md`)
+
+`packages/cli/package.json` ships too: the CLI reads the shadcn version it runs from its `devDependencies`.
 
 The consumer skills ship too: `packages/skills/skills`, `agents`, `cursor`, `AGENTS.wideset.md` and
 `.claude-plugin` need a changeset, Markdown included. A component change that only regenerates them
@@ -145,8 +147,8 @@ library version they describe. The Version PR runs `pnpm version-packages`, whic
 `changeset version` followed by `pnpm build:skills`, so the bump and the regenerated files land
 together.
 
-`.changeset/config.json` lists `@wideset/react` and `@wideset/skills` in one `fixed` group, so they
-always share a version: any release that bumps one bumps the other to the same number. Today that moves the
+`.changeset/config.json` lists `@wideset/react`, `@wideset/skills` and `wideset` (the CLI) in one `fixed` group, so they
+always share a version: any release that bumps one bumps the others to the same number. Today that moves the
 skills from 0.1.0 straight to the library's next version (1.4.0 with the pending changesets); the library's own
 next version does not change. A private package in a fixed group is still versioned by `changeset version`
 (its `package.json` and changelog are updated); only `changeset publish` skips it.
