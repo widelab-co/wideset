@@ -91,6 +91,8 @@ When nothing in the request says otherwise, use exactly these:
 | Shortcut hints     | shown on hover and keyboard focus (`Sidebar.Item suffixOnHover`), never all the time                                                                                                                            |
 | Row targets        | a row that does one thing is one button or link across the whole row: hover fill on the whole row, inset focus ring; never only its text                                                                        |
 | Selected row       | the active `Sidebar.Item` look in every column: `aria-current` with `bg-ws-dynamic-tertiary-alpha-strong-default text-ws-static-strong`; one selected style per screen, no brand tint                           |
+| List row           | a title (`strong`) and at most one line of `subtle` metadata, a status badge at its start; ids and tags live in the detail ([hierarchy.md](references/hierarchy.md#list-rows))                                  |
+| Status colour      | only for states that ask for action now (failure, firing, the top severity); lifecycle states are neutral badges ([surfaces.md](references/surfaces.md#status-colour-budget))                                   |
 | Nested corners     | a shape around a round one is a pill, and its curve shares the centre: inset the round item by the same padding on every side (a coin in a picker, an avatar in a chip)                                         |
 | Round controls     | a round control is round in every state: give the button itself the full radius, never a round wrapper around a square hover, press or focus ring                                                               |
 | Shadows in flow    | cards inside a grey column or board take the lightest shadow (`shadow-ws-forms-base`); Elevation/Low and up are for raised surfaces (an inset page, a floating panel or bar)                                    |
@@ -150,7 +152,8 @@ These mark a screen as generated. Remove them on sight:
 - Five button styles on one screen
 - Lorem ipsum, "John Doe", "Item 1, Item 2, Item 3"
 - Rainbow tags: a different colour for every category when the colours mean nothing
-- Every text in `text-ws-static-strong`, or every label in uppercase
+- Every text in `text-ws-static-strong` (names, values, list items all near-black), or every label in uppercase
+- A status colour on every badge: amber "Identified", blue "Monitoring", green "Resolved" beside the one red that matters
 
 [review.md](references/review.md) adds the tells that show in layout and sizing.
 

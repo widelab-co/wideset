@@ -3,6 +3,17 @@
 ## Reading ladder
 
 The roles, classes and sizes are in [typography.md](typography.md). In short: one page title, section headings one step up, body and values in `typography-body-md`, labels and metadata quieter in `text-ws-static-subtle`. Skip a level rather than inventing one. Two sizes and two colours are enough for most screens.
+Which texts may be `strong`, and why `strong` versus `base` does not rank anything: see
+[surfaces.md](surfaces.md#what-may-be-strong).
+
+## List rows
+
+A selectable row in a list (an inbox, a list of incidents, orders or chats) is a title and **at
+most one line of metadata** under it: the title in `typography-label-strong-sm
+text-ws-static-strong`, the metadata in `typography-caption-md text-ws-static-subtle`, a badge at
+the start of that line when the row has a status. Ids, tags, owners and everything else live in
+the detail the row opens, not in the row. Three lines per row (meta, title, meta) turns the list
+into grey noise and hides the titles it exists to show.
 
 ## Page heading
 
