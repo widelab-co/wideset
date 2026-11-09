@@ -23,7 +23,7 @@ storybook: components-tag--default
 - A state with a judgement (Paid, Overdue, Failed) → `StatusBadge`.
 - A label the user clicks, toggles or removes (filters, selected values) → `Chip`.
 - A person → `Avatar`.
-- A count on a tab → `Tabs.Count`.
+- A count → `Count` (`Tabs.Count` on a tab).
 
 See `README.md` in this folder for Tag vs StatusBadge vs Chip.
 

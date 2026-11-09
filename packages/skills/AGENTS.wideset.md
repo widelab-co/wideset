@@ -75,6 +75,7 @@ Type is one class: `typography-subtitle-lg`, `typography-body-md`, `typography-l
 - Avatar: a person, team or the agent orb next to a name.
 - Tag: a static category label; colour is categorical.
 - StatusBadge: a static state label.
+- Count: how many items sit behind a label.
 - Card: a bounded surface for one subject; not clickable, not a page wrapper.
 - Accordion: named sections opened in place.
 - Divider: a horizontal separator, optionally labelled.

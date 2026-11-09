@@ -12,6 +12,7 @@ states. They show; they don't collect input. Selection and filtering live in `se
 - [Avatar](../../../good-practices/avatar.md) — a person, team or agent next to a name; `Avatar.Group` for several.
 - [Tag](../../../good-practices/tag.md) — which category something belongs to; colour is categorical.
 - [StatusBadge](../../../good-practices/status-badge.md) — what state something is in; colour is semantic.
+- [Count](../../../good-practices/count.md) — how many items sit behind a label (a list group, a heading, a filter).
 
 ## Tag vs StatusBadge vs Chip
 
