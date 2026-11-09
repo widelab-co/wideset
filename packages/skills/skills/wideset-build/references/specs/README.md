@@ -118,6 +118,8 @@ Sources of truth, in order: Figma → code → specs.
 
 ### [Layout](components/layout/README.md)
 
+- [AppShell](../good-practices/app-shell.md): the screen's frame; one `direction` (flat, frame,
+  inset) sets the window, sidebar and page.
 - [Card](../good-practices/card.md): a bounded surface for one subject; not clickable, not a page
   wrapper.
 - [Accordion](../good-practices/accordion.md): named sections opened in place.
@@ -128,7 +130,7 @@ Sources of truth, in order: Figma → code → specs.
 Wideset has no page templates; patterns are compositions of real components with `ws` layout
 classes.
 
-- [App shell](patterns/app-shell.md): Sidebar next to the one scrolling main area.
+- [App shell](patterns/app-shell.md): `AppShell` with a Sidebar and the one scrolling main area.
 - [Form page](patterns/form-page.md): FormFields, validation, submit and cancel.
 - [List and filters](patterns/list-and-filters.md): search, filters, table, pagination, empty and
   loading.

@@ -13,7 +13,7 @@ parts:
     SidebarItem,
     SidebarTrigger,
   ]
-related: [Tabs, Breadcrumbs, Sidepanel]
+related: [AppShell, Tabs, Breadcrumbs, Sidepanel]
 docs: https://wideset-docs.widelab.workers.dev/components/sidebar
 storybook: components-sidebar--default
 ---
@@ -24,7 +24,9 @@ storybook: components-sidebar--default
 
 ## When to use
 
-- The persistent left-hand navigation of an application shell, between product areas.
+- The persistent left-hand navigation of an application shell, between product areas. Put it in
+  an `AppShell`: the sidebar then takes the surface of the app's direction (white with a line,
+  grey tint, or the bare grey frame) without any prop.
 - When the layout needs both a labelled view and a compact icon-only view.
 
 ## When not to use

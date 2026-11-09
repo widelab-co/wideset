@@ -29,6 +29,13 @@ export { ActionTileDescription } from './components/action-tile/ActionTileDescri
 export { ActionTileEntity } from './components/action-tile/ActionTileEntity';
 export { ActionTileIcon } from './components/action-tile/ActionTileIcon';
 export { ActionTileTitle } from './components/action-tile/ActionTileTitle';
+export { AppShell } from './components/app-shell/AppShell';
+export type {
+  AppShellDirection,
+  AppShellMainProps,
+  AppShellProps,
+} from './components/app-shell/AppShell.types';
+export { AppShellMain } from './components/app-shell/AppShellMain';
 export { Avatar } from './components/avatar/Avatar';
 export type { AvatarColor } from './components/avatar/Avatar.colors';
 export type {

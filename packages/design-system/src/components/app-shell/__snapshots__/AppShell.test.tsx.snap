@@ -1,0 +1,148 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`AppShell > Rendering > should match snapshot for direction="flat" 1`] = `
+<div>
+  <div
+    class="flex h-dvh bg-ws-static-foreground"
+    data-direction="flat"
+    data-slot="app-shell"
+    data-testid="shell"
+  >
+    <div
+      class="gap-ws-7 px-ws-5 py-ws-7 relative flex h-full flex-col overflow-hidden bg-ws-static-foreground border-ws-static-subtle border-r w-[16.25rem] transition-[width] duration-(--ws-motion-duration-slow) ease-(--ws-motion-ease-smooth-out)"
+      data-slot="sidebar"
+      data-state="expanded"
+      data-testid="sidebar"
+      id="_r_0_"
+    >
+      <div
+        class="w-full min-w-0"
+        data-slot="sidebar-section"
+      >
+        <nav
+          aria-label="Main"
+        >
+          <a
+            aria-current="page"
+            class="rounded-ws-control-lg gap-ws-5 px-ws-5 py-ws-3 flex w-full cursor-pointer items-center no-underline focus-visible:wds-focus-visible focus-visible:-outline-offset-2 focus-visible:outline-current hover:not-aria-disabled:bg-ws-dynamic-tertiary-alpha-strong-default hover:not-aria-disabled:text-ws-static-strong active:not-aria-disabled:bg-ws-dynamic-tertiary-alpha-strong-pressed active:not-aria-disabled:text-ws-static-strong aria-disabled:text-ws-dynamic-secondary-disabled aria-disabled:pointer-events-none aria-disabled:cursor-default text-ws-static-strong bg-ws-dynamic-tertiary-alpha-strong-default h-ws-14 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+            data-slot="sidebar-item"
+            href="#"
+          >
+            <span
+              class="typography-label-strong-sm min-w-0 truncate"
+            >
+              Projects
+            </span>
+          </a>
+        </nav>
+      </div>
+    </div>
+    <main
+      class="min-w-0 flex-1 overflow-y-auto"
+      data-slot="app-shell-main"
+    >
+      <h1>
+        Projects
+      </h1>
+    </main>
+  </div>
+</div>
+`;
+
+exports[`AppShell > Rendering > should match snapshot for direction="frame" 1`] = `
+<div>
+  <div
+    class="flex h-dvh bg-ws-static-foreground"
+    data-direction="frame"
+    data-slot="app-shell"
+    data-testid="shell"
+  >
+    <div
+      class="gap-ws-7 px-ws-5 py-ws-7 relative flex h-full flex-col overflow-hidden bg-ws-static-alpha-subtle w-[16.25rem] transition-[width] duration-(--ws-motion-duration-slow) ease-(--ws-motion-ease-smooth-out)"
+      data-slot="sidebar"
+      data-state="expanded"
+      data-testid="sidebar"
+      id="_r_1_"
+    >
+      <div
+        class="w-full min-w-0"
+        data-slot="sidebar-section"
+      >
+        <nav
+          aria-label="Main"
+        >
+          <a
+            aria-current="page"
+            class="rounded-ws-control-lg gap-ws-5 px-ws-5 py-ws-3 flex w-full cursor-pointer items-center no-underline focus-visible:wds-focus-visible focus-visible:-outline-offset-2 focus-visible:outline-current hover:not-aria-disabled:bg-ws-dynamic-tertiary-alpha-strong-default hover:not-aria-disabled:text-ws-static-strong active:not-aria-disabled:bg-ws-dynamic-tertiary-alpha-strong-pressed active:not-aria-disabled:text-ws-static-strong aria-disabled:text-ws-dynamic-secondary-disabled aria-disabled:pointer-events-none aria-disabled:cursor-default text-ws-static-strong bg-ws-dynamic-tertiary-alpha-strong-default h-ws-14 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+            data-slot="sidebar-item"
+            href="#"
+          >
+            <span
+              class="typography-label-strong-sm min-w-0 truncate"
+            >
+              Projects
+            </span>
+          </a>
+        </nav>
+      </div>
+    </div>
+    <main
+      class="min-w-0 flex-1 overflow-y-auto"
+      data-slot="app-shell-main"
+    >
+      <h1>
+        Projects
+      </h1>
+    </main>
+  </div>
+</div>
+`;
+
+exports[`AppShell > Rendering > should match snapshot for direction="inset" 1`] = `
+<div>
+  <div
+    class="flex h-dvh bg-ws-static-background"
+    data-direction="inset"
+    data-slot="app-shell"
+    data-testid="shell"
+  >
+    <div
+      class="gap-ws-7 px-ws-5 py-ws-7 relative flex h-full flex-col overflow-hidden bg-transparent w-[16.25rem] pl-ws-9 transition-[width] duration-(--ws-motion-duration-slow) ease-(--ws-motion-ease-smooth-out)"
+      data-slot="sidebar"
+      data-state="expanded"
+      data-testid="sidebar"
+      id="_r_2_"
+    >
+      <div
+        class="w-full min-w-0"
+        data-slot="sidebar-section"
+      >
+        <nav
+          aria-label="Main"
+        >
+          <a
+            aria-current="page"
+            class="rounded-ws-control-lg gap-ws-5 px-ws-5 py-ws-3 flex w-full cursor-pointer items-center no-underline focus-visible:wds-focus-visible focus-visible:-outline-offset-2 focus-visible:outline-current hover:not-aria-disabled:bg-ws-dynamic-tertiary-alpha-strong-default hover:not-aria-disabled:text-ws-static-strong active:not-aria-disabled:bg-ws-dynamic-tertiary-alpha-strong-pressed active:not-aria-disabled:text-ws-static-strong aria-disabled:text-ws-dynamic-secondary-disabled aria-disabled:pointer-events-none aria-disabled:cursor-default text-ws-static-strong bg-ws-dynamic-tertiary-alpha-strong-default h-ws-14 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+            data-slot="sidebar-item"
+            href="#"
+          >
+            <span
+              class="typography-label-strong-sm min-w-0 truncate"
+            >
+              Projects
+            </span>
+          </a>
+        </nav>
+      </div>
+    </div>
+    <main
+      class="min-w-0 flex-1 overflow-y-auto bg-ws-static-foreground rounded-ws-container-lg shadow-ws-low my-ws-7 mr-ws-7 ml-ws-5 relative flex flex-col"
+      data-slot="app-shell-main"
+    >
+      <h1>
+        Projects
+      </h1>
+    </main>
+  </div>
+</div>
+`;

@@ -5,18 +5,20 @@
 ## Problem
 
 An app needs persistent navigation, a scrolling content area, one place for page-level alerts
-and one place where toasts appear. Wideset has no shell or page component: the frame is
-`Sidebar` next to a plain `main` element, laid out with Tailwind classes and `ws` tokens.
+and one place where toasts appear. [`AppShell`](../../good-practices/app-shell.md) is that frame:
+a full-height row holding `Sidebar` and `AppShell.Main`. Its `direction` (`flat`, `frame` or
+`inset`) sets the window background, the sidebar's surface and the page's look together, so
+pick it once for the whole app and do not restyle them by hand.
 
 ## Structure
 
 ```
 ToastProvider                       — once, around the whole app
-└ div.flex.h-dvh                    — full-height row, page background
-  ├ Sidebar                         — navigation; owns collapsed state
+└ AppShell direction="…"           — full-height row; the direction's background
+  ├ Sidebar                         — navigation; owns collapsed state; surface from AppShell
   │ ├ Sidebar.Header                — product name + Sidebar.Trigger
   │ └ Sidebar.Section scrollable    — nav > Sidebar.Item, in Expanded and Collapsed
-  └ main.flex-1.overflow-y-auto     — the only scroll container for page content
+  └ AppShell.Main                   — <main>, the only scroll container for page content
     ├ SystemAlert                   — optional, page-level notice, first
     ├ header                        — Breadcrumbs (optional), h1, page actions
     └ page content                  — Cards, Table, forms …
@@ -26,7 +28,7 @@ ToastProvider                       — once, around the whole app
 
 ```tsx
 import { RiDashboardLine, RiFolder3Line, RiSettings3Line } from '@remixicon/react';
-import { Button, Sidebar, ToastProvider } from '@wideset/react';
+import { AppShell, Button, Sidebar, ToastProvider } from '@wideset/react';
 import type { ReactNode } from 'react';
 
 const NAV = [
@@ -45,10 +47,10 @@ function Nav({ current }: { current: string }) {
   );
 }
 
-export function AppShell({ current, children }: { current: string; children: ReactNode }) {
+export function Shell({ current, children }: { current: string; children: ReactNode }) {
   return (
     <ToastProvider>
-      <div className="bg-ws-static-background flex h-dvh">
+      <AppShell direction="inset">
         <Sidebar>
           <Sidebar.Header>
             <Sidebar.Expanded>
@@ -73,7 +75,7 @@ export function AppShell({ current, children }: { current: string; children: Rea
           </Sidebar.Section>
         </Sidebar>
 
-        <main className="min-w-0 flex-1 overflow-y-auto">
+        <AppShell.Main>
           <div className="gap-ws-12 p-ws-12 flex flex-col">
             <header className="gap-ws-9 flex flex-wrap items-center justify-between">
               <h1 className="typography-title-sm text-ws-static-strong">Projects</h1>
@@ -81,14 +83,18 @@ export function AppShell({ current, children }: { current: string; children: Rea
             </header>
             {children}
           </div>
-        </main>
-      </div>
+        </AppShell.Main>
+      </AppShell>
     </ToastProvider>
   );
 }
 ```
 
 ## Variants
+
+- **Direction.** `inset` for apps with a strong page edge and several regions (a calendar, a
+  document), `frame` for side-by-side panels (messages, mail), `flat` (the default) for simple,
+  dense tools. One direction per app, on every screen, settings and empty states included.
 
 - **Router links.** Wrap your router's link: `<Sidebar.Item asChild icon={…} label="Projects"
 active={…}><Link to="/projects" /></Sidebar.Item>`. Icon and label are injected into the link.
@@ -104,7 +110,10 @@ grid-cols-[repeat(auto-fit,minmax(16rem,1fr))] gap-ws-11`) or stack sections wit
 
 - A `Sidebar.Section` renders nothing in a mode where it has no matching `Sidebar.Expanded` or
   `Sidebar.Collapsed` child, so give it both, as the example does.
-- `min-w-0` on `main` stops a wide table from pushing the layout out. Only `main` scrolls.
+- `AppShell.Main` is the only scroll container and already stops a wide table from pushing the
+  layout out; do not add a second scrolling wrapper around the page.
+- The direction lives on `AppShell` alone. Do not pass the sidebar a fill or a border through
+  `className`, and do not give `AppShell.Main` its own background, radius or shadow.
 - One active item, set by you from the current path.
 - Keep the top level to about seven items; group the rest in sections instead of nesting deeply.
 - Hide pages the user will never reach. `disabled` is for something they could unlock.
@@ -137,8 +146,10 @@ changes shape: see responsive.
 ## Anti-patterns
 
 - Wrapping the page in a `Card`, or the sidebar and page in one bordered box.
-- Letting `body` scroll instead of `main`: the sidebar then scrolls away. Keep `h-dvh` on the
-  row and `overflow-y-auto` on `main`.
+- Letting `body` scroll instead of `AppShell.Main`: the sidebar then scrolls away. Do not
+  replace `AppShell`'s full height (`h-dvh`) with `min-h-screen`.
+- Hand-writing a direction (`bg-ws-static-background` on a row, a rounded `main` with a shadow)
+  instead of `<AppShell direction="inset">`.
 - A second `ToastProvider` per page: toasts then stack in two places.
 - Building navigation from `Button`s or `ListItem`s; use `Sidebar.Item` (it renders an `<a>`).
 - Plain Tailwind spacing (`p-6`, `gap-4`) or palette colours; use `p-ws-*`, `gap-ws-*`,

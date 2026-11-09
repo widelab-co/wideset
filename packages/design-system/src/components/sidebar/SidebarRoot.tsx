@@ -2,9 +2,14 @@ import * as React from 'react';
 import { cn } from 'src/lib/utils';
 
 import { useDefaultMotion } from '../../motion/MotionProvider';
+import { AppShellContext } from '../app-shell/AppShell.context';
 import { SidebarContext } from './Sidebar.context';
 import type { SidebarProps } from './Sidebar.types';
-import { sidebarMotionVariants, sidebarVariants } from './Sidebar.variants';
+import {
+  sidebarMotionVariants,
+  sidebarSurfaceByDirection,
+  sidebarVariants,
+} from './Sidebar.variants';
 
 const SidebarRoot = React.forwardRef<HTMLDivElement, SidebarProps>(
   (
@@ -21,6 +26,8 @@ const SidebarRoot = React.forwardRef<HTMLDivElement, SidebarProps>(
     ref,
   ) => {
     const motion = useDefaultMotion(defaultMotion);
+    // Inside an AppShell the sidebar takes the surface of the app's direction.
+    const direction = React.useContext(AppShellContext)?.direction ?? 'flat';
     const [internalCollapsed, setInternalCollapsed] = React.useState(!!defaultCollapsed);
     const isControlled = collapsed !== undefined;
     const isCollapsed = isControlled ? !!collapsed : internalCollapsed;
@@ -50,7 +57,10 @@ const SidebarRoot = React.forwardRef<HTMLDivElement, SidebarProps>(
           data-slot="sidebar"
           data-state={isCollapsed ? 'collapsed' : 'expanded'}
           className={cn(
-            sidebarVariants({ collapsed: isCollapsed }),
+            sidebarVariants({
+              collapsed: isCollapsed,
+              surface: sidebarSurfaceByDirection[direction],
+            }),
             sidebarMotionVariants({ enabled: motion }),
             className,
           )}

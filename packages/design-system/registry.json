@@ -216,6 +216,19 @@
       ]
     },
     {
+      "name": "app-shell",
+      "type": "registry:ui",
+      "title": "AppShell",
+      "description": "AppShell is the full-height frame a screen sits in: the Sidebar and the page, in the app's visual direction (flat, frame or inset) set by one prop.",
+      "files": [
+        {
+          "path": "src/components/app-shell/AppShell.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/wideset/app-shell/AppShell.tsx"
+        }
+      ]
+    },
+    {
       "name": "avatar",
       "type": "registry:ui",
       "title": "Avatar",

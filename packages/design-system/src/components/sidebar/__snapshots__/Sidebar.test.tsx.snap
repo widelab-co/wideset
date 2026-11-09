@@ -2,7 +2,7 @@
 
 exports[`Sidebar > Sidebar Snapshots > matches snapshot for a navigation item 1`] = `
 <div
-  class="bg-ws-static-foreground border-ws-static-subtle gap-ws-7 px-ws-5 py-ws-7 relative flex h-full flex-col overflow-hidden border-r w-[16.25rem] transition-[width] duration-(--ws-motion-duration-slow) ease-(--ws-motion-ease-smooth-out)"
+  class="gap-ws-7 px-ws-5 py-ws-7 relative flex h-full flex-col overflow-hidden bg-ws-static-foreground border-ws-static-subtle border-r w-[16.25rem] transition-[width] duration-(--ws-motion-duration-slow) ease-(--ws-motion-ease-smooth-out)"
   data-slot="sidebar"
   data-state="expanded"
   id="_r_l_"
@@ -29,7 +29,7 @@ exports[`Sidebar > Sidebar Snapshots > matches snapshot for a navigation item 1`
 
 exports[`Sidebar > Sidebar Snapshots > matches snapshot for collapsed sidebar 1`] = `
 <div
-  class="bg-ws-static-foreground border-ws-static-subtle gap-ws-7 px-ws-5 py-ws-7 relative flex h-full flex-col overflow-hidden border-r w-[3.25rem] items-center transition-[width] duration-(--ws-motion-duration-slow) ease-(--ws-motion-ease-smooth-out)"
+  class="gap-ws-7 px-ws-5 py-ws-7 relative flex h-full flex-col overflow-hidden bg-ws-static-foreground border-ws-static-subtle border-r w-[3.25rem] items-center transition-[width] duration-(--ws-motion-duration-slow) ease-(--ws-motion-ease-smooth-out)"
   data-slot="sidebar"
   data-state="collapsed"
   id="_r_n_"
@@ -71,7 +71,7 @@ exports[`Sidebar > Sidebar Snapshots > matches snapshot for collapsed sidebar 1`
 
 exports[`Sidebar > Sidebar Snapshots > matches snapshot for expanded sidebar 1`] = `
 <div
-  class="bg-ws-static-foreground border-ws-static-subtle gap-ws-7 px-ws-5 py-ws-7 relative flex h-full flex-col overflow-hidden border-r w-[16.25rem] transition-[width] duration-(--ws-motion-duration-slow) ease-(--ws-motion-ease-smooth-out)"
+  class="gap-ws-7 px-ws-5 py-ws-7 relative flex h-full flex-col overflow-hidden bg-ws-static-foreground border-ws-static-subtle border-r w-[16.25rem] transition-[width] duration-(--ws-motion-duration-slow) ease-(--ws-motion-ease-smooth-out)"
   data-slot="sidebar"
   data-state="expanded"
   id="_r_m_"
@@ -113,7 +113,7 @@ exports[`Sidebar > Sidebar Snapshots > matches snapshot for expanded sidebar 1`]
 
 exports[`Sidebar > Sidebar Snapshots > matches snapshot for sidebar with className 1`] = `
 <div
-  class="bg-ws-static-foreground border-ws-static-subtle gap-ws-7 px-ws-5 py-ws-7 relative flex h-full flex-col overflow-hidden border-r w-[16.25rem] transition-[width] duration-(--ws-motion-duration-slow) ease-(--ws-motion-ease-smooth-out)"
+  class="gap-ws-7 px-ws-5 py-ws-7 relative flex h-full flex-col overflow-hidden bg-ws-static-foreground border-ws-static-subtle border-r w-[16.25rem] transition-[width] duration-(--ws-motion-duration-slow) ease-(--ws-motion-ease-smooth-out)"
   data-slot="sidebar"
   data-state="expanded"
   id="_r_p_"
@@ -131,7 +131,7 @@ exports[`Sidebar > Sidebar Snapshots > matches snapshot for sidebar with classNa
 
 exports[`Sidebar > Sidebar Snapshots > matches snapshot for sidebar with multiple sections 1`] = `
 <div
-  class="bg-ws-static-foreground border-ws-static-subtle gap-ws-7 px-ws-5 py-ws-7 relative flex h-full flex-col overflow-hidden border-r w-[16.25rem] transition-[width] duration-(--ws-motion-duration-slow) ease-(--ws-motion-ease-smooth-out)"
+  class="gap-ws-7 px-ws-5 py-ws-7 relative flex h-full flex-col overflow-hidden bg-ws-static-foreground border-ws-static-subtle border-r w-[16.25rem] transition-[width] duration-(--ws-motion-duration-slow) ease-(--ws-motion-ease-smooth-out)"
   data-slot="sidebar"
   data-state="expanded"
   id="_r_o_"
