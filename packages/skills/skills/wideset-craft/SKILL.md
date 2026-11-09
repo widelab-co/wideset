@@ -21,10 +21,18 @@ It sits on top of `wideset-build` and never contradicts it:
 ## North star
 
 **One screen, one focal point, one size, one accent: calm, scannable, consistent to the pixel.**
-When two rules pull apart, choose whatever makes the screen easier to scan and calmer.
 
-The test is the **squint test**: blur the screen. If you cannot say in one glance what matters
-most, the composition is broken, and no amount of alignment fixes it.
+The goal is a composition that is right, not rules that were followed. Judge it optically:
+**blur the rendered screen** until no word is legible. The masses that remain must be coherent:
+one focal point, weight that matches importance, an even rhythm of gaps, even density, shared
+edges, space that is meant. If the blurred screen is coherent the sharp one almost always is; if
+it is not, no correct token fixes it. How to run the blur test and what to look for:
+[composition.md](references/composition.md).
+
+The rules below are knowledge that usually produces that coherence, with the reason for each.
+When the blurred screen shows a rule making the composition worse, change it and say why. Fixed
+are only the system's own decisions: tokens, text colour by job, status colour only for meaning,
+one control height, the type styles that exist.
 
 ## Plan before JSX
 
@@ -152,9 +160,13 @@ These mark a screen as generated. Remove them on sight:
 
 1. **Decide before you build.** Write down in one line: the screen type (list, detail, form,
    dashboard, settings, flow, empty), its focal point, the size mode and the surface language.
-2. **Compose from real components** using the `wideset-build` references; apply the rules above.
-3. **Design the other states** (empty, loading, error, long content, narrow width, dark mode).
-4. **Review** with [review.md](references/review.md): run the squint test and the scored
-   checklist. Below 85% is not done; fix and re-check. Then run `wideset-review`.
-5. **Report the decisions** you made (size mode, surface language, width) so a person can
-   overrule them in one sentence.
+2. **Compose from real components** using the `wideset-build` references; start from the rules
+   above.
+3. **Render it and run the blur test** ([composition.md](references/composition.md)). Fix the
+   composition until the blurred screen is coherent, before any detail.
+4. **Design the other states** (empty, loading, error, long content, narrow width, dark mode), and
+   blur-test the empty state too.
+5. **Check the detail** with [review.md](references/review.md): the scored checklist, then
+   `wideset-review`.
+6. **Report the decisions** you made (size mode, surface language, width) and every departure from
+   the tables with its reason, so a person can overrule them in one sentence.
