@@ -253,3 +253,74 @@ export const Composition: Story = {
     );
   },
 };
+
+const INVOICE_FIELDS = [
+  ['Customer', 'Acme Corp'],
+  ['Issued', '2 October 2025'],
+  ['Due', '16 October 2025'],
+  ['Payment terms', 'Net 14'],
+  ['Currency', 'EUR'],
+  ['Purchase order', 'PO-88172'],
+  ['Billing contact', 'Anna Kowalska'],
+  ['Billing email', 'billing@acme.example'],
+  ['Tax ID', 'PL5260001246'],
+  ['Amount', '€12,410.00'],
+];
+
+const INVOICE_ACTIVITY = [
+  ['Anna Kowalska approved the invoice', 'Today, 09:12'],
+  ['Tomasz Nowak changed the due date', 'Yesterday, 16:40'],
+  ['Reminder sent to billing@acme.example', 'Mon, 08:00'],
+  ['Invoice created from PO-88172', '2 Oct, 11:05'],
+];
+
+export const LongContent: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Content taller than the panel scrolls in a `ScrollArea` between the fixed header and footer; the bar floats in the content’s padding.',
+      },
+    },
+  },
+  args: { size: Default.args?.size, side: Default.args?.side },
+  render: ({ size, side }) => (
+    <Sidepanel>
+      <Sidepanel.Trigger asChild>
+        <Button size="md">Open invoice</Button>
+      </Sidepanel.Trigger>
+      <Sidepanel.Panel side={side} size={size}>
+        <Sidepanel.Header>
+          <Sidepanel.Title>Invoice INV-2041</Sidepanel.Title>
+          <Sidepanel.Description>Acme Corp · due 16 October</Sidepanel.Description>
+        </Sidepanel.Header>
+        <Sidepanel.Content className="gap-ws-12 flex flex-col">
+          <dl className="gap-ws-7 grid grid-cols-[10rem_1fr]">
+            {INVOICE_FIELDS.map(([term, value]) => (
+              <div key={term} className="contents">
+                <dt className="typography-body-md text-ws-static-subtle">{term}</dt>
+                <dd className="typography-body-md text-ws-static-strong">{value}</dd>
+              </div>
+            ))}
+          </dl>
+          <ul className="gap-ws-7 flex flex-col">
+            {INVOICE_ACTIVITY.map(([event, time]) => (
+              <li key={event} className="gap-ws-2 flex flex-col">
+                <span className="typography-body-md text-ws-static-base">{event}</span>
+                <span className="typography-caption-md text-ws-static-subtle">{time}</span>
+              </li>
+            ))}
+          </ul>
+        </Sidepanel.Content>
+        <Sidepanel.Footer>
+          <Button preset="filled">Mark as paid</Button>
+          <Sidepanel.Close asChild>
+            <Button variant="secondary" preset="border">
+              Close
+            </Button>
+          </Sidepanel.Close>
+        </Sidepanel.Footer>
+      </Sidepanel.Panel>
+    </Sidepanel>
+  ),
+};

@@ -325,7 +325,6 @@ export const MultiSelect = ({
               portalContainer={portalContainer}
               align="start"
               sideOffset={4}
-              className="p-ws-3"
               onKeyDown={handleContentKeyDown}
             >
               {hasSearch && (

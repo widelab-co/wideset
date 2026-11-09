@@ -13,3 +13,42 @@
 @utility wds-disabled {
   @apply pointer-events-none cursor-default;
 }
+
+/*
+  A native scrollbar with ScrollArea's look: thin, no track, a token thumb that reads in light and
+  dark. Only for what a ScrollArea cannot wrap: a textarea, the page (`<html class="wds-scrollbar">`),
+  a list a Radix primitive scrolls itself (Select). Unlike ScrollArea's bar it takes its own width
+  and stays while there is something to scroll.
+
+  Chrome and Safari draw it from the WebKit pseudo-elements: the exact bar, with no arrow buttons.
+  Chrome ignores those once scrollbar-width or scrollbar-color is set, so both stay auto there.
+  Firefox has no WebKit pseudo-elements and gets the standard properties instead.
+*/
+@utility wds-scrollbar {
+  scrollbar-width: auto;
+  scrollbar-color: auto;
+
+  @supports not selector(::-webkit-scrollbar) {
+    scrollbar-width: thin;
+    scrollbar-color: var(--background-color-ws-static-alpha-strong) transparent;
+  }
+
+  &::-webkit-scrollbar {
+    display: block;
+    width: var(--spacing-ws-6);
+    height: var(--spacing-ws-6);
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    border: var(--spacing-ws-2) solid transparent;
+    border-radius: var(--radius-ws-control-full);
+    background: var(--background-color-ws-static-alpha-strong) padding-box;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: var(--background-color-ws-dynamic-secondary-alpha-strong-pressed);
+  }
+  &::-webkit-scrollbar-track,
+  &::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+}

@@ -6,6 +6,7 @@ import { IconButton } from 'src/components/button/IconButton';
 import { Checkbox } from 'src/components/checkbox/Checkbox';
 import { ListItem } from 'src/components/list-item/ListItem';
 import { Popup } from 'src/components/popup/Popup';
+import { ScrollArea } from 'src/components/scroll-area/ScrollArea';
 import { cn } from 'src/lib/utils';
 
 import { useDefaultMotion } from '../../motion/MotionProvider';
@@ -168,53 +169,55 @@ export const FilterButton = React.forwardRef<HTMLButtonElement, FilterButtonProp
           // Width floor: max(trigger, Size/28) so the list neither shrinks below
           // the menu minimum nor jumps around as the trigger's own width
           // changes with the selection summary.
-          className="rounded-ws-container-sm p-ws-3 z-ws-popout w-auto min-w-[max(var(--radix-popover-trigger-width),var(--spacing-ws-28))]"
+          className="rounded-ws-container-sm z-ws-popout w-auto min-w-[max(var(--radix-popover-trigger-width),var(--spacing-ws-28))] overflow-hidden"
           defaultMotion={motion}
           onOpenAutoFocus={(e) => {
             e.preventDefault();
             focusFirstEnabled();
           }}
         >
-          <div
-            role="listbox"
-            aria-multiselectable
-            aria-label={label}
-            className="max-h-[18rem] overflow-x-hidden overflow-y-auto outline-none"
-          >
-            {options.map((option, index) => {
-              const selected = selectedValues.includes(option.value);
+          <ScrollArea defaultMotion={motion} className="max-h-[18rem]">
+            <div
+              role="listbox"
+              aria-multiselectable
+              aria-label={label}
+              className="p-ws-3 outline-none"
+            >
+              {options.map((option, index) => {
+                const selected = selectedValues.includes(option.value);
 
-              return (
-                <ListItem
-                  key={option.value}
-                  role="option"
-                  aria-selected={selected}
-                  disabled={option.disabled}
-                  onClick={() => {
-                    if (option.disabled) return;
-                    handleSelect(option.value);
-                  }}
-                  // Figma binds the row's min-height to `Size/14` (32px); the
-                  // padding alone (Gap/3 + 20px content + Gap/3) only reaches 28px.
-                  defaultMotion={motion}
-                  className={cn('min-h-ws-14', {
-                    'bg-ws-dynamic-primary-alpha-default': selected,
-                  })}
-                  {...getItemProps(index)}
-                >
-                  <ListItem.Prefix>
-                    <Checkbox
-                      checked={selected}
-                      className="pointer-events-none"
-                      tabIndex={-1}
-                      defaultMotion={motion}
-                    />
-                  </ListItem.Prefix>
-                  <ListItem.Label>{option.label}</ListItem.Label>
-                </ListItem>
-              );
-            })}
-          </div>
+                return (
+                  <ListItem
+                    key={option.value}
+                    role="option"
+                    aria-selected={selected}
+                    disabled={option.disabled}
+                    onClick={() => {
+                      if (option.disabled) return;
+                      handleSelect(option.value);
+                    }}
+                    // Figma binds the row's min-height to `Size/14` (32px); the
+                    // padding alone (Gap/3 + 20px content + Gap/3) only reaches 28px.
+                    defaultMotion={motion}
+                    className={cn('min-h-ws-14', {
+                      'bg-ws-dynamic-primary-alpha-default': selected,
+                    })}
+                    {...getItemProps(index)}
+                  >
+                    <ListItem.Prefix>
+                      <Checkbox
+                        checked={selected}
+                        className="pointer-events-none"
+                        tabIndex={-1}
+                        defaultMotion={motion}
+                      />
+                    </ListItem.Prefix>
+                    <ListItem.Label>{option.label}</ListItem.Label>
+                  </ListItem>
+                );
+              })}
+            </div>
+          </ScrollArea>
         </Popup.Container>
       </Popup>
     );

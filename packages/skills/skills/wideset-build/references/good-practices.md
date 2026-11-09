@@ -81,3 +81,4 @@ One file per component: when to use it, when not, do and don't, and gotchas. Rea
 - [Card](good-practices/card.md): a bounded surface for one subject; not clickable, not a page wrapper.
 - [Accordion](good-practices/accordion.md): named sections opened in place.
 - [Divider](good-practices/divider.md): a horizontal separator, optionally labelled.
+- [ScrollArea](good-practices/scroll-area.md): a region that scrolls with Wideset's thin bar; never a bare `overflow-auto`, `wds-scrollbar` only where you cannot wrap.

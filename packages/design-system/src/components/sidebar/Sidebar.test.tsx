@@ -596,3 +596,39 @@ describe('data-slot', () => {
     );
   });
 });
+
+// Last in the file: the snapshots above carry useId values, which shift with every render before them.
+describe('Sidebar.Section scrollable', () => {
+  const renderScrollable = (collapsed: boolean) =>
+    render(
+      <Sidebar collapsed={collapsed}>
+        <Sidebar.Section scrollable data-testid="section">
+          <Sidebar.Expanded>
+            <Sidebar.Item href="#projects" label="Projects" />
+          </Sidebar.Expanded>
+          <Sidebar.Collapsed>
+            <Sidebar.Item href="#projects" aria-label="Projects" />
+          </Sidebar.Collapsed>
+        </Sidebar.Section>
+      </Sidebar>,
+    );
+  const slot = (name: string) =>
+    screen.getByTestId('section').querySelector(`[data-slot="${name}"]`);
+
+  it('adds no horizontal padding when collapsed, so items stay on the rail’s centre line', () => {
+    renderScrollable(true);
+    expect(slot('scroll-area-viewport')?.className).not.toMatch(/(^|\s)p[xrlse]?-/);
+    expect(slot('scroll-area')?.className).not.toMatch(/(^|\s)-?m[xrle]?-/);
+  });
+
+  it('shows no bar when collapsed', () => {
+    renderScrollable(true);
+    expect(slot('scroll-area-scrollbar')).toHaveClass('hidden');
+  });
+
+  it('keeps the gutter in the sidebar’s right padding when expanded', () => {
+    renderScrollable(false);
+    expect(slot('scroll-area-viewport')).toHaveClass('pe-ws-6');
+    expect(slot('scroll-area')).toHaveClass('-mr-ws-6');
+  });
+});

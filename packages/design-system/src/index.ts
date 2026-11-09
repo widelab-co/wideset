@@ -325,6 +325,8 @@ export type {
   RadioButtonProps,
 } from './components/radio-button/RadioButton.types';
 export { RadioButtonGroup } from './components/radio-button/RadioButtonGroup';
+export { ScrollArea } from './components/scroll-area/ScrollArea';
+export type { ScrollAreaProps } from './components/scroll-area/ScrollArea.types';
 export { Search } from './components/search/Search';
 export type { SearchProps } from './components/search/Search.types';
 export { SegmentedControl } from './components/segmented-control/SegmentedControl';

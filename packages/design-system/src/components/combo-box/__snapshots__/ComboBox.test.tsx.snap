@@ -187,166 +187,187 @@ exports[`ComboBox > snapshots > should match snapshot for opened dropdown with o
       style="--radix-popover-content-transform-origin: var(--radix-popper-transform-origin); --radix-popover-content-available-width: var(--radix-popper-available-width); --radix-popover-content-available-height: var(--radix-popper-available-height); --radix-popover-trigger-width: var(--radix-popper-anchor-width); --radix-popover-trigger-height: var(--radix-popper-anchor-height);"
       tabindex="-1"
     >
-      <ul
-        class="p-ws-3 max-h-[18rem] overflow-y-auto"
-        id="_r_2c_"
-        role="listbox"
+      <div
+        class="relative isolate flex flex-col overflow-hidden max-h-[18rem]"
+        data-slot="scroll-area"
+        dir="ltr"
+        style="position: relative; --radix-scroll-area-corner-width: 0px; --radix-scroll-area-corner-height: 0px;"
       >
-        <li
-          aria-selected="false"
-          class="list-none"
-          data-highlighted="true"
-          data-slot="combo-box-item"
-          id="_r_2c_-option-0"
-          role="option"
-          tabindex="0"
+        <style>
+          [data-radix-scroll-area-viewport]{scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch;}[data-radix-scroll-area-viewport]::-webkit-scrollbar{display:none}
+        </style>
+        <div
+          class="min-h-0 w-full flex-auto rounded-[inherit] focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default focus-visible:-outline-offset-2 [&>div]:!block"
+          data-radix-scroll-area-viewport=""
+          data-slot="scroll-area-viewport"
+          style="overflow-x: hidden; overflow-y: scroll;"
         >
           <div
-            class="rounded-ws-control-md typography-label-sm gap-ws-5 px-ws-5 py-ws-3 flex cursor-pointer flex-row items-center justify-between focus:outline-none aria-disabled:cursor-default aria-disabled:bg-none aria-disabled:select-none hover:not-aria-disabled:bg-ws-dynamic-secondary-alpha-hover hover:not-aria-disabled:text-ws-dynamic-secondary-hover active:not-aria-disabled:bg-ws-dynamic-secondary-alpha-pressed active:not-aria-disabled:text-ws-dynamic-secondary-pressed focus:not-aria-disabled:bg-ws-dynamic-secondary-alpha-hover focus:not-aria-disabled:text-ws-dynamic-secondary-default data-[highlighted]:not-aria-disabled:bg-ws-dynamic-secondary-alpha-hover data-[highlighted]:not-aria-disabled:text-ws-dynamic-secondary-default data-[state=checked]:not-aria-disabled:bg-ws-dynamic-primary-alpha-strong-default aria-disabled:text-ws-dynamic-secondary-disabled transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small) min-h-ws-14 bg-ws-dynamic-secondary-alpha-hover text-ws-dynamic-secondary-default"
-            data-highlighted="true"
-            data-slot="list-item"
+            style="min-width: 100%; display: table;"
           >
-            <div
-              class="gap-ws-5 flex min-w-0 flex-1 flex-row items-center overflow-hidden"
+            <ul
+              class="p-ws-3"
+              id="_r_2c_"
+              role="listbox"
             >
-              <div
-                class="mr-auto flex flex-col truncate"
-                data-slot="list-item-content"
+              <li
+                aria-selected="false"
+                class="list-none"
+                data-highlighted="true"
+                data-slot="combo-box-item"
+                id="_r_2c_-option-0"
+                role="option"
+                tabindex="0"
               >
                 <div
-                  class="typography-label-sm min-w-0 flex-1 truncate"
-                  data-slot="list-item-label"
+                  class="rounded-ws-control-md typography-label-sm gap-ws-5 px-ws-5 py-ws-3 flex cursor-pointer flex-row items-center justify-between focus:outline-none aria-disabled:cursor-default aria-disabled:bg-none aria-disabled:select-none hover:not-aria-disabled:bg-ws-dynamic-secondary-alpha-hover hover:not-aria-disabled:text-ws-dynamic-secondary-hover active:not-aria-disabled:bg-ws-dynamic-secondary-alpha-pressed active:not-aria-disabled:text-ws-dynamic-secondary-pressed focus:not-aria-disabled:bg-ws-dynamic-secondary-alpha-hover focus:not-aria-disabled:text-ws-dynamic-secondary-default data-[highlighted]:not-aria-disabled:bg-ws-dynamic-secondary-alpha-hover data-[highlighted]:not-aria-disabled:text-ws-dynamic-secondary-default data-[state=checked]:not-aria-disabled:bg-ws-dynamic-primary-alpha-strong-default aria-disabled:text-ws-dynamic-secondary-disabled transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small) min-h-ws-14 bg-ws-dynamic-secondary-alpha-hover text-ws-dynamic-secondary-default"
+                  data-highlighted="true"
+                  data-slot="list-item"
                 >
-                  Poland
+                  <div
+                    class="gap-ws-5 flex min-w-0 flex-1 flex-row items-center overflow-hidden"
+                  >
+                    <div
+                      class="mr-auto flex flex-col truncate"
+                      data-slot="list-item-content"
+                    >
+                      <div
+                        class="typography-label-sm min-w-0 flex-1 truncate"
+                        data-slot="list-item-label"
+                      >
+                        Poland
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          </div>
-        </li>
-        <li
-          aria-selected="false"
-          class="list-none"
-          data-highlighted="false"
-          data-slot="combo-box-item"
-          id="_r_2c_-option-1"
-          role="option"
-          tabindex="0"
-        >
-          <div
-            class="rounded-ws-control-md typography-label-sm gap-ws-5 px-ws-5 py-ws-3 flex cursor-pointer flex-row items-center justify-between focus:outline-none aria-disabled:cursor-default aria-disabled:bg-none aria-disabled:select-none bg-ws-dynamic-secondary-alpha-default text-ws-dynamic-secondary-default hover:not-aria-disabled:bg-ws-dynamic-secondary-alpha-hover hover:not-aria-disabled:text-ws-dynamic-secondary-hover active:not-aria-disabled:bg-ws-dynamic-secondary-alpha-pressed active:not-aria-disabled:text-ws-dynamic-secondary-pressed focus:not-aria-disabled:bg-ws-dynamic-secondary-alpha-hover focus:not-aria-disabled:text-ws-dynamic-secondary-default data-[highlighted]:not-aria-disabled:bg-ws-dynamic-secondary-alpha-hover data-[highlighted]:not-aria-disabled:text-ws-dynamic-secondary-default data-[state=checked]:not-aria-disabled:bg-ws-dynamic-primary-alpha-strong-default aria-disabled:text-ws-dynamic-secondary-disabled transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small) min-h-ws-14"
-            data-slot="list-item"
-          >
-            <div
-              class="gap-ws-5 flex min-w-0 flex-1 flex-row items-center overflow-hidden"
-            >
-              <div
-                class="mr-auto flex flex-col truncate"
-                data-slot="list-item-content"
+              </li>
+              <li
+                aria-selected="false"
+                class="list-none"
+                data-highlighted="false"
+                data-slot="combo-box-item"
+                id="_r_2c_-option-1"
+                role="option"
+                tabindex="0"
               >
                 <div
-                  class="typography-label-sm min-w-0 flex-1 truncate"
-                  data-slot="list-item-label"
+                  class="rounded-ws-control-md typography-label-sm gap-ws-5 px-ws-5 py-ws-3 flex cursor-pointer flex-row items-center justify-between focus:outline-none aria-disabled:cursor-default aria-disabled:bg-none aria-disabled:select-none bg-ws-dynamic-secondary-alpha-default text-ws-dynamic-secondary-default hover:not-aria-disabled:bg-ws-dynamic-secondary-alpha-hover hover:not-aria-disabled:text-ws-dynamic-secondary-hover active:not-aria-disabled:bg-ws-dynamic-secondary-alpha-pressed active:not-aria-disabled:text-ws-dynamic-secondary-pressed focus:not-aria-disabled:bg-ws-dynamic-secondary-alpha-hover focus:not-aria-disabled:text-ws-dynamic-secondary-default data-[highlighted]:not-aria-disabled:bg-ws-dynamic-secondary-alpha-hover data-[highlighted]:not-aria-disabled:text-ws-dynamic-secondary-default data-[state=checked]:not-aria-disabled:bg-ws-dynamic-primary-alpha-strong-default aria-disabled:text-ws-dynamic-secondary-disabled transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small) min-h-ws-14"
+                  data-slot="list-item"
                 >
-                  USA
+                  <div
+                    class="gap-ws-5 flex min-w-0 flex-1 flex-row items-center overflow-hidden"
+                  >
+                    <div
+                      class="mr-auto flex flex-col truncate"
+                      data-slot="list-item-content"
+                    >
+                      <div
+                        class="typography-label-sm min-w-0 flex-1 truncate"
+                        data-slot="list-item-label"
+                      >
+                        USA
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          </div>
-        </li>
-        <li
-          aria-selected="false"
-          class="list-none"
-          data-highlighted="false"
-          data-slot="combo-box-item"
-          id="_r_2c_-option-2"
-          role="option"
-          tabindex="0"
-        >
-          <div
-            class="rounded-ws-control-md typography-label-sm gap-ws-5 px-ws-5 py-ws-3 flex cursor-pointer flex-row items-center justify-between focus:outline-none aria-disabled:cursor-default aria-disabled:bg-none aria-disabled:select-none bg-ws-dynamic-secondary-alpha-default text-ws-dynamic-secondary-default hover:not-aria-disabled:bg-ws-dynamic-secondary-alpha-hover hover:not-aria-disabled:text-ws-dynamic-secondary-hover active:not-aria-disabled:bg-ws-dynamic-secondary-alpha-pressed active:not-aria-disabled:text-ws-dynamic-secondary-pressed focus:not-aria-disabled:bg-ws-dynamic-secondary-alpha-hover focus:not-aria-disabled:text-ws-dynamic-secondary-default data-[highlighted]:not-aria-disabled:bg-ws-dynamic-secondary-alpha-hover data-[highlighted]:not-aria-disabled:text-ws-dynamic-secondary-default data-[state=checked]:not-aria-disabled:bg-ws-dynamic-primary-alpha-strong-default aria-disabled:text-ws-dynamic-secondary-disabled transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small) min-h-ws-14"
-            data-slot="list-item"
-          >
-            <div
-              class="gap-ws-5 flex min-w-0 flex-1 flex-row items-center overflow-hidden"
-            >
-              <div
-                class="mr-auto flex flex-col truncate"
-                data-slot="list-item-content"
+              </li>
+              <li
+                aria-selected="false"
+                class="list-none"
+                data-highlighted="false"
+                data-slot="combo-box-item"
+                id="_r_2c_-option-2"
+                role="option"
+                tabindex="0"
               >
                 <div
-                  class="typography-label-sm min-w-0 flex-1 truncate"
-                  data-slot="list-item-label"
+                  class="rounded-ws-control-md typography-label-sm gap-ws-5 px-ws-5 py-ws-3 flex cursor-pointer flex-row items-center justify-between focus:outline-none aria-disabled:cursor-default aria-disabled:bg-none aria-disabled:select-none bg-ws-dynamic-secondary-alpha-default text-ws-dynamic-secondary-default hover:not-aria-disabled:bg-ws-dynamic-secondary-alpha-hover hover:not-aria-disabled:text-ws-dynamic-secondary-hover active:not-aria-disabled:bg-ws-dynamic-secondary-alpha-pressed active:not-aria-disabled:text-ws-dynamic-secondary-pressed focus:not-aria-disabled:bg-ws-dynamic-secondary-alpha-hover focus:not-aria-disabled:text-ws-dynamic-secondary-default data-[highlighted]:not-aria-disabled:bg-ws-dynamic-secondary-alpha-hover data-[highlighted]:not-aria-disabled:text-ws-dynamic-secondary-default data-[state=checked]:not-aria-disabled:bg-ws-dynamic-primary-alpha-strong-default aria-disabled:text-ws-dynamic-secondary-disabled transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small) min-h-ws-14"
+                  data-slot="list-item"
                 >
-                  Germany
+                  <div
+                    class="gap-ws-5 flex min-w-0 flex-1 flex-row items-center overflow-hidden"
+                  >
+                    <div
+                      class="mr-auto flex flex-col truncate"
+                      data-slot="list-item-content"
+                    >
+                      <div
+                        class="typography-label-sm min-w-0 flex-1 truncate"
+                        data-slot="list-item-label"
+                      >
+                        Germany
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          </div>
-        </li>
-        <li
-          aria-disabled="true"
-          aria-selected="false"
-          class="list-none"
-          data-disabled="true"
-          data-highlighted="false"
-          data-slot="combo-box-item"
-          id="_r_2c_-option-3"
-          role="option"
-          tabindex="-1"
-        >
-          <div
-            aria-disabled="true"
-            class="rounded-ws-control-md typography-label-sm gap-ws-5 px-ws-5 py-ws-3 flex cursor-pointer flex-row items-center justify-between focus:outline-none aria-disabled:cursor-default aria-disabled:bg-none aria-disabled:select-none bg-ws-dynamic-secondary-alpha-default text-ws-dynamic-secondary-default hover:not-aria-disabled:bg-ws-dynamic-secondary-alpha-hover hover:not-aria-disabled:text-ws-dynamic-secondary-hover active:not-aria-disabled:bg-ws-dynamic-secondary-alpha-pressed active:not-aria-disabled:text-ws-dynamic-secondary-pressed focus:not-aria-disabled:bg-ws-dynamic-secondary-alpha-hover focus:not-aria-disabled:text-ws-dynamic-secondary-default data-[highlighted]:not-aria-disabled:bg-ws-dynamic-secondary-alpha-hover data-[highlighted]:not-aria-disabled:text-ws-dynamic-secondary-default data-[state=checked]:not-aria-disabled:bg-ws-dynamic-primary-alpha-strong-default aria-disabled:text-ws-dynamic-secondary-disabled transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small) min-h-ws-14"
-            data-slot="list-item"
-          >
-            <div
-              class="gap-ws-5 flex min-w-0 flex-1 flex-row items-center overflow-hidden"
-            >
-              <div
-                class="mr-auto flex flex-col truncate"
-                data-slot="list-item-content"
+              </li>
+              <li
+                aria-disabled="true"
+                aria-selected="false"
+                class="list-none"
+                data-disabled="true"
+                data-highlighted="false"
+                data-slot="combo-box-item"
+                id="_r_2c_-option-3"
+                role="option"
+                tabindex="-1"
               >
                 <div
-                  class="typography-label-sm min-w-0 flex-1 truncate"
-                  data-slot="list-item-label"
+                  aria-disabled="true"
+                  class="rounded-ws-control-md typography-label-sm gap-ws-5 px-ws-5 py-ws-3 flex cursor-pointer flex-row items-center justify-between focus:outline-none aria-disabled:cursor-default aria-disabled:bg-none aria-disabled:select-none bg-ws-dynamic-secondary-alpha-default text-ws-dynamic-secondary-default hover:not-aria-disabled:bg-ws-dynamic-secondary-alpha-hover hover:not-aria-disabled:text-ws-dynamic-secondary-hover active:not-aria-disabled:bg-ws-dynamic-secondary-alpha-pressed active:not-aria-disabled:text-ws-dynamic-secondary-pressed focus:not-aria-disabled:bg-ws-dynamic-secondary-alpha-hover focus:not-aria-disabled:text-ws-dynamic-secondary-default data-[highlighted]:not-aria-disabled:bg-ws-dynamic-secondary-alpha-hover data-[highlighted]:not-aria-disabled:text-ws-dynamic-secondary-default data-[state=checked]:not-aria-disabled:bg-ws-dynamic-primary-alpha-strong-default aria-disabled:text-ws-dynamic-secondary-disabled transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small) min-h-ws-14"
+                  data-slot="list-item"
                 >
-                  Canada
+                  <div
+                    class="gap-ws-5 flex min-w-0 flex-1 flex-row items-center overflow-hidden"
+                  >
+                    <div
+                      class="mr-auto flex flex-col truncate"
+                      data-slot="list-item-content"
+                    >
+                      <div
+                        class="typography-label-sm min-w-0 flex-1 truncate"
+                        data-slot="list-item-label"
+                      >
+                        Canada
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          </div>
-        </li>
-        <li
-          aria-selected="false"
-          class="list-none"
-          data-highlighted="false"
-          data-slot="combo-box-item"
-          id="_r_2c_-option-4"
-          role="option"
-          tabindex="0"
-        >
-          <div
-            class="rounded-ws-control-md typography-label-sm gap-ws-5 px-ws-5 py-ws-3 flex cursor-pointer flex-row items-center justify-between focus:outline-none aria-disabled:cursor-default aria-disabled:bg-none aria-disabled:select-none bg-ws-dynamic-secondary-alpha-default text-ws-dynamic-secondary-default hover:not-aria-disabled:bg-ws-dynamic-secondary-alpha-hover hover:not-aria-disabled:text-ws-dynamic-secondary-hover active:not-aria-disabled:bg-ws-dynamic-secondary-alpha-pressed active:not-aria-disabled:text-ws-dynamic-secondary-pressed focus:not-aria-disabled:bg-ws-dynamic-secondary-alpha-hover focus:not-aria-disabled:text-ws-dynamic-secondary-default data-[highlighted]:not-aria-disabled:bg-ws-dynamic-secondary-alpha-hover data-[highlighted]:not-aria-disabled:text-ws-dynamic-secondary-default data-[state=checked]:not-aria-disabled:bg-ws-dynamic-primary-alpha-strong-default aria-disabled:text-ws-dynamic-secondary-disabled transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small) min-h-ws-14"
-            data-slot="list-item"
-          >
-            <div
-              class="gap-ws-5 flex min-w-0 flex-1 flex-row items-center overflow-hidden"
-            >
-              <div
-                class="mr-auto flex flex-col truncate"
-                data-slot="list-item-content"
+              </li>
+              <li
+                aria-selected="false"
+                class="list-none"
+                data-highlighted="false"
+                data-slot="combo-box-item"
+                id="_r_2c_-option-4"
+                role="option"
+                tabindex="0"
               >
                 <div
-                  class="typography-label-sm min-w-0 flex-1 truncate"
-                  data-slot="list-item-label"
+                  class="rounded-ws-control-md typography-label-sm gap-ws-5 px-ws-5 py-ws-3 flex cursor-pointer flex-row items-center justify-between focus:outline-none aria-disabled:cursor-default aria-disabled:bg-none aria-disabled:select-none bg-ws-dynamic-secondary-alpha-default text-ws-dynamic-secondary-default hover:not-aria-disabled:bg-ws-dynamic-secondary-alpha-hover hover:not-aria-disabled:text-ws-dynamic-secondary-hover active:not-aria-disabled:bg-ws-dynamic-secondary-alpha-pressed active:not-aria-disabled:text-ws-dynamic-secondary-pressed focus:not-aria-disabled:bg-ws-dynamic-secondary-alpha-hover focus:not-aria-disabled:text-ws-dynamic-secondary-default data-[highlighted]:not-aria-disabled:bg-ws-dynamic-secondary-alpha-hover data-[highlighted]:not-aria-disabled:text-ws-dynamic-secondary-default data-[state=checked]:not-aria-disabled:bg-ws-dynamic-primary-alpha-strong-default aria-disabled:text-ws-dynamic-secondary-disabled transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small) min-h-ws-14"
+                  data-slot="list-item"
                 >
-                  UK
+                  <div
+                    class="gap-ws-5 flex min-w-0 flex-1 flex-row items-center overflow-hidden"
+                  >
+                    <div
+                      class="mr-auto flex flex-col truncate"
+                      data-slot="list-item-content"
+                    >
+                      <div
+                        class="typography-label-sm min-w-0 flex-1 truncate"
+                        data-slot="list-item-label"
+                      >
+                        UK
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
+              </li>
+            </ul>
           </div>
-        </li>
-      </ul>
+        </div>
+      </div>
     </div>
   </div>
   <span

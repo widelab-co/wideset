@@ -43,7 +43,7 @@ drawer mode of its own: drive `collapsed` / `onCollapsedChange` from your layout
 
 Pick by what people do with the data.
 
-- **A few columns.** Wrap the `Table` in a container with `overflow-x-auto`, and use
+- **A few columns.** Wrap the `Table` in a `ScrollArea orientation="horizontal"`, and use
   `stickyColumn` for the identifier column. The page itself never scrolls sideways.
 - **Many columns, few that matter.** Hide the secondary columns under `md`.
 - **Read as records.** Under `md`, render a list of `ListItem` or `Card` instead.

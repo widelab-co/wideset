@@ -271,6 +271,44 @@ export const DefaultValue: Story = {
   },
 };
 
+export const WithScroll: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'A long list stops at 18rem and scrolls in a `ScrollArea`. Pressing or dragging its bar keeps focus on the option you were on.',
+      },
+    },
+  },
+  render: (args) => <FilterButton {...args} onChange={args.onChange ?? (() => {})} />,
+  args: {
+    ...Default.args,
+    label: 'Country',
+    placeholder: 'Country',
+    options: [
+      'Austria',
+      'Belgium',
+      'Bulgaria',
+      'Croatia',
+      'Cyprus',
+      'Czechia',
+      'Denmark',
+      'Estonia',
+      'Finland',
+      'France',
+      'Germany',
+      'Greece',
+      'Hungary',
+      'Ireland',
+      'Italy',
+      'Poland',
+      'Portugal',
+      'Spain',
+      'Sweden',
+    ].map((label) => ({ label, value: label.toLowerCase() })),
+  },
+};
+
 export const States: Story = {
   ...exampleStory(StatesExample, statesSource),
   args: { options: sampleOptions, onChange: () => {} },

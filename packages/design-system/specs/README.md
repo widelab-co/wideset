@@ -136,6 +136,8 @@ in the snippet will point into `node_modules/@wideset/react/` then.
   wrapper.
 - [Accordion](components/layout/accordion.md): named sections opened in place.
 - [Divider](components/layout/divider.md): a horizontal separator, optionally labelled.
+- [ScrollArea](components/layout/scroll-area.md): a region that scrolls with Wideset's thin bar;
+  never a bare `overflow-auto`, `wds-scrollbar` only where you cannot wrap.
 
 ## Foundations
 

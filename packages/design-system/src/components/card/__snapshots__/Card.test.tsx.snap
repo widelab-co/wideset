@@ -217,7 +217,7 @@ exports[`Card > should match snapshot for variant="bordered" 1`] = `
       </p>
     </div>
     <div
-      class="overflow-hidden grow"
+      class="relative isolate flex flex-col overflow-hidden grow"
       data-slot="card-content"
       dir="ltr"
       style="position: relative; --radix-scroll-area-corner-width: 0px; --radix-scroll-area-corner-height: 0px;"
@@ -226,7 +226,7 @@ exports[`Card > should match snapshot for variant="bordered" 1`] = `
         [data-radix-scroll-area-viewport]{scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch;}[data-radix-scroll-area-viewport]::-webkit-scrollbar{display:none}
       </style>
       <div
-        class="h-full w-full max-w-full min-w-0 pr-ws-6"
+        class="min-h-0 w-full flex-auto rounded-[inherit] focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default focus-visible:-outline-offset-2 [&>div]:!block"
         data-radix-scroll-area-viewport=""
         data-slot="scroll-area-viewport"
         style="overflow-x: hidden; overflow-y: scroll;"
@@ -297,7 +297,7 @@ exports[`Card > should match snapshot for variant="flat" 1`] = `
       </p>
     </div>
     <div
-      class="overflow-hidden grow"
+      class="relative isolate flex flex-col overflow-hidden grow"
       data-slot="card-content"
       dir="ltr"
       style="position: relative; --radix-scroll-area-corner-width: 0px; --radix-scroll-area-corner-height: 0px;"
@@ -306,7 +306,7 @@ exports[`Card > should match snapshot for variant="flat" 1`] = `
         [data-radix-scroll-area-viewport]{scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch;}[data-radix-scroll-area-viewport]::-webkit-scrollbar{display:none}
       </style>
       <div
-        class="h-full w-full max-w-full min-w-0 pr-ws-6"
+        class="min-h-0 w-full flex-auto rounded-[inherit] focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default focus-visible:-outline-offset-2 [&>div]:!block pe-ws-6"
         data-radix-scroll-area-viewport=""
         data-slot="scroll-area-viewport"
         style="overflow-x: hidden; overflow-y: scroll;"
@@ -360,7 +360,7 @@ exports[`Card > should match snapshot with content and footer only 1`] = `
     data-slot="card"
   >
     <div
-      class="overflow-hidden grow"
+      class="relative isolate flex flex-col overflow-hidden grow"
       data-slot="card-content"
       dir="ltr"
       style="position: relative; --radix-scroll-area-corner-width: 0px; --radix-scroll-area-corner-height: 0px;"
@@ -369,7 +369,7 @@ exports[`Card > should match snapshot with content and footer only 1`] = `
         [data-radix-scroll-area-viewport]{scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch;}[data-radix-scroll-area-viewport]::-webkit-scrollbar{display:none}
       </style>
       <div
-        class="h-full w-full max-w-full min-w-0 pr-ws-6"
+        class="min-h-0 w-full flex-auto rounded-[inherit] focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default focus-visible:-outline-offset-2 [&>div]:!block"
         data-radix-scroll-area-viewport=""
         data-slot="scroll-area-viewport"
         style="overflow-x: hidden; overflow-y: scroll;"
@@ -412,7 +412,7 @@ exports[`Card > should match snapshot with content only 1`] = `
     data-slot="card"
   >
     <div
-      class="overflow-hidden grow"
+      class="relative isolate flex flex-col overflow-hidden grow"
       data-slot="card-content"
       dir="ltr"
       style="position: relative; --radix-scroll-area-corner-width: 0px; --radix-scroll-area-corner-height: 0px;"
@@ -421,7 +421,7 @@ exports[`Card > should match snapshot with content only 1`] = `
         [data-radix-scroll-area-viewport]{scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch;}[data-radix-scroll-area-viewport]::-webkit-scrollbar{display:none}
       </style>
       <div
-        class="h-full w-full max-w-full min-w-0 pr-ws-6"
+        class="min-h-0 w-full flex-auto rounded-[inherit] focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default focus-visible:-outline-offset-2 [&>div]:!block"
         data-radix-scroll-area-viewport=""
         data-slot="scroll-area-viewport"
         style="overflow-x: hidden; overflow-y: scroll;"
