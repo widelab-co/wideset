@@ -32,6 +32,11 @@ their own text at 14px, so matching that band keeps your text and the components
 Never in product screens: `typography-title-*` (48–72px display sizes). They belong to marketing
 pages and, at most, one empty-state hero.
 
+The class names do not tell the size: `title-*` is the display family, not "a title", and `md`
+means 16px in `label`, 14px in `body`, 12px in `caption` and 24px in `subtitle`. Pick from the
+table above, never from the name; the naming traps are listed in `wideset-build`'s typography
+foundation.
+
 ## Hierarchy without size
 
 Use these in this order before you reach for a bigger size:

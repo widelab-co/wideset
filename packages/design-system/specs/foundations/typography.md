@@ -14,13 +14,13 @@ Size and line height are `text-ws-*` / `leading-ws-*` tokens (rem in brackets).
 
 | Class                         | Size / leading           | Weight          | Use for                                                    |
 | ----------------------------- | ------------------------ | --------------- | ---------------------------------------------------------- |
-| `typography-title-lg`         | ws-1800 / ws-1800 (4.5)  | medium          | Marketing-scale hero; rare in product UI                   |
-| `typography-title-md`         | ws-1400 / ws-1200 (3.5)  | medium          | Large display heading                                      |
-| `typography-title-sm`         | ws-1200 / ws-1200 (3)    | medium          | Display heading, empty-state hero                          |
-| `typography-subtitle-lg`      | ws-800 / ws-1000 (2)     | medium          | Page title on a dashboard-style page                       |
-| `typography-subtitle-md`      | ws-600 / ws-800 (1.5)    | medium          | Page title, modal title                                    |
-| `typography-subtitle-sm`      | ws-500 / ws-700 (1.25)   | medium          | Section heading, card title                                |
-| `typography-subtitle-xs`      | ws-450 / ws-600 (1.125)  | medium          | Sub-section heading                                        |
+| `typography-title-lg`         | ws-1800 / ws-1800 (4.5)  | medium          | Display only: marketing hero. Never a page title           |
+| `typography-title-md`         | ws-1400 / ws-1200 (3.5)  | medium          | Display only: marketing heading                            |
+| `typography-title-sm`         | ws-1200 / ws-1200 (3)    | medium          | Display only: at most one empty-state hero                 |
+| `typography-subtitle-lg`      | ws-800 / ws-1000 (2)     | medium          | **Page title**, one per page (32px)                        |
+| `typography-subtitle-md`      | ws-600 / ws-800 (1.5)    | medium          | Key figure (with `tabular-nums`), modal title              |
+| `typography-subtitle-sm`      | ws-500 / ws-700 (1.25)   | medium          | Card title outside `Card.Title`                            |
+| `typography-subtitle-xs`      | ws-450 / ws-600 (1.125)  | medium          | **Section title** (18px)                                   |
 | `typography-label-{lg,md,sm}` | 1.125 / 1 / 0.875        | normal          | Control text: field values, menu items, tabs               |
 | `typography-label-strong-*`   | same as label            | medium          | Emphasised control text: buttons, active item, field label |
 | `typography-body-lg`          | ws-400 / ws-600 (1)      | normal          | Long-form reading                                          |
@@ -39,12 +39,25 @@ Most used by the components themselves: `label-strong-sm`, `label-sm`, `body-md`
 ## Selection rules
 
 - Pick by role, not by size: a button-like label is `label-*`, running text is `body-*`, a
-  heading is `subtitle-*` or `title-*`, a figure is `number-*`.
+  heading is `subtitle-*`, a figure is `number-*`.
 - Raise importance with `-strong-` or a stronger colour before reaching for a larger size.
   Text colours: `text-ws-static-strong` (headings, primary), `text-ws-static-base` (body),
   `text-ws-static-subtle` (secondary, metadata).
-- In product screens a page title is usually `typography-subtitle-md` or `-lg`; `title-*` is a
-  display size.
+- In product screens the page title is `typography-subtitle-lg`, a section title
+  `typography-subtitle-xs`, a key figure `typography-subtitle-md tabular-nums`. `title-*` is a
+  display size (48–72px) and never a page title.
+
+### Naming traps
+
+The names do not say the size, so never guess it from the name:
+
+- `title-*` is not "a title": it is the display family (48–72px). The page title is
+  `subtitle-lg`.
+- The size suffix means a different size in each family: `label-md` is 16px, `body-md` 14px,
+  `caption-md` 12px, `subtitle-md` 24px. Read the table above.
+- `-strong-` is weight 520 everywhere except `body-strong-*`, which is 545 (semibold).
+- Same size, different job: `label-sm` (one line in a control or row) and `body-md` (text that
+  wraps) are both 14px; pick by whether the text wraps.
 - Semantic HTML still decides the outline: `<h2 className="typography-subtitle-sm">`. The class
   is visual only.
 - Components set their own text. Do not pass `typography-*` into a component's `className` to
