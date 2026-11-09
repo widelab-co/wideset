@@ -9,7 +9,7 @@
 ## When not to use
 
 - A category or label → `Tag`.
-- A status or count → `StatusBadge`.
+- A status → `StatusBadge`; a count → `Count`.
 - A file or product picture → an `img` in `Card.Media`, or `FileItem` for uploads.
 - A decorative icon in a row → the Remix icon itself in `ListItem.Prefix`.
 

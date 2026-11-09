@@ -22,9 +22,9 @@ export type TabsContextValue = {
 export type TabsProps = {
   /**
    * Visual style variant of the tabs.
-   * - `regular` — underline indicator, tabs aligned to content width
+   * - `regular` — underline indicator, tabs aligned to content width; the divider spans the container
    * - `fullWidth` — underline indicator, tabs stretch to fill the container
-   * - `pills` — pill-shaped tabs with background fill on the active item
+   * - `pills` — pill-shaped tabs, no outline; the active item takes the neutral selected fill
    * - `ghost` — borderless tabs; a soft background slides to the active item
    */
   type?: TabsType;
@@ -34,7 +34,8 @@ export type TabsProps = {
    */
   size?: TabsSize;
   /**
-   * Whether to render a bottom border beneath the tab list.
+   * Whether to render a bottom border beneath the tab list. It runs the full width of the
+   * container; without it a `regular` list fits its tabs.
    * Ignored when `type` is `pills` or `ghost`.
    * @default true
    */
@@ -68,7 +69,7 @@ export type TabsLabelProps = React.HTMLAttributes<HTMLSpanElement>;
 
 /** A count displayed beside a tab label. */
 export type TabsCountProps = {
-  /** Count displayed inside the badge. */
+  /** The quantity, rendered as a `Count`: a number or a short capped value such as `99+`. */
   children?: React.ReactNode;
   /** Additional CSS classes for layout overrides. */
   className?: string;

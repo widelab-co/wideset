@@ -35,5 +35,8 @@
 - `type` and `size` are set once on `Tabs`; items and list read them from context. There is no
   `type` on `Tabs.Item`.
 - `divider={false}` has no effect on `pills` and `ghost`; they never draw it.
+- With the divider, a `regular` list is full width so the line spans its container; the tabs
+  stay left-aligned. To put tabs and an action in one row, set `divider={false}` and draw the
+  line on the row.
 - `Tabs.List`, `Tabs.Item` and `Tabs.Count` throw outside `<Tabs>`.
 - Animations follow `MotionProvider`; set `defaultMotion={false}` on `Tabs` to turn them off here.

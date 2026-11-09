@@ -59,7 +59,7 @@ Named exports (`TabsList`, `TabsItem`, …) are the same parts for Server Compon
 |            | `pills`               | A compact, filter-style switcher; the active tab is filled.          |
 |            | `ghost`               | A quiet switcher inside a card or toolbar; no border.                |
 | `size`     | `sm` (default) / `lg` | `sm` for panels and dense screens, `lg` for the top level of a page. |
-| `divider`  | `true` (default)      | Line under the list. Ignored by `pills` and `ghost`.                 |
+| `divider`  | `true` (default)      | Line under the list, across the container. Not on `pills` / `ghost`. |
 | `disabled` | on `Tabs` or one item | Root disables every tab; item disables only that tab.                |
 | `active`   | on `Tabs.Item`        | Forces the active look when the item is a router link (`asChild`).   |
 
@@ -67,7 +67,9 @@ State: `value` + `onValueChange` (controlled) or `defaultValue` (uncontrolled), 
 
 ## States
 
-- Active: set by `value` / `defaultValue`, or `active` on a link item.
+- Active: set by `value` / `defaultValue`, or `active` on a link item. An active pill takes a
+  neutral fill (`tertiary-alpha-strong-hover`, stronger than an unselected pill's hover), not the
+  brand colour; pills have no outline.
 - Disabled: dimmed and skipped by the keyboard. Keep a disabled tab only when the user can tell
   why it is unavailable.
 
@@ -105,6 +107,9 @@ State: `value` + `onValueChange` (controlled) or `defaultValue` (uncontrolled), 
 - `type` and `size` are set once on `Tabs`; items and list read them from context. There is no
   `type` on `Tabs.Item`.
 - `divider={false}` has no effect on `pills` and `ghost`; they never draw it.
+- With the divider, a `regular` list is full width so the line spans its container; the tabs
+  stay left-aligned. To put tabs and an action in one row, set `divider={false}` and draw the
+  line on the row.
 - `Tabs.List`, `Tabs.Item` and `Tabs.Count` throw outside `<Tabs>`.
 - Animations follow `MotionProvider`; set `defaultMotion={false}` on `Tabs` to turn them off here.
 

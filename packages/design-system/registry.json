@@ -320,6 +320,19 @@
       ]
     },
     {
+      "name": "count",
+      "type": "registry:ui",
+      "title": "Count",
+      "description": "Count shows how many items sit behind a label: a tab, a list group, a filter.",
+      "files": [
+        {
+          "path": "src/components/count/Count.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/wideset/count/Count.tsx"
+        }
+      ]
+    },
+    {
       "name": "date-picker",
       "type": "registry:ui",
       "title": "DatePicker",

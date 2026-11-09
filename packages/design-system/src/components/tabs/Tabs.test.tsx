@@ -108,6 +108,66 @@ describe('Tabs', () => {
       const tablist = screen.getByRole('tablist');
       expect(tablist).not.toHaveClass('border-b');
     });
+
+    it('runs the regular divider the full width of the container', () => {
+      render(
+        <Tabs defaultValue="tab1">
+          <Tabs.List>
+            <Tabs.Item value="tab1">
+              <Tabs.Label>Tab 1</Tabs.Label>
+            </Tabs.Item>
+          </Tabs.List>
+        </Tabs>,
+      );
+      const tablist = screen.getByRole('tablist');
+      expect(tablist).toHaveClass('w-full');
+      expect(tablist).not.toHaveClass('w-fit');
+    });
+
+    it('fits the regular list to its tabs without a divider', () => {
+      render(
+        <Tabs divider={false} defaultValue="tab1">
+          <Tabs.List>
+            <Tabs.Item value="tab1">
+              <Tabs.Label>Tab 1</Tabs.Label>
+            </Tabs.Item>
+          </Tabs.List>
+        </Tabs>,
+      );
+      const tablist = screen.getByRole('tablist');
+      expect(tablist).toHaveClass('w-fit');
+      expect(tablist).not.toHaveClass('border-b');
+    });
+  });
+
+  describe('Pills', () => {
+    const renderPills = () =>
+      render(
+        <Tabs type="pills" defaultValue="tab1">
+          <Tabs.List>
+            <Tabs.Item value="tab1">
+              <Tabs.Label>Tab 1</Tabs.Label>
+            </Tabs.Item>
+            <Tabs.Item value="tab2">
+              <Tabs.Label>Tab 2</Tabs.Label>
+            </Tabs.Item>
+          </Tabs.List>
+        </Tabs>,
+      );
+
+    it('selects with the neutral fill, not the brand tint', () => {
+      renderPills();
+      const selected = screen.getByRole('tab', { name: 'Tab 1' });
+      expect(selected).toHaveClass('aria-selected:bg-ws-dynamic-tertiary-alpha-strong-hover');
+      expect(selected.className).not.toMatch(/(bg|text)-ws-dynamic-primary/);
+    });
+
+    it('draws no outline on unselected pills', () => {
+      renderPills();
+      const unselected = screen.getByRole('tab', { name: 'Tab 2' });
+      expect(unselected).toHaveClass('border-transparent', 'text-ws-static-subtle');
+      expect(unselected.className).not.toMatch(/border-ws-dynamic-secondary/);
+    });
   });
 
   describe('Tabs.Item', () => {
@@ -785,5 +845,33 @@ describe('Tabs Snapshots', () => {
       );
       expect(screen.getByRole('tablist')).toHaveAttribute('data-slot', 'custom');
     });
+  });
+});
+
+// Kept after the snapshots: each render takes Radix ids, and the snapshots record them.
+describe('Tabs.Count offset', () => {
+  it.each([
+    ['regular', 'sm', 'ml-ws-3'],
+    ['regular', 'lg', undefined],
+    ['fullWidth', 'sm', 'ml-ws-3'],
+    ['fullWidth', 'lg', undefined],
+    ['pills', 'sm', 'ml-ws-4'],
+    ['pills', 'lg', 'ml-ws-3'],
+    ['ghost', 'sm', 'ml-ws-2'],
+    ['ghost', 'lg', '-ml-ws-2'],
+  ] as const)('offsets the count to Gap/5 after the label (%s, %s)', (type, size, margin) => {
+    render(
+      <Tabs defaultValue="tab1" type={type} size={size}>
+        <Tabs.List>
+          <Tabs.Item value="tab1">
+            <Tabs.Label>Members</Tabs.Label>
+            <Tabs.Count>5</Tabs.Count>
+          </Tabs.Item>
+        </Tabs.List>
+      </Tabs>,
+    );
+    const count = screen.getByText('5');
+    const margins = [...count.classList].filter((c) => /^-?ml-/.test(c));
+    expect(margins).toEqual(margin ? [margin] : []);
   });
 });

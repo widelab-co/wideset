@@ -10,6 +10,7 @@ export type GallerySize = 'sm' | 'md' | 'lg' | 'wide' | 'xl';
 const SIZES: Record<string, GallerySize> = {
   // One small control or a closed trigger.
   button: 'sm',
+  count: 'sm',
   'dropdown-menu': 'sm',
   'filter-button': 'sm',
   'helper-text': 'sm',

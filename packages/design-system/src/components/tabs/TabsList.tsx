@@ -19,7 +19,8 @@ const TabsList = ({ className, children, ref, ...props }: TabsListProps) => {
       ref={composedRef}
       className={cn(
         tabsListVariants({ size, type }),
-        { 'border-ws-static-subtle border-b': divider && underline },
+        // The divider spans the container; the tabs stay left-aligned on it.
+        { 'border-ws-static-subtle w-full border-b': divider && underline },
         className,
       )}
       data-slot="tabs-list"
