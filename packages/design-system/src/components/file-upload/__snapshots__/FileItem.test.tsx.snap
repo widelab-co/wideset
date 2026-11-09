@@ -10,7 +10,7 @@ exports[`FileItem > snapshots > matches snapshot for default 1`] = `
       class="flex items-center gap-ws-7"
     >
       <div
-        class="relative flex shrink-0 items-center justify-center overflow-hidden rounded-ws-control-lg size-ws-14 text-ws-non-semantic-purple-on-strong bg-[#e96949]"
+        class="relative flex shrink-0 items-center justify-center overflow-hidden rounded-ws-control-lg size-ws-14 bg-ws-non-semantic-red-strong text-ws-non-semantic-red-on-strong"
         data-slot="file-item-thumbnail"
       >
         <svg
@@ -90,7 +90,7 @@ exports[`FileItem > snapshots > matches snapshot for uncontained 1`] = `
       class="flex items-center gap-ws-7"
     >
       <div
-        class="relative flex shrink-0 items-center justify-center overflow-hidden rounded-ws-control-lg size-ws-14 text-ws-non-semantic-purple-on-strong bg-[#e96949]"
+        class="relative flex shrink-0 items-center justify-center overflow-hidden rounded-ws-control-lg size-ws-14 bg-ws-non-semantic-red-strong text-ws-non-semantic-red-on-strong"
         data-slot="file-item-thumbnail"
       >
         <svg
@@ -144,7 +144,7 @@ exports[`FileItem > snapshots > matches snapshot while loading 1`] = `
       class="flex items-center gap-ws-9"
     >
       <div
-        class="relative flex shrink-0 items-center justify-center overflow-hidden rounded-ws-control-lg size-ws-14 text-ws-non-semantic-purple-on-strong bg-[#e96949]"
+        class="relative flex shrink-0 items-center justify-center overflow-hidden rounded-ws-control-lg size-ws-14 bg-ws-non-semantic-red-strong text-ws-non-semantic-red-on-strong"
         data-slot="file-item-thumbnail"
       >
         <svg
@@ -236,7 +236,7 @@ exports[`FileItem > snapshots > matches snapshot with an error 1`] = `
       class="flex items-center gap-ws-7"
     >
       <div
-        class="relative flex shrink-0 items-center justify-center overflow-hidden rounded-ws-control-lg size-ws-14 text-ws-non-semantic-purple-on-strong bg-[#e96949]"
+        class="relative flex shrink-0 items-center justify-center overflow-hidden rounded-ws-control-lg size-ws-14 bg-ws-non-semantic-red-strong text-ws-non-semantic-red-on-strong"
         data-slot="file-item-thumbnail"
       >
         <svg

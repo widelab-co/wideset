@@ -32,5 +32,7 @@
 
 - FileItem sorts its children by part type. A part wrapped in another component, or a
   `<div>` around Title and Description, is no longer recognised and renders under the row.
+  So is a plain `Thumbnail`: inside FileItem use `FileItem.Thumbnail`, which takes the same
+  content props plus `name` and `mimeType`.
 - `error` implies `hasError`; you don't need both.
 - `onRemove` only fires; removing the row from your state is your job.

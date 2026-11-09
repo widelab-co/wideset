@@ -14,7 +14,7 @@ parts:
     AvatarAgent,
     AvatarStatus,
   ]
-related: [ListItem, Table, Tag]
+related: [ListItem, Table, Tag, Thumbnail]
 docs: https://wideset-docs.widelab.workers.dev/components/avatar
 storybook: components-avatar--default
 ---
@@ -33,7 +33,8 @@ storybook: components-avatar--default
 
 - A category or label → `Tag`.
 - A status or count → `StatusBadge`.
-- A file or product picture → an `img` in `Card.Media`, or `FileItem` for uploads.
+- A file, project, app or product next to its name → `Thumbnail`; a large picture → an `img` in
+  `Card.Media`; uploads → `FileItem`.
 - A decorative icon in a row → the Remix icon itself in `ListItem.Prefix`.
 
 ## Anatomy
