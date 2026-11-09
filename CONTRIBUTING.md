@@ -43,9 +43,30 @@ CI runs lint, Prettier, typecheck, build, tests and a Storybook build on every P
    reason in the body. The pre-push hook and CI refuse a branch without one
    ([RELEASING.md](RELEASING.md#when-a-changeset-is-required)).
 3. Run `pnpm typecheck && pnpm test` locally. Pre-commit hooks only format staged files.
-4. Open the PR against `develop` and fill in the template: why, what changes, how to check. A
-   maintainer then reviews it. Reviewers (people and agents) use the `wideset-code-review` skill:
-   risk zones, then Safety / Standards / Intent, then a verdict.
+4. Open the PR against `develop`. Write **Why** in one or two sentences and go through the
+   checklist; [CodeRabbit](https://coderabbit.ai) writes the rest of the description and reviews
+   the PR within minutes.
+5. Fix or answer every CodeRabbit comment and resolve its threads, then mark the PR ready for
+   review. GitHub assigns one maintainer from [CODEOWNERS](.github/CODEOWNERS).
+
+## Review and merge
+
+A PR merges into `develop` when all of these hold. Nothing else, and no particular person, is
+needed:
+
+- **one approval from a code owner**: anyone in `wideset-maintainers`; for the risk zones (build,
+  CI, tokens and styles, `src/index.ts`, the CLI, dependencies) someone in `wideset-core`;
+- **CI green**: `Build & validate` and `Changeset present`;
+- **every review conversation resolved**, CodeRabbit's included.
+
+Blockers get **Request changes**. Small remarks get
+**Approve** and the author fixes them before merging; a new push does not dismiss the approval.
+The author merges, or turns on **auto-merge** so the PR merges itself once green.
+Reviewers (people and agents) use the `wideset-code-review` skill: risk zones, then Safety /
+Standards / Intent, then a verdict.
+
+Releases (`develop` → `main`, which publishes to npm) are merged by `wideset-core` only; see
+[RELEASING.md](RELEASING.md).
 
 To address existing review feedback, use `wideset-pr-review-resolve` with a PR URL or number.
 It evaluates comments against repository rules, applies clear fixes locally, and prepares a local
