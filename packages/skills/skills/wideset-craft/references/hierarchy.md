@@ -2,7 +2,7 @@
 
 ## Reading ladder
 
-The roles, classes and sizes are in [typography.md](typography.md). In short: one page title, section headings one step up, body and values in `typography-body-md`, labels and metadata quieter in `text-ws-static-subtle`. Skip a level rather than inventing one. Two sizes and three colours (look for, read, label) are enough for most screens.
+The roles, classes and sizes are in [typography.md](typography.md). In short: one 32px page title (`typography-title-md`), card and section titles at 16px (`typography-subtitle-xs`), body and values in `typography-body-md`, labels and metadata quieter in `text-ws-static-subtle`. Skip a level rather than inventing one. Two sizes and three colours (look for, read, label) are enough for most screens.
 Which texts may be `strong`, and why `strong` versus `base` does not rank anything: see
 [surfaces.md](surfaces.md#what-may-be-strong).
 
@@ -25,7 +25,7 @@ export function PageHeader() {
   return (
     <header className="gap-ws-9 flex items-start justify-between">
       <div className="gap-ws-3 flex flex-col">
-        <h1 className="typography-subtitle-lg text-ws-static-strong">Invoices</h1>
+        <h1 className="typography-title-md text-ws-static-strong">Invoices</h1>
         <p className="typography-body-md text-ws-static-base">
           142 open, 18 overdue. Totals are in your billing currency.
         </p>

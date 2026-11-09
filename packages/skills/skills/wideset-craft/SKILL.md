@@ -46,7 +46,7 @@ code. Read the reference before you apply a rule for the first time in a session
 | --- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
 | 1   | **One control size per screen: `sm` (32px).** Every button, field, filter and segmented control on a screen shares one height, as Figma's Screens draw them. Go `md` (40px) or `lg` only when the person asks or the screen type demands it.         | [sizing.md](references/sizing.md)                                 |
 | 2   | **Pass `size="sm"`; never mix sizes.** Button, IconButton, SplitButton, the fields and SegmentedControl default to `md` (40px), so they take `size="sm"`; `FilterButton`, `Chip` and `Tabs` are 32px at their defaults.                              | [sizing.md](references/sizing.md)                                 |
-| 3   | **Flat type scale.** Body and labels at 14px, one page title, section titles one step up. Hierarchy comes from weight and colour, not size jumps.                                                                                                    | [typography.md](references/typography.md)                         |
+| 3   | **Flat type scale.** Body and labels at 14px, card and section titles 16px, one 32px page title. Hierarchy comes from weight and colour, not size jumps.                                                                                             | [typography.md](references/typography.md)                         |
 | 4   | **Spacing has a hierarchy.** Tight inside a control, medium between fields, wide between sections; the gap grows with the size of what it separates. Only `ws` steps.                                                                                | [spacing.md](references/spacing.md)                               |
 | 5   | **Choose width deliberately.** Reading and form columns stop around 40rem; only data-dense tables and boards run full width. Never stretch a composed screen edge to edge.                                                                           | [spacing.md](references/spacing.md)                               |
 | 6   | **One left axis.** The page title, the section titles and the content start on the same vertical line.                                                                                                                                               | [spacing.md](references/spacing.md)                               |
@@ -79,8 +79,8 @@ When nothing in the request says otherwise, use exactly these:
 | Control height     | `sm` (32px): `size="sm"` on Button, IconButton, SplitButton, TextInput, Select, MultiSelect, ComboBox, Textarea, SegmentedControl; `FilterButton`, `Chip` at their defaults           |
 | Page tabs          | `Tabs` at their default `sm`, on the page and inside a card or panel                                                                                                                  |
 | Page canvas        | `bg-ws-static-background` (off-white); content on `Card` (white `bg-ws-static-container`)                                                                                             |
-| Page title         | `typography-subtitle-lg text-ws-static-strong` (32px), one per page                                                                                                                   |
-| Section title      | `typography-subtitle-xs` or `Card.Title`                                                                                                                                              |
+| Page title         | `typography-title-md text-ws-static-strong` (32px), one per page                                                                                                                      |
+| Section title      | `typography-subtitle-xs` (16px); a card title is `Card.Title` (16px)                                                                                                                  |
 | Body / description | `typography-body-md text-ws-static-base`; labels and metadata `-subtle`                                                                                                               |
 | Text colours       | `text-ws-static-strong` (headings, key values), `-base` (body), `-subtle` (secondary, metadata)                                                                                       |
 | Page padding       | `p-ws-12` (24px); page sections `gap-ws-16` (40px); inside a card `gap-ws-12` (24px)                                                                                                  |
@@ -104,7 +104,7 @@ Each screen gets a limited amount of loudness:
 | ----------------------------------------------- | ---------------------------- |
 | Filled primary button                           | 1                            |
 | Coloured status or danger fill                  | Only where state requires it |
-| Page title, `typography-subtitle-lg`            | 1                            |
+| Page title, `typography-title-md`               | 1                            |
 | Elevated surface (`shadow-ws-medium` or higher) | Only while it floats         |
 
 When something new has to stand out, take the emphasis from something else.

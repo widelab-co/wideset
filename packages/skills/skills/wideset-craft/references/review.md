@@ -18,7 +18,7 @@ Report the score and the lines below 2.
 | #   | Check                                                                                                   |
 | --- | ------------------------------------------------------------------------------------------------------- |
 | 1   | One control height across the screen; no mixed `size` props ([sizing](sizing.md))                       |
-| 2   | One page title; everything else within the flat scale; no `title-*` sizes ([typography](typography.md)) |
+| 2   | One page heading; each title sized by its container; everything else flat ([typography](typography.md)) |
 | 3   | Hierarchy by colour and weight; three text greys, no opacity hacks                                      |
 | 4   | Five spacing levels, visibly different; only `ws` steps ([spacing](spacing.md))                         |
 | 5   | Content width chosen for the screen type; nothing stretched edge to edge without reason                 |
