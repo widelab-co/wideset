@@ -38,8 +38,9 @@ import { fileURLToPath } from 'node:url';
 import ts from 'typescript';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-// TODO(domain): the permanent address once the wideset.co subdomain exists (also cli/registry.mjs).
-const DEFAULT_BASE = 'https://wideset-docs.widelab.workers.dev/r';
+// The permanent registry address, a contract with every consumer's components.json (also
+// packages/cli/src/registry.mjs). Moving it means a redirect from here, never a new default.
+const DEFAULT_BASE = 'https://wideset.co/r';
 const PEERS = new Set(['react', 'react-dom']);
 const FORBIDDEN = [
   /\.stories\.tsx?$/,
@@ -54,7 +55,7 @@ const SHIPPABLE = /\.(ts|tsx)$/;
 const IMPLICIT_UI_DEPS = ['utils', 'styles'];
 
 /**
- * The registry is served by the docs site (`wideset-docs.widelab.workers.dev/r`); each deployment sets
+ * The registry is served by the docs site (`wideset.co/r`); each deployment sets
  * REGISTRY_URL to its own address (develop, PR previews), see the deploy job in build.yaml.
  * @param {NodeJS.ProcessEnv} [env]
  */

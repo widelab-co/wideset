@@ -2,7 +2,7 @@
 
 A React component library for building consistent, accessible products.
 
-**[Documentation →](https://wideset-docs.widelab.workers.dev)** · **[Storybook →](https://wideset-storybook.widelab.workers.dev)**
+**[Documentation →](https://wideset.co/docs)** · **[Storybook →](https://storybook.wideset.co)**
 
 The documentation site covers the same setup in more depth, plus theming, the foundations (colour,
 type, spacing, radius, elevation, motion), every component with a live playground, and working
@@ -184,7 +184,7 @@ registry `@wideset` means. Vite (sources in `src/`):
     "hooks": "@/hooks",
     "utils": "@/lib/utils"
   },
-  "registries": { "@wideset": "https://wideset-docs.widelab.workers.dev/r/{name}.json" }
+  "registries": { "@wideset": "https://wideset.co/r/{name}.json" }
 }
 ```
 
@@ -194,7 +194,7 @@ root (`"@/*": ["./*"]`). The `@/*` alias has to exist in `tsconfig.json` (`paths
 register the namespace:
 
 ```bash
-npx shadcn@latest registry add @wideset=https://wideset-docs.widelab.workers.dev/r/{name}.json
+npx shadcn@latest registry add @wideset=https://wideset.co/r/{name}.json
 ```
 
 **2. Add components.** Sub-components and dependencies come along; the item list is `/r/registry.json`.
@@ -318,7 +318,7 @@ brand ramps, `--ws-colors-light-brand-*` and `--ws-colors-dark-brand-*` (steps 1
 or dark mode keeps the old colour; the tinted backgrounds come from `*-brand-opacity-*` tokens,
 which are fixed colours, so derive them with `color-mix()`. The full recipe, and the other ways
 to customise (one role, `className`, composition), are on
-[wideset-docs.widelab.workers.dev/docs/theming](https://wideset-docs.widelab.workers.dev/docs/theming).
+[wideset.co/docs/theming](https://wideset.co/docs/theming).
 
 ### Notes
 
@@ -353,7 +353,7 @@ pnpm test         # Vitest
 
 Before you report:
 
-- Check the [Storybook](https://wideset-storybook.widelab.workers.dev/) to confirm the behaviour isn't intentional
+- Check the [Storybook](https://storybook.wideset.co/) to confirm the behaviour isn't intentional
 - Include your package version (`npm list @wideset/react`) and – if it's a bug – a minimal reproduction
 
 ---

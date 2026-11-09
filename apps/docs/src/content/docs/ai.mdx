@@ -41,14 +41,14 @@ The server reads registries from `components.json` in your project. Set it up as
 add only the namespace:
 
 ```bash
-npx shadcn@latest registry add @wideset=https://wideset-docs.widelab.workers.dev/r/{name}.json
+npx shadcn@latest registry add @wideset=https://wideset.co/r/{name}.json
 ```
 
 Either way `components.json` ends up with:
 
 ```json
 {
-  "registries": { "@wideset": "https://wideset-docs.widelab.workers.dev/r/{name}.json" }
+  "registries": { "@wideset": "https://wideset.co/r/{name}.json" }
 }
 ```
 
@@ -126,8 +126,8 @@ npx skills add widelab-co/wideset/packages/skills
 Without the Wideset CLI, the same skills are a registry item. It also writes `AGENTS.wideset.md` and a Cursor rule; add `skills-claude.json` for the copy Claude Code reads, with two reviewer agents:
 
 ```bash
-npx shadcn@latest add https://wideset-docs.widelab.workers.dev/r/skills.json
-npx shadcn@latest add https://wideset-docs.widelab.workers.dev/r/skills-claude.json
+npx shadcn@latest add https://wideset.co/r/skills.json
+npx shadcn@latest add https://wideset.co/r/skills-claude.json
 ```
 
 Then point your agent's instructions at the rules, with `See AGENTS.wideset.md for Wideset rules.` in `AGENTS.md` or `@AGENTS.wideset.md` in `CLAUDE.md`. The file is overwritten on update, so keep your own rules elsewhere.
@@ -151,7 +151,7 @@ Agents read an instructions file on every task, even when they skip a skill. If 
 - Import components from `@wideset/react` (or from the copied files when installed through
   the registry). Import the stylesheet once at the app entry: `import '@wideset/react/styles'`.
 - Before using a component, read its Usage section, starting with "When not to use" and "Gotchas":
-  https://wideset-docs.widelab.workers.dev/components/<name>.md
+  https://wideset.co/components/<name>.md
 - Choose by what the thing does, not how it looks: `RadioButton.Group` for a few options compared at
   a glance, `Select` for a long list, `DropdownMenu` for commands; `StatusBadge` for a state, `Tag`
   for a category; `Switch` applies at once, `Checkbox` on submit; `Modal` for a short decision,
@@ -171,7 +171,7 @@ Agents read an instructions file on every task, even when they skip a skill. If 
 - In React Server Components use the named subcomponent exports (`CardHeader`, not `Card.Header`),
   and put anything that passes a function (an icon prop, `onClick`) in a `'use client'` file.
 - Override `className` for one-off tweaks. Re-brand by overriding both brand ramps,
-  `--ws-colors-light-brand-*` and `--ws-colors-dark-brand-*`: https://wideset-docs.widelab.workers.dev/docs/theming.md
+  `--ws-colors-light-brand-*` and `--ws-colors-dark-brand-*`: https://wideset.co/docs/theming.md
 - Before finishing, re-read what you wrote: replace raw `<button>`, `<input>`, `<select>` or
   `<table>` with the Wideset component, and any spacing, colour, radius or type class without `ws`.
 ```

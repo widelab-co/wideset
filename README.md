@@ -13,12 +13,12 @@ An open source React design system with a matching Figma library, <br/> built fo
 [![CI](https://github.com/widelab-co/wideset/actions/workflows/build.yaml/badge.svg?branch=develop)](https://github.com/widelab-co/wideset/actions/workflows/build.yaml)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
-[![Docs](https://img.shields.io/badge/Docs-wideset--docs-6741d9?logo=readthedocs&logoColor=white)](https://wideset-docs.widelab.workers.dev)
-[![Storybook](https://img.shields.io/badge/Storybook-live-ff4785?logo=storybook&logoColor=white)](https://wideset-storybook.widelab.workers.dev)
-[![shadcn registry](https://img.shields.io/badge/shadcn-registry-000000?logo=shadcnui&logoColor=white)](https://wideset-docs.widelab.workers.dev/docs/cli)
-[![Agent skills](https://img.shields.io/badge/Agent-skills-d97757?logo=anthropic&logoColor=white)](https://wideset-docs.widelab.workers.dev/docs/ai)
+[![Docs](https://img.shields.io/badge/Docs-wideset.co-6741d9?logo=readthedocs&logoColor=white)](https://wideset.co/docs)
+[![Storybook](https://img.shields.io/badge/Storybook-live-ff4785?logo=storybook&logoColor=white)](https://storybook.wideset.co)
+[![shadcn registry](https://img.shields.io/badge/shadcn-registry-000000?logo=shadcnui&logoColor=white)](https://wideset.co/docs/cli)
+[![Agent skills](https://img.shields.io/badge/Agent-skills-d97757?logo=anthropic&logoColor=white)](https://wideset.co/docs/ai)
 
-**[Docs](https://wideset-docs.widelab.workers.dev)** · **[Storybook](https://wideset-storybook.widelab.workers.dev)** · **[npm](https://www.npmjs.com/package/@wideset/react)** · **[Contributing](CONTRIBUTING.md)** · **[Discussions](https://github.com/widelab-co/wideset/discussions)**
+**[Docs](https://wideset.co/docs)** · **[Storybook](https://storybook.wideset.co)** · **[npm](https://www.npmjs.com/package/@wideset/react)** · **[Contributing](CONTRIBUTING.md)** · **[Discussions](https://github.com/widelab-co/wideset/discussions)**
 
 </div>
 
@@ -84,7 +84,7 @@ export function Continue() {
 }
 ```
 
-The **[installation guide](https://wideset-docs.widelab.workers.dev/docs/installation)** covers
+The **[installation guide](https://wideset.co/docs/installation)** covers
 Tailwind v4, Next.js and Server Components, and fonts; the
 **[package README](packages/design-system/README.md)** has the same in one page.
 
@@ -100,7 +100,7 @@ npx wideset add button
 
 `init` sets up `components.json`, the `@/*` alias and the stylesheet; in a shadcn project it only
 registers the `@wideset` namespace. The
-**[CLI guide](https://wideset-docs.widelab.workers.dev/docs/cli)** also shows how to call the
+**[CLI guide](https://wideset.co/docs/cli)** also shows how to call the
 shadcn CLI yourself.
 
 ### Working with AI
@@ -111,7 +111,7 @@ npx skills add widelab-co/wideset/packages/skills
 
 installs four Agent Skills (setup, build, craft, review) for the agents you use. Docs as Markdown
 (`/llms.txt`, `/components/<name>.md`), the shadcn MCP server and a rules block to paste are on
-**[Working with AI](https://wideset-docs.widelab.workers.dev/docs/ai)**.
+**[Working with AI](https://wideset.co/docs/ai)**.
 
 ## Packages
 

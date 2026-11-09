@@ -14,7 +14,7 @@ parts:
     SidebarTrigger,
   ]
 related: [Tabs, Breadcrumbs, Sidepanel]
-docs: https://wideset-docs.widelab.workers.dev/components/sidebar
+docs: https://wideset.co/components/sidebar
 storybook: components-sidebar--default
 ---
 
@@ -121,5 +121,5 @@ The root fills its parent's height; place it in a full-height flex row next to t
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/sidebar.md` · Types:
+Full props: `https://wideset.co/components/sidebar.md` · Types:
 `packages/design-system/src/components/sidebar/Sidebar.types.ts`

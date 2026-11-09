@@ -15,7 +15,7 @@ parts:
     MultiSelectSeparator,
   ]
 related: [Select, ComboBox, CheckboxGroup, FormField]
-docs: https://wideset-docs.widelab.workers.dev/components/multi-select
+docs: https://wideset.co/components/multi-select
 storybook: form-select-multiselect--default
 ---
 
@@ -122,5 +122,5 @@ Open state: `open` / `defaultOpen` / `onOpenChange`; `modal` blocks the page whi
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/multi-select.md` · Types:
+Full props: `https://wideset.co/components/multi-select.md` · Types:
 `packages/design-system/src/components/multi-select/MultiSelect.types.ts`
