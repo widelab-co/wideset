@@ -14,8 +14,8 @@ decimals or units force reading every cell.
 
 ## Tables
 
-- `Table` row height matches the screen's control size (`sm` 40px by default; `md` 48px for roomy
-  pages, see [sizing.md](sizing.md)).
+- `Table` rows are `sm` (40px) by default, the smallest Table; `md` 48px for large screens (see
+  [sizing.md](sizing.md)).
 - First column is the identity of the row (name, ID), `text-ws-static-strong`; other text columns
   `text-ws-static-base`; secondary information under the name in `typography-caption-md
 text-ws-static-subtle`, not in its own narrow column.

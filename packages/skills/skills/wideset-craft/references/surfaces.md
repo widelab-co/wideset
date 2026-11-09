@@ -5,7 +5,10 @@
 ### The rule
 
 The brand colour marks **one thing per view: the primary action** (a filled `Button`, default
-variant) and the selected state of navigation (Sidebar, Tabs, SegmentedControl do this themselves).
+variant), plus whatever selected state a component draws itself (Tabs, SegmentedControl). A
+selected row you build (the open item in a list, a picked card) is neutral, like the active
+`Sidebar.Item`: `bg-ws-dynamic-tertiary-alpha-strong-default` and `text-ws-static-strong`, never
+a brand tint. One look for "selected" on the whole screen, whatever the column.
 Everything else is neutral: text in three greys, surfaces in two whites, borders in one line
 colour. Status colours (positive, negative, notice, info) appear only to say a status, through the
 components that carry them: `StatusBadge`, `InlineAlert`, `SystemAlert`, Toast, `Button
@@ -37,7 +40,24 @@ The main call to action is the default `Button` (primary, brand colour). No near
 | `text-ws-static-base`   | Body text that is read in full                          |
 | `text-ws-static-subtle` | Descriptions, metadata, secondary columns, placeholders |
 
-Three levels; never `opacity-*` to make a fourth.
+Three levels; never `opacity-*` to make a fourth. In light mode `strong` and `base` are nearly the
+same near-black, so they read as one step: the contrast that builds hierarchy is `strong` (or
+`base`) against `subtle`, plus weight. Do not rely on `strong` versus `base` to rank two texts.
+
+### What may be `strong`
+
+`strong` is for what is read first, and there is little of it: the page title, section titles, the
+title of each item in a list, and the key figures (a price, an error rate, a total). Names, alert
+or file names inside a section, values beside a label in a header, and message authors are `base`;
+labels and metadata are `subtle`. If a quarter of a screen's text is `strong`, nothing leads.
+
+## Status colour budget
+
+A status colour says "act on this". Give it only to states that ask for action now (a failure, a
+firing alert, the most severe level, an overdue item, a blocker). Lifecycle and routine states
+(investigating, identified, monitoring, resolved, rolled back, live, lower severities) are neutral
+`StatusBadge`s: their word carries the meaning. On a busy screen, if more than two hues of status
+show, neutralise until one or two remain; the red that is left is then impossible to miss.
 
 ## Surfaces
 
