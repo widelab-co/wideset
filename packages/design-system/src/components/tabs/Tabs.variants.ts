@@ -75,10 +75,14 @@ export const tabsItemVariants = cva(
           'hover:border-ws-dynamic-secondary-hover',
         ),
         pills: cn(
-          'rounded-ws-control-full border-ws-dynamic-secondary-default border-1',
-          'hover:border-ws-dynamic-secondary-hover',
-          'aria-selected:not-focus-visible:bg-ws-dynamic-primary-alpha-strong-default aria-selected:text-ws-dynamic-primary-default! aria-selected:border-transparent!',
-          'data-active:not-focus-visible:bg-ws-dynamic-primary-alpha-strong-default data-active:text-ws-dynamic-primary-default! data-active:border-transparent!',
+          // The border stays (transparent) so every state keeps the same box.
+          'rounded-ws-control-full text-ws-static-subtle border-1 border-transparent',
+          '[&_svg]:text-current',
+          'not-aria-selected:not-data-active:hover:bg-ws-dynamic-tertiary-alpha-hover hover:text-ws-static-strong',
+          'not-aria-selected:not-data-active:active:bg-ws-dynamic-tertiary-alpha-pressed',
+          // Neutral selected fill, stronger than a hover; brand stays with the primary button.
+          'aria-selected:bg-ws-dynamic-tertiary-alpha-strong-hover aria-selected:text-ws-static-strong',
+          'data-active:bg-ws-dynamic-tertiary-alpha-strong-hover data-active:text-ws-static-strong',
         ),
         ghost: cn(
           'rounded-ws-control-lg text-ws-static-subtle hover:text-ws-static-strong',
