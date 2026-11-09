@@ -7,6 +7,7 @@ import { IconButton } from '../button/IconButton';
 import { Checkbox } from '../checkbox/Checkbox';
 import { FormField } from '../form-field/FormField';
 import { StatusBadge } from '../status-badge/StatusBadge';
+import { Table } from '../table/Table';
 import { Tag } from '../tag/Tag';
 import { TextInput } from '../text-input/TextInput';
 import { Card } from './Card';
@@ -263,6 +264,74 @@ export const ScrollableContent: Story = {
     ...Default.args,
     className: 'max-h-80 w-87.5',
   },
+};
+
+const invoices = [
+  ['INV-2041', '2 Nov 2026', 'October 2026', '$12,480.00', 'Paid'],
+  ['INV-2040', '2 Oct 2026', 'September 2026', '$11,920.00', 'Paid'],
+  ['INV-2039', '2 Sep 2026', 'August 2026', '$12,105.00', 'Overdue'],
+] as const;
+
+export const WithTable: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'A six-column table in a 32rem column. `Card.Content` keeps the card at the column width and scrolls the table horizontally. `contentClassName="px-ws-3"` adds 4px to the cells’ 16px, so the first column lines up with `Card.Title`.',
+      },
+    },
+  },
+  render: (args) => (
+    <div className="grid w-[32rem] grid-cols-[1fr]">
+      <Card {...args}>
+        <Card.Header>
+          <Card.Title>Invoices</Card.Title>
+          <Card.Description>Billed on the 2nd of every month.</Card.Description>
+        </Card.Header>
+        <Card.Content contentClassName="px-ws-3">
+          <Table className="whitespace-nowrap">
+            <Table.Head>
+              <Table.Row>
+                <Table.Header>Number</Table.Header>
+                <Table.Header>Date</Table.Header>
+                <Table.Header>Period</Table.Header>
+                <Table.Header align="right">Amount</Table.Header>
+                <Table.Header>Status</Table.Header>
+                <Table.Header>
+                  <span className="sr-only">Actions</span>
+                </Table.Header>
+              </Table.Row>
+            </Table.Head>
+            <Table.Body>
+              {invoices.map(([number, date, period, amount, status]) => (
+                <Table.Row key={number}>
+                  <Table.Cell>{number}</Table.Cell>
+                  <Table.Cell>{date}</Table.Cell>
+                  <Table.Cell>{period}</Table.Cell>
+                  <Table.Cell align="right">{amount}</Table.Cell>
+                  <Table.Cell>
+                    <StatusBadge color={status === 'Paid' ? 'positive' : 'negative'}>
+                      {status}
+                    </StatusBadge>
+                  </Table.Cell>
+                  <Table.Cell align="right">
+                    <IconButton
+                      aria-label={`Download ${number}`}
+                      icon={RiDownloadLine}
+                      preset="ghost"
+                      size="sm"
+                      variant="secondary"
+                    />
+                  </Table.Cell>
+                </Table.Row>
+              ))}
+            </Table.Body>
+          </Table>
+        </Card.Content>
+      </Card>
+    </div>
+  ),
+  args: { variant: 'bordered' },
 };
 
 export const Composition: Story = {

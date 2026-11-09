@@ -253,3 +253,36 @@ describe('Card styling hooks', () => {
     expect(header).toHaveClass('ws-card-header');
   });
 });
+
+describe('Card.Content width', () => {
+  const renderWideTable = () =>
+    render(
+      <Card>
+        <Card.Content aria-label="Invoices">
+          <table>
+            <tbody>
+              <tr>
+                {['Number', 'Date', 'Period', 'Amount', 'Status', 'Action'].map((column) => (
+                  <td key={column}>{column}</td>
+                ))}
+              </tr>
+            </tbody>
+          </table>
+        </Card.Content>
+      </Card>,
+    );
+
+  it('does not let its content set the card width', () => {
+    const { container } = renderWideTable();
+    expect(container.querySelector('[data-slot="card-content"]')).toHaveClass(
+      'contain-inline-size',
+    );
+  });
+
+  it('scrolls content wider than the card horizontally', () => {
+    const { container } = renderWideTable();
+    expect(
+      container.querySelector('[data-slot="card-content"] [data-slot="scroll-area-viewport"]'),
+    ).toHaveStyle({ overflowX: 'scroll' });
+  });
+});

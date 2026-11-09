@@ -9,7 +9,13 @@ const CardContent = ({ className, contentClassName, ...props }: CardContentProps
   const { variant } = useCardContext();
 
   return (
-    <ScrollArea data-slot="card-content" className={cn('grow', className)}>
+    // contain-inline-size: content wider than the card (a table) scrolls inside it and never
+    // sets the card's minimum width in a grid track or flex row.
+    <ScrollArea
+      data-slot="card-content"
+      orientation="both"
+      className={cn('grow contain-inline-size', className)}
+    >
       <div className={cn(cardContentVariants({ variant }), contentClassName)} {...props} />
     </ScrollArea>
   );

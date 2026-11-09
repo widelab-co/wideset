@@ -217,7 +217,7 @@ exports[`Card > should match snapshot for variant="bordered" 1`] = `
       </p>
     </div>
     <div
-      class="overflow-hidden grow"
+      class="overflow-hidden grow contain-inline-size"
       data-slot="card-content"
       dir="ltr"
       style="position: relative; --radix-scroll-area-corner-width: 0px; --radix-scroll-area-corner-height: 0px;"
@@ -229,7 +229,7 @@ exports[`Card > should match snapshot for variant="bordered" 1`] = `
         class="h-full w-full max-w-full min-w-0 pr-ws-6"
         data-radix-scroll-area-viewport=""
         data-slot="scroll-area-viewport"
-        style="overflow-x: hidden; overflow-y: scroll;"
+        style="overflow-x: scroll; overflow-y: scroll;"
       >
         <div
           style="min-width: 100%; display: table;"
@@ -297,7 +297,7 @@ exports[`Card > should match snapshot for variant="flat" 1`] = `
       </p>
     </div>
     <div
-      class="overflow-hidden grow"
+      class="overflow-hidden grow contain-inline-size"
       data-slot="card-content"
       dir="ltr"
       style="position: relative; --radix-scroll-area-corner-width: 0px; --radix-scroll-area-corner-height: 0px;"
@@ -309,7 +309,7 @@ exports[`Card > should match snapshot for variant="flat" 1`] = `
         class="h-full w-full max-w-full min-w-0 pr-ws-6"
         data-radix-scroll-area-viewport=""
         data-slot="scroll-area-viewport"
-        style="overflow-x: hidden; overflow-y: scroll;"
+        style="overflow-x: scroll; overflow-y: scroll;"
       >
         <div
           style="min-width: 100%; display: table;"
@@ -360,7 +360,7 @@ exports[`Card > should match snapshot with content and footer only 1`] = `
     data-slot="card"
   >
     <div
-      class="overflow-hidden grow"
+      class="overflow-hidden grow contain-inline-size"
       data-slot="card-content"
       dir="ltr"
       style="position: relative; --radix-scroll-area-corner-width: 0px; --radix-scroll-area-corner-height: 0px;"
@@ -372,7 +372,7 @@ exports[`Card > should match snapshot with content and footer only 1`] = `
         class="h-full w-full max-w-full min-w-0 pr-ws-6"
         data-radix-scroll-area-viewport=""
         data-slot="scroll-area-viewport"
-        style="overflow-x: hidden; overflow-y: scroll;"
+        style="overflow-x: scroll; overflow-y: scroll;"
       >
         <div
           style="min-width: 100%; display: table;"
@@ -412,7 +412,7 @@ exports[`Card > should match snapshot with content only 1`] = `
     data-slot="card"
   >
     <div
-      class="overflow-hidden grow"
+      class="overflow-hidden grow contain-inline-size"
       data-slot="card-content"
       dir="ltr"
       style="position: relative; --radix-scroll-area-corner-width: 0px; --radix-scroll-area-corner-height: 0px;"
@@ -424,7 +424,7 @@ exports[`Card > should match snapshot with content only 1`] = `
         class="h-full w-full max-w-full min-w-0 pr-ws-6"
         data-radix-scroll-area-viewport=""
         data-slot="scroll-area-viewport"
-        style="overflow-x: hidden; overflow-y: scroll;"
+        style="overflow-x: scroll; overflow-y: scroll;"
       >
         <div
           style="min-width: 100%; display: table;"

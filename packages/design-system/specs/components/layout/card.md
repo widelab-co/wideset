@@ -113,11 +113,19 @@ that is selected is a `Tile`.
 - `Card.Header` stacks its children vertically. To put `Card.Action` beside the title, wrap
   title + description and the action in your own `flex` row.
 - `Card.Content` is a scroll area: `className` goes to the scroll container, other props and
-  `contentClassName` to the inner content. It scrolls only when the card's height is limited.
+  `contentClassName` to the inner content. It scrolls vertically when the card's height is
+  limited.
+- A table in a card scrolls inside it: `Card.Content` never widens the card, so content wider
+  than the card (a table with many columns) scrolls horizontally. Put the `Table` straight in
+  `Card.Content`, no padded `div` or `overflow-x-auto` wrapper. To line the first column up with
+  `Card.Title`, trim the content padding by the cells' own 16px:
+  `<Card.Content contentClassName="px-ws-3">` (4px + 16px = the card's 20px).
 - `Card.Media` runs edge to edge in a bordered card and gets rounded corners in a flat one; put
   it first (or last) so the edges line up.
 - `Card.Header`, `Card.Content`, `Card.Footer` and `Card.Media` throw outside `<Card>`.
-- Card spans its container (`w-full`); size it with the parent grid or a width class.
+- Card spans its container (`w-full`); size it with the parent grid or a width class. Its
+  content does not size it, so a card in a shrink-to-fit parent (an unsized flex item) is only as
+  wide as its header and footer.
 - Without `divider`, the header→content and content→footer gaps are the content's own 20px
   padding. `divider` only draws lines in a `bordered` card; a `flat` card has no frame to
   divide.
