@@ -236,7 +236,9 @@ describe('registry build', () => {
     expect(buttonVariants.content).not.toContain('use client');
   });
 
-  it('is deterministic', () => {
+  // A second full build, the work beforeAll gets 180s for: under the pre-push hook's parallel
+  // `pnpm test` it took longer than vitest's 5s default and failed at random.
+  it('is deterministic', { timeout: 30_000 }, () => {
     const again = mkdtempSync(join(tmpdir(), 'ws-registry-again-'));
     try {
       buildRegistry({ out: again, base: BASE, commit: 'test' });
