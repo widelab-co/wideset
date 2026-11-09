@@ -59,7 +59,7 @@ The full guide, with examples for every kind of text, accent and status colour, 
 Every text on a page has one of three jobs, and each job has one colour:
 
 - **Look for** (`strong`): titles, item names, figures, the one column that matters.
-- **Read** (`base`): the lede under the title, descriptions, card and body text, supporting
+- **Read** (`base`): the lede under the title, explaining paragraphs, card and body text, supporting
   numbers, field values, messages.
 - **Label** (`subtle`): field and figure labels, metadata, dates, column headers, axis labels,
   "vs. last week".

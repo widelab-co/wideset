@@ -101,8 +101,13 @@ Rules:
 
 ## Surfaces under the text
 
-- The page and its cards are white (`bg-ws-static-container`); separation comes from a 1px
-  `border-ws-static-base` and space, not from a grey fill or a shadow.
+- The surface language comes from the screen's visual direction ([surfaces.md](surfaces.md)): on
+  the report page the cards are white on a white page and separate by a 1px `border-ws-static-base`
+  and space; on a grey canvas they are white cards. Either way, not a grey fill and a shadow at
+  once.
+- A one-line description directly under a title (`Card.Description`, a page header's summary)
+  labels the title and stays `subtle`, as the component renders it. A paragraph that explains
+  something is reading text and is `base`.
 - A neutral fill appears only on small things that are not text: a table header row, a chip, a
   progress track.
 - Chips and pills that only label (`175 licensed seats`, `8 departments`) are outlined or lightly

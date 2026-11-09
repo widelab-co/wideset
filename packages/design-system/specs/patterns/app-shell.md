@@ -77,7 +77,7 @@ export function AppShell({ current, children }: { current: string; children: Rea
           <div className="gap-ws-12 p-ws-12 flex flex-col">
             <header className="gap-ws-9 flex flex-wrap items-center justify-between">
               <h1 className="typography-subtitle-lg text-ws-static-strong">Projects</h1>
-              <Button>New project</Button>
+              <Button size="sm">New project</Button>
             </header>
             {children}
           </div>

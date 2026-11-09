@@ -34,6 +34,26 @@ When the blurred screen shows a rule making the composition worse, change it and
 are only the system's own decisions: tokens, text colour by job, status colour only for meaning,
 one control height, the type styles that exist.
 
+## Ask about the style first
+
+Before the first screen of a new app or a new kind of screen, ask the person the choices only they
+can make, in one short message, each with your recommended default so they can answer "defaults":
+
+1. **Visual direction:** Inset (a white page panel on a grey frame), Frame (white page beside a
+   grey sidebar) or Flat (white page beside a white sidebar). Default: Inset for apps with
+   navigation and several regions, Flat for a single simple tool.
+2. **Density:** default 32px controls, or comfortable 40px (a public form, a rarely used setup).
+3. **Cards:** separated by space only (default) or with lines under headers and above footers
+   (`divider`).
+4. **Accent:** the brand colour on the one primary action (default), or a near-black primary for
+   a quieter product.
+5. Anything the request leaves open that changes the whole screen (light or dark first, a
+   reference to match, the font if it is not Wideset's).
+
+Skip the questions the request already answers. If you cannot ask (a batch run, no one to
+answer), take the defaults and list them at the top of your report so a person can overrule them
+in one sentence. Ask once per app, not before every screen.
+
 ## Plan before JSX
 
 Write this down before any code, in three or four lines:
