@@ -19,8 +19,7 @@ const meta = {
     defaultMotion: { table: { category: 'Behavior', type: { summary: 'boolean' } } },
     type: {
       description: 'Deprecated: the slider draws one thumb per value.',
-      control: 'radio',
-      options: ['single', 'range'],
+      control: false,
       table: {
         category: 'Appearance',
         type: { summary: "'single' | 'range'" },
@@ -28,8 +27,7 @@ const meta = {
     },
     labels: {
       description: 'Deprecated: compose `Slider.Label` next to the slider.',
-      control: 'select',
-      options: [undefined, 'left', 'right', 'side', 'bottom'],
+      control: false,
       table: {
         category: 'Appearance',
         type: { summary: "'left' | 'right' | 'side' | 'bottom'" },

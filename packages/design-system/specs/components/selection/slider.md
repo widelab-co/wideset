@@ -54,7 +54,8 @@ storybook: components-slider--default
 
 `Slider.Label` / `SliderLabel` is the numeric caption for the scale or a readout; the slider
 prints no numbers itself, so place it where the layout needs it. `children` render inside the
-slider after the thumbs (tick marks, for example).
+slider after the thumbs (tick marks, for example); the slider is a flex row, so position them
+`absolute` or they take width from the track.
 
 ## Choosing props
 

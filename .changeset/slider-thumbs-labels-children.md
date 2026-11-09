@@ -1,5 +1,6 @@
 ---
 '@wideset/react': minor
+'@wideset/skills': minor
 ---
 
 Slider: the thumb no longer gets a made-up "Slider thumb" name, `children` render inside the slider (after the thumbs) instead of being dropped, and the slider draws one thumb per value, so `defaultValue={[20, 80]}` is a range on its own. `type` and `labels` still work but are deprecated: the value's length replaces `type`, and `Slider.Label` composed next to the slider replaces the four `labels` layouts.
