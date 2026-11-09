@@ -38,7 +38,9 @@ export default function AppShellDirections() {
           </Sidebar>
           <AppShell.Main>
             <div className="gap-ws-5 p-ws-12 flex flex-col">
-              <h2 className="typography-title-sm text-ws-static-strong capitalize">{direction}</h2>
+              <h2 className="typography-subtitle-md text-ws-static-strong capitalize">
+                {direction}
+              </h2>
               <p className="typography-body-md text-ws-static-subtle">
                 Weekly planning, Thursday 10:00. Three meetings left this week.
               </p>
