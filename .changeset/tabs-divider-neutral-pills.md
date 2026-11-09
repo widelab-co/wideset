@@ -1,5 +1,6 @@
 ---
 '@wideset/react': minor
+'@wideset/skills': patch
 ---
 
 Tabs: with the divider on, a `regular` list is full width, so its bottom line runs across the container; the tabs stay left-aligned and the underline still sits under the active tab. `divider={false}` keeps the list fitted to its tabs.
