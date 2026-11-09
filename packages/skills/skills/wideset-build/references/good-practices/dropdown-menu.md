@@ -33,9 +33,11 @@
 
 ## Gotchas
 
-- `CheckboxItem`, `RadioGroup`, `RadioItem`, `ItemIndicator`, `Sub`, `SubTrigger` and
-  `SubContent` are exported as plain Radix parts without Wideset styling. Avoid them; use a
-  flat menu of `DropdownMenu.Item`, or a `Select` / `MultiSelect` for choices.
+- `RadioItem` (inside `RadioGroup`) and `SubTrigger` are menu rows like `Item`, composed the same
+  way; `RadioItem` draws its own check and `SubTrigger` its chevron. `SubContent` is the same
+  surface as `Content`.
+- `CheckboxItem` and `ItemIndicator` are exported as plain Radix parts without Wideset styling.
+  Avoid them; use a `MultiSelect` for several choices.
 - `DropdownMenu.Portal` is optional: Content already portals. Wrap only to set a different
   `container` or `forceMount`.
 - Items are styled by `ListItem`; do not wrap their children in another `ListItem`.
