@@ -64,7 +64,7 @@ Every text on a page has one of three jobs, and each job has one colour:
 - **Label** (`subtle`): field and figure labels, metadata, dates, column headers, axis labels,
   "vs. last week".
 
-Size ranks text inside a job (lede `typography-body-lg`, body `typography-body-md`), never a fourth
+Size ranks text inside a job (a report's lede `typography-body-lg`, body `typography-body-md`), never a fourth
 grey. A screen with no `base` text has lost a level: its labels and its reading text look the same.
 
 Report and detail pages, as a role map:
@@ -72,7 +72,7 @@ Report and detail pages, as a role map:
 | Text                                         | Class                                                                                |
 | -------------------------------------------- | ------------------------------------------------------------------------------------ |
 | Page title                                   | `typography-subtitle-lg text-ws-static-strong`                                       |
-| Lede under the title                         | `typography-body-lg text-ws-static-base`                                             |
+| Lede under the title (report, article)       | `typography-body-lg text-ws-static-base`; on a product page `typography-body-md`     |
 | Section title                                | `typography-subtitle-xs text-ws-static-strong`                                       |
 | Card or insight title                        | `typography-label-strong-md text-ws-static-strong`                                   |
 | Card body, description                       | `typography-body-md text-ws-static-base`                                             |
@@ -88,7 +88,7 @@ Report and detail pages, as a role map:
 A status colour says "act on this". Give it only to states that ask for action now (a failure, a
 firing alert, the most severe level, an overdue item, a blocker). Lifecycle and routine states
 (investigating, identified, monitoring, resolved, rolled back, live, lower severities) are neutral
-`StatusBadge`s: their word carries the meaning. On a busy screen, if more than two hues of status
+`StatusBadge`s: their word carries the meaning. Green and red on changes count as one pair. On a busy screen, if more than two hues of status
 show, neutralise until one or two remain; the red that is left is then impossible to miss.
 
 ## Surfaces

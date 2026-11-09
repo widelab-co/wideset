@@ -38,7 +38,9 @@ If more than about a quarter of the text on a screen is `strong`, nothing leads.
 
 Everything a person actually reads:
 
-- The lede under a page title ("Usage rose for the third straight week…"), at `typography-body-lg`.
+- The line under a page title: `typography-body-md` on a product page ("Enterprise plan, 240 seats,
+  renews on 14 Jan 2027"); on a page made to be read (a report, an article) it is a lede at
+  `typography-body-lg` ("Usage rose for the third straight week…").
 - Descriptions and body text: card text, explanations under a chart, a section's paragraph.
 - Supporting numbers: the figures under a key figure ("118 returning users", "13 new or
   reactivated"), the other numeric columns of a table (Seats, Active, Convos, Per active).
@@ -76,17 +78,20 @@ no fourth text grey: never `opacity-*`, a raw hex or a border colour on text to 
 Grey carries the page; colour is reserved for meaning. On the whole report there are three colours
 besides grey, and each appears for one reason:
 
-| Colour             | Means                                   | On the report                                                      | How                                                                      |
-| ------------------ | --------------------------------------- | ------------------------------------------------------------------ | ------------------------------------------------------------------------ |
-| Brand (primary)    | the one action to take                  | the primary button only (here there is none: "Share" is secondary) | filled `Button`, one per view                                            |
-| Positive (green)   | a change that is good                   | "↑ 7.8%", "↑ 4 pts", "+41% since Mar 01"                           | `StatusBadge color="positive" size="sm"`                                 |
-| Warning / negative | something that needs attention now      | the 43% row in the table, the "At risk" card                       | `StatusBadge`, `InlineAlert`, or the status text token on that one value |
-| Highlight (chart)  | the one data point the text talks about | the week of Mar 08 in blue, every other bar grey                   | one highlight hue; the rest of the chart neutral                         |
+| Colour             | Means                                   | On the report                                                      | How                                                                                                     |
+| ------------------ | --------------------------------------- | ------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------- |
+| Brand (primary)    | the one action to take                  | the primary button only (here there is none: "Share" is secondary) | filled `Button`, one per view                                                                           |
+| Positive (green)   | a change that is good                   | "↑ 7.8%", "↑ 4 pts", "+41% since Mar 01"                           | `StatusBadge color="positive" size="sm"`                                                                |
+| Warning / negative | something that needs attention now      | the 43% row in the table, the "At risk" card                       | `StatusBadge`, `InlineAlert`, or the status text token on that one value                                |
+| Highlight (chart)  | the one data point the text talks about | the week of Mar 08 in blue, every other bar grey                   | `--ws-non-semantic-fill-blue-strong` on that mark, `-subtle` for its lighter segments; the rest neutral |
 
 Rules:
 
 - **A colour needs a reason in the data.** Green only on a change that is good, warning only on the
   row that is off. A healthy 82% stays neutral even though it is "good".
+- **Good and bad changes are one pair.** Green on a good change and red on a bad one count as
+  one status pair in the budget (surfaces.md); a warning or alert is the second. Small changes that
+  decide nothing stay neutral.
 - **One highlight per chart.** Bars, lines and segments are neutral greys; the one the page is
   about takes the highlight colour, and its label turns `strong`.
 - **Status colour sits on the value, not the row.** In the table only the 43% and its bar are
