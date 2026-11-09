@@ -132,6 +132,7 @@ exports[`FormField Snapshots > matches snapshot with error and icon 1`] = `
       class="typography-body-sm gap-ws-3 py-ws-3 flex items-center text-ws-semantic-negative"
       data-slot="helper-text"
       id="_r_l_"
+      role="alert"
     >
       <svg
         aria-hidden="true"

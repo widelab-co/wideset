@@ -267,3 +267,23 @@ describe('FormField Snapshots', () => {
     expect(container.firstChild).toMatchSnapshot();
   });
 });
+
+describe('FormField error announcement', () => {
+  it('inserts a new alert when helper text turns into an error', () => {
+    const { rerender } = render(
+      <FormField label="Email" helperText="We never share it.">
+        <div>Child</div>
+      </FormField>,
+    );
+    const helper = screen.getByText('We never share it.');
+
+    rerender(
+      <FormField label="Email" helperText="We never share it." errorText="Enter an email.">
+        <div>Child</div>
+      </FormField>,
+    );
+
+    expect(screen.getByRole('alert')).toHaveTextContent('Enter an email.');
+    expect(helper).not.toBeInTheDocument();
+  });
+});

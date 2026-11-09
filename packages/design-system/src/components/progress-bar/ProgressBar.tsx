@@ -163,7 +163,11 @@ const ProgressBar = React.forwardRef<
         </ProgressPrimitive.Root>
 
         {description && (
-          <HelperText state={variant} showIcon={variant === 'success' || variant === 'error'}>
+          <HelperText
+            key={variant}
+            state={variant}
+            showIcon={variant === 'success' || variant === 'error'}
+          >
             {description}
           </HelperText>
         )}
