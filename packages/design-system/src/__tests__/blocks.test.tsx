@@ -6,14 +6,32 @@ import { BLOCKS, PANELS } from '../blocks';
 import ganttPanelSource from '../blocks/gantt/task-sidepanel.tsx?raw';
 import panelSource from '../blocks/task-sidepanel/task-sidepanel.tsx?raw';
 
-// The sign-in and sign-up screens share their card, and the two sign-in screens their form.
+// The sign-in, sign-up and account-access screens share their card, and the two sign-in screens their form.
 const authSources = import.meta.glob<string>(
-  '../blocks/{sign-in,sign-in-card,sign-up}/{app-icon,auth-card,sign-in-form}.tsx',
+  '../blocks/{sign-in,sign-in-card,sign-up,forgot-password,check-email,two-factor,sso-sign-in,accept-invite}/{app-icon,auth-card,sign-in-form}.tsx',
   { query: '?raw', import: 'default', eager: true },
 );
 const SHARED = {
-  'app-icon.tsx': ['sign-in', 'sign-in-card', 'sign-up'],
-  'auth-card.tsx': ['sign-in', 'sign-in-card', 'sign-up'],
+  'app-icon.tsx': [
+    'sign-in',
+    'sign-in-card',
+    'sign-up',
+    'forgot-password',
+    'check-email',
+    'two-factor',
+    'sso-sign-in',
+    'accept-invite',
+  ],
+  'auth-card.tsx': [
+    'sign-in',
+    'sign-in-card',
+    'sign-up',
+    'forgot-password',
+    'check-email',
+    'two-factor',
+    'sso-sign-in',
+    'accept-invite',
+  ],
   'sign-in-form.tsx': ['sign-in', 'sign-in-card'],
 };
 

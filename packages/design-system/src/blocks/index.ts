@@ -176,6 +176,108 @@ export const BLOCKS: BlockMeta[] = [
     description:
       'The people in a workspace: members with their roles, pending invitations and inviting someone new.',
   },
+  {
+    id: 'onboarding',
+    title: 'Onboarding',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'A first run on a raised page: a welcome, a setup checklist with progress, and the next best actions.',
+  },
+  {
+    id: 'empty-list',
+    title: 'Empty list',
+    direction: 'flat',
+    navigation: 'sidebar',
+    description:
+      'A list before its first record: an empty state that explains what will appear and how to add or import the first one, and the same list with no search results.',
+  },
+  {
+    id: 'no-access',
+    title: 'No access',
+    direction: 'frame',
+    navigation: 'sidebar',
+    description:
+      'A page the viewer may not open: who owns it, why it is closed and a way to request access.',
+  },
+  {
+    id: 'not-found',
+    title: 'Not found',
+    direction: 'inset',
+    navigation: 'none',
+    description: 'A missing page before or outside the app: what happened and the ways back.',
+  },
+  {
+    id: 'forgot-password',
+    title: 'Forgot password',
+    direction: 'inset',
+    navigation: 'none',
+    description:
+      'Resetting a password in the sign-in card: the e-mail field, then a confirmation that the link is on its way.',
+  },
+  {
+    id: 'check-email',
+    title: 'Check your e-mail',
+    direction: 'inset',
+    navigation: 'none',
+    description:
+      'The sign-in card after a magic link was sent: where it went, how long it works, and resending it.',
+  },
+  {
+    id: 'two-factor',
+    title: 'Two-factor code',
+    direction: 'inset',
+    navigation: 'none',
+    description:
+      'The second sign-in step in the sign-in card: a six-digit code, a trusted-device option and backup ways in.',
+  },
+  {
+    id: 'sso-sign-in',
+    title: 'Single sign-on',
+    direction: 'inset',
+    navigation: 'none',
+    description:
+      'Signing in through an identity provider in the sign-in card: Google, Microsoft and a work e-mail for SAML.',
+  },
+  {
+    id: 'accept-invite',
+    title: 'Accept invitation',
+    direction: 'inset',
+    navigation: 'none',
+    description:
+      'Joining a workspace from an invitation in the sign-in card: who invited you, the workspace and creating your account.',
+  },
+  {
+    id: 'integrations',
+    title: 'Integrations',
+    direction: 'canvas',
+    navigation: 'top-bar',
+    description:
+      'The apps a workspace can connect, on a grey canvas: categories and search, connected ones first, and connecting a new one.',
+  },
+  {
+    id: 'plans',
+    title: 'Plans',
+    direction: 'flat',
+    navigation: 'takeover',
+    description:
+      'Choosing a plan over the app: monthly or yearly, three plans side by side, and a feature comparison.',
+  },
+  {
+    id: 'notifications',
+    title: 'Notifications',
+    direction: 'frame',
+    navigation: 'sidebar',
+    description:
+      'An inbox of notifications: unread first, grouped by day, filters, and acting on one without leaving.',
+  },
+  {
+    id: 'report',
+    title: 'Report',
+    direction: 'flat',
+    navigation: 'sidebar',
+    description: 'A report page: a date range, several charts, a breakdown table and an export.',
+  },
 ];
 
 /** A part that opens over a screen. It belongs to no direction: it keeps its own look over any. */
