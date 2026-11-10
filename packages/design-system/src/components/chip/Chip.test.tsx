@@ -1,4 +1,4 @@
-import { RiCloseLine } from '@remixicon/react';
+import { RiCloseLine, RiMapPinLine } from '@remixicon/react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { createRef } from 'react';
@@ -399,6 +399,31 @@ describe('Chip Snapshots', () => {
           expect(container.firstChild).toMatchSnapshot();
         });
       });
+    });
+  });
+
+  describe('Composition', () => {
+    it('matches snapshot for an action with a leading icon and removal button', () => {
+      const { container } = render(
+        <Chip>
+          <Chip.Action>
+            <Chip.Icon icon={RiMapPinLine} />
+            <Chip.Label>Warsaw</Chip.Label>
+          </Chip.Action>
+          <Chip.IconButton aria-label="Remove Warsaw" />
+        </Chip>,
+      );
+      expect(container.firstChild).toMatchSnapshot();
+    });
+
+    it('matches snapshot for a passive label with a removal button', () => {
+      const { container } = render(
+        <Chip>
+          <Chip.Label>Warsaw</Chip.Label>
+          <Chip.IconButton aria-label="Remove Warsaw" />
+        </Chip>,
+      );
+      expect(container.firstChild).toMatchSnapshot();
     });
   });
 });

@@ -38,12 +38,25 @@ const meta = {
 Use it when users need to scan or toggle a short piece of metadata, or dismiss a selected value.
 Do not use it for long text. Use Button for primary or more prominent actions.
 
-**Optional composition:**
-- \`Chip\` is a passive container controlling size, variant, style, and disabled state.
-- \`Chip.Action\` is the optional main button; place the icon and label inside it.
-- \`Chip.Icon\` is a decorative leading icon.
-- \`Chip.Label\` holds the text, inside Action or directly inside Chip.
-- \`Chip.IconButton\` is an optional sibling removal button with its own accessible name.
+**Composition:**
+\`\`\`
+<Chip>                  — passive root; controls appearance and disabled state
+  <Chip.Action>         — optional main button; consumer supplies onClick
+    <Chip.Icon />       — optional decorative leading icon
+    <Chip.Label />      — text label
+  </Chip.Action>
+  <Chip.IconButton />    — optional removal button; supply onClick and an accessible name
+</Chip>
+\`\`\`
+
+**Without a main action:**
+\`\`\`
+<Chip>                  — passive root
+  <Chip.Icon />         — optional decorative leading icon
+  <Chip.Label />        — non-interactive text label
+  <Chip.IconButton />    — optional removal button; supply onClick and an accessible name
+</Chip>
+\`\`\`
 
 Use Tag for descriptive labels and StatusBadge for non-interactive status.`,
       },

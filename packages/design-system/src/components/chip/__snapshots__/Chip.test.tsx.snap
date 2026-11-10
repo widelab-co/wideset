@@ -1,5 +1,102 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`Chip Snapshots > Composition > matches snapshot for a passive label with a removal button 1`] = `
+<div
+  class="group/chip relative isolate inline-flex min-w-0 items-center has-[[data-slot=chip-action]]:p-0 has-[[data-slot=chip-action]:focus-visible]:wds-focus-visible has-[[data-slot=chip-action]:focus-visible]:outline-ws-dynamic-primary-strong-default rounded-ws-control-lg typography-label-strong-sm h-ws-14 gap-ws-3 px-ws-6 py-ws-2 bg-ws-dynamic-primary-default data-disabled:bg-ws-dynamic-primary-disabled has-[[data-slot=chip-action]:enabled:hover]:bg-ws-dynamic-primary-hover has-[[data-slot=chip-action]:enabled:active]:bg-ws-dynamic-primary-pressed text-ws-dynamic-on-primary-default data-disabled:text-ws-dynamic-on-primary-disabled has-[[data-slot=chip-action]:enabled:hover]:text-ws-dynamic-on-primary-hover has-[[data-slot=chip-action]:enabled:active]:text-ws-dynamic-on-primary-pressed transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+  data-slot="chip"
+>
+  <span
+    class="min-w-0 truncate"
+    data-slot="chip-label"
+  >
+    Warsaw
+  </span>
+  <button
+    aria-label="Remove Warsaw"
+    class="whitespace-nowrap box-border relative inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:cursor-default px-0 typography-caption-strong-md gap-ws-2 rounded-ws-control-md outline-ws-dynamic-primary-strong-default disabled:bg-none transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small) shrink-0 bg-transparent text-current shadow-none focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-current disabled:pointer-events-auto disabled:bg-transparent disabled:text-current group-has-[[data-slot=chip-action]]/chip:absolute group-has-[[data-slot=chip-action]]/chip:top-1/2 group-has-[[data-slot=chip-action]]/chip:z-[1] group-has-[[data-slot=chip-action]]/chip:-translate-y-1/2 size-ws-11 group-has-[[data-slot=chip-action]]/chip:end-ws-6 hover:bg-ws-dynamic-primary-hover active:bg-ws-dynamic-primary-pressed hover:text-ws-dynamic-on-primary-hover active:text-ws-dynamic-on-primary-pressed"
+    data-slot="chip-icon-button"
+    type="button"
+  >
+    <svg
+      aria-hidden="true"
+      class="remixicon shrink-0 h-ws-9 w-ws-9"
+      data-slot="button-icon"
+      fill="currentColor"
+      focusable="false"
+      height="24"
+      viewBox="0 0 24 24"
+      width="24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M11.9997 10.5865L16.9495 5.63672L18.3637 7.05093L13.4139 12.0007L18.3637 16.9504L16.9495 18.3646L11.9997 13.4149L7.04996 18.3646L5.63574 16.9504L10.5855 12.0007L5.63574 7.05093L7.04996 5.63672L11.9997 10.5865Z"
+      />
+    </svg>
+  </button>
+</div>
+`;
+
+exports[`Chip Snapshots > Composition > matches snapshot for an action with a leading icon and removal button 1`] = `
+<div
+  class="group/chip relative isolate inline-flex min-w-0 items-center has-[[data-slot=chip-action]]:p-0 has-[[data-slot=chip-action]:focus-visible]:wds-focus-visible has-[[data-slot=chip-action]:focus-visible]:outline-ws-dynamic-primary-strong-default rounded-ws-control-lg typography-label-strong-sm h-ws-14 gap-ws-3 px-ws-6 py-ws-2 bg-ws-dynamic-primary-default data-disabled:bg-ws-dynamic-primary-disabled has-[[data-slot=chip-action]:enabled:hover]:bg-ws-dynamic-primary-hover has-[[data-slot=chip-action]:enabled:active]:bg-ws-dynamic-primary-pressed text-ws-dynamic-on-primary-default data-disabled:text-ws-dynamic-on-primary-disabled has-[[data-slot=chip-action]:enabled:hover]:text-ws-dynamic-on-primary-hover has-[[data-slot=chip-action]:enabled:active]:text-ws-dynamic-on-primary-pressed transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+  data-slot="chip"
+>
+  <button
+    class="inline-flex min-w-0 flex-1 cursor-pointer items-center justify-center self-stretch rounded-[inherit] bg-transparent text-inherit outline-none disabled:pointer-events-none disabled:cursor-default gap-ws-3 px-ws-6 py-ws-2 group-has-[[data-slot=chip-icon-button]]/chip:pe-[calc(var(--spacing-ws-6)+var(--spacing-ws-3)+var(--spacing-ws-11))] disabled:text-ws-dynamic-on-primary-disabled transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+    data-slot="chip-action"
+    type="button"
+  >
+    <span
+      class="inline-flex shrink-0 items-center justify-center size-ws-9"
+      data-slot="chip-icon"
+    >
+      <svg
+        aria-hidden="true"
+        class="remixicon size-ws-9 text-ws-dynamic-on-primary-default group-data-disabled/chip:text-ws-dynamic-on-primary-disabled"
+        fill="currentColor"
+        focusable="false"
+        height="24"
+        viewBox="0 0 24 24"
+        width="24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M12 20.8995L16.9497 15.9497C19.6834 13.2161 19.6834 8.78392 16.9497 6.05025C14.2161 3.31658 9.78392 3.31658 7.05025 6.05025C4.31658 8.78392 4.31658 13.2161 7.05025 15.9497L12 20.8995ZM12 23.7279L5.63604 17.364C2.12132 13.8492 2.12132 8.15076 5.63604 4.63604C9.15076 1.12132 14.8492 1.12132 18.364 4.63604C21.8787 8.15076 21.8787 13.8492 18.364 17.364L12 23.7279ZM12 13C13.1046 13 14 12.1046 14 11C14 9.89543 13.1046 9 12 9C10.8954 9 10 9.89543 10 11C10 12.1046 10.8954 13 12 13ZM12 15C9.79086 15 8 13.2091 8 11C8 8.79086 9.79086 7 12 7C14.2091 7 16 8.79086 16 11C16 13.2091 14.2091 15 12 15Z"
+        />
+      </svg>
+    </span>
+    <span
+      class="min-w-0 truncate"
+      data-slot="chip-label"
+    >
+      Warsaw
+    </span>
+  </button>
+  <button
+    aria-label="Remove Warsaw"
+    class="whitespace-nowrap box-border relative inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:cursor-default px-0 typography-caption-strong-md gap-ws-2 rounded-ws-control-md outline-ws-dynamic-primary-strong-default disabled:bg-none transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small) shrink-0 bg-transparent text-current shadow-none focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-current disabled:pointer-events-auto disabled:bg-transparent disabled:text-current group-has-[[data-slot=chip-action]]/chip:absolute group-has-[[data-slot=chip-action]]/chip:top-1/2 group-has-[[data-slot=chip-action]]/chip:z-[1] group-has-[[data-slot=chip-action]]/chip:-translate-y-1/2 size-ws-11 group-has-[[data-slot=chip-action]]/chip:end-ws-6 hover:bg-ws-dynamic-primary-hover active:bg-ws-dynamic-primary-pressed hover:text-ws-dynamic-on-primary-hover active:text-ws-dynamic-on-primary-pressed"
+    data-slot="chip-icon-button"
+    type="button"
+  >
+    <svg
+      aria-hidden="true"
+      class="remixicon shrink-0 h-ws-9 w-ws-9"
+      data-slot="button-icon"
+      fill="currentColor"
+      focusable="false"
+      height="24"
+      viewBox="0 0 24 24"
+      width="24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M11.9997 10.5865L16.9495 5.63672L18.3637 7.05093L13.4139 12.0007L18.3637 16.9504L16.9495 18.3646L11.9997 13.4149L7.04996 18.3646L5.63574 16.9504L10.5855 12.0007L5.63574 7.05093L7.04996 5.63672L11.9997 10.5865Z"
+      />
+    </svg>
+  </button>
+</div>
+`;
+
 exports[`Chip Snapshots > Disabled state > matches snapshot for disabled chip 1`] = `
 <div
   class="group/chip relative isolate inline-flex min-w-0 items-center has-[[data-slot=chip-action]]:p-0 has-[[data-slot=chip-action]:focus-visible]:wds-focus-visible has-[[data-slot=chip-action]:focus-visible]:outline-ws-dynamic-primary-strong-default rounded-ws-control-lg typography-label-strong-sm h-ws-14 gap-ws-3 px-ws-6 py-ws-2 bg-ws-dynamic-primary-default data-disabled:bg-ws-dynamic-primary-disabled has-[[data-slot=chip-action]:enabled:hover]:bg-ws-dynamic-primary-hover has-[[data-slot=chip-action]:enabled:active]:bg-ws-dynamic-primary-pressed text-ws-dynamic-on-primary-default data-disabled:text-ws-dynamic-on-primary-disabled has-[[data-slot=chip-action]:enabled:hover]:text-ws-dynamic-on-primary-hover has-[[data-slot=chip-action]:enabled:active]:text-ws-dynamic-on-primary-pressed transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
