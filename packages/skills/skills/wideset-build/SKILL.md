@@ -61,7 +61,7 @@ Choose by what the thing does. These pairs get mixed up most:
 
 ## What compiles and still breaks
 
-- `Sidebar.Section` renders nothing without a `Sidebar.Expanded` or `Sidebar.Collapsed` child for the current mode. Give it both.
+- `Sidebar` is one tree for both modes: put the nav and `Sidebar.Trigger` straight into `Sidebar.Header` / `Sidebar.Section`. `Sidebar.Expanded` and `Sidebar.Collapsed` wrap only what exists in one mode; never duplicate the nav in both.
 - A trigger wrapping your `Button` needs `asChild`; without it a button nests in a button.
 - `persistent`, `showCloseButton` and `autoFocusOnOpen` go on `Modal.Content`, not on `Modal`.
 - `Modal.Close asChild` closes at once. For a save that can fail, control `open` and close it yourself.

@@ -6,13 +6,13 @@ The patterns, the component group pages and each component's good practices are 
 
 ## Install
 
-| Channel                                      | Command                                                                        |
-| -------------------------------------------- | ------------------------------------------------------------------------------ |
-| shadcn registry                              | `npx shadcn@latest add https://wideset-docs.widelab.workers.dev/r/skills.json` |
-| Skills CLI                                   | `npx skills add widelab-co/wideset/packages/skills`                            |
-| Skills CLI, from the docs site               | `npx skills add https://wideset-docs.widelab.workers.dev`                      |
-| Wideset CLI, with `@wideset/react` installed | `npx --no-install wideset skills`                                              |
-| npm                                          | `npm install -D @wideset/skills`, then `npx skills experimental_sync -y`       |
+| Channel                        | Command                                                                        |
+| ------------------------------ | ------------------------------------------------------------------------------ |
+| shadcn registry                | `npx shadcn@latest add https://wideset-docs.widelab.workers.dev/r/skills.json` |
+| Skills CLI                     | `npx skills add widelab-co/wideset/packages/skills`                            |
+| Skills CLI, from the docs site | `npx skills add https://wideset-docs.widelab.workers.dev`                      |
+| Wideset CLI                    | `npx wideset skills`                                                           |
+| npm                            | `npm install -D @wideset/skills`, then `npx skills experimental_sync -y`       |
 
 The Wideset CLI adds the skills to `.agents/skills/`, and to `.claude/skills/` when the project uses Claude Code. It writes `AGENTS.wideset.md` and points your `AGENTS.md` at it with one line. Running it again updates the files and changes nothing else. With the shadcn registry, add that line yourself: `See AGENTS.wideset.md for Wideset rules.` For Claude Code, also add `https://wideset-docs.widelab.workers.dev/r/skills-claude.json`, and `@AGENTS.wideset.md` to `CLAUDE.md`.
 

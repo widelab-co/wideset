@@ -123,11 +123,7 @@ const InstallTabs = ({ id, files }: { id: string; files: ManualFiles }) => (
       </Tabs.List>
     </TabRow>
     <Tabs.Content value="cli" className="pt-ws-8">
-      <CodeBlock
-        code={`npx shadcn@latest add https://wideset-docs.widelab.workers.dev/r/${id}.json`}
-        lang="bash"
-        prompt
-      />
+      <CodeBlock code={`npx wideset add ${id}`} lang="bash" prompt />
     </Tabs.Content>
     <Tabs.Content value="manual" className="pt-ws-9">
       <ol>

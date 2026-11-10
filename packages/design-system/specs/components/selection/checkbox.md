@@ -74,14 +74,14 @@ Keep one size within a group.
 
 - The label states what turning it on does, in sentence case, no trailing period: "Email me about
   product updates", not "Don't email me".
-- The description is one short line. With the shorthand it is read as part of the name.
+- The description is one short line. It is read after the label, not as part of the name.
 - With `danger`, the label must name the consequence; the colour is only a hint.
 
 ## Accessibility
 
 - Always a visible label, except where a column header or row already names it: then `aria-label`.
-- The shorthand `description` sits inside the label. The composed `Checkbox.Description` does not:
-  give it an `id` and point the checkbox's `aria-describedby` at it.
+- The description, shorthand or `Checkbox.Description`, sits outside the label and is linked to the
+  checkbox with `aria-describedby` for you. Your own `aria-describedby` is kept alongside it.
 - Indeterminate is announced as "mixed".
 - Inside `FormField`, the field links its helper or error text to the checkbox and sets
   `aria-invalid` on error; pass `id` and the field's `htmlFor`.

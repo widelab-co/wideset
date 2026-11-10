@@ -54,7 +54,7 @@ export const Default: Story = {
     },
   },
   render: (args) => (
-    <Checkbox.Group {...args}>
+    <Checkbox.Group aria-label="Options" {...args}>
       <Checkbox label="Option 1" description="Description of option 1" />
       <Checkbox label="Option 2" description="Description of option 2" />
       <Checkbox label="Option 3" description="Description of option 3" />
@@ -77,7 +77,7 @@ export const Horizontal: Story = {
     },
   },
   render: (args) => (
-    <CheckboxGroup {...args}>
+    <CheckboxGroup aria-label="Options" {...args}>
       <Checkbox label="Option 1" />
       <Checkbox label="Option 2" />
       <Checkbox label="Option 3" />
@@ -99,7 +99,7 @@ export const Composition: Story = {
     },
   },
   render: (args) => (
-    <CheckboxGroup {...args}>
+    <CheckboxGroup aria-label="Options" {...args}>
       <Checkbox id="checkbox-comp-1" disabled>
         <Checkbox.Label htmlFor="checkbox-comp-1">Checkbox 1 (disabled)</Checkbox.Label>
         <Checkbox.Description>This checkbox is disabled</Checkbox.Description>
