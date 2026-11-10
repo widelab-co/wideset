@@ -4,7 +4,7 @@ Stacking uses named bands (`z-ws-sticky`, `z-ws-modal`), never numbers. Componen
 bands, so a Tooltip or Select list opened inside a Modal always clears it; the lower bands are
 for your page layout.
 
-Docs: `https://wideset-docs.widelab.workers.dev/docs/elevation` · Source:
+Docs: `https://wideset.co/docs/elevation` · Source:
 `packages/design-system/src/styles/utilities/z-index.css`
 
 ## Bands

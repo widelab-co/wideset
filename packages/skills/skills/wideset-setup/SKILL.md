@@ -76,11 +76,11 @@ Without the Wideset CLI, the shadcn CLI does the copying; you do not need shadcn
     "hooks": "@/hooks",
     "utils": "@/lib/utils"
   },
-  "registries": { "@wideset": "https://wideset-docs.widelab.workers.dev/r/{name}.json" }
+  "registries": { "@wideset": "https://wideset.co/r/{name}.json" }
 }
 ```
 
-A project already using shadcn keeps its file and runs `npx shadcn@latest registry add @wideset=https://wideset-docs.widelab.workers.dev/r/{name}.json`.
+A project already using shadcn keeps its file and runs `npx shadcn@latest registry add @wideset=https://wideset.co/r/{name}.json`.
 
 Every component brings `styles/wideset.css`. Import it once in the app entry:
 
@@ -90,7 +90,7 @@ import '@/styles/wideset.css';
 
 Apps without Tailwind also add `@wideset/preflight` and import `@/styles/wideset-preflight.css` first. For your own Tailwind build, add `@wideset/theme` and import `./styles/wideset-theme.css` after `tailwindcss` in the entry CSS.
 
-Shared code comes along with the components that need it. The list of items is `https://wideset-docs.widelab.workers.dev/r/registry.json`.
+Shared code comes along with the components that need it. The list of items is `https://wideset.co/r/registry.json`.
 
 ## Font
 
@@ -147,7 +147,7 @@ Everything visual resolves from CSS variables, so rebrand with a stylesheet load
 }
 ```
 
-Override primitives (`--ws-colors-*`) first: every role and class built on them follows. Use `className` for a one-off instance, and composition to change structure. Check the primitive names at `https://wideset-docs.widelab.workers.dev/docs/theming.md` before overriding.
+Override primitives (`--ws-colors-*`) first: every role and class built on them follows. Use `className` for a one-off instance, and composition to change structure. Check the primitive names at `https://wideset.co/docs/theming.md` before overriding.
 
 ## Check the result
 

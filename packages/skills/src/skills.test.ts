@@ -227,9 +227,7 @@ describe('generated files', () => {
       )
         continue;
       for (const [, target] of content.matchAll(/\]\(([^)\s#]+\.md)(?:#[^)\s]*)?\)/g)) {
-        const page = target.match(
-          /^https:\/\/wideset-docs\.widelab\.workers\.dev\/docs\/([a-z-]+)\.md$/,
-        )?.[1];
+        const page = target.match(/^https:\/\/wideset\.co\/docs\/([a-z-]+)\.md$/)?.[1];
         if (page && existsSync(join(REPO, `apps/docs/src/content/docs/${page}.mdx`))) continue;
         if (/^[a-z]+:/i.test(target)) broken.push(`${path} → ${target}`);
         else {

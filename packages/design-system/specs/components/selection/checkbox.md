@@ -5,7 +5,7 @@ group: selection
 status: stable
 parts: [Checkbox, CheckboxLabel, CheckboxDescription]
 related: [CheckboxGroup, Switch, RadioButton, TileCheckbox, MultiSelect]
-docs: https://wideset-docs.widelab.workers.dev/components/checkbox
+docs: https://wideset.co/components/checkbox
 storybook: components-checkbox-checkbox--default
 ---
 
@@ -124,5 +124,5 @@ const state =
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/checkbox.md` · Types:
+Full props: `https://wideset.co/components/checkbox.md` · Types:
 `packages/design-system/src/components/checkbox/Checkbox.types.ts`

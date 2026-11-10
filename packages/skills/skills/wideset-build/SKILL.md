@@ -6,7 +6,7 @@ license: Apache-2.0
 
 # Build with Wideset
 
-The component source is in the project, or at `https://wideset-docs.widelab.workers.dev/components/<id>.md`. Read it for exact props. This skill holds what source cannot tell you: which component fits, how they combine, and what breaks without an error.
+The component source is in the project, or at `https://wideset.co/components/<id>.md`. Read it for exact props. This skill holds what source cannot tell you: which component fits, how they combine, and what breaks without an error.
 
 The pages here and on the docs site are written once. Their examples import from `@wideset/react`. In registry mode (`components/ui/wideset/` in the source) keep the code and take each import from [registry-imports](references/registry-imports.md), since paths cannot be guessed from names.
 
@@ -80,7 +80,7 @@ Choose by what the thing does. These pairs get mixed up most:
 
 ## Styling and content
 
-Style only with `ws` classes, and let components own their looks: `className` is for layout. Look up a token at `https://wideset-docs.widelab.workers.dev/docs/tokens.md`.
+Style only with `ws` classes, and let components own their looks: `className` is for layout. Look up a token at `https://wideset.co/docs/tokens.md`.
 
 For how a finished screen should look, and for the rules on token choice, focus, icons, words and responsive layout, load `wideset-craft`.
 

@@ -5,7 +5,7 @@ group: feedback
 status: stable
 parts: [ProgressTracker, ProgressTrackerStep]
 related: [ProgressStepper, ProgressBar, Tooltip]
-docs: https://wideset-docs.widelab.workers.dev/components/progress-tracker
+docs: https://wideset.co/components/progress-tracker
 storybook: components-progresstracker--default
 ---
 
@@ -101,5 +101,5 @@ takes `Tooltip.Content` props.
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/progress-tracker.md` · Types:
+Full props: `https://wideset.co/components/progress-tracker.md` · Types:
 `packages/design-system/src/components/progress-tracker/ProgressTracker.types.ts`

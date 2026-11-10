@@ -5,7 +5,7 @@ group: selection
 status: stable
 parts: [Slider, SliderLabel]
 related: [TextInput, SegmentedControl, ProgressBar]
-docs: https://wideset-docs.widelab.workers.dev/components/slider
+docs: https://wideset.co/components/slider
 storybook: components-slider--default
 ---
 
@@ -122,5 +122,5 @@ const [value, setValue] = useState([20, 80]);
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/slider.md` · Types:
+Full props: `https://wideset.co/components/slider.md` · Types:
 `packages/design-system/src/components/slider/Slider.types.ts`
