@@ -159,9 +159,9 @@ Production on `wideset.co`:
   Action: dynamic redirect to `concat("https://www.wideset.co", http.request.uri.path)`, 301,
   preserve query string.
 
-- `workers_dev` stays `true` on `wideset-docs` and `wideset-storybook`. Their workers.dev
-  addresses were in the public docs, the README and the skills before wideset.co, so
-  `wideset-docs.<account>.workers.dev/r` keeps serving installs that still point there.
+- The production Workers `wideset-docs` and `wideset-storybook` have `workers_dev: false`: they
+  answer only on wideset.co and storybook.wideset.co, and the old workers.dev addresses are
+  retired. The `-develop` Workers keep workers.dev, which the PR previews need.
 
 ---
 

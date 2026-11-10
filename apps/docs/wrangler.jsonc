@@ -17,11 +17,10 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "wideset-docs",
   "compatibility_date": "2026-10-01",
-  // Keep the workers.dev origin: its /r was the public registry address before wideset.co (docs,
-  // README, skills), and installs that still point there must keep working. Its pages point
-  // search engines at wideset.co with a canonical link.
-  "workers_dev": true,
-  "preview_urls": true,
+  // Production lives on wideset.co only: the old workers.dev address is retired. Previews run on
+  // the develop Worker, which keeps its workers.dev address.
+  "workers_dev": false,
+  "preview_urls": false,
   "routes": [
     { "pattern": "wideset.co/docs*", "zone_name": "wideset.co" },
     { "pattern": "wideset.co/components*", "zone_name": "wideset.co" },
