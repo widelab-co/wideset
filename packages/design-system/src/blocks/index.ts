@@ -1,7 +1,8 @@
 /**
  * The blocks, in reading order: whole screens to start a new app from (`BLOCKS`) and the panels
- * that open over any of them (`PANELS`), one per folder beside this file, each rebuilt 1:1 from the
- * Wideset Core Figma file. The docs site and the tests read these lists; a folder missing from them
+ * that open over any of them (`PANELS`), one per folder beside this file, rebuilt 1:1 from the
+ * Wideset Core Figma file or, from Analytics on, composed from Wideset without a Figma screen (see
+ * README.md). The docs site and the tests read these lists; a folder missing from them
  * (or the other way round) fails `src/__tests__/blocks.test.tsx`.
  */
 export type BlockDirection = 'flat' | 'frame' | 'inset' | 'canvas';
@@ -118,6 +119,62 @@ export const BLOCKS: BlockMeta[] = [
     navigation: 'top-bar',
     description:
       'A wallet on a grey canvas: a swap form, the balance with a chart, transactions and a distribution.',
+  },
+  {
+    id: 'analytics',
+    title: 'Analytics',
+    direction: 'flat',
+    navigation: 'sidebar',
+    description:
+      'A product analytics overview: a period switch, four key figures with their change, a trend chart and the top pages.',
+  },
+  {
+    id: 'sales-overview',
+    title: 'Sales overview',
+    direction: 'canvas',
+    navigation: 'top-bar',
+    description:
+      'Sales against target on a grey canvas: key figures with sparklines, the pipeline by stage and the deals closing this month.',
+  },
+  {
+    id: 'customers',
+    title: 'Customers',
+    direction: 'flat',
+    navigation: 'sidebar',
+    description:
+      'A list of customers to work through: search, filters and tabs with counts, a table with selection and actions on the selected rows.',
+  },
+  {
+    id: 'customer-detail',
+    title: 'Customer detail',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'One customer’s record on a raised page: a header with actions, key facts, tabs over open deals and an activity timeline.',
+  },
+  {
+    id: 'billing',
+    title: 'Billing',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'A workspace’s plan and usage on a raised page: usage against limits, the payment method, a failed payment to retry and the invoices.',
+  },
+  {
+    id: 'settings',
+    title: 'Settings',
+    direction: 'frame',
+    navigation: 'sidebar',
+    description:
+      'Workspace settings: a list of sections beside forms for the profile, the workspace and notifications, and a danger zone.',
+  },
+  {
+    id: 'team',
+    title: 'Team',
+    direction: 'frame',
+    navigation: 'sidebar',
+    description:
+      'The people in a workspace: members with their roles, pending invitations and inviting someone new.',
   },
 ];
 
