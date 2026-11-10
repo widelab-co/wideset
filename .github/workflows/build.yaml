@@ -107,6 +107,7 @@ jobs:
   # (REGISTRY_URL), the docs their site and Storybook links. The environments' variables
   # DOCS_URL / STORYBOOK_URL hold the custom domains; unset, the workers.dev address is used.
   # Needs: secrets CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID; variable CF_WORKERS_SUBDOMAIN.
+  # Optional: variables CF_ANALYTICS_TOKEN_DOCS, CF_ANALYTICS_TOKEN_STORYBOOK (analytics).
   deploy:
     name: Deploy ${{ matrix.app }}
     needs: build
@@ -135,9 +136,11 @@ jobs:
           - app: storybook
             dir: packages/design-system
             build: pnpm build:storybook
+            analytics_token: CF_ANALYTICS_TOKEN_STORYBOOK
           - app: docs
             dir: apps/docs
             build: pnpm turbo run build --filter=@wideset/docs
+            analytics_token: CF_ANALYTICS_TOKEN_DOCS
 
     steps:
       - uses: actions/checkout@v4
@@ -198,12 +201,14 @@ jobs:
           echo "$mode: docs ${docs}, storybook ${storybook}"
 
       # Turbo passes these through (turbo.json `env`). The registry lives on the docs host, in
-      # both builds, so Storybook's copy points at the same items.
+      # both builds, so Storybook's copy points at the same items. The analytics token goes to
+      # production only, so staging and previews stay out of the numbers.
       - name: Build
         env:
           REGISTRY_URL: ${{ steps.target.outputs.docs }}/r
           DOCS_URL: ${{ steps.target.outputs.docs }}
           PUBLIC_STORYBOOK_URL: ${{ steps.target.outputs.storybook }}
+          PUBLIC_CF_ANALYTICS_TOKEN: ${{ steps.target.outputs.mode == 'production' && vars[matrix.analytics_token] || '' }}
         run: ${{ matrix.build }}
 
       - name: Deploy to Cloudflare

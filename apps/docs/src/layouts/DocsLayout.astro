@@ -47,6 +47,8 @@ const hasRail = Astro.slots.has('rail');
  */
 const gallery = frame && full;
 const hasToc = (frame && !gallery) || Astro.slots.has('toc');
+/** Cloudflare Web Analytics. Only production builds get a token (the deploy job in build.yaml). */
+const analyticsToken = import.meta.env.PUBLIC_CF_ANALYTICS_TOKEN;
 ---
 
 <html lang="en">
@@ -68,6 +70,14 @@ const hasToc = (frame && !gallery) || Astro.slots.has('toc');
         document.documentElement.classList.toggle('dark', dark);
       } catch (e) {}
     </script>
+    {analyticsToken && (
+      <script
+        is:inline
+        defer
+        src="https://static.cloudflareinsights.com/beacon.min.js"
+        data-cf-beacon={JSON.stringify({ token: analyticsToken })}
+      />
+    )}
   </head>
   <body class="min-h-screen">
     <TopBar area={area} />
