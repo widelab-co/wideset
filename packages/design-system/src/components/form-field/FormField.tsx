@@ -2,6 +2,7 @@ import * as React from 'react';
 import { cn } from 'src/lib/utils';
 
 import { FieldLabel } from '../field-label/FieldLabel';
+import { hasContent } from '../field-label/FieldLabel.logic';
 import { HelperText } from '../helper-text/HelperText';
 import type { FormFieldProps } from './FormField.types';
 import {
@@ -10,8 +11,6 @@ import {
   formFieldLabelVariants,
   formFieldVariants,
 } from './FormField.variants';
-
-const hasContent = (node: React.ReactNode) => node != null && node !== false && node !== '';
 
 export const FormField = React.forwardRef<HTMLDivElement | HTMLFieldSetElement, FormFieldProps>(
   (
@@ -69,7 +68,7 @@ export const FormField = React.forwardRef<HTMLDivElement | HTMLFieldSetElement, 
           <div data-slot="form-field-label-row" className={formFieldLabelRowVariants()}>
             <FieldLabel {...props}>
               {label}
-              {suffix && (
+              {hasContent(suffix) && (
                 <>
                   {' '}
                   <FieldLabel.Suffix>{suffix}</FieldLabel.Suffix>

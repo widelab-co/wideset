@@ -1,13 +1,12 @@
 import * as React from 'react';
 import { cn } from 'src/lib/utils';
 
+import { hasContent } from './FieldLabel.logic';
 import type { FieldLabelProps, FieldLabelWithSubComponents } from './FieldLabel.types';
 import { FieldLabelAside } from './FieldLabelAside';
 import { FieldLabelDescription } from './FieldLabelDescription';
 import { FieldLabelSuffix } from './FieldLabelSuffix';
 import { FieldLabelTooltip } from './FieldLabelTooltip';
-
-const hasContent = (node: React.ReactNode) => node != null && node !== false && node !== '';
 
 export const FieldLabel = React.forwardRef<HTMLLabelElement, FieldLabelProps>(
   (

@@ -40,7 +40,7 @@ export type FieldLabelTooltipProps = Omit<ButtonHTMLAttributes<HTMLButtonElement
 
 export type FieldLabelAsideProps = HTMLAttributes<HTMLDivElement>;
 
-export type FieldLabelDescriptionProps = HTMLAttributes<HTMLParagraphElement>;
+export type FieldLabelDescriptionProps = HTMLAttributes<HTMLDivElement>;
 
 export type FieldLabelWithSubComponents = ForwardRefExoticComponent<
   PropsWithoutRef<FieldLabelProps> & RefAttributes<HTMLLabelElement>

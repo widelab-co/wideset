@@ -15,7 +15,7 @@ export const FieldLabelTooltip = React.forwardRef<HTMLButtonElement, FieldLabelT
           data-slot="field-label-tooltip"
           aria-label={ariaLabel}
           className={cn(
-            'text-ws-static-subtle focus-visible:wds-focus-visible inline-flex shrink-0 items-center justify-center rounded-full',
+            'text-ws-static-subtle focus-visible:wds-focus-visible h-ws-11 inline-flex shrink-0 items-center justify-center rounded-full',
             className,
           )}
           {...props}

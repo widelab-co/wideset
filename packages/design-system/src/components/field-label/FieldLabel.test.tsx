@@ -184,13 +184,13 @@ describe('FieldLabel', () => {
     });
 
     it('forwards the ref and rest props', () => {
-      const ref = createRef<HTMLParagraphElement>();
+      const ref = createRef<HTMLDivElement>();
       render(
         <FieldLabel.Description ref={ref} id="desc" className="custom-class">
           This is a description
         </FieldLabel.Description>,
       );
-      expect(ref.current).toBeInstanceOf(HTMLParagraphElement);
+      expect(ref.current).toBeInstanceOf(HTMLDivElement);
       expect(screen.getByText('This is a description')).toHaveAttribute('id', 'desc');
       expect(screen.getByText('This is a description')).toHaveClass('custom-class');
     });

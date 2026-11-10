@@ -27,7 +27,7 @@ exports[`FieldLabel > Snapshots > matches snapshot for a composed label row 1`] 
   </label>
   <button
     aria-label="More information"
-    class="text-ws-static-subtle focus-visible:wds-focus-visible inline-flex shrink-0 items-center justify-center rounded-full"
+    class="text-ws-static-subtle focus-visible:wds-focus-visible h-ws-11 inline-flex shrink-0 items-center justify-center rounded-full"
     data-slot="field-label-tooltip"
     data-state="closed"
     type="button"
@@ -53,12 +53,12 @@ exports[`FieldLabel > Snapshots > matches snapshot for a composed label row 1`] 
   >
     0/100
   </div>
-  <p
+  <div
     class="text-ws-static-subtle typography-body-md basis-full"
     data-slot="field-label-description"
   >
     This is a description
-  </p>
+  </div>
 </div>
 `;
 
@@ -130,7 +130,7 @@ exports[`FieldLabel > Snapshots > matches snapshot for required label 1`] = `
 exports[`FieldLabel > Snapshots > matches snapshot for the tooltip button 1`] = `
 <button
   aria-label="More information"
-  class="text-ws-static-subtle focus-visible:wds-focus-visible inline-flex shrink-0 items-center justify-center rounded-full"
+  class="text-ws-static-subtle focus-visible:wds-focus-visible h-ws-11 inline-flex shrink-0 items-center justify-center rounded-full"
   data-slot="field-label-tooltip"
   data-state="closed"
   type="button"

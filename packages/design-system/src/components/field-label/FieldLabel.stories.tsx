@@ -67,11 +67,13 @@ export const WithSuffix: Story = {
 
 export const WithTooltipAndDescription: Story = {
   render: () => (
-    <div className="gap-ws-3 flex w-[20rem] flex-wrap items-center">
-      <FieldLabel>Field Label</FieldLabel>
-      <FieldLabel.Tooltip>
-        This is a helpful tooltip that provides additional information about the field.
-      </FieldLabel.Tooltip>
+    <div className="gap-ws-3 flex w-[20rem] flex-col">
+      <div className="gap-ws-3 flex items-start">
+        <FieldLabel>Field Label</FieldLabel>
+        <FieldLabel.Tooltip>
+          This is a helpful tooltip that provides additional information about the field.
+        </FieldLabel.Tooltip>
+      </div>
       <FieldLabel.Description>
         This is a description that appears below the label to provide more context.
       </FieldLabel.Description>
