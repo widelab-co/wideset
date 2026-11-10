@@ -12,6 +12,7 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "wideset-storybook",
   "compatibility_date": "2026-10-01",
+  // Keep the workers.dev address: it was the public Storybook link before storybook.wideset.co.
   "workers_dev": true,
   "preview_urls": true,
   // A custom domain: the first deploy creates the DNS record and the certificate.

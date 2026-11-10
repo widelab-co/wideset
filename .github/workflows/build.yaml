@@ -234,10 +234,19 @@ jobs:
         if: steps.deploy.outputs.skipped != 'true'
         env:
           APP: ${{ matrix.app }}
+          MODE: ${{ steps.target.outputs.mode }}
           URL: ${{ steps.target.outputs.app_url }}
+        # One path per route in apps/docs/wrangler.jsonc: the zone's Redirect Rule runs before the
+        # routes, so a path it fails to exclude lands on www. In production the docs are checked on
+        # https://wideset.co itself, the host the CLI and the registry items point at, whatever
+        # DOCS_URL says.
         run: |
           if [ "$APP" = docs ]; then
-            checks="$URL/r/registry.json|application/json $URL/docs/introduction|text/html $URL/llms.txt|text/plain"
+            [ "$MODE" = production ] && URL=https://wideset.co
+            checks="$URL/r/registry.json|application/json $URL/docs/introduction|text/html
+              $URL/components/button.md|text/markdown $URL/_docs/favicon.png|image/png
+              $URL/llms.txt|text/plain $URL/llms-full.txt|text/plain
+              $URL/.well-known/agent-skills/index.json|application/json"
           else
             checks="$URL/|text/html"
           fi

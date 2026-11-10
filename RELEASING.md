@@ -147,8 +147,21 @@ Production on `wideset.co`:
   the account.
 - The apex `wideset.co` record is **proxied** (orange cloud). Routes run only on proxied
   hostnames; DNS-only, the deploy succeeds and the post-deploy check fails.
-- A Redirect Rule on the zone sends every other path on `wideset.co` to `www.wideset.co`, the
-  landing page. Landing pages must not use paths starting with `/docs` or `/components`.
+- A Redirect Rule on the zone (Rules → Redirect Rules, dashboard only) sends every other path on
+  `wideset.co` to `www.wideset.co`, the landing page. It runs before the Worker routes, so it must
+  exclude exactly the routes in `apps/docs/wrangler.jsonc`: **change both together**. Landing
+  pages must not use paths starting with `/docs` or `/components`. Expression:
+
+  ```text
+  (http.host eq "wideset.co" and not starts_with(http.request.uri.path, "/docs") and not starts_with(http.request.uri.path, "/components") and not starts_with(http.request.uri.path, "/r/") and not starts_with(http.request.uri.path, "/_docs/") and not starts_with(http.request.uri.path, "/.well-known/agent-skills/") and http.request.uri.path ne "/llms.txt" and http.request.uri.path ne "/llms-full.txt")
+  ```
+
+  Action: dynamic redirect to `concat("https://www.wideset.co", http.request.uri.path)`, 301,
+  preserve query string.
+
+- `workers_dev` stays `true` on `wideset-docs` and `wideset-storybook`. Their workers.dev
+  addresses were in the public docs, the README and the skills before wideset.co, so
+  `wideset-docs.<account>.workers.dev/r` keeps serving installs that still point there.
 
 ---
 

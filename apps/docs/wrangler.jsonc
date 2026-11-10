@@ -17,8 +17,9 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "wideset-docs",
   "compatibility_date": "2026-10-01",
-  // The workers.dev origin stays up for checks; its pages point search engines at wideset.co
-  // with a canonical link.
+  // Keep the workers.dev origin: its /r was the public registry address before wideset.co (docs,
+  // README, skills), and installs that still point there must keep working. Its pages point
+  // search engines at wideset.co with a canonical link.
   "workers_dev": true,
   "preview_urls": true,
   "routes": [
