@@ -16,7 +16,8 @@ npx wideset info --json          # how this project uses Wideset, for agents
 `init` writes `components.json`, adds the `@/*` path alias to `tsconfig` (and, for Vite, to
 `vite.config.ts`), adds the Wideset stylesheet and imports it in `main.tsx` or `app/layout.tsx`.
 It also adds Inter as the page font (`styles/wideset-font.css`, self-hosted through Fontsource);
-pass `--no-font` to keep your own, or edit that file later.
+pass `--no-font` to keep your own, or edit or remove that file later. A project that already
+has a `components.json` is left alone.
 In a project that already uses shadcn it keeps your `components.json` and only registers the
 `@wideset` namespace. Files land in `components/ui/wideset/`, `lib/wideset/` and `hooks/wideset/`.
 

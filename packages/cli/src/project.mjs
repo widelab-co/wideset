@@ -216,12 +216,17 @@ export function addStyleImports(text, specifiers, { last = false } = {}) {
   const lines = missing.map((spec) => `import ${quote}${spec}${quote}${semi}`).join('\n');
 
   // After the other imports, so the stylesheet wins over the ones a template already imports.
+  // A statement may span lines, so match up to its module specifier, not to the line end.
   if (last) {
-    const imports = [...text.matchAll(/^import [^\n]*\n/gm)];
+    const imports = [...text.matchAll(/^import\b[^'"]*?['"][^'"\n]+['"];?[^\n]*(?:\n|$)/gm)];
     const lastImport = imports[imports.length - 1];
     if (lastImport) {
       const end = lastImport.index + lastImport[0].length;
-      return { text: `${text.slice(0, end)}${lines}\n${text.slice(end)}`, changed: true };
+      const newline = lastImport[0].endsWith('\n') ? '' : '\n';
+      return {
+        text: `${text.slice(0, end)}${newline}${lines}\n${text.slice(end)}`,
+        changed: true,
+      };
     }
   }
 

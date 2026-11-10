@@ -46,7 +46,7 @@ Usage
 Options
   --overwrite         add: replace files that already exist (your edits to them are lost)
   --dry-run           init, skills: print what would change, change nothing
-  --no-font           init: keep the project's own font instead of adding Inter
+  --no-font           init, add: keep the project's own font instead of adding Inter
   --claude            skills: also install for Claude Code, even with no CLAUDE.md or .claude/
   --json              info: print JSON
   --registry <url>    init, list, skills: use another Wideset registry, e.g. a preview deploy
@@ -222,23 +222,36 @@ async function init(ctx, { nested = false } = {}) {
     );
   }
 
-  // 5. Font. Inter by default in a project set up for the first time. One that already has a
-  //    components.json, removed the font, or brought its own keeps what it has.
+  // 5. Font. Inter in a project set up for the first time. One that already has a components.json
+  //    is left alone, so removing the file or its import sticks; one that brought its own font
+  //    keeps it. A registry without the item (an older one, or a deploy in progress) is a warning.
   const fontSpecifier = '@/styles/wideset-font.css';
   const fontPath = `${project.srcDir === '.' ? '' : `${project.srcDir}/`}styles/wideset-font.css`;
   const hasFontFile = existsSync(join(cwd, fontPath));
   if (!opts.font) {
     say(false, 'font: left as it is (--no-font)');
-  } else if (!hasFontFile && existing) {
+  } else if (existing) {
     say(false, 'font: left as it is');
   } else if (!hasFontFile && project.fontPackages.length) {
     say(false, `font: kept yours (${project.fontPackages.join(', ')})`);
   } else {
+    let added = hasFontFile;
     if (!hasFontFile) {
-      if (!dryRun) await runShadcn(['add', '--yes', '--silent', `${NAMESPACE}/font`], { cwd });
-      say(true, `font: added ${NAMESPACE}/font (Inter)`);
+      try {
+        if (!dryRun) await runShadcn(['add', '--yes', '--silent', `${NAMESPACE}/font`], { cwd });
+        added = true;
+        say(true, `font: added ${NAMESPACE}/font (Inter)`);
+      } catch (error) {
+        log(`! font: could not add ${NAMESPACE}/font (${error.message})`);
+        manual.push(
+          'Load a variable font yourself:\n' +
+            'https://wideset-docs.widelab.workers.dev/docs/installation#4-load-the-font',
+        );
+      }
     }
-    if (project.entry) {
+    if (!added) {
+      // No file to import.
+    } else if (project.entry) {
       const css = addStyleImports(readFileSync(join(cwd, project.entry), 'utf8'), [fontSpecifier], {
         last: true,
       });

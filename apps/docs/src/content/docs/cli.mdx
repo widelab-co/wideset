@@ -20,7 +20,8 @@ npx wideset add button select # any components; `npx wideset list` shows them al
 `init` writes `components.json`, adds the `@/*` path alias to `tsconfig` (and, for Vite, to
 `vite.config.ts`), adds the Wideset stylesheet and imports it in `main.tsx` or `app/layout.tsx`;
 apps without Tailwind also get Tailwind's reset. A new project also gets Inter as its page font,
-in `styles/wideset-font.css`: pass `--no-font` to keep your own, or edit that file later.
+in `styles/wideset-font.css`: pass `--no-font` to keep your own, or edit or remove that file
+later. A project that already has a `components.json` is left alone.
 Already using shadcn? `init` keeps your
 `components.json` and only registers the `@wideset` namespace. Files land in
 `components/ui/wideset/`, `lib/wideset/` and `hooks/wideset/`.
