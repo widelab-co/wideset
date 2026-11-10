@@ -10,7 +10,7 @@ A run passes when all of these hold:
 - the handler each component really takes (`onValueChange` on `Select`, not `onChange`)
 - the Wideset components the case requires are used
 - what the type-checker accepts but the system does not: hand-built controls where Wideset has one, more than one filled primary button in a view, cards inside cards, gradients, emoji, placeholder content, filler headings
-- mistakes that compile and then break: a `Sidebar.Section` with no mode wrapper renders nothing, a trigger without `asChild` nests a button in a button, a `Modal.Content` with no title, an `IconButton` with no label, a field error with no invalid control
+- mistakes that compile and then break: a `Sidebar.Trigger` inside `Sidebar.Expanded` / `Sidebar.Collapsed` loses focus on toggle, a trigger without `asChild` nests a button in a button, a `Modal.Content` with no title, an `IconButton` with no label, a field error with no invalid control
 
 A view for the primary button check is what can show at once: an overlay, a tab panel, each branch of a ternary and an `if` that returns stay apart, while components rendered together in one file add up. Components imported from another file are not counted together.
 
