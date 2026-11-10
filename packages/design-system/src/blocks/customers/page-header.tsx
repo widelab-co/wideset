@@ -1,16 +1,17 @@
 // TODO(custom): page title row (title, count, actions) composed by hand.
 import { RiAddLine } from '@remixicon/react';
-import { Button, StatusBadge, Tabs } from '@wideset/react';
+import { Button, cn, StatusBadge, Tabs } from '@wideset/react';
 
 import { type Customer, SEGMENTS } from './data';
 
 /**
  * The page header: the title with the total and the page's actions, then the segment tabs with
- * their counts. Render inside `Tabs`; the line under it splits it from the list (Flat).
+ * their counts. Render inside `Tabs`. In Flat, Frame and Inset a line splits it from the list; in
+ * Canvas it sits on the grey with no line (`line={false}`) and the list is a white section.
  */
-export function PageHeader({ customers }: { customers: Customer[] }) {
+export function PageHeader({ customers, line = true }: { customers: Customer[]; line?: boolean }) {
   return (
-    <header className="border-ws-static-subtle px-ws-12 shrink-0 border-b">
+    <header className={cn('px-ws-12 shrink-0', line && 'border-ws-static-subtle border-b')}>
       <div className="gap-ws-9 pt-ws-12 mx-auto flex w-full max-w-[80rem] flex-col">
         <div className="gap-ws-9 flex flex-wrap items-center justify-between">
           <div className="gap-ws-5 flex items-center">

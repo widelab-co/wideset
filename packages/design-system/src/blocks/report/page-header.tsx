@@ -38,7 +38,10 @@ type PageHeaderProps = {
   onExport: () => void;
 };
 
-/** The report's title, the dates it covers, what it is compared with, and its export. */
+/**
+ * The report's title, the dates it covers, what it is compared with, and its export, on the grey
+ * canvas with no fill and no line under it.
+ */
 export function PageHeader({
   range,
   preset,
@@ -49,8 +52,8 @@ export function PageHeader({
   onExport,
 }: PageHeaderProps) {
   return (
-    <header className="border-ws-static-subtle px-ws-12 shrink-0 border-b">
-      <div className="gap-ws-9 py-ws-11 mx-auto flex w-full max-w-[80rem] items-center justify-between">
+    <header className="px-ws-12 shrink-0">
+      <div className="gap-ws-9 pt-ws-11 pb-ws-12 mx-auto flex w-full max-w-[80rem] items-center justify-between">
         <div className="gap-ws-3 flex min-w-0 flex-col">
           <h1 className="typography-subtitle-md text-ws-static-strong">Revenue report</h1>
           <p className="typography-body-md text-ws-static-base">{summary}</p>

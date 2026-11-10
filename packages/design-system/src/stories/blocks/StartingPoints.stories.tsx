@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ComponentType } from 'react';
 
 import { BLOCKS, DIRECTION_TITLE, NAVIGATION_TITLE, PANELS } from '../../blocks';
+import CustomersBlock, { type Direction } from '../../blocks/customers';
 
 /*
   The starting points: whole screens in src/blocks/<id>/, one story each, full screen. The docs
@@ -67,8 +68,26 @@ export const Crypto = story('crypto');
 export const Analytics = story('analytics');
 export const SalesOverview = story('sales-overview');
 export const Customers = story('customers');
+
+/** One screen in the other three directions: the page stays the same, only the surround changes. */
+const customersIn = (direction: Exclude<Direction, 'flat'>): Story => ({
+  name: `Customers (${DIRECTION_TITLE[direction]}, sidebar)`,
+  args: { id: 'customers' },
+  render: () => <CustomersBlock direction={direction} />,
+  parameters: {
+    docs: {
+      description: {
+        story: `The Customers screen in the ${DIRECTION_TITLE[direction]} direction: the same page, another surround. An app keeps one direction on every screen.`,
+      },
+    },
+  },
+});
+export const CustomersFrame = customersIn('frame');
+export const CustomersInset = customersIn('inset');
+export const CustomersCanvas = customersIn('canvas');
 export const CustomerDetail = story('customer-detail');
 export const Billing = story('billing');
+export const Invoice = story('invoice');
 export const Settings = story('settings');
 export const Team = story('team');
 export const Onboarding = story('onboarding');

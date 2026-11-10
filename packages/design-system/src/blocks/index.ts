@@ -161,6 +161,14 @@ export const BLOCKS: BlockMeta[] = [
       'A workspace’s plan and usage on a raised page: usage against limits, the payment method, a failed payment to retry and the invoices.',
   },
   {
+    id: 'invoice',
+    title: 'Invoice',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'One invoice as a document on a raised page: who bills whom, the lines and totals, how it was paid, and downloading or sending it.',
+  },
+  {
     id: 'settings',
     title: 'Settings',
     direction: 'frame',
@@ -274,9 +282,10 @@ export const BLOCKS: BlockMeta[] = [
   {
     id: 'report',
     title: 'Report',
-    direction: 'flat',
+    direction: 'canvas',
     navigation: 'sidebar',
-    description: 'A report page: a date range, several charts, a breakdown table and an export.',
+    description:
+      'A report on a grey canvas: a date range and an export above key figures, charts and a breakdown table, each in its own white section.',
   },
 ];
 

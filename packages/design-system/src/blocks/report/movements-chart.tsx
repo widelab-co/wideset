@@ -60,7 +60,7 @@ export function MovementsChart({ buckets, unit, totals, className }: MovementsCh
   return (
     <section aria-labelledby={titleId} className={cn('gap-ws-11 flex flex-col', className)}>
       <div className="gap-ws-9 flex items-center justify-between">
-        <h2 id={titleId} className="typography-label-strong-md text-ws-static-strong">
+        <h2 id={titleId} className="typography-subtitle-xs text-ws-static-strong">
           MRR movements
         </h2>
         <ul className="gap-ws-11 typography-label-sm flex items-center">

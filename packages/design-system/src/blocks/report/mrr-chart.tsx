@@ -89,7 +89,7 @@ export function MrrChart({
   return (
     <section aria-labelledby={`${id}-title`} className={cn('gap-ws-11 flex flex-col', className)}>
       <div className="gap-ws-9 flex items-center justify-between">
-        <h2 id={`${id}-title`} className="typography-label-strong-md text-ws-static-strong">
+        <h2 id={`${id}-title`} className="typography-subtitle-xs text-ws-static-strong">
           MRR
         </h2>
         <ul className="gap-ws-12 typography-label-sm flex items-center">

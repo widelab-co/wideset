@@ -59,7 +59,7 @@ function AccountMenu() {
   );
 }
 
-/** The app sidebar (Flat direction: white, a line on its right edge). */
+/** The app sidebar (Canvas direction: no fill and no line, on the grey canvas beside the page). */
 export function ReportSidebar() {
   const [active, setActive] = useState('revenue');
 
@@ -83,7 +83,7 @@ export function ReportSidebar() {
   );
 
   return (
-    <Sidebar>
+    <Sidebar surface="frame">
       <Sidebar.Header>
         <Sidebar.Expanded>
           <div className="gap-ws-7 py-ws-3 pl-ws-5 flex items-center">

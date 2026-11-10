@@ -6,8 +6,11 @@ import { useState } from 'react';
 import { BrandMark } from './brand-mark';
 import { account, navigation, savedLists, workspace } from './data';
 
-/** The workspace sidebar: product, workspace switcher, pages, saved lists and the account. */
-export function CustomersSidebar() {
+/**
+ * The workspace sidebar: product, workspace switcher, pages, saved lists and the account. `surface`
+ * follows the screen's direction: `page` in Flat, `tinted` in Frame, `frame` in Inset and Canvas.
+ */
+export function CustomersSidebar({ surface }: { surface?: 'page' | 'tinted' | 'frame' }) {
   const [active, setActive] = useState('customers');
 
   const links = (
@@ -40,7 +43,7 @@ export function CustomersSidebar() {
   );
 
   return (
-    <Sidebar>
+    <Sidebar surface={surface}>
       <Sidebar.Header>
         <Sidebar.Expanded>
           <div className="gap-ws-7 flex flex-col">

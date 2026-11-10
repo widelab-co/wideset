@@ -18,7 +18,7 @@ export function PlanBreakdown({ plans, className }: { plans: Plan[]; className?:
 
   return (
     <section aria-labelledby={titleId} className={cn('gap-ws-11 flex flex-col', className)}>
-      <h2 id={titleId} className="typography-label-strong-md text-ws-static-strong">
+      <h2 id={titleId} className="typography-subtitle-xs text-ws-static-strong">
         MRR by plan
       </h2>
       {/* Four 40px rows 16px apart span the 13rem plot beside them. */}

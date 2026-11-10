@@ -21,8 +21,10 @@ import { PlanBreakdown } from './plan-breakdown';
 import { RegionTable } from './region-table';
 import { ReportSidebar } from './sidebar';
 
-/** One column for every band of the page, so their edges line up. */
+/** One column for the title row and every section, so their edges line up. */
 const COLUMN = 'mx-auto w-full max-w-[80rem]';
+/** A module of the report: white on the grey canvas, no border, no shadow; the grey separates. */
+const SECTION = 'bg-ws-static-foreground rounded-ws-container-md p-ws-12';
 
 type Figure = {
   label: string;
@@ -71,7 +73,8 @@ const daysFrom = (range: Range) =>
   Array.from({ length: range.to - range.from + 2 }, (_, index) => range.from - 1 + index);
 
 /**
- * Revenue report (Flat direction): MRR for a range against an earlier one. The date range and the
+ * Revenue report, Canvas direction: the sidebar and the title row on the grey canvas, every module
+ * in its own white section. MRR for a range against an earlier one. The date range and the
  * comparison recount every figure on the page from one set of MRR movements, so the key figures,
  * the charts and the table always add up.
  */
@@ -118,7 +121,7 @@ export default function Report() {
   ];
 
   return (
-    <div className="bg-ws-static-foreground flex h-dvh">
+    <div className="bg-ws-static-background flex h-dvh">
       <ReportSidebar />
       <main className="flex min-w-0 flex-1 flex-col">
         <PageHeader
@@ -136,23 +139,14 @@ export default function Report() {
         />
 
         {/* The controls stay in view; the report scrolls under them. */}
-        <div className="min-h-0 flex-1 overflow-y-auto">
-          <section aria-label="Key figures" className="border-ws-static-subtle px-ws-12 border-b">
-            <div className={cn(COLUMN, 'grid grid-cols-4')}>
-              {figures.map((figure, index) => (
-                <KpiCard
-                  key={figure.label}
-                  {...toKpi(figure)}
-                  className={cn(
-                    'py-ws-12 pr-ws-12',
-                    index > 0 && 'border-ws-static-subtle pl-ws-12 border-l',
-                  )}
-                />
+        <div className="px-ws-12 pb-ws-12 min-h-0 flex-1 overflow-y-auto">
+          <div className={cn(COLUMN, 'gap-ws-9 flex flex-col')}>
+            <section aria-label="Key figures" className="gap-ws-9 grid grid-cols-4">
+              {figures.map((figure) => (
+                <KpiCard key={figure.label} {...toKpi(figure)} className={SECTION} />
               ))}
-            </div>
-          </section>
+            </section>
 
-          <div className="border-ws-static-subtle px-ws-12 py-ws-12 border-b">
             <MrrChart
               days={daysFrom(range)}
               current={current.daily}
@@ -160,24 +154,20 @@ export default function Report() {
               previousDays={previous ? daysFrom(comparison) : null}
               currentLabel={currentLabel}
               previousLabel={previousLabel}
-              className={COLUMN}
+              className={SECTION}
             />
-          </div>
 
-          <div className="border-ws-static-subtle px-ws-12 border-b">
-            <div className={cn(COLUMN, 'grid grid-cols-3')}>
+            <div className="gap-ws-9 grid grid-cols-3">
               <MovementsChart
                 buckets={current.buckets}
                 unit={current.unit}
                 totals={current}
-                className="border-ws-static-subtle py-ws-12 pr-ws-12 col-span-2 border-r"
+                className={cn(SECTION, 'col-span-2')}
               />
-              <PlanBreakdown plans={current.plans} className="py-ws-12 pl-ws-12" />
+              <PlanBreakdown plans={current.plans} className={SECTION} />
             </div>
-          </div>
 
-          <div className="px-ws-12 py-ws-12">
-            <RegionTable current={current} previous={previous} className={COLUMN} />
+            <RegionTable current={current} previous={previous} className={SECTION} />
           </div>
         </div>
       </main>

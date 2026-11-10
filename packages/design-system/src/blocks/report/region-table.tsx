@@ -27,7 +27,7 @@ const COLUMNS: {
   { key: 'change', label: 'Change', format: (row) => change(row.change) },
 ];
 
-// The first and last columns sit on the section's edges, in line with its title.
+// The first and last columns sit on the section's padding, in line with its title.
 const flush = (index: number) => index === 0 || index === COLUMNS.length - 1;
 
 type RegionTableProps = {
@@ -88,7 +88,7 @@ export function RegionTable({ current, previous, className }: RegionTableProps) 
 
   return (
     <section aria-labelledby={titleId} className={cn('gap-ws-7 flex flex-col', className)}>
-      <h2 id={titleId} className="typography-label-strong-md text-ws-static-strong">
+      <h2 id={titleId} className="typography-subtitle-xs text-ws-static-strong">
         By region
       </h2>
       <Table aria-labelledby={titleId} className="w-full table-fixed">
