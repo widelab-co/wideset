@@ -25,8 +25,10 @@ const config: StorybookConfig = {
   core: {
     builder: '@storybook/builder-vite',
   },
-  // The docs at wideset.co are the pages to find in search; Storybook is the workbench.
+  // The docs at wideset.co are the pages to find in search; Storybook is the workbench. Both the
+  // manager (index.html) and the story canvas (iframe.html) say so.
   managerHead: (head) => `${head}\n<meta name="robots" content="noindex" />`,
+  previewHead: (head) => `${head}\n<meta name="robots" content="noindex" />`,
   async viteFinal(config) {
     return mergeConfig(config, {
       css: {
