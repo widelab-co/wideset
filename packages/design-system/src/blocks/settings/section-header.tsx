@@ -1,3 +1,4 @@
+// TODO(custom): section title with an optional description, composed by hand.
 /** A section's title (16px) and, when it needs one, the line that says what the section holds. */
 export function SectionHeader({
   id,

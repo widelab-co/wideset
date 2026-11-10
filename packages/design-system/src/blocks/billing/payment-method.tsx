@@ -1,3 +1,4 @@
+// TODO(custom): card-brand chip composed by hand.
 import { RiErrorWarningLine, RiMastercardLine } from '@remixicon/react';
 import { Button, Card } from '@wideset/react';
 

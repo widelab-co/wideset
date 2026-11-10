@@ -1,3 +1,4 @@
+// TODO(custom): Switch with a description line; Switch has no description part.
 import { Switch } from '@wideset/react';
 import { useId } from 'react';
 

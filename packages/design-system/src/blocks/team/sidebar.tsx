@@ -1,3 +1,4 @@
+// TODO(custom): account menu is composed by hand.
 import { RiArrowDownSLine } from '@remixicon/react';
 import { Avatar, DropdownMenu, ListItem, Sidebar } from '@wideset/react';
 import { useState } from 'react';

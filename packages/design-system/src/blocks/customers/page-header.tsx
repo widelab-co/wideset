@@ -1,3 +1,4 @@
+// TODO(custom): page title row (title, count, actions) composed by hand.
 import { RiAddLine } from '@remixicon/react';
 import { Button, StatusBadge, Tabs } from '@wideset/react';
 

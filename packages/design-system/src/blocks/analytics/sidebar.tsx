@@ -1,3 +1,4 @@
+// TODO(custom): workspace switcher and account menu are composed by hand (copied from kanban).
 import { RiArrowDownSLine } from '@remixicon/react';
 import { Avatar, Sidebar } from '@wideset/react';
 import { useState } from 'react';

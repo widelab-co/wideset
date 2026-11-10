@@ -1,3 +1,4 @@
+// TODO(custom): own h2 instead of Card.Title (20px on this branch).
 import { Button, Card } from '@wideset/react';
 
 import { type Interval, periodPrice, type Plan } from './data';

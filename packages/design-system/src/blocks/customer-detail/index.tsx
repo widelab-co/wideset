@@ -1,3 +1,4 @@
+// TODO(custom): local Section heading (title + one xs action) composed by hand.
 import { RiAddLine, RiBuilding2Line } from '@remixicon/react';
 import { Breadcrumbs, Button, IconButton, Tabs } from '@wideset/react';
 import { type ReactNode, useId, useState } from 'react';

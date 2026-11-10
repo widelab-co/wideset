@@ -1,3 +1,4 @@
+// TODO(custom): usage meter (value / limit, bar, note); ProgressBar neutral/warning arrive with #58.
 import { RiErrorWarningLine } from '@remixicon/react';
 import { cn, ProgressBar } from '@wideset/react';
 

@@ -1,3 +1,4 @@
+// TODO(custom): hand-built SVG sparkline; no Sparkline in Wideset.
 import { cn } from '@wideset/react';
 
 // The line in viewBox units; the SVG stretches to its box and the stroke keeps its width.

@@ -1,3 +1,4 @@
+// TODO(custom): bar list (bar behind a label, value on the right); no BarList in Wideset.
 import { cn } from '@wideset/react';
 import { useId } from 'react';
 

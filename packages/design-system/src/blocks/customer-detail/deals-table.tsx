@@ -1,3 +1,4 @@
+// TODO(custom): whole-row link done with a stretched <a>; Table has no row link.
 import { StatusBadge, Table } from '@wideset/react';
 
 import type { Deal } from './data';

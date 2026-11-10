@@ -1,3 +1,4 @@
+// TODO(custom): stage breakdown (label, count, amount, bar); no component in Wideset.
 import { cn } from '@wideset/react';
 import { useId } from 'react';
 

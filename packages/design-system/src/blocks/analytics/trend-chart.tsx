@@ -1,3 +1,4 @@
+// TODO(custom): hand-built SVG line chart; no chart component and no data-viz colour tokens (uses non-semantic blue).
 import { cn } from '@wideset/react';
 import { useId } from 'react';
 

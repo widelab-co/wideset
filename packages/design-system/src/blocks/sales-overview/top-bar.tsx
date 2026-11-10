@@ -1,3 +1,4 @@
+// TODO(custom): top-bar navigation items are composed by hand (copied from crypto); no NavigationBar item yet.
 import { RiNotification3Line, RiSearchLine } from '@remixicon/react';
 import { Avatar, cn, DropdownMenu, IconButton, ListItem } from '@wideset/react';
 import { type AnchorHTMLAttributes, useState } from 'react';

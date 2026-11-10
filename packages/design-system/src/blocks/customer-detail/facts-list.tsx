@@ -1,3 +1,4 @@
+// TODO(custom): key-value facts list; no DescriptionList in Wideset.
 import { Avatar } from '@wideset/react';
 import type { ReactNode } from 'react';
 

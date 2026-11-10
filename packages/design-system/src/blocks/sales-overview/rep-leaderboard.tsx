@@ -1,3 +1,4 @@
+// TODO(custom): ranked person row (Avatar, name, meta, value); no component in Wideset.
 import { Avatar, cn } from '@wideset/react';
 import { useId } from 'react';
 

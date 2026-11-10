@@ -1,3 +1,4 @@
+// TODO(custom): section nav copies Sidebar.Item, which throws outside a Sidebar; no NavList in Wideset.
 import { type SectionId, sections } from './data';
 
 /**

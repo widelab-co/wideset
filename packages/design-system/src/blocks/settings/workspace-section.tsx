@@ -1,3 +1,4 @@
+// TODO(custom): avatar upload (Change, Remove) composed by hand.
 import { Avatar, Button, FormField, Select, TextInput } from '@wideset/react';
 import { useRef } from 'react';
 

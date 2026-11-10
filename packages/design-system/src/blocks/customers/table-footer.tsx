@@ -1,3 +1,4 @@
+// TODO(custom): range label "1–12 of 48" beside Pagination; Pagination has no range label.
 import { cn, Pagination } from '@wideset/react';
 
 /** Under the table: which rows are showing, and the pages when there is more than one. */

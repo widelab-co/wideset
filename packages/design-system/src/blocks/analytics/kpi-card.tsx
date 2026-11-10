@@ -1,3 +1,4 @@
+// TODO(custom): key figure card, version 01 (figure, delta, comparison); no KpiCard in Wideset yet.
 import { RiArrowDownLine, RiArrowUpLine } from '@remixicon/react';
 import { cn, StatusBadge } from '@wideset/react';
 

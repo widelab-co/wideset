@@ -1,3 +1,4 @@
+// TODO(custom): quiet key figure row; no KpiCard / stat component in Wideset.
 import { customer, openDeals } from './data';
 import { formatCount, formatEuro, formatPercent } from './format';
 

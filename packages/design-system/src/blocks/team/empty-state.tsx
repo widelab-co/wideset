@@ -1,3 +1,4 @@
+// TODO(custom): empty state (title, line, action); no EmptyState in Wideset.
 import type { ReactNode } from 'react';
 
 /**

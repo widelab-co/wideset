@@ -1,3 +1,4 @@
+// TODO(custom): e-mails typed into a TextInput, comma-separated; no token/chip input in Wideset.
 import { Button, FormField, Modal, Select, Textarea, TextInput } from '@wideset/react';
 import { type FormEvent, useId, useState } from 'react';
 

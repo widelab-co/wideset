@@ -1,3 +1,4 @@
+// TODO(custom): key-value pair (label above value); no DescriptionList in Wideset.
 import type { ReactNode } from 'react';
 
 /** A fact: its label above its value. Render inside a `dl`. */

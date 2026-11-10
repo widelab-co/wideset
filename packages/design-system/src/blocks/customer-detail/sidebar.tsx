@@ -1,3 +1,4 @@
+// TODO(custom): workspace switcher and account menu are composed by hand.
 import { RiAddLine, RiArrowDownSLine, RiLogoutBoxRLine, RiSearchLine } from '@remixicon/react';
 import { Avatar, DropdownMenu, IconButton, ListItem, Sidebar, TextInput } from '@wideset/react';
 import { useState } from 'react';

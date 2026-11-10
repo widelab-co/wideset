@@ -1,3 +1,4 @@
+// TODO(custom): key figure card, version 02 (figure, sparkline, progress to target); no KpiCard in Wideset yet.
 import { cn, ProgressBar } from '@wideset/react';
 
 import { Sparkline } from './sparkline';

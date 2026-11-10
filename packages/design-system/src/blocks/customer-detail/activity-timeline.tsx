@@ -1,3 +1,4 @@
+// TODO(custom): activity timeline; no Timeline in Wideset.
 import {
   type RemixiconComponentType,
   RiArrowRightLine,

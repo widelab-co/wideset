@@ -1,3 +1,4 @@
+// TODO(custom): non-interactive person row; ListItem always looks clickable.
 import { Avatar } from '@wideset/react';
 
 import type { Contact } from './data';

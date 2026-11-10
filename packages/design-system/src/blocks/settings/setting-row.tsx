@@ -1,3 +1,4 @@
+// TODO(custom): setting row (name and description beside an action); no component in Wideset.
 import type { ReactNode } from 'react';
 
 /** A setting with an action: its name and one line on the left, the button on the right edge. */
