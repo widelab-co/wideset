@@ -10,16 +10,16 @@ We use **[Changesets](https://github.com/changesets/changesets)** to manage [sem
 
 ## Branching model
 
-| Branch    | Role                                                                | What a push does                                                                                                          |
-| --------- | ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| `develop` | Integration. All feature PRs land here. Changesets accumulate here. | Runs CI and deploys the `-develop` Workers. **Does not publish.**                                                         |
-| `main`    | Production / release.                                               | Builds, **publishes to npm**, tags, creates a GitHub Release, and **deploys docs + Storybook** to the production Workers. |
+| Branch    | Role                                                                | What a push does                                                                                                                                        |
+| --------- | ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `develop` | Integration. All feature PRs land here. Changesets accumulate here. | Runs CI and deploys the `-develop` Workers. **Does not publish.**                                                                                       |
+| `main`    | Production / release.                                               | Builds, **deploys docs + Storybook** to production (wideset.co), checks the hosts answer, then **publishes to npm**, tags and creates a GitHub Release. |
 
 **Why versioning happens on `develop`, not `main`:** the version bump (updated `package.json` + `CHANGELOG.md`, consumed changeset files) is created on `develop` and flows forward to `main` through the normal promotion PR. `changeset publish` on `main` only adds a git tag + GitHub Release — **no commits** — so `develop` and `main` stay content‑aligned after every release. This is what avoids the classic GitFlow "back‑merge" chore.
 
 ```
 feature/* ──PR──▶ develop ──"Version Packages" PR──▶ develop ──promotion PR──▶ main ──▶ CI publishes
-   (+changeset)        (bump + CHANGELOG)                                          (tag + Release + deploy)
+   (+changeset)        (bump + CHANGELOG)                                          (deploy + check, then npm + tag + Release)
 ```
 
 ---
