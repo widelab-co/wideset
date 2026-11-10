@@ -48,7 +48,10 @@ A member such as `Card.Header` comes with `Card`; its named form, `CardHeader`, 
 - `import { Checkbox, CheckboxDescription, CheckboxLabel } from '@/components/ui/wideset/checkbox/Checkbox';`
 - `import { CheckboxGroup } from '@/components/ui/wideset/checkbox/CheckboxGroup';`
 - `import { Chip } from '@/components/ui/wideset/chip/Chip';`
+- `import { ChipAction } from '@/components/ui/wideset/chip/ChipAction';`
 - `import { ChipIcon } from '@/components/ui/wideset/chip/ChipIcon';`
+- `import { ChipIconButton } from '@/components/ui/wideset/chip/ChipIconButton';`
+- `import { ChipLabel } from '@/components/ui/wideset/chip/ChipLabel';`
 - `import { ComboBox, ComboBoxIcon, ComboBoxPrefix } from '@/components/ui/wideset/combo-box/ComboBox';`
 - `import { ComboBoxContent } from '@/components/ui/wideset/combo-box/ComboBoxContent';`
 - `import { ComboBoxItem } from '@/components/ui/wideset/combo-box/ComboBoxItem';`
@@ -223,7 +226,7 @@ A member such as `Card.Header` comes with `Card`; its named form, `CardHeader`, 
 - `import type { CalendarProps } from '@/components/ui/wideset/calendar/Calendar.types';`
 - `import type { CardActionProps, CardContentProps, CardDescriptionProps, CardFooterProps, CardHeaderProps, CardMediaProps, CardProps, CardTitleProps } from '@/components/ui/wideset/card/Card.types';`
 - `import type { CheckboxGroupProps, CheckboxProps } from '@/components/ui/wideset/checkbox/Checkbox.types';`
-- `import type { ChipIconProps, ChipProps } from '@/components/ui/wideset/chip/Chip.types';`
+- `import type { ChipActionProps, ChipIconButtonProps, ChipIconProps, ChipLabelProps, ChipProps } from '@/components/ui/wideset/chip/Chip.types';`
 - `import type { ComboBoxContentProps, ComboBoxContextValue, ComboBoxHighlightedLabelProps, ComboBoxIconProps, ComboBoxItemProps, ComboBoxOption, ComboBoxPrefixProps, ComboBoxProps, ComboBoxTriggerProps } from '@/components/ui/wideset/combo-box/ComboBox.types';`
 - `import type { DatePickerProps } from '@/components/ui/wideset/datepicker/DatePicker.types';`
 - `import type { DateRangePickerProps, DateRangePreset, DateRangeValue } from '@/components/ui/wideset/daterangepicker/DateRangePicker.types';`

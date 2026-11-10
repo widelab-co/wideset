@@ -1,77 +1,192 @@
 import { RiCloseLine } from '@remixicon/react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { createRef } from 'react';
 import { describe, expect, it, vi } from 'vitest';
 
 import { Chip } from './Chip';
+import ChipIconsExample from './examples/chip/icons';
+import ChipStatesExample from './examples/chip/states';
 
 describe('Chip', () => {
   describe('Basic rendering', () => {
-    it('should render chip with children', () => {
-      render(<Chip>Test Chip</Chip>);
-      expect(screen.getByText('Test Chip')).toBeInTheDocument();
+    it('renders a passive container and label without an implicit action', () => {
+      render(
+        <Chip>
+          <Chip.Label>Warsaw</Chip.Label>
+        </Chip>,
+      );
+      expect(screen.getByText('Warsaw')).toBeInTheDocument();
+      expect(screen.queryByRole('button')).not.toBeInTheDocument();
     });
 
-    it('should render with default props', () => {
-      render(<Chip>Default</Chip>);
-      const chip = screen.getByText('Default');
-      expect(chip).toHaveAttribute('tabIndex', '0');
-      expect(chip).not.toHaveAttribute('data-disabled');
-      expect(chip).not.toHaveAttribute('aria-disabled');
-    });
-
-    it('should forward ref to div element', () => {
-      const ref = { current: null };
-      render(<Chip ref={ref}>Ref Test</Chip>);
+    it('forwards the root ref to a div', () => {
+      const ref = createRef<HTMLDivElement>();
+      render(
+        <Chip ref={ref}>
+          <Chip.Label>Warsaw</Chip.Label>
+        </Chip>,
+      );
       expect(ref.current).toBeInstanceOf(HTMLDivElement);
+      expect(ref.current).toHaveAttribute('data-slot', 'chip');
     });
 
-    it('should render disabled chip', () => {
-      render(<Chip disabled>Disabled</Chip>);
-      const chip = screen.getByText('Disabled');
-      expect(chip).toHaveAttribute('data-disabled');
-      expect(chip).toHaveAttribute('aria-disabled', 'true');
+    it('forwards refs to the action, label, and removal button', () => {
+      const action = createRef<HTMLButtonElement>();
+      const label = createRef<HTMLSpanElement>();
+      const remove = createRef<HTMLButtonElement>();
+      render(
+        <Chip>
+          <Chip.Action ref={action}>
+            <Chip.Label ref={label}>Warsaw</Chip.Label>
+          </Chip.Action>
+          <Chip.IconButton ref={remove} aria-label="Remove Warsaw" />
+        </Chip>,
+      );
+      expect(action.current).toBe(screen.getByRole('button', { name: 'Warsaw' }));
+      expect(label.current).toBe(screen.getByText('Warsaw'));
+      expect(remove.current).toBe(screen.getByRole('button', { name: 'Remove Warsaw' }));
     });
   });
 
   describe('HTML attributes', () => {
-    it('should pass through HTML attributes', () => {
-      render(
-        <Chip data-testid="custom-chip" aria-label="Custom chip" className="custom-class">
-          Chip
+    it('passes container and button attributes to their respective elements', () => {
+      const { container } = render(
+        <Chip className="custom-chip" data-custom="chip">
+          <Chip.Action
+            type="submit"
+            name="filter"
+            value="warsaw"
+            aria-label="Apply Warsaw"
+            className="custom-action"
+          >
+            <Chip.Label>Warsaw</Chip.Label>
+          </Chip.Action>
         </Chip>,
       );
-      const chip = screen.getByTestId('custom-chip');
-      expect(chip).toHaveAttribute('aria-label', 'Custom chip');
-      expect(chip).toHaveClass('custom-class');
+      expect(container.firstChild).toHaveClass('custom-chip');
+      expect(container.firstChild).toHaveAttribute('data-custom', 'chip');
+      const action = screen.getByRole('button', { name: 'Apply Warsaw' });
+      expect(action).toHaveAttribute('type', 'submit');
+      expect(action).toHaveAttribute('name', 'filter');
+      expect(action).toHaveAttribute('value', 'warsaw');
+      expect(action).toHaveClass('custom-action');
+    });
+
+    it('defaults both actions to non-submitting buttons', () => {
+      render(
+        <Chip>
+          <Chip.Action>Warsaw</Chip.Action>
+          <Chip.IconButton aria-label="Remove Warsaw" />
+        </Chip>,
+      );
+      for (const button of screen.getAllByRole('button'))
+        expect(button).toHaveAttribute('type', 'button');
+    });
+  });
+
+  describe('Composition', () => {
+    it('keeps removal independent from the main action, including leading icon clicks', async () => {
+      const user = userEvent.setup();
+      const onAction = vi.fn();
+      const onRemove = vi.fn();
+      render(
+        <Chip>
+          <Chip.Action onClick={onAction}>
+            <Chip.Icon icon={RiCloseLine} />
+            <Chip.Label>Warsaw</Chip.Label>
+          </Chip.Action>
+          <Chip.IconButton aria-label="Remove Warsaw" onClick={onRemove} />
+        </Chip>,
+      );
+      const action = screen.getByRole('button', { name: 'Warsaw' });
+      const remove = screen.getByRole('button', { name: 'Remove Warsaw' });
+      expect(action.contains(remove)).toBe(false);
+      expect(action.parentElement).toBe(remove.parentElement);
+      await user.click(action.querySelector('svg')!);
+      expect(onAction).toHaveBeenCalledOnce();
+      expect(onRemove).not.toHaveBeenCalled();
+      await user.click(remove);
+      expect(onRemove).toHaveBeenCalledOnce();
+      expect(onAction).toHaveBeenCalledOnce();
+    });
+
+    it('supports a passive label with only the removal action', async () => {
+      const user = userEvent.setup();
+      const onRemove = vi.fn();
+      render(
+        <Chip>
+          <Chip.Label>Warsaw</Chip.Label>
+          <Chip.IconButton aria-label="Remove Warsaw" onClick={onRemove} />
+        </Chip>,
+      );
+      expect(screen.getAllByRole('button')).toHaveLength(1);
+      await user.click(screen.getByText('Warsaw'));
+      expect(onRemove).not.toHaveBeenCalled();
+      await user.click(screen.getByRole('button', { name: 'Remove Warsaw' }));
+      expect(onRemove).toHaveBeenCalledOnce();
+    });
+
+    it('disables both actions from the container, including programmatic activation', () => {
+      const onAction = vi.fn();
+      const onRemove = vi.fn();
+      render(
+        <Chip disabled>
+          <Chip.Action disabled={false} onClick={onAction}>
+            Warsaw
+          </Chip.Action>
+          <Chip.IconButton disabled={false} aria-label="Remove Warsaw" onClick={onRemove} />
+        </Chip>,
+      );
+      for (const button of screen.getAllByRole('button')) {
+        expect(button).toBeDisabled();
+        (button as HTMLButtonElement).click();
+        fireEvent.click(button);
+      }
+      expect(onAction).not.toHaveBeenCalled();
+      expect(onRemove).not.toHaveBeenCalled();
+    });
+
+    it('can disable the removal button without activating or disabling the main action', async () => {
+      const user = userEvent.setup();
+      const onAction = vi.fn();
+      const onRemove = vi.fn();
+      render(
+        <Chip>
+          <Chip.Action onClick={onAction}>Warsaw</Chip.Action>
+          <Chip.IconButton disabled aria-label="Remove Warsaw" onClick={onRemove} />
+        </Chip>,
+      );
+      const action = screen.getByRole('button', { name: 'Warsaw' });
+      const remove = screen.getByRole('button', { name: 'Remove Warsaw' });
+      expect(action).toBeEnabled();
+      expect(remove).toBeDisabled();
+
+      await user.click(remove);
+      expect(onAction).not.toHaveBeenCalled();
+      expect(onRemove).not.toHaveBeenCalled();
+
+      await user.click(action);
+      expect(onAction).toHaveBeenCalledOnce();
     });
   });
 
   describe('Chip.Icon', () => {
-    it('should render icon inside chip', () => {
+    it('keeps the leading icon decorative and forwards its class', () => {
       render(
         <Chip>
-          <Chip.Icon icon={RiCloseLine} />
-          Chip with Icon
+          <Chip.Action>
+            <Chip.Icon icon={RiCloseLine} className="custom-icon" />
+            <Chip.Label>Warsaw</Chip.Label>
+          </Chip.Action>
         </Chip>,
       );
-      const svg = screen.getByText('Chip with Icon').closest('div')?.querySelector('svg');
-      expect(svg).toBeInTheDocument();
-      expect(screen.getByText('Chip with Icon')).toBeInTheDocument();
+      const icon = screen.getByRole('button', { name: 'Warsaw' }).querySelector('svg');
+      expect(icon).toHaveClass('custom-icon');
+      expect(icon).toHaveAttribute('aria-hidden', 'true');
     });
 
-    it('should forward className to icon', () => {
-      render(
-        <Chip>
-          <Chip.Icon icon={RiCloseLine} className="custom-icon-class" />
-          Label
-        </Chip>,
-      );
-      const svg = screen.getByText('Label').closest('div')?.querySelector('svg');
-      expect(svg).toHaveClass('custom-icon-class');
-    });
-
-    it('should throw error when used outside Chip', () => {
+    it('throws outside Chip', () => {
       expect(() => render(<Chip.Icon icon={RiCloseLine} />)).toThrow(
         'useChipContext must be used within a Chip',
       );
@@ -79,77 +194,125 @@ describe('Chip', () => {
   });
 
   describe('Keyboard', () => {
-    it('should focus with tab', async () => {
+    it('tabs between independent actions and skips disabled chips in both directions', async () => {
       const user = userEvent.setup();
-
-      render(<Chip>Chip</Chip>);
-
-      const chip = screen.getByRole('button', { name: 'Chip' });
+      render(
+        <>
+          <Chip>
+            <Chip.Action>Warsaw</Chip.Action>
+            <Chip.IconButton aria-label="Remove Warsaw" />
+          </Chip>
+          <Chip disabled>
+            <Chip.Action>Disabled</Chip.Action>
+            <Chip.IconButton aria-label="Remove disabled" />
+          </Chip>
+          <button type="button">After</button>
+        </>,
+      );
       await user.tab();
-      expect(chip).toHaveFocus();
+      expect(screen.getByRole('button', { name: 'Warsaw' })).toHaveFocus();
+      await user.tab();
+      expect(screen.getByRole('button', { name: 'Remove Warsaw' })).toHaveFocus();
+      await user.tab();
+      expect(screen.getByRole('button', { name: 'After' })).toHaveFocus();
+      await user.tab({ shift: true });
+      expect(screen.getByRole('button', { name: 'Remove Warsaw' })).toHaveFocus();
     });
 
-    it('should skip a disabled chip with tab', async () => {
-      const user = userEvent.setup();
-
-      render(<Chip disabled>Chip</Chip>);
-
-      await user.tab();
-      expect(screen.getByRole('button', { name: 'Chip' })).not.toHaveFocus();
-    });
-
-    it.each([
-      { key: 'Enter', input: '{Enter}' },
-      { key: 'Space', input: ' ' },
-    ])('should support $key to activate onClick', async ({ input }) => {
+    it.each(['[Enter]', '[Space]'])('activates the main action with %s', async (input) => {
       const user = userEvent.setup();
       const onClick = vi.fn();
-
-      render(<Chip onClick={onClick}>Chip</Chip>);
-
-      const chip = screen.getByRole('button', { name: 'Chip' });
+      render(
+        <Chip>
+          <Chip.Action onClick={onClick}>
+            <Chip.Label>Warsaw</Chip.Label>
+          </Chip.Action>
+        </Chip>,
+      );
       await user.tab();
-
-      expect(chip).toHaveFocus();
       await user.keyboard(input);
       expect(onClick).toHaveBeenCalledOnce();
     });
 
-    it('prevents the page from scrolling on Space', () => {
-      render(<Chip>Design</Chip>);
-      const notCancelled = fireEvent.keyDown(screen.getByRole('button', { name: 'Design' }), {
-        key: ' ',
-      });
-      expect(notCancelled).toBe(false);
-    });
-
-    it('does not click when disabled', () => {
-      const onClick = vi.fn();
+    it.each(['[Enter]', '[Space]'])('activates removal independently with %s', async (input) => {
+      const user = userEvent.setup();
+      const onAction = vi.fn();
+      const onRemove = vi.fn();
       render(
-        <Chip disabled onClick={onClick}>
-          Design
+        <Chip>
+          <Chip.Action onClick={onAction}>Warsaw</Chip.Action>
+          <Chip.IconButton aria-label="Remove Warsaw" onClick={onRemove} />
         </Chip>,
       );
-      const chip = screen.getByRole('button', { name: 'Design' });
-      fireEvent.keyDown(chip, { key: 'Enter' });
-      fireEvent.keyUp(chip, { key: ' ' });
-      expect(onClick).not.toHaveBeenCalled();
+      await user.tab();
+      await user.tab();
+      await user.keyboard(input);
+      expect(onRemove).toHaveBeenCalledOnce();
+      expect(onAction).not.toHaveBeenCalled();
     });
 
-    it('still calls onKeyDown and onKeyUp', () => {
+    it('passes consumer keyboard handlers to the action', () => {
       const onKeyDown = vi.fn();
       const onKeyUp = vi.fn();
       render(
-        <Chip onKeyDown={onKeyDown} onKeyUp={onKeyUp}>
-          Design
+        <Chip>
+          <Chip.Action onKeyDown={onKeyDown} onKeyUp={onKeyUp}>
+            Warsaw
+          </Chip.Action>
         </Chip>,
       );
-      const chip = screen.getByRole('button', { name: 'Design' });
-      fireEvent.keyDown(chip, { key: 'Enter' });
-      fireEvent.keyUp(chip, { key: 'Enter' });
-      expect(onKeyDown).toHaveBeenCalledTimes(1);
-      expect(onKeyUp).toHaveBeenCalledTimes(1);
+      const action = screen.getByRole('button', { name: 'Warsaw' });
+      fireEvent.keyDown(action, { key: 'Enter' });
+      fireEvent.keyUp(action, { key: 'Enter' });
+      expect(onKeyDown).toHaveBeenCalledOnce();
+      expect(onKeyUp).toHaveBeenCalledOnce();
     });
+
+    it('passes consumer keyboard handlers to the icon button', () => {
+      const onKeyDown = vi.fn();
+      const onKeyUp = vi.fn();
+      render(
+        <Chip>
+          <Chip.Label>Warsaw</Chip.Label>
+          <Chip.IconButton aria-label="Remove Warsaw" onKeyDown={onKeyDown} onKeyUp={onKeyUp} />
+        </Chip>,
+      );
+      const iconButton = screen.getByRole('button', { name: 'Remove Warsaw' });
+      fireEvent.keyDown(iconButton, { key: 'Enter' });
+      fireEvent.keyUp(iconButton, { key: 'Enter' });
+      expect(onKeyDown).toHaveBeenCalledOnce();
+      expect(onKeyUp).toHaveBeenCalledOnce();
+    });
+  });
+});
+
+describe('Chip examples', () => {
+  it('lets the consumer toggle the filter state', async () => {
+    const user = userEvent.setup();
+    render(<ChipStatesExample />);
+
+    const action = screen.getByRole('button', { name: 'Remote only' });
+    expect(action).toHaveAttribute('aria-pressed', 'false');
+    await user.click(action);
+    expect(action).toHaveAttribute('aria-pressed', 'true');
+    await user.click(action);
+    expect(action).toHaveAttribute('aria-pressed', 'false');
+  });
+
+  it('lets the consumer apply, remove, and restore cities without losing focus', async () => {
+    const user = userEvent.setup();
+    render(<ChipIconsExample />);
+
+    await user.click(screen.getByRole('button', { name: 'Berlin' }));
+    expect(screen.getByRole('status')).toHaveTextContent('Applied city: Berlin');
+    await user.click(screen.getByRole('button', { name: 'Remove Berlin' }));
+    expect(screen.queryByRole('button', { name: 'Berlin' })).not.toBeInTheDocument();
+    expect(screen.getByRole('status')).toHaveTextContent('No city applied');
+
+    const reset = screen.getByRole('button', { name: 'Reset examples' });
+    expect(reset).toHaveFocus();
+    await user.click(reset);
+    expect(screen.getByRole('button', { name: 'Berlin' })).toBeInTheDocument();
   });
 });
 
@@ -241,14 +404,18 @@ describe('Chip Snapshots', () => {
 });
 
 describe('Chip data-slot', () => {
-  it('marks each part with data-slot', () => {
+  it('marks every composed part', () => {
     const { container } = render(
       <Chip>
-        Warsaw
-        <Chip.Icon icon={RiCloseLine} />
+        <Chip.Action>
+          <Chip.Icon icon={RiCloseLine} />
+          <Chip.Label>Warsaw</Chip.Label>
+        </Chip.Action>
+        <Chip.IconButton aria-label="Remove Warsaw" />
       </Chip>,
     );
-    expect(container.querySelector('[data-slot="chip"]')).toBeInTheDocument();
-    expect(container.querySelector('[data-slot="chip-icon"]')).toBeInTheDocument();
+    for (const slot of ['chip', 'chip-action', 'chip-label', 'chip-icon', 'chip-icon-button']) {
+      expect(container.querySelector(`[data-slot="${slot}"]`)).toBeInTheDocument();
+    }
   });
 });

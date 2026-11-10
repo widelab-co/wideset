@@ -108,8 +108,17 @@ export { Checkbox, CheckboxDescription, CheckboxLabel } from './components/check
 export type { CheckboxGroupProps, CheckboxProps } from './components/checkbox/Checkbox.types';
 export { CheckboxGroup } from './components/checkbox/CheckboxGroup';
 export { Chip } from './components/chip/Chip';
-export type { ChipIconProps, ChipProps } from './components/chip/Chip.types';
+export type {
+  ChipActionProps,
+  ChipIconButtonProps,
+  ChipIconProps,
+  ChipLabelProps,
+  ChipProps,
+} from './components/chip/Chip.types';
+export { ChipAction } from './components/chip/ChipAction';
 export { ChipIcon } from './components/chip/ChipIcon';
+export { ChipIconButton } from './components/chip/ChipIconButton';
+export { ChipLabel } from './components/chip/ChipLabel';
 export { ComboBox, ComboBoxIcon, ComboBoxPrefix } from './components/combo-box/ComboBox';
 export type {
   ComboBoxContentProps,

@@ -2,5 +2,11 @@
 import { Chip, type ChipProps } from '@wideset/react';
 
 export default function ChipDefault(props: ChipProps) {
-  return <Chip {...props}>Remote only</Chip>;
+  return (
+    <Chip {...props}>
+      <Chip.Action>
+        <Chip.Label>Remote only</Chip.Label>
+      </Chip.Action>
+    </Chip>
+  );
 }
