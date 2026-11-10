@@ -917,6 +917,92 @@ describe('SegmentedControl', () => {
       }
     });
 
+    it('does not select an unselected item with Enter', async () => {
+      const user = userEvent.setup();
+      const onValueChange = vi.fn();
+
+      render(
+        <SegmentedControl defaultValue="item-1" onValueChange={onValueChange}>
+          <SegmentedControl.Item value="item-1">Item 1</SegmentedControl.Item>
+          <SegmentedControl.Item value="item-2">Item 2</SegmentedControl.Item>
+        </SegmentedControl>,
+      );
+
+      const first = screen.getByRole('radio', { name: 'Item 1' });
+      const second = screen.getByRole('radio', { name: 'Item 2' });
+      second.focus();
+      expect(second).toHaveFocus();
+
+      await user.keyboard('[Enter]');
+
+      expect(first).toBeChecked();
+      expect(second).not.toBeChecked();
+      expect(onValueChange).not.toHaveBeenCalled();
+    });
+
+    it('keeps selection controlled during arrow navigation', async () => {
+      const user = userEvent.setup();
+      const onValueChange = vi.fn();
+
+      render(
+        <SegmentedControl value="item-1" onValueChange={onValueChange}>
+          <SegmentedControl.Item value="item-1">Item 1</SegmentedControl.Item>
+          <SegmentedControl.Item value="item-2">Item 2</SegmentedControl.Item>
+        </SegmentedControl>,
+      );
+
+      const first = screen.getByRole('radio', { name: 'Item 1' });
+      const second = screen.getByRole('radio', { name: 'Item 2' });
+      await user.tab();
+      expect(first).toHaveFocus();
+
+      await user.keyboard('[ArrowRight>]');
+      await waitFor(() => {
+        expect(second).toHaveFocus();
+        expect(onValueChange).toHaveBeenCalledExactlyOnceWith('item-2');
+      });
+      await user.keyboard('[/ArrowRight]');
+
+      expect(first).toBeChecked();
+      expect(second).not.toBeChecked();
+    });
+
+    it('moves focus with Home/End without changing selection', async () => {
+      const user = userEvent.setup();
+      const onValueChange = vi.fn();
+
+      render(
+        <SegmentedControl defaultValue="item-2" onValueChange={onValueChange}>
+          <SegmentedControl.Item value="disabled-first" disabled>
+            Disabled first
+          </SegmentedControl.Item>
+          <SegmentedControl.Item value="item-1">Item 1</SegmentedControl.Item>
+          <SegmentedControl.Item value="item-2">Item 2</SegmentedControl.Item>
+          <SegmentedControl.Item value="item-3">Item 3</SegmentedControl.Item>
+          <SegmentedControl.Item value="disabled-last" disabled>
+            Disabled last
+          </SegmentedControl.Item>
+        </SegmentedControl>,
+      );
+
+      const first = screen.getByRole('radio', { name: 'Item 1' });
+      const selected = screen.getByRole('radio', { name: 'Item 2' });
+      const last = screen.getByRole('radio', { name: 'Item 3' });
+      await user.tab();
+      expect(selected).toHaveFocus();
+
+      await user.keyboard('[End]');
+      await waitFor(() => expect(last).toHaveFocus());
+      expect(selected).toBeChecked();
+      expect(last).not.toBeChecked();
+
+      await user.keyboard('[Home]');
+      await waitFor(() => expect(first).toHaveFocus());
+      expect(selected).toBeChecked();
+      expect(first).not.toBeChecked();
+      expect(onValueChange).not.toHaveBeenCalled();
+    });
+
     it('enables the pill transition when arrow navigation changes selection', async () => {
       const user = userEvent.setup();
 

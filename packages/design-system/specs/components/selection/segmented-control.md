@@ -104,6 +104,11 @@ const [view, setView] = useState('board');
 
 ## Gotchas
 
+- Set `name` and `required` on the root, not on items. Inside a form, each item renders a hidden
+  radio input; the selected value is submitted under the group's `name`.
+- Arrow navigation selects the focused segment and calls `onValueChange` when selection changes.
+  It also invokes the destination item's `onClick`; track selection with the group's
+  `onValueChange` rather than item click handlers.
 - The `icon` prop takes a component, not an element.
 - `icon` on the item makes an icon-only segment; for icon + label put `SegmentedControl.Icon` inside
   the item's children instead.

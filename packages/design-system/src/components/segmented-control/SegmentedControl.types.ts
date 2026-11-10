@@ -91,7 +91,10 @@ type SegmentedControlItemIconProps =
     };
 
 /** An individual item within `SegmentedControl`. */
-export type SegmentedControlItemProps = ComponentPropsWithoutRef<typeof RadioGroup.Item> &
+export type SegmentedControlItemProps = Omit<
+  ComponentPropsWithoutRef<typeof RadioGroup.Item>,
+  'checked' | 'required'
+> &
   Omit<VariantProps<typeof segmentedControlItemVariants>, 'iconOnly'> &
   SegmentedControlItemIconProps;
 

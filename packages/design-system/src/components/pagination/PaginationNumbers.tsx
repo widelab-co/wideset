@@ -20,6 +20,7 @@ const PaginationNumbers = ({ className, defaultMotion, ...props }: PaginationNum
     motion: paginationMotion,
   } = usePaginationContext();
   const motion = useDefaultMotion(defaultMotion ?? paginationMotion);
+  const containerRef = useRef<HTMLDivElement>(null);
   const pageButtons = useRef(new Map<number, HTMLButtonElement>());
   const pendingFocusPage = useRef<number | null>(null);
 
@@ -34,7 +35,7 @@ const PaginationNumbers = ({ className, defaultMotion, ...props }: PaginationNum
     const { activeElement, body } = button.ownerDocument;
     const focusIsOnEllipsis =
       activeElement?.getAttribute('role') === 'combobox' &&
-      button.closest('[data-slot="pagination-numbers"]')?.contains(activeElement);
+      containerRef.current?.contains(activeElement);
 
     if (activeElement === body || focusIsOnEllipsis) {
       button.focus({ preventScroll: true });
@@ -66,6 +67,7 @@ const PaginationNumbers = ({ className, defaultMotion, ...props }: PaginationNum
 
   return (
     <div
+      ref={containerRef}
       data-slot="pagination-numbers"
       className={cn('gap-ws-7 ml-auto flex items-center', className)}
       {...props}

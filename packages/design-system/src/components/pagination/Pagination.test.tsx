@@ -178,11 +178,12 @@ describe('Pagination', () => {
       });
 
       it.each([
-        { moveFocusAway: false, expectedFocus: 'selected page' },
-        { moveFocusAway: true, expectedFocus: 'other control' },
+        { page: 5, moveFocusAway: false, expectedFocus: 'selected page' },
+        { page: 9, moveFocusAway: false, expectedFocus: 'selected page' },
+        { page: 9, moveFocusAway: true, expectedFocus: 'other control' },
       ])(
-        'keeps focus on the $expectedFocus after a delayed controlled page update',
-        async ({ moveFocusAway }) => {
+        'keeps focus on the $expectedFocus after a delayed update to page $page with an overridden data-slot',
+        async ({ page, moveFocusAway }) => {
           const user = userEvent.setup();
           const onChangeActivePage = vi.fn();
           const content = (activePage: number) => (
@@ -192,7 +193,9 @@ describe('Pagination', () => {
                 activePage={activePage}
                 onChangeActivePage={onChangeActivePage}
                 maxVisiblePages={5}
-              />
+              >
+                <Pagination.Numbers data-slot="custom-pagination-numbers" />
+              </Pagination>
               <button type="button">After pagination</button>
             </>
           );
@@ -200,20 +203,20 @@ describe('Pagination', () => {
 
           const trigger = screen.getByRole('combobox', { name: 'Select page between 5 and 9' });
           await user.click(trigger);
-          await user.click(screen.getByRole('option', { name: '9' }));
+          await user.click(screen.getByRole('option', { name: String(page) }));
 
-          expect(onChangeActivePage).toHaveBeenCalledExactlyOnceWith(9);
+          expect(onChangeActivePage).toHaveBeenCalledExactlyOnceWith(page);
           expect(screen.getByRole('button', { name: '1' })).toHaveAttribute('aria-current', 'page');
-          expect(screen.queryByRole('button', { name: '9' })).not.toBeInTheDocument();
+          expect(screen.queryByRole('button', { name: String(page) })).not.toBeInTheDocument();
           await waitFor(() => expect(trigger).toHaveFocus());
 
           const after = screen.getByRole('button', { name: 'After pagination' });
           if (moveFocusAway) await user.click(after);
 
           // The parent applies the requested page after the menu has already closed.
-          rerender(content(9));
+          rerender(content(page));
 
-          const selectedPage = screen.getByRole('button', { name: '9' });
+          const selectedPage = screen.getByRole('button', { name: String(page) });
           expect(selectedPage).toHaveAttribute('aria-current', 'page');
           expect(moveFocusAway ? after : selectedPage).toHaveFocus();
         },
