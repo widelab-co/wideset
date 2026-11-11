@@ -41,11 +41,12 @@ export function PipelineByStage({ className }: { className?: string }) {
                 {formatUsd(stage.amount)}
               </span>
             </div>
-            <svg aria-hidden className="h-ws-4 w-full">
+            {/* 4px, the thickness of ProgressBar in the key figures: bars on one screen match. */}
+            <svg aria-hidden className="h-ws-3 w-full">
               <rect
                 width={`${(stage.amount / max) * 100}%`}
                 height="100%"
-                rx="3"
+                rx="2"
                 className="fill-ws-static-subtle"
               />
             </svg>
