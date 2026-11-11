@@ -463,6 +463,126 @@ export const BLOCKS: BlockMeta[] = [
     description:
       'A call recording on a raised page: who spoke when, the transcript that follows the player, highlights and comments at a moment, and a voice note.',
   },
+  {
+    id: 'files',
+    title: 'Files',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'A workspace’s shared files on a raised page: places and collections in a narrow column, files as a list or a grid with drawn previews, uploading in place, an action bar to move, copy, collect, archive or delete, and a trash to restore from.',
+  },
+  {
+    id: 'gallery',
+    title: 'Gallery',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'A template library on a raised page: categories as tabs beside the sort, featured collections, templates as cards with a drawn preview and a save toggle, and a side panel to add one to the workspace.',
+  },
+  {
+    id: 'product-form',
+    title: 'Product form',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'Adding a product to the catalogue on a raised page: details, photos with a cover, pricing with a live margin, options that make variants and inventory in one column, beside its status, sales channels and a preview that follows the typing.',
+  },
+  {
+    id: 'import',
+    title: 'Import',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'Importing customers from a CSV file in steps on a raised page: the file, matching its columns to fields, a review of what will change with a choice for duplicates, then the result in place, with exporting from the header.',
+  },
+  {
+    id: 'event-detail',
+    title: 'Event detail',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'One customer event on a raised page: the date beside the name, its facts in a quiet row, the answer to the invitation as the one filled control with a follow-up in place, the agenda as a timeline, and who is going beside it.',
+  },
+  {
+    id: 'booking',
+    title: 'Booking',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'Booking a customer meeting on a raised page from the time they shared: the meeting, a month of open days and the free times in your time zone side by side, the details with a way back to each choice, then the confirmation in both time zones.',
+  },
+  {
+    id: 'call',
+    title: 'Call',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'A video call inside the app on a raised page: the people as tiles on a dark stage with the speaker outlined, a control bar to mute, share and record, and notes, chat and people in a panel beside it.',
+  },
+  {
+    id: 'assistant',
+    title: 'Assistant',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'An assistant beside a record on a raised page: the deal on the left, and a conversation on the right that cites its sources and proposes a change to apply, which lands in the record and its activity.',
+  },
+  {
+    id: 'workflow-builder',
+    title: 'Workflow builder',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'Building an automation on a raised page: steps on a canvas joined by lines with a + to insert one, a condition that splits the flow, the selected step’s settings in a panel beside it, and a switch that turns the workflow on once every step is complete.',
+  },
+  {
+    id: 'pipeline',
+    title: 'Pipeline',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'A deal pipeline on a raised page: stages as columns of deal cards with each stage’s total, dragged between and within stages or moved from the keyboard, filtered by owner, close date and search.',
+  },
+  {
+    id: 'code-editor',
+    title: 'Code editor',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'Editing a script on a raised page: files beside the editor with line numbers and colouring, a test run with its output and problems, and saving or restoring a version.',
+  },
+  {
+    id: 'new-password',
+    title: 'New password',
+    direction: 'inset',
+    navigation: 'none',
+    description:
+      'Choosing a new password in the sign-in card after a reset link: rules that tick as you type, a confirmation, and an expired link that sends a new one.',
+  },
+  {
+    id: 'verify-email',
+    title: 'Verify e-mail',
+    direction: 'inset',
+    navigation: 'none',
+    description:
+      'Verifying the address after sign-up in the sign-in card: a six-digit code that checks itself, resending it after a cooldown, and changing the address.',
+  },
+  {
+    id: 'signed-out',
+    title: 'Signed out',
+    direction: 'inset',
+    navigation: 'none',
+    description:
+      'The sign-in card after signing out: the accounts still signed in on this device to continue as, and signing in with another.',
+  },
+  {
+    id: 'choose-workspace',
+    title: 'Choose workspace',
+    direction: 'inset',
+    navigation: 'none',
+    description:
+      'Choosing a workspace in the sign-in card after signing in: the workspaces with the last used marked, invitations to accept or decline, and creating a new one.',
+  },
 ];
 
 /** A part that opens over a screen. It belongs to no direction: it keeps its own look over any. */
@@ -516,6 +636,84 @@ export const PANELS: PanelMeta[] = [
     title: 'Access modal',
     description:
       'Sharing in a modal: inviting by e-mail with a role, who has access and their roles, a private switch and the link.',
+  },
+  {
+    id: 'media-viewer',
+    title: 'Media viewer',
+    description:
+      'A file opened full screen over the app: the file large in the middle with zoom, moving to the previous or next, its details and comments beside it, and closing back to its row.',
+  },
+  {
+    id: 'command-palette',
+    title: 'Command palette',
+    description:
+      'A command palette over the app: one field that finds pages, customers and deals and runs actions, grouped with their shortcuts, opened with Ctrl K.',
+  },
+  {
+    id: 'account-menu',
+    title: 'Account menu',
+    description:
+      'The account menu opened from the sidebar: who is signed in, the workspaces, settings, a theme submenu, switching account and logging out.',
+  },
+  {
+    id: 'notifications-popover',
+    title: 'Notifications popover',
+    description:
+      'Notifications in a popover from the bell: the latest grouped by day with unread dots, an access request answered in place, and the way to the full inbox.',
+  },
+  {
+    id: 'coach-marks',
+    title: 'Coach marks',
+    description:
+      'A short guided tour over a real page: one mark at a time under the control it explains, that control ringed, with a step count, back, next and skipping, started again from the help menu.',
+  },
+  {
+    id: 'whats-new',
+    title: 'What’s new',
+    description:
+      'What’s new in a dialog over Home: the latest update with a drawn sketch, what it does and why, trying it, and earlier updates that open in place.',
+  },
+  {
+    id: 'filter-popover',
+    title: 'Filter popover',
+    description:
+      'Building a filter in a popover over a list: conditions of field, test and value joined by and or or, applied together and shown as removable chips, with the sort in a popover beside it.',
+  },
+  {
+    id: 'confirm-delete',
+    title: 'Confirm delete',
+    description:
+      'Two weights of deleting on a list of reports: one report goes at once with Undo in a toast, a shared folder asks first in a dialog that says what goes with it and who loses access, and waits for its name.',
+  },
+  {
+    id: 'report-dialog',
+    title: 'Report dialog',
+    description:
+      'Reporting a comment from the feed in a dialog: the comment quoted, a reason, optional details, blocking its author, then thanks and what happens next in place, and the comment hidden with Show anyway.',
+  },
+  {
+    id: 'feedback-dialog',
+    title: 'Feedback dialog',
+    description:
+      'Feedback from the sidebar in a dialog: a five-step worded scale, a topic, a few words, a screenshot of the page shown as a thumbnail and consent to follow up, then thanks in place.',
+  },
+  {
+    id: 'context-menu',
+    title: 'Context menu',
+    description:
+      'A context menu on a customer row, opened by a right-click, its ⋯ button or Shift F10: open, copy and duplicate, assign and tag in submenus, archive with Undo, and delete last.',
+  },
+  {
+    id: 'move-dialog',
+    title: 'Move dialog',
+    description:
+      'Moving files in a dialog: a searchable folder tree with the current folder marked, the chosen path under it, a new folder named in place, and moving or archiving, with Open folder and Undo after.',
+  },
+  {
+    id: 'export-dialog',
+    title: 'Export dialog',
+    description:
+      'Exporting customers in a dialog: all, the filtered or the selected ones with their counts, the date added, the columns and the format, then the file prepared in place and downloaded, or e-mailed when it is large.',
   },
 ];
 

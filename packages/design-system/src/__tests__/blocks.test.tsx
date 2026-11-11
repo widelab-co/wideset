@@ -8,30 +8,26 @@ import panelSource from '../blocks/task-sidepanel/task-sidepanel.tsx?raw';
 
 // The sign-in, sign-up and account-access screens share their card, and the two sign-in screens their form.
 const authSources = import.meta.glob<string>(
-  '../blocks/{sign-in,sign-in-card,sign-up,forgot-password,check-email,two-factor,sso-sign-in,accept-invite}/{app-icon,auth-card,sign-in-form}.tsx',
+  '../blocks/{sign-in,sign-in-card,sign-up,forgot-password,check-email,two-factor,sso-sign-in,accept-invite,new-password,verify-email,signed-out,choose-workspace}/{app-icon,auth-card,sign-in-form}.tsx',
   { query: '?raw', import: 'default', eager: true },
 );
+const AUTH_BLOCKS = [
+  'sign-in',
+  'sign-in-card',
+  'sign-up',
+  'forgot-password',
+  'check-email',
+  'two-factor',
+  'sso-sign-in',
+  'accept-invite',
+  'new-password',
+  'verify-email',
+  'signed-out',
+  'choose-workspace',
+];
 const SHARED = {
-  'app-icon.tsx': [
-    'sign-in',
-    'sign-in-card',
-    'sign-up',
-    'forgot-password',
-    'check-email',
-    'two-factor',
-    'sso-sign-in',
-    'accept-invite',
-  ],
-  'auth-card.tsx': [
-    'sign-in',
-    'sign-in-card',
-    'sign-up',
-    'forgot-password',
-    'check-email',
-    'two-factor',
-    'sso-sign-in',
-    'accept-invite',
-  ],
+  'app-icon.tsx': AUTH_BLOCKS,
+  'auth-card.tsx': AUTH_BLOCKS,
   'sign-in-form.tsx': ['sign-in', 'sign-in-card'],
 };
 
