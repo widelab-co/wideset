@@ -258,10 +258,10 @@ export const BLOCKS: BlockMeta[] = [
   {
     id: 'integrations',
     title: 'Integrations',
-    direction: 'canvas',
-    navigation: 'top-bar',
+    direction: 'flat',
+    navigation: 'sidebar',
     description:
-      'The apps a workspace can connect, on a grey canvas: categories and search, connected ones first, and connecting a new one.',
+      'A workspace’s integrations as a settings page: search and categories, the connected apps in a table with their status, the ones to add as tiles, and connecting one in a side panel.',
   },
   {
     id: 'plans',
@@ -287,6 +287,54 @@ export const BLOCKS: BlockMeta[] = [
     description:
       'A report on a grey canvas: a date range and an export above key figures, charts and a breakdown table, each in its own white section.',
   },
+  {
+    id: 'home',
+    title: 'Home',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'A workspace home on a raised page: today’s tasks to tick off with their progress, the deals to move this week, the next meetings and recently opened records.',
+  },
+  {
+    id: 'dashboard',
+    title: 'Dashboard',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'A revenue dashboard on a raised page: a period control over four key figures with their change, a trend against the period before, revenue by owner and progress to the quarter’s goal, split by lines instead of cards.',
+  },
+  {
+    id: 'page-states',
+    title: 'Page states',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'A customer overview with its four modules in the four states a module can be in: loaded, loading, empty and failed with a working Retry, under one page-wide notice.',
+  },
+  {
+    id: 'order-confirmation',
+    title: 'Order confirmation',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'The page after a plan upgrade on a raised page: a quiet confirmation with the next charge, the receipt, two next steps and the way back to the workspace.',
+  },
+  {
+    id: 'checkout',
+    title: 'Checkout',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'Paying for a plan change on a raised page: the plan with seats and add-ons, the billing period, payment method and billing details as tiles, beside a summary with a promo code that reprices as the order changes.',
+  },
+  {
+    id: 'send-payment',
+    title: 'Send payment',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'Sending a payment on a raised page: one narrow card that is the form, then the review before anything moves, then the receipt, with recent transfers beside it and a confirmation only above a stated limit.',
+  },
 ];
 
 /** A part that opens over a screen. It belongs to no direction: it keeps its own look over any. */
@@ -304,6 +352,42 @@ export const PANELS: PanelMeta[] = [
     title: 'Task side panel',
     description:
       'A record’s detail beside the page: its properties, subtasks, tabs over an activity timeline, and keyboard hints.',
+  },
+  {
+    id: 'modal-form',
+    title: 'Form modal',
+    description:
+      'A short form in a modal: its fields, a consent to tick, the actions in the footer and keyboard hints under them.',
+  },
+  {
+    id: 'modal-stepper',
+    title: 'Stepper modal',
+    description:
+      'A setup in steps in a modal: the steps down the left with their state, the current step’s form beside them.',
+  },
+  {
+    id: 'modal-details',
+    title: 'Details modal',
+    description:
+      'A record read in a modal: its key facts and actions, tabs over its history, and moving to the previous or next record.',
+  },
+  {
+    id: 'modal-task',
+    title: 'Task modal',
+    description:
+      'A task opened in a modal: its properties and progress, subtasks to tick off, and tabs over the activity log.',
+  },
+  {
+    id: 'modal-search',
+    title: 'Search modal',
+    description:
+      'Search across the workspace in a modal: the query, result tabs, and results to move through by keyboard.',
+  },
+  {
+    id: 'modal-access',
+    title: 'Access modal',
+    description:
+      'Sharing in a modal: inviting by e-mail with a role, who has access and their roles, a private switch and the link.',
   },
 ];
 

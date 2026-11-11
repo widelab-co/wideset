@@ -9,6 +9,7 @@ import {
   type Member,
   members as initialMembers,
   NOW,
+  type Role,
   ROLE_LABEL,
   workspace,
 } from './data';
@@ -54,6 +55,14 @@ function TeamPage() {
         emails.length === 1
           ? `Invitation sent to ${emails[0]}`
           : `${emails.length} invitations sent`,
+    });
+  };
+
+  /** A role changed in the table or in the invite modal's list. */
+  const changeRole = (member: Member, role: Role) => {
+    setMembers(members.map((m) => (m.id === member.id ? { ...m, role } : m)));
+    showToast({
+      content: `${member.name} is now ${role === 'admin' ? 'an' : 'a'} ${ROLE_LABEL[role].toLowerCase()}`,
     });
   };
 
@@ -123,12 +132,7 @@ function TeamPage() {
               members={shownMembers}
               query={query.trim()}
               onClearSearch={() => setQuery('')}
-              onRoleChange={(member, role) => {
-                setMembers(members.map((m) => (m.id === member.id ? { ...m, role } : m)));
-                showToast({
-                  content: `${member.name} is now ${role === 'admin' ? 'an' : 'a'} ${ROLE_LABEL[role].toLowerCase()}`,
-                });
-              }}
+              onRoleChange={changeRole}
               onCopyEmail={(member) => {
                 void navigator.clipboard?.writeText(member.email).catch(() => {});
                 showToast({ content: `Copied ${member.email}` });
@@ -165,8 +169,10 @@ function TeamPage() {
       <InviteModal
         open={inviting}
         onOpenChange={setInviting}
+        members={members}
         taken={[...members.map((m) => m.email), ...invitations.map((i) => i.email)]}
         onInvite={invite}
+        onRoleChange={changeRole}
       />
       <RemoveMemberModal
         member={removing.member}

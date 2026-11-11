@@ -1,28 +1,61 @@
 import {
   type RemixiconComponentType,
+  RiBankCardLine,
+  RiContactsBook3Line,
   RiDropboxFill,
   RiGoogleFill,
+  RiHandCoinLine,
+  RiHome5Line,
+  RiInbox2Line,
+  RiKey2Line,
+  RiLineChartLine,
   RiLinkedinFill,
   RiMicrosoftFill,
   RiNotionFill,
+  RiPieChart2Line,
+  RiPlugFill,
+  RiPlugLine,
+  RiQuestionLine,
+  RiSettings3Line,
   RiSlackFill,
+  RiTeamLine,
   RiWebhookFill,
   RiWhatsappFill,
 } from '@remixicon/react';
 import type { AvatarColor } from '@wideset/react';
 
 /** The product is Orbit; the workspace connecting apps to it is Lumen Studio. */
+export const PRODUCT = { name: 'Orbit' };
 export const WORKSPACE = { name: 'Lumen Studio' };
-export const ACCOUNT = { name: 'Maya Okafor', initials: 'MO' };
+export const ACCOUNT = { name: 'Maya Okafor', email: 'maya@lumenstudio.co', initials: 'MO' };
 
-export const NAV = [
-  { label: 'Home', href: '#home' },
-  { label: 'Customers', href: '#customers' },
-  { label: 'Deals', href: '#deals' },
-  { label: 'Revenue', href: '#revenue' },
-  { label: 'Reports', href: '#reports' },
-  { label: 'Integrations', href: '#integrations' },
+export type NavLink = {
+  id: string;
+  label: string;
+  icon: RemixiconComponentType;
+  /** The icon while the page is open (a line icon swaps for its fill). */
+  activeIcon?: RemixiconComponentType;
+};
+
+export const MAIN_LINKS: NavLink[] = [
+  { id: 'home', label: 'Home', icon: RiHome5Line },
+  { id: 'inbox', label: 'Inbox', icon: RiInbox2Line },
+  { id: 'customers', label: 'Customers', icon: RiContactsBook3Line },
+  { id: 'deals', label: 'Deals', icon: RiHandCoinLine },
+  { id: 'revenue', label: 'Revenue', icon: RiLineChartLine },
+  { id: 'reports', label: 'Reports', icon: RiPieChart2Line },
 ];
+
+/** Integrations is a page of the workspace's settings. */
+export const SETTINGS_LINKS: NavLink[] = [
+  { id: 'general', label: 'General', icon: RiSettings3Line },
+  { id: 'members', label: 'Members', icon: RiTeamLine },
+  { id: 'billing', label: 'Billing', icon: RiBankCardLine },
+  { id: 'integrations', label: 'Integrations', icon: RiPlugLine, activeIcon: RiPlugFill },
+  { id: 'api-keys', label: 'API keys', icon: RiKey2Line },
+];
+
+export const HELP_LINK: NavLink = { id: 'help', label: 'Help and support', icon: RiQuestionLine };
 
 /** The moment the screen shows; every sync time below is relative to it. */
 export const NOW = '2026-11-10T14:30:00Z';
@@ -52,7 +85,7 @@ export type App = {
   name: string;
   category: Category;
   logo: AppLogo;
-  /** One line on the tile: what connecting it does. */
+  /** One line on the tile: what connecting it does. Short enough to show whole in a tile. */
   summary: string;
   /** The panel's paragraph: what flows where. */
   about: string;
@@ -79,7 +112,7 @@ export const APPS: App[] = [
     name: 'HubSpot',
     category: 'crm',
     logo: { initials: 'HS', color: 'orange' },
-    summary: 'Sync contacts, companies and marketing lists',
+    summary: 'Sync contacts and companies',
     about:
       'Orbit reads contacts, companies and list membership from HubSpot and writes lifecycle stages back, so marketing sees which leads became customers.',
     scopes: [
@@ -93,7 +126,7 @@ export const APPS: App[] = [
     name: 'Salesforce',
     category: 'crm',
     logo: { initials: 'SF', color: 'blue' },
-    summary: 'Sync accounts, contacts and deals',
+    summary: 'Sync accounts and deals',
     about:
       'Orbit reads accounts, contacts and opportunities from Salesforce and writes deal stages back, so both stay in step. Changes sync every 15 minutes.',
     scopes: [
@@ -135,7 +168,7 @@ export const APPS: App[] = [
     name: 'Slack',
     category: 'communication',
     logo: { icon: RiSlackFill },
-    summary: 'Post deal updates and alerts to channels',
+    summary: 'Post deal alerts to channels',
     about:
       'Orbit posts won deals, renewals and churn alerts to the channels you choose, and lets people look up a customer with /orbit.',
     scopes: [
@@ -149,7 +182,7 @@ export const APPS: App[] = [
     name: 'Google Workspace',
     category: 'communication',
     logo: { icon: RiGoogleFill },
-    summary: 'Log Gmail threads and Calendar meetings',
+    summary: 'Log Gmail threads and meetings',
     about:
       'Orbit logs Gmail threads and Calendar meetings with your customers on their timelines. It never reads mail from people outside your customer list.',
     scopes: [
@@ -163,7 +196,7 @@ export const APPS: App[] = [
     name: 'Microsoft Teams',
     category: 'communication',
     logo: { icon: RiMicrosoftFill },
-    summary: 'Post deal updates to a team channel',
+    summary: 'Post deal updates to a channel',
     about: 'Orbit posts won deals, renewals and churn alerts to the Teams channels you choose.',
     scopes: [
       { data: 'Teams and channels', access: 'Read' },
@@ -175,7 +208,7 @@ export const APPS: App[] = [
     name: 'WhatsApp Business',
     category: 'communication',
     logo: { icon: RiWhatsappFill },
-    summary: 'Message customers from their record',
+    summary: 'Message customers from Orbit',
     about:
       'Send and receive WhatsApp messages from a customer’s record in Orbit; every conversation lands on their timeline.',
     scopes: [
@@ -224,7 +257,7 @@ export const APPS: App[] = [
     name: 'Stripe',
     category: 'finance',
     logo: { initials: 'ST', color: 'indigo' },
-    summary: 'Sync payments, subscriptions and invoices',
+    summary: 'Sync payments and subscriptions',
     about:
       'Orbit reads payments, subscriptions and invoices from Stripe to work out revenue, churn and expansion for each customer.',
     scopes: [
@@ -252,7 +285,7 @@ export const APPS: App[] = [
     name: 'Xero',
     category: 'finance',
     logo: { initials: 'XE', color: 'blue' },
-    summary: 'Reconcile invoices with bank payments',
+    summary: 'Match invoices to bank payments',
     about:
       'Invoices raised in Orbit are created in Xero, and payments reconciled there mark them paid in Orbit.',
     scopes: [
@@ -266,7 +299,7 @@ export const APPS: App[] = [
     name: 'Notion',
     category: 'productivity',
     logo: { icon: RiNotionFill },
-    summary: 'Turn account notes into shared pages',
+    summary: 'Turn account notes into pages',
     about:
       'Account plans and call notes written in Orbit can be published to a Notion page your team shares.',
     scopes: [

@@ -28,20 +28,21 @@ export function ConnectedTable({ rows, onManage }: ConnectedTableProps) {
   const titleId = useId();
 
   return (
-    <section aria-labelledby={titleId} className="gap-ws-7 flex flex-col">
-      <h2 id={titleId} className="typography-subtitle-xs text-ws-static-strong">
+    <section aria-labelledby={titleId} className="gap-ws-5 flex flex-col">
+      <h2 id={titleId} className="typography-label-strong-md text-ws-static-strong">
         Connected
       </h2>
-      <div className="bg-ws-static-foreground rounded-ws-container-md px-ws-11 pt-ws-5 pb-ws-7 relative overflow-x-auto">
-        <Table aria-labelledby={titleId} className="w-full min-w-[48rem] table-fixed">
+      {/* On the page's white the table needs no box: its own lines carry it. */}
+      <div className="relative overflow-x-auto">
+        <Table aria-labelledby={titleId} className="w-full min-w-[52rem] table-fixed">
           <Table.Head>
             <Table.Row>
-              <Table.Header flushMargin className="w-[28%]">
+              <Table.Header flushMargin className="w-[26%]">
                 App
               </Table.Header>
               <Table.Header className="w-[30%]">Syncs</Table.Header>
-              <Table.Header className="w-[16%]">Status</Table.Header>
-              <Table.Header className="w-[14%]">Last sync</Table.Header>
+              <Table.Header className="w-[18%]">Status</Table.Header>
+              <Table.Header className="w-[13%]">Last sync</Table.Header>
               <Table.Header flushMargin align="right">
                 <span className="sr-only">Actions</span>
               </Table.Header>

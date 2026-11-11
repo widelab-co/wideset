@@ -1,8 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ComponentType } from 'react';
 
-import { BLOCKS, DIRECTION_TITLE, NAVIGATION_TITLE, PANELS } from '../../blocks';
-import CustomersBlock, { type Direction } from '../../blocks/customers';
+import {
+  type BlockDirection,
+  BLOCKS,
+  DIRECTION_TITLE,
+  NAVIGATION_TITLE,
+  PANELS,
+} from '../../blocks';
+import CustomersBlock from '../../blocks/customers';
+import IntegrationsBlock from '../../blocks/integrations';
 
 /*
   The starting points: whole screens in src/blocks/<id>/, one story each, full screen. The docs
@@ -69,22 +76,29 @@ export const Analytics = story('analytics');
 export const SalesOverview = story('sales-overview');
 export const Customers = story('customers');
 
-/** One screen in the other three directions: the page stays the same, only the surround changes. */
-const customersIn = (direction: Exclude<Direction, 'flat'>): Story => ({
-  name: `Customers (${DIRECTION_TITLE[direction]}, sidebar)`,
-  args: { id: 'customers' },
-  render: () => <CustomersBlock direction={direction} />,
-  parameters: {
-    docs: {
-      description: {
-        story: `The Customers screen in the ${DIRECTION_TITLE[direction]} direction: the same page, another surround. An app keeps one direction on every screen.`,
+/** A screen in another direction: the page stays the same, only the surround changes. */
+const inDirection = <D extends BlockDirection>(
+  id: string,
+  Block: ComponentType<{ direction?: D }>,
+  direction: D,
+): Story => {
+  const block = BLOCKS.find((entry) => entry.id === id)!;
+  return {
+    name: `${block.title} (${DIRECTION_TITLE[direction]}, ${NAVIGATION_TITLE[block.navigation].toLowerCase()})`,
+    args: { id },
+    render: () => <Block direction={direction} />,
+    parameters: {
+      docs: {
+        description: {
+          story: `The ${block.title} screen in the ${DIRECTION_TITLE[direction]} direction: the same page, another surround. An app keeps one direction on every screen.`,
+        },
       },
     },
-  },
-});
-export const CustomersFrame = customersIn('frame');
-export const CustomersInset = customersIn('inset');
-export const CustomersCanvas = customersIn('canvas');
+  };
+};
+export const CustomersFrame = inDirection('customers', CustomersBlock, 'frame');
+export const CustomersInset = inDirection('customers', CustomersBlock, 'inset');
+export const CustomersCanvas = inDirection('customers', CustomersBlock, 'canvas');
 export const CustomerDetail = story('customer-detail');
 export const Billing = story('billing');
 export const Invoice = story('invoice');
@@ -100,7 +114,21 @@ export const TwoFactor = story('two-factor');
 export const SsoSignIn = story('sso-sign-in');
 export const AcceptInvite = story('accept-invite');
 export const Integrations = story('integrations');
+export const IntegrationsFrame = inDirection('integrations', IntegrationsBlock, 'frame');
+export const IntegrationsInset = inDirection('integrations', IntegrationsBlock, 'inset');
 export const Plans = story('plans');
 export const Notifications = story('notifications');
 export const Report = story('report');
+export const Home = story('home');
+export const Dashboard = story('dashboard');
+export const PageStates = story('page-states');
+export const OrderConfirmation = story('order-confirmation');
+export const Checkout = story('checkout');
+export const SendPayment = story('send-payment');
 export const TaskSidepanel = panelStory('task-sidepanel');
+export const ModalForm = panelStory('modal-form');
+export const ModalStepper = panelStory('modal-stepper');
+export const ModalDetails = panelStory('modal-details');
+export const ModalTask = panelStory('modal-task');
+export const ModalSearch = panelStory('modal-search');
+export const ModalAccess = panelStory('modal-access');

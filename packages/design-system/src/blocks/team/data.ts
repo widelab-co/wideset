@@ -13,7 +13,13 @@ import {
 /** The sample's clock: every relative date on the page is measured from here. */
 export const NOW = new Date('2026-11-10T14:30:00');
 
-export const workspace = { name: 'Lumen Studio', plan: 'Growth', seats: 15 };
+export const workspace = {
+  name: 'Lumen Studio',
+  plan: 'Growth',
+  seats: 15,
+  /** The address people join the workspace by. */
+  inviteLink: 'join.orbit.so/lumen-studio',
+};
 
 export type Role = 'owner' | 'admin' | 'member' | 'viewer';
 
@@ -30,7 +36,7 @@ export const ROLE_OPTIONS = (['admin', 'member', 'viewer'] as const).map((value)
   label: ROLE_LABEL[value],
 }));
 
-/** What each role may do, shown under the role field when inviting. */
+/** What each role may do, shown under its name in the role menu. */
 export const ROLE_HINT: Record<Exclude<Role, 'owner'>, string> = {
   admin: 'Admins manage members, billing and workspace settings.',
   member: 'Members work with customers, deals and reports.',

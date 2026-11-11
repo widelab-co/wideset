@@ -1,4 +1,4 @@
-// TODO(custom): page header (title, line under it, search field on the right); no PageHeader in Wideset.
+// TODO(custom): page header (title, a line of description, search field on the right); no PageHeader in Wideset.
 import { RiSearchLine } from '@remixicon/react';
 import { TextInput } from '@wideset/react';
 
@@ -9,7 +9,7 @@ type PageHeaderProps = {
   onQueryChange: (query: string) => void;
 };
 
-/** The page's title on the canvas, what it is for, and the search over every app. */
+/** The page's title, what the page is for, and the search over every app. */
 export function PageHeader({ query, onQueryChange }: PageHeaderProps) {
   return (
     <header className="gap-ws-9 flex flex-wrap items-end justify-between">

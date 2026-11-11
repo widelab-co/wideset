@@ -1,126 +1,117 @@
-// TODO(custom): e-mails typed into a TextInput, comma-separated; no token/chip input in Wideset.
-import { Button, FormField, Modal, Select, Textarea, TextInput } from '@wideset/react';
-import { type FormEvent, useId, useState } from 'react';
+import { RiCheckLine, RiFileCopyLine } from '@remixicon/react';
+import { Divider, IconButton, Modal } from '@wideset/react';
+import { useState } from 'react';
 
-import { type Invitation, ROLE_HINT, ROLE_OPTIONS, workspace } from './data';
+import { AccessList } from './access-list';
+import {
+  account,
+  type Invitation,
+  type Member,
+  type Role,
+  ROLE_HINT,
+  ROLE_LABEL,
+  ROLE_OPTIONS,
+  workspace,
+} from './data';
+import { InviteForm } from './invite-form';
+import type { RoleOption } from './role-menu';
 
 type InviteRole = Invitation['role'];
 
-const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+/** The roles a person can be invited with, each with what it may do. */
+const INVITE_ROLES: RoleOption<InviteRole>[] = ROLE_OPTIONS.map((option) => ({
+  ...option,
+  hint: ROLE_HINT[option.value],
+}));
+
+/** Every role. Ownership is transferred, never given: it shows only on the owner. */
+const ROLES: RoleOption<Role>[] = [
+  { value: 'owner', label: ROLE_LABEL.owner, fixed: true },
+  ...INVITE_ROLES,
+];
 
 /**
- * Inviting people: their e-mail addresses, the role they join with and an optional note. The
- * form checks the addresses before anything is sent, and says which one is wrong.
+ * Figma's Modal `Type=Share` on the workspace: inviting by e-mail with a role, the members and
+ * their roles, and the link to pass on in the footer. Sending closes it, since the invitation
+ * shows on the Invitations tab behind it; a role changed here applies at once, as in the table.
  */
 export function InviteModal({
   open,
   onOpenChange,
+  members,
   taken,
   onInvite,
+  onRoleChange,
 }: {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  members: Member[];
   /** Addresses already in the workspace or invited. */
   taken: string[];
   onInvite: (emails: string[], role: InviteRole) => void;
+  onRoleChange: (member: Member, role: Role) => void;
 }) {
-  const id = useId();
-  const [emails, setEmails] = useState('');
-  const [role, setRole] = useState<InviteRole>('member');
-  const [message, setMessage] = useState('');
-  const [error, setError] = useState('');
-
-  const close = (next: boolean) => {
-    onOpenChange(next);
-    if (next) return;
-    setEmails('');
-    setRole('member');
-    setMessage('');
-    setError('');
-  };
-
-  const send = (event: FormEvent) => {
-    event.preventDefault();
-    const list = [
-      ...new Set(
-        emails
-          .split(/[\s,;]+/)
-          .map((email) => email.toLowerCase())
-          .filter(Boolean),
-      ),
-    ];
-    const invalid = list.find((email) => !EMAIL.test(email));
-    const existing = list.find((email) => taken.includes(email));
-    if (!list.length) setError('Enter at least one e-mail address.');
-    else if (invalid) setError(`“${invalid}” is not an e-mail address.`);
-    else if (existing) setError(`${existing} is already in ${workspace.name} or invited.`);
-    else {
-      onInvite(list, role);
-      close(false);
-    }
-  };
-
   return (
-    <Modal open={open} onOpenChange={close}>
-      <Modal.Content>
+    <Modal open={open} onOpenChange={onOpenChange}>
+      {/* The e-mail field takes the focus on open (Modal's default): inviting comes first. */}
+      <Modal.Content aria-describedby={undefined}>
         <Modal.Header>
-          <Modal.Title>Invite people to {workspace.name}</Modal.Title>
-          <Modal.Description>
-            Each person gets an e-mail with a link to join. The link works for 7 days.
-          </Modal.Description>
+          <Modal.Title>Access</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          <form id={`${id}-form`} noValidate onSubmit={send} className="gap-ws-11 flex flex-col">
-            <FormField
-              label="E-mail addresses"
-              htmlFor={`${id}-emails`}
-              helperText="Separate several addresses with commas."
-              errorText={error}
-            >
-              <TextInput
-                id={`${id}-emails`}
-                size="sm"
-                variant={error ? 'danger' : 'primary'}
-                placeholder="name@lumen.studio"
-                value={emails}
-                onChange={(event) => {
-                  setEmails(event.target.value);
-                  setError('');
-                }}
-              />
-            </FormField>
-            <FormField label="Role" htmlFor={`${id}-role`} helperText={ROLE_HINT[role]}>
-              <Select
-                id={`${id}-role`}
-                size="sm"
-                className="w-full"
-                options={ROLE_OPTIONS}
-                value={role}
-                onValueChange={(value) => setRole(value as InviteRole)}
-              />
-            </FormField>
-            <FormField label="Message" suffix="Optional" htmlFor={`${id}-message`}>
-              <Textarea
-                id={`${id}-message`}
-                rows={3}
-                placeholder="A line to go with the invitation"
-                value={message}
-                onChange={(event) => setMessage(event.target.value)}
-              />
-            </FormField>
-          </form>
+        <Modal.Body className="gap-ws-11 flex flex-col">
+          <InviteForm
+            roles={INVITE_ROLES}
+            defaultRole="member"
+            taken={taken}
+            onInvite={(emails, role) => {
+              onInvite(emails, role);
+              onOpenChange(false);
+            }}
+          />
+          <Divider weight="thin" />
+          <AccessList
+            people={members.map((member) => ({
+              ...member,
+              name: member.id === account.id ? `${member.name} (you)` : member.name,
+            }))}
+            roles={ROLES}
+            onRoleChange={(person, role) => {
+              const member = members.find((m) => m.id === person.id);
+              if (member) onRoleChange(member, role);
+            }}
+          />
         </Modal.Body>
-        <Modal.Footer>
-          <Modal.Close asChild>
-            <Button size="sm" variant="secondary" preset="border">
-              Cancel
-            </Button>
-          </Modal.Close>
-          <Button size="sm" type="submit" form={`${id}-form`}>
-            Send invitations
-          </Button>
+        {/* Figma lines this footer off; Modal.Footer's `extension` has no line of its own. */}
+        <Divider weight="thin" />
+        <Modal.Footer variant="extension" className="items-center justify-start">
+          <ShareLink link={workspace.inviteLink} />
         </Modal.Footer>
       </Modal.Content>
     </Modal>
+  );
+}
+
+/** The link to pass on: the button copies it and says so for two seconds. */
+function ShareLink({ link }: { link: string }) {
+  const [copied, setCopied] = useState(false);
+
+  return (
+    <>
+      <IconButton
+        size="xs"
+        variant="secondary"
+        preset="border"
+        icon={copied ? RiCheckLine : RiFileCopyLine}
+        aria-label="Copy link"
+        onClick={() => {
+          void navigator.clipboard?.writeText(`https://${link}`).catch(() => {});
+          setCopied(true);
+          setTimeout(() => setCopied(false), 2000);
+        }}
+      />
+      <span role="status" className="typography-body-md text-ws-static-subtle">
+        {copied ? 'Link copied' : link}
+      </span>
+    </>
   );
 }
