@@ -335,6 +335,70 @@ export const BLOCKS: BlockMeta[] = [
     description:
       'Sending a payment on a raised page: one narrow card that is the form, then the review before anything moves, then the receipt, with recent transfers beside it and a confirmation only above a stated limit.',
   },
+  {
+    id: 'orders',
+    title: 'Orders',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'The order history on a raised page: search, a status filter, a date range and a sort over a table that pages, each row opening its order, with a refund dialog from the row’s menu that changes its status.',
+  },
+  {
+    id: 'order-detail',
+    title: 'Order detail',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'One order on a raised page: its items and totals, the delivery as a timeline with the current step marked beside the courier’s facts, the customer and addresses in a side column, and refunding it from the header.',
+  },
+  {
+    id: 'referrals',
+    title: 'Referrals',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'A referral programme on a raised page: the deal in one line, the link to copy and an invite by e-mail, the credit earned and available beside progress to the next reward, the people invited with their status, and redeeming credit against the next invoice in a confirm dialog.',
+  },
+  {
+    id: 'cancel-subscription',
+    title: 'Cancel subscription',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'Cancelling a plan on a raised page, in one narrow column: what happens and what is lost, an optional reason, one alternative that fits it, and the only red button; then the result in place, with the way to undo it.',
+  },
+  {
+    id: 'inbox',
+    title: 'Inbox',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'Mail with customers on a raised page: a searchable list of conversations beside the open one, its earlier messages folded to a line, with archive, star and a reply in place.',
+  },
+  {
+    id: 'chat',
+    title: 'Chat',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'Team chat on a raised page: channels and people in a narrow column, then the open thread grouped by day and sender, with a shared file, a quoted reply, reactions and the composer.',
+  },
+  {
+    id: 'activity-feed',
+    title: 'Activity feed',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'A workspace feed on a raised page: a composer, the posts with their likes and comments split by lines, and who to follow beside them.',
+  },
+  {
+    id: 'reviews',
+    title: 'Reviews',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'Customer reviews on a raised page: the average and its spread, the reviews to filter, sort and answer, and a dialog to request one.',
+  },
 ];
 
 /** A part that opens over a screen. It belongs to no direction: it keeps its own look over any. */
