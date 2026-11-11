@@ -336,7 +336,21 @@ jobs:
             fi
           done
 
-      # No pending changesets on main (consumed on develop) => publish mode only.
+      # A changeset that landed on develop after the Version PR was merged reaches main
+      # unconsumed. changesets/action would switch to version mode and fail opening a PR from
+      # here, without publishing. Stop with the cause instead.
+      - name: Check every changeset was consumed on develop
+        run: |
+          pending=$(find .changeset -maxdepth 1 -name '*.md' ! -name README.md)
+          if [ -n "$pending" ]; then
+            echo "::error::main has changesets the Version PR did not consume:"
+            echo "$pending"
+            echo "::error::Merge the Version Packages PR on develop, then promote develop → main again."
+            exit 1
+          fi
+
+      # The step above guarantees no pending changesets (all consumed on develop), so the
+      # action runs in publish mode only.
       - name: Publish to npm
         uses: changesets/action@v1 # consider pinning to a full SHA
         with:

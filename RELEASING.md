@@ -167,7 +167,7 @@ Production on `wideset.co`:
 
 ## Caveats
 
-- **Freeze window.** If a new changeset lands on `develop` _between_ the version step and the promotion, `main` arrives with an unconsumed changeset and the Action opens a Version PR instead of publishing. Rare at our cadence; just keep version → promote tight.
+- **Freeze window.** If a new changeset lands on `develop` _between_ the version step and the promotion, `main` arrives with an unconsumed changeset and the `release` job stops before npm, naming it. Merge the Version PR that `develop` opens for it and promote again; it bumps past the unpublished version. Keep version → promote tight.
 - **Empty changesets.** `changesets/action` neither versions nor publishes while only empty changesets are pending, so the `release` job deletes them from its checkout (nothing is committed) and the action publishes.
 - **Merge method matters.** Always promote `develop → main` with a merge commit. Squash/Rebase destroys the per‑component history.
 
