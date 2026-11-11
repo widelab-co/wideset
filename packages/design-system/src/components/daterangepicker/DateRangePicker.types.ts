@@ -70,6 +70,8 @@ export type DateRangePickerProps = DateRangePickerVariants &
     placeholder?: string;
     /** Shows the preset side panel (Today, This Week, Last Month, …) alongside the calendar. Defaults to `false`. */
     showDatePresets?: boolean;
+    /** The date the calendar marks as today and the presets (Today, This Week, Last Month, …) count from. Defaults to the current date; set it to show a fixed sample date. */
+    today?: Date;
     /** Selected range. Provide to make the component controlled. */
     selected?: DateRangeValue;
     /** Active preset. Provide to make the component controlled. */

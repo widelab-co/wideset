@@ -43,10 +43,10 @@ const DateRangePicker = forwardRef<HTMLButtonElement, DateRangePickerProps>(
     ref,
   ) => {
     const motion = useDefaultMotion(defaultMotion);
-    const { weekStartsOn } = calendarProps;
+    const { weekStartsOn, today } = calendarProps;
     const [isOpen, setIsOpen] = useState(false);
     const [internalRange, setInternalRange] = useState<DateRangeValue | undefined>(() => {
-      if (defaultDatePreset) return getPresetRange(defaultDatePreset, weekStartsOn);
+      if (defaultDatePreset) return getPresetRange(defaultDatePreset, weekStartsOn, today);
       return defaultSelected;
     });
     const [internalPreset, setInternalPreset] = useState<DateRangePreset | undefined>(
@@ -71,7 +71,7 @@ const DateRangePicker = forwardRef<HTMLButtonElement, DateRangePickerProps>(
         return;
       }
 
-      const presetRange = getPresetRange(presetKey, weekStartsOn);
+      const presetRange = getPresetRange(presetKey, weekStartsOn, today);
       if (!isRangeControlled) setInternalRange(presetRange);
       if (!isPresetControlled) setInternalPreset(presetKey);
       setIsOpen(false);
