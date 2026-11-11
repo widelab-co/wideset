@@ -1,11 +1,11 @@
-// TODO(custom): a test run's result (the input record, the returned score, the log); Wideset has no console or run-output part, and no monospace font token (Tailwind's font-mono stands in).
+// TODO(custom): a test run's result (the input record, the returned score, the log); Wideset has no console or run-output part.
 import { cn } from '@wideset/react';
 
 import { SAMPLE_LEAD } from './data';
 import { formatClock } from './format';
 import type { TestRun } from './test-run';
 
-const MONO = 'typography-body-sm tracking-ws-normal font-mono';
+const MONO = 'typography-body-sm tracking-ws-normal font-ws-mono';
 const HEADING = 'typography-caption-strong-md text-ws-static-subtle';
 
 /**
