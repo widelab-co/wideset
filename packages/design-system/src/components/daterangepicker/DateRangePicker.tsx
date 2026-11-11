@@ -1,4 +1,4 @@
-import { forwardRef, useRef, useState } from 'react';
+import { forwardRef, useState } from 'react';
 import type { DateRange } from 'react-day-picker';
 import { formatDateToISOString, parseISODate } from 'src/logic/date';
 
@@ -52,7 +52,9 @@ const DateRangePicker = forwardRef<HTMLButtonElement, DateRangePickerProps>(
     const [internalPreset, setInternalPreset] = useState<DateRangePreset | undefined>(
       defaultDatePreset,
     );
-    const selectStepRef = useRef<'start' | 'end'>('start');
+    // The range after the first click, kept here until the second click reports it: in
+    // controlled mode `selected` does not change in between, so the calendar would drop it.
+    const [pendingRange, setPendingRange] = useState<DateRangeValue>();
 
     const isRangeControlled = selected !== undefined;
     const isPresetControlled = controlledPreset !== undefined;
@@ -61,13 +63,13 @@ const DateRangePicker = forwardRef<HTMLButtonElement, DateRangePickerProps>(
 
     const handleOpenChange = (open: boolean) => {
       setIsOpen(open);
-      if (open) selectStepRef.current = 'start';
+      setPendingRange(undefined);
     };
 
     const handlePresetSelect = (presetKey: DateRangePreset) => {
       if (presetKey === 'custom') {
         if (!isPresetControlled) setInternalPreset('custom');
-        selectStepRef.current = 'start';
+        setPendingRange(undefined);
         return;
       }
 
@@ -86,17 +88,18 @@ const DateRangePicker = forwardRef<HTMLButtonElement, DateRangePickerProps>(
       if (!isRangeControlled) setInternalRange(newRange);
       if (!isPresetControlled) setInternalPreset('custom');
 
-      if (selectStepRef.current === 'start') {
-        selectStepRef.current = 'end';
+      if (!pendingRange) {
+        setPendingRange(newRange);
         return;
       }
 
-      selectStepRef.current = 'start';
+      setPendingRange(undefined);
       onSelect?.(newRange, 'custom');
     };
 
-    const calendarRange: DateRange | undefined = range
-      ? { from: parseISODate(range.from), to: parseISODate(range.to) }
+    const shownRange = pendingRange ?? range;
+    const calendarRange: DateRange | undefined = shownRange
+      ? { from: parseISODate(shownRange.from), to: parseISODate(shownRange.to) }
       : undefined;
 
     return (

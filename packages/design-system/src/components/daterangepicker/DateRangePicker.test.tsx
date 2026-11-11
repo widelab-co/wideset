@@ -212,6 +212,20 @@ describe('DateRangePicker', () => {
       const input = screen.getByPlaceholderText('Select range') as HTMLInputElement;
       expect(input.value).toBe('This Week');
     });
+
+    it('should keep the first click of a range picked in the calendar', async () => {
+      const user = userEvent.setup();
+      const onSelect = vi.fn();
+
+      render(
+        <DateRangePicker selected={{}} onSelect={onSelect} defaultMonth={new Date(2026, 2)} />,
+      );
+      await user.click(screen.getByRole('button'));
+      await user.click(screen.getByRole('button', { name: /March 10th, 2026/ }));
+      await user.click(screen.getByRole('button', { name: /March 15th, 2026/ }));
+
+      expect(onSelect).toHaveBeenCalledWith({ from: '2026-03-10', to: '2026-03-15' }, 'custom');
+    });
   });
 
   describe('Accessible name', () => {
