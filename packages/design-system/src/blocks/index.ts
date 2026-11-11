@@ -399,6 +399,70 @@ export const BLOCKS: BlockMeta[] = [
     description:
       'Customer reviews on a raised page: the average and its spread, the reviews to filter, sort and answer, and a dialog to request one.',
   },
+  {
+    id: 'goals',
+    title: 'Goals',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'Team goals on a raised page: each goal’s figure against its target with one bar, a judged state and key results to tick off, then the quarter’s leaderboard with your row selected and the milestones reached, and a dialog to add a goal.',
+  },
+  {
+    id: 'profile',
+    title: 'Profile',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'A teammate’s profile on a raised page: who they are and their local time, Follow as the one filled button, followers and following that open a list, their open deals and recent activity beside how to reach them and what they reached this year.',
+  },
+  {
+    id: 'access-requests',
+    title: 'Access requests',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'Who gets into a workspace, on a raised page: requests to approve with a role or decline, one by one or in an action bar, invitations to resend or revoke, and the people blocked, each answer undoable from its toast.',
+  },
+  {
+    id: 'account-settings',
+    title: 'Account settings',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'A person’s own settings on a raised page, each section’s title beside its controls: profile and a verified e-mail, language and region, a theme that switches, notifications, sign-in and sessions, and deleting the account behind a typed confirmation.',
+  },
+  {
+    id: 'help-center',
+    title: 'Help center',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'Help inside the product on a raised page: a search that turns the page into its matches, the topics as tiles, popular articles and the ways to reach support.',
+  },
+  {
+    id: 'article',
+    title: 'Article',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'A help article on a raised page: the text in a reading column with steps, a note, a table and code, the contents following the scroll, whether it helped and what to read next.',
+  },
+  {
+    id: 'lesson',
+    title: 'Lesson',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'A course lesson on a raised page: the video with its chapters, the course outline with progress, and a short quiz at the end that completes the lesson.',
+  },
+  {
+    id: 'recording',
+    title: 'Recording',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'A call recording on a raised page: who spoke when, the transcript that follows the player, highlights and comments at a moment, and a voice note.',
+  },
 ];
 
 /** A part that opens over a screen. It belongs to no direction: it keeps its own look over any. */
