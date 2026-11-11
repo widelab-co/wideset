@@ -69,7 +69,7 @@ exports[`Table Snapshots > matches snapshot for all sortable header states 1`] =
         >
           <svg
             aria-hidden="true"
-            class="remixicon shrink-0 h-ws-9 w-ws-9"
+            class="remixicon shrink-0 h-ws-9 w-ws-9 text-ws-static-subtle"
             data-slot="button-icon"
             fill="currentColor"
             focusable="false"
@@ -157,7 +157,7 @@ exports[`Table Snapshots > matches snapshot for all sortable header states 1`] =
         >
           <svg
             aria-hidden="true"
-            class="remixicon shrink-0 h-ws-9 w-ws-9"
+            class="remixicon shrink-0 h-ws-9 w-ws-9 text-ws-static-subtle"
             data-slot="button-icon"
             fill="currentColor"
             focusable="false"
