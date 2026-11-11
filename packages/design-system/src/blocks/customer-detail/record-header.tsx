@@ -33,7 +33,10 @@ export function RecordHeader() {
         <div className="gap-ws-2 flex min-w-0 flex-col">
           <div className="gap-ws-7 flex items-center">
             <h1 className="typography-subtitle-md text-ws-static-strong">{customer.name}</h1>
-            <StatusBadge size="lg">{customer.status}</StatusBadge>
+            {/* Active is a healthy state, so it takes the positive colour. */}
+            <StatusBadge size="lg" color="positive">
+              {customer.status}
+            </StatusBadge>
           </div>
           <p className="typography-body-md text-ws-static-subtle">{customer.domain}</p>
         </div>

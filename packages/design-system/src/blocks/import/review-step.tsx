@@ -74,30 +74,33 @@ export function ReviewStep({ duplicates, onDuplicatesChange }: ReviewStepProps) 
           </Button>
         }
       >
-        <Table size="sm" aria-label="Rows that can’t be imported" className="w-full">
+        {/* Edge to edge in the step's card, the outer columns in line with the title. */}
+        <Table
+          size="sm"
+          aria-label="Rows that can’t be imported"
+          className="-mx-ws-11 w-[calc(100%+2.5rem)]"
+        >
           <Table.Head>
             <Table.Row>
-              <Table.Header flushMargin align="right">
+              <Table.Header align="right" className="pl-ws-11">
                 Row
               </Table.Header>
               <Table.Header>Name</Table.Header>
               <Table.Header>Domain</Table.Header>
-              <Table.Header flushMargin className="w-full">
-                Reason
-              </Table.Header>
+              <Table.Header className="pr-ws-11 w-full">Reason</Table.Header>
             </Table.Row>
           </Table.Head>
-          <Table.Body>
+          <Table.Body className="[&>tr:last-child>td]:border-b-0">
             {skippedRows.map((row) => (
               <Table.Row key={row.row}>
-                <Table.Cell flushMargin align="right" className="tabular-nums">
+                <Table.Cell align="right" className="pl-ws-11 tabular-nums">
                   {row.row}
                 </Table.Cell>
                 <Table.Cell className="whitespace-nowrap">
                   {row.name || <span className="text-ws-static-subtle">Empty</span>}
                 </Table.Cell>
                 <Table.Cell className="whitespace-nowrap">{row.domain}</Table.Cell>
-                <Table.Cell flushMargin>{row.reason}</Table.Cell>
+                <Table.Cell className="pr-ws-11">{row.reason}</Table.Cell>
               </Table.Row>
             ))}
           </Table.Body>

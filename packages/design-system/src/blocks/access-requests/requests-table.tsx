@@ -19,8 +19,9 @@ const COLUMNS = 5;
 /**
  * The people waiting to get in: who they are, what they say about themselves and how they
  * came, and when. A click on a row selects it for the selection bar; the row's own buttons
- * answer just that one request. Approve asks for the role first; Decline declines at once and
- * keeps blocking behind its arrow, since it needs a dialog.
+ * answer just that one request, and wait for the row to be pointed at, focused or selected so
+ * five pairs of buttons do not outweigh the people. Approve asks for the role first; Decline
+ * declines at once and keeps blocking behind its arrow, since it needs a dialog.
  */
 export function RequestsTable({
   rows,
@@ -111,9 +112,11 @@ export function RequestsTable({
                     {formatRelative(request.requested)}
                   </time>
                 </Table.Cell>
-                {/* The row's buttons answer this request only; they do not select it. */}
+                {/* The row's buttons answer this request only; they do not select it. They show
+                    on hover, on keyboard focus, on the selected row and while their popup or
+                    menu is open; on a touch screen, with no hover, they always show. */}
                 <Table.Cell align="right" onClick={(event) => event.stopPropagation()}>
-                  <div className="gap-ws-5 flex justify-end">
+                  <div className="gap-ws-5 flex justify-end opacity-0 group-focus-within/row:opacity-100 group-hover/row:opacity-100 group-aria-selected/row:opacity-100 has-[[data-state=open]]:opacity-100 pointer-coarse:opacity-100">
                     <ApprovePopup
                       title={`Approve ${request.name}`}
                       count={1}

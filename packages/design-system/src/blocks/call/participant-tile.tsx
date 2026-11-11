@@ -1,8 +1,25 @@
 // TODO(custom): a person's tile on the call stage (avatar, name, muted mark, speaking outline); Wideset has no video or participant tile.
 import { RiMicOffLine } from '@remixicon/react';
-import { Avatar, cn } from '@wideset/react';
+import { Avatar, type AvatarColor, cn } from '@wideset/react';
 
 import type { Participant } from './data';
+
+/** The tile takes the fill of its person's avatar, so each person reads as one colour. */
+const FILL: Record<AvatarColor, string> = {
+  blue: 'bg-ws-non-semantic-blue-subtle',
+  purple: 'bg-ws-non-semantic-purple-subtle',
+  pink: 'bg-ws-non-semantic-pink-subtle',
+  orange: 'bg-ws-non-semantic-orange-subtle',
+  lime: 'bg-ws-non-semantic-lime-subtle',
+  teal: 'bg-ws-non-semantic-teal-subtle',
+  brand: 'bg-ws-non-semantic-brand-subtle',
+  violet: 'bg-ws-non-semantic-violet-subtle',
+  red: 'bg-ws-non-semantic-red-subtle',
+  yellow: 'bg-ws-non-semantic-yellow-subtle',
+  green: 'bg-ws-non-semantic-green-subtle',
+  cyan: 'bg-ws-non-semantic-cyan-subtle',
+  indigo: 'bg-ws-non-semantic-indigo-subtle',
+};
 
 type ParticipantTileProps = {
   person: Participant;
@@ -12,15 +29,16 @@ type ParticipantTileProps = {
 };
 
 /**
- * One person on the call, drawn without a camera: their avatar large in the middle, their name
- * at the foot and, when their microphone is off, a quiet mark beside it. Whoever is speaking
+ * One person on the call, drawn without a camera: the tile in their avatar's colour, the avatar
+ * large in the middle, their name at the foot and, when their microphone is off, a quiet mark beside it. Whoever is speaking
  * takes a thin light outline; it moves between tiles without a fade when motion is reduced.
  */
 export function ParticipantTile({ person, speaking, compact = false }: ParticipantTileProps) {
   return (
     <li
       className={cn(
-        'bg-ws-static-foreground rounded-ws-container-md relative flex min-h-0 min-w-0 items-center justify-center outline-2 -outline-offset-2 transition-[outline-color] duration-(--ws-motion-duration-fast) ease-(--ws-motion-ease-out) motion-reduce:transition-none',
+        FILL[person.color],
+        'rounded-ws-container-md relative flex min-h-0 min-w-0 items-center justify-center outline-2 -outline-offset-2 transition-[outline-color] duration-(--ws-motion-duration-fast) ease-(--ws-motion-ease-out) motion-reduce:transition-none',
         speaking ? 'outline-ws-static-inverse-background' : 'outline-transparent',
       )}
     >

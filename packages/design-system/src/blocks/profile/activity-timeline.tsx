@@ -40,7 +40,7 @@ export function ActivityTimeline({ items }: { items: Activity[] }) {
             )}
             <span
               aria-hidden="true"
-              className="size-ws-14 rounded-ws-control-full border-ws-static-base bg-ws-static-foreground text-ws-static-subtle flex shrink-0 items-center justify-center border"
+              className="size-ws-14 rounded-ws-control-full border-ws-static-base bg-ws-static-container text-ws-static-subtle flex shrink-0 items-center justify-center border"
             >
               <Icon className="size-ws-8" />
             </span>

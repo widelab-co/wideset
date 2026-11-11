@@ -27,10 +27,11 @@ type Drag = {
 const THRESHOLD = 4;
 
 /**
- * The five stages side by side, each column as wide as the board allows and never under 12rem, so
- * the board scrolls sideways only in a narrow window. Cards move three ways: dragged with the
- * pointer, Alt and an arrow on a focused card (up and down within its stage, left and right to the
- * next one), or the card's Move to menu. Each move is announced, and the focus stays on the card.
+ * The five stages side by side at a fixed 15.5rem, wide enough for a card to breathe: at 1440px four
+ * stages fit and the fifth shows its edge, so the board reads as one that scrolls sideways. Cards
+ * move three ways: dragged with the pointer, Alt and an arrow on a focused card (up and down within
+ * its stage, left and right to the next one), or the card's Move to menu. Each move is announced,
+ * and the focus stays on the card.
  */
 export function PipelineBoard({
   deals,
@@ -169,7 +170,7 @@ export function PipelineBoard({
   return (
     // Padded like the columns, so a card's focus ring at the board's edge is not cut.
     <div className="-mx-ws-3 px-ws-3 min-h-0 flex-1 overflow-x-auto">
-      <div className="gap-ws-9 grid h-full grid-cols-[repeat(5,minmax(12rem,1fr))] grid-rows-[minmax(0,1fr)]">
+      <div className="gap-ws-7 grid h-full grid-cols-[repeat(5,15.5rem)] grid-rows-[minmax(0,1fr)]">
         {STAGES.map((stage) => (
           <StageColumn
             key={stage.id}

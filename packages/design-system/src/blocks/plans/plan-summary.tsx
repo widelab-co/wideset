@@ -1,4 +1,4 @@
-// TODO(custom): plan summary column (name, badge, audience, price per seat, total, limits, action); no PricingPlan in Wideset.
+// TODO(custom): plan summary card (name, badge, audience, price per seat, total, limits, action); no PricingPlan in Wideset, and Card cannot carry a subgrid.
 import { Button, StatusBadge } from '@wideset/react';
 
 import { type Interval, periodPrice, type Plan } from './data';
@@ -24,8 +24,13 @@ type PlanSummaryProps = {
 
 /**
  * One plan at a glance: who it is for, what a seat costs and what the workspace would pay, the
- * limits that set it apart, and the way to move to it. Its four parts sit on the four rows of the
- * parent grid (`grid-rows-subgrid`), so names, prices, limits and buttons line up across plans.
+ * limits that set it apart, and the way to move to it. Each plan is its own container, drawn as
+ * the library's bordered Card (border, fill, radius, 20px inset), so the three read as three
+ * choices and not one block of text; it is drawn by hand because `Card.Content` is a scroll area
+ * and would cut the subgrid. Its four parts sit on the four rows of the parent grid
+ * (`grid-rows-subgrid`), so names, prices, limits and buttons line up across plans. From lg a
+ * 16px margin on its left is the gap between the plans: the columns stay equal quarters, the
+ * comparison's columns under them.
  */
 export function PlanSummary({ plan, interval, seats, badge, action, onAction }: PlanSummaryProps) {
   const yearly = interval === 'yearly';
@@ -33,7 +38,7 @@ export function PlanSummary({ plan, interval, seats, badge, action, onAction }: 
   return (
     <section
       aria-label={plan.name}
-      className="gap-y-ws-9 lg:gap-y-ws-12 lg:px-ws-9 grid lg:row-span-4 lg:grid-rows-subgrid"
+      className="gap-y-ws-9 lg:gap-y-ws-12 border-ws-static-base bg-ws-static-container rounded-ws-container-lg p-ws-11 lg:ml-ws-9 grid border lg:row-span-4 lg:grid-rows-subgrid"
     >
       <div className="gap-ws-3 flex flex-col">
         <div className="gap-ws-5 flex items-center">
@@ -52,12 +57,11 @@ export function PlanSummary({ plan, interval, seats, badge, action, onAction }: 
           <span className="typography-subtitle-lg text-ws-static-strong tabular-nums">
             {formatUsd(plan.seatPrice[interval])}
           </span>
-          <span className="typography-body-md text-ws-static-subtle">
-            {yearly ? 'per seat a month, billed yearly' : 'per seat a month'}
-          </span>
+          <span className="typography-body-md text-ws-static-subtle">per seat a month</span>
         </p>
         <p className="typography-body-md text-ws-static-base tabular-nums">
-          {formatUsd(periodPrice(plan, interval, seats))} {yearly ? 'a year' : 'a month'} for{' '}
+          {/* The period goes on this line: beside the price it would wrap in the card. */}
+          {formatUsd(periodPrice(plan, interval, seats))} {yearly ? 'billed yearly' : 'a month'} for{' '}
           {seats} seats
         </p>
       </div>

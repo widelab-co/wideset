@@ -1,10 +1,11 @@
-// TODO(custom): a calendar leaf (month over day number) beside an event's name; Wideset has no date badge.
+// TODO(custom): a calendar leaf (month over day number) over an event's name; Wideset has no date badge.
 import { formatLeaf } from './format';
 
 /**
- * The event's day as a calendar leaf, drawn with a line like every block on the page: after the
- * name, the date is what a guest needs, so it gets the header's one figure at title size. The
- * facts row reads the full date out, so the leaf is hidden from assistive tech.
+ * The event's day as a calendar leaf over its name, the way an event's picture heads it, drawn
+ * with a line like the cards on the page: the date is what a guest needs, so it gets the header's
+ * one figure at title size. The facts row reads the full date out, so the leaf is hidden from
+ * assistive tech.
  */
 export function DateLeaf({ at }: { at: string }) {
   const { month, day } = formatLeaf(at);

@@ -123,7 +123,9 @@ export function MediaViewer({
       onKeyDown={onKeyDown}
       className="dark bg-ws-static-background text-ws-static-strong z-ws-modal fixed inset-0 flex flex-col outline-hidden"
     >
-      <header className="h-ws-20 px-ws-11 gap-ws-7 flex shrink-0 items-center">
+      {/* A line under the bar, edge to edge: the details' line starts on it, so neither line
+          ends in the air. */}
+      <header className="h-ws-20 px-ws-11 gap-ws-7 border-ws-static-subtle flex shrink-0 items-center border-b">
         <FileIcon kind={file.kind} />
         <div className="gap-ws-5 flex min-w-0 flex-1 items-baseline">
           <h2 id={titleId} className="typography-label-strong-md truncate">

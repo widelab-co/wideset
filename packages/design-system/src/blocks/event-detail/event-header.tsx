@@ -1,4 +1,4 @@
-// TODO(custom): page header with a date leaf and a row of facts with icons; no PageHeader or facts row in Wideset.
+// TODO(custom): page header with a date leaf over the name and a row of facts with icons; no PageHeader or facts row in Wideset.
 import {
   type RemixiconComponentType,
   RiMapPin2Line,
@@ -24,25 +24,24 @@ function Fact({ icon: Icon, children }: { icon: RemixiconComponentType; children
 }
 
 /**
- * The event's header: the date leaf, the name and one line on what it is for, the actions on the
- * right with the answer to the invitation last, then the facts in a quiet row under the name
- * (when, where with a map, the format, who hosts).
+ * The event's header, read top down: the date leaf, the name under it with one line on what the
+ * event is for and the actions on its right (the answer to the invitation last), then the facts in
+ * a quiet row (when, where with a map, the format, who hosts).
  */
 export function EventHeader({ actions }: { actions: ReactNode }) {
   return (
-    <header className="gap-x-ws-9 gap-y-ws-7 grid grid-cols-[auto_minmax(0,1fr)] items-center lg:grid-cols-[auto_minmax(0,1fr)_auto]">
+    <header className="gap-ws-9 flex flex-col">
       <DateLeaf at={event.start} />
-      <div className="gap-ws-2 flex min-w-0 flex-col">
-        <h1 className="typography-subtitle-md text-ws-static-strong">{event.name}</h1>
-        <p className="typography-body-md text-ws-static-subtle">{event.summary}</p>
-      </div>
-      {/* Beside the name on a wide page, under the facts on a narrow one. */}
-      <div className="gap-ws-5 col-[2/-1] row-start-3 flex flex-wrap items-center lg:col-[3/4] lg:row-start-1">
-        {actions}
+      <div className="gap-x-ws-12 gap-y-ws-7 flex flex-wrap items-center justify-between">
+        <div className="gap-ws-2 flex min-w-0 flex-col">
+          <h1 className="typography-subtitle-md text-ws-static-strong">{event.name}</h1>
+          <p className="typography-body-md text-ws-static-subtle">{event.summary}</p>
+        </div>
+        <div className="gap-ws-5 flex flex-wrap items-center">{actions}</div>
       </div>
       <ul
         aria-label="Event facts"
-        className="gap-x-ws-11 gap-y-ws-3 typography-body-md text-ws-static-base col-[2/-1] flex flex-wrap items-center"
+        className="gap-x-ws-11 gap-y-ws-3 typography-body-md text-ws-static-base flex flex-wrap items-center"
       >
         <Fact icon={RiTimeLine}>
           <time

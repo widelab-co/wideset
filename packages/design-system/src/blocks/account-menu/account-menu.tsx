@@ -63,8 +63,10 @@ function Command({
 }
 
 /**
- * The account menu, opened from the account row at the foot of the sidebar and as wide as it, so
- * it reads as that row grown upwards. Who is signed in heads it; then where they are (the
+ * The account menu, opened from the account row at the foot of the sidebar. It starts on the
+ * row's left edge and is wider than the sidebar, so it reaches past the navigation over the page
+ * and reads as a layer above both, with room for the shortcut and the theme beside their names.
+ * Who is signed in heads it; then where they are (the
  * workspaces, the open one ticked), what is theirs (settings, shortcuts, theme, help), and last
  * who they are signed in as (switching account, logging out). Theme and Switch account are
  * submenus: three choices each that would otherwise double the menu's height. Log out asks
@@ -108,7 +110,7 @@ export function AccountMenu({
         side="top"
         align="start"
         portalContainer={container}
-        className="w-(--radix-dropdown-menu-trigger-width)"
+        className="w-[18rem]"
       >
         {/* Who is signed in: a label, not an action. */}
         <DropdownMenu.Label className="gap-ws-5 flex items-center">

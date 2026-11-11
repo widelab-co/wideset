@@ -1,5 +1,5 @@
 import { RiSideBarLine } from '@remixicon/react';
-import { Breadcrumbs, cn, IconButton, ToastProvider, useToast } from '@wideset/react';
+import { Breadcrumbs, Card, cn, IconButton, ToastProvider, useToast } from '@wideset/react';
 import { useId, useRef, useState } from 'react';
 
 import { CreditSummary } from './credit-summary';
@@ -24,12 +24,12 @@ import { ReferralsSidebar } from './sidebar';
 
 /** One column of the page: the header and the body share its edges. */
 const COLUMN = 'px-ws-14 mx-auto w-full max-w-[80rem]';
-/** A band under another: a line and space above it. No band has a box of its own. */
+/** A band under another: a line and space above it. Only sharing, the page's job, has a box. */
 const LINE = 'border-ws-static-subtle pt-ws-12 border-t';
 
 /**
- * The page, in the order it is used: the deal in one line, the two ways to share, how the credit
- * stands, then who was invited. It holds the invitations and the credit redeemed here, so sending
+ * The page, in the order it is used: the deal in one line, the two ways to share in a card (the
+ * page's main action, so the one thing boxed), how the credit stands, then who was invited. It holds the invitations and the credit redeemed here, so sending
  * an invite adds a row and redeeming moves the figures.
  */
 function ReferralsPage() {
@@ -38,6 +38,7 @@ function ReferralsPage() {
   const [applied, setApplied] = useState(0);
   const [redeeming, setRedeeming] = useState(false);
   const summary = useRef<HTMLElement>(null);
+  const shareId = useId();
 
   const credit = creditOf(invited);
   const redeemed = redeemedBefore + applied;
@@ -62,14 +63,25 @@ function ReferralsPage() {
     <div className={cn(COLUMN, 'gap-ws-12 pt-ws-14 pb-ws-16 flex flex-col')}>
       <PageHeader />
 
-      <div className="grid grid-cols-2 items-start">
-        <ShareLink link={programme.link} quiet={redeeming} className="pr-ws-9" />
-        <InviteByEmail
-          className="pl-ws-9"
-          taken={[account.email, ...invited.map((referral) => referral.email)]}
-          onInvite={invite}
-        />
-      </div>
+      {/* The page's main action in the page's one card: the two ways to share. */}
+      <Card role="region" aria-labelledby={shareId}>
+        <Card.Header>
+          <h2 id={shareId} className="typography-label-strong-md text-ws-static-strong">
+            Share your link
+          </h2>
+        </Card.Header>
+        {/* Card.Content keeps 10px free on the right for a scrollbar: the padding gives it back.
+            The 32px gap puts the second field on the line of the figures' right half below. */}
+        <Card.Content contentClassName="pr-ws-6">
+          <div className="gap-ws-14 grid grid-cols-2 items-start">
+            <ShareLink link={programme.link} quiet={redeeming} />
+            <InviteByEmail
+              taken={[account.email, ...invited.map((referral) => referral.email)]}
+              onInvite={invite}
+            />
+          </div>
+        </Card.Content>
+      </Card>
 
       <CreditSummary
         ref={summary}
@@ -79,7 +91,8 @@ function ReferralsPage() {
         invoiceDate={nextInvoice.date}
         towardsBonus={credit.towardsBonus}
         onRedeem={() => setRedeeming(true)}
-        className={LINE}
+        // The card's border closes the band above: no line of its own, the space does it.
+        className="pt-ws-9"
       />
 
       <Section title="Invitations" className={LINE}>
@@ -105,8 +118,9 @@ function ReferralsPage() {
 
 /**
  * Referrals (Inset direction): Orbit's referral programme as a settings page on the raised card
- * beside the workspace sidebar. No hero and no illustration: the link and its Copy button lead,
- * the credit is three plain figures with one bar, and the people invited are a short table.
+ * beside the workspace sidebar. No hero and no illustration: the link and its Copy button lead, in
+ * the page's one card; the credit is three plain figures with one bar, and the people invited are
+ * a short table, both on the white under lines.
  */
 export default function Referrals() {
   const sidebarId = useId();

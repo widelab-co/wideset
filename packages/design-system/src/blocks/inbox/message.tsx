@@ -2,6 +2,7 @@
 import { Avatar } from '@wideset/react';
 import { useId } from 'react';
 
+import { Attachment } from './attachment';
 import type { Message as MessageData } from './data';
 import { formatDateTime, formatMessageTime } from './format';
 
@@ -15,12 +16,13 @@ type MessageProps = {
 
 /**
  * One message of the conversation. Folded, it is a single line: who wrote and how it starts.
- * Open, the text hangs under the sender's name, so the avatars form one column down the thread.
+ * Open, the sender's name leads with their address beside it, and the text and any files hang
+ * under it, so the avatars form one column down the thread.
  * Its head is the one target that folds and unfolds it.
  */
 export function Message({ message, to, open, onToggle }: MessageProps) {
   const bodyId = useId();
-  const { from, at, body } = message;
+  const { from, at, body, attachments } = message;
   return (
     <article className="py-ws-3">
       <button
@@ -33,8 +35,13 @@ export function Message({ message, to, open, onToggle }: MessageProps) {
         <Avatar initials={from.initials} color={from.color} aria-hidden />
         {open ? (
           <span className="flex min-w-0 flex-1 flex-col">
-            <span className="typography-label-strong-sm text-ws-static-strong truncate">
-              {from.name}
+            <span className="gap-ws-3 flex min-w-0 items-baseline">
+              <span className="typography-label-strong-sm text-ws-static-strong shrink-0">
+                {from.name}
+              </span>
+              <span className="typography-caption-md text-ws-static-subtle truncate">
+                {from.email}
+              </span>
             </span>
             <span className="typography-caption-md text-ws-static-subtle truncate">to {to}</span>
           </span>
@@ -62,6 +69,15 @@ export function Message({ message, to, open, onToggle }: MessageProps) {
           {body.map((paragraph, index) => (
             <p key={index}>{paragraph}</p>
           ))}
+          {attachments && (
+            <ul aria-label="Attachments" className="gap-ws-5 pt-ws-3 flex flex-wrap">
+              {attachments.map((file) => (
+                <li key={file.name}>
+                  <Attachment file={file} />
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       )}
     </article>

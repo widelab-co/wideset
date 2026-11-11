@@ -1,4 +1,6 @@
-// TODO(custom): quiet key figure row; no KpiCard / stat component in Wideset.
+// TODO(custom): key figure card (label, figure, one line of context) in a Card; no KpiCard / stat component in Wideset.
+import { Card } from '@wideset/react';
+
 import { customer, openDeals } from './data';
 import { formatCount, formatEuro, formatPercent } from './format';
 
@@ -29,21 +31,29 @@ const FIGURES = [
 ];
 
 /**
- * The customer in four figures: a quiet row of label, figure and one line of context. No cards,
- * no icons: the record's name stays the loudest thing on the page.
+ * The customer in four figures, each in its own card: label, figure and one line of context. The
+ * cards make the row a thing to read at a glance; no icons and no colour, so the record's name
+ * stays the loudest thing on the page.
  */
 export function KeyFigures() {
   return (
-    <dl className="gap-ws-12 grid grid-cols-2 md:grid-cols-4">
+    <div className="gap-ws-9 grid grid-cols-2 md:grid-cols-4">
       {FIGURES.map(({ label, value, note }) => (
-        <div key={label} className="gap-ws-3 flex flex-col">
-          <dt className="typography-label-sm text-ws-static-subtle">{label}</dt>
-          <dd className="typography-number-strong-lg text-ws-static-strong tabular-nums">
-            {value}
-          </dd>
-          <dd className="typography-caption-md text-ws-static-subtle tabular-nums">{note}</dd>
-        </div>
+        <Card key={label}>
+          {/* Card.Content keeps 10px free on the right for a scrollbar: the padding gives it back. */}
+          <Card.Content contentClassName="pr-ws-6">
+            <dl className="gap-ws-3 flex flex-col">
+              <dt className="typography-label-sm text-ws-static-subtle">{label}</dt>
+              <dd className="typography-number-strong-lg text-ws-static-strong tabular-nums">
+                {value}
+              </dd>
+              <dd className="typography-caption-md text-ws-static-subtle truncate tabular-nums">
+                {note}
+              </dd>
+            </dl>
+          </Card.Content>
+        </Card>
       ))}
-    </dl>
+    </div>
   );
 }

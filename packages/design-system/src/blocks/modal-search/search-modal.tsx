@@ -29,10 +29,12 @@ type SearchModalProps = {
 };
 
 /**
- * Figma's Modal `Type=Search`: search across the workspace. The field keeps the focus the whole
- * time: typing filters the results and the counts on the tabs, the arrow keys move the highlight
- * (the field points at it for screen readers), Enter opens it and Esc closes. The results keep
- * the height of five rows, so the modal does not jump while the list shrinks and grows.
+ * Figma's Modal `Type=Search`: search across the workspace. The field is the modal's default
+ * 40px, the largest control in it; the tabs only narrow the results, so they carry no counts.
+ * The field keeps the focus the whole time: typing filters the results, the arrow keys move the
+ * highlight (the field points at it for screen readers), Enter opens it and Esc closes. The
+ * results keep the height of five rows, so the modal does not jump while the list shrinks and
+ * grows.
  */
 export function SearchModal({
   index,
@@ -89,7 +91,6 @@ export function SearchModal({
         <div className="gap-ws-7 px-ws-11 pt-ws-11 pb-ws-7 flex items-center">
           <TextInput
             ref={input}
-            size="sm"
             className="min-w-0 flex-1"
             value={query}
             onChange={(event) => search(event.target.value)}
@@ -108,7 +109,6 @@ export function SearchModal({
             />
           </TextInput>
           <Button
-            size="sm"
             variant="secondary"
             preset="border"
             onClick={() => {
@@ -136,10 +136,6 @@ export function SearchModal({
                 <Tabs.Item key={item.value} value={item.value}>
                   {'icon' in item && <Tabs.Icon icon={item.icon} />}
                   <Tabs.Label>{item.label}</Tabs.Label>
-                  {/* The tabs count results, so they carry a count, as in Figma. */}
-                  <Tabs.Count>
-                    {found.filter((result) => inScope(result, item.value)).length}
-                  </Tabs.Count>
                 </Tabs.Item>
               ))}
             </Tabs.List>

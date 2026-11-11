@@ -1,10 +1,27 @@
-import { Avatar, cn, type SortDirection, StatusBadge, Table } from '@wideset/react';
+import {
+  Avatar,
+  cn,
+  type SortDirection,
+  StatusBadge,
+  type StatusBadgeProps,
+  Table,
+} from '@wideset/react';
 import { type ReactNode, useId, useState } from 'react';
 
 import { CLOSING, type Deal } from './data';
 import { formatCount, formatDay, formatUsd } from './format';
 
 const STAGE_ORDER: Record<Deal['stage'], number> = { Proposal: 0, Negotiation: 1, Commit: 2 };
+
+/**
+ * A stage's colour says how the deal stands: a proposal is out and in progress, a negotiation
+ * still needs a look before it can close, a commit is as good as won.
+ */
+const STAGE_COLOR: Record<Deal['stage'], NonNullable<StatusBadgeProps['color']>> = {
+  Proposal: 'info',
+  Negotiation: 'notice',
+  Commit: 'positive',
+};
 
 type Column = {
   key: string;
@@ -47,7 +64,7 @@ const COLUMNS: Column[] = [
     key: 'stage',
     label: 'Stage',
     value: (deal) => STAGE_ORDER[deal.stage],
-    cell: (deal) => <StatusBadge>{deal.stage}</StatusBadge>,
+    cell: (deal) => <StatusBadge color={STAGE_COLOR[deal.stage]}>{deal.stage}</StatusBadge>,
     className: 'w-[14%]',
   },
   {
@@ -92,7 +109,7 @@ export function ClosingDealsTable({ className }: { className?: string }) {
     <section
       aria-labelledby={titleId}
       className={cn(
-        'bg-ws-static-foreground rounded-ws-container-md p-ws-11 gap-ws-9 flex flex-col',
+        'bg-ws-static-foreground rounded-ws-container-md shadow-ws-low p-ws-11 gap-ws-9 flex flex-col',
         className,
       )}
     >

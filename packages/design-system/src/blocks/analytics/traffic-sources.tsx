@@ -15,7 +15,7 @@ export function TrafficSources({ sources, className }: { sources: Source[]; clas
   const max = Math.max(...sources.map((source) => source.visitors));
 
   return (
-    <section aria-labelledby={titleId} className={cn('gap-ws-7 flex flex-col', className)}>
+    <section aria-labelledby={titleId} className={cn('gap-ws-9 flex flex-col', className)}>
       <h2 id={titleId} className="typography-label-strong-md text-ws-static-strong">
         Traffic sources
       </h2>

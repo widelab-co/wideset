@@ -4,7 +4,10 @@ import { cn } from '@wideset/react';
 import type { StepKind } from './data';
 import { InsertMenu } from './insert-menu';
 
-/** A vertical piece of line, as tall as its class makes it. The stroke stays 1px at any zoom. */
+/**
+ * A vertical piece of line, as tall as its class makes it. Connectors are drawn in the border
+ * grey, never black, so the steps stay the heaviest thing; the stroke stays 1px at any zoom.
+ */
 export function Line({ className }: { className?: string }) {
   return (
     <svg
@@ -19,7 +22,7 @@ export function Line({ className }: { className?: string }) {
         x2="1"
         y2="10"
         vectorEffect="non-scaling-stroke"
-        className="stroke-ws-static-strong"
+        className="stroke-(--ws-static-stroke-base)"
       />
     </svg>
   );
@@ -41,7 +44,7 @@ export function Elbow({ side }: { side: 'left' | 'right' }) {
         d={side === 'left' ? 'M50 10 V0 H100' : 'M0 0 H50 V10'}
         fill="none"
         vectorEffect="non-scaling-stroke"
-        className="stroke-ws-static-strong"
+        className="stroke-(--ws-static-stroke-base)"
       />
     </svg>
   );

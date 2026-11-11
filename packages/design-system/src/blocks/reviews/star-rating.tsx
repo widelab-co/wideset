@@ -8,15 +8,15 @@ import { useState } from 'react';
   (`StarRatingInput`), drawn the same way so a rating looks the same where it is given and where
   it is read.
 
-  Colour: the strong text colour, not amber and not the brand. In Wideset amber is the notice
-  colour (something needs attention), so an amber five stars would warn about the best result, and
-  the brand colour is kept for the primary action and the selected thing. A rating is content: it
-  takes the colour of the text around it, and a low one is not painted red. An empty star is the
-  same shape in the line colour, so five stars always have one outline and the weight is the
-  rating.
+  Colour: filled stars are yellow, as people expect a rating to be; the notice fill
+  (`--ws-semantic-fill-inverse-notice`, amber) is the token for it, through a raw variable since
+  Wideset has no text class for that fill. An empty star is the same shape in a quiet stroke
+  colour, so five stars always have one outline and the weight is the rating. A low rating is not
+  painted red: the count of yellow stars says it.
 */
 
 const STARS = [1, 2, 3, 4, 5] as const;
+const FILLED = 'text-(--ws-semantic-fill-inverse-notice)';
 const SIZES = { sm: 'size-ws-9', md: 'size-ws-11', lg: 'size-ws-12' } as const;
 type Size = keyof typeof SIZES;
 
@@ -29,13 +29,12 @@ function Star({ fill, size }: { fill: 0 | 0.5 | 1; size: Size }) {
   return (
     <span aria-hidden="true" className={cn('relative block shrink-0', SIZES[size])}>
       <RiStarFill
-        className={cn(
-          'size-full',
-          fill === 1 ? 'text-ws-static-strong' : 'text-(--ws-static-stroke-strong)',
-        )}
+        className={cn('size-full', fill === 1 ? FILLED : 'text-(--ws-static-stroke-strong)')}
       />
       {fill === 0.5 && (
-        <RiStarFill className="text-ws-static-strong absolute inset-0 size-full [clip-path:inset(0_50%_0_0)]" />
+        <RiStarFill
+          className={cn(FILLED, 'absolute inset-0 size-full [clip-path:inset(0_50%_0_0)]')}
+        />
       )}
     </span>
   );

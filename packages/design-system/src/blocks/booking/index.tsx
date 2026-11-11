@@ -116,8 +116,10 @@ export default function Booking() {
           <div className={cn(COLUMN, 'gap-ws-12 pt-ws-14 pb-ws-16 flex flex-col')}>
             <PageHeader />
 
+            {/* The calendar's column is as wide as the calendar, so its edges sit on the column's
+                padding like the fields beside it; the two outer columns share the rest. */}
             {step === 'pick' ? (
-              <Card className="grid grid-cols-1 overflow-hidden lg:grid-cols-[20rem_minmax(0,1fr)_20rem]">
+              <Card className="grid grid-cols-1 overflow-hidden lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)]">
                 <section aria-label="Meeting" className="p-ws-12">
                   <MeetingPane
                     typeId={typeId}
@@ -131,7 +133,7 @@ export default function Booking() {
                 </section>
                 <section
                   aria-label="Day"
-                  className="border-ws-static-base p-ws-9 flex justify-center border-t lg:border-t-0 lg:border-l"
+                  className="border-ws-static-base p-ws-12 flex justify-center border-t lg:border-t-0 lg:border-l"
                 >
                   <DayCalendar
                     day={day}

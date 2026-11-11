@@ -23,7 +23,7 @@ export function KpiCard({ label, value, progress, target, remaining, className }
   return (
     <div
       className={cn(
-        'bg-ws-static-foreground rounded-ws-container-md p-ws-11 gap-ws-9 flex flex-col',
+        'bg-ws-static-foreground rounded-ws-container-md shadow-ws-low p-ws-11 gap-ws-9 flex flex-col',
         className,
       )}
     >

@@ -62,16 +62,29 @@ export const TODAY = '2026-11-10';
 export type CustomerId =
   'atlas' | 'cobalt' | 'halcyon' | 'juniper' | 'kestrel' | 'marlow' | 'northwind' | 'tidewater';
 
-/** Who buys: the card each one pays with, and the VAT Lumen Studio charges them. */
-export const CUSTOMERS: Record<CustomerId, { name: string; card: string; vatRate: number }> = {
-  atlas: { name: 'Atlas Robotics', card: 'Amex ending 3007', vatRate: 0 },
-  cobalt: { name: 'Cobalt Security', card: 'Visa ending 9034', vatRate: 0 },
-  halcyon: { name: 'Halcyon Freight', card: 'Visa ending 2190', vatRate: 0 },
-  juniper: { name: 'Juniper Legal', card: 'Mastercard ending 2264', vatRate: 0.2 },
-  kestrel: { name: 'Kestrel Analytics', card: 'Visa ending 1881', vatRate: 0 },
-  marlow: { name: 'Marlow & Finch', card: 'Visa ending 6411', vatRate: 0.2 },
-  northwind: { name: 'Northwind Health', card: 'Mastercard ending 5510', vatRate: 0 },
-  tidewater: { name: 'Tidewater Energy', card: 'Mastercard ending 7718', vatRate: 0.2 },
+/** Who buys: the initials on their avatar, the card each one pays with, and the VAT charged. */
+export const CUSTOMERS: Record<
+  CustomerId,
+  { name: string; initials: string; card: string; vatRate: number }
+> = {
+  atlas: { name: 'Atlas Robotics', initials: 'AR', card: 'Amex ending 3007', vatRate: 0 },
+  cobalt: { name: 'Cobalt Security', initials: 'CS', card: 'Visa ending 9034', vatRate: 0 },
+  halcyon: { name: 'Halcyon Freight', initials: 'HF', card: 'Visa ending 2190', vatRate: 0 },
+  juniper: { name: 'Juniper Legal', initials: 'JL', card: 'Mastercard ending 2264', vatRate: 0.2 },
+  kestrel: { name: 'Kestrel Analytics', initials: 'KA', card: 'Visa ending 1881', vatRate: 0 },
+  marlow: { name: 'Marlow & Finch', initials: 'MF', card: 'Visa ending 6411', vatRate: 0.2 },
+  northwind: {
+    name: 'Northwind Health',
+    initials: 'NH',
+    card: 'Mastercard ending 5510',
+    vatRate: 0,
+  },
+  tidewater: {
+    name: 'Tidewater Energy',
+    initials: 'TE',
+    card: 'Mastercard ending 7718',
+    vatRate: 0.2,
+  },
 };
 
 export type ItemId =
@@ -102,14 +115,18 @@ export type Status =
   | 'shipped';
 
 /**
- * Colour marks the one status somebody has to act on. Processing, Shipped and Delivered are the
- * order's lifecycle; Refunded and Cancelled are how an order ended, with the money already where
- * it belongs, so they stay neutral too. A failed payment is the row that needs someone.
+ * The status carries its meaning in colour: Processing is under way (info); Shipped and Delivered
+ * mean the order went out as it should (positive); a failed payment needs someone (negative).
+ * Refunded and Cancelled are how an order ended, with the money already where it belongs, so
+ * there is nothing to signal and they stay neutral.
  */
-export const STATUS: Record<Status, { label: string; color: 'negative' | 'neutral' }> = {
-  processing: { label: 'Processing', color: 'neutral' },
-  shipped: { label: 'Shipped', color: 'neutral' },
-  delivered: { label: 'Delivered', color: 'neutral' },
+export const STATUS: Record<
+  Status,
+  { label: string; color: 'info' | 'negative' | 'neutral' | 'positive' }
+> = {
+  processing: { label: 'Processing', color: 'info' },
+  shipped: { label: 'Shipped', color: 'positive' },
+  delivered: { label: 'Delivered', color: 'positive' },
   'partially-refunded': { label: 'Partially refunded', color: 'neutral' },
   refunded: { label: 'Refunded', color: 'neutral' },
   cancelled: { label: 'Cancelled', color: 'neutral' },

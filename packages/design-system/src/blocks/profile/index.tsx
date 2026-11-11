@@ -1,5 +1,5 @@
 import { RiSideBarLine } from '@remixicon/react';
-import { Breadcrumbs, cn, IconButton, ToastProvider, useToast } from '@wideset/react';
+import { Breadcrumbs, Card, cn, IconButton, ToastProvider, useToast } from '@wideset/react';
 import { useId, useState } from 'react';
 
 import { AchievementList } from './achievement-list';
@@ -40,6 +40,8 @@ const CONTACT = [
 /** The page: who the person is, then their work beside the facts about them. */
 function ProfilePage() {
   const sidebarId = useId();
+  const dealsId = useId();
+  const activityId = useId();
   const { showToast } = useToast();
   const [collapsed, setCollapsed] = useState(false);
   const [following, setFollowing] = useState(followingAtStart);
@@ -109,16 +111,41 @@ function ProfilePage() {
             </div>
 
             <div className="gap-ws-16 border-ws-static-subtle pt-ws-14 grid grid-cols-1 items-start border-t lg:grid-cols-[minmax(0,1fr)_18rem]">
-              <div className="gap-ws-16 flex min-w-0 flex-col">
-                <Section title="Open deals">
+              {/* His work, the part of the page to act on, sits in cards. */}
+              <div className="gap-ws-12 flex min-w-0 flex-col">
+                <Card role="region" aria-labelledby={dealsId}>
+                  <Card.Header>
+                    <h2 id={dealsId} className="typography-label-strong-md text-ws-static-strong">
+                      Open deals
+                    </h2>
+                  </Card.Header>
+                  {/* Straight in the card, not in Card.Content, whose scrollbar gutter would stop
+                      the table's lines short. */}
                   <DealsTable deals={openDeals} />
-                </Section>
-                <Section title="Recent activity">
-                  <ActivityTimeline items={activity} />
-                </Section>
+                </Card>
+                <Card role="region" aria-labelledby={activityId}>
+                  <Card.Header>
+                    <h2
+                      id={activityId}
+                      className="typography-label-strong-md text-ws-static-strong"
+                    >
+                      Recent activity
+                    </h2>
+                  </Card.Header>
+                  {/* Card.Content keeps 10px free on the right for a scrollbar: the padding gives
+                      it back. */}
+                  <Card.Content contentClassName="pr-ws-6">
+                    <ActivityTimeline items={activity} />
+                  </Card.Content>
+                </Card>
               </div>
 
-              <aside aria-label={`About ${firstName}`} className="gap-ws-16 flex flex-col">
+              {/* What there is to know about him stays on the white, without a box; its first title
+                  stands on the line of the first card's title. */}
+              <aside
+                aria-label={`About ${firstName}`}
+                className="gap-ws-16 lg:pt-ws-9 flex flex-col"
+              >
                 <Section title="About">
                   <div className="gap-ws-5 typography-body-md text-ws-static-base flex flex-col">
                     {profile.about.map((line) => (
@@ -146,7 +173,8 @@ function ProfilePage() {
  * workspace sidebar. A work profile, not a social page: no cover, no banner, no badges. The header
  * says who they are and where, with Follow as the one filled button until it is pressed; a line of
  * plain figures under it opens their followers and whom they follow. Below, their open deals and
- * recent activity beside what to know about them, how to reach them and what they reached.
+ * recent activity in cards, the work to act on, beside what to know about them, how to reach them
+ * and what they reached, quieter on the white.
  */
 export default function Profile() {
   return (

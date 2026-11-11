@@ -8,8 +8,8 @@ const COLUMNS = 6;
 
 /**
  * Invitations nobody has accepted yet: to whom, as what, from whom and when, and whether the
- * link still works. Pending is a plain state; Expired needs someone to act, so it takes the
- * notice colour. Resend starts the seven days again; Revoke can be undone from its toast.
+ * link still works. The status carries its meaning: Pending waits on the invitee (notice),
+ * Expired is a link that no longer works (negative). Resend starts the seven days again; Revoke can be undone from its toast.
  */
 export function InvitationsTable({
   rows,
@@ -71,7 +71,7 @@ export function InvitationsTable({
                   </time>
                 </Table.Cell>
                 <Table.Cell>
-                  <StatusBadge size="sm" color={expired ? 'notice' : 'neutral'}>
+                  <StatusBadge size="sm" color={expired ? 'negative' : 'notice'}>
                     {expired ? 'Expired' : 'Pending'}
                   </StatusBadge>
                 </Table.Cell>

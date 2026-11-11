@@ -6,15 +6,15 @@ import type { App, Connection, ConnectionStatus } from './data';
 import { formatSince } from './format';
 
 /**
- * Only an expired connection asks for action now, so only it takes a colour; active and paused
- * are lifecycle states and stay neutral, the word carrying them.
+ * A connection's colour says how it stands: active is healthy, paused waits for someone to resume
+ * it, expired has stopped syncing and needs reconnecting.
  */
 export const STATUS: Record<
   ConnectionStatus,
   { label: string; color: NonNullable<StatusBadgeProps['color']> }
 > = {
-  active: { label: 'Active', color: 'neutral' },
-  paused: { label: 'Paused', color: 'neutral' },
+  active: { label: 'Active', color: 'positive' },
+  paused: { label: 'Paused', color: 'notice' },
   expired: { label: 'Access expired', color: 'negative' },
 };
 

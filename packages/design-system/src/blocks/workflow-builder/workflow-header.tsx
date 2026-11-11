@@ -10,7 +10,7 @@ export type WorkflowState = 'draft' | 'on' | 'off';
 const BADGE = {
   draft: { label: 'Draft', color: 'neutral' },
   on: { label: 'On', color: 'positive' },
-  off: { label: 'Off', color: 'neutral' },
+  off: { label: 'Off', color: 'notice' },
 } as const;
 
 /**

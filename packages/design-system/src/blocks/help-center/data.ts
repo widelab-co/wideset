@@ -171,8 +171,8 @@ export const articles: Article[] = [
   },
 ];
 
-/** Read most this month. */
-export const popular = articles.slice(0, 5);
+/** Read most this month: as many as fill the card beside the contacts. */
+export const popular = articles.slice(0, 7);
 
 /** The support team: open on weekdays, so a chat gets a person. */
 export const support = {

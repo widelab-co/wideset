@@ -6,6 +6,13 @@ import { maya, type Standing } from './data';
 import { formatShare, formatUsd } from './format';
 import { QuotaBar } from './quota-bar';
 
+/**
+ * The table sits in a card, edge to edge: the outer cells are inset like the card's title, and
+ * the last row leaves its line to the card's border.
+ */
+const IN_CARD =
+  '[&_tr>*:first-child]:pl-ws-11 [&_tr>*:last-child]:pr-ws-11 [&_tbody>tr:last-child>*]:border-b-0';
+
 /** Where a person moved since last week: a quiet arrow and the places, or a dash. */
 function RankChange({ from, to }: { from: number; to: number }) {
   const places = from - to;
@@ -36,7 +43,7 @@ export function Leaderboard({ standings }: { standings: Standing[] }) {
   const ranked = [...standings].sort((a, b) => b.revenue - a.revenue);
 
   return (
-    <Table size="md" interactive aria-label="Leaderboard" className="w-full">
+    <Table size="md" interactive aria-label="Leaderboard" className={IN_CARD}>
       <Table.Head>
         <Table.Row>
           <Table.Header align="right" className="w-[3rem]">

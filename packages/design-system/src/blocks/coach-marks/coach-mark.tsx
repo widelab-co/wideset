@@ -53,7 +53,8 @@ export function CoachMark({
       align={align}
       sideOffset={12}
       collisionPadding={16}
-      className="w-[21rem]"
+      // Wide enough that every step's text sets in two lines; still under Popup's own 492px.
+      className="w-[26rem]"
       onOpenAutoFocus={(event) => {
         event.preventDefault();
         surface.current?.focus();

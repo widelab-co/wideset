@@ -1,8 +1,8 @@
-// TODO(custom): neutral 4px bar of a share (the bar list's bar on a track); ProgressBar is brand-coloured and has no neutral variant.
+// TODO(custom): neutral 4px bar of a share, on a track; ProgressBar is brand-coloured and has no neutral variant.
 import { cn } from '@wideset/react';
 
 /**
- * A share of quota as the bar list's neutral 4px bar, on a track that ends at the quota, so 100%
+ * A share of quota as a neutral 4px bar, on a track that ends at the quota, so 100%
  * is the right edge and a person past it reads as a full bar. Neutral, so on a page of brand
  * goal bars the leaderboard does not compete; the percentage beside it says the number.
  */

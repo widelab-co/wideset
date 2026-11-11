@@ -20,8 +20,9 @@ type PlanCardProps = {
 };
 
 /**
- * The plan: what it costs per billing period, when it renews, and this period's usage against
- * its limits. The price is the page's key figure.
+ * The plan: its name and what to do with it in the header; what it costs per billing period, how
+ * it is billed and when it renews under the price, and this period's usage against its limits.
+ * The price is the page's key figure.
  */
 export function PlanCard({
   plan,
@@ -40,14 +41,10 @@ export function PlanCard({
   return (
     <Card>
       <Card.Header>
-        <div className="gap-ws-9 flex flex-wrap items-start justify-between">
-          <div className="gap-ws-3 flex min-w-0 flex-1 flex-col">
-            <h2 className="typography-subtitle-xs text-ws-static-strong">{plan.name} plan</h2>
-            <p className="typography-body-md text-ws-static-subtle">
-              {yearly ? 'Billed yearly' : 'Billed monthly'},{' '}
-              {cancelled ? `ends on ${formatDate(periodEnd)}` : `renews on ${formatDate(renews)}`}
-            </p>
-          </div>
+        <div className="gap-ws-9 flex flex-wrap items-center justify-between">
+          <h2 className="typography-subtitle-xs text-ws-static-strong min-w-0 flex-1">
+            {plan.name} plan
+          </h2>
           <Card.Action className="gap-ws-5">
             {cancelled ? (
               <Button size="sm" variant="secondary" preset="border" onClick={onResume}>
@@ -75,9 +72,11 @@ export function PlanCard({
                 {yearly ? 'per year' : 'per month'}
               </span>
             </p>
+            {/* How it is billed reads with what it costs, not as the card's subtitle. */}
             <p className="typography-body-md text-ws-static-base tabular-nums">
               {seats} seats × {formatUsd(plan.seatPrice[interval])}
-              {yearly ? ' a month, paid for the year' : ''}
+              {yearly ? ' a month, billed yearly' : ', billed monthly'},{' '}
+              {cancelled ? `ends on ${formatDate(periodEnd)}` : `renews on ${formatDate(renews)}`}
             </p>
           </div>
           <PlanUsage plan={plan} seats={seats} periodStart={periodStart} periodEnd={periodEnd} />

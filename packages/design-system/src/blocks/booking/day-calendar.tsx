@@ -18,7 +18,8 @@ type DayCalendarProps = {
 /**
  * The second part: a month calendar. Days with room for the meeting are open and drawn strong;
  * past days and days without free time are closed (the calendar fades them and the keyboard skips
- * them). The chosen day is the calendar's one brand-coloured day.
+ * them). The chosen day is the calendar's one brand-coloured day. The month line shares the
+ * line of the titles beside it, and each week a row of the time list.
  */
 export function DayCalendar({
   day,
@@ -44,6 +45,9 @@ export function DayCalendar({
       modifiers={{ open: (date: Date) => !closed(date) }}
       modifiersClassNames={{ open: '[&>button]:text-ws-static-strong' }}
       footer={`Only days with ${minutes} free minutes are open.`}
+      // No inset of its own: the column's padding is the calendar's edge. Pulled up so the month
+      // sits on the line of the titles beside it, and the weeks on the rows of the times.
+      className="p-ws-0 -mt-ws-8"
     />
   );
 }

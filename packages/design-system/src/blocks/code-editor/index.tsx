@@ -111,14 +111,11 @@ function EditorPage() {
         quiet={restoring !== undefined}
       />
 
-      <div className="gap-ws-16 grid min-h-0 flex-1 grid-cols-1 md:grid-cols-[13rem_minmax(0,1fr)]">
+      {/* The files, the editor and its output are one tool: one bordered box, split by lines. */}
+      <div className="border-ws-static-base rounded-ws-container-md grid min-h-0 flex-1 grid-cols-1 overflow-hidden border md:grid-cols-[15rem_minmax(0,1fr)] md:grid-rows-[minmax(0,1fr)]">
         <FileTree active={active} unsaved={unsaved} onOpen={openFile} />
 
-        {/* The editor and its output are one object: one bordered box, split by a line. */}
-        <section
-          aria-label="Editor"
-          className="border-ws-static-base rounded-ws-container-md flex min-h-0 flex-col overflow-hidden border"
-        >
+        <section aria-label="Editor" className="flex min-h-0 min-w-0 flex-col">
           <Tabs
             value={active}
             onValueChange={(value) => setActive(value as FileId)}
@@ -182,8 +179,8 @@ function EditorPage() {
 /**
  * Code editor (Inset direction): a script that runs in an Orbit workflow, edited on the raised
  * page beside the workspace sidebar. The header names the script and holds its save state,
- * versions, Run test and Save (the one filled button); the step's files sit in a narrow column
- * beside one bordered box, the editor over its output and problems.
+ * versions, Run test and Save (the one filled button); under it one bordered box holds the step's
+ * files (a search over a tree) beside the editor, and the editor over its output and problems.
  */
 export default function CodeEditorBlock() {
   const sidebarId = useId();

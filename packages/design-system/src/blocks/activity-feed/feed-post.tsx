@@ -1,6 +1,6 @@
 // TODO(custom): feed post (author, time, text, what it is about, actions, comments); Wideset has no Post or feed item component.
 import { RiPushpinLine, RiTrophyLine } from '@remixicon/react';
-import { Avatar, Button } from '@wideset/react';
+import { Avatar, Button, Card } from '@wideset/react';
 import { useEffect, useId, useRef, useState } from 'react';
 
 import { CommentField } from './comment-field';
@@ -25,9 +25,9 @@ type FeedPostProps = {
 };
 
 /**
- * One post in the feed, drawn on the page's white with a line above it, never in a card. The
- * avatar holds a gutter and everything else hangs in one column beside it: who and when on the
- * first line, the text, what it is about, the actions, then the comments.
+ * One post in the feed, in its own bordered card, so each post reads as one object and the feed
+ * as a stack of them. The avatar holds a gutter and everything else hangs in one column beside
+ * it: who and when on the first line, the text, what it is about, the actions, then the comments.
  *
  * An event Orbit reports (a deal won) is the same row made quieter: an icon for an avatar, one
  * sentence instead of a text, no menu and no Share. A pinned announcement says so above.
@@ -60,86 +60,89 @@ export function FeedPost({
   }, [commenting]);
 
   return (
-    <article
-      id={post.id}
-      aria-labelledby={titleId}
-      className="border-ws-static-subtle gap-ws-5 py-ws-12 flex flex-col border-t"
-    >
-      {post.kind === 'announcement' && (
-        <p className="typography-label-sm text-ws-static-subtle gap-ws-7 flex items-center">
-          {/* The pin sits in the avatars' gutter, the words on the text's edge. */}
-          <span className="w-ws-14 flex shrink-0 justify-center">
-            <RiPushpinLine aria-hidden="true" className="size-ws-9" />
-          </span>
-          Pinned announcement
-        </p>
-      )}
-
-      <div className="gap-ws-7 flex">
-        {event ? (
-          <Avatar icon={<RiTrophyLine />} aria-hidden />
-        ) : (
-          <Avatar initials={author.initials} color={author.color} aria-hidden />
-        )}
-
-        <div className="flex min-w-0 flex-1 flex-col">
-          <header className="h-ws-14 gap-ws-5 flex items-center">
-            <p
-              id={titleId}
-              className="typography-label-sm text-ws-static-subtle min-w-0 flex-1 truncate"
-            >
-              <span className="typography-label-strong-sm text-ws-static-strong">
-                {author.name}
-              </span>{' '}
-              {event ? <span className="text-ws-static-base">{post.text}</span> : author.role}
-              {' · '}
-              <time dateTime={post.at} title={formatDateTime(post.at)}>
-                {formatWhen(post.at)}
-              </time>
-              {post.audience && ` · ${post.audience}`}
+    <article id={post.id} aria-labelledby={titleId}>
+      <Card>
+        {/* Card.Content keeps 10px free on the right for a scrollbar; the padding gives it back,
+            so the post sits 20px from both sides. w-0 with min-w-full pins the width, so the
+            truncated lines truncate instead of widening the scroll area. */}
+        <Card.Content contentClassName="pr-ws-6 w-0 min-w-full gap-ws-5 flex flex-col">
+          {post.kind === 'announcement' && (
+            <p className="typography-label-sm text-ws-static-subtle gap-ws-7 flex items-center">
+              {/* The pin sits in the avatars' gutter, the words on the text's edge. */}
+              <span className="w-ws-14 flex shrink-0 justify-center">
+                <RiPushpinLine aria-hidden="true" className="size-ws-9" />
+              </span>
+              Pinned announcement
             </p>
-            {!event && (
-              <PostMenu
-                author={author.name}
-                following={post.following}
-                onFollow={onFollow}
-                onCopyLink={onCopyLink}
-                onReport={onReport}
-              />
+          )}
+
+          <div className="gap-ws-7 flex">
+            {event ? (
+              <Avatar icon={<RiTrophyLine />} aria-hidden />
+            ) : (
+              <Avatar initials={author.initials} color={author.color} aria-hidden />
             )}
-          </header>
 
-          <div className="gap-ws-5 flex flex-col">
-            {!event && <p className="typography-body-md text-ws-static-base">{post.text}</p>}
-            {post.subject && <RecordLink subject={post.subject} />}
-            <PostActions
-              likes={post.likes}
-              liked={post.liked}
-              onLike={onLike}
-              onComment={comment}
-              onShare={event ? undefined : onShare}
-            />
-
-            {(comments.length > 0 || commenting) && (
-              <div className="gap-ws-7 pt-ws-3 flex flex-col">
-                {earlier > 0 && (
-                  <Button
-                    size="sm"
-                    variant="secondary"
-                    preset="ghost"
-                    className="-ml-ws-6 self-start"
-                    onClick={() => setExpanded(true)}
-                  >
-                    {`View all ${comments.length} comments`}
-                  </Button>
+            <div className="flex min-w-0 flex-1 flex-col">
+              <header className="h-ws-14 gap-ws-5 flex items-center">
+                <p
+                  id={titleId}
+                  className="typography-label-sm text-ws-static-subtle min-w-0 flex-1 truncate"
+                >
+                  <span className="typography-label-strong-sm text-ws-static-strong">
+                    {author.name}
+                  </span>{' '}
+                  {event ? <span className="text-ws-static-base">{post.text}</span> : author.role}
+                  {' · '}
+                  <time dateTime={post.at} title={formatDateTime(post.at)}>
+                    {formatWhen(post.at)}
+                  </time>
+                  {post.audience && ` · ${post.audience}`}
+                </p>
+                {!event && (
+                  <PostMenu
+                    author={author.name}
+                    following={post.following}
+                    onFollow={onFollow}
+                    onCopyLink={onCopyLink}
+                    onReport={onReport}
+                  />
                 )}
-                {comments.length > 0 && <CommentThread comments={comments.slice(earlier)} />}
-                <CommentField ref={field} author={author.name} onComment={onComment} />
+              </header>
+
+              <div className="gap-ws-5 flex flex-col">
+                {!event && <p className="typography-body-md text-ws-static-base">{post.text}</p>}
+                {post.subject && <RecordLink subject={post.subject} />}
+                <PostActions
+                  likes={post.likes}
+                  liked={post.liked}
+                  onLike={onLike}
+                  onComment={comment}
+                  onShare={event ? undefined : onShare}
+                />
+
+                {(comments.length > 0 || commenting) && (
+                  <div className="gap-ws-7 pt-ws-3 flex flex-col">
+                    {earlier > 0 && (
+                      <Button
+                        size="sm"
+                        variant="secondary"
+                        preset="ghost"
+                        className="-ml-ws-6 self-start"
+                        onClick={() => setExpanded(true)}
+                      >
+                        {`View all ${comments.length} comments`}
+                      </Button>
+                    )}
+                    {comments.length > 0 && <CommentThread comments={comments.slice(earlier)} />}
+                    <CommentField ref={field} author={author.name} onComment={onComment} />
+                  </div>
+                )}
               </div>
-            )}
+            </div>
           </div>
-        </div>
-      </div>
+        </Card.Content>
+      </Card>
     </article>
   );
 }

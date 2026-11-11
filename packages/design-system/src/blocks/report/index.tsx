@@ -23,8 +23,8 @@ import { ReportSidebar } from './sidebar';
 
 /** One column for the title row and every section, so their edges line up. */
 const COLUMN = 'mx-auto w-full max-w-[80rem]';
-/** A module of the report: white on the grey canvas, no border, no shadow; the grey separates. */
-const SECTION = 'bg-ws-static-foreground rounded-ws-container-md p-ws-12';
+/** A module of the report: white on the grey canvas, no border, a light shadow to lift it. */
+const SECTION = 'bg-ws-static-foreground rounded-ws-container-md shadow-ws-low p-ws-12';
 
 type Figure = {
   label: string;

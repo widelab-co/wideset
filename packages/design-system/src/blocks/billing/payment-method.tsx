@@ -23,7 +23,7 @@ export function PaymentMethod() {
   return (
     <Card>
       <Card.Header>
-        <div className="gap-ws-9 flex items-start justify-between">
+        <div className="gap-ws-9 flex items-center justify-between">
           <h2 className="typography-subtitle-xs text-ws-static-strong">Payment method</h2>
           <Card.Action>
             <Button size="sm" variant="secondary" preset="border">

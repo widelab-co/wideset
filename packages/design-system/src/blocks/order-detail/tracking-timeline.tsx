@@ -48,7 +48,7 @@ export function TrackingTimeline({ events }: { events: TrackingEvent[] }) {
                 'size-ws-14 rounded-ws-control-full flex shrink-0 items-center justify-center',
                 current
                   ? 'bg-ws-dynamic-primary-alpha-strong-default text-ws-dynamic-primary-default'
-                  : 'border-ws-static-base bg-ws-static-foreground text-ws-static-subtle border',
+                  : 'border-ws-static-base text-ws-static-subtle border',
               )}
             >
               <Icon className="size-ws-8" />

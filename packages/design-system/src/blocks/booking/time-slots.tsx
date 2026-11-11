@@ -45,13 +45,15 @@ export function TimeSlots({
   const firstName = contact.name.split(' ')[0];
 
   return (
-    <div className="gap-ws-9 flex flex-col">
+    // The zone sits where the Meeting field does (6px under its title), and each time on the row of
+    // a week in the calendar beside it (20 + 6 + 32 + 12).
+    <div className="flex flex-col">
       <h3 id={titleId} className="typography-label-strong-md text-ws-static-strong">
         {formatDay(day)}
       </h3>
       <Select
         size="sm"
-        className="w-full"
+        className="mt-ws-4 w-full"
         aria-label="Time zone"
         options={timeZones}
         value={timeZone}
@@ -59,7 +61,7 @@ export function TimeSlots({
       />
 
       {slots.length > 0 ? (
-        <ul aria-labelledby={titleId} className="gap-ws-5 flex flex-col">
+        <ul aria-labelledby={titleId} className="mt-ws-7 gap-ws-5 flex flex-col">
           {slots.map((slot) =>
             slot === selected ? (
               <li key={slot} className="gap-ws-5 grid grid-cols-2">
@@ -93,7 +95,7 @@ export function TimeSlots({
           )}
         </ul>
       ) : (
-        <div className="gap-ws-7 flex flex-col items-start" role="status">
+        <div className="mt-ws-9 gap-ws-7 flex flex-col items-start" role="status">
           <p className="typography-body-md text-ws-static-subtle">
             {firstName} has no free time for a {meeting} on this day.
             {nextDay ? ` Her next is ${formatDay(nextDay)}.` : ' Try a shorter meeting.'}

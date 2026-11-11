@@ -1,11 +1,24 @@
 // TODO(custom): a board column (stage name, its total, cards that scroll on their own, a drop line, Add deal); Wideset has no board or column.
 import { RiAddLine } from '@remixicon/react';
-import { Button, cn } from '@wideset/react';
+import { Button, cn, StatusBadge, type StatusBadgeProps } from '@wideset/react';
 import { type HTMLAttributes, type Ref, useId } from 'react';
 
 import type { Deal, StageId } from './data';
 import { DealCard } from './deal-card';
 import { formatUsd } from './format';
+
+/**
+ * A stage's colour says how its deals stand, as on the sales overview: the early stages carry
+ * nothing yet, a proposal is out and in progress, a negotiation needs a look, a commit is as good
+ * as won.
+ */
+const STAGE_COLOR: Record<StageId, NonNullable<StatusBadgeProps['color']>> = {
+  qualified: 'neutral',
+  discovery: 'neutral',
+  proposal: 'info',
+  negotiation: 'notice',
+  commit: 'positive',
+};
 
 /** Where a dragged card would land: a thin brand line in the gap, taking no room. */
 function DropLine({ edge }: { edge: 'top' | 'bottom' }) {
@@ -21,9 +34,10 @@ function DropLine({ edge }: { edge: 'top' | 'bottom' }) {
 }
 
 /**
- * One stage: its name and the total of its deals as plain text, the deals, and Add deal under
- * them. No fill behind the column: the cards carry the board, the gaps split the stages. The list
- * scrolls on its own, so a long stage never pushes the page.
+ * One stage: a quiet grey container that holds its name as a badge in the stage's colour, the total
+ * of its deals, the white deal cards, and Add deal under them. The fill groups a stage at a glance
+ * and lets the white cards stand off it. The list scrolls on its own, so a long stage never pushes
+ * the page.
  */
 export function StageColumn({
   stage,
@@ -63,11 +77,17 @@ export function StageColumn({
   };
 
   return (
-    <section aria-labelledby={titleId} className="flex min-h-0 min-w-0 flex-col">
-      <header className="gap-ws-5 pb-ws-5 flex items-baseline justify-between">
-        <h2 id={titleId} className="typography-label-strong-md text-ws-static-strong truncate">
-          {stage.label}
-        </h2>
+    <section
+      aria-labelledby={titleId}
+      className="bg-ws-static-alpha-subtle rounded-ws-container-md p-ws-5 flex min-h-0 min-w-0 flex-col"
+    >
+      {/* The badge's text lines up with the cards' text under it. */}
+      <header className="gap-ws-5 pl-ws-2 pr-ws-7 pb-ws-5 flex items-center justify-between">
+        <StatusBadge size="lg" color={STAGE_COLOR[stage.id]} className="min-w-0">
+          <h2 id={titleId} className="truncate">
+            {stage.label}
+          </h2>
+        </StatusBadge>
         <span className="typography-label-sm text-ws-static-subtle tabular-nums">
           {formatUsd(total)}
         </span>
@@ -82,7 +102,7 @@ export function StageColumn({
         {deals.map((deal) => {
           const line = lineAt(deal);
           return (
-            <div key={deal.id} className="py-ws-2 relative">
+            <div key={deal.id} className="py-ws-3 relative">
               {line && <DropLine edge={line} />}
               <DealCard
                 deal={deal}
@@ -95,7 +115,7 @@ export function StageColumn({
           );
         })}
         {deals.length === 0 && (
-          <div className="py-ws-5 relative">
+          <div className="py-ws-5 px-ws-7 relative">
             {dropIndex === 0 && <DropLine edge="top" />}
             <p className="typography-body-sm text-ws-static-subtle">No deals in this stage</p>
           </div>

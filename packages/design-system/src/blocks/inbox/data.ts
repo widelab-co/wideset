@@ -71,6 +71,9 @@ export const settingsLinks: NavLink[] = [
 
 export const helpLink: NavLink = { id: 'help', label: 'Help and support', icon: RiQuestionLine };
 
+/** A file sent with a message. */
+export type Attachment = { name: string; size: string };
+
 export type Message = {
   id: string;
   from: Person;
@@ -78,6 +81,7 @@ export type Message = {
   at: string;
   /** The text, one paragraph per entry. */
   body: string[];
+  attachments?: Attachment[];
 };
 
 export type Conversation = {
@@ -127,14 +131,14 @@ const single = (
   subject: string,
   at: string,
   body: string[],
-  flags: { unread?: boolean; starred?: boolean } = {},
+  flags: { unread?: boolean; starred?: boolean; attachments?: Attachment[] } = {},
 ): Conversation => ({
   id,
   subject,
   contact,
   customer,
   deal,
-  messages: [{ id: `${id}-1`, from: contact, at, body }],
+  messages: [{ id: `${id}-1`, from: contact, at, body, attachments: flags.attachments }],
   unread: flags.unread ?? false,
   starred: flags.starred ?? false,
 });
@@ -182,11 +186,12 @@ export const conversations: Conversation[] = [
         body: [
           'Good morning Maya,',
           'The finance committee meets on Thursday at 10:00. If the revised quote is with me by noon tomorrow, I can still put it on the agenda. After that the renewal moves to the December meeting, and our current term ends before then.',
-          'To recap what we need in the quote: the two-year term with its price per seat, the 12 added seats starting on January 1, and the onboarding fee for those seats waived.',
+          'To recap what we need in the quote: the two-year term with its price per seat, the 12 added seats starting on January 1, and the onboarding fee for those seats waived. Our current order form is attached, so the new one can follow it.',
           'I am at my desk all morning if a short call is easier than writing it up.',
           'Best regards,',
           'Ingrid',
         ],
+        attachments: [{ name: 'halcyon-order-form-2025.pdf', size: '184 KB' }],
       },
     ],
   },
@@ -224,7 +229,7 @@ export const conversations: Conversation[] = [
     [
       'Our comments are in the attached draft. The liability cap in section 11 is the only point still open on our side.',
     ],
-    { starred: true },
+    { starred: true, attachments: [{ name: 'juniper-msa-redlines.docx', size: '96 KB' }] },
   ),
   single(
     'marlow-discount',
@@ -259,6 +264,7 @@ export const conversations: Conversation[] = [
     [
       'Could you complete the attached questionnaire before our review board meets on November 18? Sections 3 and 4 matter most to us.',
     ],
+    { attachments: [{ name: 'cobalt-vendor-questionnaire.xlsx', size: '312 KB' }] },
   ),
   single(
     'tidewater-invoice',

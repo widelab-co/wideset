@@ -47,22 +47,22 @@ export default function Analytics() {
       <main className="flex min-w-0 flex-1 flex-col overflow-y-auto">
         <PageHeader period={period} onPeriodChange={setPeriod} range={formatRange(first, last)} />
 
-        <section aria-label="Key figures" className="border-ws-static-subtle px-ws-12 border-b">
+        <section aria-label="Key figures" className="border-ws-static-subtle px-ws-14 border-b">
           <div className="mx-auto grid w-full max-w-[80rem] grid-cols-4">
             {metrics.map((metric, index) => (
               <KpiCard
                 key={metric.label}
                 {...toKpi(metric)}
                 className={cn(
-                  'py-ws-12 pr-ws-12',
-                  index > 0 && 'border-ws-static-subtle pl-ws-12 border-l',
+                  'py-ws-14 pr-ws-14',
+                  index > 0 && 'border-ws-static-subtle pl-ws-14 border-l',
                 )}
               />
             ))}
           </div>
         </section>
 
-        <div className="border-ws-static-subtle px-ws-12 py-ws-12 border-b">
+        <div className="border-ws-static-subtle px-ws-14 py-ws-14 border-b">
           <TrendChart
             title="Visitors"
             dates={current.map((day) => day.date)}
@@ -76,13 +76,13 @@ export default function Analytics() {
 
         {/* The last band takes the rest of the window: the line between its columns runs to the
             bottom edge instead of stopping in the air. */}
-        <div className="px-ws-12 flex-1">
+        <div className="px-ws-14 flex-1">
           <div className="mx-auto grid h-full w-full max-w-[80rem] grid-cols-4">
             <TopPagesTable
               pages={pages}
-              className="border-ws-static-subtle py-ws-12 pr-ws-12 col-span-3 border-r"
+              className="border-ws-static-subtle py-ws-14 pr-ws-14 col-span-3 border-r"
             />
-            <TrafficSources sources={sources} className="py-ws-12 pl-ws-12" />
+            <TrafficSources sources={sources} className="py-ws-14 pl-ws-14" />
           </div>
         </div>
       </main>

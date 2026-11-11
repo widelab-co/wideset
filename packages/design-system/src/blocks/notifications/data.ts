@@ -48,13 +48,33 @@ const leila = { name: 'Leila Haddad', initials: 'LH' };
 const hana = { name: 'Hana Kobayashi', initials: 'HK' };
 const nina: Person = account;
 
+export type StageColor = 'neutral' | 'info' | 'notice' | 'positive' | 'negative';
+
+/** A deal stage's colour, the same in every block: early stages neutral, Proposal in progress, Negotiation waiting on the customer, Commit and won positive, lost negative. */
+const STAGE_COLOR: Record<string, StageColor> = {
+  Proposal: 'info',
+  Negotiation: 'notice',
+  Commit: 'positive',
+  'Closed won': 'positive',
+  'Closed lost': 'negative',
+};
+
+export function stageColor(stage: string): StageColor {
+  return STAGE_COLOR[stage] ?? 'neutral';
+}
+
+/** One fact about the record; a status carries its colour. */
+export type Fact = { label: string; value: string; status?: StageColor };
+
+const stage = (value: string): Fact => ({ label: 'Stage', value, status: stageColor(value) });
+
 /** What a notification is about; the detail shows its facts and opens it. */
 export type Subject = {
   kind: 'Deal' | 'Account' | 'Invoice' | 'Task' | 'Report';
   /** Where it lives, for the breadcrumb: "Deals". */
   section: string;
   name: string;
-  facts: { label: string; value: string }[];
+  facts: Fact[];
 };
 
 export type Message = { author: Person; at: string; text: string };
@@ -66,7 +86,7 @@ export type Context =
    * that notified you.
    */
   | { type: 'comment'; thread: Message[] }
-  | { type: 'change'; field: string; from: string; to: string }
+  | { type: 'change'; field: 'Stage'; from: string; to: string }
   /** Something Orbit itself reports and someone has to act on. */
   | { type: 'alert'; status: 'error' | 'warning'; title: string; text: string };
 
@@ -99,7 +119,7 @@ const lanetrack: Subject = {
   section: 'Deals',
   name: 'Lanetrack · Annual renewal',
   facts: [
-    { label: 'Stage', value: 'Negotiation' },
+    stage('Negotiation'),
     { label: 'Amount', value: '$48,000 a year' },
     { label: 'Close date', value: 'Nov 28, 2026' },
     { label: 'Owner', value: 'Nina Alvarez' },
@@ -112,7 +132,7 @@ const kestrel: Subject = {
   section: 'Deals',
   name: 'Kestrel Labs · New business',
   facts: [
-    { label: 'Stage', value: 'Closed won' },
+    stage('Closed won'),
     { label: 'Amount', value: '$36,000 a year' },
     { label: 'Closed on', value: 'Nov 12, 2026' },
     { label: 'Owner', value: 'Priya Raman' },
@@ -125,7 +145,7 @@ const brightwave: Subject = {
   section: 'Deals',
   name: 'Brightwave · Renewal 2027',
   facts: [
-    { label: 'Stage', value: 'Negotiation' },
+    stage('Negotiation'),
     { label: 'Amount', value: '$21,600 a year' },
     { label: 'Close date', value: 'Dec 15, 2026' },
     { label: 'Owner', value: 'Nina Alvarez' },
@@ -177,7 +197,7 @@ export const notifications: Notification[] = [
       section: 'Deals',
       name: 'Northwind Health · Expansion',
       facts: [
-        { label: 'Stage', value: 'Discovery' },
+        stage('Discovery'),
         { label: 'Amount', value: '$64,800 a year' },
         { label: 'Close date', value: 'Jan 15, 2027' },
         { label: 'Owner', value: 'Nina Alvarez' },

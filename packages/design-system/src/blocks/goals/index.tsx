@@ -17,7 +17,7 @@ import { GoalList } from './goal-list';
 import { Leaderboard } from './leaderboard';
 import { NewGoalModal } from './new-goal-modal';
 import { PageHeader } from './page-header';
-import { Section } from './section';
+import { Panel } from './panel';
 import { GoalsSidebar } from './sidebar';
 
 /** One column of the page: the header and the body share its edges. */
@@ -94,7 +94,7 @@ function GoalsPage() {
               quiet={adding}
             />
 
-            <div className="gap-ws-16 flex flex-col">
+            <div className="gap-ws-12 flex flex-col">
               <GoalList
                 goals={goals}
                 done={done}
@@ -103,13 +103,14 @@ function GoalsPage() {
                 onDoneChange={tick}
               />
 
-              <div className="gap-ws-16 grid grid-cols-1 items-start lg:grid-cols-[minmax(0,1fr)_18rem]">
-                <Section title="Leaderboard">
+              {/* Two cards side by side: one height, so the row ends on one line. */}
+              <div className="gap-ws-12 grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_18rem]">
+                <Panel title="Leaderboard" flush>
                   <Leaderboard standings={standings} />
-                </Section>
-                <Section title="Milestones this quarter">
+                </Panel>
+                <Panel title="Milestones this quarter">
                   <AchievementList items={MILESTONES} />
-                </Section>
+                </Panel>
               </div>
             </div>
           </div>
@@ -123,10 +124,11 @@ function GoalsPage() {
 
 /**
  * Goals (Inset direction): the sales team's goals for the quarter on the raised page beside the
- * workspace sidebar. The goals come first and weigh most: rows on the white, each with its owner,
- * its figure against the target as one bar, a state that is a judgement, and its key results to
- * tick off. Under them, the leaderboard as a plain ranked table and the quarter's milestones as a
- * quiet list. "New goal" is the one filled button and opens a short dialog.
+ * workspace sidebar. Each part of the page is a card. The goals come first and weigh most: rows,
+ * each with its owner, its figure against the target as one bar, a state in the colour of its
+ * meaning, and its key results to tick off. Under them, the leaderboard as a plain ranked table
+ * and the quarter's milestones as a quiet list. "New goal" is the one filled button and opens a
+ * short dialog.
  */
 export default function Goals() {
   return (

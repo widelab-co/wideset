@@ -26,7 +26,7 @@ export function HomePage() {
           </p>
         </header>
 
-        <div className="gap-ws-16 grid grid-cols-1 items-start lg:grid-cols-[minmax(0,1fr)_18rem]">
+        <div className="gap-ws-12 grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_18rem]">
           <DealsTable deals={deals} />
           <UpcomingMeetings meetings={meetings} today={TODAY} />
         </div>

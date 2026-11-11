@@ -112,7 +112,7 @@ export function DealCard({
         <span className="gap-ws-5 flex min-w-0 items-center">
           <span
             className={cn(
-              'gap-ws-2 typography-caption-md flex items-center tabular-nums',
+              'gap-ws-2 typography-caption-md flex items-center whitespace-nowrap tabular-nums',
               overdue ? 'text-ws-semantic-negative' : 'text-ws-static-subtle',
             )}
           >

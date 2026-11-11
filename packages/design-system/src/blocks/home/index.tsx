@@ -24,9 +24,10 @@ const COLUMN = 'px-ws-14 mx-auto w-full max-w-[80rem]';
 
 /**
  * Home (Inset direction): the first page after sign-in, on the raised page beside the workspace
- * sidebar. It answers "what do I do today": the task list is the main column's first and
- * heaviest thing, the deals to move this week under it, and a narrow column beside them for what
- * is coming up and the way back to recent records. No key figures: those are the dashboard's.
+ * sidebar. It answers "what do I do today". What is there to act on sits in cards in the main
+ * column: the task list first and heaviest, the deals to move this week under it. What is only
+ * there to know stays on the white beside them, without a box: what is coming up and the way
+ * back to recent records. No key figures: those are the dashboard's.
  */
 export default function Home() {
   const sidebarId = useId();
@@ -78,12 +79,16 @@ export default function Home() {
             </header>
 
             <div className="gap-ws-16 grid grid-cols-1 items-start lg:grid-cols-[minmax(0,1fr)_18rem]">
-              <div className="gap-ws-16 flex min-w-0 flex-col">
+              <div className="gap-ws-12 flex min-w-0 flex-col">
                 <TaskList tasks={tasks} done={done} today={TODAY} onDoneChange={mark} onAdd={add} />
                 <DealsTable deals={deals} />
               </div>
 
-              <aside aria-label="Calendar and recent records" className="gap-ws-16 flex flex-col">
+              {/* Its first title stands on the line of the first card's title. */}
+              <aside
+                aria-label="Calendar and recent records"
+                className="gap-ws-16 lg:pt-ws-9 flex flex-col"
+              >
                 <UpcomingMeetings meetings={meetings} today={TODAY} />
                 <RecentRecords records={recentRecords} />
               </aside>

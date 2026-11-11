@@ -86,8 +86,9 @@ function EventDetailPage() {
               }
             />
 
-            <div className="gap-ws-16 border-ws-static-subtle pt-ws-14 grid grid-cols-1 items-start border-t lg:grid-cols-[minmax(0,1fr)_20rem]">
-              <div className="gap-ws-16 flex min-w-0 flex-col">
+            {/* Every part is a card: what happens on the left, who will be there on the right. */}
+            <div className="gap-ws-12 grid grid-cols-1 items-start lg:grid-cols-[minmax(0,1fr)_20rem]">
+              <div className="gap-ws-12 flex min-w-0 flex-col">
                 <Section title="About">
                   <div className="gap-ws-5 typography-body-md text-ws-static-base flex max-w-[44rem] flex-col">
                     {event.about.map((paragraph) => (
@@ -106,7 +107,7 @@ function EventDetailPage() {
                 </Section>
               </div>
 
-              <aside aria-label="People" className="gap-ws-16 flex flex-col">
+              <aside aria-label="People" className="gap-ws-12 flex flex-col">
                 <Section title="Who is going">
                   <AttendeeList people={people} meId={me.id} />
                 </Section>
@@ -131,10 +132,10 @@ function EventDetailPage() {
 
 /**
  * Event detail (Inset direction): one customer event on the raised page beside the workspace
- * sidebar. No hero and no banner: the header carries the date as a leaf beside the name, the facts
- * in a quiet row, and the answer to the invitation as the one filled control. Below, what happens
- * (about, the agenda as a timeline, the speakers, the practical facts) beside who will be there
- * (who is going, the hosts, inviting a colleague).
+ * sidebar. No hero and no banner: the header carries the date as a leaf over the name, the facts
+ * in a quiet row, and the answer to the invitation as the one filled control. Below, in bordered
+ * cards, what happens (about, the agenda as a timeline, the speakers, the practical facts) beside
+ * who will be there (who is going, the hosts, inviting a colleague).
  */
 export default function EventDetail() {
   return (

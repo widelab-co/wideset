@@ -59,7 +59,7 @@ export function PricingSection({ id, draft, errors, onChange }: PricingSectionPr
         <FormField
           label="Cost per item"
           htmlFor={`${id}-cost`}
-          helperText="What Lumen Studio pays for it. Customers don’t see this."
+          helperText="Lumen Studio’s cost. Customers don’t see it."
         >
           <MoneyInput
             id={`${id}-cost`}

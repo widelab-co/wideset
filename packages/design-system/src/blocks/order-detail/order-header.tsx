@@ -29,8 +29,8 @@ type OrderHeaderProps = {
 
 /**
  * The order's header: its number and status, who placed it and when, then what to do with it,
- * primary last. Every status here is a step of the order's life or how it ended, so the badge
- * stays neutral. Refund is a secondary button: it takes money back, so it must not be the
+ * primary last. The badge carries the status's meaning: Shipped went out as it should (positive);
+ * a refund is how the order ended, with nothing to signal (neutral). Refund is a secondary button: it takes money back, so it must not be the
  * loudest thing on the page. Once an order has shipped it can be refunded, not cancelled.
  */
 export function OrderHeader({ status, onRefund, quiet }: OrderHeaderProps) {
@@ -41,7 +41,9 @@ export function OrderHeader({ status, onRefund, quiet }: OrderHeaderProps) {
           <h1 className="typography-subtitle-md text-ws-static-strong tabular-nums">
             Order {order.number}
           </h1>
-          <StatusBadge size="lg">{status}</StatusBadge>
+          <StatusBadge size="lg" color={status === 'Shipped' ? 'positive' : 'neutral'}>
+            {status}
+          </StatusBadge>
         </div>
         <p className="typography-body-md text-ws-static-subtle tabular-nums">
           Placed by {customer.name} on {formatDate(order.placed)}

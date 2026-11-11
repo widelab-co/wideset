@@ -59,7 +59,7 @@ export function Thread({ messages, newFrom, onReact }: ThreadProps) {
             {item.type === 'day' && (
               <Divider weight="thin" emphasis="subtle" text={formatDay(item.at)} />
             )}
-            {item.type === 'new' && <Divider weight="thin" text="New messages" textAlign="right" />}
+            {item.type === 'new' && <Divider weight="thin" text="New messages" textAlign="left" />}
             {item.type === 'group' && <MessageGroup messages={item.messages} onReact={onReact} />}
           </li>
         ))}

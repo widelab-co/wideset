@@ -3,7 +3,9 @@ import {
   RiBankCardFill,
   RiBankCardLine,
   RiContactsBook3Line,
+  RiCustomerService2Line,
   RiHandCoinLine,
+  RiHardDrive3Line,
   RiHome5Line,
   RiInbox2Line,
   RiKey2Line,
@@ -12,6 +14,7 @@ import {
   RiPlugLine,
   RiQuestionLine,
   RiSettings3Line,
+  RiStackLine,
   RiTeamLine,
 } from '@remixicon/react';
 
@@ -72,15 +75,25 @@ export const subscription = {
   periodEnd: '2026-11-30',
 };
 
-/** The plan it moves to: the price of a seat for a month, by how often it is billed. */
+/**
+ * The plan it moves to: the price of a seat for a month, by how often it is billed. Each line of
+ * the order carries an icon for its thumbnail.
+ */
 export const plan = {
   name: 'Scale',
+  icon: RiStackLine,
   seatPrice: { monthly: 69_00, yearly: 57_00 } satisfies Record<Interval, number>,
 };
 
 export const MAX_SEATS = 500;
 
-export type AddOn = { id: string; name: string; description: string; monthlyPrice: number };
+export type AddOn = {
+  id: string;
+  name: string;
+  description: string;
+  monthlyPrice: number;
+  icon: RemixiconComponentType;
+};
 
 /** Extras bought on top of the plan, priced by the month whatever the billing period. */
 export const addOns: AddOn[] = [
@@ -89,12 +102,14 @@ export const addOns: AddOn[] = [
     name: 'Priority support',
     description: 'A first reply within one hour, every day of the week.',
     monthlyPrice: 199_00,
+    icon: RiCustomerService2Line,
   },
   {
     id: 'extra-storage',
     name: 'Extra storage',
     description: 'One more terabyte for files and call recordings.',
     monthlyPrice: 49_00,
+    icon: RiHardDrive3Line,
   },
 ];
 

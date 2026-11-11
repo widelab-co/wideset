@@ -1,13 +1,15 @@
 // TODO(custom): task checklist (progress, rows that tick off into a Done group, an add row); Wideset has no checklist or task row.
 import { RiAddLine } from '@remixicon/react';
-import { Checkbox, cn, ProgressBar, StatusBadge, TextInput } from '@wideset/react';
+import { Card, Checkbox, cn, ProgressBar, StatusBadge, TextInput } from '@wideset/react';
 import { type FormEvent, useEffect, useId, useRef, useState } from 'react';
 
 import type { Task } from './data';
 import { formatTime } from './format';
 
-/** A row of the list: 44px, a step taller than the table's under it, on the same lines and inset. */
-const ROW = 'h-ws-17 gap-ws-7 px-ws-9 flex items-center';
+/** A row of the list: 44px, a step taller than the table's under it, inset like the card's title. */
+const ROW = 'h-ws-17 gap-ws-7 px-ws-11 flex items-center';
+/** A line between rows; the card's header and border close the list, so no line doubles them. */
+const DIVIDER = 'border-ws-static-base border-t first:border-t-0';
 
 type TaskRowProps = {
   task: Task;
@@ -26,7 +28,7 @@ function TaskRow({ task, done, overdue, checkboxId, onDoneChange }: TaskRowProps
   const titleId = `${checkboxId}-title`;
 
   return (
-    <li className="border-ws-static-base border-b">
+    <li className={DIVIDER}>
       <label
         htmlFor={checkboxId}
         className={cn(ROW, 'hover:bg-ws-dynamic-secondary-alpha-hover cursor-pointer')}
@@ -78,9 +80,9 @@ type TaskListProps = {
 };
 
 /**
- * Today's tasks, the page's main thing: what is left on top, an add row under it, what is done
- * below. Ticking a task moves it to Done and moves the progress; unticking brings it back. The
- * focus follows the task, so the keyboard can undo the tick it just made.
+ * Today's tasks, the page's main thing and its first container: what is left on top, an add row
+ * under it, what is done below. Ticking a task moves it to Done and moves the progress; unticking
+ * brings it back. The focus follows the task, so the keyboard can undo the tick it just made.
  */
 export function TaskList({ tasks, done, today, onDoneChange, onAdd }: TaskListProps) {
   const id = useId();
@@ -119,61 +121,62 @@ export function TaskList({ tasks, done, today, onDoneChange, onAdd }: TaskListPr
   };
 
   return (
-    <section aria-labelledby={`${id}-title`} className="gap-ws-9 flex flex-col">
-      <div className="gap-ws-9 flex items-center justify-between">
-        <h2 id={`${id}-title`} className="typography-label-strong-md text-ws-static-strong">
-          Today’s tasks
-        </h2>
-        <div className="gap-ws-7 flex items-center">
-          <p role="status" className="typography-label-sm text-ws-static-subtle tabular-nums">
-            {finished.length} of {tasks.length} done
-          </p>
-          {/* The bar fills its container: the container sets how small it is. */}
-          <div className="w-[6rem]">
-            <ProgressBar
-              value={finished.length}
-              max={tasks.length}
-              variant={open.length ? 'default' : 'success'}
-              aria-label="Tasks done today"
-              getValueLabel={(value, max) => `${value} of ${max} tasks done`}
-            />
+    <Card role="region" aria-labelledby={`${id}-title`}>
+      <Card.Header>
+        <div className="gap-ws-9 flex items-center justify-between">
+          <h2 id={`${id}-title`} className="typography-label-strong-md text-ws-static-strong">
+            Today’s tasks
+          </h2>
+          <div className="gap-ws-7 flex items-center">
+            <p role="status" className="typography-label-sm text-ws-static-subtle tabular-nums">
+              {finished.length} of {tasks.length} done
+            </p>
+            {/* The bar fills its container: the container sets how small it is. */}
+            <div className="w-[6rem]">
+              <ProgressBar
+                value={finished.length}
+                max={tasks.length}
+                variant={open.length ? 'default' : 'success'}
+                aria-label="Tasks done today"
+                getValueLabel={(value, max) => `${value} of ${max} tasks done`}
+              />
+            </div>
           </div>
         </div>
-      </div>
+      </Card.Header>
 
-      <div>
-        <ul aria-label="To do" className="border-ws-static-base border-t">
-          {open.map((task) => row(task, false))}
-          <li className="border-ws-static-base border-b">
-            {/* Enter adds the task; an empty line adds nothing. */}
-            <form onSubmit={add} className={cn(ROW, 'px-ws-6')}>
-              <TextInput
-                preset="ghost"
-                size="sm"
-                value={draft}
-                onChange={(event) => setDraft(event.target.value)}
-              >
-                <TextInput.Prefix inner>
-                  <TextInput.Icon icon={RiAddLine} />
-                </TextInput.Prefix>
-                <TextInput.Input placeholder="Add a task" aria-label="Add a task for today" />
-              </TextInput>
-            </form>
-          </li>
-        </ul>
-
-        {finished.length > 0 && (
-          <>
-            <h3
-              id={`${id}-done`}
-              className="typography-label-sm text-ws-static-subtle border-ws-static-base px-ws-9 pt-ws-9 pb-ws-5 border-b"
+      <ul aria-label="To do">
+        {open.map((task) => row(task, false))}
+        <li className={DIVIDER}>
+          {/* Enter adds the task; an empty line adds nothing. The field's own inset puts its
+              icon on the checkboxes' line. */}
+          <form onSubmit={add} className={cn(ROW, 'px-ws-8')}>
+            <TextInput
+              preset="ghost"
+              size="sm"
+              value={draft}
+              onChange={(event) => setDraft(event.target.value)}
             >
-              Done
-            </h3>
-            <ul aria-labelledby={`${id}-done`}>{finished.map((task) => row(task, true))}</ul>
-          </>
-        )}
-      </div>
-    </section>
+              <TextInput.Prefix inner>
+                <TextInput.Icon icon={RiAddLine} />
+              </TextInput.Prefix>
+              <TextInput.Input placeholder="Add a task" aria-label="Add a task for today" />
+            </TextInput>
+          </form>
+        </li>
+      </ul>
+
+      {finished.length > 0 && (
+        <>
+          <h3
+            id={`${id}-done`}
+            className="typography-label-sm text-ws-static-subtle border-ws-static-base px-ws-11 pt-ws-9 pb-ws-5 border-y"
+          >
+            Done
+          </h3>
+          <ul aria-labelledby={`${id}-done`}>{finished.map((task) => row(task, true))}</ul>
+        </>
+      )}
+    </Card>
   );
 }

@@ -53,8 +53,9 @@ export default function HelpCenter() {
         {/* The page scrolls inside the card, so the card's corners stay put. */}
         <div className="min-h-0 flex-1 overflow-y-auto">
           <div className={cn(COLUMN, 'gap-ws-16 pt-ws-14 pb-ws-16 flex flex-col')}>
-            {/* The hero: the title and the search, centred in a column of their own. */}
-            <div className="gap-ws-12 pt-ws-9 pb-ws-9 mx-auto flex w-full max-w-[44rem] flex-col">
+            {/* The hero: the title and the search, centred in a column of their own, with more
+                air above and below than the sections under it keep between them. */}
+            <div className="gap-ws-12 pt-ws-14 pb-ws-14 mx-auto flex w-full max-w-[44rem] flex-col">
               <PageHeader />
               <ArticleSearch query={query} onQueryChange={setQuery} />
             </div>
@@ -62,9 +63,10 @@ export default function HelpCenter() {
             {!query.trim() && (
               <>
                 <TopicGrid />
-                {/* On the tiles' grid: the contacts line up with the third column. */}
-                <div className="gap-x-ws-7 gap-y-ws-16 grid grid-cols-1 items-start lg:grid-cols-3">
-                  <div className="lg:pr-ws-16 lg:col-span-2">
+                {/* On the tiles' grid: the contacts line up with the third column. Two cards of
+                    one height, drawn as the tiles are: with a border. */}
+                <div className="gap-ws-7 grid grid-cols-1 lg:grid-cols-3">
+                  <div className="flex lg:col-span-2">
                     <ArticleLinks title="Popular articles" articles={popular} />
                   </div>
                   <ContactSupport />

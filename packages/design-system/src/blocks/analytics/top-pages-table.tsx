@@ -72,7 +72,7 @@ export function TopPagesTable({ pages, className }: { pages: Page[]; className?:
     }));
 
   return (
-    <section aria-labelledby={titleId} className={cn('gap-ws-7 flex flex-col', className)}>
+    <section aria-labelledby={titleId} className={cn('gap-ws-9 flex flex-col', className)}>
       <h2 id={titleId} className="typography-label-strong-md text-ws-static-strong">
         Top pages
       </h2>

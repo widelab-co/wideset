@@ -1,6 +1,6 @@
 // TODO(custom): goal rows that open onto their key results; Table has no expandable row.
 import { RiArrowDownSLine, RiArrowRightSLine } from '@remixicon/react';
-import { Avatar, cn, StatusBadge, type StatusBadgeProps } from '@wideset/react';
+import { Avatar, Card, cn, StatusBadge, type StatusBadgeProps } from '@wideset/react';
 import { useId } from 'react';
 
 import { figureOf, type Goal, type GoalState, MEASURES, stateOf } from './data';
@@ -8,16 +8,19 @@ import { formatDay, formatMeasure } from './format';
 import { GoalMeter } from './goal-meter';
 import { KeyResultList } from './key-result-list';
 
-/** The columns every row shares, header and key results included: goal, owner, progress, state, due. */
+/**
+ * The columns every row shares, header and key results included: goal, owner, progress, state,
+ * due. Inset 20px, like a card's title.
+ */
 const COLUMNS =
-  'gap-x-ws-12 px-ws-9 grid grid-cols-[minmax(0,1fr)_10rem_16rem_5.5rem_4.5rem] items-center';
+  'gap-x-ws-12 px-ws-11 grid grid-cols-[minmax(0,1fr)_10rem_16rem_5.5rem_4.5rem] items-center';
 
-/** A judgement takes its colour; Done is an outcome, not a judgement, so it stays neutral. */
+/** Every state carries its meaning: done and on track are good, at risk needs a look, behind is bad. */
 const STATE_COLOR: Record<GoalState, StatusBadgeProps['color']> = {
   'On track': 'positive',
   'At risk': 'notice',
   Behind: 'negative',
-  Done: 'neutral',
+  Done: 'positive',
 };
 
 type GoalListProps = {
@@ -31,7 +34,8 @@ type GoalListProps = {
 };
 
 /**
- * The quarter's goals as rows on the white, split by lines, under one header row: the goal and
+ * The quarter's goals, the page's main thing, as rows in a card, split by lines, under one header
+ * row: the goal and
  * what it measures, its owner, the figure against the target with one bar, the state and the due
  * date. A row does one thing, open its key results, so its name is a button stretched over the
  * whole row; the hover runs across it and the chevron turns.
@@ -40,7 +44,7 @@ export function GoalList({ goals, done, open, onOpenChange, onDoneChange }: Goal
   const id = useId();
 
   return (
-    <section aria-label="Goals">
+    <Card role="region" aria-label="Goals">
       <div
         aria-hidden="true"
         className={cn(
@@ -65,7 +69,8 @@ export function GoalList({ goals, done, open, onOpenChange, onDoneChange }: Goal
           const Chevron = expanded ? RiArrowDownSLine : RiArrowRightSLine;
 
           return (
-            <li key={goal.id} className="border-ws-static-base border-b">
+            // The last row ends on the card's border, so it draws no line of its own.
+            <li key={goal.id} className="border-ws-static-base border-b last:border-b-0">
               <div
                 className={cn(
                   COLUMNS,
@@ -135,6 +140,6 @@ export function GoalList({ goals, done, open, onOpenChange, onDoneChange }: Goal
           );
         })}
       </ul>
-    </section>
+    </Card>
   );
 }

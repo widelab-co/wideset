@@ -17,3 +17,6 @@ export const formatDate = (iso: string) => date.format(new Date(iso));
 /** 1 customer, 243 customers. */
 export const customers = (value: number) =>
   `${formatCount(value)} ${value === 1 ? 'customer' : 'customers'}`;
+/** 38912 → 38 KB. */
+export const formatSize = (bytes: number) =>
+  `${formatCount(Math.max(1, Math.round(bytes / 1024)))} KB`;

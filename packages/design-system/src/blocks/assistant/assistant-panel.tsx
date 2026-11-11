@@ -26,8 +26,10 @@ type AssistantPanelProps = {
 };
 
 /**
- * The assistant beside the record, 26rem, split from it by a line: its name and "New
- * conversation" on top, the conversation, and the composer at the foot. Answers stream in a few
+ * The assistant beside the record, in its own raised card, 26rem, on the same grey frame and with
+ * the same margins and radius as the record's card: its name and "New conversation" in a bar
+ * whose line runs level with the record's breadcrumb bar, the conversation, and the composer at
+ * the foot. Answers stream in a few
  * words at a time with Stop in the composer (all at once when motion is reduced); a proposed
  * change waits for Apply or Discard. With nothing waiting and nothing streaming, three suggested
  * questions sit above the composer.
@@ -91,9 +93,9 @@ export function AssistantPanel({ onApply }: AssistantPanelProps) {
   return (
     <aside
       aria-label="Assistant"
-      className="border-ws-static-subtle flex w-[26rem] shrink-0 flex-col border-l"
+      className="bg-ws-static-foreground rounded-ws-container-lg shadow-ws-low my-ws-7 mr-ws-7 ml-ws-7 flex w-[26rem] shrink-0 flex-col overflow-hidden"
     >
-      <header className="h-ws-20 border-ws-static-subtle px-ws-11 gap-ws-5 flex shrink-0 items-center justify-between border-b">
+      <header className="h-ws-18 border-ws-static-base px-ws-11 gap-ws-5 flex shrink-0 items-center justify-between border-b">
         <h2 className="typography-label-strong-md text-ws-static-strong gap-ws-5 flex items-center">
           <RiQuestionAnswerLine aria-hidden className="size-ws-9 text-ws-static-subtle" />
           Assistant

@@ -2,6 +2,7 @@ import { RiSideBarLine } from '@remixicon/react';
 import {
   Breadcrumbs,
   Button,
+  Card,
   cn,
   IconButton,
   ProgressStepper,
@@ -54,6 +55,7 @@ function ImportPage({ collapsed, onToggleSidebar, sidebarId }: PageProps) {
   const resultId = useId();
 
   const [step, setStep] = useState(UPLOAD);
+  const [chosen, setChosen] = useState<File>();
   const [mapping, setMapping] = useState<Mapping>(initialMapping);
   const [duplicates, setDuplicates] = useState<Duplicates>('update');
   const [importing, setImporting] = useState(false);
@@ -68,6 +70,7 @@ function ImportPage({ collapsed, onToggleSidebar, sidebarId }: PageProps) {
     .reduce((sum, entry) => sum + entry.added, CUSTOMERS_BEFORE);
 
   function start() {
+    setChosen(undefined);
     setMapping(initialMapping);
     setDuplicates('update');
     setStep(UPLOAD);
@@ -89,24 +92,36 @@ function ImportPage({ collapsed, onToggleSidebar, sidebarId }: PageProps) {
     }, 900);
   }
 
+  // What the step's card ends in: what is left to do, then Back and the way on, the filled button.
   const footer =
-    step === MATCH
+    step === UPLOAD
       ? {
-          hint: nameMatched
+          hint: chosen
             ? 'Nothing changes in Orbit until the last step.'
-            : 'Choose the column that holds the name to continue.',
+            : 'Choose a CSV file to continue.',
           label: 'Continue',
-          disabled: !nameMatched,
-          onClick: () => setStep(REVIEW),
+          disabled: !chosen,
+          onClick: () => setStep(MATCH),
         }
-      : step === REVIEW
+      : step === MATCH
         ? {
-            hint: 'Nothing changes in Orbit until you import.',
-            label: importing ? 'Importing…' : `Import ${customers(result.added + result.updated)}`,
-            disabled: importing,
-            onClick: runImport,
+            hint: nameMatched
+              ? 'Nothing changes in Orbit until the last step.'
+              : 'Choose the column that holds the name to continue.',
+            label: 'Continue',
+            disabled: !nameMatched,
+            onClick: () => setStep(REVIEW),
           }
-        : null;
+        : step === REVIEW
+          ? {
+              hint: 'Nothing changes in Orbit until you import.',
+              label: importing
+                ? 'Importing…'
+                : `Import ${customers(result.added + result.updated)}`,
+              disabled: importing,
+              onClick: runImport,
+            }
+          : null;
 
   return (
     <main className="bg-ws-static-foreground rounded-ws-container-lg shadow-ws-low my-ws-7 mr-ws-7 ml-ws-5 flex min-w-0 flex-1 flex-col overflow-hidden">
@@ -152,66 +167,73 @@ function ImportPage({ collapsed, onToggleSidebar, sidebarId }: PageProps) {
             </Button>
           </PageHeader>
 
-          <div className="gap-ws-16 grid grid-cols-1 items-start lg:grid-cols-[minmax(0,48rem)_18rem] lg:justify-between">
-            <div className="gap-ws-14 flex flex-col">
-              <ProgressStepper
-                aria-label="Import steps"
-                steps={STEPS}
-                activeStep={step === DONE ? STEPS.length : step}
-                disabled={step === DONE || importing}
-                onStepChange={(index) => index < step && setStep(index)}
-              />
-
-              {/* The step's content in a box of its own, so its first section has no line
-                  above it: the stepper is enough of a start. */}
-              <div className="flex flex-col">
-                {step === UPLOAD && <UploadStep onFile={() => setStep(MATCH)} />}
-                {step === MATCH && <MatchStep mapping={mapping} onChange={setMapping} />}
-                {step === REVIEW && (
-                  <ReviewStep duplicates={duplicates} onDuplicatesChange={setDuplicates} />
-                )}
-                {step === DONE && (
-                  <ImportResult
-                    id={resultId}
-                    result={imports[0]}
-                    quiet={exportOpen}
-                    onImportAnother={start}
+          <div className="gap-ws-12 grid grid-cols-1 items-start lg:grid-cols-[minmax(0,1fr)_20rem]">
+            <div className="gap-ws-12 flex min-w-0 flex-col">
+              {/* The import is the page's job, so it is the card: the steps as its header, the
+                  step's question, then what is left to do and the way on at its foot. */}
+              <Card>
+                <Card.Header>
+                  <ProgressStepper
+                    aria-label="Import steps"
+                    steps={STEPS}
+                    activeStep={step === DONE ? STEPS.length : step}
+                    disabled={step === DONE || importing}
+                    onStepChange={(index) => index < step && setStep(index)}
                   />
+                </Card.Header>
+                <div className="p-ws-11 flex flex-col">
+                  {step === UPLOAD && (
+                    <UploadStep
+                      file={chosen}
+                      onFile={setChosen}
+                      onRemove={() => setChosen(undefined)}
+                    />
+                  )}
+                  {step === MATCH && <MatchStep mapping={mapping} onChange={setMapping} />}
+                  {step === REVIEW && (
+                    <ReviewStep duplicates={duplicates} onDuplicatesChange={setDuplicates} />
+                  )}
+                  {step === DONE && (
+                    <ImportResult
+                      id={resultId}
+                      result={imports[0]}
+                      quiet={exportOpen}
+                      onImportAnother={start}
+                    />
+                  )}
+                </div>
+
+                {footer && (
+                  <Card.Footer className="gap-ws-5 items-center">
+                    <p className="typography-body-md text-ws-static-subtle min-w-0 flex-1">
+                      {footer.hint}
+                    </p>
+                    {step !== UPLOAD && (
+                      <Button
+                        size="sm"
+                        variant="secondary"
+                        preset="border"
+                        disabled={importing}
+                        onClick={() => setStep(step - 1)}
+                      >
+                        Back
+                      </Button>
+                    )}
+                    {/* While the export dialog holds the filled button, this one steps back. */}
+                    <Button
+                      size="sm"
+                      variant={exportOpen ? 'secondary' : 'primary'}
+                      preset={exportOpen ? 'border' : 'filled'}
+                      disabled={footer.disabled}
+                      onClick={footer.onClick}
+                    >
+                      {footer.label}
+                    </Button>
+                  </Card.Footer>
                 )}
-              </div>
+              </Card>
 
-              {footer && (
-                <div className="gap-ws-5 flex items-center">
-                  <p className="typography-body-md text-ws-static-subtle min-w-0 flex-1">
-                    {footer.hint}
-                  </p>
-                  <Button
-                    size="sm"
-                    variant="secondary"
-                    preset="border"
-                    disabled={importing}
-                    onClick={() => setStep(step - 1)}
-                  >
-                    Back
-                  </Button>
-                  {/* While the export dialog holds the filled button, this one steps back. */}
-                  <Button
-                    size="sm"
-                    variant={exportOpen ? 'secondary' : 'primary'}
-                    preset={exportOpen ? 'border' : 'filled'}
-                    disabled={footer.disabled}
-                    onClick={footer.onClick}
-                  >
-                    {footer.label}
-                  </Button>
-                </div>
-              )}
-
-              {step === UPLOAD && (
-                <div className="border-ws-static-subtle pt-ws-14 border-t">
-                  <RecentImports imports={imports} />
-                </div>
-              )}
+              {step === UPLOAD && <RecentImports imports={imports} />}
             </div>
 
             <aside aria-label="About the file">
@@ -239,10 +261,11 @@ function ImportPage({ collapsed, onToggleSidebar, sidebarId }: PageProps) {
 
 /**
  * Import (Inset direction): bringing customers in from a CSV file, in steps, on the raised page
- * beside the workspace sidebar. The stepper heads the work; each step is one question (the file,
- * where its columns go, what happens to duplicates) with Back and Continue under it, and the
- * result lands where the steps were. The columns Orbit reads stay beside it, and Export, the other
- * way round, sits in the header.
+ * beside the workspace sidebar. One bordered card holds the work: the stepper as its header, the
+ * step's one question (the file, where its columns go, what happens to duplicates), and a foot with
+ * what is left to do, Back and Continue, so the way on is always in sight; the result lands in the
+ * same card. The columns Orbit reads sit in a card beside it, and Export, the other way round, in
+ * the header.
  */
 export default function Import() {
   const sidebarId = useId();

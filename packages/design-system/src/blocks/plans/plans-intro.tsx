@@ -30,7 +30,9 @@ export function PlansIntro({
   const { seats, contacts } = SUBSCRIPTION;
 
   return (
-    <div className="gap-y-ws-9 lg:gap-y-ws-12 grid lg:row-span-4 lg:grid-rows-subgrid">
+    // From lg it takes the plan cards' inset and border at the top and bottom (the border
+    // transparent), so its parts stand on the same lines as theirs.
+    <div className="gap-y-ws-9 lg:gap-y-ws-12 lg:py-ws-11 grid border-transparent lg:row-span-4 lg:grid-rows-subgrid lg:border-y">
       <div className="gap-ws-3 flex flex-col">
         <h2 className="typography-label-strong-md text-ws-static-strong">
           {WORKSPACE.name}, {seats} seats

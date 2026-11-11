@@ -30,7 +30,7 @@ export default function SalesOverview() {
   return (
     <div className="bg-ws-static-background flex min-h-dvh flex-col">
       <TopBar />
-      <main className="px-ws-12 pb-ws-12 pt-ws-5 flex-1">
+      <main className="px-ws-12 pb-ws-12 pt-ws-13 flex-1">
         <div className="gap-ws-12 mx-auto flex w-full max-w-[80rem] flex-col">
           <PageHeader />
           <div className="gap-ws-9 flex flex-col">

@@ -25,7 +25,7 @@ function Value({ value }: { value: FeatureValue }) {
 
 /**
  * One group of features, its title and a table whose four equal columns sit under the plan
- * summaries above. From lg those name the plan columns on screen and the header row is only read
+ * cards above, each value on its card's text line. From lg those name the plan columns on screen and the header row is only read
  * out; narrower, the plans stack and the header row shows.
  */
 function FeatureGroupTable({ group }: { group: FeatureGroup }) {
@@ -50,7 +50,9 @@ function FeatureGroupTable({ group }: { group: FeatureGroup }) {
             <Table.Row key={feature.name}>
               <Table.Cell flushMargin>{feature.name}</Table.Cell>
               {PLANS.map((plan) => (
-                <Table.Cell key={plan.id}>
+                // From lg the value stands on its plan card's text line: the card's 16px margin
+                // and 20px inset.
+                <Table.Cell key={plan.id} className="lg:pl-ws-15">
                   <Value value={feature.values[plan.id]} />
                 </Table.Cell>
               ))}

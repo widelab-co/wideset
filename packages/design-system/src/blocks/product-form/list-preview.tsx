@@ -1,8 +1,8 @@
 import { RiImageAddLine, RiImageLine } from '@remixicon/react';
 import { Card } from '@wideset/react';
+import { useId } from 'react';
 
 import { type ProductDraft, variantFields, variantNames } from './data';
-import { FormSection } from './form-section';
 import { formatUsd, parseAmount } from './format';
 
 /** The price a list shows: one figure, or the lowest with "From" when the variants differ. */
@@ -24,16 +24,24 @@ function priceOf(draft: ProductDraft) {
 /**
  * The product as the catalogue will list it: the cover, the name, the line under it and the
  * price, redrawn on every keystroke. Blocks ship no images, so the cover is the same neutral
- * tile as in Media; with no photo it says so.
+ * tile as in Media; with no photo it says so. The catalogue card is its own container, so its
+ * title sits above it rather than in a second box around it.
  */
 export function ListPreview({ draft }: { draft: ProductDraft }) {
   const price = priceOf(draft);
   const compareAt = parseAmount(draft.compareAt);
   const name = draft.name.trim();
   const cover = draft.photos[0];
+  const titleId = useId();
 
   return (
-    <FormSection title="Preview" description="How it shows in the catalogue.">
+    <section aria-labelledby={titleId} className="gap-ws-9 flex flex-col">
+      <div className="gap-ws-2 flex flex-col">
+        <h2 id={titleId} className="typography-label-strong-md text-ws-static-strong">
+          Preview
+        </h2>
+        <p className="typography-body-md text-ws-static-subtle">How it shows in the catalogue.</p>
+      </div>
       <Card>
         <Card.Media
           ratio="16/9"
@@ -85,6 +93,6 @@ export function ListPreview({ draft }: { draft: ProductDraft }) {
           </div>
         </Card.Content>
       </Card>
-    </FormSection>
+    </section>
   );
 }

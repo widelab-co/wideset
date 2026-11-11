@@ -1,5 +1,5 @@
 import { RiSideBarLine } from '@remixicon/react';
-import { Breadcrumbs, cn, IconButton, ToastProvider, useToast } from '@wideset/react';
+import { Breadcrumbs, Card, cn, IconButton, ToastProvider, useToast } from '@wideset/react';
 import { useId, useState } from 'react';
 
 import { Address } from './address';
@@ -12,6 +12,7 @@ import { OrderHeader } from './order-header';
 import { OrderTotals } from './order-totals';
 import { RefundDialog } from './refund-dialog';
 import { Section } from './section';
+import { SectionCard } from './section-card';
 import { OrderDetailSidebar } from './sidebar';
 import { TrackingTimeline } from './tracking-timeline';
 
@@ -40,12 +41,14 @@ function OrderPage() {
       />
 
       <div className="gap-ws-16 grid grid-cols-1 items-start lg:grid-cols-[minmax(0,1fr)_18rem]">
-        <div className="gap-ws-16 flex min-w-0 flex-col">
-          <Section title="Items">
-            <div className="gap-ws-12 flex flex-col">
-              <ItemsTable />
-              {/* The totals stand under the amounts they add up; how it was paid reads beside
-                  them. */}
+        <div className="gap-ws-12 flex min-w-0 flex-col">
+          <SectionCard title="Items">
+            {/* Straight in the card, so the table's row lines run from edge to edge. */}
+            <ItemsTable />
+            {/* The totals stand under the amounts they add up; how it was paid reads beside them.
+                Card.Content keeps 10px free on its right for a scrollbar: the padding gives it
+                back, so the amounts end on the table's. */}
+            <Card.Content contentClassName="pr-ws-6">
               <div className={SPLIT}>
                 <dl className="gap-ws-11 flex flex-col">
                   <KeyValue label="Paid with">{order.card}</KeyValue>
@@ -53,28 +56,31 @@ function OrderPage() {
                 </dl>
                 <OrderTotals refunded={refunded} />
               </div>
-            </div>
-          </Section>
+            </Card.Content>
+          </SectionCard>
 
-          <Section title="Delivery">
-            {/* Where the parcels are comes first; who carries them and when they land beside
-                it, in the totals' column. */}
-            <div className={SPLIT}>
-              <TrackingTimeline events={tracking} />
-              {/* Dropped by the timeline's own inset, so the first label and the first event
-                  share a line. */}
-              <dl className="gap-ws-11 pt-ws-4 flex flex-col">
-                <KeyValue label="Courier">{shipping.service}</KeyValue>
-                <KeyValue label="Tracking number">{shipping.trackingNumber}</KeyValue>
-                <KeyValue label="Estimated delivery">
-                  {formatDate(shipping.expected.day)}, by {shipping.expected.by}
-                </KeyValue>
-              </dl>
-            </div>
-          </Section>
+          <SectionCard title="Delivery">
+            <Card.Content contentClassName="pr-ws-6">
+              {/* Where the parcels are comes first; who carries them and when they land beside
+                  it, in the totals' column. */}
+              <div className={SPLIT}>
+                <TrackingTimeline events={tracking} />
+                {/* Dropped by the timeline's own inset, so the first label and the first event
+                    share a line. */}
+                <dl className="gap-ws-11 pt-ws-4 flex flex-col">
+                  <KeyValue label="Courier">{shipping.service}</KeyValue>
+                  <KeyValue label="Tracking number">{shipping.trackingNumber}</KeyValue>
+                  <KeyValue label="Estimated delivery">
+                    {formatDate(shipping.expected.day)}, by {shipping.expected.by}
+                  </KeyValue>
+                </dl>
+              </div>
+            </Card.Content>
+          </SectionCard>
         </div>
 
-        <aside aria-label="Customer and addresses" className="gap-ws-14 flex flex-col">
+        {/* Dropped by the card header's inset, so "Customer" stands on the cards' title line. */}
+        <aside aria-label="Customer and addresses" className="gap-ws-14 lg:pt-ws-9 flex flex-col">
           <Section title="Customer">
             <CustomerSummary />
           </Section>
@@ -115,9 +121,9 @@ function OrderPage() {
 
 /**
  * Order detail (Inset direction): one order on the raised page beside the workspace sidebar. The
- * main column reads top to bottom as the order does: what was bought and what it came to, then
- * where the parcels are, as a timeline whose first event is the current step. The side column
- * holds who bought and where it goes. Refunding takes the same dialog as the list; it changes
+ * main column reads top to bottom as the order does, each part in its own bordered card: what was
+ * bought and what it came to, then where the parcels are, as a timeline whose first event is the
+ * current step. The side column holds who bought and where it goes, plain, as facts to look up. Refunding takes the same dialog as the list; it changes
  * the status and adds a row to the totals.
  */
 export default function OrderDetail() {

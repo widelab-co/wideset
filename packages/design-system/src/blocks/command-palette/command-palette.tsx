@@ -97,7 +97,9 @@ function PaletteBody({ commands, recent, suggested, onRun }: PaletteBodyProps) {
     // The keys belong to the field; the wrapper only listens for them as they bubble up.
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions
     <div onKeyDown={onKeyDown} className="flex min-h-0 flex-col">
-      <div className="px-ws-11 pt-ws-11 pb-ws-9 border-ws-static-base border-b">
+      {/* No line under the field: the space and the first group's label part it from the list.
+          Field and rows share a 12px inset, so the active row is as wide as the field. */}
+      <div className="px-ws-7 pt-ws-7">
         <TextInput
           value={query}
           onChange={(event) => {
@@ -122,7 +124,7 @@ function PaletteBody({ commands, recent, suggested, onRun }: PaletteBodyProps) {
       </div>
 
       {/* At most nine rows tall; past that the list scrolls under the field. */}
-      <div className="px-ws-11 py-ws-5 max-h-[26rem] min-h-0 overflow-y-auto">
+      <div className="px-ws-7 py-ws-5 max-h-[26rem] min-h-0 overflow-y-auto">
         {shown.length === 0 ? (
           <p role="status" className="px-ws-7 py-ws-9 typography-body-md text-ws-static-subtle">
             No results for “{text}”.

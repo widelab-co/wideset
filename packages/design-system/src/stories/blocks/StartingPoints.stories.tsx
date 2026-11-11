@@ -10,6 +10,7 @@ import {
 } from '../../blocks';
 import CustomersBlock from '../../blocks/customers';
 import IntegrationsBlock from '../../blocks/integrations';
+import ProductFormBlock from '../../blocks/product-form';
 
 /*
   The starting points: whole screens in src/blocks/<id>/, one story each, full screen. The docs
@@ -144,6 +145,19 @@ export const Recording = story('recording');
 export const Files = story('files');
 export const Gallery = story('gallery');
 export const ProductForm = story('product-form');
+export const ProductFormCentered: Story = {
+  name: 'Product form, centred (Inset, sidebar)',
+  args: { id: 'product-form' },
+  render: () => <ProductFormBlock layout="centered" />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'The product form as one centred column: every section in reading order, the actions in a bar at the bottom. Compare it with the two-column layout.',
+      },
+    },
+  },
+};
 export const Import = story('import');
 export const EventDetail = story('event-detail');
 export const Booking = story('booking');

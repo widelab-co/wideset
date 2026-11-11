@@ -269,7 +269,7 @@ export const BLOCKS: BlockMeta[] = [
     direction: 'flat',
     navigation: 'takeover',
     description:
-      'Choosing a plan over the app: monthly or yearly, three plans side by side, and a feature comparison.',
+      'Choosing a plan over the app: monthly or yearly, three plans as cards side by side, and a feature comparison under them.',
   },
   {
     id: 'notifications',
@@ -317,7 +317,7 @@ export const BLOCKS: BlockMeta[] = [
     direction: 'inset',
     navigation: 'sidebar',
     description:
-      'The page after a plan upgrade on a raised page: a quiet confirmation with the next charge, the receipt, two next steps and the way back to the workspace.',
+      'The page after a plan upgrade on a raised page: a centred confirmation with the next charge, the receipt, two next steps and the way back to the workspace.',
   },
   {
     id: 'checkout',
@@ -349,7 +349,7 @@ export const BLOCKS: BlockMeta[] = [
     direction: 'inset',
     navigation: 'sidebar',
     description:
-      'One order on a raised page: its items and totals, the delivery as a timeline with the current step marked beside the courier’s facts, the customer and addresses in a side column, and refunding it from the header.',
+      'One order on a raised page: its items and totals and the delivery timeline, each in a bordered card, the customer and addresses beside them, and refunding it from the header.',
   },
   {
     id: 'referrals',
@@ -485,7 +485,7 @@ export const BLOCKS: BlockMeta[] = [
     direction: 'inset',
     navigation: 'sidebar',
     description:
-      'Adding a product to the catalogue on a raised page: details, photos with a cover, pricing with a live margin, options that make variants and inventory in one column, beside its status, sales channels and a preview that follows the typing.',
+      'Adding a product to the catalogue on a raised page: details, photos with a cover, pricing with a live margin, options that make variants and inventory as cards, either beside its status, sales channels and a live preview (split) or alone in a centred column with the actions in a bar at the foot (centered).',
   },
   {
     id: 'import',

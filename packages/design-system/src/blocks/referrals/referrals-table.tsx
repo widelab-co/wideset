@@ -1,16 +1,17 @@
-import { StatusBadge, Table } from '@wideset/react';
+import { StatusBadge, type StatusBadgeProps, Table } from '@wideset/react';
 
 import { type Referral, type ReferralStatus, rewardOf } from './data';
 import { formatDate, formatUsd } from './format';
 
 /**
- * Invited, Signed up and Subscribed are steps of a referral's life, not judgements, so every
- * badge stays neutral. The rows that earned credit already say so once, in the Reward column.
+ * Each step of a referral carries its meaning: an invitation is waiting on the other side
+ * (notice), a team signed up is on its way (info), a subscribed team is done and earned the
+ * credit (positive).
  */
-const STATUS: Record<ReferralStatus, string> = {
-  invited: 'Invited',
-  'signed-up': 'Signed up',
-  subscribed: 'Subscribed',
+const STATUS: Record<ReferralStatus, { label: string; color: StatusBadgeProps['color'] }> = {
+  invited: { label: 'Invited', color: 'notice' },
+  'signed-up': { label: 'Signed up', color: 'info' },
+  subscribed: { label: 'Subscribed', color: 'positive' },
 };
 
 /**
@@ -44,7 +45,9 @@ export function ReferralsTable({ referrals }: { referrals: Referral[] }) {
               </Table.Cell>
               <Table.Cell className="tabular-nums">{formatDate(referral.invited)}</Table.Cell>
               <Table.Cell>
-                <StatusBadge>{STATUS[referral.status]}</StatusBadge>
+                <StatusBadge color={STATUS[referral.status].color}>
+                  {STATUS[referral.status].label}
+                </StatusBadge>
               </Table.Cell>
               <Table.Cell align="right" flushMargin className="tabular-nums">
                 {reward ? (

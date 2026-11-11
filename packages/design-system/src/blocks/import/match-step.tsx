@@ -33,24 +33,27 @@ export function MatchStep({ mapping, onChange }: MatchStepProps) {
       title="Match columns"
       description={`${file.name} has ${formatCount(file.rows)} rows and ${fileColumns.length} columns. Choose the Orbit field each column fills.`}
     >
-      <Table size="sm" aria-label="Columns in the file" className="w-full">
+      {/* The step sits in a card: the table runs to its edges, its outer columns take the card's
+          20px inset so they line up with the title, and the last row leaves its line to the
+          footer's. */}
+      <Table size="sm" aria-label="Columns in the file" className="-mx-ws-11 w-[calc(100%+2.5rem)]">
         <Table.Head>
           <Table.Row>
-            <Table.Header flushMargin>Column</Table.Header>
+            <Table.Header className="pl-ws-11">Column</Table.Header>
             <Table.Header>First row</Table.Header>
             <Table.Header>Orbit field</Table.Header>
-            <Table.Header flushMargin className="w-full">
+            <Table.Header className="pr-ws-11 w-full">
               <span className="sr-only">Note</span>
             </Table.Header>
           </Table.Row>
         </Table.Head>
-        <Table.Body>
+        <Table.Body className="[&>tr:last-child>td]:border-b-0">
           {fileColumns.map((column) => {
             const value = mapping[column.id];
             const auto = column.note && value === column.match;
             return (
               <Table.Row key={column.id}>
-                <Table.Cell flushMargin className="whitespace-nowrap">
+                <Table.Cell className="pl-ws-11 whitespace-nowrap">
                   <Code>{column.header}</Code>
                 </Table.Cell>
                 <Table.Cell className="text-ws-static-subtle whitespace-nowrap">
@@ -75,9 +78,9 @@ export function MatchStep({ mapping, onChange }: MatchStepProps) {
                     onValueChange={(next) => onChange({ ...mapping, [column.id]: next })}
                   />
                 </Table.Cell>
-                <Table.Cell flushMargin>
+                <Table.Cell className="pr-ws-11">
                   {auto && (
-                    <span className="gap-ws-3 typography-label-sm text-ws-static-subtle flex items-center whitespace-nowrap">
+                    <span className="gap-ws-3 typography-label-sm text-ws-static-subtle flex items-center">
                       {column.match !== SKIP && (
                         <RiCheckLine aria-hidden="true" className="size-ws-9 shrink-0" />
                       )}

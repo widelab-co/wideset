@@ -8,7 +8,7 @@ import { Button, IconButton, InlineAlert, StatusBadge, Textarea, Tooltip } from 
 import { type FormEvent, type ReactNode, useId, useState } from 'react';
 
 import { CommentThread } from './comment-thread';
-import type { Message, Notification } from './data';
+import { type Message, type Notification, stageColor } from './data';
 import { FactsList } from './facts-list';
 import { formatDateTime, formatWhen } from './format';
 import { Actor, Sentence } from './notification-row';
@@ -39,19 +39,6 @@ function Action({
         <Tooltip.Label>{label}</Tooltip.Label>
       </Tooltip.Content>
     </Tooltip>
-  );
-}
-
-/** A titled part of the detail. */
-function Section({ title, children }: { title: string; children: ReactNode }) {
-  const id = useId();
-  return (
-    <section aria-labelledby={id} className="gap-ws-9 flex flex-col">
-      <h3 id={id} className="typography-label-strong-md text-ws-static-strong">
-        {title}
-      </h3>
-      {children}
-    </section>
   );
 }
 
@@ -95,8 +82,8 @@ type NotificationDetailProps = {
 };
 
 /**
- * The open notification: what it is about and the way to it, what happened (the comment, the
- * change, the alert), and the record's facts.
+ * The open notification: what it is about and the way to it, the record's facts in one row under
+ * its title, then what happened (the comment, the change, the alert).
  */
 export function NotificationDetail({
   notification,
@@ -136,12 +123,12 @@ export function NotificationDetail({
           </p>
           <div className="gap-ws-5 flex items-center">
             <span className="typography-label-sm text-ws-static-subtle">{context.field}</span>
-            <StatusBadge size="sm" color="neutral">
+            <StatusBadge size="sm" color={stageColor(context.from)}>
               <StatusBadge.Label>{context.from}</StatusBadge.Label>
             </StatusBadge>
             <RiArrowRightLine aria-hidden className="size-ws-9 text-ws-static-subtle" />
             <span className="sr-only">to</span>
-            <StatusBadge size="sm" color="neutral">
+            <StatusBadge size="sm" color={stageColor(context.to)}>
               <StatusBadge.Label>{context.to}</StatusBadge.Label>
             </StatusBadge>
           </div>
@@ -185,11 +172,13 @@ export function NotificationDetail({
       </header>
 
       <div className="min-h-0 flex-1 overflow-y-auto">
-        <div className="gap-ws-16 px-ws-12 py-ws-12 mx-auto flex w-full max-w-[48rem] flex-col">
-          {story}
-          <Section title="Details">
+        <div className="gap-ws-12 px-ws-12 py-ws-12 mx-auto flex w-full max-w-[48rem] flex-col">
+          {/* The facts lead, under the title they describe: below a long thread they would
+              slide out of sight. A line closes them off from what happened. */}
+          <section aria-label="Details" className="pb-ws-12 border-ws-static-subtle border-b">
             <FactsList facts={subject.facts} />
-          </Section>
+          </section>
+          {story}
         </div>
       </div>
     </section>

@@ -1,5 +1,5 @@
 // TODO(custom): whole-row link done with a stretched <a>; Table has no row link.
-import { Button, StatusBadge, Table } from '@wideset/react';
+import { Avatar, Button, StatusBadge, Table } from '@wideset/react';
 
 import {
   CUSTOMERS,
@@ -18,9 +18,10 @@ import { RowMenu } from './row-menu';
 const COLUMN_COUNT = 7;
 
 /**
- * One page of orders, a line each: number, who bought, when, what, where it stands and what it
- * came to. A row opens its order from anywhere on it; the ⋯ at its end is its own target. The
- * date and the total sort from their headers, the same sort the toolbar's select holds.
+ * One page of orders, a line each: number, who bought (behind the company's initials), when,
+ * what, where it stands and what it came to. A row opens its order from anywhere on it; the ⋯ at
+ * its end is its own target. The date and the total sort from their headers, the same sort the
+ * toolbar's select holds.
  */
 export function OrdersTable({
   rows,
@@ -48,12 +49,12 @@ export function OrdersTable({
         <Table.Head>
           <Table.Row>
             <Table.Header className="w-[7rem]">Order</Table.Header>
-            <Table.Header className="w-[11.5rem]">Customer</Table.Header>
+            <Table.Header className="w-[13rem]">Customer</Table.Header>
             <Table.Header className="w-[8.5rem]" {...sortable('placed')}>
               Date
             </Table.Header>
             <Table.Header>Items</Table.Header>
-            <Table.Header className="w-[10.5rem]">Status</Table.Header>
+            <Table.Header className="w-[10rem]">Status</Table.Header>
             <Table.Header align="right" className="w-[9rem]" {...sortable('total')}>
               Total
             </Table.Header>
@@ -81,6 +82,7 @@ export function OrdersTable({
           ) : (
             rows.map((order) => {
               const status = STATUS[order.status];
+              const customer = CUSTOMERS[order.customer];
               const [[first], ...more] = order.lines;
               return (
                 // The number's link stretches over the whole row: one target, the hover on every
@@ -94,7 +96,14 @@ export function OrdersTable({
                       #{order.id}
                     </a>
                   </Table.Cell>
-                  <Table.Cell truncate>{CUSTOMERS[order.customer].name}</Table.Cell>
+                  <Table.Cell>
+                    {/* The company's initials on a square: a face for the name, not a second
+                        label, so it is hidden from screen readers. */}
+                    <div className="gap-ws-7 flex items-center">
+                      <Avatar shape="square" initials={customer.initials} aria-hidden="true" />
+                      <span className="truncate">{customer.name}</span>
+                    </div>
+                  </Table.Cell>
                   <Table.Cell className="tabular-nums">
                     <time dateTime={order.placed}>{formatDate(order.placed)}</time>
                   </Table.Cell>

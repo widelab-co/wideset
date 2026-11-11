@@ -204,14 +204,17 @@ export const proposedStep: NextStep = {
 };
 export const proposedCloseDate = '2026-11-13';
 
-/** The conversation as the page opens: one answer read, one change waiting. */
+/**
+ * The conversation as the page opens: one answer read, one change waiting. Short enough that
+ * every message shows whole above the composer at 1440×960.
+ */
 export const conversation: Turn[] = [
   { id: 'q1', role: 'user', text: 'Where does the Halcyon renewal stand?' },
   {
     id: 'a1',
     role: 'assistant',
-    text: 'Ingrid needs the revised quote by noon tomorrow to put it on Thursday’s finance committee agenda. The quote is ready to go: two years at 8% under list, 12 dispatcher seats from January 1, and their $1,800 onboarding fee waived, which Priya approved after Tom’s margin check.\n\nOn this morning’s call Ingrid said the committee can sign off on Thursday.',
-    sources: [sources.email, sources.call, sources.note],
+    text: 'Ingrid needs the revised quote by noon tomorrow for Thursday’s finance committee. It is ready to go, with the $1,800 onboarding fee waived.',
+    sources: [sources.email, sources.call],
     rating: 'up',
   },
   { id: 'q2', role: 'user', text: 'Update the close date and add the next step' },
