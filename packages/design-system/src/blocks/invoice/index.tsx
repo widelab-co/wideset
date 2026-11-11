@@ -1,4 +1,4 @@
-import { RiSidebarFoldLine } from '@remixicon/react';
+import { RiSideBarLine } from '@remixicon/react';
 import { Breadcrumbs, cn, IconButton } from '@wideset/react';
 import { useId, useState } from 'react';
 
@@ -30,7 +30,7 @@ export default function Invoice() {
               left so its glyph, not its box, sits 20px from the edge; the crumbs follow it. */}
           <div className="gap-ws-5 px-ws-11 flex w-full items-center">
             <IconButton
-              icon={RiSidebarFoldLine}
+              icon={RiSideBarLine}
               variant="secondary"
               preset="ghost"
               size="sm"
@@ -39,7 +39,7 @@ export default function Invoice() {
               aria-expanded={!collapsed}
               aria-controls={sidebarId}
               onClick={() => setCollapsed(!collapsed)}
-              className={cn('-ml-ws-5', collapsed && 'rotate-180')}
+              className="-ml-ws-5"
             />
             <Breadcrumbs separator="arrow">
               <Breadcrumbs.Item asChild>
