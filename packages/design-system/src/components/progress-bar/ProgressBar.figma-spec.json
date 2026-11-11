@@ -1,0 +1,184 @@
+{
+  "status": "proposed",
+  "figma": {
+    "fileKey": "tmRuXX6cNiuHkDXjTDOPLU",
+    "nodeId": "554:70",
+    "capturedAt": "2026-11-04"
+  },
+  "theme": "light",
+  "story": {
+    "id": "components-progressbar--composition",
+    "selector": "#storybook-root [data-slot=\"progress-bar\"]",
+    "iframe": "http://localhost:6006/iframe.html?id={id}&viewMode=story&args={args}"
+  },
+  "variants": {
+    "bar": {
+      "figmaNode": "4716:92328 (Type=Line, Progress=80%)",
+      "args": "",
+      "gap": {
+        "figma": "Gap/5",
+        "code": "gap-ws-5",
+        "figmaPx": 8,
+        "renderedPx": 8,
+        "status": "OK"
+      },
+      "headerGap": {
+        "figma": "Gap/3",
+        "code": "gap-ws-3",
+        "figmaPx": 4,
+        "renderedPx": 4,
+        "status": "OK"
+      },
+      "trackHeight": {
+        "figma": "Progress Bar frame (fixed)",
+        "code": "h-ws-3",
+        "figmaPx": 4,
+        "renderedPx": 4,
+        "status": "OK"
+      },
+      "trackRadius": {
+        "figma": "Size/2",
+        "code": "rounded-full",
+        "figmaPx": 2,
+        "renderedPx": 2,
+        "status": "OK",
+        "note": "half the 4px height; rounded-full renders the same pill"
+      },
+      "trackColor": {
+        "figma": "Dynamic/Stroke/Secondary/Default",
+        "code": "bg-(--ws-dynamic-stroke-secondary-default)",
+        "status": "OK"
+      },
+      "fillColor": {
+        "figma": "Dynamic/Fill/Primary/Default",
+        "code": "bg-ws-dynamic-primary-default",
+        "status": "OK"
+      },
+      "labelType": {
+        "figma": "Label/Strong/Small, Static/Text/Strong",
+        "code": "typography-label-strong-sm text-ws-static-strong",
+        "renderedPx": 14,
+        "status": "OK"
+      },
+      "valueType": {
+        "figma": "Label/Small, Static/Text/Subtle",
+        "code": "typography-label-sm text-ws-static-subtle",
+        "renderedPx": 14,
+        "status": "OK"
+      },
+      "descriptionPadding": {
+        "figma": "Helper Text paddingTop/Bottom Gap/3",
+        "code": "py-ws-3 in helperTextVariants (HelperText, #6)",
+        "figmaPx": 4,
+        "renderedPx": 4,
+        "status": "OK",
+        "kind": "shared-component",
+        "note": "HelperText now carries the padding top and bottom, so ProgressBar.Description adds none."
+      },
+      "height": {
+        "figma": 64,
+        "rendered": 64,
+        "deltaPx": 0,
+        "status": "OK",
+        "note": "60px plus the HelperText bottom padding (4px) that #6 added; see descriptionPadding"
+      }
+    },
+    "bar-success-error": {
+      "figmaNode": "4716:92314, 4716:92356",
+      "fillColor": {
+        "figma": "Semantic/Stroke/Positive | Semantic/Stroke/Negative",
+        "code": "bg-(--ws-semantic-stroke-positive) | bg-(--ws-semantic-stroke-negative)",
+        "status": "OK"
+      },
+      "description": {
+        "figma": "Helper Text State=Success/Error, 16px icon, Gap/3",
+        "code": "HelperText state + showIcon",
+        "status": "OK"
+      }
+    },
+    "circle": {
+      "figmaNode": "5460:18886 (Type=Circle, Progress=80%)",
+      "args": "value:80",
+      "gap": {
+        "figma": "Gap/5",
+        "code": "gap-ws-5",
+        "figmaPx": 8,
+        "renderedPx": 8,
+        "status": "OK"
+      },
+      "order": {
+        "figma": "value, then ring",
+        "code": "ProgressBar.Value before ProgressBar.Track",
+        "status": "OK"
+      },
+      "ringSize": {
+        "figma": 20,
+        "rendered": 20,
+        "status": "OK"
+      },
+      "ringThickness": {
+        "figma": "innerRadius 0.75 of a 20px ellipse",
+        "code": "STROKE_WIDTH 2.5",
+        "figmaPx": 2.5,
+        "status": "OK"
+      },
+      "valueWidth": {
+        "figma": "hug (49-64px root across values)",
+        "code": "min-w-ws-14 text-end on the default percentage; custom content hugs",
+        "figmaPx": "hug",
+        "renderedPx": 32,
+        "status": "DIFF",
+        "note": "deliberate: rings in a list line up and the ring does not shift while the value animates; design question, Figma could bind a min width"
+      },
+      "ringTrackColor": {
+        "figma": "Dynamic/Stroke/Secondary/Default",
+        "code": "stroke-(--border-color-ws-dynamic-secondary-default)",
+        "status": "OK"
+      },
+      "ringArcColor": {
+        "figma": "Dynamic/Fill/Primary/Default",
+        "code": "stroke-(--background-color-ws-dynamic-primary-default)",
+        "status": "OK",
+        "note": "fixed: was stroke-ws-dynamic-primary-default, which maps to Dynamic/Text/Primary (brand-200 instead of brand-600 in dark mode)"
+      }
+    },
+    "circle-success-error": {
+      "figmaNode": "5461:2719, 5461:2941",
+      "iconSize": {
+        "figma": "24px instance, 20px glyph, overhangs the 20px slot by 2px",
+        "code": "size-ws-control-lg -m-ws-2",
+        "figmaPx": 20,
+        "renderedPx": 20,
+        "status": "OK",
+        "note": "fixed in this run: the icon was size-ws-control-md, a 16.67px glyph"
+      },
+      "successColor": {
+        "figma": "Dynamic/Fill/Success/Default",
+        "code": "text-(--ws-dynamic-fill-success-default)",
+        "status": "OK",
+        "note": "fixed in this run: was --ws-dynamic-stroke-success-strong-default, the same in light mode but green-300 instead of green-600 in dark mode"
+      },
+      "errorColor": {
+        "figma": "Dynamic/Text/Danger/Default",
+        "code": "text-(--ws-dynamic-text-danger-default)",
+        "status": "OK"
+      }
+    }
+  },
+  "intent": {
+    "circleErrorNaN": {
+      "decision": "resolved",
+      "question": "Type=Circle, Progress=Error (5461:2941) shows the text \"NaN\".",
+      "answer": "A designer typo (product owner, 2026-11-03): the circle shows the value plus the error icon. Reported to design.",
+      "owner": "design"
+    },
+    "circleSuccessCheck": {
+      "decision": "pending",
+      "question": "Figma builds the success circle from a green disc and a 14px OnPrimary check; the code uses the Remix checkbox-circle-fill glyph, whose check is a cut-out showing the background. Same look on light surfaces; is the cut-out acceptable on coloured or dark surfaces?",
+      "owner": "design"
+    }
+  },
+  "signOff": {
+    "blockedBy": "This repository has no src/__tests__/figma-parity.test.tsx gate, which the sign-off checklist requires; the status stays proposed."
+  }
+}

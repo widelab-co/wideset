@@ -297,7 +297,22 @@ export { PopupHeader } from './components/popup/PopupHeader';
 export { PopupTitle } from './components/popup/PopupTitle';
 export { PopupTrigger } from './components/popup/PopupTrigger';
 export { ProgressBar } from './components/progress-bar/ProgressBar';
-export type { ProgressBarProps } from './components/progress-bar/ProgressBar.types';
+export type {
+  ProgressBarDescriptionProps,
+  ProgressBarHeaderProps,
+  ProgressBarLabelProps,
+  ProgressBarProps,
+  ProgressBarStatus,
+  ProgressBarTrackProps,
+  ProgressBarType,
+  ProgressBarValueProps,
+  ProgressBarWithSubComponents,
+} from './components/progress-bar/ProgressBar.types';
+export { ProgressBarDescription } from './components/progress-bar/ProgressBarDescription';
+export { ProgressBarHeader } from './components/progress-bar/ProgressBarHeader';
+export { ProgressBarLabel } from './components/progress-bar/ProgressBarLabel';
+export { ProgressBarTrack } from './components/progress-bar/ProgressBarTrack';
+export { ProgressBarValue } from './components/progress-bar/ProgressBarValue';
 export { ProgressStepper } from './components/progress-stepper/ProgressStepper';
 export type {
   ProgressStepperIconProps,

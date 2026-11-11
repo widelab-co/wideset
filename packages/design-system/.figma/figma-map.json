@@ -1,0 +1,12 @@
+{
+  "fileKey": "tmRuXX6cNiuHkDXjTDOPLU",
+  "components": {
+    "progress-bar": {
+      "nodeId": "554:70",
+      "storyId": "components-progressbar--composition",
+      "selector": "#storybook-root [data-slot=\"progress-bar\"]",
+      "variantsFile": "src/components/progress-bar/ProgressBar.variants.ts",
+      "source": "figma"
+    }
+  }
+}

@@ -1,18 +1,57 @@
 import * as ProgressPrimitive from '@radix-ui/react-progress';
-import { RiCheckboxCircleFill, RiErrorWarningFill } from '@remixicon/react';
 import * as React from 'react';
 import { cn } from 'src/lib/utils';
+import { clamp, isFiniteNumber } from 'src/logic/helpers';
 
 import { useDefaultMotion } from '../../motion/MotionProvider';
-import { FieldLabel } from '../field-label/FieldLabel';
-import { HelperText } from '../helper-text/HelperText';
-import type { ProgressBarProps } from './ProgressBar.types';
-import {
-  progressBarCircleIconVariants,
-  progressBarCircleMotionVariants,
-  progressBarIndicatorMotionVariants,
-  progressBarIndicatorVariants,
-} from './ProgressBar.variants';
+import { ProgressBarContext } from './ProgressBar.context';
+import type {
+  ProgressBarContextValue,
+  ProgressBarProps,
+  ProgressBarWithSubComponents,
+} from './ProgressBar.types';
+import { progressBarRootVariants } from './ProgressBar.variants';
+import { ProgressBarDescription } from './ProgressBarDescription';
+import { ProgressBarHeader } from './ProgressBarHeader';
+import { ProgressBarLabel } from './ProgressBarLabel';
+import { ProgressBarTrack } from './ProgressBarTrack';
+import { ProgressBarValue } from './ProgressBarValue';
+
+// Radix fills `aria-valuetext` with the rounded percentage by default. Screen readers derive the
+// same percentage from `aria-valuenow` and `aria-valuemax`, so VoiceOver announced it twice (as
+// found on #5). Omit the attribute; a caller's own `aria-valuetext` still reaches the root.
+const omitValueText = (() => undefined) as unknown as (value: number, max: number) => string;
+
+const DEFAULT_MAX = 100;
+
+/** `max` when it is a number greater than 0, otherwise 100 (with a warning if one was given). */
+const validateMax = (max?: number) => {
+  if (max === undefined) return DEFAULT_MAX;
+  if (isFiniteNumber(max) && max > 0) return max;
+  console.warn(`ProgressBar \`max\` must be a number greater than 0. Received ${max}.`);
+  return DEFAULT_MAX;
+};
+
+/** `value` kept within `0…max`; a missing or non-finite value is 0 (with a warning if one was given). */
+const validateValue = (value: number | undefined, max: number) => {
+  if (value === undefined) return 0;
+  if (isFiniteNumber(value)) return clamp(value, 0, max);
+  console.warn(`ProgressBar \`value\` must be a finite number. Received ${value}.`);
+  return 0;
+};
+
+/**
+ * Holds the id of a mounted part (its own `id` or a generated one), so the root only points ARIA
+ * at an element that exists and keeps pointing at it when a caller sets the part's `id`.
+ */
+const usePartId = () => {
+  const [id, setId] = React.useState<string>();
+  const register = React.useCallback((partId: string) => {
+    setId(partId);
+    return () => setId((current) => (current === partId ? undefined : current));
+  }, []);
+  return [id, register] as const;
+};
 
 const ProgressBar = React.forwardRef<
   React.ComponentRef<typeof ProgressPrimitive.Root>,
@@ -21,160 +60,80 @@ const ProgressBar = React.forwardRef<
   (
     {
       className,
-      value,
+      value: valueProp,
       max: maxProp,
-      getValueLabel,
-      asChild,
-      label,
-      description,
-      fixedWidth,
-      variant = 'default',
+      status = 'default',
       type = 'bar',
       defaultMotion,
+      asChild,
+      children,
       ...props
     },
     ref,
   ) => {
     const motion = useDefaultMotion(defaultMotion);
-    const labelId = React.useId();
+    const [labelId, registerLabel] = usePartId();
+    const [descriptionId, registerDescription] = usePartId();
+
+    const max = validateMax(maxProp);
+    const value = validateValue(valueProp, max);
+    const percent = Math.round((value / max) * 100);
+
+    const fields: ProgressBarContextValue = {
+      value,
+      max,
+      percent,
+      status,
+      type,
+      motion,
+      registerLabel,
+      registerDescription,
+    };
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const context = React.useMemo(() => fields, Object.values(fields));
+
+    // `asChild` puts the root on the caller's single element, which then holds the parts (as in
+    // Tile). Without such an element the root stays a <div> instead of slotting onto a part.
+    const isSlotted = Boolean(asChild) && React.isValidElement(children);
+
     const hasOwnName = Boolean(props['aria-label'] || props['aria-labelledby']);
-    const fallbackName = hasOwnName || label ? undefined : 'Progress';
-    const max = typeof maxProp === 'number' && maxProp > 0 ? maxProp : 100;
-    const clampedValue =
-      typeof value === 'number' && !Number.isNaN(value) ? Math.min(Math.max(value, 0), max) : 0;
-    const progressValue = Math.round((clampedValue / max) * 100);
-
-    if (Number.isNaN(value)) {
-      // eslint-disable-next-line no-console
-      console.warn('ProgressBar received NaN for `value` prop.');
-    }
-
-    if (type === 'circle') {
-      const size = 20;
-      const strokeWidth = 2.5;
-      const radius = size / 2 - strokeWidth / 2;
-      const circumference = 2 * Math.PI * radius;
-      const fraction = progressValue / 100;
-      const dashArray = circumference;
-      const offset = circumference * (1 - fraction);
-
-      const icons: Record<typeof variant, React.ReactNode> = {
-        default: (
-          <svg
-            width={size}
-            height={size}
-            viewBox={`0 0 ${size} ${size}`}
-            className="shrink-0"
-            aria-hidden="true"
-            focusable="false"
-          >
-            <circle
-              cx={size / 2}
-              cy={size / 2}
-              r={radius}
-              className="fill-none stroke-(--border-color-ws-dynamic-secondary-default)"
-              strokeWidth={strokeWidth}
-            />
-            <circle
-              cx={size / 2}
-              cy={size / 2}
-              r={radius}
-              className={cn(
-                'stroke-ws-dynamic-primary-default fill-none',
-                progressBarCircleMotionVariants({ enabled: motion }),
-              )}
-              strokeWidth={strokeWidth}
-              strokeLinecap="round"
-              strokeDasharray={dashArray}
-              strokeDashoffset={offset}
-              transform={`rotate(-90 ${size / 2} ${size / 2})`}
-            />
-          </svg>
-        ),
-        success: (
-          <RiCheckboxCircleFill
-            aria-hidden="true"
-            focusable="false"
-            className={progressBarCircleIconVariants({ variant: 'success' })}
-          />
-        ),
-        error: (
-          <RiErrorWarningFill
-            aria-hidden="true"
-            focusable="false"
-            className={progressBarCircleIconVariants({ variant: 'error' })}
-          />
-        ),
-      };
-
-      return (
-        <div
-          data-slot="progress-bar"
-          ref={ref}
-          {...props}
-          className={cn('gap-ws-5 inline-flex items-center', className)}
-          role="progressbar"
-          aria-valuenow={clampedValue}
-          aria-valuemin={0}
-          aria-valuemax={max}
-          // The circle has no visible label, so `label` names it when no ARIA name is given.
-          aria-label={hasOwnName ? props['aria-label'] : (label ?? 'Progress')}
-        >
-          <div className={fixedWidth ? 'w-ws-14' : undefined}>
-            <span className="typography-label-sm text-ws-static-subtle">{`${progressValue}%`}</span>
-          </div>
-
-          {icons[variant]}
-        </div>
-      );
-    }
+    const fallbackName = hasOwnName || labelId ? undefined : 'Progress';
 
     return (
-      <div className="gap-ws-5 flex w-full flex-col">
-        {label && (
-          <div className="gap-ws-3 flex items-center justify-between">
-            <FieldLabel id={labelId}>{label}</FieldLabel>
-            <span className="typography-label-sm text-ws-static-subtle">{`${progressValue}%`}</span>
-          </div>
-        )}
-
+      <ProgressBarContext.Provider value={context}>
         <ProgressPrimitive.Root
           ref={ref}
-          value={clampedValue}
+          value={value}
           max={max}
-          getValueLabel={getValueLabel}
-          asChild={asChild}
-          className={cn(
-            'h-ws-3 relative w-full overflow-hidden rounded-full bg-(--ws-dynamic-stroke-secondary-default)',
-            className,
-          )}
-          aria-labelledby={label ? labelId : undefined}
+          asChild={isSlotted}
+          getValueLabel={omitValueText}
           data-slot="progress-bar"
+          data-type={type}
+          data-status={status}
           aria-label={fallbackName}
+          aria-labelledby={labelId}
+          aria-describedby={descriptionId}
           {...props}
+          // Radix spreads caller props over its own ARIA; the computed role and values must win.
+          role="progressbar"
+          aria-valuenow={value}
+          aria-valuemin={0}
+          aria-valuemax={max}
+          className={cn(progressBarRootVariants({ type }), className)}
         >
-          <ProgressPrimitive.Indicator
-            className={cn(
-              progressBarIndicatorVariants({ variant }),
-              progressBarIndicatorMotionVariants({ enabled: motion }),
-            )}
-            style={{ transform: `translateX(-${100 - (progressValue || 0)}%)` }}
-          />
+          {children ?? <ProgressBarTrack />}
         </ProgressPrimitive.Root>
-
-        {description && (
-          <HelperText
-            key={variant}
-            state={variant}
-            showIcon={variant === 'success' || variant === 'error'}
-          >
-            {description}
-          </HelperText>
-        )}
-      </div>
+      </ProgressBarContext.Provider>
     );
   },
-);
+) as ProgressBarWithSubComponents;
 ProgressBar.displayName = 'ProgressBar';
+
+ProgressBar.Header = ProgressBarHeader;
+ProgressBar.Label = ProgressBarLabel;
+ProgressBar.Value = ProgressBarValue;
+ProgressBar.Track = ProgressBarTrack;
+ProgressBar.Description = ProgressBarDescription;
 
 export { ProgressBar };

@@ -3,6 +3,23 @@ import { createRef } from 'react';
 import { describe, expect, it, vi } from 'vitest';
 
 import { ProgressBar } from './ProgressBar';
+import type { ProgressBarProps } from './ProgressBar.types';
+
+/** The full bar anatomy: header with label and value, track, optional description. */
+const LabelledBar = ({
+  label = 'Upload',
+  description,
+  ...props
+}: ProgressBarProps & { label?: string; description?: string }) => (
+  <ProgressBar {...props}>
+    <ProgressBar.Header>
+      <ProgressBar.Label>{label}</ProgressBar.Label>
+      <ProgressBar.Value />
+    </ProgressBar.Header>
+    <ProgressBar.Track />
+    {description && <ProgressBar.Description>{description}</ProgressBar.Description>}
+  </ProgressBar>
+);
 
 describe('ProgressBar', () => {
   it('renders with default props', () => {
@@ -18,72 +35,72 @@ describe('ProgressBar', () => {
   });
 
   it('renders label when provided', () => {
-    const { getByText } = render(<ProgressBar label="Progress Label" value={50} />);
+    const { getByText } = render(<LabelledBar label="Progress Label" value={50} />);
     expect(getByText('Progress Label')).toBeInTheDocument();
   });
 
   it('shows percentage when label is provided', () => {
-    const { getByText } = render(<ProgressBar label="Progress" value={33} />);
+    const { getByText } = render(<LabelledBar label="Progress" value={33} />);
     expect(getByText('33%')).toBeInTheDocument();
   });
 
   it('renders description when provided', () => {
-    const { getByText } = render(<ProgressBar description="Progress description" value={50} />);
+    const { getByText } = render(<LabelledBar description="Progress description" value={50} />);
     expect(getByText('Progress description')).toBeInTheDocument();
   });
 
-  it('shows icon in helper text for success variant', () => {
+  it('shows icon in helper text for success status', () => {
     const { container } = render(
-      <ProgressBar variant="success" description="Success message" value={50} />,
+      <LabelledBar status="success" description="Success message" value={50} />,
     );
     expect(container.querySelector('svg')).toBeInTheDocument();
   });
 
-  it('shows icon in helper text for error variant', () => {
+  it('shows icon in helper text for error status', () => {
     const { container } = render(
-      <ProgressBar variant="error" description="Error message" value={50} />,
+      <LabelledBar status="error" description="Error message" value={50} />,
     );
     expect(container.querySelector('svg')).toBeInTheDocument();
   });
 
-  it('does not show icon for default variant', () => {
+  it('does not show icon for default status', () => {
     const { container } = render(
-      <ProgressBar variant="default" description="Default message" value={50} />,
+      <LabelledBar status="default" description="Default message" value={50} />,
     );
     expect(container.querySelector('svg')).not.toBeInTheDocument();
   });
 
   it('applies correct transform style based on value', () => {
     const { container } = render(<ProgressBar value={75} />);
-    const indicator = container.querySelector('[role="progressbar"] > div');
+    const indicator = container.querySelector('[data-slot="progress-bar-track"] > div');
     expect(indicator).toHaveStyle('transform: translateX(-25%)');
   });
 
   it('clamps values below 0 to 0', () => {
     const { container } = render(<ProgressBar value={-10} />);
-    const indicator = container.querySelector('[role="progressbar"] > div');
+    const indicator = container.querySelector('[data-slot="progress-bar-track"] > div');
     expect(indicator).toHaveStyle('transform: translateX(-100%)');
   });
 
   it('shows 0% label when value is below 0', () => {
-    const { getByText } = render(<ProgressBar label="Progress" value={-10} />);
+    const { getByText } = render(<LabelledBar label="Progress" value={-10} />);
     expect(getByText('0%')).toBeInTheDocument();
   });
 
   it('clamps values above 100 to 100', () => {
     const { container } = render(<ProgressBar value={150} />);
-    const indicator = container.querySelector('[role="progressbar"] > div');
+    const indicator = container.querySelector('[data-slot="progress-bar-track"] > div');
     expect(indicator).toHaveStyle('transform: translateX(-0%)');
   });
 
   it('shows 100% label when value is above 100', () => {
-    const { getByText } = render(<ProgressBar label="Progress" value={150} />);
+    const { getByText } = render(<LabelledBar label="Progress" value={150} />);
     expect(getByText('100%')).toBeInTheDocument();
   });
 
   it('handles undefined value gracefully', () => {
     const { container } = render(<ProgressBar />);
-    const indicator = container.querySelector('[role="progressbar"] > div');
+    const indicator = container.querySelector('[data-slot="progress-bar-track"] > div');
     expect(indicator).toHaveStyle('transform: translateX(-100%)');
   });
 
@@ -138,36 +155,12 @@ describe('ProgressBar', () => {
     expect(progressBar).toHaveAttribute('aria-valuemax', '100');
   });
 
-  it('does not forward Radix-only props to the circle DOM element', () => {
-    const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {});
-
-    try {
-      render(
-        <ProgressBar
-          type="circle"
-          value={50}
-          asChild
-          max={200}
-          getValueLabel={(value, max) => `${value} of ${max}`}
-        />,
-      );
-
-      const progressBar = screen.getByRole('progressbar');
-      expect(progressBar).not.toHaveAttribute('asChild');
-      expect(progressBar).not.toHaveAttribute('max');
-      expect(progressBar).not.toHaveAttribute('getValueLabel');
-      expect(consoleError).not.toHaveBeenCalled();
-    } finally {
-      consoleError.mockRestore();
-    }
-  });
-
   it('renders complete component with all props', () => {
     const { getByText, container } = render(
-      <ProgressBar
+      <LabelledBar
         label="Upload Progress"
         description="Uploading files..."
-        variant="success"
+        status="success"
         value={85}
         className="custom-progress"
       />,
@@ -193,31 +186,31 @@ describe('ProgressBar Snapshots', () => {
     expect(container.firstChild).toMatchSnapshot();
   });
 
-  it('matches snapshot for all variants', () => {
-    const variants = ['default', 'success', 'error'] as const;
+  it('matches snapshot for all statuses', () => {
+    const statuses = ['default', 'success', 'error'] as const;
 
-    variants.forEach((variant) => {
-      const { container } = render(<ProgressBar variant={variant} value={50} />);
-      expect(container.firstChild).toMatchSnapshot(`ProgressBar with ${variant} variant`);
+    statuses.forEach((status) => {
+      const { container } = render(<ProgressBar status={status} value={50} />);
+      expect(container.firstChild).toMatchSnapshot(`ProgressBar with ${status} status`);
     });
   });
 
   it('matches snapshot for progress bar with label', () => {
-    const { container } = render(<ProgressBar label="Progress" value={75} />);
+    const { container } = render(<LabelledBar label="Progress" value={75} />);
     expect(container.firstChild).toMatchSnapshot();
   });
 
   it('matches snapshot for progress bar with description', () => {
-    const { container } = render(<ProgressBar description="Loading data..." value={30} />);
+    const { container } = render(<LabelledBar description="Loading data..." value={30} />);
     expect(container.firstChild).toMatchSnapshot();
   });
 
   it('matches snapshot for complete progress bar', () => {
     const { container } = render(
-      <ProgressBar
+      <LabelledBar
         label="File Upload"
         description="Uploading files to server..."
-        variant="success"
+        status="success"
         value={90}
         className="custom-class"
       />,
@@ -228,7 +221,7 @@ describe('ProgressBar Snapshots', () => {
 
 describe('data-slot', () => {
   it('marks each part with data-slot', () => {
-    const { container, rerender } = render(<ProgressBar value={40} label="Upload" />);
+    const { container, rerender } = render(<LabelledBar value={40} label="Upload" />);
     expect(container.querySelector('[role="progressbar"]')).toHaveAttribute(
       'data-slot',
       'progress-bar',
@@ -253,7 +246,7 @@ describe('Accessibility', () => {
   });
 
   it('is named by its visible label', () => {
-    const { getByRole } = render(<ProgressBar value={40} label="File upload" />);
+    const { getByRole } = render(<LabelledBar value={40} label="File upload" />);
 
     expect(getByRole('progressbar', { name: 'File upload' })).toBeInTheDocument();
   });
@@ -262,12 +255,6 @@ describe('Accessibility', () => {
     const { getByRole } = render(<ProgressBar value={40} />);
 
     expect(getByRole('progressbar', { name: 'Progress' })).toBeInTheDocument();
-  });
-
-  it('names the circle by its label', () => {
-    const { getByRole } = render(<ProgressBar type="circle" value={40} label="Upload" />);
-
-    expect(getByRole('progressbar', { name: 'Upload' })).toBeInTheDocument();
   });
 
   it('falls back to the name "Progress" for the circle type', () => {
@@ -283,7 +270,7 @@ describe('Accessibility', () => {
   });
 
   it('shows the percentage of a custom max', () => {
-    const { getByRole, getByText } = render(<ProgressBar value={3} max={4} label="Steps" />);
+    const { getByRole, getByText } = render(<LabelledBar value={3} max={4} label="Steps" />);
 
     expect(getByRole('progressbar')).toHaveAttribute('aria-valuenow', '3');
     expect(getByText('75%')).toBeInTheDocument();
@@ -303,12 +290,407 @@ describe('Circle type', () => {
   });
 });
 
-describe('ProgressBar error announcement', () => {
-  it('inserts a new alert when the variant turns error', () => {
-    const { rerender } = render(<ProgressBar description="Uploading" value={50} />);
+describe('Composition', () => {
+  const Composed = (props: { value?: number; max?: number; status?: 'default' | 'success' }) => (
+    <ProgressBar value={32} max={40} {...props}>
+      <ProgressBar.Header data-testid="header" className="header-class">
+        <ProgressBar.Label data-testid="label" className="label-class">
+          Uploading files
+        </ProgressBar.Label>
+        <ProgressBar.Value data-testid="value" className="value-class">
+          32 / 40
+        </ProgressBar.Value>
+      </ProgressBar.Header>
+      <ProgressBar.Track data-testid="track" className="track-class" />
+      <ProgressBar.Description data-testid="description" className="description-class">
+        8 files remaining
+      </ProgressBar.Description>
+    </ProgressBar>
+  );
+
+  it('renders every part inside the root', () => {
+    render(<Composed />);
+
+    const root = screen.getByRole('progressbar');
+    for (const slot of ['header', 'label', 'value', 'track', 'description']) {
+      expect(root.querySelector(`[data-slot="progress-bar-${slot}"]`)).toBeInTheDocument();
+    }
+  });
+
+  it.each([
+    ['Header', <ProgressBar.Header key="part" />],
+    ['Label', <ProgressBar.Label key="part">Label</ProgressBar.Label>],
+    ['Value', <ProgressBar.Value key="part" />],
+    ['Track', <ProgressBar.Track key="part" />],
+    ['Description', <ProgressBar.Description key="part">Text</ProgressBar.Description>],
+  ])('throws when %s renders outside the root', (_name, part) => {
+    const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {});
+    try {
+      expect(() => render(part)).toThrow(
+        'useProgressBarContext must be used within a <ProgressBar>',
+      );
+    } finally {
+      consoleError.mockRestore();
+    }
+  });
+
+  it('is named by the Label and described by the Description', () => {
+    render(<Composed />);
+
+    const bar = screen.getByRole('progressbar', { name: 'Uploading files' });
+    expect(bar).toHaveAccessibleDescription('8 files remaining');
+    expect(bar).not.toHaveAttribute('aria-label');
+  });
+
+  it('keeps a caller aria-labelledby over the Label', () => {
+    render(
+      <>
+        <span id="outside">Outside name</span>
+        <ProgressBar value={10} aria-labelledby="outside">
+          <ProgressBar.Header>
+            <ProgressBar.Label>Inside name</ProgressBar.Label>
+          </ProgressBar.Header>
+          <ProgressBar.Track />
+        </ProgressBar>
+      </>,
+    );
+
+    expect(screen.getByRole('progressbar', { name: 'Outside name' })).toBeInTheDocument();
+  });
+
+  it('exposes the value, so the bar is not indeterminate', () => {
+    render(<Composed />);
+
+    const bar = screen.getByRole('progressbar');
+    expect(bar).toHaveAttribute('aria-valuenow', '32');
+    expect(bar).toHaveAttribute('aria-valuemax', '40');
+    expect(bar).toHaveAttribute('data-state', 'loading');
+  });
+
+  it('omits aria-valuetext by default, so the percentage is announced once', () => {
+    render(<Composed />);
+
+    expect(screen.getByRole('progressbar')).not.toHaveAttribute('aria-valuetext');
+  });
+
+  it('lets aria-valuetext replace the spoken value', () => {
+    render(<ProgressBar value={3} max={4} aria-valuetext="3 of 4 steps" aria-label="Setup" />);
+
+    expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuetext', '3 of 4 steps');
+  });
+
+  it('scales the fill by max', () => {
+    render(<Composed />);
+
+    expect(screen.getByTestId('track').firstElementChild).toHaveStyle(
+      'transform: translateX(-20%)',
+    );
+  });
+
+  it('builds the text with formatValue from the clamped value and max', () => {
+    render(
+      <ProgressBar value={54} max={40} aria-label="Upload">
+        <ProgressBar.Value formatValue={(value, max) => `${value} / ${max}`} />
+      </ProgressBar>,
+    );
+
+    expect(screen.getByText('40 / 40')).toBeInTheDocument();
+  });
+
+  it('prefers children over formatValue', () => {
+    render(
+      <ProgressBar value={10} aria-label="Upload">
+        <ProgressBar.Value formatValue={() => 'formatted'}>fixed</ProgressBar.Value>
+      </ProgressBar>,
+    );
+
+    expect(screen.getByText('fixed')).toBeInTheDocument();
+    expect(screen.queryByText('formatted')).not.toBeInTheDocument();
+  });
+
+  it('reserves no room for 100% when the circle value uses formatValue', () => {
+    render(
+      <ProgressBar type="circle" value={5} aria-label="Sync">
+        <ProgressBar.Value formatValue={(value) => `${value} files`} />
+        <ProgressBar.Track />
+      </ProgressBar>,
+    );
+
+    expect(screen.getByText('5 files')).not.toHaveClass('min-w-ws-14');
+  });
+
+  it('shows its children instead of the percentage', () => {
+    render(<Composed />);
+
+    expect(screen.getByTestId('value')).toHaveTextContent('32 / 40');
+  });
+
+  it('shows the rounded percentage by default', () => {
+    render(
+      <ProgressBar value={1} max={3} aria-label="Steps">
+        <ProgressBar.Value />
+      </ProgressBar>,
+    );
+
+    expect(screen.getByText('33%')).toBeInTheDocument();
+  });
+
+  it('reserves room for 100% only for the default circle value', () => {
+    const { rerender } = render(
+      <ProgressBar type="circle" value={5} aria-label="Sync">
+        <ProgressBar.Value />
+        <ProgressBar.Track />
+      </ProgressBar>,
+    );
+    expect(screen.getByText('5%')).toHaveClass('min-w-ws-14');
+
+    rerender(
+      <ProgressBar type="circle" value={5} aria-label="Sync">
+        <ProgressBar.Value>5 files</ProgressBar.Value>
+        <ProgressBar.Track />
+      </ProgressBar>,
+    );
+    expect(screen.getByText('5 files')).not.toHaveClass('min-w-ws-14');
+  });
+
+  it('colours the Description from the root status', () => {
+    render(<Composed status="success" />);
+
+    const description = screen.getByTestId('description');
+    expect(description).toHaveClass('text-ws-semantic-positive');
+    expect(description.querySelector('svg')).toBeInTheDocument();
+  });
+
+  it('forwards className and data-* to each part', () => {
+    render(<Composed />);
+
+    for (const part of ['header', 'label', 'value', 'track', 'description']) {
+      expect(screen.getByTestId(part)).toHaveClass(`${part}-class`);
+    }
+  });
+
+  it('forwards refs to the Label and Description elements', () => {
+    const labelRef = createRef<HTMLLabelElement>();
+    const descriptionRef = createRef<HTMLSpanElement>();
+
+    render(
+      <ProgressBar value={50}>
+        <ProgressBar.Label ref={labelRef}>Upload</ProgressBar.Label>
+        <ProgressBar.Track />
+        <ProgressBar.Description ref={descriptionRef}>8 files remaining</ProgressBar.Description>
+      </ProgressBar>,
+    );
+
+    expect(labelRef.current?.tagName).toBe('LABEL');
+    expect(labelRef.current).toHaveTextContent('Upload');
+    expect(descriptionRef.current).toHaveAttribute('data-slot', 'progress-bar-description');
+  });
+
+  it('forwards refs to the root, Header, Value and Track', () => {
+    const rootRef = createRef<HTMLDivElement>();
+    const headerRef = createRef<HTMLDivElement>();
+    const valueRef = createRef<HTMLSpanElement>();
+    const trackRef = createRef<HTMLDivElement>();
+
+    render(
+      <ProgressBar ref={rootRef} value={50} aria-label="Upload">
+        <ProgressBar.Header ref={headerRef}>
+          <ProgressBar.Value ref={valueRef} />
+        </ProgressBar.Header>
+        <ProgressBar.Track ref={trackRef} />
+      </ProgressBar>,
+    );
+
+    expect(rootRef.current).toBe(screen.getByRole('progressbar'));
+    expect(headerRef.current).toHaveAttribute('data-slot', 'progress-bar-header');
+    expect(valueRef.current).toHaveAttribute('data-slot', 'progress-bar-value');
+    expect(trackRef.current).toHaveAttribute('data-slot', 'progress-bar-track');
+  });
+
+  it('renders the track alone for a bar without children', () => {
+    render(<ProgressBar value={60} />);
+
+    const root = screen.getByRole('progressbar');
+    expect(root.children).toHaveLength(1);
+    expect(root.firstElementChild).toHaveAttribute('data-slot', 'progress-bar-track');
+  });
+
+  it('renders the ring alone, without text, for a circle without children', () => {
+    render(<ProgressBar type="circle" value={60} aria-label="Sync" />);
+
+    const root = screen.getByRole('progressbar');
+    expect(root.children).toHaveLength(1);
+    expect(root.firstElementChild).toHaveAttribute('data-slot', 'progress-bar-track');
+    expect(root).not.toHaveTextContent('60%');
+  });
+});
+
+describe('Invalid numbers', () => {
+  const warnSpy = () => vi.spyOn(console, 'warn').mockImplementation(() => {});
+
+  it.each([NaN, Infinity])('renders 0 and warns for value %s', (value) => {
+    const warn = warnSpy();
+    render(<ProgressBar value={value} aria-label="Upload" />);
+
+    expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuenow', '0');
+    expect(warn).toHaveBeenCalledWith(
+      `ProgressBar \`value\` must be a finite number. Received ${value}.`,
+    );
+    warn.mockRestore();
+  });
+
+  it.each([0, -5, NaN])('falls back to max 100 and warns for max %s', (max) => {
+    const warn = warnSpy();
+    render(<ProgressBar value={50} max={max} aria-label="Upload" />);
+
+    expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuemax', '100');
+    expect(warn).toHaveBeenCalledWith(
+      `ProgressBar \`max\` must be a number greater than 0. Received ${max}.`,
+    );
+    warn.mockRestore();
+  });
+
+  it('does not warn when value and max are left out, or when value is only out of range', () => {
+    const warn = warnSpy();
+    render(<ProgressBar aria-label="Upload" />);
+    render(<ProgressBar value={150} max={40} aria-label="Upload" />);
+
+    expect(warn).not.toHaveBeenCalled();
+    warn.mockRestore();
+  });
+});
+
+describe('asChild', () => {
+  it('renders the root onto its single child element, with the parts inside', () => {
+    render(
+      <ProgressBar asChild value={40} className="root-class">
+        <section data-testid="custom-root">
+          <ProgressBar.Header>
+            <ProgressBar.Label>Uploading files</ProgressBar.Label>
+          </ProgressBar.Header>
+          <ProgressBar.Track />
+        </section>
+      </ProgressBar>,
+    );
+
+    const root = screen.getByRole('progressbar', { name: 'Uploading files' });
+    expect(root.tagName).toBe('SECTION');
+    expect(root).toBe(screen.getByTestId('custom-root'));
+    expect(root).toHaveAttribute('data-slot', 'progress-bar');
+    expect(root).toHaveAttribute('aria-valuenow', '40');
+    expect(root).toHaveClass('root-class');
+    expect(root.querySelector('[data-slot="progress-bar-track"]')).toBeInTheDocument();
+  });
+
+  it('keeps a <div> root when there is no single child element', () => {
+    render(<ProgressBar asChild value={40} aria-label="Upload" />);
+
+    const root = screen.getByRole('progressbar', { name: 'Upload' });
+    expect(root.tagName).toBe('DIV');
+    expect(root.firstElementChild).toHaveAttribute('data-slot', 'progress-bar-track');
+  });
+});
+
+describe('Part ids', () => {
+  it('keeps the label and description linked when the caller passes its own id', () => {
+    render(
+      <ProgressBar value={40}>
+        <ProgressBar.Header>
+          <ProgressBar.Label id="caller-label">Uploading files</ProgressBar.Label>
+        </ProgressBar.Header>
+        <ProgressBar.Track />
+        <ProgressBar.Description id="caller-description">8 files remaining</ProgressBar.Description>
+      </ProgressBar>,
+    );
+
+    const bar = screen.getByRole('progressbar', { name: 'Uploading files' });
+    expect(bar).toHaveAccessibleDescription('8 files remaining');
+  });
+
+  it('uses the caller id on the Label and Description and points the root at it', () => {
+    render(
+      <ProgressBar value={40}>
+        <ProgressBar.Label id="caller-label">Uploading files</ProgressBar.Label>
+        <ProgressBar.Track />
+        <ProgressBar.Description id="caller-description">8 files remaining</ProgressBar.Description>
+      </ProgressBar>,
+    );
+
+    const bar = screen.getByRole('progressbar');
+    expect(bar).toHaveAttribute('aria-labelledby', 'caller-label');
+    expect(bar).toHaveAttribute('aria-describedby', 'caller-description');
+  });
+
+  it.each([
+    ['no children', undefined],
+    ['false', false],
+    ['an empty string', ''],
+    ['0', 0],
+  ])('does not point aria-describedby at a Description with %s', (_name, children) => {
+    render(
+      <ProgressBar value={40} aria-label="Upload">
+        <ProgressBar.Track />
+        <ProgressBar.Description>{children}</ProgressBar.Description>
+      </ProgressBar>,
+    );
+
+    expect(screen.getByRole('progressbar')).not.toHaveAttribute('aria-describedby');
+  });
+
+  it('drops the references when the Label and Description unmount', () => {
+    const { rerender } = render(
+      <ProgressBar value={40}>
+        <ProgressBar.Label>Upload</ProgressBar.Label>
+        <ProgressBar.Description>8 files remaining</ProgressBar.Description>
+      </ProgressBar>,
+    );
+    rerender(
+      <ProgressBar value={40}>
+        <ProgressBar.Track />
+      </ProgressBar>,
+    );
+
+    const bar = screen.getByRole('progressbar', { name: 'Progress' });
+    expect(bar).not.toHaveAttribute('aria-labelledby');
+    expect(bar).not.toHaveAttribute('aria-describedby');
+  });
+});
+
+describe('ARIA with Radix', () => {
+  it.each(['bar', 'circle'] as const)(
+    'has one progressbar and no ARIA on the parts (%s)',
+    (type) => {
+      const { container } = render(
+        <ProgressBar type={type} value={40} status="success">
+          <ProgressBar.Header>
+            <ProgressBar.Label>Upload</ProgressBar.Label>
+            <ProgressBar.Value />
+          </ProgressBar.Header>
+          <ProgressBar.Track />
+          <ProgressBar.Description>Done</ProgressBar.Description>
+        </ProgressBar>,
+      );
+
+      expect(screen.getAllByRole('progressbar')).toHaveLength(1);
+      expect(container.querySelectorAll('[role]')).toHaveLength(1);
+      expect(container.querySelectorAll('[aria-valuenow], [aria-valuetext]')).toHaveLength(1);
+      expect(container.querySelectorAll('[aria-labelledby], [aria-describedby]')).toHaveLength(1);
+    },
+  );
+});
+
+describe('Error announcement', () => {
+  it('inserts a new alert when the status turns error', () => {
+    const Bar = ({ status }: { status?: 'default' | 'error' }) => (
+      <ProgressBar value={50} status={status} aria-label="Upload">
+        <ProgressBar.Track />
+        <ProgressBar.Description>Uploading</ProgressBar.Description>
+      </ProgressBar>
+    );
+    const { rerender } = render(<Bar />);
     const description = screen.getByText('Uploading');
 
-    rerender(<ProgressBar variant="error" description="Uploading" value={50} />);
+    rerender(<Bar status="error" />);
 
     expect(screen.getByRole('alert')).toHaveTextContent('Uploading');
     expect(description).not.toBeInTheDocument();
