@@ -583,6 +583,46 @@ export const BLOCKS: BlockMeta[] = [
     description:
       'Choosing a workspace in the sign-in card after signing in: the workspaces with the last used marked, invitations to accept or decline, and creating a new one.',
   },
+  {
+    id: 'agent-chat',
+    title: 'Agent chat',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'An agent workspace in Chat mode: chats on the left in project groups with their state, a transcript where the agent thinks, takes steps and answers, the composer with tools and the model, and the document it writes in a second card.',
+  },
+  {
+    id: 'agent-code',
+    title: 'Agent code',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'An agent workspace in Code mode: sessions grouped by repository, a transcript of steps, approvals and results beside a pane that shows the changes, a terminal, a preview, the files, the tasks or the pull request checks.',
+  },
+  {
+    id: 'agent-research',
+    title: 'Agent research',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'A research run in Chat mode: the plan the agent follows, the sources it reads as it goes, and the report with its citations, beside the list of sources behind a line.',
+  },
+  {
+    id: 'agent-sessions',
+    title: 'Agent sessions',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'Every Code session in one place: what is running, what waits for an answer and what is done, by repository, with the branch, the pull request and the last thing each one did.',
+  },
+  {
+    id: 'agent-states',
+    title: 'Agent states',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'The moments an agent session has to handle: a usage limit reached, a connector to reconnect, a step that failed, a context nearly full, a lost connection and a message waiting in the queue.',
+  },
 ];
 
 /** A part that opens over a screen. It belongs to no direction: it keeps its own look over any. */
@@ -714,6 +754,12 @@ export const PANELS: PanelMeta[] = [
     title: 'Export dialog',
     description:
       'Exporting customers in a dialog: all, the filtered or the selected ones with their counts, the date added, the columns and the format, then the file prepared in place and downloaded, or e-mailed when it is large.',
+  },
+  {
+    id: 'agent-context',
+    title: 'Agent context',
+    description:
+      'A session’s environment in a popover: how full the context is and what fills it, the connectors and the one to reconnect, what the session produced and the pull requests it opened.',
   },
 ];
 
