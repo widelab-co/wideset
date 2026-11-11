@@ -237,17 +237,21 @@ exports[`Toast Snapshots > matches snapshot with action + dismiss + custom class
     >
       Something went wrong
     </div>
-    <button
-      class="w-fit whitespace-nowrap relative inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default border typography-label-strong-sm h-ws-forms-sm gap-ws-2 rounded-ws-control-lg px-ws-6 border-ws-dynamic-inverse-default shadow-ws-controls-control outline-ws-dynamic-primary-strong-default focus-visible:outline-offset-0 focus:not-active:bg-ws-static-inverse-alpha-subtle hover:border-ws-dynamic-inverse-hover active:border-ws-dynamic-inverse-pressed disabled:border-ws-dynamic-inverse-disabled disabled:text-ws-dynamic-inverse-disabled transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small) box-border py-0 text-ws-semantic-on-inverse-negative hover:text-ws-semantic-on-inverse-negative active:text-ws-semantic-on-inverse-negative"
-      data-slot="toast-action"
-      type="button"
+    <div
+      class="gap-ws-5 flex shrink-0 items-center"
     >
-      <span
-        class="px-ws-2"
+      <button
+        class="w-fit whitespace-nowrap relative inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default border typography-label-strong-sm h-ws-forms-sm gap-ws-2 rounded-ws-control-lg px-ws-6 border-ws-dynamic-inverse-default shadow-ws-controls-control outline-ws-dynamic-primary-strong-default focus-visible:outline-offset-0 focus:not-active:bg-ws-static-inverse-alpha-subtle hover:border-ws-dynamic-inverse-hover active:border-ws-dynamic-inverse-pressed disabled:border-ws-dynamic-inverse-disabled disabled:text-ws-dynamic-inverse-disabled transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small) box-border py-0 text-ws-semantic-on-inverse-negative hover:text-ws-semantic-on-inverse-negative active:text-ws-semantic-on-inverse-negative"
+        data-slot="toast-action"
+        type="button"
       >
-        Retry
-      </span>
-    </button>
+        <span
+          class="px-ws-2"
+        >
+          Retry
+        </span>
+      </button>
+    </div>
   </div>
   <div
     class="ml-auto flex items-center leading-0"
@@ -307,17 +311,21 @@ exports[`Toast Snapshots > matches snapshot with action > Toast with action 1`] 
     >
       Saved successfully
     </div>
-    <button
-      class="w-fit whitespace-nowrap relative inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default border typography-label-strong-sm h-ws-forms-sm gap-ws-2 rounded-ws-control-lg px-ws-6 border-ws-dynamic-inverse-default shadow-ws-controls-control outline-ws-dynamic-primary-strong-default focus-visible:outline-offset-0 focus:not-active:bg-ws-static-inverse-alpha-subtle hover:border-ws-dynamic-inverse-hover active:border-ws-dynamic-inverse-pressed disabled:border-ws-dynamic-inverse-disabled disabled:text-ws-dynamic-inverse-disabled transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small) box-border py-0 text-ws-semantic-on-inverse-negative hover:text-ws-semantic-on-inverse-negative active:text-ws-semantic-on-inverse-negative"
-      data-slot="toast-action"
-      type="button"
+    <div
+      class="gap-ws-5 flex shrink-0 items-center"
     >
-      <span
-        class="px-ws-2"
+      <button
+        class="w-fit whitespace-nowrap relative inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default border typography-label-strong-sm h-ws-forms-sm gap-ws-2 rounded-ws-control-lg px-ws-6 border-ws-dynamic-inverse-default shadow-ws-controls-control outline-ws-dynamic-primary-strong-default focus-visible:outline-offset-0 focus:not-active:bg-ws-static-inverse-alpha-subtle hover:border-ws-dynamic-inverse-hover active:border-ws-dynamic-inverse-pressed disabled:border-ws-dynamic-inverse-disabled disabled:text-ws-dynamic-inverse-disabled transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small) box-border py-0 text-ws-semantic-on-inverse-negative hover:text-ws-semantic-on-inverse-negative active:text-ws-semantic-on-inverse-negative"
+        data-slot="toast-action"
+        type="button"
       >
-        Undo
-      </span>
-    </button>
+        <span
+          class="px-ws-2"
+        >
+          Undo
+        </span>
+      </button>
+    </div>
   </div>
   <div
     class="ml-auto flex items-center leading-0"

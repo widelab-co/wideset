@@ -122,6 +122,20 @@ describe('Toast.Action', () => {
     fireEvent.click(actionBtn);
     expect(onClick).toHaveBeenCalledTimes(1);
   });
+
+  it.each(['basic', 'expanded'] as const)('renders every action in order (%s)', (variant) => {
+    render(
+      <Toast variant={variant}>
+        <Toast.Message>Export finished</Toast.Message>
+        <Toast.Action>Open folder</Toast.Action>
+        <Toast.Action>Undo</Toast.Action>
+      </Toast>,
+    );
+    expect(screen.getAllByRole('button').map((button) => button.textContent)).toEqual([
+      'Open folder',
+      'Undo',
+    ]);
+  });
 });
 
 describe('ToastContainer', () => {

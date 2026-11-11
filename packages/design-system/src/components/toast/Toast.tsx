@@ -11,7 +11,6 @@ import { IconButton } from '../button/IconButton';
 import { ProgressBar } from '../progress-bar/ProgressBar';
 import { ToastStateProvider } from './Toast.context';
 import type {
-  ToastActionProps,
   ToastDescriptionProps,
   ToastMessageProps,
   ToastProps,
@@ -72,8 +71,7 @@ const Toast = forwardRef<HTMLDivElement, ToastProps>(
       React.ReactElement<ToastMessageProps> | undefined;
     const descriptionSlot = childArray.find((child) => isToastSlot(child, ToastDescription)) as
       React.ReactElement<ToastDescriptionProps> | undefined;
-    const actionSlot = childArray.find((child) => isToastSlot(child, ToastAction)) as
-      React.ReactElement<ToastActionProps> | undefined;
+    const actionSlots = childArray.filter((child) => isToastSlot(child, ToastAction));
     const iconActionSlots = childArray.filter((child) => containsToastSlot(child, ToastIconAction));
 
     const messageContent = messageSlot
@@ -144,8 +142,10 @@ const Toast = forwardRef<HTMLDivElement, ToastProps>(
                     )}
                   </div>
 
-                  {actionSlot && (
-                    <div className="mt-ws-9 gap-ws-7 flex flex-wrap items-center">{actionSlot}</div>
+                  {actionSlots.length > 0 && (
+                    <div className="mt-ws-9 gap-ws-7 flex flex-wrap items-center">
+                      {actionSlots}
+                    </div>
                   )}
                 </div>
               </div>
@@ -177,7 +177,11 @@ const Toast = forwardRef<HTMLDivElement, ToastProps>(
                 <div data-slot="toast-message" className="typography-label-strong-sm">
                   {messageContent}
                 </div>
-                {actionSlot}
+                {actionSlots.length > 0 && (
+                  // Several actions stay one group at the end of the line, 8px
+                  // apart like InlineAlert's actions.
+                  <div className="gap-ws-5 flex shrink-0 items-center">{actionSlots}</div>
+                )}
               </div>
               <div className="ml-auto flex items-center leading-0">
                 {iconActionSlots}
