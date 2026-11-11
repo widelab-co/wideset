@@ -20,7 +20,7 @@ const getInitialMonth = (props: CalendarProps, defaultMonth?: Date): Date => {
     return startOfMonth(props.selected);
   }
 
-  return new Date();
+  return startOfMonth(props.today ?? new Date());
 };
 
 const Calendar = ({

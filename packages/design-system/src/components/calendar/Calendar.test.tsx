@@ -215,6 +215,12 @@ describe('Calendar', () => {
 
       expect(screen.getByLabelText('Select month')).toHaveTextContent('Jan');
     });
+
+    it('should open on the month of today when nothing is selected', () => {
+      render(<Calendar mode="single" today={new Date(2024, 0, 10)} />);
+
+      expect(screen.getByRole('grid', { name: 'January 2024' })).toBeInTheDocument();
+    });
   });
 });
 
