@@ -400,7 +400,10 @@ function FilesPage() {
 
   return (
     <div className={cn(COLUMN, 'gap-ws-12 pt-ws-14 pb-ws-16 flex flex-col')}>
-      <PageHeader onUpload={browse} />
+      <PageHeader
+        onUpload={browse}
+        quiet={Boolean(folderDialog?.open || nameDialog?.open || emptying)}
+      />
       <input
         ref={picker}
         type="file"
@@ -470,7 +473,7 @@ function FilesPage() {
           >
             {content}
             {dragging && rows.length > 0 && (
-              <div className="bg-ws-static-foreground absolute inset-0 z-10 flex">
+              <div className="bg-ws-static-foreground inset-ws-0 absolute z-10 flex">
                 <FileUpload
                   isDragActive
                   onBrowse={browse}

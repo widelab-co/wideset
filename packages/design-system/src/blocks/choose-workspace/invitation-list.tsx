@@ -28,13 +28,18 @@ export function InvitationList({ invitations, onAccept, onDecline }: InvitationL
 
   return (
     <section aria-labelledby={id} className="gap-ws-7 flex flex-col">
-      <h2 id={id} className="typography-body-md text-ws-static-subtle">
+      <h2 id={id} className="typography-label-strong-md text-ws-static-strong">
         Invitations
       </h2>
       <ul className="gap-ws-5 flex flex-col">
         {invitations.map((invitation) => (
           <li key={invitation.id} className={BOX}>
-            <Avatar aria-hidden="true" shape="square" initials={invitation.initials} />
+            <Avatar
+              aria-hidden="true"
+              shape="square"
+              initials={invitation.initials}
+              color={invitation.color}
+            />
             <div className="gap-ws-3 flex min-w-[8rem] flex-1 flex-col">
               <p className="typography-label-strong-sm text-ws-static-strong truncate">
                 {invitation.name}

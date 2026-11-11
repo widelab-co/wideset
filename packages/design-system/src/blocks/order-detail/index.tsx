@@ -36,6 +36,7 @@ function OrderPage() {
       <OrderHeader
         status={status}
         onRefund={refunded < total ? () => setRefunding(true) : undefined}
+        quiet={refunding}
       />
 
       <div className="gap-ws-16 grid grid-cols-1 items-start lg:grid-cols-[minmax(0,1fr)_18rem]">

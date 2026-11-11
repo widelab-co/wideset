@@ -24,7 +24,7 @@ export function AccountList({ accounts, busy, onContinue }: AccountListProps) {
         return (
           <li key={account.id}>
             <ActionTile aria-busy={opening || undefined} onClick={() => onContinue(account)}>
-              <Avatar aria-hidden="true" initials={account.initials} />
+              <Avatar aria-hidden="true" initials={account.initials} color={account.color} />
               <div className="gap-ws-3 flex min-w-0 flex-1 flex-col">
                 <ActionTile.Title className="truncate">
                   <span className="sr-only">Continue as </span>

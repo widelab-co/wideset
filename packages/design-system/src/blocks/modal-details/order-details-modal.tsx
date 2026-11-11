@@ -17,9 +17,9 @@ type OrderDetailsModalProps = {
   onNext?: () => void;
 };
 
-/** The tabs whose panel is a list of facts; Order History, the first tab, is the timeline. */
+/** The tabs whose panel is a list of facts; Order history, the first tab, is the timeline. */
 const FACT_TABS = [
-  { value: 'item', label: 'Item Details' },
+  { value: 'item', label: 'Item details' },
   { value: 'courier', label: 'Courier' },
   { value: 'receiver', label: 'Receiver' },
 ] as const;
@@ -65,7 +65,7 @@ export function OrderDetailsModal({
               </div>
             </div>
             <div className="gap-ws-5 flex">
-              <Button size="sm">Print Details</Button>
+              <Button size="sm">Print details</Button>
               <Button size="sm" variant="secondary" preset="border">
                 Confirmation
               </Button>
@@ -86,7 +86,7 @@ export function OrderDetailsModal({
             <div className="border-ws-static-base px-ws-11 pt-ws-1 border-b">
               <Tabs.List aria-label="Order sections">
                 <Tabs.Item value="history">
-                  <Tabs.Label>Order History</Tabs.Label>
+                  <Tabs.Label>Order history</Tabs.Label>
                 </Tabs.Item>
                 {FACT_TABS.map((tab) => (
                   <Tabs.Item key={tab.value} value={tab.value}>

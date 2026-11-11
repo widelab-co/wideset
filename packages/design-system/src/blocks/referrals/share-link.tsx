@@ -10,9 +10,18 @@ const COPIED_FOR = 2000;
 /**
  * The referral link, read-only, beside the page's one filled button: copying it is the quickest
  * way to share. The button answers in place, saying "Copied" for a moment, so nothing else on the
- * page moves; a status line says the same to a screen reader.
+ * page moves; a status line says the same to a screen reader. While a dialog holds the filled
+ * button, Copy steps back to a bordered one (`quiet`), so the screen keeps one.
  */
-export function ShareLink({ link, className }: { link: string; className?: string }) {
+export function ShareLink({
+  link,
+  quiet,
+  className,
+}: {
+  link: string;
+  quiet?: boolean;
+  className?: string;
+}) {
   const id = useId();
   const [copied, setCopied] = useState(false);
 
@@ -43,7 +52,13 @@ export function ShareLink({ link, className }: { link: string; className?: strin
         action={
           <>
             {/* The width holds both labels, so the field beside the button does not jump. */}
-            <Button size="sm" className="w-[5.75rem] shrink-0" onClick={copy}>
+            <Button
+              size="sm"
+              variant={quiet ? 'secondary' : 'primary'}
+              preset={quiet ? 'border' : 'filled'}
+              className="w-[5.75rem] shrink-0"
+              onClick={copy}
+            >
               <Button.Icon icon={copied ? RiCheckLine : RiFileCopyLine} />
               {copied ? 'Copied' : 'Copy'}
             </Button>

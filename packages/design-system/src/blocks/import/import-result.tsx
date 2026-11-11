@@ -10,6 +10,8 @@ type ImportResultProps = {
   id: string;
   result: { added: number; updated: number; skipped: number };
   onImportAnother: () => void;
+  /** A dialog holds the filled button: View customers steps back to a bordered one. */
+  quiet?: boolean;
 };
 
 /**
@@ -17,7 +19,7 @@ type ImportResultProps = {
  * colour on it, since a finished import is good news; what came in, as the same figures the review
  * promised; and the two ways on, to the customers or to another file.
  */
-export function ImportResult({ id, result, onImportAnother }: ImportResultProps) {
+export function ImportResult({ id, result, onImportAnother, quiet }: ImportResultProps) {
   return (
     <section aria-labelledby={id} className="gap-ws-12 flex flex-col">
       <div className="gap-ws-7 flex flex-col">
@@ -38,7 +40,12 @@ export function ImportResult({ id, result, onImportAnother }: ImportResultProps)
       </div>
       <OutcomeFigures {...result} />
       <div className="gap-ws-5 flex">
-        <Button size="sm" asChild>
+        <Button
+          size="sm"
+          variant={quiet ? 'secondary' : 'primary'}
+          preset={quiet ? 'border' : 'filled'}
+          asChild
+        >
           <a href="#customers">
             <span className="px-ws-2">View customers</span>
           </a>

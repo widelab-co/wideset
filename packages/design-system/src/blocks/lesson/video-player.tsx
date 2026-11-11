@@ -67,7 +67,7 @@ export function VideoPlayer({ title, playback, chapters, captions }: VideoPlayer
         {!playing && (
           <span
             aria-hidden="true"
-            className="bg-ws-static-inverse-background group-hover:bg-ws-static-inverse-foreground text-ws-static-inverse-strong rounded-ws-control-full size-ws-20 absolute inset-0 m-auto flex items-center justify-center"
+            className="bg-ws-static-inverse-background group-hover:bg-ws-static-inverse-foreground text-ws-static-inverse-strong rounded-ws-control-full size-ws-20 inset-ws-0 absolute m-auto flex items-center justify-center"
           >
             <RiPlayFill className="size-ws-14" />
           </span>

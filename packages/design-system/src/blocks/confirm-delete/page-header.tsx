@@ -4,7 +4,10 @@ import { Button } from '@wideset/react';
 
 import { workspace } from './data';
 
-/** The page's title, one line saying what the list holds, and New report: its one filled button. */
+/**
+ * The page's title, one line saying what the list holds, and New report. New report is a
+ * secondary button here: the delete dialog over the page carries the screen's one filled button.
+ */
 export function PageHeader() {
   return (
     <header className="gap-ws-12 flex flex-wrap items-center justify-between">
@@ -14,7 +17,7 @@ export function PageHeader() {
           Saved reports and the folders that hold them, shared across {workspace.name}.
         </p>
       </div>
-      <Button size="sm">
+      <Button size="sm" variant="secondary" preset="border">
         <Button.Icon icon={RiAddLine} />
         New report
       </Button>

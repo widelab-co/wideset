@@ -1,3 +1,4 @@
+// TODO(custom): a folder tree to pick from, as indented radio buttons; Wideset has no tree or tree picker.
 import { Button, cn, Modal, RadioButton, RadioButtonGroup } from '@wideset/react';
 import { useState } from 'react';
 

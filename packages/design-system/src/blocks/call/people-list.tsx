@@ -23,9 +23,9 @@ export function PeopleList({ people, onMute, onMuteAll }: PeopleListProps) {
   return (
     <section aria-labelledby={id} className="gap-ws-7 p-ws-9 flex flex-col">
       <div className="gap-ws-5 flex items-center justify-between">
-        <h3 id={id} className="typography-label-strong-sm text-ws-static-strong">
+        <h2 id={id} className="typography-label-strong-md text-ws-static-strong">
           On the call
-        </h3>
+        </h2>
         <Button
           variant="secondary"
           preset="border"

@@ -5,9 +5,9 @@ import { useId } from 'react';
 import { topics } from './data';
 
 /**
- * The topics as outlined tiles, each one link: its name, what it covers, and how many articles it
- * holds, written out because here the number is content, not a status. The tiles go somewhere,
- * so each ends in an arrow; no icon badges, which would add a colour per tile.
+ * The topics as outlined tiles, each one link: its name and what it covers. No article count:
+ * the page is for finding an answer, not for counting. The tiles go somewhere, so each ends in
+ * an arrow; no icon badges, which would add a colour per tile.
  */
 export function TopicGrid() {
   const id = useId();
@@ -24,9 +24,6 @@ export function TopicGrid() {
               <div className="gap-ws-3 flex min-w-0 flex-1 flex-col">
                 <ActionTile.Title>{topic.title}</ActionTile.Title>
                 <ActionTile.Description>{topic.summary}</ActionTile.Description>
-                <span className="mt-ws-3 typography-caption-md text-ws-static-subtle tabular-nums">
-                  {topic.articles} articles
-                </span>
               </div>
               <ActionTile.Icon icon={RiArrowRightLine} />
             </ActionTile>

@@ -43,6 +43,7 @@ export function DetailsForm({ initial, onBack, onBook }: DetailsFormProps) {
       >
         <Textarea
           id={agendaId}
+          size="sm"
           rows={4}
           required
           value={agenda}
@@ -70,6 +71,7 @@ export function DetailsForm({ initial, onBack, onBook }: DetailsFormProps) {
       <FormField label={`Note to ${firstName}`} htmlFor={noteId} suffix="Optional">
         <Textarea
           id={noteId}
+          size="sm"
           rows={3}
           placeholder="Anything she should bring or read first"
           value={note}

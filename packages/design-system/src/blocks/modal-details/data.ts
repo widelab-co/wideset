@@ -48,31 +48,31 @@ export const orders: Order[] = [
     facts: [
       { label: 'Item', value: 'Halo Desk Lamp, Sand' },
       { label: 'Courier', value: 'Northline, I. Sorensen' },
-      { label: 'Start time', value: '11 Sep 2026, 09:12:48' },
+      { label: 'Start time', value: 'Sep 11, 2026, 9:12:48 AM' },
       { label: 'Address', value: '208 Juniper Row, Alderbrook, Oregon 97035' },
     ],
     history: [
       {
         id: 'delivered',
-        title: 'Order Delivered',
-        at: '12/09/2026 2:41 pm',
+        title: 'Order delivered',
+        at: 'Sep 12, 2026, 2:41 PM',
         text: 'The parcel was handed to the receiver and signed for.',
         details: [{ label: 'Signed by', value: 'Dana Whitfield' }],
       },
       {
         id: 'shipped',
-        title: 'Product Shipped',
-        at: '11/09/2026 4:05 pm',
+        title: 'Product shipped',
+        at: 'Sep 11, 2026, 4:05 PM',
         text: 'The product was handed over to the courier for delivery.',
         details: [
-          { label: 'Courier Service', value: 'Northline, I. Sorensen' },
-          { label: 'Estimated Delivery Date', value: '12/09/2026' },
+          { label: 'Courier service', value: 'Northline, I. Sorensen' },
+          { label: 'Estimated delivery', value: 'Sep 12, 2026' },
         ],
       },
       {
         id: 'placed',
-        title: 'Order Placed',
-        at: '11/09/2026 9:12 am',
+        title: 'Order placed',
+        at: 'Sep 11, 2026, 9:12 AM',
         text: 'Customer placed an order for a Halo Desk Lamp.',
         details: [
           { label: 'Product', value: 'Halo Desk Lamp, Sand' },
@@ -90,7 +90,7 @@ export const orders: Order[] = [
       { label: 'Service', value: 'Northline Standard' },
       { label: 'Courier', value: 'I. Sorensen' },
       { label: 'Tracking number', value: '3409-4934-4198' },
-      { label: 'Delivered', value: '12/09/2026' },
+      { label: 'Delivered', value: 'Sep 12, 2026' },
     ],
     receiver: [
       { label: 'Name', value: 'Dana Whitfield' },
@@ -106,24 +106,24 @@ export const orders: Order[] = [
     facts: [
       { label: 'Item', value: 'Aria Wireless Headphones' },
       { label: 'Courier', value: 'Northline, R. Tanaka' },
-      { label: 'Start time', value: '13 Sep 2026, 15:43:23' },
+      { label: 'Start time', value: 'Sep 13, 2026, 3:43:23 PM' },
       { label: 'Address', value: '4517 Larkspur Avenue, Maplewood, Kentucky 39495' },
     ],
     history: [
       {
         id: 'shipped',
-        title: 'Product Shipped',
-        at: '13/09/2026 5:23 pm',
+        title: 'Product shipped',
+        at: 'Sep 13, 2026, 5:23 PM',
         text: 'The product was handed over to the courier for delivery.',
         details: [
-          { label: 'Courier Service', value: 'Northline, R. Tanaka' },
-          { label: 'Estimated Delivery Date', value: '15/09/2026' },
+          { label: 'Courier service', value: 'Northline, R. Tanaka' },
+          { label: 'Estimated delivery', value: 'Sep 15, 2026' },
         ],
       },
       {
         id: 'packaging',
-        title: 'Product Packaging',
-        at: '13/09/2026 4:13 pm',
+        title: 'Product packaging',
+        at: 'Sep 13, 2026, 4:13 PM',
         text: 'The Aria headphones were carefully packaged and prepared for shipment.',
         details: [
           { label: 'Tracking number', value: '3409-4934-4253' },
@@ -132,14 +132,14 @@ export const orders: Order[] = [
       },
       {
         id: 'confirmed',
-        title: 'Order Confirmed',
-        at: '13/09/2026 3:53 pm',
-        text: 'The order was confirmed and the payment was processed at 3:51 pm.',
+        title: 'Order confirmed',
+        at: 'Sep 13, 2026, 3:53 PM',
+        text: 'The order was confirmed and the payment was processed at 3:51 PM.',
       },
       {
         id: 'placed',
-        title: 'Order Placed',
-        at: '13/09/2026 3:43 pm',
+        title: 'Order placed',
+        at: 'Sep 13, 2026, 3:43 PM',
         text: 'Customer placed an order for Aria Wireless Headphones.',
         details: [
           { label: 'Product', value: 'Aria Wireless Headphones' },
@@ -157,7 +157,7 @@ export const orders: Order[] = [
       { label: 'Service', value: 'Northline Express' },
       { label: 'Courier', value: 'R. Tanaka' },
       { label: 'Tracking number', value: '3409-4934-4253' },
-      { label: 'Estimated delivery', value: '15/09/2026' },
+      { label: 'Estimated delivery', value: 'Sep 15, 2026' },
     ],
     receiver: [
       { label: 'Name', value: 'Jonah Reyes' },
@@ -173,20 +173,20 @@ export const orders: Order[] = [
     facts: [
       { label: 'Item', value: 'Canvas Tote Bag, Ink' },
       { label: 'Courier', value: 'Not assigned yet' },
-      { label: 'Start time', value: '13 Sep 2026, 18:02:10' },
+      { label: 'Start time', value: 'Sep 13, 2026, 6:02:10 PM' },
       { label: 'Address', value: '77 Quarry Street, Fernhill, Vermont 05488' },
     ],
     history: [
       {
         id: 'confirmed',
-        title: 'Order Confirmed',
-        at: '13/09/2026 6:04 pm',
-        text: 'The order was confirmed and the payment was processed at 6:03 pm.',
+        title: 'Order confirmed',
+        at: 'Sep 13, 2026, 6:04 PM',
+        text: 'The order was confirmed and the payment was processed at 6:03 PM.',
       },
       {
         id: 'placed',
-        title: 'Order Placed',
-        at: '13/09/2026 6:02 pm',
+        title: 'Order placed',
+        at: 'Sep 13, 2026, 6:02 PM',
         text: 'Customer placed an order for two Canvas Tote Bags.',
         details: [
           { label: 'Product', value: 'Canvas Tote Bag, Ink' },
@@ -204,7 +204,7 @@ export const orders: Order[] = [
       { label: 'Service', value: 'Northline Standard' },
       { label: 'Courier', value: 'Not assigned yet' },
       { label: 'Tracking number', value: 'Not issued yet' },
-      { label: 'Estimated delivery', value: '16/09/2026' },
+      { label: 'Estimated delivery', value: 'Sep 16, 2026' },
     ],
     receiver: [
       { label: 'Name', value: 'Priya Lindqvist' },

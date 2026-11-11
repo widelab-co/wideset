@@ -91,6 +91,7 @@ function GoalsPage() {
             <PageHeader
               summary={`The sales team’s goals for ${QUARTER.label}, ${formatRange(QUARTER.from, QUARTER.to)}. ${formatCount(daysLeft)} days left.`}
               onNewGoal={() => setAdding(true)}
+              quiet={adding}
             />
 
             <div className="gap-ws-16 flex flex-col">

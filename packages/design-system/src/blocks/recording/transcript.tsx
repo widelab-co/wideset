@@ -39,7 +39,9 @@ export function Transcript({ lines, time, playing, onSeek }: TranscriptProps) {
     const list = listRef.current;
     const row = list?.querySelector<HTMLElement>('[aria-current="true"]');
     if (!playing || needle || !list || !row) return;
-    const smooth = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const smooth =
+      typeof window.matchMedia === 'function' &&
+      !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     // Keep the spoken line a third of the way down, so what comes next is in view.
     list.scrollTo({
       top: row.offsetTop - list.clientHeight / 3,

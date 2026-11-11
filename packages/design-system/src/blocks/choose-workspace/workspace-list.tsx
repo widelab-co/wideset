@@ -39,7 +39,12 @@ export function WorkspaceList({
               aria-busy={opening || undefined}
               onClick={() => onChoose(workspace)}
             >
-              <Avatar aria-hidden="true" shape="square" initials={workspace.initials} />
+              <Avatar
+                aria-hidden="true"
+                shape="square"
+                initials={workspace.initials}
+                color={workspace.color}
+              />
               <div className="gap-ws-3 flex min-w-0 flex-1 flex-col">
                 <ActionTile.Title className="truncate">{workspace.name}</ActionTile.Title>
                 <ActionTile.Description className="truncate">

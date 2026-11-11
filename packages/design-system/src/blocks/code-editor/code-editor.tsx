@@ -159,7 +159,7 @@ export function CodeEditor({ file, value, onChange, problems, reveal }: CodeEdit
           aria-hidden="true"
           className={cn(
             CODE,
-            'bg-ws-static-foreground py-ws-5 pl-ws-9 pr-ws-3 z-ws-base sticky left-0 text-right tabular-nums select-none',
+            'bg-ws-static-foreground py-ws-5 pl-ws-9 pr-ws-3 z-ws-base left-ws-0 sticky text-right tabular-nums select-none',
           )}
         >
           {lines.map((_, index) => (
@@ -216,7 +216,7 @@ export function CodeEditor({ file, value, onChange, problems, reveal }: CodeEdit
             className={cn(
               CODE,
               PAD,
-              'absolute inset-0 resize-none overflow-hidden border-0 bg-transparent text-transparent caret-(--ws-static-text-strong) outline-hidden',
+              'inset-ws-0 absolute resize-none overflow-hidden border-0 bg-transparent text-transparent caret-(--ws-static-text-strong) outline-hidden',
             )}
           />
           <p id={hintId} className="sr-only">

@@ -41,7 +41,7 @@ function Page({ table }: { table?: boolean }) {
     <div
       className={cn(
         PAGE,
-        'rounded-t-ws-control-md gap-ws-5 px-ws-7 pt-ws-7 absolute inset-x-[22%] top-[18%] bottom-0 flex flex-col border-b-0',
+        'rounded-t-ws-control-md gap-ws-5 px-ws-7 pt-ws-7 bottom-ws-0 absolute inset-x-[22%] top-[18%] flex flex-col border-b-0',
       )}
     >
       <div className={cn(LINE, 'h-ws-3 w-1/2')} />
@@ -94,7 +94,7 @@ function Slide() {
 /** A waveform across the middle: what a call recording looks like before it plays. */
 function Wave() {
   return (
-    <div className="gap-ws-3 absolute inset-0 flex items-center justify-center">
+    <div className="gap-ws-3 inset-ws-0 absolute flex items-center justify-center">
       {WAVE.map((height, bar) => (
         <div key={bar} className={cn('bg-ws-static-alpha-strong w-ws-3 rounded-full', height)} />
       ))}

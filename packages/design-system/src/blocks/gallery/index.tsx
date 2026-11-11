@@ -256,6 +256,7 @@ function GalleryPage() {
           onSaveChange={(on) => setSavedOne(panelTemplate.id, on)}
           onAdd={() => setAdded((all) => [...all, panelTemplate.id])}
           onToggleCollection={(target) => toggleInCollection(target, panelTemplate.id)}
+          quiet={naming?.open}
           onNewCollection={() =>
             setNaming({ key: ++opened.current, open: true, templateId: panelTemplate.id })
           }

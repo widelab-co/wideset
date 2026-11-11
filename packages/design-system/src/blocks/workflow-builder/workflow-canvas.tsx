@@ -62,7 +62,7 @@ export function WorkflowCanvas({
 
   return (
     <div className="relative min-h-0 min-w-0 flex-1">
-      <div ref={scrollerRef} className="absolute inset-0 overflow-auto">
+      <div ref={scrollerRef} className="inset-ws-0 absolute overflow-auto">
         <div className="p-ws-14 flex w-max min-w-full justify-center">
           <div ref={flowRef} className={ZOOMS[zoom].className}>
             <FlowSequence

@@ -1,3 +1,4 @@
+// TODO(custom): page header for a confirmation (a status mark, the title, one line); no PageHeader in Wideset.
 import { RiCheckLine } from '@remixicon/react';
 import { StatusBadge } from '@wideset/react';
 

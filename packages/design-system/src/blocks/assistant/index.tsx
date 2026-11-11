@@ -1,5 +1,5 @@
 import { RiSideBarLine } from '@remixicon/react';
-import { Avatar, Breadcrumbs, IconButton } from '@wideset/react';
+import { Avatar, Breadcrumbs, cn, IconButton } from '@wideset/react';
 import { useId, useState } from 'react';
 
 import { ActivityTimeline } from './activity-timeline';
@@ -12,6 +12,12 @@ import { NextSteps } from './next-steps';
 import { RecordHeader } from './record-header';
 import { Section } from './section';
 import { AssistantSidebar } from './sidebar';
+
+/**
+ * The record's column: the canonical one, but 60rem wide, not 80rem, since the 26rem assistant
+ * already takes the rest of the card and a wider record would only stretch its lines.
+ */
+const COLUMN = 'px-ws-14 mx-auto w-full max-w-[60rem]';
 
 /**
  * Assistant (Inset direction): the Halcyon Freight renewal deal on the raised page beside the
@@ -74,7 +80,7 @@ export default function Assistant() {
         {/* The record scrolls on its own; the assistant beside it keeps its composer in reach. */}
         <div className="flex min-h-0 flex-1">
           <div className="min-w-0 flex-1 overflow-y-auto">
-            <div className="gap-ws-14 px-ws-14 pt-ws-14 pb-ws-16 mx-auto flex w-full max-w-[60rem] flex-col">
+            <div className={cn(COLUMN, 'gap-ws-14 pt-ws-14 pb-ws-16 flex flex-col')}>
               <RecordHeader />
 
               <dl className="gap-ws-9 grid grid-cols-4">

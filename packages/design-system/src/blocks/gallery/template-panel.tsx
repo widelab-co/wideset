@@ -44,6 +44,8 @@ type TemplatePanelProps = {
   onAdd: () => void;
   onToggleCollection: (collection: Collection) => void;
   onNewCollection: () => void;
+  /** A dialog over the panel holds the filled button: Add steps back to a bordered one. */
+  quiet?: boolean;
 };
 
 /**
@@ -63,6 +65,7 @@ export function TemplatePanel({
   onAdd,
   onToggleCollection,
   onNewCollection,
+  quiet,
 }: TemplatePanelProps) {
   const insideId = useId();
   const usersId = useId();
@@ -216,7 +219,11 @@ export function TemplatePanel({
                 </Button>
               </>
             ) : (
-              <Button onClick={onAdd}>
+              <Button
+                variant={quiet ? 'secondary' : 'primary'}
+                preset={quiet ? 'border' : 'filled'}
+                onClick={onAdd}
+              >
                 <Button.Icon icon={RiAddLine} />
                 Add to workspace
               </Button>

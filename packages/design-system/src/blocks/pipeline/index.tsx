@@ -61,6 +61,7 @@ function PipelinePage() {
     <div className={cn(COLUMN, 'gap-ws-12 pt-ws-14 pb-ws-12 flex min-h-0 flex-1 flex-col')}>
       <PageHeader
         summary={summary}
+        quiet={adding.open}
         onNewDeal={() => setAdding({ stage: 'qualified', open: true })}
       />
       <div className="gap-ws-11 flex min-h-0 flex-1 flex-col">

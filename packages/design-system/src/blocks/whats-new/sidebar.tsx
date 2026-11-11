@@ -130,7 +130,7 @@ export function HomeSidebar({
         <div className="gap-ws-9 flex flex-col">
           <div className="flex flex-col">
             <Sidebar.Item asChild icon={whatsNewLink.icon} label={whatsNewLink.label}>
-              <button type="button" onClick={onWhatsNew} />
+              <button type="button" aria-haspopup="dialog" onClick={onWhatsNew} />
             </Sidebar.Item>
             {link(helpLink)}
           </div>

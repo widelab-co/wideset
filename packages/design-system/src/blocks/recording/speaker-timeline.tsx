@@ -66,7 +66,7 @@ export function SpeakerTimeline({
           onKeyDown={onKeyDown}
           aria-label="Seek"
           aria-valuetext={`${formatSpoken(time)} of ${formatSpoken(duration)}`}
-          className="peer absolute inset-0 h-full w-full cursor-pointer opacity-0"
+          className="peer inset-ws-0 absolute h-full w-full cursor-pointer opacity-0"
         />
         <span className="rounded-ws-control-sm peer-focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default flex">
           <svg aria-hidden="true" width="100%" height={height} className="overflow-visible">

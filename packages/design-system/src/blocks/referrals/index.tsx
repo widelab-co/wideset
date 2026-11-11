@@ -63,7 +63,7 @@ function ReferralsPage() {
       <PageHeader />
 
       <div className="grid grid-cols-2 items-start">
-        <ShareLink link={programme.link} className="pr-ws-9" />
+        <ShareLink link={programme.link} quiet={redeeming} className="pr-ws-9" />
         <InviteByEmail
           className="pl-ws-9"
           taken={[account.email, ...invited.map((referral) => referral.email)]}

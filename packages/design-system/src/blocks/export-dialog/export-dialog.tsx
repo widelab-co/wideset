@@ -11,7 +11,6 @@ import {
   ProgressBar,
   RadioButton,
   RadioButtonGroup,
-  SegmentedControl,
 } from '@wideset/react';
 import { useEffect, useId, useState } from 'react';
 
@@ -242,19 +241,19 @@ export function ExportDialog({
                 </div>
               </FormField>
 
-              <FormField label="Format" id={`${id}-format`}>
-                <SegmentedControl
+              {/* Radios, not a segmented control: the format is sent with the form, and three
+                  short options sit in one row. */}
+              <FormField label="Format" id={`${id}-format`} WrapperComponent="fieldset">
+                <RadioButtonGroup
+                  orientation="horizontal"
                   aria-labelledby={`${id}-format`}
                   value={format}
                   onValueChange={(value) => setFormat(value as Format)}
-                  className="self-start"
                 >
                   {FORMATS.map((item) => (
-                    <SegmentedControl.Item key={item.value} value={item.value}>
-                      {item.label}
-                    </SegmentedControl.Item>
+                    <RadioButton key={item.value} value={item.value} label={item.label} />
                   ))}
-                </SegmentedControl>
+                </RadioButtonGroup>
               </FormField>
             </Modal.Body>
             <Modal.Footer>

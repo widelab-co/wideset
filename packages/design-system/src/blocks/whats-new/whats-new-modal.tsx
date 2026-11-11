@@ -17,7 +17,7 @@ type WhatsNewModalProps = {
  * What's new, read like release notes: the latest update in full (a sketch of it, the day it
  * shipped, what it does and why), then Try it, the modal's one filled button, and a quiet Read
  * more. Under a line, the earlier updates as a list of day, title and one line, each opening in
- * place for the rest. The footer holds only the choice to stop these opening on load; the X and
+ * place for the rest. The footer holds only the choice to keep these opening on load; the X and
  * Esc close it. No colour, no illustration: the sketch is grey and the words carry it.
  */
 export function WhatsNewModal({ open, onOpenChange, muted, onMutedChange }: WhatsNewModalProps) {
@@ -93,11 +93,12 @@ export function WhatsNewModal({ open, onOpenChange, muted, onMutedChange }: What
           </section>
         </Modal.Body>
         <Modal.Footer className="justify-start">
+          {/* Said in the positive (the checkbox spec): on means they keep opening on load. */}
           <Checkbox
             size="sm"
-            label="Don’t show updates like this"
-            checked={muted}
-            onCheckedChange={(checked) => onMutedChange(checked === true)}
+            label="Show updates like this"
+            checked={!muted}
+            onCheckedChange={(checked) => onMutedChange(checked !== true)}
           />
         </Modal.Footer>
       </Modal.Content>

@@ -1,15 +1,8 @@
-import {
-  RiArrowDownSLine,
-  RiArrowLeftLine,
-  RiArrowUpSLine,
-  RiFileLine,
-  RiSearchLine,
-  RiUserLine,
-} from '@remixicon/react';
+import { RiFileLine, RiSearchLine, RiUserLine } from '@remixicon/react';
 import { Button, Modal, Tabs, TextInput } from '@wideset/react';
 import { type KeyboardEvent, useId, useRef, useState } from 'react';
 
-import { Hint, Key } from './keyboard-hints';
+import { KeyboardHints } from './keyboard-hints';
 import { type SearchResult, SearchResultRow } from './search-result';
 
 type Scope = 'all' | 'files' | 'people';
@@ -182,21 +175,8 @@ export function SearchModal({
           </Tabs.Content>
         </Tabs>
 
-        <Modal.Footer variant="extension">
-          <div className="gap-ws-12 flex items-center">
-            <Hint
-              keys={
-                <span className="gap-ws-3 flex">
-                  <Key icon={RiArrowUpSLine} name="Up arrow" />
-                  <Key icon={RiArrowDownSLine} name="Down arrow" />
-                </span>
-              }
-            >
-              Navigate
-            </Hint>
-            <Hint keys={<Key icon={RiArrowLeftLine} name="Left arrow" />}>Return to parent</Hint>
-          </div>
-          <Hint keys={<Key>esc</Key>}>Close</Hint>
+        <Modal.Footer variant="extension" className="items-center">
+          <KeyboardHints />
         </Modal.Footer>
       </Modal.Content>
     </Modal>

@@ -108,6 +108,7 @@ function EditorPage() {
         onPickVersion={setRestoring}
         onRun={startRun}
         onSave={save}
+        quiet={restoring !== undefined}
       />
 
       <div className="gap-ws-16 grid min-h-0 flex-1 grid-cols-1 md:grid-cols-[13rem_minmax(0,1fr)]">

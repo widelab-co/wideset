@@ -1,8 +1,7 @@
-import { FormField, TextInput } from '@wideset/react';
+import { Checkbox, FormField, TextInput } from '@wideset/react';
 
 import type { ProductDraft } from './data';
 import { FormSection } from './form-section';
-import { SwitchRow } from './switch-row';
 
 type InventorySectionProps = {
   id: string;
@@ -55,11 +54,13 @@ export function InventorySection({ id, draft, onChange }: InventorySectionProps)
           </TextInput>
         </FormField>
       </div>
-      <SwitchRow
+      {/* Sent with the form, so a checkbox: a switch would promise it applies at once. */}
+      <Checkbox
+        size="sm"
         label="Track stock"
         description="Orbit stops selling a variant once none are left."
         checked={draft.trackStock}
-        onCheckedChange={(trackStock) => onChange({ trackStock })}
+        onCheckedChange={(on) => onChange({ trackStock: on === true })}
       />
     </FormSection>
   );

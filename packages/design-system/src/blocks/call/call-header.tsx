@@ -44,7 +44,7 @@ export function CallHeader({ elapsed, recording, count }: CallHeaderProps) {
           <span className="gap-ws-3 flex items-center">
             <span
               aria-hidden="true"
-              className="size-ws-5 rounded-ws-control-full bg-ws-dynamic-danger-default"
+              className="size-ws-5 rounded-ws-control-full bg-ws-semantic-inverse-negative"
             />
             Recording
           </span>

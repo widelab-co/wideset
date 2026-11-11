@@ -145,7 +145,7 @@ export function AppPanel({
               <div className="gap-ws-5 ml-auto flex">
                 {expired ? (
                   <Button size="sm" onClick={() => onSyncChange(true)}>
-                    Reconnect {app.name}
+                    {`Reconnect ${app.name}`}
                   </Button>
                 ) : (
                   <Sidepanel.Close asChild>
@@ -164,7 +164,7 @@ export function AppPanel({
                 </Button>
               </Sidepanel.Close>
               <Button size="sm" onClick={onConnect}>
-                Connect {app.name}
+                {`Connect ${app.name}`}
               </Button>
             </div>
           )}

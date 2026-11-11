@@ -62,7 +62,7 @@ export function OrderSummary({
   return (
     <Card role="region" aria-labelledby={titleId}>
       <Card.Header>
-        <h2 id={titleId} className="typography-subtitle-xs text-ws-static-strong">
+        <h2 id={titleId} className="typography-label-strong-md text-ws-static-strong">
           Summary
         </h2>
       </Card.Header>

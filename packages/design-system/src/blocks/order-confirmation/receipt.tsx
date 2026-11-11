@@ -33,7 +33,8 @@ export function Receipt() {
           </Card.Action>
         </div>
       </Card.Header>
-      <Card.Content>
+      {/* Card.Content keeps 10px free on its right for a scrollbar: the padding gives it back. */}
+      <Card.Content contentClassName="pr-ws-6">
         <div className="gap-ws-11 flex flex-col">
           <dl className="gap-ws-11 grid grid-cols-2 sm:grid-cols-3">
             <KeyValue label="Order number">{order.number}</KeyValue>

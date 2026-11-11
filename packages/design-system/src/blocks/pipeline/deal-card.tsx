@@ -57,7 +57,7 @@ export function DealCard({
           draggable={false}
           aria-describedby={hintId}
           tabIndex={overlay ? -1 : undefined}
-          className="gap-ws-1 flex min-w-0 flex-1 flex-col outline-none after:absolute after:inset-0"
+          className="gap-ws-1 after:inset-ws-0 flex min-w-0 flex-1 flex-col outline-none after:absolute"
         >
           <span className="typography-label-strong-sm text-ws-static-strong truncate">
             {deal.customer}

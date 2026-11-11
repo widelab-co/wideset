@@ -21,13 +21,13 @@ export const COUNTRIES = [
  * description is the line under that heading.
  */
 export const STEPS = [
-  { title: 'Personal Information', description: 'Your name and how your team reaches you.' },
+  { title: 'Personal information', description: 'Your name and how your team reaches you.' },
   {
-    title: 'Payment Information',
+    title: 'Payment information',
     description: `By providing your card information, you allow ${PRODUCT} to charge your card for future payments in accordance with their terms.`,
   },
   { title: 'Organization', description: 'The workspace your projects live in.' },
-  { title: 'Invite Team', description: 'The people you work with, and what each can do.' },
+  { title: 'Invite team', description: 'The people you work with, and what each can do.' },
   { title: 'Review', description: 'A last look before the account is ready.' },
 ];
 

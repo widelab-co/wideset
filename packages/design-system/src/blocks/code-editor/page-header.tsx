@@ -14,12 +14,15 @@ type PageHeaderProps = {
   onPickVersion: (version: Version) => void;
   onRun: () => void;
   onSave: () => void;
+  quiet?: boolean;
 };
 
 /**
  * The script's name and what it does, then, on the right, whether it is saved, its versions, Run
  * test and Save. Save is the screen's one filled button and is enabled only with changes to save;
- * Ctrl+S or Cmd+S does the same. The save state is announced as it changes.
+ * Ctrl+S or Cmd+S does the same. The save state is announced as it changes. While the restore
+ * dialog holds the filled button, Save steps back to a bordered one (`quiet`), so the screen keeps
+ * one.
  */
 export function PageHeader({
   state,
@@ -29,6 +32,7 @@ export function PageHeader({
   onPickVersion,
   onRun,
   onSave,
+  quiet,
 }: PageHeaderProps) {
   return (
     <header className="gap-ws-12 flex flex-wrap items-center justify-between">
@@ -50,7 +54,14 @@ export function PageHeader({
           <Button.Icon icon={RiPlayLine} />
           {running ? 'Running test…' : 'Run test'}
         </Button>
-        <Button size="sm" disabled={!dirty} aria-keyshortcuts="Control+S Meta+S" onClick={onSave}>
+        <Button
+          size="sm"
+          variant={quiet ? 'secondary' : 'primary'}
+          preset={quiet ? 'border' : 'filled'}
+          disabled={!dirty}
+          aria-keyshortcuts="Control+S Meta+S"
+          onClick={onSave}
+        >
           Save
         </Button>
       </div>

@@ -1,12 +1,13 @@
-// TODO(custom): page header (title, a line of description, the one filled button on the right); no PageHeader in Wideset.
+// TODO(custom): page header (title, a line of description, the actions on the right); no PageHeader in Wideset.
 import { RiUpload2Line } from '@remixicon/react';
 import { Button } from '@wideset/react';
 
 import { FOLDER } from './data';
 
 /**
- * The folder's name, what it holds, and Upload: the page's one filled button. Copied from the
- * Files block, so the folder reads as the same page.
+ * The folder's name, what it holds, and Upload. Copied from the Files block, so the folder reads
+ * as the same page; Upload is a secondary button here, since the viewer over the page carries the
+ * screen's one filled button (Share).
  */
 export function PageHeader() {
   return (
@@ -17,7 +18,7 @@ export function PageHeader() {
           Proposals, pitch decks and pipeline charts for the deals closing this quarter.
         </p>
       </div>
-      <Button size="sm">
+      <Button size="sm" variant="secondary" preset="border">
         <Button.Icon icon={RiUpload2Line} />
         Upload
       </Button>

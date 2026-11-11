@@ -1,3 +1,4 @@
+// TODO(custom): contact channel rows (icon, name, hours and reply time) and a status line; ListItem is a 32px menu row with no room for lines under the name.
 import {
   type RemixiconComponentType,
   RiChat3Line,

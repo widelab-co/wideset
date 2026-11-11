@@ -28,12 +28,24 @@ type Filter = Category | 'all';
  * Copy the one your app uses.
  */
 const SURROUND = {
-  flat: { root: 'bg-ws-static-foreground', sidebar: 'page', main: '' },
-  frame: { root: 'bg-ws-static-foreground', sidebar: 'tinted', main: '' },
+  flat: {
+    root: 'bg-ws-static-foreground',
+    sidebar: 'page',
+    main: '',
+    bar: 'border-ws-static-subtle',
+  },
+  frame: {
+    root: 'bg-ws-static-foreground',
+    sidebar: 'tinted',
+    main: '',
+    bar: 'border-ws-static-subtle',
+  },
+  // On the raised card the bar takes the base line, as every Inset screen does.
   inset: {
     root: 'bg-ws-static-background',
     sidebar: 'frame',
     main: 'bg-ws-static-foreground rounded-ws-container-lg shadow-ws-low my-ws-7 mr-ws-7 ml-ws-5 overflow-hidden',
+    bar: 'border-ws-static-base',
   },
 } as const;
 export type Direction = keyof typeof SURROUND;
@@ -116,7 +128,7 @@ export default function Integrations({ direction = 'flat' }: { direction?: Direc
       <main className={cn(surround.main, 'flex min-w-0 flex-1 flex-col')}>
         {/* The bar belongs to the surround: it runs edge to edge. The sidebar's toggle is pulled
             left so its glyph, not its box, sits 20px from the edge; the crumbs follow it. */}
-        <div className="h-ws-18 border-ws-static-subtle flex shrink-0 items-center border-b">
+        <div className={cn(surround.bar, 'h-ws-18 flex shrink-0 items-center border-b')}>
           <div className="gap-ws-5 px-ws-11 flex w-full items-center">
             <IconButton
               icon={RiSideBarLine}
@@ -186,14 +198,15 @@ export default function Integrations({ direction = 'flat' }: { direction?: Direc
               )}
 
               {noResults && (
-                <EmptyState
-                  title={
-                    category === 'all'
-                      ? `No apps match “${query.trim()}”`
-                      : `No ${categoryLabel} apps match “${query.trim()}”`
-                  }
-                  description="Check the spelling, or tell us which app you need at integrations@orbit.so."
-                  action={
+                <div className="py-ws-20">
+                  <EmptyState
+                    title={
+                      category === 'all'
+                        ? `No apps match “${query.trim()}”`
+                        : `No ${categoryLabel} apps match “${query.trim()}”`
+                    }
+                    description="Check the spelling, or tell us which app you need at integrations@orbit.so."
+                  >
                     <Button
                       size="sm"
                       variant="secondary"
@@ -202,8 +215,8 @@ export default function Integrations({ direction = 'flat' }: { direction?: Direc
                     >
                       {elsewhere ? 'Search all categories' : 'Clear search'}
                     </Button>
-                  }
-                />
+                  </EmptyState>
+                </div>
               )}
             </div>
           </div>

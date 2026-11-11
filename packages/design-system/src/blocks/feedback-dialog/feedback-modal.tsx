@@ -5,7 +5,6 @@ import {
   Modal,
   SegmentedControl,
   Select,
-  Switch,
   Textarea,
 } from '@wideset/react';
 import { type FormEvent, useEffect, useId, useRef, useState } from 'react';
@@ -139,10 +138,11 @@ function FeedbackForm({ page, onSend }: { page: string; onSend: (feedback: Feedb
         </FormField>
 
         <div className="gap-ws-7 flex flex-col">
-          <Switch
+          {/* A checkbox, not a switch: it is sent with the form, not applied at once. */}
+          <Checkbox
             label="Include a screenshot of this page"
             checked={screenshot}
-            onCheckedChange={setScreenshot}
+            onCheckedChange={(checked) => setScreenshot(checked === true)}
           />
           {screenshot && (
             <div className="gap-ws-9 flex items-start">

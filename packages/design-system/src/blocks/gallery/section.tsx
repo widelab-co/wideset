@@ -1,7 +1,7 @@
 // TODO(custom): section title above its content; Wideset has no Section or PageSection.
 import { type ReactNode, useId } from 'react';
 
-/** One part of the order: a 16px title, then what it holds. The title names the region. */
+/** One part of the page: a 16px title, then what it holds. The title names the region. */
 export function Section({ title, children }: { title: string; children: ReactNode }) {
   const id = useId();
 

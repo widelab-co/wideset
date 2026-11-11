@@ -171,7 +171,12 @@ function ImportPage({ collapsed, onToggleSidebar, sidebarId }: PageProps) {
                   <ReviewStep duplicates={duplicates} onDuplicatesChange={setDuplicates} />
                 )}
                 {step === DONE && (
-                  <ImportResult id={resultId} result={imports[0]} onImportAnother={start} />
+                  <ImportResult
+                    id={resultId}
+                    result={imports[0]}
+                    quiet={exportOpen}
+                    onImportAnother={start}
+                  />
                 )}
               </div>
 
@@ -189,7 +194,14 @@ function ImportPage({ collapsed, onToggleSidebar, sidebarId }: PageProps) {
                   >
                     Back
                   </Button>
-                  <Button size="sm" disabled={footer.disabled} onClick={footer.onClick}>
+                  {/* While the export dialog holds the filled button, this one steps back. */}
+                  <Button
+                    size="sm"
+                    variant={exportOpen ? 'secondary' : 'primary'}
+                    preset={exportOpen ? 'border' : 'filled'}
+                    disabled={footer.disabled}
+                    onClick={footer.onClick}
+                  >
                     {footer.label}
                   </Button>
                 </div>

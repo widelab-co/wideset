@@ -36,15 +36,15 @@ export type TaskDetail = {
   notes: string;
 };
 
-const esther: Person = { name: 'Esther Howard', initials: 'EH', color: 'blue' };
-const kathryn: Person = { name: 'Kathryn Murphy', initials: 'KM', color: 'yellow' };
+const priya: Person = { name: 'Priya Raman', initials: 'PR', color: 'blue' };
+const maya: Person = { name: 'Maya Okafor', initials: 'MO', color: 'orange' };
 
 /** The task the modal opens on. */
 export const task: TaskDetail = {
   title: 'Launch social media campaign',
-  due: 'Due date 14/04/2025',
+  due: 'Due Nov 14, 2026',
   private: false,
-  assignee: esther,
+  assignee: priya,
   priority: 'High priority',
   subtasks: [
     {
@@ -65,25 +65,25 @@ export const task: TaskDetail = {
     {
       id: 'completed',
       text: 'Subtask has been completed',
-      date: '15/09/2024',
+      date: 'Nov 9, 2026',
       subtask: {
         title: 'Create campaign content plan',
         reviewers: 2,
-        doneBy: 'Esther',
+        doneBy: 'Priya',
         comments: 3,
       },
     },
     {
       id: 'subtasks-added',
       text: 'Subtasks added by',
-      person: { ...esther, name: 'Esther' },
-      date: '13/09/2024',
+      person: { ...priya, name: 'Priya' },
+      date: 'Nov 6, 2026',
     },
     {
       id: 'created',
       text: 'Task created by',
-      person: { ...kathryn, name: 'Kathryn' },
-      date: '13/09/2024',
+      person: { ...maya, name: 'Maya' },
+      date: 'Nov 6, 2026',
     },
   ],
   notes:

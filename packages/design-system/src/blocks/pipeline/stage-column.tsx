@@ -13,8 +13,8 @@ function DropLine({ edge }: { edge: 'top' | 'bottom' }) {
     <span
       aria-hidden="true"
       className={cn(
-        'h-ws-2 bg-ws-dynamic-primary-default rounded-ws-control-full pointer-events-none absolute inset-x-0',
-        edge === 'top' ? 'top-0 -translate-y-1/2' : 'bottom-0 translate-y-1/2',
+        'h-ws-2 bg-ws-dynamic-primary-default rounded-ws-control-full inset-x-ws-0 pointer-events-none absolute',
+        edge === 'top' ? 'top-ws-0 -translate-y-1/2' : 'bottom-ws-0 translate-y-1/2',
       )}
     />
   );

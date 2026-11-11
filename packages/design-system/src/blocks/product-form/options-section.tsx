@@ -1,10 +1,9 @@
 import { RiAddLine } from '@remixicon/react';
-import { Button } from '@wideset/react';
+import { Button, Checkbox } from '@wideset/react';
 
 import { OPTION_LIMIT, type ProductDraft, variantNames } from './data';
 import { FormSection } from './form-section';
 import { OPTION_GRID, OptionRow } from './option-row';
-import { SwitchRow } from './switch-row';
 import { VariantsTable } from './variants-table';
 
 type OptionsSectionProps = {
@@ -17,7 +16,7 @@ type OptionsSectionProps = {
 const COLUMN_LABEL = 'typography-label-strong-sm text-ws-static-strong';
 
 /**
- * Sizes, colours and other choices. The switch reveals them; each option is a row of values, and
+ * Sizes, colours and other choices. The checkbox reveals them; each option is a row of values, and
  * the variants they make follow underneath, each with its price and stock. Up to three options,
  * as most catalogues allow.
  */
@@ -37,17 +36,19 @@ export function OptionsSection({ id, draft, onChange }: OptionsSectionProps) {
       title="Options"
       description="Sizes, colours or other choices a customer picks from."
     >
-      <SwitchRow
+      <Checkbox
+        size="sm"
         label="This product has options"
         description="Each combination of values becomes a variant with its own price and stock."
         checked={draft.hasOptions}
-        onCheckedChange={(hasOptions) =>
+        onCheckedChange={(on) => {
+          const hasOptions = on === true;
           onChange(
             hasOptions && draft.options.length === 0
               ? { hasOptions, options: [{ id: 'size', name: 'Size', values: [] }] }
               : { hasOptions },
-          )
-        }
+          );
+        }}
       />
 
       {draft.hasOptions && (

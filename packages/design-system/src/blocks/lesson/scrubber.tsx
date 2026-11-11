@@ -34,7 +34,7 @@ export function Scrubber({ time, duration, chapters, onSeek, onKeyDown }: Scrubb
         onKeyDown={onKeyDown}
         aria-label="Seek"
         aria-valuetext={`${formatSpoken(time)} of ${formatSpoken(duration)}, ${chapter?.title}`}
-        className="peer absolute inset-0 w-full cursor-pointer opacity-0"
+        className="peer inset-ws-0 absolute w-full cursor-pointer opacity-0"
       />
       <span className="rounded-ws-control-sm peer-focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default flex w-full">
         <svg aria-hidden="true" className="h-ws-3 w-full overflow-visible">

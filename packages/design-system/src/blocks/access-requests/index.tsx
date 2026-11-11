@@ -116,7 +116,7 @@ function AccessPage() {
 
   return (
     <div className={cn(COLUMN, 'gap-ws-12 pt-ws-14 pb-ws-16 flex flex-col')}>
-      <PageHeader onInvite={() => setInviting(true)} />
+      <PageHeader onInvite={() => setInviting(true)} quiet={inviting || Boolean(blocking?.open)} />
 
       <Tabs value={tab} onValueChange={(value) => setTab(value as Tab)} className="gap-ws-9">
         <Tabs.List aria-label="Access" className="w-full">

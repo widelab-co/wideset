@@ -1,16 +1,10 @@
-import {
-  RiAddLine,
-  RiArrowDownSLine,
-  RiArrowLeftLine,
-  RiArrowUpSLine,
-  RiMoreFill,
-} from '@remixicon/react';
+import { RiAddLine, RiMoreFill } from '@remixicon/react';
 import { Button, IconButton, Modal, Switch, Tabs } from '@wideset/react';
 import { useState } from 'react';
 
 import { ActivityTimeline } from './activity-timeline';
 import type { TaskDetail } from './data';
-import { Hint, Key } from './keyboard-hint';
+import { KeyboardHints } from './keyboard-hints';
 import { SubtaskList } from './subtask-list';
 import { TaskProperties } from './task-properties';
 
@@ -98,7 +92,7 @@ export function TaskModal({ task, open, onOpenChange }: TaskModalProps) {
             <Tabs type="pills" size="sm" defaultValue="activity" className="gap-ws-11">
               <Tabs.List aria-label="Task sections">
                 <Tabs.Item value="activity">
-                  <Tabs.Label>Activity Log</Tabs.Label>
+                  <Tabs.Label>Activity log</Tabs.Label>
                 </Tabs.Item>
                 <Tabs.Item value="notes">
                   <Tabs.Label>Notes</Tabs.Label>
@@ -114,21 +108,8 @@ export function TaskModal({ task, open, onOpenChange }: TaskModalProps) {
           </div>
         </div>
 
-        <Modal.Footer variant="extension">
-          <div className="gap-ws-12 flex items-center">
-            <Hint
-              keys={
-                <span className="gap-ws-3 flex">
-                  <Key icon={RiArrowUpSLine} name="Up arrow" />
-                  <Key icon={RiArrowDownSLine} name="Down arrow" />
-                </span>
-              }
-            >
-              Navigate
-            </Hint>
-            <Hint keys={<Key icon={RiArrowLeftLine} name="Left arrow" />}>Return to parent</Hint>
-          </div>
-          <Hint keys={<Key>esc</Key>}>Close</Hint>
+        <Modal.Footer variant="extension" className="items-center">
+          <KeyboardHints />
         </Modal.Footer>
       </Modal.Content>
     </Modal>

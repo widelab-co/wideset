@@ -40,7 +40,7 @@ export function SetupAccountModal({ open, onOpenChange }: SetupAccountModalProps
             className="border-ws-static-base gap-ws-11 p-ws-11 flex w-[16.25rem] shrink-0 flex-col border-r"
           >
             <p id={`${id}-setup`} className="typography-subtitle-xs text-ws-static-strong h-ws-13">
-              Setup Account
+              Set up account
             </p>
             {/*
               Composed, so each step can fill its row as in Figma (`w-full`: the array form sizes a

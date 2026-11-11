@@ -4,14 +4,13 @@ import { type Referral, type ReferralStatus, rewardOf } from './data';
 import { formatDate, formatUsd } from './format';
 
 /**
- * Invited and Signed up are steps on the way, so they stay neutral. Subscribed is the outcome
- * the programme pays for, the one row state that moved money: it alone takes the positive
- * colour, so the rows that earned credit can be found without reading.
+ * Invited, Signed up and Subscribed are steps of a referral's life, not judgements, so every
+ * badge stays neutral. The rows that earned credit already say so once, in the Reward column.
  */
-const STATUS: Record<ReferralStatus, { label: string; color: 'neutral' | 'positive' }> = {
-  invited: { label: 'Invited', color: 'neutral' },
-  'signed-up': { label: 'Signed up', color: 'neutral' },
-  subscribed: { label: 'Subscribed', color: 'positive' },
+const STATUS: Record<ReferralStatus, string> = {
+  invited: 'Invited',
+  'signed-up': 'Signed up',
+  subscribed: 'Subscribed',
 };
 
 /**
@@ -37,7 +36,6 @@ export function ReferralsTable({ referrals }: { referrals: Referral[] }) {
       </Table.Head>
       <Table.Body>
         {referrals.map((referral) => {
-          const status = STATUS[referral.status];
           const reward = rewardOf(referral);
           return (
             <Table.Row key={referral.email}>
@@ -46,7 +44,7 @@ export function ReferralsTable({ referrals }: { referrals: Referral[] }) {
               </Table.Cell>
               <Table.Cell className="tabular-nums">{formatDate(referral.invited)}</Table.Cell>
               <Table.Cell>
-                <StatusBadge color={status.color}>{status.label}</StatusBadge>
+                <StatusBadge>{STATUS[referral.status]}</StatusBadge>
               </Table.Cell>
               <Table.Cell align="right" flushMargin className="tabular-nums">
                 {reward ? (

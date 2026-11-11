@@ -1,3 +1,4 @@
+// TODO(custom): one condition of a filter builder (join word, field, test, value, remove); Wideset has no filter builder, only FilterButton for one field and a short list.
 import { RiCloseLine } from '@remixicon/react';
 import { IconButton, Select } from '@wideset/react';
 import { useEffect, useRef } from 'react';

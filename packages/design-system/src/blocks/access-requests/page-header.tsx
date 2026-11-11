@@ -6,9 +6,10 @@ import { workspace } from './data';
 
 /**
  * The page's title, what it is for in one line, and the screen's one filled button: inviting is
- * the way in that does not wait for anyone to ask.
+ * the way in that does not wait for anyone to ask. While a dialog holds the filled button,
+ * Invite people steps back to a bordered one (`quiet`), so the screen keeps one.
  */
-export function PageHeader({ onInvite }: { onInvite: () => void }) {
+export function PageHeader({ onInvite, quiet }: { onInvite: () => void; quiet?: boolean }) {
   return (
     <header className="gap-ws-12 flex flex-wrap items-center justify-between">
       <div className="gap-ws-2 flex min-w-0 flex-col">
@@ -18,7 +19,12 @@ export function PageHeader({ onInvite }: { onInvite: () => void }) {
           is blocked.
         </p>
       </div>
-      <Button size="sm" onClick={onInvite}>
+      <Button
+        size="sm"
+        variant={quiet ? 'secondary' : 'primary'}
+        preset={quiet ? 'border' : 'filled'}
+        onClick={onInvite}
+      >
         <Button.Icon icon={RiUserAddLine} />
         Invite people
       </Button>

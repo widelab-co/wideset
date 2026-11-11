@@ -63,8 +63,6 @@ export type Topic = {
   title: string;
   /** What the topic covers, in one line. */
   summary: string;
-  /** How many articles it holds: content here, so it is written out, not a badge. */
-  articles: number;
 };
 
 export const topics: Topic[] = [
@@ -72,37 +70,31 @@ export const topics: Topic[] = [
     id: 'getting-started',
     title: 'Getting started',
     summary: 'Set up the workspace, invite your team and bring in your data.',
-    articles: 14,
   },
   {
     id: 'customers-and-deals',
     title: 'Customers and deals',
     summary: 'Records, owners, pipeline stages and imports.',
-    articles: 23,
   },
   {
     id: 'billing',
     title: 'Billing',
     summary: 'Plans, seats, invoices and payment methods.',
-    articles: 11,
   },
   {
     id: 'integrations',
     title: 'Integrations',
     summary: 'Connect your mail, calendar and the tools you already use.',
-    articles: 18,
   },
   {
     id: 'security',
     title: 'Security',
     summary: 'Sign-in, roles, single sign-on and how your data is kept.',
-    articles: 9,
   },
   {
     id: 'reports',
     title: 'Reports',
     summary: 'Build, share and schedule reports on revenue and pipeline.',
-    articles: 12,
   },
 ];
 

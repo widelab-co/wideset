@@ -200,7 +200,7 @@ export function PipelineBoard({
       {draggedDeal && drag && (
         <div
           aria-hidden="true"
-          className="z-ws-popout pointer-events-none fixed top-0 left-0"
+          className="z-ws-popout top-ws-0 left-ws-0 pointer-events-none fixed"
           style={{
             width: drag.width,
             transform: `translate(${drag.x - drag.offsetX}px, ${drag.y - drag.offsetY}px)`,
