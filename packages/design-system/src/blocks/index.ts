@@ -134,7 +134,7 @@ export const BLOCKS: BlockMeta[] = [
     direction: 'canvas',
     navigation: 'top-bar',
     description:
-      'Sales against target on a grey canvas: key figures with sparklines, the pipeline by stage and the deals closing this month.',
+      'Sales against target on a grey canvas: key figures with their progress to target, the pipeline by stage and the deals closing this month.',
   },
   {
     id: 'customers',
@@ -142,7 +142,7 @@ export const BLOCKS: BlockMeta[] = [
     direction: 'flat',
     navigation: 'sidebar',
     description:
-      'A list of customers to work through: search, filters and tabs with counts, a table with selection and actions on the selected rows.',
+      'A list of customers to work through: segment tabs, search and filters, a table with selection and actions on the selected rows.',
   },
   {
     id: 'customer-detail',

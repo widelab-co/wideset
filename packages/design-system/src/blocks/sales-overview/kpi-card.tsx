@@ -1,7 +1,5 @@
-// TODO(custom): key figure card, version 02 (figure, sparkline, progress to target); no KpiCard in Wideset yet.
+// TODO(custom): key figure card, version 02 (figure, progress to target); no KpiCard in Wideset yet.
 import { cn, ProgressBar } from '@wideset/react';
-
-import { Sparkline } from './sparkline';
 
 export type KpiCardProps = {
   label: string;
@@ -13,24 +11,15 @@ export type KpiCardProps = {
   target: string;
   /** What is left to reach the target, formatted: `$87.7K to go`. */
   remaining: string;
-  /** The figure period by period, oldest first, for the sparkline. */
-  trend: number[];
   className?: string;
 };
 
 /**
- * A key figure measured against its target: the number with its recent trend, and how far it is
- * to the target. The bar turns positive only once the target is met.
+ * A key figure measured against its target: the number and how far it is to the target. One
+ * visual per value: the bar, and nothing beside the figure. It turns positive once the target is
+ * met.
  */
-export function KpiCard({
-  label,
-  value,
-  progress,
-  target,
-  remaining,
-  trend,
-  className,
-}: KpiCardProps) {
+export function KpiCard({ label, value, progress, target, remaining, className }: KpiCardProps) {
   return (
     <div
       className={cn(
@@ -38,12 +27,9 @@ export function KpiCard({
         className,
       )}
     >
-      <div className="gap-ws-9 flex items-end justify-between">
-        <div className="gap-ws-3 flex min-w-0 flex-col">
-          <p className="typography-label-sm text-ws-static-subtle">{label}</p>
-          <p className="typography-subtitle-lg text-ws-static-strong tabular-nums">{value}</p>
-        </div>
-        <Sparkline values={trend} className="h-ws-14 mb-ws-3 w-[4.5rem] shrink-0" />
+      <div className="gap-ws-3 flex min-w-0 flex-col">
+        <p className="typography-label-sm text-ws-static-subtle">{label}</p>
+        <p className="typography-subtitle-md text-ws-static-strong tabular-nums">{value}</p>
       </div>
       <div className="gap-ws-5 flex flex-col">
         <ProgressBar

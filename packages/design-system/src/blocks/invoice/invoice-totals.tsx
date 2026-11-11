@@ -1,16 +1,26 @@
 // TODO(custom): invoice totals (label and amount rows, ruled into groups); no DescriptionList in Wideset.
-import { Divider } from '@wideset/react';
+import { cn } from '@wideset/react';
 
 import { amountDue, amountPaid, invoice, subtotal, total, vatAmount } from './data';
 import { formatPercent, formatUsd } from './format';
 
-/** A label and its amount on one row; `strong` for the figures the reader is after. */
-function Row({ label, value, strong }: { label: string; value: number; strong?: boolean }) {
+type RowProps = { label: string; value: number; strong?: boolean };
+
+/**
+ * A label and its amount on one row; `strong` for the figures the reader is after, which also
+ * open a group under a line. The line is the row's own border: a `dl` holds only its rows.
+ */
+function Row({ label, value, strong }: RowProps) {
   const type = strong
     ? 'typography-label-strong-md text-ws-static-strong'
     : 'typography-body-md text-ws-static-base';
   return (
-    <div className="gap-ws-9 flex items-baseline justify-between">
+    <div
+      className={cn(
+        'gap-ws-9 flex items-baseline justify-between',
+        strong && 'border-ws-static-base pt-ws-7 border-t',
+      )}
+    >
       <dt className={strong ? type : 'typography-body-md text-ws-static-subtle'}>{label}</dt>
       <dd className={`${type} tabular-nums`}>{formatUsd(value)}</dd>
     </div>
@@ -29,10 +39,8 @@ export function InvoiceTotals() {
         label={`VAT ${formatPercent(invoice.vat.rate)}, ${invoice.vat.label}`}
         value={vatAmount}
       />
-      <Divider weight="thin" />
       <Row label="Total" value={total} strong />
       <Row label="Amount paid" value={amountPaid} />
-      <Divider weight="thin" />
       <Row label="Amount due" value={amountDue} strong />
     </dl>
   );

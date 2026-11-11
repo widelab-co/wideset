@@ -10,7 +10,7 @@ import { TopBar } from './top-bar';
 type Figure = (typeof KEY_FIGURES)[number];
 
 /** A figure against its target, in the words the key figure card shows. */
-const toKpi = ({ label, value, target, unit, weekly }: Figure) => {
+const toKpi = ({ label, value, target, unit }: Figure) => {
   const format = unit === 'usd' ? formatUsd : formatCount;
   const short = unit === 'usd' ? formatUsdCompact : formatCount;
   return {
@@ -19,7 +19,6 @@ const toKpi = ({ label, value, target, unit, weekly }: Figure) => {
     progress: value / target,
     target: `${formatPercent(value / target)} of ${short(target)}`,
     remaining: value >= target ? 'Target met' : `${short(target - value)} to go`,
-    trend: weekly,
   };
 };
 

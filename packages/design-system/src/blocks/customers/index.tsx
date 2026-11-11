@@ -50,8 +50,8 @@ const compare =
 
 /**
  * Customers: a CRM list to work through, in the Flat direction (or another one, through
- * `direction`). Segment tabs with counts, search and filters narrow the table; rows select into
- * an action bar; the table sorts and pages.
+ * `direction`). Segment tabs, search and filters narrow the table; rows select into an action
+ * bar; the table sorts and pages.
  */
 export default function Customers({ direction = 'flat' }: { direction?: Direction }) {
   const surround = SURROUND[direction];
@@ -103,7 +103,7 @@ export default function Customers({ direction = 'flat' }: { direction?: Directio
           divider={false}
           className="min-h-0 flex-1"
         >
-          <PageHeader customers={customers} line={!canvas} />
+          <PageHeader line={!canvas} />
           <Tabs.Content value={segment} className="px-ws-12 min-h-0 flex-1 overflow-y-auto">
             {/* In Canvas the list is a white section on the grey: no border, no shadow. */}
             <div

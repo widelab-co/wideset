@@ -56,12 +56,12 @@ export function LinkSent({ email, onChangeEmail }: LinkSentProps) {
 
   return (
     <section aria-labelledby={`${id}-title`} className="gap-ws-12 flex w-full flex-col">
-      <div className="gap-ws-7 flex flex-col">
+      <div className="gap-ws-5 mb-ws-5 flex flex-col">
         <h1
           ref={title}
           id={`${id}-title`}
           tabIndex={-1}
-          className="typography-title-md text-ws-static-strong outline-none"
+          className="typography-subtitle-lg text-ws-static-strong outline-none"
         >
           Check your e-mail
         </h1>

@@ -61,7 +61,7 @@ export function AuthCard({ other, children, className }: AuthCardProps) {
         className,
       )}
     >
-      <div className="gap-ws-12 p-ws-12 sm:p-ws-18 flex flex-col items-start">
+      <div className="gap-ws-14 p-ws-12 sm:p-ws-18 flex flex-col items-start">
         <AppIcon />
         {children}
       </div>

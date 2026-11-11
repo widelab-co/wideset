@@ -14,47 +14,36 @@ export const NAV = [
 export const TODAY = '2026-12-14';
 export const QUARTER = { label: 'Q4 2026', from: '2026-10-01', to: '2026-12-31' };
 
-/**
- * The quarter's key figures against their targets. `weekly` is the figure week by week, Monday to
- * Sunday, from Thursday 1 October (a short first week) to Sunday 13 December; it sums to `value`.
- */
+/** The quarter's key figures against their targets. */
 export const KEY_FIGURES: {
   label: string;
   value: number;
   target: number;
   unit: 'usd' | 'count';
-  weekly: number[];
 }[] = [
   {
     label: 'Closed won',
     value: 412_300,
     target: 500_000,
     unit: 'usd',
-    weekly: [6_900, 31_500, 27_900, 42_600, 35_100, 39_800, 46_200, 30_400, 49_700, 54_300, 47_900],
   },
   {
     label: 'New pipeline',
     value: 1_184_000,
     target: 1_500_000,
     unit: 'usd',
-    weekly: [
-      57_000, 118_000, 104_000, 131_000, 122_000, 97_000, 140_000, 88_000, 112_000, 106_000,
-      109_000,
-    ],
   },
   {
     label: 'Deals won',
     value: 38,
     target: 45,
     unit: 'count',
-    weekly: [1, 3, 3, 4, 3, 4, 4, 3, 5, 4, 4],
   },
   {
     label: 'Meetings booked',
     value: 334,
     target: 320,
     unit: 'count',
-    weekly: [18, 31, 29, 33, 30, 34, 28, 27, 36, 35, 33],
   },
 ];
 

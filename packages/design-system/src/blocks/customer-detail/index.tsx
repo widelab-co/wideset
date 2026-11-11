@@ -16,12 +16,12 @@ const notes = activity.filter(({ kind }) => kind === 'note');
 
 const TABS = [
   { value: 'overview', label: 'Overview' },
-  { value: 'deals', label: 'Deals', count: deals.length },
+  { value: 'deals', label: 'Deals' },
   { value: 'activity', label: 'Activity' },
-  { value: 'notes', label: 'Notes', count: notes.length },
+  { value: 'notes', label: 'Notes' },
 ];
 
-/** One column of the page: the bar, the header and the body share its edges. */
+/** One column of the page: the header and the body share its edges. */
 const COLUMN = 'px-ws-14 mx-auto w-full max-w-[80rem]';
 
 /** A titled part of the page; its one action (xs, in the heading row) is optional. */
@@ -60,8 +60,9 @@ export default function CustomerDetail() {
     <div className="bg-ws-static-background flex h-dvh">
       <CustomerSidebar />
       <main className="bg-ws-static-foreground rounded-ws-container-lg shadow-ws-low my-ws-7 mr-ws-7 ml-ws-5 flex min-w-0 flex-1 flex-col overflow-hidden">
+        {/* The bar belongs to the surround: it runs edge to edge, the crumbs 20px from its edge. */}
         <div className="h-ws-18 border-ws-static-base flex shrink-0 items-center border-b">
-          <div className={COLUMN}>
+          <div className="px-ws-11 w-full">
             <Breadcrumbs separator="arrow">
               <Breadcrumbs.Item asChild>
                 <a href="#customers">
@@ -81,10 +82,9 @@ export default function CustomerDetail() {
 
             <Tabs value={tab} onValueChange={setTab}>
               <Tabs.List aria-label="Customer sections" className="w-full">
-                {TABS.map(({ value, label, count }) => (
+                {TABS.map(({ value, label }) => (
                   <Tabs.Item key={value} value={value}>
                     <Tabs.Label>{label}</Tabs.Label>
-                    {count ? <Tabs.Count>{count}</Tabs.Count> : null}
                   </Tabs.Item>
                 ))}
               </Tabs.List>

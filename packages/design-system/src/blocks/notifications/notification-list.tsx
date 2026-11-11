@@ -18,8 +18,8 @@ type NotificationListProps = {
 };
 
 /**
- * The inbox column: its title and one bulk action, the tabs with their unread counts, and the
- * notifications of the open tab grouped by day, newest first.
+ * The inbox column: its title and one bulk action, the tabs, and the notifications of the open
+ * tab grouped by day, newest first. The unread dot on a row says what is new.
  */
 export function NotificationList({
   notifications,
@@ -31,8 +31,7 @@ export function NotificationList({
   rowRef,
 }: NotificationListProps) {
   const titleId = useId();
-  const unread = (include: (n: Notification) => boolean) =>
-    notifications.filter((n) => include(n) && !n.read).length;
+  const allRead = notifications.every((n) => n.read);
 
   return (
     <section
@@ -54,7 +53,7 @@ export function NotificationList({
               size="sm"
               variant="secondary"
               preset="ghost"
-              disabled={unread(() => true) === 0}
+              disabled={allRead}
               onClick={onMarkAllRead}
             >
               <Button.Icon icon={RiCheckDoubleLine} />
@@ -62,20 +61,11 @@ export function NotificationList({
             </Button>
           </div>
           <Tabs.List aria-label="Notifications" className="px-ws-11 w-full">
-            {TABS.map(({ value, label, includes }) => {
-              const count = unread(includes);
-              return (
-                <Tabs.Item key={value} value={value}>
-                  <Tabs.Label>{label}</Tabs.Label>
-                  {count > 0 && (
-                    <Tabs.Count>
-                      {count}
-                      <span className="sr-only"> unread</span>
-                    </Tabs.Count>
-                  )}
-                </Tabs.Item>
-              );
-            })}
+            {TABS.map(({ value, label }) => (
+              <Tabs.Item key={value} value={value}>
+                <Tabs.Label>{label}</Tabs.Label>
+              </Tabs.Item>
+            ))}
           </Tabs.List>
         </div>
 

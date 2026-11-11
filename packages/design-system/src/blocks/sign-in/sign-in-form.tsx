@@ -48,7 +48,7 @@ export function SignInForm() {
       aria-labelledby={`${id}-title`}
       className="gap-ws-12 flex w-full flex-col"
     >
-      <h1 id={`${id}-title`} className="typography-title-md text-ws-static-strong">
+      <h1 id={`${id}-title`} className="typography-subtitle-lg text-ws-static-strong mb-ws-5">
         Sign in to Wideset
       </h1>
       <FormField label="E-mail or username" htmlFor={`${id}-username`} errorText={errors.username}>

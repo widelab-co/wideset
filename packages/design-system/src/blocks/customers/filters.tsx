@@ -65,7 +65,7 @@ export function Filters({
       />
       <Select
         size="sm"
-        preset="ghost"
+        preset="border"
         aria-label="Sort customers"
         options={sortOptions}
         value={sort}

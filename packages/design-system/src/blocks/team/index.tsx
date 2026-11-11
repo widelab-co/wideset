@@ -85,11 +85,9 @@ function TeamPage() {
           <Tabs.List aria-label="People in the workspace" className="w-full">
             <Tabs.Item value="members">
               <Tabs.Label>Members</Tabs.Label>
-              <Tabs.Count>{members.length}</Tabs.Count>
             </Tabs.Item>
             <Tabs.Item value="invitations">
               <Tabs.Label>Invitations</Tabs.Label>
-              <Tabs.Count>{invitations.length}</Tabs.Count>
             </Tabs.Item>
           </Tabs.List>
 

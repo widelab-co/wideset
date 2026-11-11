@@ -65,12 +65,13 @@ export const PLAN_LABEL: Record<Plan, string> = {
   enterprise: 'Enterprise',
 };
 
-/** Colour only where the health asks for action; a healthy account stays neutral. */
-export const HEALTH: Record<Health, { label: string; color: 'neutral' | 'notice' | 'negative' }> = {
-  healthy: { label: 'Healthy', color: 'neutral' },
-  'at-risk': { label: 'At risk', color: 'notice' },
-  churned: { label: 'Churned', color: 'negative' },
-};
+/** Health is a judgement of the account, so each state takes its semantic colour. */
+export const HEALTH: Record<Health, { label: string; color: 'positive' | 'notice' | 'negative' }> =
+  {
+    healthy: { label: 'Healthy', color: 'positive' },
+    'at-risk': { label: 'At risk', color: 'notice' },
+    churned: { label: 'Churned', color: 'negative' },
+  };
 
 /** A tab: a saved segment of the list. At risk overlaps Active and Trial. */
 export type Segment = { value: string; label: string; match: (customer: Customer) => boolean };

@@ -15,8 +15,9 @@ export default function NoAccess() {
     <div className="bg-ws-static-foreground flex h-dvh">
       <AppSidebar />
       <main className="flex min-w-0 flex-1 flex-col">
-        <div className="h-ws-18 border-ws-static-subtle px-ws-16 flex shrink-0 items-center border-b">
-          <Breadcrumbs separator="arrow" className="mx-auto w-full max-w-[80rem]">
+        {/* The bar belongs to the surround: it runs edge to edge, the crumbs 20px from its edge. */}
+        <div className="h-ws-18 border-ws-static-subtle px-ws-11 flex shrink-0 items-center border-b">
+          <Breadcrumbs separator="arrow">
             <Breadcrumbs.Item asChild>
               <a href={ROUTES.reports}>
                 <RiPieChart2Line aria-hidden="true" className="size-ws-9" />

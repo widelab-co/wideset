@@ -101,9 +101,6 @@ export default function Integrations() {
               {CATEGORIES.map((entry) => (
                 <Tabs.Item key={entry.value} value={entry.value}>
                   <Tabs.Label>{entry.label}</Tabs.Label>
-                  <Tabs.Count>
-                    {APPS.filter((app) => inView(app, entry.value, query)).length}
-                  </Tabs.Count>
                 </Tabs.Item>
               ))}
             </Tabs.List>
