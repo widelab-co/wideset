@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { cn } from 'src/lib/utils';
 
 import { HelperText } from '../helper-text/HelperText';
 import { useProgressBarContext } from './ProgressBar.context';
@@ -21,13 +20,15 @@ const ProgressBarDescription = React.forwardRef<HTMLSpanElement, ProgressBarDesc
 
     return (
       <HelperText
+        // A new element per status: an error then mounts as a fresh alert and is announced.
+        key={status}
         ref={ref}
         data-slot="progress-bar-description"
         {...props}
         state={status}
         showIcon={showIcon}
-        // Figma puts Gap/3 above the Helper Text; with the root's Gap/5 that is 12px from the bar.
-        className={cn('pt-ws-3', className)}
+        // HelperText carries Figma's Gap/3 padding; with the root's Gap/5 that is 12px from the bar.
+        className={className}
         id={descriptionId}
       >
         {children}

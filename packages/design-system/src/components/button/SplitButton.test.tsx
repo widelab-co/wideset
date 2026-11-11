@@ -1,8 +1,9 @@
 import { RiArrowDownSLine, RiBugLine, RiCloseLine } from '@remixicon/react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
+import { DropdownMenu } from '../dropdown/DropdownMenu';
 import { SplitButton } from './SplitButton';
 
 describe('SplitButton', () => {
@@ -161,6 +162,174 @@ describe('SplitButton', () => {
       await userEvent.click(screen.getByRole('button', { name: 'More options' }));
       expect(screen.queryByRole('menu')).not.toBeInTheDocument();
     });
+  });
+
+  describe('Keyboard', () => {
+    it('should open with ArrowDown, navigate between items and restore trigger focus after selection', async () => {
+      const user = userEvent.setup();
+      const handleSelect = vi.fn();
+
+      render(
+        <SplitButton
+          icon={RiArrowDownSLine}
+          menuContent={
+            <>
+              <DropdownMenu.Item>Action one</DropdownMenu.Item>
+              <DropdownMenu.Item onSelect={handleSelect}>Action two</DropdownMenu.Item>
+            </>
+          }
+        >
+          Save
+        </SplitButton>,
+      );
+
+      const menuTrigger = screen.getByRole('button', { name: 'More options' });
+      await user.tab();
+      await user.tab();
+      expect(menuTrigger).toHaveFocus();
+      await user.keyboard('{ArrowDown}');
+
+      await waitFor(() => {
+        expect(screen.getByRole('menuitem', { name: 'Action one' })).toHaveFocus();
+      });
+
+      await user.keyboard('{ArrowDown}');
+      await waitFor(() => {
+        expect(screen.getByRole('menuitem', { name: 'Action two' })).toHaveFocus();
+      });
+
+      await user.keyboard('{Enter}');
+
+      expect(handleSelect).toHaveBeenCalledOnce();
+      await waitFor(() => {
+        expect(screen.queryByRole('menu', { name: 'More options' })).not.toBeInTheDocument();
+        expect(menuTrigger).toHaveFocus();
+      });
+    });
+
+    it.each([
+      { key: 'Enter', input: '{Enter}' },
+      { key: 'Space', input: ' ' },
+    ])('should open the menu with $key and restore trigger focus on Escape', async ({ input }) => {
+      const user = userEvent.setup();
+      const handleClick = vi.fn();
+
+      render(
+        <SplitButton
+          icon={RiArrowDownSLine}
+          onClick={handleClick}
+          menuContent={<DropdownMenu.Item>Action one</DropdownMenu.Item>}
+        >
+          Save
+        </SplitButton>,
+      );
+
+      const menuTrigger = screen.getByRole('button', { name: 'More options' });
+
+      await user.tab();
+      await user.tab();
+      expect(menuTrigger).toHaveFocus();
+      await user.keyboard(input);
+
+      await waitFor(() => {
+        expect(screen.getByRole('menu', { name: 'More options' })).toBeInTheDocument();
+        expect(screen.getByRole('menuitem', { name: 'Action one' })).toHaveFocus();
+      });
+      expect(menuTrigger).toHaveAttribute('aria-expanded', 'true');
+      expect(handleClick).not.toHaveBeenCalled();
+
+      await user.keyboard('{Escape}');
+
+      await waitFor(() => {
+        expect(screen.queryByRole('menu', { name: 'More options' })).not.toBeInTheDocument();
+        expect(menuTrigger).toHaveFocus();
+      });
+      expect(menuTrigger).toHaveAttribute('aria-expanded', 'false');
+      expect(handleClick).not.toHaveBeenCalled();
+    });
+
+    it.each([
+      { key: 'Enter', input: '{Enter}' },
+      { key: 'Space', input: ' ' },
+    ])('should activate the main action with $key without opening the menu', async ({ input }) => {
+      const user = userEvent.setup();
+      const handleClick = vi.fn();
+
+      render(
+        <SplitButton
+          icon={RiArrowDownSLine}
+          onClick={handleClick}
+          menuContent={<DropdownMenu.Item>Action one</DropdownMenu.Item>}
+        >
+          Save
+        </SplitButton>,
+      );
+
+      const mainButton = screen.getByRole('button', { name: 'Save' });
+      const menuTrigger = screen.getByRole('button', { name: 'More options' });
+
+      await user.tab();
+      expect(mainButton).toHaveFocus();
+      await user.keyboard(input);
+
+      expect(handleClick).toHaveBeenCalledTimes(1);
+      expect(menuTrigger).toHaveAttribute('aria-expanded', 'false');
+      expect(screen.queryByRole('menu')).not.toBeInTheDocument();
+
+      await user.tab();
+      expect(menuTrigger).toHaveFocus();
+      await user.tab({ shift: true });
+      expect(mainButton).toHaveFocus();
+    });
+
+    it.each([
+      {
+        disabled: true,
+        iconDisabled: false,
+        enabledButton: 'More options',
+        disabledButton: 'Save',
+      },
+      {
+        disabled: false,
+        iconDisabled: true,
+        enabledButton: 'Save',
+        disabledButton: 'More options',
+      },
+    ])(
+      'should skip the disabled $disabledButton button during Tab navigation',
+      async ({ disabled, iconDisabled, enabledButton, disabledButton }) => {
+        const user = userEvent.setup();
+
+        render(
+          <>
+            <button type="button">Before split button</button>
+            <SplitButton icon={RiArrowDownSLine} disabled={disabled} iconDisabled={iconDisabled}>
+              Save
+            </SplitButton>
+            <button type="button">After split button</button>
+          </>,
+        );
+
+        const before = screen.getByRole('button', { name: 'Before split button' });
+        const after = screen.getByRole('button', { name: 'After split button' });
+        const enabled = screen.getByRole('button', { name: enabledButton });
+
+        expect(screen.getByRole('button', { name: disabledButton })).toBeDisabled();
+        expect(enabled).not.toBeDisabled();
+
+        await user.tab();
+        expect(before).toHaveFocus();
+        await user.tab();
+        expect(enabled).toHaveFocus();
+        await user.tab();
+        expect(after).toHaveFocus();
+
+        await user.tab({ shift: true });
+        expect(enabled).toHaveFocus();
+        await user.tab({ shift: true });
+        expect(before).toHaveFocus();
+      },
+    );
   });
 });
 

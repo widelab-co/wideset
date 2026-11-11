@@ -10,7 +10,7 @@ A run passes when all of these hold:
 - the handler each component really takes (`onValueChange` on `Select`, not `onChange`)
 - the Wideset components the case requires are used
 - what the type-checker accepts but the system does not: hand-built controls where Wideset has one, more than one filled primary button in a view, cards inside cards, gradients, emoji, placeholder content, filler headings
-- mistakes that compile and then break: a `Sidebar.Section` with no mode wrapper renders nothing, a trigger without `asChild` nests a button in a button, a `Modal.Content` with no title, an `IconButton` with no label, a field error with no invalid control
+- mistakes that compile and then break: a `Sidebar.Trigger` inside `Sidebar.Expanded` / `Sidebar.Collapsed` loses focus on toggle, a trigger without `asChild` nests a button in a button, a `Modal.Content` with no title, an `IconButton` with no label, a field error with no invalid control
 
 A view for the primary button check is what can show at once: an overlay, a tab panel, each branch of a ternary and an `if` that returns stay apart, while components rendered together in one file add up. Components imported from another file are not counted together.
 
@@ -35,4 +35,4 @@ The target for a release: **with the skills at least 80% of runs pass, and witho
 
 So read the traps too, without a target of their own. If both arms fall into a trap equally often, the guidance adds nothing on that trap: reconsider the rule (its wording, where it sits, whether the spec is the right carrier) instead of keeping it. A trap nobody falls into, in either arm, is an easy case and tells us nothing: make it harder or drop it. Three runs per case is a small sample; read a difference of one run as noise.
 
-To add a case, write a task a person would actually ask for, without naming components in the prompt, and list what a correct answer must use under `requires`.
+To add a case, write a task a person would actually ask for, without naming components in the prompt, and list what a correct answer must use under `requires`. `Modal|StatusModal` accepts either, and a component used through its hook (`useToast`) counts.

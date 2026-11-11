@@ -678,3 +678,21 @@ describe('ARIA with Radix', () => {
     },
   );
 });
+
+describe('Error announcement', () => {
+  it('inserts a new alert when the status turns error', () => {
+    const Bar = ({ status }: { status?: 'default' | 'error' }) => (
+      <ProgressBar value={50} status={status} aria-label="Upload">
+        <ProgressBar.Track />
+        <ProgressBar.Description>Uploading</ProgressBar.Description>
+      </ProgressBar>
+    );
+    const { rerender } = render(<Bar />);
+    const description = screen.getByText('Uploading');
+
+    rerender(<Bar status="error" />);
+
+    expect(screen.getByRole('alert')).toHaveTextContent('Uploading');
+    expect(description).not.toBeInTheDocument();
+  });
+});

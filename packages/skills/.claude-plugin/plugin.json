@@ -5,7 +5,7 @@
   "author": {
     "name": "Widelab"
   },
-  "homepage": "https://wideset-docs.widelab.workers.dev",
+  "homepage": "https://wideset.co/docs",
   "repository": "https://github.com/widelab-co/wideset",
   "license": "Apache-2.0",
   "keywords": ["wideset", "design-system", "react", "tailwindcss"],

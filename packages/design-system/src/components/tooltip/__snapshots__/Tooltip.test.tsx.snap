@@ -22,7 +22,7 @@ exports[`Tooltip > Tooltip Snapshots > matches snapshot for default tooltip 1`] 
     data-testid="tooltip-arrow"
   />
   <span
-    id="radix-_r_9_"
+    id="radix-_r_b_"
     role="tooltip"
     style="position: absolute; border: 0px; width: 1px; height: 1px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; word-wrap: normal;"
   >
@@ -63,7 +63,7 @@ exports[`Tooltip > Tooltip Snapshots > matches snapshot for inverse variant 1`] 
     data-testid="tooltip-arrow"
   />
   <span
-    id="radix-_r_a_"
+    id="radix-_r_c_"
     role="tooltip"
     style="position: absolute; border: 0px; width: 1px; height: 1px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; word-wrap: normal;"
   >
@@ -104,7 +104,7 @@ exports[`Tooltip > Tooltip Snapshots > matches snapshot with Portal 1`] = `
     data-testid="tooltip-arrow"
   />
   <span
-    id="radix-_r_i_"
+    id="radix-_r_k_"
     role="tooltip"
     style="position: absolute; border: 0px; width: 1px; height: 1px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; word-wrap: normal;"
   >
@@ -151,7 +151,7 @@ exports[`Tooltip > Tooltip Snapshots > matches snapshot with custom className 1`
     data-testid="tooltip-arrow"
   />
   <span
-    id="radix-_r_h_"
+    id="radix-_r_j_"
     role="tooltip"
     style="position: absolute; border: 0px; width: 1px; height: 1px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; word-wrap: normal;"
   >
@@ -198,7 +198,7 @@ exports[`Tooltip > Tooltip Snapshots > matches snapshot with different sides 1`]
     data-testid="tooltip-arrow"
   />
   <span
-    id="radix-_r_d_"
+    id="radix-_r_f_"
     role="tooltip"
     style="position: absolute; border: 0px; width: 1px; height: 1px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; word-wrap: normal;"
   >
@@ -239,7 +239,7 @@ exports[`Tooltip > Tooltip Snapshots > matches snapshot with different sides 2`]
     data-testid="tooltip-arrow"
   />
   <span
-    id="radix-_r_e_"
+    id="radix-_r_g_"
     role="tooltip"
     style="position: absolute; border: 0px; width: 1px; height: 1px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; word-wrap: normal;"
   >
@@ -280,7 +280,7 @@ exports[`Tooltip > Tooltip Snapshots > matches snapshot with different sides 3`]
     data-testid="tooltip-arrow"
   />
   <span
-    id="radix-_r_f_"
+    id="radix-_r_h_"
     role="tooltip"
     style="position: absolute; border: 0px; width: 1px; height: 1px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; word-wrap: normal;"
   >
@@ -321,7 +321,7 @@ exports[`Tooltip > Tooltip Snapshots > matches snapshot with different sides 4`]
     data-testid="tooltip-arrow"
   />
   <span
-    id="radix-_r_g_"
+    id="radix-_r_i_"
     role="tooltip"
     style="position: absolute; border: 0px; width: 1px; height: 1px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; word-wrap: normal;"
   >
@@ -368,7 +368,7 @@ exports[`Tooltip > Tooltip Snapshots > matches snapshot with label and descripti
     data-testid="tooltip-arrow"
   />
   <span
-    id="radix-_r_c_"
+    id="radix-_r_e_"
     role="tooltip"
     style="position: absolute; border: 0px; width: 1px; height: 1px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; word-wrap: normal;"
   >
@@ -410,7 +410,7 @@ exports[`Tooltip > Tooltip Snapshots > matches snapshot without arrow 1`] = `
     Tooltip Label
   </span>
   <span
-    id="radix-_r_b_"
+    id="radix-_r_d_"
     role="tooltip"
     style="position: absolute; border: 0px; width: 1px; height: 1px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; word-wrap: normal;"
   >

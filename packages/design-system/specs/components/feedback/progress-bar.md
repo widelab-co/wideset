@@ -13,7 +13,7 @@ parts:
     ProgressBarDescription,
   ]
 related: [ProgressTracker, ProgressStepper, FileItem]
-docs: https://wideset-docs.widelab.workers.dev/components/progress-bar
+docs: https://wideset.co/components/progress-bar
 storybook: components-progressbar--default
 ---
 
@@ -134,5 +134,5 @@ The root carries `role="progressbar"`, the value, `ref`, `className` and `aria-*
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/progress-bar.md` · Types:
+Full props: `https://wideset.co/components/progress-bar.md` · Types:
 `packages/design-system/src/components/progress-bar/ProgressBar.types.ts`

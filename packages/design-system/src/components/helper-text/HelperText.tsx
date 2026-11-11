@@ -21,6 +21,7 @@ export const HelperText = React.forwardRef<HTMLSpanElement, HelperTextProps>(
       <span
         ref={ref}
         data-slot="helper-text"
+        role={state === 'error' ? 'alert' : undefined}
         className={cn(helperTextVariants({ state }), className)}
         {...props}
       >

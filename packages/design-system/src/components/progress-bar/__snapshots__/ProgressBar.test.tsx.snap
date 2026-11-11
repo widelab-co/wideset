@@ -199,7 +199,7 @@ exports[`ProgressBar Snapshots > matches snapshot for complete progress bar 1`] 
     />
   </div>
   <span
-    class="typography-body-sm gap-ws-3 flex items-center text-ws-semantic-positive pt-ws-3"
+    class="typography-body-sm gap-ws-3 py-ws-3 flex items-center text-ws-semantic-positive"
     data-slot="progress-bar-description"
     id="_r_i_"
   >
@@ -312,7 +312,7 @@ exports[`ProgressBar Snapshots > matches snapshot for progress bar with descript
     />
   </div>
   <span
-    class="typography-body-sm gap-ws-3 flex items-center text-ws-static-subtle pt-ws-3"
+    class="typography-body-sm gap-ws-3 py-ws-3 flex items-center text-ws-static-subtle"
     data-slot="progress-bar-description"
     id="_r_g_"
   >

@@ -5,7 +5,7 @@ group: navigation
 status: stable
 parts: [Tabs, TabsList, TabsItem, TabsIcon, TabsLabel, TabsCount, TabsContent]
 related: [SegmentedControl, Sidebar, Breadcrumbs]
-docs: https://wideset-docs.widelab.workers.dev/components/tabs
+docs: https://wideset.co/components/tabs
 storybook: components-tabs--default
 ---
 
@@ -110,5 +110,5 @@ State: `value` + `onValueChange` (controlled) or `defaultValue` (uncontrolled), 
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/tabs.md` · Types:
+Full props: `https://wideset.co/components/tabs.md` · Types:
 `packages/design-system/src/components/tabs/Tabs.types.ts`

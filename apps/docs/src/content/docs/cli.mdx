@@ -1,6 +1,6 @@
 ---
 title: CLI
-description: Copy a component's source into your own repo with the shadcn CLI.
+description: Copy a component's source into your own repo with the wideset CLI.
 section: Guide
 ---
 
@@ -9,17 +9,27 @@ is then yours: editable, no dependency on `@wideset/react`, no registry login, a
 automatic updates. It works in Vite and Next.js projects with TypeScript, with or without
 Tailwind.
 
-Wideset is published as a [shadcn registry](https://ui.shadcn.com/docs/registry), so the
-[shadcn CLI](https://ui.shadcn.com/docs/cli) does the copying. You do not need shadcn's
-components, theme or `cn`, and you do not need to run `shadcn init`.
+Wideset is published as a [shadcn registry](https://ui.shadcn.com/docs/registry), and the
+`wideset` CLI installs from it:
 
-{/* prettier-ignore-start */}
+```bash
+npx wideset init              # once: components.json, @/* alias, stylesheet import
+npx wideset add button select # any components; `npx wideset list` shows them all
+```
 
-{/* TODO(wideset-cli): once the `wideset` package is published, lead with `npx wideset init` and `npx wideset add button` (see the commented block in packages/design-system/README.md) and keep the shadcn steps below as "Without the Wideset CLI". */}
+`init` writes `components.json`, adds the `@/*` path alias to `tsconfig` (and, for Vite, to
+`vite.config.ts`), adds the Wideset stylesheet and imports it in `main.tsx` or `app/layout.tsx`;
+apps without Tailwind also get Tailwind's reset. Already using shadcn? `init` keeps your
+`components.json` and only registers the `@wideset` namespace. Files land in
+`components/ui/wideset/`, `lib/wideset/` and `hooks/wideset/`.
 
-{/* prettier-ignore-end */}
+## Without the Wideset CLI
 
-## 1. Create components.json
+The CLI runs the [shadcn CLI](https://ui.shadcn.com/docs/cli) underneath, and you can call shadcn
+yourself. You do not need shadcn's components, theme or `cn`, and you do not need to run
+`shadcn init`.
+
+### 1. Create components.json
 
 A `components.json` in your project root tells the CLI where files go and which registry
 `@wideset` means. Vite, sources in `src/`:
@@ -43,7 +53,7 @@ A `components.json` in your project root tells the CLI where files go and which 
     "hooks": "@/hooks",
     "utils": "@/lib/utils"
   },
-  "registries": { "@wideset": "https://wideset-docs.widelab.workers.dev/r/{name}.json" }
+  "registries": { "@wideset": "https://wideset.co/r/{name}.json" }
 }
 ```
 
@@ -54,13 +64,13 @@ in `vite.config.ts` (`resolve.alias`).
 **Already using shadcn?** Keep your `components.json` and only register the namespace:
 
 ```bash
-npx shadcn@latest registry add @wideset=https://wideset-docs.widelab.workers.dev/r/{name}.json
+npx shadcn@latest registry add @wideset=https://wideset.co/r/{name}.json
 ```
 
 Wideset files land next to your shadcn components, under `components/ui/wideset/`, with their
 own `cn` in `lib/wideset/`.
 
-## 2. Add components
+### 2. Add components
 
 Names are the component names in kebab case; sub-components come with their parent. The full
 list is `/r/registry.json` on the same host.
@@ -72,7 +82,7 @@ npx shadcn@latest add @wideset/button @wideset/select
 Files land in `components/ui/wideset/`, `lib/wideset/` and `hooks/wideset/`, with everything
 the component depends on.
 
-## 3. Import the stylesheet
+### 3. Import the stylesheet
 
 Every component brings `styles/wideset.css`. Import it once at your app's entry point:
 
@@ -91,7 +101,7 @@ only if you add those plugins and rules yourself.
 
 Load the font as described in [Installation](/docs/installation#4-load-the-font).
 
-## 4. Use it
+### 4. Use it
 
 ```tsx
 import { Button } from '@/components/ui/wideset/button/Button';

@@ -15,7 +15,7 @@ parts:
     TileIndicator,
   ]
 related: [ActionTile, Card, Checkbox, RadioButtonGroup]
-docs: https://wideset-docs.widelab.workers.dev/components/tile
+docs: https://wideset.co/components/tile
 storybook: components-tile-tile--default
 ---
 
@@ -139,5 +139,5 @@ Tile has no size or variant. The props that decide usage:
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/tile.md` · Types:
+Full props: `https://wideset.co/components/tile.md` · Types:
 `packages/design-system/src/components/tile/Tile.types.ts`

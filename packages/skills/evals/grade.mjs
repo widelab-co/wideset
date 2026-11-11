@@ -6,8 +6,8 @@
   Wideset's code is in the project once it is installed, so an agent without skills can read any
   prop. These checks therefore target what the source does not teach: choices the type-checker
   accepts (hand-built controls, more than one primary action, nested cards, placeholder content)
-  and mistakes that compile and then silently break (a Sidebar.Section with no mode wrapper renders
-  nothing; a Modal.Trigger without asChild nests a button in a button).
+  and mistakes that compile and then silently break (a Sidebar.Trigger inside a mode wrapper loses
+  focus on toggle; a Modal.Trigger without asChild nests a button in a button).
 */
 import { existsSync, readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
@@ -241,10 +241,9 @@ export function checkCraft(source) {
       }
       if (NATIVE_CONTROLS[tag])
         problems.push(`hand-built <${tag}> where Wideset has ${NATIVE_CONTROLS[tag]}`);
-      if (/^(Sidebar\.Section|SidebarSection)$/.test(tag) && !spreads) {
-        const hasMode = children.some((child) => /(Expanded|Collapsed)$/.test(child.tag));
-        if (!hasMode)
-          problems.push('Sidebar.Section without Sidebar.Expanded or Sidebar.Collapsed');
+      if (/^(Sidebar\.(Expanded|Collapsed)|Sidebar(Expanded|Collapsed))$/.test(tag)) {
+        if (/<(Sidebar\.Trigger|SidebarTrigger)\b/.test(node.getText()))
+          problems.push(`Sidebar.Trigger inside ${tag} loses focus on toggle`);
       }
       if (TRIGGER.test(tag) && !attributes.has('asChild')) {
         if (children.some((child) => /(^|\.)(Icon)?Button$/.test(child.tag)))
@@ -278,7 +277,7 @@ export function checkCraft(source) {
   return problems;
 }
 
-/** Each required name must be imported from Wideset, by either consumption mode. */
+/** Each required name is imported from Wideset. `A|B` accepts either; a hook (`useToast`) counts. */
 export function checkRequired(sources, required) {
   const imported = new Set();
   for (const source of sources)
@@ -292,7 +291,10 @@ export function checkRequired(sources, required) {
             .replace(/^type\s+/, '')
             .split(/\s+as\s+/)[0],
         );
-  return required.filter((name) => !imported.has(name)).map((name) => `does not use ${name}`);
+  const used = (name) => imported.has(name) || imported.has(`use${name}`);
+  return required
+    .filter((entry) => !entry.split('|').some(used))
+    .map((entry) => `does not use ${entry.replace('|', ' or ')}`);
 }
 
 /*

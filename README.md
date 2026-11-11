@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src=".github/assets/banner.gif" alt="Wideset components switching from light to dark: a views menu, a form, navigation, an inbox and a theme switch" width="100%" />
+
 # Wideset
 
 An open source React design system with a matching Figma library, <br/> built for the people and the coding agents who ship product UI together.
@@ -11,12 +13,12 @@ An open source React design system with a matching Figma library, <br/> built fo
 [![CI](https://github.com/widelab-co/wideset/actions/workflows/build.yaml/badge.svg?branch=develop)](https://github.com/widelab-co/wideset/actions/workflows/build.yaml)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
-[![Docs](https://img.shields.io/badge/Docs-wideset--docs-6741d9?logo=readthedocs&logoColor=white)](https://wideset-docs.widelab.workers.dev)
-[![Storybook](https://img.shields.io/badge/Storybook-live-ff4785?logo=storybook&logoColor=white)](https://wideset-storybook.widelab.workers.dev)
-[![shadcn registry](https://img.shields.io/badge/shadcn-registry-000000?logo=shadcnui&logoColor=white)](https://wideset-docs.widelab.workers.dev/docs/cli)
-[![Agent skills](https://img.shields.io/badge/Agent-skills-d97757?logo=anthropic&logoColor=white)](https://wideset-docs.widelab.workers.dev/docs/ai)
+[![Docs](https://img.shields.io/badge/Docs-wideset.co-6741d9?logo=readthedocs&logoColor=white)](https://wideset.co/docs)
+[![Storybook](https://img.shields.io/badge/Storybook-live-ff4785?logo=storybook&logoColor=white)](https://storybook.wideset.co)
+[![shadcn registry](https://img.shields.io/badge/shadcn-registry-000000?logo=shadcnui&logoColor=white)](https://wideset.co/docs/cli)
+[![Agent skills](https://img.shields.io/badge/Agent-skills-d97757?logo=anthropic&logoColor=white)](https://wideset.co/docs/ai)
 
-**[Docs](https://wideset-docs.widelab.workers.dev)** · **[Storybook](https://wideset-storybook.widelab.workers.dev)** · **[npm](https://www.npmjs.com/package/@wideset/react)** · **[Contributing](CONTRIBUTING.md)** · **[Discussions](https://github.com/widelab-co/wideset/discussions)**
+**[Docs](https://wideset.co/docs)** · **[Storybook](https://storybook.wideset.co)** · **[npm](https://www.npmjs.com/package/@wideset/react)** · **[Contributing](CONTRIBUTING.md)** · **[Discussions](https://github.com/widelab-co/wideset/discussions)**
 
 </div>
 
@@ -82,23 +84,24 @@ export function Continue() {
 }
 ```
 
-The **[installation guide](https://wideset-docs.widelab.workers.dev/docs/installation)** covers
+The **[installation guide](https://wideset.co/docs/installation)** covers
 Tailwind v4, Next.js and Server Components, and fonts; the
 **[package README](packages/design-system/README.md)** has the same in one page.
 
 ### Copy the source instead
 
-Wideset is also a [shadcn registry](https://ui.shadcn.com/docs/registry). In a project that
-already has a `components.json`, register the namespace and add components; the files land in
-your repo under `components/ui/wideset/`:
+Wideset is also a [shadcn registry](https://ui.shadcn.com/docs/registry), and the `wideset` CLI
+copies components from it into your repo, under `components/ui/wideset/`:
 
 ```bash
-npx shadcn@latest registry add @wideset=https://wideset-docs.widelab.workers.dev/r/{name}.json
-npx shadcn@latest add @wideset/button
+npx wideset init
+npx wideset add button
 ```
 
-A new project needs no `shadcn init`, only a `components.json`; the
-**[CLI guide](https://wideset-docs.widelab.workers.dev/docs/cli)** has one for Vite and Next.js.
+`init` sets up `components.json`, the `@/*` alias and the stylesheet; in a shadcn project it only
+registers the `@wideset` namespace. The
+**[CLI guide](https://wideset.co/docs/cli)** also shows how to call the
+shadcn CLI yourself.
 
 ### Working with AI
 
@@ -108,19 +111,19 @@ npx skills add widelab-co/wideset/packages/skills
 
 installs four Agent Skills (setup, build, craft, review) for the agents you use. Docs as Markdown
 (`/llms.txt`, `/components/<name>.md`), the shadcn MCP server and a rules block to paste are on
-**[Working with AI](https://wideset-docs.widelab.workers.dev/docs/ai)**.
+**[Working with AI](https://wideset.co/docs/ai)**.
 
 ## Packages
 
 | Package                                    | Description                                                                        | README                                     |
 | ------------------------------------------ | ---------------------------------------------------------------------------------- | ------------------------------------------ |
-| [`@wideset/react`](packages/design-system) | Components, tokens and stylesheets, the shadcn registry, and the `wideset` CLI     | [README](packages/design-system/README.md) |
+| [`@wideset/react`](packages/design-system) | Components, tokens and stylesheets, and the shadcn registry                        | [README](packages/design-system/README.md) |
+| [`wideset`](packages/cli)                  | The `wideset` CLI: `npx wideset init`, `add`, `skills`, over the shadcn CLI        | [README](packages/cli/README.md)           |
 | [`@wideset/skills`](packages/skills)       | Agent Skills and rules for coding agents, generated from the library's usage specs | [README](packages/skills/README.md)        |
 | [`apps/docs`](apps/docs)                   | The documentation site (Astro), with the registry and `llms.txt`                   | [README](apps/docs/README.md)              |
 
 > `@wideset/skills` is not on npm yet: install the skills with `npx skills add` or the registry
-> item, as above. The `wideset` CLI ships inside `@wideset/react`; run it as
-> `npx --no-install wideset` until the `wideset` package is published.
+> item, as above.
 
 ## Project structure
 
@@ -128,7 +131,7 @@ installs four Agent Skills (setup, build, craft, review) for the agents you use.
 | ------------------------------- | ------------------------------------------------------------------------- |
 | `packages/design-system/src/`   | Components, styles and tokens; one folder per component                   |
 | `packages/design-system/specs/` | Usage guidance per component and pattern, read by the docs and the skills |
-| `packages/design-system/cli/`   | The `wideset` CLI                                                         |
+| `packages/cli/`                 | The `wideset` CLI                                                         |
 | `packages/skills/`              | Agent Skills, their build and evals                                       |
 | `apps/docs/`                    | Documentation site                                                        |
 | `.agents/skills/`               | Skills for contributors: code review, conventions, docs                   |

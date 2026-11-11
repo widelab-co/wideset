@@ -6,7 +6,7 @@ license: Apache-2.0
 
 # Build with Wideset
 
-The component source is in the project, or at `https://wideset-docs.widelab.workers.dev/components/<id>.md`. Read it for exact props. This skill holds what source cannot tell you: which component fits, how they combine, and what breaks without an error.
+The component source is in the project, or at `https://wideset.co/components/<id>.md`. Read it for exact props. This skill holds what source cannot tell you: which component fits, how they combine, and what breaks without an error.
 
 The pages here and on the docs site are written once. Their examples import from `@wideset/react`. In registry mode (`components/ui/wideset/` in the source) keep the code and take each import from [registry-imports](references/registry-imports.md), since paths cannot be guessed from names.
 
@@ -61,7 +61,7 @@ Choose by what the thing does. These pairs get mixed up most:
 
 ## What compiles and still breaks
 
-- `Sidebar.Section` renders nothing without a `Sidebar.Expanded` or `Sidebar.Collapsed` child for the current mode. Give it both.
+- `Sidebar` is one tree for both modes: put the nav and `Sidebar.Trigger` straight into `Sidebar.Header` / `Sidebar.Section`. `Sidebar.Expanded` and `Sidebar.Collapsed` wrap only what exists in one mode; never duplicate the nav in both.
 - A trigger wrapping your `Button` needs `asChild`; without it a button nests in a button.
 - `persistent`, `showCloseButton` and `autoFocusOnOpen` go on `Modal.Content`, not on `Modal`.
 - `Modal.Close asChild` closes at once. For a save that can fail, control `open` and close it yourself.
@@ -76,11 +76,11 @@ Choose by what the thing does. These pairs get mixed up most:
 - Table selection and sorting are yours: the table reports, you hold the state and sort the rows.
 - Handlers differ: `Select` uses `onValueChange(value)`, `ComboBox` uses `onChange(value)` and `TextInput` uses `onChange(event)`.
 - Overlays stack themselves. Do not add `z-*` to them.
-- `p-4` is Tailwind's 1rem, while `p-ws-4` is Wideset's 0.375rem.
+- `p-4` is Tailwind's 1rem, while `p-ws-4` is Wideset's 0.375rem. Zero is `p-ws-0` too, never `p-0` or `mt-0`.
 
 ## Styling and content
 
-Style only with `ws` classes, and let components own their looks: `className` is for layout. Look up a token at `https://wideset-docs.widelab.workers.dev/docs/tokens.md`.
+Style only with `ws` classes, and let components own their looks: `className` is for layout. Look up a token at `https://wideset.co/docs/tokens.md`.
 
 For how a finished screen should look, and for the rules on token choice, focus, icons, words and responsive layout, load `wideset-craft`.
 

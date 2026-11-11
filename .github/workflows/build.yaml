@@ -29,13 +29,12 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     permissions:
-      contents: write # create tags + GitHub Release on main
-      id-token: write # npm provenance on main
+      contents: read
 
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # full history for tags + GitHub Release
+          fetch-depth: 0 # the docs build reads each component's history
 
       # Version comes from `packageManager` in package.json.
       - uses: pnpm/action-setup@v4
@@ -84,28 +83,18 @@ jobs:
       - name: Build Storybook
         run: pnpm build:storybook
 
-      # Publish before deploying so a failed publish does not ship a half release.
-      # No pending changesets on main (consumed on develop) => publish mode only.
-      - name: Publish to npm
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        uses: changesets/action@v1 # consider pinning to a full SHA
-        with:
-          publish: pnpm changeset publish
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NPM_CONFIG_PROVENANCE: 'true'
-
   # Storybook and the docs site (with the shadcn registry under /r) on Cloudflare Workers, in the
-  # Widelab account. Runs after `build`, so on main the npm publish has already succeeded and the
-  # docs never describe an unreleased version. Setup: RELEASING.md.
+  # Widelab account. Runs after `build` and, on main, before `release`: the CLI and the docs
+  # point at wideset.co/r, and an npm version cannot be republished, so nothing is published
+  # until the deployed hosts answer. Setup: RELEASING.md.
   #   push to main    → production Workers wideset-storybook, wideset-docs (environment production)
   #   push to develop → wideset-storybook-develop, wideset-docs-develop (environment develop)
   #   pull request    → a preview version of each develop Worker (PRs target develop), alias
   #                     pr-<number>, URLs commented on the PR (environment preview)
   # Every build bakes in the addresses it is served from: the registry its own URL
   # (REGISTRY_URL), the docs their site and Storybook links. The environments' variables
-  # DOCS_URL / STORYBOOK_URL hold the custom domains; unset, the workers.dev address is used.
+  # DOCS_URL / STORYBOOK_URL hold the custom domains; unset, develop falls back to its workers.dev
+  # address and production to wideset.co and storybook.wideset.co.
   # Needs: secrets CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID; variable CF_WORKERS_SUBDOMAIN.
   deploy:
     name: Deploy ${{ matrix.app }}
@@ -185,8 +174,8 @@ jobs:
             storybook="${STORYBOOK:-https://wideset-storybook-develop.$SUB.workers.dev}"
           else
             mode=production
-            docs="${DOCS:-https://wideset-docs.$SUB.workers.dev}"
-            storybook="${STORYBOOK:-https://wideset-storybook.$SUB.workers.dev}"
+            docs="${DOCS:-https://wideset.co}"
+            storybook="${STORYBOOK:-https://storybook.wideset.co}"
           fi
           if [ "$APP" = "docs" ]; then app_url="$docs"; else app_url="$storybook"; fi
           {
@@ -237,6 +226,46 @@ jobs:
               ;;
           esac
 
+      # `wrangler deploy` succeeds even when the routes cannot fire (an unproxied DNS record), so
+      # ask the host itself. A redirect counts as a failure: wideset.co sends what the docs Worker
+      # does not serve to the landing page. A new custom domain waits for its certificate, hence
+      # the retries.
+      - name: Check the deployed host
+        if: steps.deploy.outputs.skipped != 'true'
+        env:
+          APP: ${{ matrix.app }}
+          MODE: ${{ steps.target.outputs.mode }}
+          URL: ${{ steps.target.outputs.app_url }}
+        # One path per route in apps/docs/wrangler.jsonc: the zone's Redirect Rule runs before the
+        # routes, so a path it fails to exclude lands on www. In production the docs are checked on
+        # https://wideset.co itself, the host the CLI and the registry items point at, whatever
+        # DOCS_URL says.
+        run: |
+          if [ "$APP" = docs ]; then
+            [ "$MODE" = production ] && URL=https://wideset.co
+            checks="$URL/r/registry.json|application/json $URL/docs/introduction|text/html
+              $URL/components/button.md|text/markdown $URL/_docs/favicon.png|image/png
+              $URL/llms.txt|text/plain $URL/llms-full.txt|text/plain
+              $URL/.well-known/agent-skills/index.json|application/json"
+          else
+            checks="$URL/|text/html"
+          fi
+          for check in $checks; do
+            url="${check%|*}"; type="${check#*|}"
+            for attempt in $(seq 1 20); do
+              # A stalled or cut-off response is a failed attempt, whatever its headers said.
+              if got=$(curl -sS --max-time 20 -o /dev/null -w '%{http_code} %{content_type}' "$url"); then
+                case "$got" in "200 $type"*) echo "ok $url ($got)"; continue 2 ;; esac
+              else
+                got="curl exit $? ($got)"
+              fi
+              echo "attempt $attempt: $url answered '$got', expected 200 $type"
+              sleep 15
+            done
+            echo "::error::$url does not answer 200 $type. Is the DNS record proxied? (RELEASING.md)"
+            exit 1
+          done
+
       - name: Comment the preview URL
         if: steps.target.outputs.mode == 'preview' && steps.deploy.outputs.skipped != 'true'
         uses: actions/github-script@v7
@@ -259,7 +288,65 @@ jobs:
               await github.rest.issues.createComment({ owner, repo, issue_number, body });
             }
 
-  # A PR into develop that changes shipping code (packages/design-system/src or cli, minus stories,
+  # npm publish, tag and GitHub Release on main, only once both production hosts answer (deploy).
+  release:
+    name: Publish to npm
+    needs: [build, deploy]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write # create tags + GitHub Release
+      id-token: write # npm provenance
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # full history for tags + GitHub Release
+          # changesets/action sets up its own credentials to push the tag; install scripts and the
+          # build never see the token.
+          persist-credentials: false
+
+      # Version comes from `packageManager` in package.json.
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # @wideset/react publishes dist/; the CLI ships its sources as they are.
+      - name: Build library
+        run: pnpm build:lib
+
+      # changesets/action neither versions nor publishes while only empty changesets are pending
+      # (it logs "All changesets are empty" and stops), and on develop it opens no Version PR to
+      # consume them. An empty changeset releases nothing, so it is dropped from the checkout
+      # (not committed) and the action falls through to publishing.
+      - name: Drop empty changesets
+        run: |
+          for f in .changeset/*.md; do
+            [ "$(basename "$f")" = README.md ] && continue
+            if [ "$(sed -n '1,2p' "$f" | tr -d '\r' | paste -sd '|')" = '---|---' ]; then
+              echo "empty changeset: $f"
+              rm "$f"
+            fi
+          done
+
+      # No pending changesets on main (consumed on develop) => publish mode only.
+      - name: Publish to npm
+        uses: changesets/action@v1 # consider pinning to a full SHA
+        with:
+          publish: pnpm changeset publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_CONFIG_PROVENANCE: 'true'
+
+  # A PR into develop that changes shipping code (packages/design-system/src or packages/cli/src, or packages/cli/package.json, minus stories,
   # tests, snapshots, Figma specs and docs pages; or the skills in packages/skills) must add a file in .changeset/. Nothing to release:
   # `pnpm changeset --empty`. Same rule as the pre-push hook: scripts/check-changeset.mjs.
   changeset:
@@ -316,7 +403,7 @@ jobs:
           if ! files=$(git diff --name-only "$range" -- \
             packages/design-system/src packages/design-system/registry.json \
             packages/design-system/scripts packages/design-system/package.json pnpm-lock.yaml \
-            packages/design-system/vite.config.ts packages/design-system/cli .github/workflows/build.yaml \
+            packages/design-system/vite.config.ts packages/cli .github/workflows/build.yaml \
             packages/skills apps/docs/scripts .claude-plugin \
             2>/dev/null); then
             echo "run=true" >> "$GITHUB_OUTPUT"
@@ -373,7 +460,7 @@ jobs:
             *)    node scripts/registry-smoke.mjs --shard "${{ matrix.shard }}" ;;
           esac
 
-  # The `wideset` CLI (shipped in @wideset/react) on real starter projects: npm create vite, create-next-app, and
+  # The `wideset` CLI (packages/cli, as npm packs it) on real starter projects: npm create vite, create-next-app, and
   # that Next app after shadcn init. Each runs the packed CLI (init, list, add button, skills, info) and the
   # project's own build.
   cli-smoke:
@@ -455,9 +542,21 @@ jobs:
       pull-requests: write # open/update the "Version Packages" PR
 
     steps:
+      # A PR opened or pushed with the built-in GITHUB_TOKEN triggers no workflows, so the
+      # required checks would never run on it. The wideset-release GitHub App token does trigger
+      # them. Until the App is configured this falls back to GITHUB_TOKEN (PR opens, checks don't).
+      - name: Release App token
+        id: app-token
+        if: vars.RELEASE_APP_ID != ''
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ vars.RELEASE_APP_ID }}
+          private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
+
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          token: ${{ steps.app-token.outputs.token || secrets.GITHUB_TOKEN }}
 
       # Version comes from `packageManager` in package.json.
       - uses: pnpm/action-setup@v4
@@ -479,7 +578,7 @@ jobs:
           title: 'Version Packages'
           commit: 'Version Packages'
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token || secrets.GITHUB_TOKEN }}
 
   chromatic:
     name: Publish to Chromatic

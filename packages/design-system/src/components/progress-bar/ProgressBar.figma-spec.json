@@ -68,19 +68,19 @@
       },
       "descriptionPadding": {
         "figma": "Helper Text paddingTop/Bottom Gap/3",
-        "code": "pt-ws-3 on ProgressBar.Description",
+        "code": "py-ws-3 in helperTextVariants (HelperText, #6)",
         "figmaPx": 4,
-        "renderedPx": 0,
-        "status": "DRIFT",
+        "renderedPx": 4,
+        "status": "OK",
         "kind": "shared-component",
-        "note": "Bottom padding missing (the bar is 60px tall, Figma 64px). Fixed at the source by PR #1, which gives HelperText py-ws-3; after it merges, drop pt-ws-3 from ProgressBar.Description."
+        "note": "HelperText now carries the padding top and bottom, so ProgressBar.Description adds none."
       },
       "height": {
         "figma": 64,
-        "rendered": 60,
-        "deltaPx": -4,
-        "status": "DRIFT",
-        "note": "the missing HelperText bottom padding, see descriptionPadding"
+        "rendered": 64,
+        "deltaPx": 0,
+        "status": "OK",
+        "note": "60px plus the HelperText bottom padding (4px) that #6 added; see descriptionPadding"
       }
     },
     "bar-success-error": {

@@ -10,20 +10,18 @@ metadata:
 
 Start by finding out what the project already has:
 
-- `@wideset/react` in `package.json` means package mode. The `wideset` command ships inside it, so `npx --no-install wideset info --json` reports the version, registry, aliases, Tailwind version and installed skills.
+- `@wideset/react` in `package.json` means package mode. `npx wideset info --json` reports the version, registry, aliases, Tailwind version and installed skills.
 - `components/ui/wideset/` in the source, or a `@wideset` entry under `registries` in `components.json`, means registry mode.
 - Neither means a new setup.
 
-Always pass `--no-install` when running the `wideset` command through npx. The name is not published on the public npm registry yet, so without the flag npx would look there.
-
 ## Choose a mode
 
-|         | Package (`npm`)                 | Scaffolding (`registry`)                                        |
-| ------- | ------------------------------- | --------------------------------------------------------------- |
-| Install | `npm install @wideset/react`    | `components.json`, then `npx shadcn@latest add @wideset/button` |
-| Code    | In `node_modules`, not editable | Copied into the repo, yours to edit                             |
-| Updates | Through semver                  | None; the code is yours from then on                            |
-| Import  | `from '@wideset/react'`         | `from '@/components/ui/wideset/button/Button'`                  |
+|         | Package (`npm`)                 | Scaffolding (`registry`)                          |
+| ------- | ------------------------------- | ------------------------------------------------- |
+| Install | `npm install @wideset/react`    | `npx wideset init`, then `npx wideset add button` |
+| Code    | In `node_modules`, not editable | Copied into the repo, yours to edit               |
+| Updates | Through semver                  | None; the code is yours from then on              |
+| Import  | `from '@wideset/react'`         | `from '@/components/ui/wideset/button/Button'`    |
 
 Use the mode the project already uses. Never mix both in one app. For a new project, prefer the package when it should receive fixes, and the registry when it needs heavy custom branding.
 
@@ -55,7 +53,9 @@ The `theme` entry ships tokens and utilities only. To use `radix-*` or `animate-
 
 ## Stylesheets (registry mode)
 
-The shadcn CLI does the copying; you do not need shadcn's components or theme, or `shadcn init`. Add this `components.json` to the project root (Vite shown; for Next.js use `"rsc": true`, `"css": "app/globals.css"` and `@/` at the project root). The `@/*` alias must exist in `tsconfig.json`, and in `vite.config.ts` for Vite.
+Use the Wideset CLI. `npx wideset init` writes `components.json` (or registers `@wideset` in an existing one), adds the `@/*` alias and imports the stylesheet; `npx wideset add button select` copies components with what they depend on, and runs `init` first if needed. `npx wideset list` shows every component.
+
+Without the Wideset CLI, the shadcn CLI does the copying; you do not need shadcn's components or theme, or `shadcn init`. Add this `components.json` to the project root (Vite shown; for Next.js use `"rsc": true`, `"css": "app/globals.css"` and `@/` at the project root). The `@/*` alias must exist in `tsconfig.json`, and in `vite.config.ts` for Vite.
 
 ```json
 {
@@ -76,11 +76,11 @@ The shadcn CLI does the copying; you do not need shadcn's components or theme, o
     "hooks": "@/hooks",
     "utils": "@/lib/utils"
   },
-  "registries": { "@wideset": "https://wideset-docs.widelab.workers.dev/r/{name}.json" }
+  "registries": { "@wideset": "https://wideset.co/r/{name}.json" }
 }
 ```
 
-A project already using shadcn keeps its file and runs `npx shadcn@latest registry add @wideset=https://wideset-docs.widelab.workers.dev/r/{name}.json`.
+A project already using shadcn keeps its file and runs `npx shadcn@latest registry add @wideset=https://wideset.co/r/{name}.json`.
 
 Every component brings `styles/wideset.css`. Import it once in the app entry:
 
@@ -90,7 +90,7 @@ import '@/styles/wideset.css';
 
 Apps without Tailwind also add `@wideset/preflight` and import `@/styles/wideset-preflight.css` first. For your own Tailwind build, add `@wideset/theme` and import `./styles/wideset-theme.css` after `tailwindcss` in the entry CSS.
 
-Shared code comes along with the components that need it. The list of items is `https://wideset-docs.widelab.workers.dev/r/registry.json`.
+Shared code comes along with the components that need it. The list of items is `https://wideset.co/r/registry.json`.
 
 ## Font
 
@@ -147,7 +147,7 @@ Everything visual resolves from CSS variables, so rebrand with a stylesheet load
 }
 ```
 
-Override primitives (`--ws-colors-*`) first: every role and class built on them follows. Use `className` for a one-off instance, and composition to change structure. Check the primitive names at `https://wideset-docs.widelab.workers.dev/docs/theming.md` before overriding.
+Override primitives (`--ws-colors-*`) first: every role and class built on them follows. Use `className` for a one-off instance, and composition to change structure. Check the primitive names at `https://wideset.co/docs/theming.md` before overriding.
 
 ## Check the result
 

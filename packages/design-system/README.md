@@ -2,7 +2,7 @@
 
 A React component library for building consistent, accessible products.
 
-**[Documentation →](https://wideset-docs.widelab.workers.dev)** · **[Storybook →](https://wideset-storybook.widelab.workers.dev)**
+**[Documentation →](https://wideset.co/docs)** · **[Storybook →](https://storybook.wideset.co)**
 
 The documentation site covers the same setup in more depth, plus theming, the foundations (colour,
 type, spacing, radius, elevation, motion), every component with a live playground, and working
@@ -14,22 +14,12 @@ with AI assistants (`/llms.txt`, the shadcn MCP server).
 
 ## Two ways to use Wideset
 
-<!-- TODO(wideset-cli): before publishing the `wideset` package, replace the table below with this one and delete this comment.
-
-|          | **Package** ([A](#option-a-install-the-package))                     | **Scaffolding** ([B](#option-b-scaffold-with-the-wideset-cli))   |
-| -------- | -------------------------------------------------------------------- | ---------------------------------------------------------------- |
-| Install  | `pnpm add @wideset/react` | `npx wideset init`, `npx wideset add button` (no auth / package) |
-| Code     | in `node_modules`, not editable                                      | copied into your repo, fully editable                            |
-| Updates  | automatic, via semver                                                | none — your code from then on                                    |
-| Best for | long-lived products that need fixes and support                      | prototypes, client projects with heavy custom branding           |
--->
-
-|          | **Package** ([A](#option-a-install-the-package)) | **Scaffolding** ([B](#option-b-scaffold-with-shadcn))  |
-| -------- | ------------------------------------------------ | ------------------------------------------------------ |
-| Install  | `pnpm add @wideset/react`                        | `npx shadcn add @wideset/button` (no auth / package)   |
-| Code     | in `node_modules`, not editable                  | copied into your repo, fully editable                  |
-| Updates  | automatic, via semver                            | none — your code from then on                          |
-| Best for | long-lived products that need fixes and support  | prototypes, client projects with heavy custom branding |
+|          | **Package** ([A](#option-a-install-the-package)) | **Scaffolding** ([B](#option-b-scaffold-with-the-wideset-cli))   |
+| -------- | ------------------------------------------------ | ---------------------------------------------------------------- |
+| Install  | `pnpm add @wideset/react`                        | `npx wideset init`, `npx wideset add button` (no auth / package) |
+| Code     | in `node_modules`, not editable                  | copied into your repo, fully editable                            |
+| Updates  | automatic, via semver                            | none — your code from then on                                    |
+| Best for | long-lived products that need fixes and support  | prototypes, client projects with heavy custom branding           |
 
 ---
 
@@ -146,8 +136,6 @@ export default function RootLayout({ children }) {
 
 ---
 
-<!-- TODO(wideset-cli): before publishing the `wideset` package, replace the section below with this one and delete this comment.
-
 ## Option B: Scaffold with the Wideset CLI
 
 Every component is published as a [shadcn registry](https://ui.shadcn.com/docs/registry) item, and
@@ -196,7 +184,7 @@ registry `@wideset` means. Vite (sources in `src/`):
     "hooks": "@/hooks",
     "utils": "@/lib/utils"
   },
-  "registries": { "@wideset": "https://wideset-docs.widelab.workers.dev/r/{name}.json" }
+  "registries": { "@wideset": "https://wideset.co/r/{name}.json" }
 }
 ```
 
@@ -206,7 +194,7 @@ root (`"@/*": ["./*"]`). The `@/*` alias has to exist in `tsconfig.json` (`paths
 register the namespace:
 
 ```bash
-npx shadcn@latest registry add @wideset=https://wideset-docs.widelab.workers.dev/r/{name}.json
+npx shadcn@latest registry add @wideset=https://wideset.co/r/{name}.json
 ```
 
 **2. Add components.** Sub-components and dependencies come along; the item list is `/r/registry.json`.
@@ -229,70 +217,6 @@ sizing), so keep importing `styles` unless you reproduce those yourself.
 The `wideset` CLI pins the shadcn version CI tests the registry against on every change; CI also
 runs the registry against `shadcn@latest` weekly, so `@latest` is what we recommend when calling
 shadcn yourself.
--->
-
-## Option B: Scaffold with shadcn
-
-Every component is published as a [shadcn registry](https://ui.shadcn.com/docs/registry) item.
-The source lands in your repo, fully editable, though no automatic updates. The shadcn CLI only
-copies files; Wideset does not use shadcn's components, theme or `cn`, so you do **not** need
-`shadcn init`.
-
-**1. Create `components.json`** in your project root. It tells the CLI where files go and which
-registry `@wideset` means. Vite (sources in `src/`):
-
-```json
-{
-  "$schema": "https://ui.shadcn.com/schema.json",
-  "style": "radix-nova",
-  "tsx": true,
-  "rsc": false,
-  "tailwind": {
-    "config": "",
-    "css": "src/index.css",
-    "baseColor": "neutral",
-    "cssVariables": true
-  },
-  "aliases": {
-    "components": "@/components",
-    "ui": "@/components/ui",
-    "lib": "@/lib",
-    "hooks": "@/hooks",
-    "utils": "@/lib/utils"
-  },
-  "registries": { "@wideset": "https://wideset-docs.widelab.workers.dev/r/{name}.json" }
-}
-```
-
-Next.js App Router: `"rsc": true`, `"css": "app/globals.css"`, and `@/` pointing at the project
-root (`"@/*": ["./*"]`). The `@/*` alias has to exist in `tsconfig.json` (`paths`) and, for Vite, in
-`vite.config.ts` (`resolve.alias`). Already using shadcn? Keep your `components.json` and only
-register the namespace:
-
-```bash
-npx shadcn@latest registry add @wideset=https://wideset-docs.widelab.workers.dev/r/{name}.json
-```
-
-**2. Add components.** Sub-components and dependencies come along; the item list is `/r/registry.json`.
-
-```bash
-npx shadcn@latest add @wideset/button @wideset/select
-```
-
-**3. Import the stylesheet once.** Every component pulls `styles/wideset.css` with it:
-
-```tsx
-import '@/styles/wideset.css';
-```
-
-Files land in `components/ui/wideset/`, `lib/wideset/` and `hooks/wideset/`. Apps without Tailwind
-also add `@wideset/preflight` and import it first. Tailwind v4 apps can add `@wideset/theme` so their
-own build compiles the `ws` utility classes from the installed sources — it ships tokens and
-utilities only, without the element rules `styles` carries (font smoothing, `1em` Remix Icon
-sizing), so keep importing `styles` unless you reproduce those yourself.
-
-The registry is tested in CI against the shadcn CLI version in this repo's `devDependencies` on
-every change, and against `shadcn@latest` on a weekly schedule, so `@latest` is what we recommend.
 
 ---
 
@@ -394,7 +318,7 @@ brand ramps, `--ws-colors-light-brand-*` and `--ws-colors-dark-brand-*` (steps 1
 or dark mode keeps the old colour; the tinted backgrounds come from `*-brand-opacity-*` tokens,
 which are fixed colours, so derive them with `color-mix()`. The full recipe, and the other ways
 to customise (one role, `className`, composition), are on
-[wideset-docs.widelab.workers.dev/docs/theming](https://wideset-docs.widelab.workers.dev/docs/theming).
+[wideset.co/docs/theming](https://wideset.co/docs/theming).
 
 ### Notes
 
@@ -429,19 +353,19 @@ pnpm test         # Vitest
 
 Before you report:
 
-- Check the [Storybook](https://wideset-storybook.widelab.workers.dev/) to confirm the behaviour isn't intentional
+- Check the [Storybook](https://storybook.wideset.co/) to confirm the behaviour isn't intentional
 - Include your package version (`npm list @wideset/react`) and – if it's a bug – a minimal reproduction
 
 ---
 
 ## Package info
 
-|            |                           |
-| ---------- | ------------------------- |
-| Package    | `@wideset/react`          |
-| Registry   | npm                       |
-| Repository | `widelab-co/wideset`      |
-| License    | Apache-2.0, with `NOTICE` |
+|            |                                 |
+| ---------- | ------------------------------- |
+| Package    | `@wideset/react`, CLI `wideset` |
+| Registry   | npm                             |
+| Repository | `widelab-co/wideset`            |
+| License    | Apache-2.0, with `NOTICE`       |
 
 **Outputs after `pnpm build:lib`:**
 
