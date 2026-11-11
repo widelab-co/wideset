@@ -1,4 +1,4 @@
-// TODO(custom): a small TypeScript tokenizer for the open file's colouring; Wideset has no code view.
+// TODO(custom): a small TypeScript tokenizer and its colours, for the diff and the open file; Wideset has no code or diff component.
 
 export type TokenKind = 'comment' | 'string' | 'number' | 'keyword' | 'plain';
 
@@ -20,9 +20,9 @@ const KIND: TokenKind[] = ['comment', 'string', 'number', 'keyword'];
 const IN_BLOCK_COMMENT = /^\s*(?:\/\*|\*(?:\s|\/|$))/;
 
 /**
- * One line of TypeScript as runs of comment, string, number, keyword and plain code. Copied from
- * the code editor's tokenizer, with TypeScript's keywords; line by line, the same way the diff in
- * the Changes pane reads the same files, so a line is coloured alike in both.
+ * One line of TypeScript as runs of comment, string, number, keyword and plain code. Line by
+ * line, because a diff shows lines out of their file: a hunk can start in the middle of anything.
+ * The Files pane reads whole files the same way, so a line is coloured alike in both.
  */
 export function tokenize(line: string): Token[] {
   // ponytail: a line is read on its own, so a block comment is known only by its leading star
@@ -40,3 +40,16 @@ export function tokenize(line: string): Token[] {
   if (at < line.length) tokens.push({ kind: 'plain', start: at, text: line.slice(at) });
   return tokens;
 }
+
+/**
+ * The colours of code, the same in every pane: keywords take the info colour, literals (strings
+ * and numbers) the notice colour, comments the quiet grey. Green and red are kept for what was
+ * added and removed, so a string never reads as a change.
+ */
+export const TOKEN_COLOUR: Record<TokenKind, string> = {
+  keyword: 'text-ws-semantic-info',
+  string: 'text-ws-semantic-notice',
+  number: 'text-ws-semantic-notice',
+  comment: 'text-ws-static-subtle',
+  plain: 'text-ws-static-strong',
+};

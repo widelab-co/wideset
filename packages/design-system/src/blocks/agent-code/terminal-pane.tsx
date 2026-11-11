@@ -2,7 +2,7 @@ import { RiAddLine, RiCheckLine, RiEraserLine, RiFileCopyLine, RiStopLine } from
 import { Tabs, TextInput } from '@wideset/react';
 import { type FormEvent, useEffect, useRef, useState } from 'react';
 
-import { TerminalBarAction } from './terminal-bar-action';
+import { BarAction } from './bar-action';
 import { PASSING_TESTS, type Run, SHELLS, stateOf, textOf } from './terminal-data';
 import { TerminalOutput } from './terminal-output';
 import { TerminalStateMark } from './terminal-state-mark';
@@ -127,18 +127,18 @@ export function TerminalPane() {
               );
             })}
           </Tabs.List>
-          <TerminalBarAction icon={RiAddLine} label="New shell" onClick={open} />
+          <BarAction icon={RiAddLine} label="New shell" onClick={open} />
         </div>
         <div className="gap-ws-2 ml-auto flex shrink-0 items-center">
           {/* Disabled while nothing runs, so the bar keeps its layout. */}
-          <TerminalBarAction icon={RiStopLine} label="Stop" disabled={!running} onClick={stop} />
-          <TerminalBarAction
+          <BarAction icon={RiStopLine} label="Stop" disabled={!running} onClick={stop} />
+          <BarAction
             icon={RiEraserLine}
             label="Clear"
             disabled={shell.runs.length === 0}
             onClick={clear}
           />
-          <TerminalBarAction
+          <BarAction
             icon={copied ? RiCheckLine : RiFileCopyLine}
             label="Copy output"
             // The check arrives with a short fade, growing the last step into place.

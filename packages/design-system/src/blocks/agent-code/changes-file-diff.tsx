@@ -7,20 +7,7 @@ import { CommentComposer } from './changes-comment-composer';
 import { CommentThread } from './changes-comment-thread';
 import { type ChangedFile, splitPath, type Thread } from './changes-data';
 import { type Anchor, anchorOf, type DiffLine, type LineKind, sameAnchor } from './changes-diff';
-import { tokenize, type TokenKind } from './changes-highlight';
-
-/**
- * Two colours and a grey, none of them the diff's own: keywords take the info colour, literals
- * (strings and numbers) the notice colour, comments the quiet grey. Green and red are kept for
- * what was added and removed, so a string never reads as a change.
- */
-const COLOUR: Record<TokenKind, string> = {
-  keyword: 'text-ws-semantic-info',
-  string: 'text-ws-semantic-notice',
-  number: 'text-ws-semantic-notice',
-  comment: 'text-ws-static-subtle',
-  plain: 'text-ws-static-strong',
-};
+import { TOKEN_COLOUR, tokenize } from './highlight';
 
 /**
  * The whole line is tinted, edge to edge, and its sign says the same for anyone who cannot tell
@@ -66,7 +53,7 @@ function DiffRow({ line, tabStop, onFocus, onKeyDown, onComment }: DiffRowProps)
   const where = line.kind === 'removed' ? `removed line ${number}` : `line ${number}`;
 
   return (
-    <div className={cn('group/line px-ws-11 py-ws-2 relative flex', row)}>
+    <div data-new-line={line.new} className={cn('group/line px-ws-11 py-ws-2 relative flex', row)}>
       <button
         type="button"
         data-line=""
@@ -96,7 +83,7 @@ function DiffRow({ line, tabStop, onFocus, onKeyDown, onComment }: DiffRowProps)
       </span>
       <code className="font-ws-mono min-h-[1lh] min-w-0 flex-1 wrap-anywhere whitespace-pre-wrap">
         {tokenize(line.text).map((token) => (
-          <span key={token.start} className={COLOUR[token.kind]}>
+          <span key={token.start} className={TOKEN_COLOUR[token.kind]}>
             {token.text}
           </span>
         ))}

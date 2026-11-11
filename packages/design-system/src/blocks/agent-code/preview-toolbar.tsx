@@ -10,7 +10,7 @@ import {
 } from '@remixicon/react';
 import { Button, IconButton, SegmentedControl, TextInput, Tooltip } from '@wideset/react';
 
-import { PreviewBarAction } from './preview-bar-action';
+import { BarAction } from './bar-action';
 import type { Viewport } from './preview-data';
 
 type PreviewToolbarProps = {
@@ -50,19 +50,19 @@ export function PreviewToolbar({
     <div className="h-ws-16 border-ws-static-subtle px-ws-9 gap-ws-5 flex shrink-0 items-center border-b">
       <div className="gap-ws-2 flex shrink-0 items-center">
         {/* With nowhere to go they are disabled, and keep their place. */}
-        <PreviewBarAction
+        <BarAction
           icon={RiArrowLeftLine}
           label="Back"
           disabled={!onBack}
           onClick={() => onBack?.()}
         />
-        <PreviewBarAction
+        <BarAction
           icon={RiArrowRightLine}
           label="Forward"
           disabled={!onForward}
           onClick={() => onForward?.()}
         />
-        <PreviewBarAction icon={RiRefreshLine} label="Reload" onClick={onReload} />
+        <BarAction icon={RiRefreshLine} label="Reload" onClick={onReload} />
       </div>
 
       <form

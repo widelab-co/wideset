@@ -30,21 +30,24 @@ const STATE: Record<CheckState, { icon: RemixiconComponentType; colour: string; 
 
 /**
  * One check: its state's mark, its name, how long it ran. A failed check opens on the lines of
- * its log that say why, with the way on under them: hand it to Tandem (the pane's one accented
- * action, bordered, never filled) or read the whole log. Folded, it says what failed in a line
+ * its log that say why, with the way on under them: ask Tandem to fix it (the pane's one accented
+ * action, bordered, never filled: it writes the request into the session's composer) or read the
+ * whole log. Folded, it says what failed in a line
  * under its name. A check with nothing to show is a plain row, not a control.
  */
-function CheckRow({ check }: { check: Check }) {
+function CheckRow({ check, onFix }: { check: Check; onFix?: (text: string) => void }) {
   const [open, setOpen] = useState(check.state === 'failed');
   const [sent, setSent] = useState(false);
   const toggle = useRef<HTMLButtonElement>(null);
   const detailId = useId();
   const { icon: Icon, colour, spoken } = STATE[check.state];
 
-  // The button gives way to a line saying it was sent, so the focus goes back to the row.
+  // The button gives way to a line saying where the request went. Without a composer to take the
+  // focus, it goes back to the row.
   const send = () => {
     setSent(true);
     toggle.current?.focus();
+    onFix?.(`Fix the failing ${check.name} check: ${check.reason}`);
   };
 
   return (
@@ -106,7 +109,7 @@ function CheckRow({ check }: { check: Check }) {
                 className="typography-label-strong-sm text-ws-static-subtle gap-ws-3 h-ws-forms-sm flex items-center"
               >
                 <RiCheckLine aria-hidden="true" className="size-ws-9" />
-                Sent to Tandem
+                Added to your message
               </p>
             ) : (
               <Button preset="border" size="sm" onClick={send}>
@@ -132,7 +135,7 @@ function CheckRow({ check }: { check: Check }) {
  * asks for something, then the rest in the order they ran. Rows run edge to edge, split by
  * lines, their text in line with the card's title.
  */
-export function CheckList() {
+export function CheckList({ onFix }: { onFix?: (text: string) => void }) {
   const titleId = useId();
 
   return (
@@ -144,7 +147,7 @@ export function CheckList() {
       </Card.Header>
       <ul>
         {CHECKS.map((check) => (
-          <CheckRow key={check.id} check={check} />
+          <CheckRow key={check.id} check={check} onFix={onFix} />
         ))}
       </ul>
     </Card>

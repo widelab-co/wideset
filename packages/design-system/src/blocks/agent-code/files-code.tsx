@@ -2,21 +2,9 @@
 import { cn } from '@wideset/react';
 
 import type { Change, RepoFile } from './files-data';
-import { type Token, tokenize, type TokenKind } from './files-highlight';
+import { type Token, TOKEN_COLOUR, tokenize } from './highlight';
 
 const CODE = 'typography-body-md tracking-ws-normal font-ws-mono whitespace-pre';
-
-/**
- * The code editor block's colours: keywords one, literals the other, comments the quiet grey,
- * plain code the text colour. Text tokens that read in both themes.
- */
-const COLOUR: Record<TokenKind, string> = {
-  keyword: 'text-ws-semantic-info',
-  string: 'text-ws-semantic-positive',
-  number: 'text-ws-semantic-positive',
-  comment: 'text-ws-static-subtle',
-  plain: 'text-ws-static-strong',
-};
 
 /** The bar beside a changed line, as editors draw it: green for a new line, blue for a changed one. */
 const BAR: Record<Change, string> = {
@@ -68,7 +56,7 @@ export function FilesCode({ file }: { file: RepoFile }) {
                 {line.text === ''
                   ? ' '
                   : tokensOf(line.text).map((token) => (
-                      <span key={token.start} className={COLOUR[token.kind]}>
+                      <span key={token.start} className={TOKEN_COLOUR[token.kind]}>
                         {token.text}
                       </span>
                     ))}

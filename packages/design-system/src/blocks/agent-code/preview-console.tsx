@@ -10,7 +10,7 @@ import {
 import { cn } from '@wideset/react';
 import { useEffect, useRef } from 'react';
 
-import { PreviewBarAction } from './preview-bar-action';
+import { BarAction } from './bar-action';
 import type { ConsoleMessage } from './preview-data';
 
 /** A level's mark, in its meaning's colour, and its name for a screen reader. */
@@ -51,13 +51,13 @@ export function PreviewConsole({ id, messages, onClear, onClose }: PreviewConsol
       <div className="h-ws-16 px-ws-11 flex shrink-0 items-center justify-between">
         <h3 className="typography-label-strong-sm text-ws-static-strong">Console</h3>
         <div className="gap-ws-2 flex items-center">
-          <PreviewBarAction
+          <BarAction
             icon={RiEraserLine}
             label="Clear console"
             disabled={messages.length === 0}
             onClick={onClear}
           />
-          <PreviewBarAction icon={RiCloseLine} label="Close console" onClick={onClose} />
+          <BarAction icon={RiCloseLine} label="Close console" onClick={onClose} />
         </div>
       </div>
       {messages.length === 0 ? (

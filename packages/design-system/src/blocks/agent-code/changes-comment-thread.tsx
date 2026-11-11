@@ -11,7 +11,7 @@ type CommentThreadProps = {
   thread: Thread;
   onReply: (text: string) => void;
   onResolve: (resolved: boolean) => void;
-  /** Hands the thread to the session, for Tandem to fix what it asks. */
+  /** Puts the comment in the session's composer, for Tandem to fix what it asks. */
   onSend: () => void;
 };
 
@@ -19,8 +19,8 @@ type CommentThreadProps = {
  * A review thread under the line it is about, in a box drawn rather than filled, so it reads as
  * apart from the tinted lines around it: who wrote, how long ago, the text, then the replies.
  * Three ways on: Reply (the composer opens in place of the actions), Resolve (the thread folds to
- * one quiet line that can be reopened) and Ask Tandem to fix, which hands the comment to the
- * session and then says so instead of offering it twice. The agent's action is the bordered one;
+ * one quiet line that can be reopened) and Ask Tandem to fix, which puts the comment in the
+ * session's composer and then says so instead of offering it twice. The agent's action is the bordered one;
  * none is filled.
  */
 export function CommentThread({ thread, onReply, onResolve, onSend }: CommentThreadProps) {
@@ -117,7 +117,7 @@ export function CommentThread({ thread, onReply, onResolve, onSend }: CommentThr
                   className="typography-caption-strong-md text-ws-static-subtle gap-ws-2 h-ws-forms-xs px-ws-4 flex items-center"
                 >
                   <RiCheckLine aria-hidden="true" className="size-ws-8" />
-                  Sent to Tandem
+                  Added to your message
                 </p>
               ) : (
                 <Button variant="secondary" preset="border" size="xs" onClick={onSend}>
