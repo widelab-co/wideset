@@ -125,6 +125,8 @@ export type {
 export { ComboBoxContent } from './components/combo-box/ComboBoxContent';
 export { ComboBoxItem } from './components/combo-box/ComboBoxItem';
 export { ComboBoxTrigger } from './components/combo-box/ComboBoxTrigger';
+export { Count } from './components/count/Count';
+export type { CountProps } from './components/count/Count.types';
 export { DatePicker } from './components/datepicker/DatePicker';
 export type { DatePickerProps } from './components/datepicker/DatePicker.types';
 export { DateRangePicker } from './components/daterangepicker/DateRangePicker';

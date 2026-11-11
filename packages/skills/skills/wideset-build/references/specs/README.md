@@ -118,6 +118,7 @@ Sources of truth, in order: Figma → code → specs.
 - [Avatar](../good-practices/avatar.md): a person, team or the agent orb next to a name.
 - [Tag](../good-practices/tag.md): a static category label; colour is categorical.
 - [StatusBadge](../good-practices/status-badge.md): a static state label.
+- [Count](../good-practices/count.md): how many items sit behind a label.
 
 ### [Layout](components/layout/README.md)
 

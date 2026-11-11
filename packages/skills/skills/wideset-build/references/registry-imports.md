@@ -53,6 +53,7 @@ A member such as `Card.Header` comes with `Card`; its named form, `CardHeader`, 
 - `import { ComboBoxContent } from '@/components/ui/wideset/combo-box/ComboBoxContent';`
 - `import { ComboBoxItem } from '@/components/ui/wideset/combo-box/ComboBoxItem';`
 - `import { ComboBoxTrigger } from '@/components/ui/wideset/combo-box/ComboBoxTrigger';`
+- `import { Count } from '@/components/ui/wideset/count/Count';`
 - `import { DatePicker } from '@/components/ui/wideset/datepicker/DatePicker';`
 - `import { DateRangePicker } from '@/components/ui/wideset/daterangepicker/DateRangePicker';`
 - `import { dateRangePresetLabels } from '@/components/ui/wideset/daterangepicker/DateRangePicker.types';`
@@ -238,6 +239,7 @@ A member such as `Card.Header` comes with `Card`; its named form, `CardHeader`, 
 - `import type { CheckboxGroupProps, CheckboxProps } from '@/components/ui/wideset/checkbox/Checkbox.types';`
 - `import type { ChipIconProps, ChipProps } from '@/components/ui/wideset/chip/Chip.types';`
 - `import type { ComboBoxContentProps, ComboBoxContextValue, ComboBoxHighlightedLabelProps, ComboBoxIconProps, ComboBoxItemProps, ComboBoxOption, ComboBoxPrefixProps, ComboBoxProps, ComboBoxTriggerProps } from '@/components/ui/wideset/combo-box/ComboBox.types';`
+- `import type { CountProps } from '@/components/ui/wideset/count/Count.types';`
 - `import type { DatePickerProps } from '@/components/ui/wideset/datepicker/DatePicker.types';`
 - `import type { DateRangePickerProps, DateRangePreset, DateRangeValue } from '@/components/ui/wideset/daterangepicker/DateRangePicker.types';`
 - `import type { DividerProps } from '@/components/ui/wideset/divider/Divider.types';`

@@ -1,0 +1,25 @@
+# One approval from a code owner merges a pull request into develop (see CONTRIBUTING.md).
+# GitHub assigns one reviewer from the owning team automatically. The last matching line wins.
+
+*                                         @widelab-co/wideset-maintainers
+
+# Risk zones (wideset-code-review): a mistake here reaches every consumer, the release or CI.
+/package.json                             @widelab-co/wideset-core
+/pnpm-lock.yaml                           @widelab-co/wideset-core
+/pnpm-workspace.yaml                      @widelab-co/wideset-core
+/turbo.json                               @widelab-co/wideset-core
+/.eslintrc.json                           @widelab-co/wideset-core
+/.changeset/config.json                   @widelab-co/wideset-core
+/.github/                                 @widelab-co/wideset-core
+/.husky/                                  @widelab-co/wideset-core
+/scripts/                                 @widelab-co/wideset-core
+/packages/design-system/package.json      @widelab-co/wideset-core
+/packages/design-system/vite.config.ts    @widelab-co/wideset-core
+/packages/design-system/tsconfig*.json    @widelab-co/wideset-core
+/packages/design-system/prefix-tokens.cjs @widelab-co/wideset-core
+/packages/design-system/registry.json     @widelab-co/wideset-core
+/packages/design-system/scripts/          @widelab-co/wideset-core
+/packages/design-system/cli/              @widelab-co/wideset-core
+/packages/design-system/src/index.ts      @widelab-co/wideset-core
+/packages/design-system/src/lib/          @widelab-co/wideset-core
+/packages/design-system/src/styles/       @widelab-co/wideset-core

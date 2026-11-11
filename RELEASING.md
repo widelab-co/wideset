@@ -92,6 +92,7 @@ When `develop` has accumulated the changesets you want to ship, run the version 
 
 The recommended way is the automated **"Version Packages" PR** that the Changesets Action keeps open against `develop`:
 
+- It is opened with the `wideset-release` GitHub App token (repository variable `RELEASE_APP_ID`, secret `RELEASE_APP_PRIVATE_KEY`), so CI runs on it like on any other PR. A PR opened with the built-in `GITHUB_TOKEN` runs no checks and cannot satisfy the ruleset.
 - Open it, review the computed version and the generated `CHANGELOG.md`.
 - Merge it into `develop`.
 
@@ -101,7 +102,7 @@ Treat **version → promote** as a brief freeze: avoid landing new changesets on
 
 ### 2. Promote `develop → main`
 
-Open a PR `develop → main` and merge it with **"Create a merge commit"** — **never Squash or Rebase** (squash collapses the whole history into one commit).
+Open a PR `develop → main` and merge it with **"Create a merge commit"** — **never Squash or Rebase** (squash collapses the whole history into one commit). The `main` ruleset allows only merge commits, and only `wideset-core` can merge into `main`.
 
 On push to `main`, CI runs in order: **build → publish → deploy**:
 

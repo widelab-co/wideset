@@ -455,9 +455,21 @@ jobs:
       pull-requests: write # open/update the "Version Packages" PR
 
     steps:
+      # A PR opened or pushed with the built-in GITHUB_TOKEN triggers no workflows, so the
+      # required checks would never run on it. The wideset-release GitHub App token does trigger
+      # them. Until the App is configured this falls back to GITHUB_TOKEN (PR opens, checks don't).
+      - name: Release App token
+        id: app-token
+        if: vars.RELEASE_APP_ID != ''
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ vars.RELEASE_APP_ID }}
+          private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
+
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          token: ${{ steps.app-token.outputs.token || secrets.GITHUB_TOKEN }}
 
       # Version comes from `packageManager` in package.json.
       - uses: pnpm/action-setup@v4
@@ -479,7 +491,7 @@ jobs:
           title: 'Version Packages'
           commit: 'Version Packages'
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token || secrets.GITHUB_TOKEN }}
 
   chromatic:
     name: Publish to Chromatic

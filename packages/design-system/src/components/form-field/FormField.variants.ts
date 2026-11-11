@@ -3,7 +3,7 @@ import { cva } from 'class-variance-authority';
 export const formFieldVariants = cva('flex', {
   variants: {
     variant: {
-      vertical: 'flex-col gap-[0.375rem]',
+      vertical: 'gap-ws-4 flex-col',
       horizontal: 'gap-ws-5 flex-row items-start',
     },
   },
@@ -16,7 +16,7 @@ export const formFieldLabelVariants = cva('', {
   variants: {
     variant: {
       vertical: '',
-      horizontal: 'gap-ws-5 flex w-full max-w-[10rem] shrink-0 flex-col',
+      horizontal: 'gap-ws-4 flex w-full max-w-[10rem] shrink-0 flex-col',
     },
   },
   defaultVariants: {
@@ -24,7 +24,8 @@ export const formFieldLabelVariants = cva('', {
   },
 });
 
-export const formFieldContentVariants = cva('flex flex-col gap-[0.375rem]', {
+// Figma stacks FormField's parts with Gap/4; the helper text adds its own Gap/3 padding on top.
+export const formFieldContentVariants = cva('gap-ws-4 flex flex-col', {
   variants: {
     variant: {
       vertical: '',
