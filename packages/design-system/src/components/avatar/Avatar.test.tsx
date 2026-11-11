@@ -548,6 +548,30 @@ describe('Avatar', () => {
 
       expect(screen.getByAltText('Research assistant')).toBeInTheDocument();
     });
+
+    it.each([
+      ['the default icon', <Avatar key="default" />],
+      ['a custom icon', <Avatar key="custom" icon={<RiBugLine />} />],
+    ])('should keep %s decorative', (_, avatar) => {
+      render(avatar);
+
+      expect(screen.queryByRole('img')).not.toBeInTheDocument();
+    });
+
+    it('should take an icon avatar name from aria-label on the root', () => {
+      render(<Avatar aria-label="Bug tracker" icon={<RiBugLine />} />);
+
+      expect(screen.getByRole('img', { name: 'Bug tracker' })).toHaveAttribute(
+        'data-slot',
+        'avatar',
+      );
+    });
+
+    it('should stay a button when a clickable avatar carries aria-label', () => {
+      render(<Avatar aria-label="Open profile" onClick={() => {}} />);
+
+      expect(screen.getByRole('button', { name: 'Open profile' })).toBeInTheDocument();
+    });
   });
   describe('Colour', () => {
     const hueOf = (el: HTMLElement | null) =>

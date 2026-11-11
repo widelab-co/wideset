@@ -97,7 +97,11 @@ export const Avatar = forwardRef<HTMLSpanElement, AvatarProps>(
               }
             : undefined
         }
-        role={onClick ? 'button' : undefined}
+        // A labelled avatar is an image of that person or thing; `aria-label`
+        // on a bare span would be ignored.
+        role={
+          onClick ? 'button' : rest['aria-label'] || rest['aria-labelledby'] ? 'img' : undefined
+        }
         tabIndex={onClick ? 0 : undefined}
         data-slot="avatar"
         {...rest}
