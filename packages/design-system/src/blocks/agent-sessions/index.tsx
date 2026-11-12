@@ -1,17 +1,8 @@
 import { cn } from '@wideset/react';
 import { useId, useState } from 'react';
 
-import {
-  account,
-  chatGroups,
-  codeGroups,
-  type CodeSession,
-  NOW,
-  product,
-  repositories,
-  type Repository,
-  workspace,
-} from './data';
+import { account, chatGroups, product, workspace } from './canon';
+import { codeGroups, type CodeSession, NOW, repositories, type Repository } from './data';
 import type { Mode } from './model';
 import { PageHeader } from './page-header';
 import { SelectionBar } from './selection-bar';
@@ -135,6 +126,8 @@ export default function AgentSessions() {
         onModeChange={setMode}
         groups={GROUPS[mode]}
         openId={null}
+        // This page is the sidebar's All sessions.
+        allOpen
         // A session picked in the sidebar is found in the list: the focus goes to its name.
         onOpen={(id) => document.getElementById(`session-${id}`)?.focus()}
         onNew={() => {}}

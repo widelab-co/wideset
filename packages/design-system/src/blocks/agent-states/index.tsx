@@ -2,16 +2,8 @@ import { RiRestartLine } from '@remixicon/react';
 import { Select } from '@wideset/react';
 import { useId, useState } from 'react';
 
-import {
-  account,
-  chatGroups,
-  codeGroups,
-  OPEN_SESSION,
-  product,
-  type SceneId,
-  scenes,
-  workspace,
-} from './data';
+import { account, chatGroups, product, workspace } from './canon';
+import { codeGroups, OPEN_SESSION, type SceneId, scenes } from './data';
 import { IconAction } from './icon-action';
 import type { Mode, ThreadState, TranscriptView } from './model';
 import { AgentSidebar } from './sidebar';

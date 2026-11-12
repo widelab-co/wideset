@@ -1,23 +1,39 @@
-import { RiAttachment2 } from '@remixicon/react';
 import { Select } from '@wideset/react';
-import { useState } from 'react';
+import { type ReactNode, useState } from 'react';
 
-import { ContextMeter } from './context-meter';
-import { context, permissions } from './data';
-import { IconAction } from './icon-action';
+import { ContextSummary } from './context-summary';
+import type { Context } from './model';
+import { ToolsMenu } from './tools-menu';
+
+type CodeToolsProps = {
+  /** How much the agent may do in a repository without asking, least first. */
+  permissions: string[];
+  defaultPermission?: string;
+  /** The session's context: the meter and its short summary. A new session has none yet. */
+  context?: Context;
+  /** The block's own meter in place of the summary: a `ContextMeter` that opens something else. */
+  meter?: ReactNode;
+  /** Add files, from the "…" menu. */
+  onAttach?: () => void;
+};
 
 /**
- * Code's tools in the composer: attach, how much the agent may do in the repository without
- * asking, and how full the context is. The permission is three fixed choices in a `Select`, so
- * the current one is always in view with its chevron; a session whose plan was approved goes on
- * in Accept edits, where edits go through and a command still asks.
+ * Code's tools in the composer: how much the agent may do in the repository without asking, how
+ * full the context is, then the "…" menu with the rest. The permission is a few fixed choices
+ * whose words matter (Ask before edits is not an icon), so it stays a `Select`, the current one
+ * always in view with its chevron.
  */
-export function CodeTools({ defaultPermission = permissions[0] }: { defaultPermission?: string }) {
+export function CodeTools({
+  permissions,
+  defaultPermission = permissions[0],
+  context,
+  meter,
+  onAttach,
+}: CodeToolsProps) {
   const [permission, setPermission] = useState(defaultPermission);
 
   return (
     <>
-      <IconAction label="Attach files" icon={RiAttachment2} />
       <Select
         size="sm"
         aria-label="Permission mode"
@@ -26,7 +42,8 @@ export function CodeTools({ defaultPermission = permissions[0] }: { defaultPermi
         value={permission}
         onValueChange={setPermission}
       />
-      <ContextMeter {...context} />
+      {meter ?? (context && <ContextSummary {...context} />)}
+      <ToolsMenu onAttach={onAttach} />
     </>
   );
 }

@@ -3,8 +3,7 @@ import { Button, DropdownMenu, ListItem } from '@wideset/react';
 import { useState } from 'react';
 
 import { MenuChoice } from './menu-choice';
-
-export type Model = { id: string; name: string; note: string };
+import type { Model } from './model';
 
 type ModelMenuProps = {
   models: Model[];
@@ -14,9 +13,10 @@ type ModelMenuProps = {
 };
 
 /**
- * The model answering and how hard it thinks, as one quiet button in the composer that says both
- * ("Tandem Pro · High") and opens a menu of the two choices: the models with a line on what each
- * is for, then the effort. It holds its own state: nothing else on the screen depends on it.
+ * The model answering and how hard it thinks, as the bordered button of the AI chat starting
+ * point's model switcher, here in the composer, with the chevron of a control that opens a list.
+ * It says both ("Tandem Pro · High") and opens a menu of the two choices: the models with a line
+ * on what each is for, then the effort. It holds its own state: nothing else depends on it.
  */
 export function ModelMenu({
   models,
@@ -33,7 +33,7 @@ export function ModelMenu({
       <DropdownMenu.Trigger asChild>
         <Button
           variant="secondary"
-          preset="ghost"
+          preset="border"
           size="sm"
           aria-label={`Model: ${name}, ${effort.toLowerCase()} effort`}
         >

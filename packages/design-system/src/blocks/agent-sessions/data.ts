@@ -1,102 +1,22 @@
 import type { StatusBadgeProps } from '@wideset/react';
 
-import type { Thread, ThreadGroup } from './model';
+import { codeGroups as sessions, withThread } from './canon';
 
 /*
-  Tandem at Lumen Studio, in Code mode; Ines Navarro is signed in. This page lists every Code
-  session, so the sidebar has none open. Its lists are the ones every agent block shows (the same
-  threads, names and states); this block never opens one, so they carry no turns. The sessions on
-  the page are the same eight, with what the sidebar has no room for: the branch, the pull
-  request, the last thing each did and how long it has run. It is 11:24 AM on November 10, 2026.
+  This block is the page that lists every Code session of the canon, so the sidebar has none
+  open. The sessions on the page are the sidebar's eight, with what the sidebar has no room for:
+  the branch, the pull request, the last thing each did and how long it has run. It is 11:24 AM
+  on November 10, 2026: "CSV export for bookings" is at work with its subagent, so here its row
+  in the sidebar says so too. Everything else is the canon's.
 */
-
-export const product = 'Tandem';
-export const workspace = 'Lumen Studio';
-export const account = { name: 'Ines Navarro', email: 'ines@lumenstudio.co', initials: 'IN' };
 
 export const NOW = '2026-11-10T11:24:00';
 
-const thread = (id: string, title: string, more?: Partial<Thread>): Thread => ({
-  id,
-  title,
-  turns: [],
-  ...more,
-});
-
-export const chatGroups: ThreadGroup[] = [
-  {
-    id: 'hub-2-launch',
-    label: 'Hub 2 launch',
-    threads: [
-      thread('launch-announcement', 'Launch announcement'),
-      thread('partner-version', 'Partner version', { child: true, state: 'unread' }),
-      thread('press-kit', 'Press kit checklist'),
-      thread('launch-timeline', 'Launch day timeline', { state: 'needs-you' }),
-    ],
-  },
-  {
-    id: 'customer-research',
-    label: 'Customer research',
-    threads: [
-      thread('hardware-pricing', 'Room booking hardware pricing', { state: 'working' }),
-      thread('interview-themes', 'Interview themes, October'),
-    ],
-  },
-  {
-    id: 'pricing',
-    label: 'Pricing',
-    threads: [
-      thread('price-tiers', 'Hub 2 price tiers'),
-      thread('education-discount', 'Education discount memo', { state: 'failed' }),
-    ],
-  },
-  {
-    id: 'recents',
-    label: 'Recents',
-    fixed: true,
-    threads: [
-      thread('onboarding-email', 'Rewrite the onboarding email'),
-      thread('support-tickets', 'Support tickets in Q3'),
-      thread('release-notes', 'Release notes for app 4.2'),
-    ],
-  },
-];
-
-export const codeGroups: ThreadGroup[] = [
-  {
-    id: 'lumen-app',
-    label: 'lumen-app',
-    threads: [
-      thread('csv-export', 'CSV export for bookings', {
-        pullRequest: { number: 482, comments: 2 },
-      }),
-      thread('e2e-fix', 'Fix the failing E2E test', { child: true, state: 'working' }),
-      thread('room-filter', 'Room filter on bookings'),
-    ],
-  },
-  {
-    id: 'lumen-web',
-    label: 'lumen-web',
-    threads: [
-      thread('pricing-page', 'Pricing page for Hub 2', { state: 'unread' }),
-      thread('next-upgrade', 'Upgrade to Next.js 16', { state: 'failed' }),
-    ],
-  },
-  {
-    id: 'billing-service',
-    label: 'billing-service',
-    threads: [thread('vat-rounding', 'Invoice rounding for VAT', { state: 'needs-you' })],
-  },
-  {
-    id: 'recents',
-    label: 'Recents',
-    fixed: true,
-    threads: [
-      thread('flaky-sync', 'Flaky calendar sync test'),
-      thread('rename-room', 'Rename Room to Space'),
-    ],
-  },
-];
+/** The canon's sessions, as they stand at this hour. */
+export const codeGroups = withThread(sessions, 'csv-export', (thread) => ({
+  ...thread,
+  state: 'working',
+}));
 
 /* The page. */
 
@@ -211,7 +131,7 @@ export const repositories: Repository[] = [
       },
       {
         id: 'e2e-fix',
-        title: 'Fix the failing E2E test',
+        title: 'Debug the E2E timeout',
         state: 'working',
         child: true,
         branch: 'feature/bookings-csv-export',
@@ -224,7 +144,7 @@ export const repositories: Repository[] = [
         title: 'Rename Room to Space',
         state: 'paused',
         branch: 'refactor/room-to-space',
-        last: 'Usage limit reached; resumes at 3:00 PM',
+        last: 'Usage limit reached; resumes at 4:00 PM',
         lastAt: '2026-11-10T10:09:00',
         minutes: 72,
       },

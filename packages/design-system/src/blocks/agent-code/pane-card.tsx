@@ -1,4 +1,4 @@
-// TODO(custom): something the session made (its changes, its pull request), as a card in the transcript that opens it in the pane; FileItem is an upload row with a remove action, not a link to a pane.
+// TODO(custom): something a turn made (a document, its changes, a pull request), as a card in the transcript that opens it in the pane; FileItem is an upload row with a remove action, not a link to a pane.
 import { type RemixiconComponentType, RiLayoutRightLine } from '@remixicon/react';
 import { cn } from '@wideset/react';
 import type { ReactNode } from 'react';
@@ -15,9 +15,9 @@ type PaneCardProps = {
 };
 
 /**
- * What a turn made, where the turn made it, drawn as the chat's document card is: a tile with
- * its icon, its name, one line about it. The whole card is one button that brings its pane up
- * beside the session, and closes the pane again; while that pane shows it keeps the quiet fill.
+ * What a turn made, where the turn made it: a tile with its icon, its name, one line about it.
+ * The whole card is one button that brings its pane up beside the session, and closes the pane
+ * again; while that pane shows it keeps the quiet fill.
  */
 export function PaneCard({ icon: Icon, title, caption, open, paneId, onToggle }: PaneCardProps) {
   return (

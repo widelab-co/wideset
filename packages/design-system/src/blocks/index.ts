@@ -589,7 +589,7 @@ export const BLOCKS: BlockMeta[] = [
     direction: 'inset',
     navigation: 'sidebar',
     description:
-      'An agent workspace in Chat mode: chats on the left in project groups with their state, a transcript where the agent thinks, takes steps and answers, the composer with tools and the model, and the document it writes in a second card.',
+      'An agent workspace in Chat mode: chats on the left in project groups with their state, and one raised card with the transcript where the agent thinks, takes steps and answers, the composer with its tools and the model, and, behind a line, the document it writes.',
   },
   {
     id: 'agent-code',
@@ -597,7 +597,7 @@ export const BLOCKS: BlockMeta[] = [
     direction: 'inset',
     navigation: 'sidebar',
     description:
-      'An agent workspace in Code mode: sessions grouped by repository, a transcript of steps, approvals and results beside a pane that shows the changes, a terminal, a preview, the files, the tasks or the pull request checks.',
+      'An agent workspace in Code mode: sessions by repository, a transcript of the plan, steps, test runs and an approval waiting for a command, beside a pane with the changes, a terminal, a preview, the files, the tasks or the pull request’s checks.',
   },
   {
     id: 'agent-research',
@@ -605,7 +605,7 @@ export const BLOCKS: BlockMeta[] = [
     direction: 'inset',
     navigation: 'sidebar',
     description:
-      'A research run in Chat mode: the plan the agent follows, the sources it reads as it goes, and the report with its citations, beside the list of sources behind a line.',
+      'A research run in Chat mode: the plan the agent follows, its steps folded to a few lines, and the report with a comparison table and numbered citations, beside the sources it read, behind a line; a citation lights its source and a source its citations.',
   },
   {
     id: 'agent-sessions',
@@ -613,7 +613,7 @@ export const BLOCKS: BlockMeta[] = [
     direction: 'inset',
     navigation: 'sidebar',
     description:
-      'Every Code session in one place: what is running, what waits for an answer and what is done, by repository, with the branch, the pull request and the last thing each one did.',
+      'Every Code session in one list to work through: a search and a filter by state, the sessions under their repositories with the state, branch, pull request and its checks, the last step and the run time, the ones that need you first and answered from the row, and Stop and Archive for a selection.',
   },
   {
     id: 'agent-states',
@@ -621,7 +621,7 @@ export const BLOCKS: BlockMeta[] = [
     direction: 'inset',
     navigation: 'sidebar',
     description:
-      'The moments an agent session has to handle: a usage limit reached, a connector to reconnect, a step that failed, a context nearly full, a lost connection and a message waiting in the queue.',
+      'One Code session at the moments it has to handle, picked from the top bar: the usage limit reached, a step that failed, a connector to reconnect, a question from the agent, the context nearly full, the connection lost, messages waiting in the queue and a run you stopped, each shown where it happens with its way out.',
   },
 ];
 
@@ -759,7 +759,7 @@ export const PANELS: PanelMeta[] = [
     id: 'agent-context',
     title: 'Agent context',
     description:
-      'A session’s environment in a popover: how full the context is and what fills it, the connectors and the one to reconnect, what the session produced and the pull requests it opened.',
+      'A session’s environment in a popover from the context meter in the composer: how full the context is and what fills it with a way to compact it, the connectors with the one to reconnect, the files and the document the session produced, and the pull request it opened.',
   },
 ];
 

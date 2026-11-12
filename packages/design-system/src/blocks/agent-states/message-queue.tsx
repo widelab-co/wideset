@@ -1,4 +1,4 @@
-// TODO(custom): the messages waiting their turn, as a short list over the composer, each one editable and removable; Wideset has no message or queue part, and the kit shows a queued message as a bubble in the transcript.
+// TODO(custom): the messages waiting their turn, as a short list over the composer, each one editable and removable; Wideset has no message or queue part.
 import { RiCloseLine, RiPencilLine, RiTimeLine } from '@remixicon/react';
 
 import { IconAction } from './icon-action';
@@ -6,6 +6,8 @@ import { IconAction } from './icon-action';
 type MessageQueueProps = {
   /** In the order they go out. */
   messages: string[];
+  /** Who they wait for: "Tandem". */
+  agent: string;
   /** Takes the message back into the composer to be changed. */
   onEdit: (index: number) => void;
   onRemove: (index: number) => void;
@@ -17,11 +19,11 @@ type MessageQueueProps = {
  * yet, because they have not been said yet: each can still be taken back into the composer or
  * removed. Each row is one line; the whole message is its tooltip.
  */
-export function MessageQueue({ messages, onEdit, onRemove }: MessageQueueProps) {
+export function MessageQueue({ messages, agent, onEdit, onRemove }: MessageQueueProps) {
   return (
     <section aria-label="Queued messages" className="gap-ws-3 flex flex-col">
       <p className="typography-label-sm text-ws-static-subtle px-ws-3">
-        Queued, sent in this order when Tandem is done
+        {`Queued, sent in this order when ${agent} is done`}
       </p>
       <ol className="border-ws-static-base divide-ws-static-base rounded-ws-container-md flex flex-col divide-y border">
         {messages.map((text, index) => (

@@ -1,39 +1,21 @@
-import type { AgentTurn, Block, Step, Thread, ThreadGroup, ThreadState, Turn } from './model';
-import type { Model } from './model-menu';
+import { codeGroups as sessions, context, models, withThread } from './canon';
+import type { AgentTurn, Block, Context, Step, ThreadGroup, ThreadState, Turn } from './model';
 import { playTurn } from './run';
 
 /*
-  Tandem in Code mode at Lumen Studio, Ines Navarro signed in. One session, "CSV export for
-  bookings" in `lumen-app` (draft pull request #482), at eight moments it has to handle. Every
-  scene starts from the same first exchange (the export itself); then Ines asks for Tom Becker's
-  two review comments to be handled, and the scene stops that turn at one clear point. `resumed`
-  is the turn whole, for the way out to play from where it stopped. It is 1:46 PM on
-  November 10, 2026; the usage limit resets at 4:00 PM.
+  One Code session of the canon, "CSV export for bookings" in `lumen-app` (draft pull request
+  #482), at eight moments it has to handle. Every scene starts from the same first exchange (the
+  export itself); then Ines asks for Tom Becker's two review comments to be handled, and the
+  scene holds that turn at one clear point. The turn is whole in the data; the kit shows it as
+  far as the step, the card or the question it waits at, and plays the rest once that is dealt
+  with. It is 1:46 PM on November 10, 2026; the usage limit resets at 4:00 PM.
 */
-
-export const product = 'Tandem';
-export const workspace = 'Lumen Studio';
-export const account = { name: 'Ines Navarro', email: 'ines@lumenstudio.co', initials: 'IN' };
-
-export const models: Model[] = [
-  { id: 'pro', name: 'Tandem Pro', note: 'Everyday work' },
-  { id: 'fast', name: 'Tandem Fast', note: 'Quick answers, lighter reasoning' },
-  { id: 'max', name: 'Tandem Max', note: 'Long, hard problems' },
-];
-
-export const efforts = ['Low', 'Medium', 'High'];
-
-/** How much Tandem may do in a repository without asking. */
-export const permissions = ['Ask before edits', 'Accept edits', 'Plan'];
 
 /** The usage limit: when it resets, and the model that can go on meanwhile. */
 export const limit = { resetsIn: '2 hours 14 minutes', resetsAt: '4:00 PM', fallback: models[1] };
 
 /** The connector that lost its access, and the issue the step wanted from it. */
 export const connector = { name: 'Tasklane', issue: 'LUM-2291', expired: 'November 8' };
-
-/** How full the context is, in percent, before compacting. */
-export const contextUsed = 92;
 
 /* The session's first exchange, the same in every scene. */
 
@@ -165,7 +147,10 @@ const done = paragraph(
   'Both comments are handled and pushed to #482. A value with a line break is now quoted, with a test for a two-line note, and the file is named for the local day. The unit tests pass, 15 of 15.',
 );
 
-const turn = (...blocks: Block[]): AgentTurn => ({ id: 'review', role: 'agent', blocks });
+/** The turn every scene is about. */
+export const REVIEW = 'review';
+
+const turn = (...blocks: Block[]): AgentTurn => ({ id: REVIEW, role: 'agent', blocks });
 
 /** How far into its run a turn is once these blocks are done: where the way out picks it up. */
 const clockAfter = (...blocks: Block[]) => playTurn(turn(...blocks), Infinity).clock;
@@ -176,10 +161,15 @@ const whole = turn(...checked, push, done);
 
 /* A step failed: the push was rejected, because Tom pushed to the branch meanwhile. */
 
-/** The command that exited 1, as the step it is; its error lines are the ones that matter. */
-export const failedPush: Step = step('review-push-failed', PUSH, 'Exit 1', {
+/**
+ * The command that exited 1. The turn holds at it: the step is open on its error lines, with
+ * what to do about it under them (the `failed` card).
+ */
+const failedPush: Step = step('review-push-failed', PUSH, 'Exit 1', {
   status: 'failed',
-  ms: 0,
+  ms: 1800,
+  holds: true,
+  card: 'failed',
   detail: {
     kind: 'output',
     lines: [
@@ -227,18 +217,20 @@ const issueThought: Block = {
   text: 'The comments are on the pull request, but the issue may say more about what handled means. I will read both before I touch the code.',
 };
 
-/** The step that could not read from the issue tracker, as it waits. */
-export const issueStep: Step = step(
+/** The step that cannot read from the issue tracker until its connector is signed in again. */
+const issueStep: Step = step(
   'review-read-issue',
   `Read \`${connector.issue}\` in ${connector.name}`,
-  'Waiting for you',
-  { status: 'waiting', ms: 1800 },
+  '2 comments linked',
+  { status: 'waiting', ms: 1800, card: 'connector' },
 );
 
 /* A question from the agent: one of the two comments is a product decision. */
 
 /** What the agent needs decided, and the answers it can act on at once. */
-export const question = {
+const question: Block = {
+  kind: 'question',
+  id: 'review-question',
   title: 'Which day should the file name use?',
   options: [
     {
@@ -272,7 +264,7 @@ const decision = turn(
     'review-plan',
     'The second comment is fixed: a value with a line break is now quoted, and a test covers a two-line note. The first one needs your call before I rename the file.',
   ),
-  { kind: 'card', id: 'review-question', card: 'question' },
+  question,
 );
 
 /** What Tandem does once the question is answered, whichever way. */
@@ -363,12 +355,10 @@ export type Scene = {
   /** The session's mark in the sidebar while the moment lasts. */
   mark?: ThreadState;
   turns: Turn[];
-  /** The last turn whole: the way out plays it from where the scene stopped it. */
-  resumed?: AgentTurn;
-  /** Where in that turn the way out starts, in milliseconds. */
-  from?: number;
   /** The agent's turn in answer to a new message. */
   reply: (id: string, text: string) => AgentTurn;
+  /** The scene opens in the middle of the turn: how far into it, in milliseconds. */
+  playing?: number;
   /** Messages already waiting their turn. */
   queue?: string[];
   /** What was being written when the scene began. */
@@ -377,28 +367,55 @@ export type Scene = {
   compacted?: Turn[];
 };
 
+/** Where the limit was reached: after the unit tests, before the typecheck and the push. */
+const paused: Block = { kind: 'card', id: 'review-limit', card: 'limit', holds: true };
+
+/** The queued scene opens 23 seconds into the turn, on a typecheck that is through at 63. */
+const OPENS_AT = 23_000;
+const longCheck: Block = {
+  kind: 'step',
+  ...typecheck,
+  ms: 63_000 - clockAfter(thought, readPr, plan, edits, test),
+};
+
+/** What the summary that replaces the earlier messages says. */
+const summary: Turn = {
+  id: 'summary',
+  role: 'divider',
+  label: 'Earlier messages were summarized',
+  summary: {
+    label: 'Summary of the earlier messages',
+    prose: [
+      {
+        kind: 'list',
+        items: [
+          'Added `exportBookingsCsv` and an Export button to the bookings toolbar; dates are written as UTC ISO strings.',
+          'Draft pull request #482 on `feature/bookings-csv-export`: five files, +148 −7. The unit tests pass, 14 of 14.',
+          'Still open: the E2E test that times out (a subagent is on it) and two review comments from Tom Becker.',
+        ],
+      },
+    ],
+  },
+};
+
 /** In the switch's order: what holds the run until you act, then what goes on around it. */
 export const scenes: Scene[] = [
   {
     id: 'limit',
     label: 'Usage limit reached',
-    mark: 'needs-you',
+    mark: 'paused',
     turns: [
       ...first,
       ask,
-      turn(thought, readPr, plan, edits, test, { kind: 'card', id: 'review-limit', card: 'limit' }),
+      turn(thought, readPr, plan, edits, test, paused, { kind: 'step', ...typecheck }, push, done),
     ],
-    resumed: whole,
-    from: clockAfter(thought, readPr, plan, edits, test),
     reply: fallback,
   },
   {
     id: 'failed',
     label: 'A step failed',
     mark: 'failed',
-    turns: [...first, ask, turn(...checked, { kind: 'card', id: 'review-failed', card: 'failed' })],
-    resumed: turn(...checked, { kind: 'step', ...failedPush }, ...fix, push, done),
-    from: clockAfter(...checked),
+    turns: [...first, ask, turn(...checked, { kind: 'step', ...failedPush }, ...fix, push, done)],
     reply: fallback,
   },
   {
@@ -408,18 +425,16 @@ export const scenes: Scene[] = [
     turns: [
       ...first,
       issueAsk,
-      turn(issueThought, readPr, { kind: 'card', id: 'review-connector', card: 'connector' }),
-    ],
-    resumed: turn(
-      issueThought,
-      readPr,
-      { kind: 'step', ...issueStep, status: 'done', result: '2 comments linked' },
-      paragraph(
-        'review-answer',
-        `${connector.issue} wants both of Tom’s comments handled before the pull request is marked ready: a value with a line break must be quoted, and the file name should use the local day. I will start with the quoting, since it can break a file.`,
+      turn(
+        issueThought,
+        readPr,
+        { kind: 'step', ...issueStep },
+        paragraph(
+          'review-answer',
+          `${connector.issue} wants both of Tom’s comments handled before the pull request is marked ready: a value with a line break must be quoted, and the file name should use the local day. I will start with the quoting, since it can break a file.`,
+        ),
       ),
-    ),
-    from: clockAfter(issueThought, readPr),
+    ],
     reply: fallback,
   },
   {
@@ -433,7 +448,7 @@ export const scenes: Scene[] = [
     id: 'context',
     label: 'Context nearly full',
     turns: [...first, ask, whole],
-    compacted: [ask, whole],
+    compacted: [summary, ask, whole],
     reply: fallback,
   },
   {
@@ -447,19 +462,8 @@ export const scenes: Scene[] = [
     id: 'queued',
     label: 'Messages queued',
     mark: 'working',
-    turns: [
-      ...first,
-      ask,
-      turn(thought, readPr, plan, edits, test, {
-        kind: 'step',
-        ...typecheck,
-        status: 'running',
-        result: undefined,
-      }),
-    ],
-    resumed: whole,
-    // The typecheck is the long step; once it is through, the rest plays.
-    from: clockAfter(...checked),
+    turns: [...first, ask, turn(thought, readPr, plan, edits, test, longCheck, push, done)],
+    playing: OPENS_AT,
     queue: queued,
     reply: afterQueue,
   },
@@ -472,103 +476,36 @@ export const scenes: Scene[] = [
   },
 ];
 
-/** What the summary that replaces the earlier messages says. */
-export const summary = [
-  'Added `exportBookingsCsv` and an Export button to the bookings toolbar; dates are written as UTC ISO strings.',
-  'Draft pull request #482 on `feature/bookings-csv-export`: five files, +148 −7. The unit tests pass, 14 of 14.',
-  'Still open: the E2E test that times out (a subagent is on it) and two review comments from Tom Becker.',
-];
+/** Where the run stood before the push that failed: Retry runs that step again from there. */
+export const BEFORE_PUSH = clockAfter(...checked);
 
-/**
- * The queued scene opens with the turn 23 seconds in, on its typecheck, which is through 40
- * seconds later.
- */
-export const working = { activity: 'Running `pnpm typecheck`', since: 23, until: 63 };
+/** How full the context is before compacting (92%), and once the earlier messages are a summary. */
+export const fullContext: Context = {
+  used: 184_000,
+  limit: context.limit,
+  parts: [
+    { label: 'Conversation', tokens: 96_000 },
+    { label: 'Files read', tokens: 58_000 },
+    { label: 'Command output', tokens: 30_000 },
+  ],
+};
 
-/* The sidebar: the same chats and sessions as everywhere in Tandem, this session open. */
+export const compactedContext: Context = {
+  used: 62_000,
+  limit: context.limit,
+  parts: [
+    { label: 'Files read', tokens: 34_000 },
+    { label: 'Conversation', tokens: 18_000 },
+    { label: 'Command output', tokens: 10_000 },
+  ],
+};
+
+/** How full the context is, in percent, before compacting. */
+export const contextUsed = Math.round((fullContext.used / fullContext.limit) * 100);
+
+/* The sidebar: the canon's sessions, this one open, with the mark its scene gives it. */
 
 export const OPEN_SESSION = 'csv-export';
 
-const thread = (id: string, title: string, more?: Partial<Thread>): Thread => ({
-  id,
-  title,
-  turns: [],
-  ...more,
-});
-
-export const chatGroups: ThreadGroup[] = [
-  {
-    id: 'hub-2-launch',
-    label: 'Hub 2 launch',
-    threads: [
-      thread('launch-announcement', 'Launch announcement'),
-      thread('partner-version', 'Partner version', { child: true, state: 'unread' }),
-      thread('press-kit', 'Press kit checklist'),
-      thread('launch-timeline', 'Launch day timeline', { state: 'needs-you' }),
-    ],
-  },
-  {
-    id: 'customer-research',
-    label: 'Customer research',
-    threads: [
-      thread('hardware-pricing', 'Room booking hardware pricing', { state: 'working' }),
-      thread('interview-themes', 'Interview themes, October'),
-    ],
-  },
-  {
-    id: 'pricing',
-    label: 'Pricing',
-    threads: [
-      thread('price-tiers', 'Hub 2 price tiers'),
-      thread('education-discount', 'Education discount memo', { state: 'failed' }),
-    ],
-  },
-  {
-    id: 'recents',
-    label: 'Recents',
-    fixed: true,
-    threads: [
-      thread('onboarding-email', 'Rewrite the onboarding email'),
-      thread('support-tickets', 'Support tickets in Q3'),
-      thread('release-notes', 'Release notes for app 4.2'),
-    ],
-  },
-];
-
-/** The sessions by repository, the open one in the state its scene puts it in. */
-export const codeGroups = (mark?: ThreadState): ThreadGroup[] => [
-  {
-    id: 'lumen-app',
-    label: 'lumen-app',
-    threads: [
-      thread(OPEN_SESSION, 'CSV export for bookings', {
-        state: mark,
-        pullRequest: { number: 482, comments: 2 },
-      }),
-      thread('e2e-fix', 'Fix the failing E2E test', { child: true, state: 'working' }),
-      thread('room-filter', 'Room filter on bookings'),
-    ],
-  },
-  {
-    id: 'lumen-web',
-    label: 'lumen-web',
-    threads: [
-      thread('pricing-page', 'Pricing page for Hub 2', { state: 'unread' }),
-      thread('next-upgrade', 'Upgrade to Next.js 16', { state: 'failed' }),
-    ],
-  },
-  {
-    id: 'billing-service',
-    label: 'billing-service',
-    threads: [thread('vat-rounding', 'Invoice rounding for VAT', { state: 'needs-you' })],
-  },
-  {
-    id: 'recents',
-    label: 'Recents',
-    fixed: true,
-    threads: [
-      thread('flaky-sync', 'Flaky calendar sync test'),
-      thread('rename-room', 'Rename Room to Space'),
-    ],
-  },
-];
+export const codeGroups = (mark?: ThreadState): ThreadGroup[] =>
+  withThread(sessions, OPEN_SESSION, (thread) => ({ ...thread, state: mark }));

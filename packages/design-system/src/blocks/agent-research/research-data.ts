@@ -170,7 +170,7 @@ const cite = (numbers: number[]) => numbers.map((number) => `[${number}]`).join(
 export const reportProse: Prose[] = [
   {
     kind: 'paragraph',
-    text: 'All three sell a hub and charge for software on top. In the first year one room costs **$573** with Roomline, **$527** with Meetwise and **$379** with Deskhaven; Hub 2, at $349, is under all three.',
+    text: 'All three charge for software on top of the hub. In year one Hub 2, at **$349**, is under all three.',
   },
   {
     kind: 'list',
@@ -220,7 +220,7 @@ export function citedIn(source: number, written: Prose[]) {
   return formatList(places);
 }
 
-/** The block ids the screen looks for: the plan's card and the report's text. */
+/** The cards the screen draws: the plan, and the report. */
 export const PLAN = 'pricing-plan';
 export const REPORT = 'pricing-report';
 
@@ -273,7 +273,8 @@ export const researchTurns: Turn[] = [
   {
     id: 'pricing-1',
     role: 'user',
-    text: 'How do Roomline, Meetwise and Deskhaven price their meeting-room hardware? I need it for the Hub 2 tiers.',
+    text: 'How do Roomline, Meetwise and Deskhaven price their meeting-room hardware?',
+    sentWith: ['Research'],
   },
   {
     id: 'pricing-2',
@@ -317,7 +318,8 @@ export const researchTurns: Turn[] = [
           ],
         },
       },
-      { kind: 'text', id: REPORT, prose: reportProse },
+      // A card that is written like an answer: it streams, stops and is copied as one.
+      { kind: 'card', id: REPORT, card: REPORT, prose: reportProse },
     ],
   },
 ];

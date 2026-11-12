@@ -1,10 +1,12 @@
-// TODO(custom): a question the agent needs answered before it goes on (the question, a few answers to pick from, Continue); it is the kit's approval card with choices, and Wideset has no card for a decision inside a transcript.
+// TODO(custom): a question the agent needs answered before it goes on (the question, a few answers to pick from, Continue); Wideset has no card for a decision inside a transcript.
 import { Button, RadioButton, RadioButtonGroup } from '@wideset/react';
 import { type FormEvent, useId, useState } from 'react';
 
+import type { QuestionOption } from './model';
+
 type QuestionCardProps = {
   title: string;
-  options: { value: string; label: string; description: string }[];
+  options: QuestionOption[];
   /** Answers with the option's own words, as if they had been typed. */
   onAnswer: (text: string) => void;
 };

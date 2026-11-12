@@ -1,4 +1,4 @@
-// TODO(custom): the account menu is composed by hand; Sidebar.Group cannot fold and Sidebar has no search part, so the groups stay open and the search is a TextInput.
+// TODO(custom): the account menu is composed by hand, and the Search row turns into a TextInput in place; Sidebar.Group cannot fold and Sidebar has no search part.
 import {
   RiAddLine,
   RiArrowDownSLine,
@@ -7,10 +7,10 @@ import {
   RiLogoutBoxRLine,
   RiSearchLine,
   RiSettingsLine,
+  RiStackLine,
 } from '@remixicon/react';
 import {
   Avatar,
-  Button,
   DropdownMenu,
   IconButton,
   ListItem,
@@ -19,11 +19,16 @@ import {
   type SidebarProps,
   TextInput,
 } from '@wideset/react';
-import { useState } from 'react';
+import { type MouseEvent, useEffect, useRef, useState } from 'react';
 
 import { BrandMark } from './brand-mark';
+import { MODIFIER } from './keyboard-key';
 import type { Mode, ThreadGroup } from './model';
 import { ThreadMark } from './thread-mark';
+
+/** A shortcut as a row's hint: "⌘K" on Apple keyboards, "Ctrl K" elsewhere. */
+const shortcut = (...keys: string[]) =>
+  MODIFIER === '⌘' ? `⌘${keys.join('')}` : `Ctrl ${keys.join(' ')}`;
 
 type AgentSidebarProps = Pick<SidebarProps, 'id' | 'collapsed' | 'onCollapsedChange'> & {
   product: string;
@@ -40,14 +45,21 @@ type AgentSidebarProps = Pick<SidebarProps, 'id' | 'collapsed' | 'onCollapsedCha
   onOpen: (id: string) => void;
   /** Starts a new thread, in a group when its `+` was pressed. */
   onNew: (groupId?: string) => void;
+  /** Code: the page that lists every session is the one open. */
+  allOpen?: boolean;
+  /** Code: opens that page. */
+  onAll?: () => void;
 };
 
 /**
- * The app's sidebar on the grey frame: the brand, the Chat | Code switch, New chat (bordered: the
- * filled button is Send), a search that filters the list, then the mode's threads in their groups
- * with one state mark at the end of a row and a child thread indented under its parent. The
- * account sits at the foot. Its toggle is in the page bar, so the screen holds `collapsed`;
- * collapsed, it keeps the mark, New chat, Search and the avatar.
+ * The app's sidebar on the grey frame: the brand, the Chat | Code switch, then a short list of
+ * rows that read as navigation, icon and label, with no borders: New chat, Search and, in Code,
+ * All sessions. Search turns into the search field in place, focused; Esc, clearing it or
+ * leaving it empty brings the row back. Under them the mode's threads in their groups, with one
+ * state mark at the end of a row and a child thread indented under its parent; a thread's name
+ * starts on the same left edge as the rows' icons. The account sits at the foot. Its toggle is
+ * in the page bar, so the screen holds `collapsed`; collapsed, it keeps the mark, the rows as
+ * icons and the avatar.
  */
 export function AgentSidebar({
   product,
@@ -60,10 +72,15 @@ export function AgentSidebar({
   workingId,
   onOpen,
   onNew,
+  allOpen = false,
+  onAll,
   ...props
 }: AgentSidebarProps) {
   const [query, setQuery] = useState('');
+  const [searching, setSearching] = useState(false);
+  const field = useRef<HTMLInputElement>(null);
   const thread = mode === 'chat' ? 'chat' : 'session';
+  const { collapsed, onCollapsedChange } = props;
 
   const needle = query.trim().toLowerCase();
   const shown = groups
@@ -73,74 +90,143 @@ export function AgentSidebar({
     }))
     .filter((group) => group.threads.length > 0);
 
+  const search = () => {
+    onCollapsedChange?.(false);
+    setSearching(true);
+  };
+
+  const endSearch = () => {
+    setQuery('');
+    setSearching(false);
+  };
+
+  // The row became the field to be typed in: the cursor is there.
+  useEffect(() => {
+    if (searching && !collapsed) field.current?.focus();
+  }, [searching, collapsed]);
+
+  // The rows' shortcuts, the ones their hints show.
+  useEffect(() => {
+    const onKey = (event: KeyboardEvent) => {
+      if (!(event.metaKey || event.ctrlKey) || event.altKey) return;
+      const key = event.key.toLowerCase();
+      if (key === 'k' && !event.shiftKey) {
+        event.preventDefault();
+        onCollapsedChange?.(false);
+        setSearching(true);
+      } else if (key === 'o' && event.shiftKey) {
+        event.preventDefault();
+        onNew();
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [onCollapsedChange, onNew]);
+
+  /** A row is a link for its look and its place in the tab order; here it acts in place. */
+  const act = (action: () => void) => (event: MouseEvent) => {
+    event.preventDefault();
+    action();
+  };
+
   return (
     <Sidebar surface="frame" {...props}>
       <Sidebar.Header>
-        <Sidebar.Expanded>
-          <div className="gap-ws-7 flex flex-col">
-            <div className="gap-ws-7 pt-ws-3 pb-ws-3 flex items-center">
-              <BrandMark className="size-ws-15" />
-              <div className="flex min-w-0 flex-1 flex-col">
-                <span className="typography-label-strong-sm text-ws-static-strong truncate">
-                  {product}
-                </span>
-                <span className="typography-caption-md text-ws-static-subtle truncate">
-                  {workspace}
-                </span>
+        <div className="gap-ws-7 flex flex-col">
+          <Sidebar.Expanded>
+            <div className="gap-ws-7 flex flex-col">
+              <div className="gap-ws-7 pt-ws-3 pb-ws-3 flex items-center">
+                <BrandMark className="size-ws-15" />
+                <div className="flex min-w-0 flex-1 flex-col">
+                  <span className="typography-label-strong-sm text-ws-static-strong truncate">
+                    {product}
+                  </span>
+                  <span className="typography-caption-md text-ws-static-subtle truncate">
+                    {workspace}
+                  </span>
+                </div>
               </div>
+              <SegmentedControl
+                size="sm"
+                variant="fullWidth"
+                aria-label="Mode"
+                value={mode}
+                onValueChange={(value) => onModeChange(value as Mode)}
+              >
+                <SegmentedControl.Item value="chat">
+                  <SegmentedControl.Icon icon={RiChat1Line} />
+                  Chat
+                </SegmentedControl.Item>
+                <SegmentedControl.Item value="code">
+                  <SegmentedControl.Icon icon={RiCodeSSlashLine} />
+                  Code
+                </SegmentedControl.Item>
+              </SegmentedControl>
             </div>
-            <SegmentedControl
-              size="sm"
-              variant="fullWidth"
-              aria-label="Mode"
-              value={mode}
-              onValueChange={(value) => onModeChange(value as Mode)}
-            >
-              <SegmentedControl.Item value="chat">
-                <SegmentedControl.Icon icon={RiChat1Line} />
-                Chat
-              </SegmentedControl.Item>
-              <SegmentedControl.Item value="code">
-                <SegmentedControl.Icon icon={RiCodeSSlashLine} />
-                Code
-              </SegmentedControl.Item>
-            </SegmentedControl>
-            <Button
-              variant="secondary"
-              preset="border"
-              size="sm"
-              className="w-full"
-              onClick={() => onNew()}
-            >
-              <Button.Icon icon={RiAddLine} />
-              {`New ${thread}`}
-            </Button>
-            <TextInput size="sm" value={query} onChange={(event) => setQuery(event.target.value)}>
-              <TextInput.Prefix inner>
-                <TextInput.Icon icon={RiSearchLine} />
-              </TextInput.Prefix>
-              <TextInput.Input
-                type="search"
-                placeholder={`Search ${thread}s`}
-                aria-label={`Search ${thread}s`}
+          </Sidebar.Expanded>
+          <Sidebar.Collapsed>
+            <div className="pt-ws-3 pb-ws-3 flex justify-center">
+              <BrandMark className="size-ws-15" label={product} />
+            </div>
+          </Sidebar.Collapsed>
+
+          <nav aria-label={mode === 'chat' ? 'Chat' : 'Code'} className="gap-ws-2 flex flex-col">
+            <Sidebar.Item
+              href="#new"
+              icon={RiAddLine}
+              label={`New ${thread}`}
+              suffix={shortcut('⇧', 'O')}
+              suffixOnHover
+              onClick={act(() => onNew())}
+            />
+            {searching && !collapsed ? (
+              <TextInput
+                size="sm"
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                onKeyDown={(event) => event.key === 'Escape' && endSearch()}
+                onBlur={() => query.trim() === '' && endSearch()}
+              >
+                <TextInput.Prefix inner>
+                  <TextInput.Icon icon={RiSearchLine} />
+                </TextInput.Prefix>
+                <TextInput.Input
+                  ref={field}
+                  type="search"
+                  placeholder={`Search ${thread}s`}
+                  aria-label={`Search ${thread}s`}
+                />
+                <TextInput.Suffix inner>
+                  <TextInput.ClearButton aria-label="Clear search" onClear={endSearch} />
+                </TextInput.Suffix>
+              </TextInput>
+            ) : (
+              <Sidebar.Item
+                href="#search"
+                icon={RiSearchLine}
+                label="Search"
+                suffix={shortcut('K')}
+                suffixOnHover
+                onClick={act(search)}
               />
-              <TextInput.Suffix inner>
-                <TextInput.ClearButton aria-label="Clear search" />
-              </TextInput.Suffix>
-            </TextInput>
-          </div>
-        </Sidebar.Expanded>
-        <Sidebar.Collapsed>
-          <div className="pt-ws-3 pb-ws-3 flex justify-center">
-            <BrandMark className="size-ws-15" label={product} />
-          </div>
-        </Sidebar.Collapsed>
+            )}
+            {mode === 'code' && (
+              <Sidebar.Item
+                href="#sessions"
+                icon={RiStackLine}
+                label="All sessions"
+                active={allOpen}
+                onClick={act(() => onAll?.())}
+              />
+            )}
+          </nav>
+        </div>
       </Sidebar.Header>
 
       {/* A section draws only the slot for the state it is in. Thread rows have no icon, so the
-          collapsed rail keeps the two actions and leaves the list to the expanded sidebar. The
-          scroll area sizes its content to the longest row, so a long title would widen the whole
-          list instead of truncating: `contain-inline-size` keeps the list as wide as its column. */}
+          collapsed rail leaves the list to the expanded sidebar. The scroll area sizes its
+          content to the longest row, so a long title would widen the whole list instead of
+          truncating: `contain-inline-size` keeps the list as wide as its column. */}
       <Sidebar.Section scrollable>
         <Sidebar.Expanded>
           <nav
@@ -178,10 +264,7 @@ export function AgentSidebar({
                           <ThreadMark thread={item} working={working} />
                         ) : undefined
                       }
-                      onClick={(event) => {
-                        event.preventDefault();
-                        onOpen(item.id);
-                      }}
+                      onClick={act(() => onOpen(item.id))}
                     />
                   );
                 })}
@@ -194,28 +277,6 @@ export function AgentSidebar({
             )}
           </nav>
         </Sidebar.Expanded>
-        <Sidebar.Collapsed>
-          <nav aria-label="Actions" className="flex flex-col">
-            <Sidebar.Item
-              href="#new"
-              icon={RiAddLine}
-              label={`New ${thread}`}
-              onClick={(event) => {
-                event.preventDefault();
-                onNew();
-              }}
-            />
-            <Sidebar.Item
-              href="#search"
-              icon={RiSearchLine}
-              label={`Search ${thread}s`}
-              onClick={(event) => {
-                event.preventDefault();
-                props.onCollapsedChange?.(false);
-              }}
-            />
-          </nav>
-        </Sidebar.Collapsed>
       </Sidebar.Section>
 
       <Sidebar.Footer>

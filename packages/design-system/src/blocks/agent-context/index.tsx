@@ -2,18 +2,19 @@ import { RiRestartLine } from '@remixicon/react';
 import { Button } from '@wideset/react';
 import { useId, useState } from 'react';
 
-import { CodeTools } from './code-tools';
 import {
   account,
   chatGroups,
-  codeGroups,
   efforts,
   fallback,
   models,
-  OPEN_SESSION,
+  permissions,
   product,
   workspace,
-} from './data';
+} from './canon';
+import { CodeTools } from './code-tools';
+import { ContextPopover } from './context-popover';
+import { codeGroups, OPEN_SESSION } from './data';
 import type { Mode, TranscriptView } from './model';
 import { ModelMenu } from './model-menu';
 import { Session } from './session';
@@ -91,7 +92,8 @@ export default function AgentContext() {
             threadId={OPEN_SESSION}
             agent={product}
             view={view}
-            tools={<CodeTools />}
+            // The tools end with the context meter, which here opens the session's environment.
+            tools={<CodeTools permissions={permissions} meter={<ContextPopover />} />}
             model={<ModelMenu models={models} efforts={efforts} />}
           />
         </main>

@@ -146,6 +146,7 @@ export const csvExport: Turn[] = [
         result: '13 passed, 1 failed · 3.4s',
         status: 'failed',
         detail: testRun(0),
+        card: 'terminal',
       },
       {
         kind: 'step',
@@ -163,8 +164,9 @@ export const csvExport: Turn[] = [
         result: '14 passed · 3.2s',
         status: 'done',
         detail: testRun(1),
+        // Under its output: the way to the shell the run is in.
+        card: 'terminal',
       },
-      { kind: 'card', id: 'csv-2-terminal', card: 'terminal' },
       {
         kind: 'text',
         id: 'csv-2-answer',
@@ -246,6 +248,7 @@ export const csvExport: Turn[] = [
         id: 'run-trace',
         label: 'Ran `pnpm test:e2e bookings --trace on`',
         active: 'Running `pnpm test:e2e bookings --trace on`',
+        pending: 'Run `pnpm test:e2e bookings --trace on`',
         result: '1 of 3 failed',
         status: 'waiting',
         ms: 3600,

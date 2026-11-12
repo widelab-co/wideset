@@ -1,5 +1,5 @@
-// TODO(custom): the line over the composer while the agent works (a pulsing mark, what it is doing, the time, how to stop); Wideset has no activity or progress line without a value.
-import { cn } from '@wideset/react';
+// TODO(custom): the line over the composer while the agent works or was stopped (a mark, a few words, the time, the way to stop or go on); Wideset has no activity line, and ProgressBar has no mode without a value.
+import { Button, cn } from '@wideset/react';
 
 import { formatDuration } from './format';
 import { Inline } from './inline';
@@ -7,48 +7,64 @@ import { Key } from './keyboard-key';
 import { ARRIVE } from './motion';
 
 type WorkingLineProps = {
-  /** What the agent is doing now: "Thinking", "Reading `bookings-table.tsx`". */
-  activity: string;
-  /** Seconds since the turn began; left out when it is not a finite number. */
-  seconds: number;
-  /** It waits for you: the mark stands still in the notice colour. */
-  waiting: boolean;
+  /** `working`: the agent is at it. `stopped`: you stopped it, and it can go on from there. */
+  state: 'working' | 'stopped';
+  /** What it says: "Working", "Stopped while writing". */
+  label: string;
+  /** Seconds since the turn began. */
+  seconds?: number;
+  /** Stopped: goes on from where it stopped. */
+  onContinue?: () => void;
 };
 
 /**
- * Says the agent is still at it, right where the next message is written: a small mark that
- * pulses for as long as it works, the current activity (announced when it changes), the time so
- * far, and the key that stops it. It is all in the subtle colour: the transcript above shows the
- * same step as it happens, and this line is only its footer. The pulse loops for as long as the
- * run does, and ends with it.
+ * One quiet line right where the next message is written. While the agent works it says only
+ * that: the transcript above already shows the step as it happens, so the line does not repeat
+ * its words. A small mark pulses for as long as the run does (the one loop on the screen), then
+ * the time so far and the key that stops it. A turn that waits for you has no line: what it
+ * waits for is in the transcript, with its own way out. Stopped, the mark is hollow, the line
+ * says what the run was in the middle of, and Continue takes the place of the key: bordered,
+ * since after a stop the next thing is as likely a new message, so Send keeps the fill.
  */
-export function WorkingLine({ activity, seconds, waiting }: WorkingLineProps) {
+export function WorkingLine({ state, label, seconds, onContinue }: WorkingLineProps) {
   return (
     <div
       className={cn(
         'gap-ws-5 px-ws-3 typography-label-sm text-ws-static-subtle flex items-center',
-        ARRIVE,
+        state !== 'stopped' && ARRIVE,
       )}
     >
       <span
         aria-hidden
         className={cn(
           'size-ws-4 rounded-ws-control-full mx-ws-2 shrink-0',
-          waiting
-            ? 'bg-ws-semantic-inverse-notice'
-            : 'bg-ws-static-inverse-background motion-safe:animate-pulse',
+          state === 'working'
+            ? 'bg-ws-static-inverse-background motion-safe:animate-pulse'
+            : 'border-ws-static-inverse-background border',
         )}
       />
       <span aria-live="polite" className="min-w-0 truncate">
-        <Inline text={activity} />
+        <Inline text={label} />
       </span>
-      {Number.isFinite(seconds) && (
+      {state !== 'stopped' && seconds !== undefined && (
         <span className="shrink-0 tabular-nums">{formatDuration(seconds)}</span>
       )}
-      <span className="gap-ws-3 ml-auto flex shrink-0 items-center">
-        <Key>Esc</Key>
-        to stop
-      </span>
+      {state === 'stopped' ? (
+        <Button
+          size="xs"
+          variant="secondary"
+          preset="border"
+          className="ml-auto shrink-0"
+          onClick={onContinue}
+        >
+          Continue
+        </Button>
+      ) : (
+        <span className="gap-ws-3 ml-auto flex shrink-0 items-center">
+          <Key>Esc</Key>
+          to stop
+        </span>
+      )}
     </div>
   );
 }

@@ -1,17 +1,19 @@
-// TODO(custom): the state of a chat or session as one small mark at the end of its sidebar row (working, needs you, unread, a pull request, failed); Wideset has no spinner, and StatusBadge is a labelled badge.
+// TODO(custom): the state of a chat or session as one small mark at the end of its sidebar row (working, needs you, paused, unread, a pull request, failed); Wideset has no spinner, and StatusBadge is a labelled badge.
 import {
   RiCloseCircleFill,
   RiErrorWarningFill,
   RiGitPullRequestLine,
   RiLoader4Line,
+  RiPauseCircleLine,
 } from '@remixicon/react';
 
 import type { Thread } from './model';
 
 /**
  * One mark per row, each a different shape, so the state reads without its colour: a spinner
- * while the agent works, the notice sign when it waits for you, a dot for an answer not yet read,
- * the negative sign when it failed. A session with a pull request shows it with the review
+ * while the agent works, the notice sign when it waits for you, a grey pause when it stands
+ * still by itself (a limit reached, stopped by you), Figma's unread dot for an answer not yet
+ * read, the negative sign when it failed. A session with a pull request shows it with the review
  * comments still open. Every mark has its name for screen readers.
  */
 export function ThreadMark({ thread, working }: { thread: Thread; working: boolean }) {
@@ -43,6 +45,9 @@ export function ThreadMark({ thread, working }: { thread: Thread; working: boole
       />
     );
   }
+  if (state === 'paused') {
+    return <RiPauseCircleLine role="img" aria-label="Paused" className="size-ws-8" />;
+  }
   if (thread.pullRequest) {
     const { number, comments } = thread.pullRequest;
     return (
@@ -55,7 +60,7 @@ export function ThreadMark({ thread, working }: { thread: Thread; working: boole
   }
   if (state === 'unread') {
     return (
-      <span className="bg-ws-dynamic-primary-default rounded-ws-control-full size-ws-4 mx-ws-2">
+      <span className="bg-ws-non-semantic-indigo-strong rounded-ws-control-full size-ws-4 mx-ws-2">
         <span className="sr-only">Unread</span>
       </span>
     );

@@ -93,7 +93,7 @@ export const TASKS: Task[] = [
     id: 'e2e',
     title: 'Fix the failing E2E test',
     state: 'running',
-    now: 'Running `pnpm test:e2e bookings` with a trace',
+    now: 'Waiting for your approval to run `pnpm test:e2e bookings` with a trace',
     seconds: 134,
     steps: [
       { kind: 'read', label: 'Read the log of the E2E check', result: 'timed out' },
@@ -134,7 +134,7 @@ export const BACKGROUND: BackgroundRun[] = [
   },
   {
     id: 'timeout',
-    title: 'Investigate the E2E timeout',
+    title: 'Debug the E2E timeout',
     detail: 'Subagent · read `bookings-export.spec.ts` and 5 more files',
     state: 'running',
     seconds: 98,

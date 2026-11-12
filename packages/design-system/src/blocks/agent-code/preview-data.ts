@@ -19,11 +19,11 @@ export const STATUS = {
 export type Person = { name: string; initials: string; color: AvatarColor };
 
 const PRIYA: Person = { name: 'Priya Raman', initials: 'PR', color: 'purple' };
-const TOM: Person = { name: 'Tom Becker', initials: 'TB', color: 'blue' };
-const ELENA: Person = { name: 'Elena Silva', initials: 'ES', color: 'teal' };
+const TOM: Person = { name: 'Tom Becker', initials: 'TB', color: 'orange' };
+const ELENA: Person = { name: 'Elena Silva', initials: 'ES', color: 'blue' };
 const JONAS: Person = { name: 'Jonas Weber', initials: 'JW', color: 'lime' };
 /** Signed in to the preview, as to Tandem. */
-export const INES: Person = { name: 'Ines Navarro', initials: 'IN', color: 'orange' };
+export const INES: Person = { name: 'Ines Navarro', initials: 'IN', color: 'teal' };
 
 export type Booking = {
   id: string;

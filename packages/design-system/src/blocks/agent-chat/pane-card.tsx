@@ -1,23 +1,25 @@
-// TODO(custom): a document the agent wrote, as a card in the transcript that opens it in the pane; FileItem is an upload row with a remove action, not a link to a pane.
-import { RiFileTextLine, RiLayoutRightLine } from '@remixicon/react';
+// TODO(custom): something a turn made (a document, its changes, a pull request), as a card in the transcript that opens it in the pane; FileItem is an upload row with a remove action, not a link to a pane.
+import { type RemixiconComponentType, RiLayoutRightLine } from '@remixicon/react';
 import { cn } from '@wideset/react';
+import type { ReactNode } from 'react';
 
-type DocumentCardProps = {
+type PaneCardProps = {
+  icon: RemixiconComponentType;
   title: string;
-  /** Which version this answer wrote, counted from 1. */
-  version: number;
-  /** This version is the one open in the pane. */
+  /** One quiet line under the title: what it is and how it stands. */
+  caption: ReactNode;
+  /** Its pane is the one showing. */
   open: boolean;
   paneId: string;
   onToggle: () => void;
 };
 
 /**
- * What an answer made, where the answer made it: the document's name and the version that turn
- * wrote. The whole card is one button that opens that version in the pane beside the chat, and
- * closes the pane again; while its version is open it keeps the quiet fill.
+ * What a turn made, where the turn made it: a tile with its icon, its name, one line about it.
+ * The whole card is one button that brings its pane up beside the session, and closes the pane
+ * again; while that pane shows it keeps the quiet fill.
  */
-export function DocumentCard({ title, version, open, paneId, onToggle }: DocumentCardProps) {
+export function PaneCard({ icon: Icon, title, caption, open, paneId, onToggle }: PaneCardProps) {
   return (
     <button
       type="button"
@@ -31,13 +33,11 @@ export function DocumentCard({ title, version, open, paneId, onToggle }: Documen
       )}
     >
       <span className="bg-ws-static-alpha-base rounded-ws-control-lg size-ws-16 flex shrink-0 items-center justify-center">
-        <RiFileTextLine aria-hidden className="size-ws-11 text-ws-static-base" />
+        <Icon aria-hidden className="size-ws-11 text-ws-static-base" />
       </span>
       <span className="flex min-w-0 flex-1 flex-col">
         <span className="typography-label-strong-sm text-ws-static-strong truncate">{title}</span>
-        <span className="typography-caption-md text-ws-static-subtle">
-          Document · Version {version}
-        </span>
+        <span className="typography-caption-md text-ws-static-subtle truncate">{caption}</span>
       </span>
       <RiLayoutRightLine aria-hidden className="size-ws-9 text-ws-static-subtle shrink-0" />
     </button>

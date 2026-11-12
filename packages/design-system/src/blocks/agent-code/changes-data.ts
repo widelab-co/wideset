@@ -7,7 +7,7 @@ export const NOW = new Date('2026-11-10T16:30:00');
 
 export type Person = { name: string; initials: string; color: AvatarColor };
 
-export const ME: Person = { name: 'Ines Navarro', initials: 'IN', color: 'blue' };
+export const ME: Person = { name: 'Ines Navarro', initials: 'IN', color: 'teal' };
 const TOM: Person = { name: 'Tom Becker', initials: 'TB', color: 'orange' };
 
 /** A file the session changed: its path from the repository root and its diff. */
