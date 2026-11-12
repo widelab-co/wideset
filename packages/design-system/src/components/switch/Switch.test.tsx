@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { renderToString } from 'react-dom/server';
 import { describe, expect, it, vi } from 'vitest';
 
 import { Switch } from './Switch';
@@ -285,6 +286,46 @@ describe('Switch', () => {
         'external',
         description.id,
       ]);
+    });
+
+    it('describes the switch in the server render', () => {
+      const html = renderToString(
+        <Switch id="notify">
+          <Switch.Label>Email notifications</Switch.Label>
+          <Switch.Description>Sent once a day</Switch.Description>
+        </Switch>,
+      );
+      expect(html).toContain('aria-describedby="notify-description"');
+      expect(html).toContain('id="notify-description"');
+    });
+
+    it('warns when given more than one description', () => {
+      const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+      render(
+        <Switch>
+          <Switch.Label>Email notifications</Switch.Label>
+          <Switch.Description id="first">Sent once a day</Switch.Description>
+          <Switch.Description id="second">Sent once a week</Switch.Description>
+        </Switch>,
+      );
+      expect(warn).toHaveBeenCalledWith(expect.stringContaining('one `Switch.Description`'));
+      warn.mockRestore();
+    });
+
+    it('keeps the description id when a replaced description unmounts', () => {
+      const { rerender } = render(
+        <Switch>
+          <Switch.Label>Email notifications</Switch.Label>
+          <Switch.Description id="first">Sent once a day</Switch.Description>
+        </Switch>,
+      );
+      rerender(
+        <Switch>
+          <Switch.Label>Email notifications</Switch.Label>
+          <Switch.Description id="second">Sent once a week</Switch.Description>
+        </Switch>,
+      );
+      expect(screen.getByRole('switch')).toHaveAttribute('aria-describedby', 'second');
     });
 
     it('keeps a caller id on the description', () => {

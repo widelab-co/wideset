@@ -12,7 +12,7 @@ export type SwitchContextType = {
   disabled?: boolean;
   id?: string;
   descriptionId?: string;
-  onDescriptionIdChange?: (id: string | undefined) => void;
+  onDescriptionIdChange?: React.Dispatch<React.SetStateAction<string | undefined>>;
 };
 
 /** The text label associated with `Switch`. */
@@ -39,7 +39,7 @@ type SwitchPropsWithLabel = SwitchPropsBase & {
 
 type SwitchPropsWithChildren = SwitchPropsBase & {
   label?: never;
-  /** Composed label and description. Use instead of the shorthand label. */
+  /** Composed label and description (one `Switch.Description`). Use instead of the shorthand label. */
   children?: React.ReactNode;
 };
 

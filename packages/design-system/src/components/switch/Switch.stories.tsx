@@ -183,22 +183,10 @@ export const LabelAlignments: Story = {
     labelPosition: { table: { disable: true } },
     label: { table: { disable: true } },
   },
-  render: ({ size, disabled, defaultChecked }) => (
+  render: ({ label: _label, labelPosition: _labelPosition, children: _children, ...args }) => (
     <div className="gap-ws-8 flex flex-col items-start">
-      <Switch
-        size={size}
-        disabled={disabled}
-        defaultChecked={defaultChecked}
-        label="Label left"
-        labelPosition="left"
-      />
-      <Switch
-        size={size}
-        disabled={disabled}
-        defaultChecked={defaultChecked}
-        label="Label right"
-        labelPosition="right"
-      />
+      <Switch {...args} label="Label left" labelPosition="left" />
+      <Switch {...args} label="Label right" labelPosition="right" />
     </div>
   ),
   args: Default.args,
@@ -273,15 +261,10 @@ export const Composition: Story = {
     label: { table: { disable: true } },
     children: { table: { disable: true } },
   },
-  render: ({ size, labelPosition, disabled, defaultChecked }) => (
-    <Switch
-      size={size}
-      labelPosition={labelPosition}
-      disabled={disabled}
-      defaultChecked={defaultChecked}
-    >
-      <Switch.Label>Label</Switch.Label>
-      <Switch.Description>This is description</Switch.Description>
+  render: ({ label: _label, children: _children, ...args }) => (
+    <Switch {...args}>
+      <Switch.Label>Email notifications</Switch.Label>
+      <Switch.Description>One summary a day, at 9:00.</Switch.Description>
     </Switch>
   ),
   args: Default.args,

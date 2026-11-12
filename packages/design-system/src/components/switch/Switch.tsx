@@ -36,9 +36,27 @@ const Switch = React.forwardRef<React.ComponentRef<typeof SwitchPrimitive.Root>,
     const motion = useDefaultMotion(defaultMotion);
     const switchId = id || fallbackId;
     const descriptionId = `${switchId}-description`;
-    const [composedDescriptionId, setComposedDescriptionId] = React.useState<string>();
+    const [registeredDescriptionId, setRegisteredDescriptionId] = React.useState<string>();
+    const childDescriptions = React.Children.toArray(children).filter(
+      (child): child is React.ReactElement<{ id?: string }> =>
+        React.isValidElement(child) && child.type === SwitchDescription,
+    );
+    const childDescription = childDescriptions[0];
+    const extraDescriptions = childDescriptions.length > 1;
+
+    React.useEffect(() => {
+      if (extraDescriptions) {
+        // eslint-disable-next-line no-console
+        console.warn('Switch: render one `Switch.Description` per switch; only one is announced.');
+      }
+    }, [extraDescriptions]);
+    const renderedDescriptionId = childDescription
+      ? (childDescription.props.id ?? descriptionId)
+      : undefined;
     const describedBy =
-      [ariaDescribedBy, composedDescriptionId].filter(Boolean).join(' ') || undefined;
+      [ariaDescribedBy, registeredDescriptionId ?? renderedDescriptionId]
+        .filter(Boolean)
+        .join(' ') || undefined;
 
     const containerClassName = cn(
       'gap-ws-7 flex w-fit items-center',
@@ -79,7 +97,7 @@ const Switch = React.forwardRef<React.ComponentRef<typeof SwitchPrimitive.Root>,
           disabled,
           id: switchId,
           descriptionId,
-          onDescriptionIdChange: setComposedDescriptionId,
+          onDescriptionIdChange: setRegisteredDescriptionId,
         }}
       >
         {label ? (

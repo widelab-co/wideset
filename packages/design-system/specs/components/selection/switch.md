@@ -99,7 +99,7 @@ Keep one size within a list of switches.
   `wrapperClassName`.
 - `label` and children are mutually exclusive; the types reject passing both.
 - There is no `variant` and no `description` prop. Supporting text is `Switch.Description` in the
-  composed children; it becomes the switch's `aria-describedby`.
+  composed children, one per `Switch`; it becomes the switch's `aria-describedby`.
 - `Switch.Label` throws outside a `Switch`; it takes `htmlFor` from it.
 - DOM hooks: `data-slot="switch"`, `"switch-label"`, `"switch-description"`.
 

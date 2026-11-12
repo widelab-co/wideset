@@ -14,8 +14,8 @@ export const SwitchDescription = React.forwardRef<
   const onDescriptionIdChange = context?.onDescriptionIdChange;
 
   React.useEffect(() => {
-    onDescriptionIdChange?.(id);
-    return () => onDescriptionIdChange?.(undefined);
+    onDescriptionIdChange?.(() => id);
+    return () => onDescriptionIdChange?.((current) => (current === id ? undefined : current));
   }, [id, onDescriptionIdChange]);
 
   return (
