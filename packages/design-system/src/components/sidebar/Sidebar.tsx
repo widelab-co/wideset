@@ -9,6 +9,7 @@ import { SidebarHeader } from './SidebarHeader';
 import { SidebarItem } from './SidebarItem';
 import { SidebarRoot } from './SidebarRoot';
 import { SidebarSection } from './SidebarSection';
+import { SidebarSectionHeader } from './SidebarSectionHeader';
 import { SidebarTrigger } from './SidebarTrigger';
 
 type SidebarWithSubComponents = React.ForwardRefExoticComponent<
@@ -17,6 +18,7 @@ type SidebarWithSubComponents = React.ForwardRefExoticComponent<
   Header: typeof SidebarHeader;
   Footer: typeof SidebarFooter;
   Section: typeof SidebarSection;
+  SectionHeader: typeof SidebarSectionHeader;
   Item: typeof SidebarItem;
   Group: typeof SidebarGroup;
   Expanded: typeof SidebarExpanded;
@@ -30,6 +32,7 @@ Sidebar.displayName = 'Sidebar';
 Sidebar.Header = SidebarHeader;
 Sidebar.Footer = SidebarFooter;
 Sidebar.Section = SidebarSection;
+Sidebar.SectionHeader = SidebarSectionHeader;
 Sidebar.Item = SidebarItem;
 Sidebar.Group = SidebarGroup;
 Sidebar.Expanded = SidebarExpanded;

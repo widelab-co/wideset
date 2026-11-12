@@ -6,7 +6,7 @@ status: stable
 parts:
   [Table, TableHead, TableBody, TableFoot, TableRow, TableHeader, TableCell, TableCellDescription]
 related: [ListItem, Pagination, StatusBadge, Tag, Checkbox]
-docs: https://wideset-docs.widelab.workers.dev/components/table
+docs: https://wideset.co/components/table
 storybook: components-table--default
 ---
 
@@ -158,5 +158,5 @@ Native `table` / `thead` / `tbody` / `tfoot` / `tr` / `th` / `td`. Named exports
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/table.md` · Types:
+Full props: `https://wideset.co/components/table.md` · Types:
 `packages/design-system/src/components/table/Table.types.ts`

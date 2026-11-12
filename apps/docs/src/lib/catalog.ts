@@ -104,7 +104,7 @@ export const relatedTo = (id: string) =>
  * environment (production, develop, PR preview); a local build links to production.
  */
 export const STORYBOOK_URL: string =
-  import.meta.env.PUBLIC_STORYBOOK_URL || 'https://wideset-storybook.widelab.workers.dev';
+  import.meta.env.PUBLIC_STORYBOOK_URL || 'https://storybook.wideset.co';
 const STORYBOOK = STORYBOOK_URL;
 const SOURCE = 'https://github.com/widelab-co/wideset/tree/develop/packages/design-system';
 

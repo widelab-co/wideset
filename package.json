@@ -1,5 +1,5 @@
 {
-  "name": "wideset",
+  "name": "wideset-monorepo",
   "private": true,
   "packageManager": "pnpm@11.1.1",
   "engines": {
@@ -27,7 +27,7 @@
     "build:registry": "pnpm --filter @wideset/react build:registry",
     "build:skills": "pnpm --filter @wideset/skills build",
     "test:registry": "pnpm --filter @wideset/react test:registry",
-    "test:cli": "pnpm --filter @wideset/react test:cli",
+    "test:cli": "pnpm --filter wideset test:cli",
     "test:skills": "pnpm --filter @wideset/skills test:skills",
     "playground": "pnpm --filter @wideset/react playground",
     "prettier:fix": "prettier --write .",
@@ -57,8 +57,11 @@
     "*.{ts,tsx,js,mjs,cjs,astro,css,json,jsonc,md,mdx,yml,yaml}": [
       "prettier --write"
     ],
-    "packages/design-system/{src,scripts,cli}/**/*.{ts,tsx,mjs}": [
+    "packages/design-system/{src,scripts}/**/*.{ts,tsx,mjs}": [
       "pnpm --filter @wideset/react exec eslint --fix"
+    ],
+    "packages/cli/src/**/*.{ts,mjs}": [
+      "pnpm --filter wideset exec eslint --fix"
     ],
     "apps/docs/{src,scripts}/**/*.{ts,tsx,mjs}": [
       "pnpm --filter @wideset/docs exec eslint --fix"

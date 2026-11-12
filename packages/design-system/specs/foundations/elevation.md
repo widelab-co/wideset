@@ -68,5 +68,5 @@ under any variant prefix. Do not add `dark:shadow-none` or your own dark shadow.
 
 ## Docs
 
-https://wideset-docs.widelab.workers.dev/docs/elevation (z-index bands) · Source:
+https://wideset.co/docs/elevation (z-index bands) · Source:
 `packages/design-system/src/styles/utilities/shadow.css`
