@@ -143,6 +143,9 @@ Open state: `open` / `defaultOpen` / `onOpenChange`.
   `aria-describedby` on `Select.Trigger` yourself.
 - An option `value` cannot be `''`: the empty string is how Select means "no value".
 - The trigger has a fixed default width; `className="w-full"` fills a form column.
+- `preset="ghost"` shows its arrow only while the field is hovered, keyboard-focused or open
+  (always on touch screens), and a prefix sits beside the value with no divider. Don't add your
+  own arrow or `hideArrow` to get a quiet field; the ghost preset already is one.
 - `danger` does not set `aria-invalid` by itself; `FormField` sets it while `errorText` shows.
 - The list portals to `document.body` and clears modals and side panels. Don't point
   `portalContainer` at a modal: the list gets clipped.
