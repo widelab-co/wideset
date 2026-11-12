@@ -106,6 +106,8 @@ Treat **version → promote** as a brief freeze: avoid landing new changesets on
 
 Open a PR `develop → main` and merge it with **"Create a merge commit"** — **never Squash or Rebase** (squash collapses the whole history into one commit). The `main` ruleset allows only merge commits, and only `wideset-core` can merge into `main`.
 
+The `Changesets consumed` check fails the promotion PR while `.changeset/` still holds a changeset the Version PR did not consume (empty changesets aside), listing the files. Merge the Version PR on `develop`; the promotion PR picks it up and the check runs again.
+
 On push to `main`, CI runs in order: **build → deploy → publish**:
 
 - Deploys docs (with the registry under `/r`) and Storybook to production Workers, then checks
@@ -167,8 +169,10 @@ Production on `wideset.co`:
 
 ## Caveats
 
-- **Freeze window.** If a new changeset lands on `develop` _between_ the version step and the promotion, `main` arrives with an unconsumed changeset and the `release` job stops before npm, naming it. Merge the Version PR that `develop` opens for it and promote again; it bumps past the unpublished version. Keep version → promote tight.
-- **Empty changesets.** `changesets/action` neither versions nor publishes while only empty changesets are pending, so the `release` job deletes them from its checkout (nothing is committed) and the action publishes.
+- **Freeze window.** If a new changeset lands on `develop` _between_ the version step and the promotion, the promotion PR carries an unconsumed changeset and the `Changesets consumed` check blocks it, naming the file. Merge the Version PR that `develop` opens for it; the promotion PR updates and the check passes. Keep version → promote tight.
+  - **Required check (manual).** The check blocks the merge only when `Changesets consumed` is a required status check in the `main` ruleset. A maintainer adds it in the repository settings (Rules → Rulesets → `main` → Require status checks to pass); CI cannot.
+  - **Backstop.** If an unconsumed changeset still reaches `main` (the check was not required, or was bypassed), the `release` job runs the same script, `scripts/check-changesets-consumed.sh`, and stops before npm, naming it. By then `deploy` has already published docs for a version npm will not get: merge the Version PR on `develop` and promote again; it bumps past the unpublished version.
+- **Empty changesets.** `changesets/action` neither versions nor publishes while only empty changesets are pending, so the `release` job deletes them from its checkout (nothing is committed) and the action publishes. The `Changesets consumed` check ignores them the same way.
 - **Merge method matters.** Always promote `develop → main` with a merge commit. Squash/Rebase destroys the per‑component history.
 
 ---
