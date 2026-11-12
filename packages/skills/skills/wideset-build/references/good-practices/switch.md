@@ -35,9 +35,10 @@
 ## Gotchas
 
 - `className`, `ref` and the remaining props all land on the switch control (`button` with
-  `role="switch"`), as in `Checkbox`. Lay the row out from a wrapper.
+  `role="switch"`), as in `Checkbox`. Style the row around the switch and its label with
+  `wrapperClassName`.
 - `label` and children are mutually exclusive; the types reject passing both.
 - There is no `variant` and no `description` prop. Supporting text is `Switch.Description` in the
-  composed children.
+  composed children; it becomes the switch's `aria-describedby`.
 - `Switch.Label` throws outside a `Switch`; it takes `htmlFor` from it.
 - DOM hooks: `data-slot="switch"`, `"switch-label"`, `"switch-description"`.

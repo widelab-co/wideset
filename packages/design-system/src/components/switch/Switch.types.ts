@@ -11,6 +11,8 @@ import type { SwitchLabel } from './SwitchLabel';
 export type SwitchContextType = {
   disabled?: boolean;
   id?: string;
+  descriptionId?: string;
+  onDescriptionIdChange?: (id: string | undefined) => void;
 };
 
 /** The text label associated with `Switch`. */
@@ -25,6 +27,8 @@ type SwitchPropsBase = Omit<React.ComponentProps<typeof RadixSwitch.Root>, 'chil
      * @default 'right'
      */
     labelPosition?: 'left' | 'right';
+    /** Classes for the row that holds the switch and its label. */
+    wrapperClassName?: string;
   };
 
 type SwitchPropsWithLabel = SwitchPropsBase & {

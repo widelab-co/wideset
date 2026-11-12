@@ -28,6 +28,8 @@ const Switch = React.forwardRef<React.ComponentRef<typeof SwitchPrimitive.Root>,
       disabled,
       defaultMotion,
       children,
+      wrapperClassName,
+      'aria-describedby': ariaDescribedBy,
       ...props
     },
     ref,
@@ -35,12 +37,20 @@ const Switch = React.forwardRef<React.ComponentRef<typeof SwitchPrimitive.Root>,
     const fallbackId = React.useId();
     const motion = useDefaultMotion(defaultMotion);
     const switchId = id || fallbackId;
+    const descriptionId = `${switchId}-description`;
+    const [composedDescriptionId, setComposedDescriptionId] = React.useState<string>();
+    const describedBy =
+      [ariaDescribedBy, composedDescriptionId].filter(Boolean).join(' ') || undefined;
 
-    const containerClassName = cn('gap-ws-7 flex w-fit items-center', {
-      'flex-row-reverse': labelPosition === 'left',
-      'cursor-pointer': !disabled,
-      'pointer-events-none': disabled,
-    });
+    const containerClassName = cn(
+      'gap-ws-7 flex w-fit items-center',
+      {
+        'flex-row-reverse': labelPosition === 'left',
+        'cursor-pointer': !disabled,
+        'pointer-events-none': disabled,
+      },
+      wrapperClassName,
+    );
 
     const switchRoot = (
       <SwitchPrimitive.Root
@@ -52,6 +62,7 @@ const Switch = React.forwardRef<React.ComponentRef<typeof SwitchPrimitive.Root>,
         )}
         id={switchId}
         disabled={disabled}
+        aria-describedby={describedBy}
         data-slot="switch"
         {...props}
       >
@@ -65,7 +76,14 @@ const Switch = React.forwardRef<React.ComponentRef<typeof SwitchPrimitive.Root>,
     );
 
     return (
-      <SwitchContext.Provider value={{ disabled, id: switchId }}>
+      <SwitchContext.Provider
+        value={{
+          disabled,
+          id: switchId,
+          descriptionId,
+          onDescriptionIdChange: setComposedDescriptionId,
+        }}
+      >
         {label ? (
           <Label.Root htmlFor={switchId} className={containerClassName}>
             {switchRoot}

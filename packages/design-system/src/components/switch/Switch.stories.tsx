@@ -57,7 +57,12 @@ Use Checkbox for selections submitted with a form.
         type: { summary: "'left' | 'right'" },
       },
     },
+    wrapperClassName: {
+      control: 'text',
+      table: { category: 'Appearance', type: { summary: 'string' } },
+    },
     label: {
+      description: 'Shorthand label, mutually exclusive with composed children.',
       control: 'text',
       table: {
         category: 'Content',
@@ -129,6 +134,7 @@ Use Checkbox for selections submitted with a form.
       },
     },
     children: {
+      description: 'Composed label and description. Use instead of the shorthand label.',
       control: false,
       table: {
         category: 'Content',

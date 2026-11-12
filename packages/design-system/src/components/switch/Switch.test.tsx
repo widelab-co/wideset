@@ -146,6 +146,14 @@ describe('Switch', () => {
       render(<Switch ref={ref} label="Label" className="custom-class" />);
       expect(ref.current).toBe(screen.getByRole('switch'));
       expect(ref.current).toHaveClass('custom-class');
+      expect(ref.current?.parentElement).not.toHaveClass('custom-class');
+    });
+
+    it('puts wrapperClassName on the row', () => {
+      render(<Switch label="Label" wrapperClassName="w-full" className="custom-class" />);
+      const row = screen.getByRole('switch').parentElement;
+      expect(row).toHaveClass('w-full');
+      expect(row).not.toHaveClass('custom-class');
     });
 
     it('should handle data attributes', () => {
@@ -261,6 +269,32 @@ describe('Switch', () => {
       expect(description).toHaveAttribute('data-slot', 'switch-description');
       expect(description).toHaveClass('custom-class');
       expect(description).toHaveAttribute('data-testid', 'description');
+    });
+
+    it('describes the switch', () => {
+      render(
+        <Switch aria-describedby="external">
+          <Switch.Label>Email notifications</Switch.Label>
+          <Switch.Description>Sent once a day</Switch.Description>
+        </Switch>,
+      );
+      const switchElement = screen.getByRole('switch');
+      const description = screen.getByText('Sent once a day');
+      expect(switchElement).toHaveAccessibleDescription('Sent once a day');
+      expect(switchElement.getAttribute('aria-describedby')?.split(' ')).toEqual([
+        'external',
+        description.id,
+      ]);
+    });
+
+    it('keeps a caller id on the description', () => {
+      render(
+        <Switch>
+          <Switch.Label>Email notifications</Switch.Label>
+          <Switch.Description id="custom-id">Sent once a day</Switch.Description>
+        </Switch>,
+      );
+      expect(screen.getByRole('switch')).toHaveAttribute('aria-describedby', 'custom-id');
     });
   });
 
