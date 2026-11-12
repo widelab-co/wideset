@@ -1,7 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
   "name": "wideset",
-  "homepage": "https://wideset-docs.widelab.workers.dev",
+  "homepage": "https://wideset.co/docs",
   "items": [
     {
       "name": "utils",

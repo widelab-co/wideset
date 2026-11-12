@@ -18,7 +18,7 @@ parts:
     SelectItemIndicator,
   ]
 related: [MultiSelect, ComboBox, RadioButton, DropdownMenu, FormField]
-docs: https://wideset-docs.widelab.workers.dev/components/select
+docs: https://wideset.co/components/select
 storybook: form-select-select--default
 ---
 
@@ -151,5 +151,5 @@ Open state: `open` / `defaultOpen` / `onOpenChange`.
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/select.md` · Types:
+Full props: `https://wideset.co/components/select.md` · Types:
 `packages/design-system/src/components/select/Select.types.ts`

@@ -53,7 +53,7 @@ A `components.json` in your project root tells the CLI where files go and which 
     "hooks": "@/hooks",
     "utils": "@/lib/utils"
   },
-  "registries": { "@wideset": "https://wideset-docs.widelab.workers.dev/r/{name}.json" }
+  "registries": { "@wideset": "https://wideset.co/r/{name}.json" }
 }
 ```
 
@@ -64,7 +64,7 @@ in `vite.config.ts` (`resolve.alias`).
 **Already using shadcn?** Keep your `components.json` and only register the namespace:
 
 ```bash
-npx shadcn@latest registry add @wideset=https://wideset-docs.widelab.workers.dev/r/{name}.json
+npx shadcn@latest registry add @wideset=https://wideset.co/r/{name}.json
 ```
 
 Wideset files land next to your shadcn components, under `components/ui/wideset/`, with their

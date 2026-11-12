@@ -6,7 +6,7 @@ status: stable
 parts:
   [Card, CardMedia, CardHeader, CardTitle, CardDescription, CardAction, CardContent, CardFooter]
 related: [ActionTile, Tile, Accordion, Sidepanel, Modal]
-docs: https://wideset-docs.widelab.workers.dev/components/card
+docs: https://wideset.co/components/card
 storybook: components-card--default
 ---
 
@@ -117,5 +117,5 @@ that is selected is a `Tile`.
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/card.md` · Types:
+Full props: `https://wideset.co/components/card.md` · Types:
 `packages/design-system/src/components/card/Card.types.ts`

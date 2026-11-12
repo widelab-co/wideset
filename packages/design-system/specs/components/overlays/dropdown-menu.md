@@ -22,7 +22,7 @@ parts:
     DropdownMenuSubContent,
   ]
 related: [ListItem, Select, SplitButton, Popup]
-docs: https://wideset-docs.widelab.workers.dev/components/dropdown-menu
+docs: https://wideset.co/components/dropdown-menu
 storybook: components-dropdownmenu--default
 ---
 
@@ -136,5 +136,5 @@ the menu (call `event.preventDefault()` to keep it open).
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/dropdown-menu.md` · Types:
+Full props: `https://wideset.co/components/dropdown-menu.md` · Types:
 `packages/design-system/src/components/dropdown/DropdownMenu.types.ts`

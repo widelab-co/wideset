@@ -22,7 +22,7 @@ In a project that already uses shadcn it keeps your `components.json` and only r
 
 Prefer updates through semver to owning the code? Install
 [`@wideset/react`](https://www.npmjs.com/package/@wideset/react) instead. The
-[CLI guide](https://wideset-docs.widelab.workers.dev/docs/cli) covers both, and calling the shadcn
+[CLI guide](https://wideset.co/docs/cli) covers both, and calling the shadcn
 CLI yourself.
 
 ## License

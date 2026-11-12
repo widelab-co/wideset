@@ -14,7 +14,7 @@ parts:
     AccordionContent,
   ]
 related: [Tabs, Card, Sidepanel]
-docs: https://wideset-docs.widelab.workers.dev/components/accordion
+docs: https://wideset.co/components/accordion
 storybook: components-accordion--default
 ---
 
@@ -114,5 +114,5 @@ chevron is drawn for you. Named exports (`AccordionItem`, …) are the same part
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/accordion.md` · Types:
+Full props: `https://wideset.co/components/accordion.md` · Types:
 `packages/design-system/src/components/accordion/Accordion.types.ts`

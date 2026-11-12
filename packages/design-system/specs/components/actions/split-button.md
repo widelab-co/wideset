@@ -5,7 +5,7 @@ group: actions
 status: stable
 parts: [SplitButton, SplitButtonIcon, SplitButtonTruncatedText]
 related: [Button, DropdownMenu, IconButton]
-docs: https://wideset-docs.widelab.workers.dev/components/split-button
+docs: https://wideset.co/components/split-button
 storybook: components-button-splitbutton--default
 ---
 
@@ -112,5 +112,5 @@ inside; pass only its items in `menuContent` (`DropdownMenu.Item`, `DropdownMenu
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/split-button.md` · Types:
+Full props: `https://wideset.co/components/split-button.md` · Types:
 `packages/design-system/src/components/button/SplitButton.types.ts`
