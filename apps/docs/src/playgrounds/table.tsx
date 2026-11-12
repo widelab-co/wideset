@@ -38,7 +38,10 @@ export default playground({
         </Table.Head>
         <Table.Body>
           <Table.Row>
-            <Table.Cell>Acme Corp</Table.Cell>
+            <Table.Cell>
+              Acme Corp
+              <Table.CellDescription>Annual plan</Table.CellDescription>
+            </Table.Cell>
             <Table.Cell align="right">$1,200.00</Table.Cell>
           </Table.Row>
           <Table.Row>
