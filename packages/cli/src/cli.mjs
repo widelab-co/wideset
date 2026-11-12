@@ -228,9 +228,12 @@ async function init(ctx, { nested = false } = {}) {
   const fontSpecifier = '@/styles/wideset-font.css';
   const fontPath = `${project.srcDir === '.' ? '' : `${project.srcDir}/`}styles/wideset-font.css`;
   const hasFontFile = existsSync(join(cwd, fontPath));
-  // An entry that sets --font-ws-sans itself (next/font, as the installation guide shows).
+  // An entry that defines --font-ws-sans itself: next/font's `variable: '--font-ws-sans'`, as the
+  //    installation guide shows, or a `--font-ws-sans:` declaration. A `var(--font-ws-sans)` read
+  //    does not count: it loads nothing.
   const entryText = project.entry ? readFileSync(join(cwd, project.entry), 'utf8') : '';
-  const ownFontVariable = !hasFontFile && entryText.includes('--font-ws-sans');
+  const ownFontVariable =
+    !hasFontFile && /variable:\s*['"`]--font-ws-sans['"`]|--font-ws-sans\s*:/.test(entryText);
   if (!opts.font) {
     say(false, 'font: left as it is (--no-font)');
   } else if (existing) {

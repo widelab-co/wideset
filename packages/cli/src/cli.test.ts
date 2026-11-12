@@ -397,6 +397,21 @@ describe('wideset init', () => {
     expect(out).toContain('font: kept yours (src/main.tsx sets --font-ws-sans)');
   });
 
+  it('still adds Inter when the entry only reads --font-ws-sans', async () => {
+    viteApp();
+    write(
+      'src/main.tsx',
+      read('src/main.tsx').replace(
+        "import './index.css'",
+        "import './index.css'\ndocument.body.style.fontFamily = 'var(--font-ws-sans)'",
+      ),
+    );
+    const { shadcn, out } = await run(['init', '--registry', REGISTRY]);
+    expect(shadcn.flat()).toContain('@wideset/font');
+    expect(out).not.toContain('font: kept yours');
+    expect(read('src/main.tsx')).toContain("import '@/styles/wideset-font.css'");
+  });
+
   it('imports a font file that is already there in a project set up for the first time', async () => {
     viteApp();
     await run(['init', '--registry', REGISTRY]);
