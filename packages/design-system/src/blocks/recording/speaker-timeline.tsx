@@ -1,9 +1,9 @@
 // TODO(custom): speaker timeline (who spoke when, one row a person, the played part and the playhead) with a range input over it; Wideset has no audio player or timeline.
-import { Avatar } from '@wideset/react';
 import type { KeyboardEvent } from 'react';
 
 import type { Line, Person } from './data';
 import { formatSpoken } from './format';
+import { PersonAvatar } from './person-avatar';
 
 /** Height of one person's row, in px: the SVG draws both rows at this pitch. */
 const ROW = 32;
@@ -49,7 +49,13 @@ export function SpeakerTimeline({
       <ul aria-label="Speakers" className="flex flex-col">
         {speakers.map((speaker) => (
           <li key={speaker.id} className="h-ws-14 gap-ws-5 flex items-center">
-            <Avatar size="xs" initials={speaker.initials} color={speaker.color} aria-hidden />
+            <PersonAvatar
+              size="xs"
+              name={speaker.name}
+              initials={speaker.initials}
+              color={speaker.color}
+              aria-hidden
+            />
             <span className="typography-label-sm text-ws-static-base truncate">{speaker.name}</span>
           </li>
         ))}

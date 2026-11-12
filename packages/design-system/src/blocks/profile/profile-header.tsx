@@ -8,10 +8,11 @@ import {
   RiNotificationOffLine,
   RiUserAddLine,
 } from '@remixicon/react';
-import { Avatar, Button, DropdownMenu, IconButton, ListItem } from '@wideset/react';
+import { Button, DropdownMenu, IconButton, ListItem } from '@wideset/react';
 
 import { NOW, profile } from './data';
 import { formatLocalTime } from './format';
+import { PersonAvatar } from './person-avatar';
 
 type ProfileHeaderProps = {
   followed: boolean;
@@ -42,7 +43,12 @@ export function ProfileHeader({
   return (
     <header className="gap-ws-12 flex flex-wrap items-center justify-between">
       <div className="gap-ws-11 flex min-w-0 items-center">
-        <Avatar size="2xl" initials={profile.initials} aria-hidden="true" />
+        <PersonAvatar
+          size="2xl"
+          name={profile.name}
+          initials={profile.initials}
+          aria-hidden="true"
+        />
         <div className="gap-ws-2 flex min-w-0 flex-col">
           <h1 className="typography-subtitle-md text-ws-static-strong">{profile.name}</h1>
           <p className="typography-body-md text-ws-static-base">

@@ -2,6 +2,7 @@ import { RiArrowRightLine, RiLoader4Line } from '@remixicon/react';
 import { ActionTile, Avatar } from '@wideset/react';
 
 import type { Account } from './data';
+import { PHOTOS } from './people.assets';
 
 type AccountListProps = {
   accounts: Account[];
@@ -21,10 +22,15 @@ export function AccountList({ accounts, busy, onContinue }: AccountListProps) {
     <ul className="gap-ws-5 flex flex-col">
       {accounts.map((account) => {
         const opening = busy === account.id;
+        const photo = PHOTOS[account.name];
         return (
           <li key={account.id}>
             <ActionTile aria-busy={opening || undefined} onClick={() => onContinue(account)}>
-              <Avatar aria-hidden="true" initials={account.initials} color={account.color} />
+              {photo ? (
+                <Avatar aria-hidden="true" src={photo} alt="" initials={account.initials} />
+              ) : (
+                <Avatar aria-hidden="true" initials={account.initials} color={account.color} />
+              )}
               <div className="gap-ws-3 flex min-w-0 flex-1 flex-col">
                 <ActionTile.Title className="truncate">
                   <span className="sr-only">Continue as </span>

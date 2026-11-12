@@ -1,10 +1,9 @@
-import { Avatar } from '@wideset/react';
-
 import { CommentField } from './comment-field';
 import { CommentList } from './comment-list';
 import { type Access, type FileItem, FOLDER, KIND_LABEL, PEOPLE, type PersonId } from './data';
 import { FactsList } from './facts-list';
 import { formatModified, formatSize } from './format';
+import { PersonAvatar } from './person-avatar';
 
 const TITLE = 'typography-label-strong-md text-ws-static-strong';
 
@@ -52,8 +51,9 @@ export function FileDetails({
           <ul className="gap-ws-7 flex flex-col">
             {people.map(({ person, access }) => (
               <li key={person} className="gap-ws-5 flex items-center">
-                <Avatar
+                <PersonAvatar
                   size="sm"
+                  name={PEOPLE[person].name}
                   initials={PEOPLE[person].initials}
                   color={PEOPLE[person].color}
                   aria-hidden

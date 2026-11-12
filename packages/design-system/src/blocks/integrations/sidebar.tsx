@@ -1,7 +1,6 @@
 // TODO(custom): workspace switcher and account menu are composed by hand.
 import { RiAddLine, RiArrowDownSLine, RiLogoutBoxRLine, RiSettingsLine } from '@remixicon/react';
 import {
-  Avatar,
   Divider,
   DropdownMenu,
   IconButton,
@@ -21,6 +20,7 @@ import {
   SETTINGS_LINKS,
   WORKSPACE,
 } from './data';
+import { PersonAvatar } from './person-avatar';
 
 /**
  * The workspace sidebar: switcher, the app's pages, settings (Integrations is one of them) and the
@@ -123,7 +123,7 @@ export function IntegrationsSidebar(
                     type="button"
                     className="gap-ws-5 px-ws-5 py-ws-3 rounded-ws-control-lg hover:bg-ws-dynamic-tertiary-alpha-strong-default focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default flex w-full items-center text-left"
                   >
-                    <Avatar initials={ACCOUNT.initials} color="orange" />
+                    <PersonAvatar name={ACCOUNT.name} initials={ACCOUNT.initials} color="orange" />
                     <span className="flex min-w-0 flex-1 flex-col">
                       <span className="typography-label-strong-sm text-ws-static-base truncate">
                         {ACCOUNT.name}
@@ -161,7 +161,13 @@ export function IntegrationsSidebar(
             </Sidebar.Expanded>
             <Sidebar.Collapsed>
               <div className="flex justify-center">
-                <Avatar initials={ACCOUNT.initials} color="orange" title={ACCOUNT.name} />
+                <PersonAvatar
+                  name={ACCOUNT.name}
+                  initials={ACCOUNT.initials}
+                  color="orange"
+                  alt={ACCOUNT.name}
+                  title={ACCOUNT.name}
+                />
               </div>
             </Sidebar.Collapsed>
           </div>

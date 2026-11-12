@@ -1,10 +1,11 @@
 import { RiMoreFill } from '@remixicon/react';
-import { Avatar, cn, IconButton, StatusBadge, Table, Tag } from '@wideset/react';
+import { cn, IconButton, StatusBadge, Table, Tag } from '@wideset/react';
 import { type KeyboardEvent, useState } from 'react';
 
 import type { MenuAction, MenuAnchor } from './customer-menu';
 import { type Customer, HEALTH, PEOPLE, TAGS } from './data';
 import { formatActivity, formatDateTime, formatUsd } from './format';
+import { PersonAvatar } from './person-avatar';
 
 type CustomersTableProps = {
   rows: Customer[];
@@ -116,7 +117,12 @@ export function CustomersTable({ rows, menuFor, onOpen, onMenu, onAction }: Cust
                 </Table.Cell>
                 <Table.Cell>
                   <div className="gap-ws-5 flex items-center">
-                    <Avatar size="sm" initials={owner.initials} color={owner.color} />
+                    <PersonAvatar
+                      size="sm"
+                      name={owner.name}
+                      initials={owner.initials}
+                      color={owner.color}
+                    />
                     <span className="truncate">{owner.name}</span>
                   </div>
                 </Table.Cell>

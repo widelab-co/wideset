@@ -14,6 +14,7 @@ import type { ReactNode } from 'react';
 
 import { COLUMN } from './column';
 import type { Conversation } from './data';
+import { PersonAvatar } from './person-avatar';
 
 const ghost = { variant: 'secondary', preset: 'ghost', size: 'sm' } as const;
 
@@ -65,7 +66,9 @@ export function ConversationHeader({
     <header className="h-ws-20 border-ws-static-subtle shrink-0 border-b">
       <div className={cn(COLUMN, 'gap-ws-9 flex h-full items-center')}>
         <div className="gap-ws-7 flex min-w-0 flex-1 items-center">
-          {kind === 'direct' && <Avatar initials={person.initials} status={person.status} />}
+          {kind === 'direct' && (
+            <PersonAvatar name={person.name} initials={person.initials} status={person.status} />
+          )}
           <div className="flex min-w-0 flex-col">
             <h1
               id={titleId}
@@ -92,10 +95,12 @@ export function ConversationHeader({
         {kind === 'channel' && (
           <Avatar.Group size="sm" aria-label="Members" role="group" className="w-fit shrink-0">
             {members.map((member) => (
-              <Avatar
+              <PersonAvatar
                 key={member.name}
+                name={member.name}
                 initials={member.initials}
                 color={member.color}
+                alt={member.name}
                 aria-label={member.name}
               />
             ))}

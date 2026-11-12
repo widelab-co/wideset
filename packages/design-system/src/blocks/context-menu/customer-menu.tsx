@@ -10,7 +10,7 @@ import {
   RiPriceTag3Line,
   RiUserSharedLine,
 } from '@remixicon/react';
-import { Avatar, DropdownMenu, ListItem } from '@wideset/react';
+import { DropdownMenu, ListItem } from '@wideset/react';
 import { useRef } from 'react';
 
 import { type Customer, PEOPLE, type PersonId, type TagId, TAGS } from './data';
@@ -18,6 +18,7 @@ import { MODIFIER, Shortcut } from './keyboard-key';
 import { MenuCheck } from './menu-check';
 import { MenuChoice } from './menu-choice';
 import { MenuSub } from './menu-sub';
+import { PersonAvatar } from './person-avatar';
 
 export type MenuAction = 'open' | 'open-new-tab' | 'copy-link' | 'duplicate' | 'archive' | 'delete';
 
@@ -146,7 +147,12 @@ export function CustomerMenu({
             {(Object.keys(PEOPLE) as PersonId[]).map((id) => (
               <MenuChoice key={id} value={id}>
                 <ListItem.Prefix>
-                  <Avatar size="xs" initials={PEOPLE[id].initials} color={PEOPLE[id].color} />
+                  <PersonAvatar
+                    size="xs"
+                    name={PEOPLE[id].name}
+                    initials={PEOPLE[id].initials}
+                    color={PEOPLE[id].color}
+                  />
                 </ListItem.Prefix>
                 <ListItem.Content>
                   <ListItem.Label>{PEOPLE[id].name}</ListItem.Label>

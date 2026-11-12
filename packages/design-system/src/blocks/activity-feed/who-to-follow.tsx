@@ -1,9 +1,10 @@
 // TODO(custom): person row with a Follow toggle (avatar, name, role, button); ListItem is a 32px menu row with its own hover and no place for a button.
 import { RiCheckLine } from '@remixicon/react';
-import { Avatar, Button, Card } from '@wideset/react';
+import { Button, Card } from '@wideset/react';
 import { useId } from 'react';
 
 import type { Person } from './data';
+import { PersonAvatar } from './person-avatar';
 
 type WhoToFollowProps = {
   people: Person[];
@@ -34,7 +35,7 @@ export function WhoToFollow({ people, following, onToggle }: WhoToFollowProps) {
             const followed = following.includes(person.id);
             return (
               <li key={person.id} className="gap-ws-5 flex items-center">
-                <Avatar initials={person.initials} aria-hidden />
+                <PersonAvatar name={person.name} initials={person.initials} aria-hidden />
                 <div className="flex min-w-0 flex-1 flex-col">
                   <span className="typography-label-strong-sm text-ws-static-strong truncate">
                     {person.name}

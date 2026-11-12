@@ -1,10 +1,11 @@
 // TODO(custom): top-bar navigation items are composed by hand (copied from crypto); no NavigationBar item yet.
 import { RiNotification3Line, RiSearchLine } from '@remixicon/react';
-import { Avatar, cn, DropdownMenu, IconButton, ListItem } from '@wideset/react';
+import { cn, DropdownMenu, IconButton, ListItem } from '@wideset/react';
 import { type AnchorHTMLAttributes, useState } from 'react';
 
 import { BrandMark } from './brand-mark';
 import { ACCOUNT, NAV } from './data';
+import { PersonAvatar } from './person-avatar';
 
 /** The top bar on the grey canvas, no fill and no line: product, navigation, tools and account. */
 export function TopBar() {
@@ -51,7 +52,7 @@ export function TopBar() {
                 type="button"
                 className="typography-label-strong-sm text-ws-static-strong rounded-ws-control-lg gap-ws-5 px-ws-5 py-ws-3 hover:bg-ws-dynamic-secondary-alpha-hover focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default flex cursor-pointer items-center"
               >
-                <Avatar initials={ACCOUNT.initials} aria-hidden />
+                <PersonAvatar name={ACCOUNT.name} initials={ACCOUNT.initials} aria-hidden />
                 {ACCOUNT.name}
               </button>
             </DropdownMenu.Trigger>

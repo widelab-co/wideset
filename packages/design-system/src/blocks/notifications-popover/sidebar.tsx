@@ -7,7 +7,6 @@ import {
   RiSettingsLine,
 } from '@remixicon/react';
 import {
-  Avatar,
   Divider,
   DropdownMenu,
   IconButton,
@@ -28,6 +27,7 @@ import {
   settingsLinks,
   workspace,
 } from './data';
+import { PersonAvatar } from './person-avatar';
 
 /**
  * The workspace sidebar: switcher, search, the app's pages, settings and the signed-in account.
@@ -136,7 +136,7 @@ export function WorkspaceSidebar(
                     type="button"
                     className="gap-ws-5 px-ws-5 py-ws-3 rounded-ws-control-lg hover:bg-ws-dynamic-tertiary-alpha-strong-default focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default flex w-full items-center text-left"
                   >
-                    <Avatar initials={account.initials} color="orange" />
+                    <PersonAvatar name={account.name} initials={account.initials} color="orange" />
                     <span className="flex min-w-0 flex-1 flex-col">
                       <span className="typography-label-strong-sm text-ws-static-base truncate">
                         {account.name}
@@ -174,7 +174,13 @@ export function WorkspaceSidebar(
             </Sidebar.Expanded>
             <Sidebar.Collapsed>
               <div className="flex justify-center">
-                <Avatar initials={account.initials} color="orange" title={account.name} />
+                <PersonAvatar
+                  name={account.name}
+                  initials={account.initials}
+                  color="orange"
+                  alt={account.name}
+                  title={account.name}
+                />
               </div>
             </Sidebar.Collapsed>
           </div>

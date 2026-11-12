@@ -1,9 +1,10 @@
 import { RiArrowGoBackLine } from '@remixicon/react';
-import { Avatar, Button, Table } from '@wideset/react';
+import { Button, Table } from '@wideset/react';
 
 import { type Item, PEOPLE, TRASH_DAYS } from './data';
 import { FileIcon } from './file-icon';
 import { formatDateTime, formatDaysLeft, formatModified, formatSize } from './format';
+import { PersonAvatar } from './person-avatar';
 
 /**
  * What has been put away, with the one way back on each row. In the trash it also says when
@@ -56,7 +57,12 @@ export function RestoreTable({
                 </Table.Cell>
                 <Table.Cell>
                   <div className="gap-ws-5 flex items-center">
-                    <Avatar size="sm" initials={owner.initials} color={owner.color} />
+                    <PersonAvatar
+                      size="sm"
+                      name={owner.name}
+                      initials={owner.initials}
+                      color={owner.color}
+                    />
                     <span className="truncate">{owner.name}</span>
                   </div>
                 </Table.Cell>

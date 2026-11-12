@@ -1,8 +1,9 @@
-import { Avatar, Checkbox, Table } from '@wideset/react';
+import { Checkbox, Table } from '@wideset/react';
 
 import { type FileEntry, type Folder, PEOPLE } from './data';
 import { FileIcon } from './file-icon';
 import { formatDateTime, formatModified, formatSize } from './format';
+import { PersonAvatar } from './person-avatar';
 
 type FilesTableProps = {
   folders: Folder[];
@@ -41,7 +42,12 @@ export function FilesTable({
   );
   const owner = (id: FileEntry['owner']) => (
     <div className="gap-ws-5 flex items-center">
-      <Avatar size="sm" initials={PEOPLE[id].initials} color={PEOPLE[id].color} />
+      <PersonAvatar
+        size="sm"
+        name={PEOPLE[id].name}
+        initials={PEOPLE[id].initials}
+        color={PEOPLE[id].color}
+      />
       <span className="truncate">{PEOPLE[id].name}</span>
     </div>
   );

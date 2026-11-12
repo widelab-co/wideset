@@ -1,9 +1,10 @@
 // TODO(custom): a person row on a call (avatar, name, company, microphone state, Mute); Wideset's ListItem always reads as clickable.
 import { RiMicLine, RiMicOffLine } from '@remixicon/react';
-import { Avatar, Button } from '@wideset/react';
+import { Button } from '@wideset/react';
 import { useId } from 'react';
 
 import type { Participant } from './data';
+import { PersonAvatar } from './person-avatar';
 
 type PeopleListProps = {
   people: Participant[];
@@ -39,7 +40,12 @@ export function PeopleList({ people, onMute, onMuteAll }: PeopleListProps) {
       <ul aria-labelledby={id} className="gap-ws-5 flex flex-col">
         {people.map((person) => (
           <li key={person.id} className="gap-ws-5 py-ws-3 flex items-center">
-            <Avatar initials={person.initials} color={person.color} aria-hidden />
+            <PersonAvatar
+              name={person.name}
+              initials={person.initials}
+              color={person.color}
+              aria-hidden
+            />
             <div className="min-w-0 flex-1">
               <p className="typography-label-sm text-ws-static-strong truncate">
                 {person.you ? `${person.name} (you)` : person.name}

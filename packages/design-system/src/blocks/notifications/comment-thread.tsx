@@ -1,8 +1,7 @@
 // TODO(custom): comment thread (author, time, text with mentions); no Comment component in Wideset.
-import { Avatar } from '@wideset/react';
-
 import { account, type Message } from './data';
 import { formatDateTime, formatWhen } from './format';
+import { PersonAvatar } from './person-avatar';
 
 const MENTION = `@${account.name}`;
 
@@ -22,7 +21,7 @@ export function CommentThread({ messages }: { messages: Message[] }) {
     <ol aria-label="Comments" className="gap-ws-11 flex flex-col">
       {messages.map((message) => (
         <li key={message.at} className="gap-ws-7 flex">
-          <Avatar initials={message.author.initials} aria-hidden />
+          <PersonAvatar name={message.author.name} initials={message.author.initials} aria-hidden />
           <div className="gap-ws-2 flex min-w-0 flex-1 flex-col">
             <p className="gap-ws-5 flex items-baseline">
               <span className="typography-label-strong-sm text-ws-static-strong">

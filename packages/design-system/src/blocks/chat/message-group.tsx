@@ -1,10 +1,11 @@
 // TODO(custom): chat messages from one person (avatar, name, time, then each message with its quote, file and reactions); Wideset has no message or comment component.
 import { RiThumbUpFill, RiThumbUpLine } from '@remixicon/react';
-import { Avatar, IconButton } from '@wideset/react';
+import { IconButton } from '@wideset/react';
 
 import type { Message, ReactionKind } from './data';
 import { formatDateTime, formatTime } from './format';
 import { MessageQuote } from './message-quote';
+import { PersonAvatar } from './person-avatar';
 import { Reactions } from './reactions';
 import { SharedFile } from './shared-file';
 
@@ -24,7 +25,12 @@ export function MessageGroup({ messages, onReact }: MessageGroupProps) {
   const [{ author, at }] = messages;
   return (
     <div className="gap-ws-7 flex">
-      <Avatar initials={author.initials} color={author.color} aria-hidden />
+      <PersonAvatar
+        name={author.name}
+        initials={author.initials}
+        color={author.color}
+        aria-hidden
+      />
       <div className="flex min-w-0 flex-1 flex-col">
         <p className="gap-ws-5 flex items-baseline">
           <span className="typography-label-strong-sm text-ws-static-strong">{author.name}</span>

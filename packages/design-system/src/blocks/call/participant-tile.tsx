@@ -1,8 +1,9 @@
 // TODO(custom): a person's tile on the call stage (avatar, name, muted mark, speaking outline); Wideset has no video or participant tile.
 import { RiMicOffLine } from '@remixicon/react';
-import { Avatar, type AvatarColor, cn } from '@wideset/react';
+import { type AvatarColor, cn } from '@wideset/react';
 
 import type { Participant } from './data';
+import { PersonAvatar } from './person-avatar';
 
 /** The tile takes the fill of its person's avatar, so each person reads as one colour. */
 const FILL: Record<AvatarColor, string> = {
@@ -42,8 +43,9 @@ export function ParticipantTile({ person, speaking, compact = false }: Participa
         speaking ? 'outline-ws-static-inverse-background' : 'outline-transparent',
       )}
     >
-      <Avatar
+      <PersonAvatar
         size={compact ? 'lg' : '2xl'}
+        name={person.name}
         initials={person.initials}
         color={person.color}
         aria-hidden

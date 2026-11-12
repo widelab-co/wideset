@@ -1,5 +1,4 @@
 // TODO(custom): feed post (author, time, text, a menu, comments); Wideset has no Post or feed item component.
-import { Avatar } from '@wideset/react';
 import { useId } from 'react';
 
 import { CommentThread } from './comment-thread';
@@ -7,6 +6,7 @@ import type { Comment, Post } from './data';
 import { formatDateTime, formatWhen } from './format';
 import { HiddenNotice } from './hidden-notice';
 import { ItemMenu } from './item-menu';
+import { PersonAvatar } from './person-avatar';
 
 type FeedPostProps = {
   post: Post;
@@ -45,7 +45,12 @@ export function FeedPost({ post, reported, shown, onShow, onReport, onCopyLink }
       aria-labelledby={titleId}
       className="border-ws-static-subtle gap-ws-7 py-ws-12 flex border-t"
     >
-      <Avatar initials={author.initials} color={author.color} aria-hidden />
+      <PersonAvatar
+        name={author.name}
+        initials={author.initials}
+        color={author.color}
+        aria-hidden
+      />
       <div className="gap-ws-5 flex min-w-0 flex-1 flex-col">
         <header className="h-ws-14 gap-ws-5 flex items-center">
           <p

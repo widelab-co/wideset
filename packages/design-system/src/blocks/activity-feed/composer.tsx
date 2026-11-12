@@ -1,8 +1,9 @@
 import { RiCloseLine } from '@remixicon/react';
-import { Avatar, Button, Card, Chip, FileUpload, Select, Textarea } from '@wideset/react';
+import { Button, Card, Chip, FileUpload, Select, Textarea } from '@wideset/react';
 import { type ChangeEvent, useRef, useState } from 'react';
 
 import { AUDIENCES, me } from './data';
+import { PersonAvatar } from './person-avatar';
 
 export type Draft = { text: string; audience: string; file?: string };
 
@@ -36,7 +37,7 @@ export function Composer({ onPost }: { onPost: (draft: Draft) => void }) {
     <Card>
       <Card.Content contentClassName="pr-ws-6">
         <form onSubmit={post} className="gap-ws-7 flex">
-          <Avatar initials={me.initials} color={me.color} aria-hidden />
+          <PersonAvatar name={me.name} initials={me.initials} color={me.color} aria-hidden />
           <div className="gap-ws-5 flex min-w-0 flex-1 flex-col">
             <Textarea
               size="sm"

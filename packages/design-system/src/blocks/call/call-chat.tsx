@@ -1,10 +1,11 @@
 // TODO(custom): messages written during a call (avatar, name, time, text); Wideset has no message component.
 import { RiSendPlaneLine } from '@remixicon/react';
-import { Avatar, TextInput } from '@wideset/react';
+import { TextInput } from '@wideset/react';
 import { type FormEvent, useEffect, useRef, useState } from 'react';
 
 import type { ChatMessage, Participant } from './data';
 import { formatTime } from './format';
+import { PersonAvatar } from './person-avatar';
 
 type CallChatProps = {
   messages: ChatMessage[];
@@ -43,7 +44,13 @@ export function CallChat({ messages, people, onSend }: CallChatProps) {
             const author = people.find((person) => person.id === message.authorId)!;
             return (
               <li key={message.id} className="gap-ws-5 flex">
-                <Avatar size="sm" initials={author.initials} color={author.color} aria-hidden />
+                <PersonAvatar
+                  size="sm"
+                  name={author.name}
+                  initials={author.initials}
+                  color={author.color}
+                  aria-hidden
+                />
                 <div className="flex min-w-0 flex-1 flex-col">
                   <p className="gap-ws-5 flex items-baseline">
                     <span className="typography-label-strong-sm text-ws-static-strong truncate">

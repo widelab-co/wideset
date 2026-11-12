@@ -1,15 +1,9 @@
-import {
-  Avatar,
-  cn,
-  type SortDirection,
-  StatusBadge,
-  type StatusBadgeProps,
-  Table,
-} from '@wideset/react';
+import { cn, type SortDirection, StatusBadge, type StatusBadgeProps, Table } from '@wideset/react';
 import { type ReactNode, useId, useState } from 'react';
 
 import { CLOSING, type Deal } from './data';
 import { formatCount, formatDay, formatUsd } from './format';
+import { PersonAvatar } from './person-avatar';
 
 const STAGE_ORDER: Record<Deal['stage'], number> = { Proposal: 0, Negotiation: 1, Commit: 2 };
 
@@ -54,7 +48,13 @@ const COLUMNS: Column[] = [
     value: (deal) => deal.owner.name,
     cell: (deal) => (
       <span className="gap-ws-5 flex items-center">
-        <Avatar size="sm" initials={deal.owner.initials} color={deal.owner.color} aria-hidden />
+        <PersonAvatar
+          size="sm"
+          name={deal.owner.name}
+          initials={deal.owner.initials}
+          color={deal.owner.color}
+          aria-hidden
+        />
         <span className="truncate">{deal.owner.name}</span>
       </span>
     ),

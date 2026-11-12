@@ -2,6 +2,7 @@
 import { Avatar } from '@wideset/react';
 import { useId } from 'react';
 
+import { PHOTOS } from './people.assets';
 import { RoleMenu, type RoleOption } from './role-menu';
 
 export type AccessPerson<Role extends string = string> = {
@@ -13,6 +14,24 @@ export type AccessPerson<Role extends string = string> = {
   role: Role;
   online?: boolean;
 };
+
+/** Someone who has joined: their photo when they have one, their initials otherwise. */
+function PersonAvatar({
+  name,
+  initials,
+  status,
+}: {
+  name?: string;
+  initials: string;
+  status?: 'online';
+}) {
+  const photo = name ? PHOTOS[name] : undefined;
+  return photo ? (
+    <Avatar aria-hidden="true" src={photo} alt="" initials={initials} status={status} />
+  ) : (
+    <Avatar aria-hidden="true" initials={initials} status={status} />
+  );
+}
 
 /**
  * "Who has access": the people and their roles, each role changed in its own row; someone invited
@@ -43,8 +62,8 @@ export function AccessList<Role extends string>({
         {people.map((person) => (
           <li key={person.id} className="gap-ws-5 py-ws-3 flex items-center">
             {person.initials ? (
-              <Avatar
-                aria-hidden="true"
+              <PersonAvatar
+                name={person.name}
                 initials={person.initials}
                 status={person.online ? 'online' : undefined}
               />

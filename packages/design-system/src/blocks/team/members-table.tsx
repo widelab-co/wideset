@@ -1,7 +1,6 @@
 // TODO(custom): inline ghost Select pulled left (-ml-ws-7) to line up with its column.
 import { RiMoreLine } from '@remixicon/react';
 import {
-  Avatar,
   Button,
   DropdownMenu,
   IconButton,
@@ -14,6 +13,7 @@ import {
 import { account, type Member, type Role, ROLE_LABEL, ROLE_OPTIONS } from './data';
 import { EmptyState } from './empty-state';
 import { formatDateTime, formatRelative } from './format';
+import { PersonAvatar } from './person-avatar';
 
 const COLUMNS = 6;
 
@@ -118,7 +118,7 @@ export function MembersTable({
             <Table.Row key={member.id}>
               <Table.Cell flushMargin>
                 <div className="gap-ws-7 flex items-center">
-                  <Avatar initials={member.initials} aria-hidden="true" />
+                  <PersonAvatar name={member.name} initials={member.initials} aria-hidden="true" />
                   <div className="min-w-0">
                     <p className="text-ws-static-strong truncate">
                       {member.name}

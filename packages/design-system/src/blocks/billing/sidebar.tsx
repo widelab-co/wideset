@@ -27,10 +27,12 @@ import {
   settingsLinks,
   workspace,
 } from './data';
+import { PHOTOS } from './people.assets';
 
 /** The workspace sidebar: switcher, search, the app's pages, settings and the signed-in account. */
 export function BillingSidebar() {
   const [active, setActive] = useState('billing');
+  const photo = PHOTOS[account.name];
 
   const link = ({ id, label, icon, activeIcon }: NavLink) => (
     <Sidebar.Item
@@ -117,7 +119,11 @@ export function BillingSidebar() {
                   type="button"
                   className="gap-ws-5 px-ws-5 py-ws-3 rounded-ws-control-lg hover:bg-ws-dynamic-tertiary-alpha-strong-default focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default flex w-full items-center text-left"
                 >
-                  <Avatar initials={account.initials} color="orange" />
+                  {photo ? (
+                    <Avatar src={photo} alt="" initials={account.initials} />
+                  ) : (
+                    <Avatar initials={account.initials} color="orange" />
+                  )}
                   <span className="flex min-w-0 flex-1 flex-col">
                     <span className="typography-label-strong-sm text-ws-static-base truncate">
                       {account.name}

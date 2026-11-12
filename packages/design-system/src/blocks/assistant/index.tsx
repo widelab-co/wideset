@@ -1,5 +1,5 @@
 import { RiSideBarLine } from '@remixicon/react';
-import { Avatar, Breadcrumbs, cn, IconButton } from '@wideset/react';
+import { Breadcrumbs, cn, IconButton } from '@wideset/react';
 import { useId, useState } from 'react';
 
 import { ActivityTimeline } from './activity-timeline';
@@ -9,6 +9,7 @@ import { FactsList } from './facts-list';
 import { formatDay, formatUsd } from './format';
 import { KeyValue } from './key-value';
 import { NextSteps } from './next-steps';
+import { PersonAvatar } from './person-avatar';
 import { RecordHeader } from './record-header';
 import { Section } from './section';
 import { AssistantSidebar } from './sidebar';
@@ -88,7 +89,12 @@ export default function Assistant() {
               <KeyValue label="Close date">{formatDay(record.closeDate)}</KeyValue>
               <KeyValue label="Owner">
                 <span className="gap-ws-5 flex items-center">
-                  <Avatar size="xs" initials={record.owner.initials} color={record.owner.color} />
+                  <PersonAvatar
+                    size="xs"
+                    name={record.owner.name}
+                    initials={record.owner.initials}
+                    color={record.owner.color}
+                  />
                   {record.owner.name}
                 </span>
               </KeyValue>

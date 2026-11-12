@@ -1,8 +1,9 @@
 // TODO(custom): property rows (a name beside its value) and a priority dot; no DescriptionList or status dot in Wideset.
-import { Avatar, ProgressBar } from '@wideset/react';
+import { ProgressBar } from '@wideset/react';
 import type { ReactNode } from 'react';
 
 import type { Person } from './data';
+import { PersonAvatar } from './person-avatar';
 
 type TaskPropertiesProps = {
   assignee: Person;
@@ -17,8 +18,9 @@ export function TaskProperties({ assignee, priority, progress }: TaskPropertiesP
     <dl className="flex flex-col">
       <Property label="Assigned to">
         {/* One letter: at 24px the status dot would sit on a second one. */}
-        <Avatar
+        <PersonAvatar
           size="sm"
+          name={assignee.name}
           initials={assignee.initials.charAt(0)}
           color={assignee.color}
           status="online"

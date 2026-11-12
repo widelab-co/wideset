@@ -1,10 +1,11 @@
 // TODO(custom): a deal card on a board (a link across the card, a move menu, drag handlers); Wideset has no board card or draggable item.
 import { RiCheckLine, RiErrorWarningLine, RiMoreFill } from '@remixicon/react';
-import { Avatar, cn, DropdownMenu, IconButton, ListItem } from '@wideset/react';
+import { cn, DropdownMenu, IconButton, ListItem } from '@wideset/react';
 import type { HTMLAttributes } from 'react';
 
 import { type Deal, PEOPLE, type StageId, STAGES, TODAY } from './data';
 import { formatClose, formatUsd } from './format';
+import { PersonAvatar } from './person-avatar';
 
 type DealCardProps = {
   deal: Deal;
@@ -120,7 +121,13 @@ export function DealCard({
             <span className="sr-only">{overdue ? 'Overdue, was to close' : 'Closes'} </span>
             {formatClose(deal.close, TODAY)}
           </span>
-          <Avatar size="xs" initials={owner.initials} color={owner.color} title={owner.name} />
+          <PersonAvatar
+            size="xs"
+            name={owner.name}
+            initials={owner.initials}
+            color={owner.color}
+            title={owner.name}
+          />
           <span className="sr-only">, owned by {owner.name}</span>
         </span>
       </div>

@@ -1,8 +1,7 @@
 // TODO(custom): comments on a file (who, when, the text); no Comment component in Wideset.
-import { Avatar } from '@wideset/react';
-
 import { type Comment, PEOPLE } from './data';
 import { formatPosted } from './format';
+import { PersonAvatar } from './person-avatar';
 
 /**
  * Comments on the file, oldest first, as a conversation reads: who wrote, how long ago, then the
@@ -19,7 +18,13 @@ export function CommentList({ comments }: { comments: Comment[] }) {
         const author = PEOPLE[comment.by];
         return (
           <li key={comment.id} className="gap-ws-5 flex">
-            <Avatar size="sm" initials={author.initials} color={author.color} aria-hidden />
+            <PersonAvatar
+              size="sm"
+              name={author.name}
+              initials={author.initials}
+              color={author.color}
+              aria-hidden
+            />
             <div className="gap-ws-2 flex min-w-0 flex-1 flex-col">
               <p className="typography-label-sm gap-ws-5 flex flex-wrap items-baseline">
                 <span className="typography-label-strong-sm text-ws-static-strong">

@@ -1,7 +1,6 @@
 // TODO(custom): workspace switcher and account menu are composed by hand.
 import { RiAddLine, RiArrowDownSLine, RiSearchLine } from '@remixicon/react';
 import {
-  Avatar,
   Divider,
   DropdownMenu,
   IconButton,
@@ -22,6 +21,7 @@ import {
   settingsLinks,
   type Workspace,
 } from './data';
+import { PersonAvatar } from './person-avatar';
 
 /**
  * The workspace sidebar: switcher, search, the app's pages, settings and the signed-in account,
@@ -137,7 +137,13 @@ export function WorkspaceSidebar({
             <Sidebar.Expanded>{accountMenu}</Sidebar.Expanded>
             <Sidebar.Collapsed>
               <div className="flex justify-center">
-                <Avatar initials={account.initials} color={account.color} title={account.name} />
+                <PersonAvatar
+                  name={account.name}
+                  initials={account.initials}
+                  color={account.color}
+                  title={account.name}
+                  alt={account.name}
+                />
               </div>
             </Sidebar.Collapsed>
           </div>

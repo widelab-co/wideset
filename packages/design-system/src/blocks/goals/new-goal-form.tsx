@@ -1,8 +1,9 @@
-import { Avatar, DatePicker, FormField, Select, TextInput } from '@wideset/react';
+import { DatePicker, FormField, Select, TextInput } from '@wideset/react';
 import { type FormEvent, useState } from 'react';
 
 import { type Goal, type Measure, MEASURES, people, QUARTER, TODAY } from './data';
 import { formatCount } from './format';
+import { PersonAvatar } from './person-avatar';
 
 const SAMPLE_TODAY = new Date(`${TODAY}T00:00`);
 
@@ -14,7 +15,15 @@ const MEASURE_OPTIONS = (Object.keys(MEASURES) as Measure[]).map((value) => ({
 const OWNER_OPTIONS = people.map((person) => ({
   value: person.id,
   label: person.name,
-  prefix: <Avatar size="xs" initials={person.initials} color={person.color} aria-hidden />,
+  prefix: (
+    <PersonAvatar
+      size="xs"
+      name={person.name}
+      initials={person.initials}
+      color={person.color}
+      aria-hidden
+    />
+  ),
 }));
 
 type Values = { name: string; measure: Measure; target: string; owner: string; due?: string };

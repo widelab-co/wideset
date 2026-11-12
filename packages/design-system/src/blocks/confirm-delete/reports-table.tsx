@@ -1,8 +1,9 @@
 import { RiFileChartLine, RiFolder3Line } from '@remixicon/react';
-import { Avatar, Table } from '@wideset/react';
+import { Table } from '@wideset/react';
 
 import { type Entry, PEOPLE } from './data';
 import { formatDay, formatLongDay, formatReports } from './format';
+import { PersonAvatar } from './person-avatar';
 import { RowMenu } from './row-menu';
 
 type ReportsTableProps = {
@@ -53,7 +54,13 @@ export function ReportsTable({ entries, today, onDelete }: ReportsTableProps) {
                 </Table.Cell>
                 <Table.Cell>
                   <div className="gap-ws-5 flex items-center">
-                    <Avatar size="sm" initials={owner.initials} color={owner.color} aria-hidden />
+                    <PersonAvatar
+                      size="sm"
+                      name={owner.name}
+                      initials={owner.initials}
+                      color={owner.color}
+                      aria-hidden
+                    />
                     <span className="truncate">{owner.name}</span>
                   </div>
                 </Table.Cell>

@@ -14,6 +14,7 @@ import { Avatar, DropdownMenu, ListItem } from '@wideset/react';
 import { type Account, type Theme, THEMES, type Workspace } from './data';
 import { MenuChoice } from './menu-choice';
 import { MenuSub } from './menu-sub';
+import { PersonAvatar } from './person-avatar';
 
 /** ⌘ on Apple keyboards, Ctrl elsewhere. */
 const MODIFIER =
@@ -93,7 +94,7 @@ export function AccountMenu({
           type="button"
           className="gap-ws-5 px-ws-5 py-ws-3 rounded-ws-control-lg hover:bg-ws-dynamic-tertiary-alpha-strong-default data-[state=open]:bg-ws-dynamic-tertiary-alpha-strong-default focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default flex w-full items-center text-left"
         >
-          <Avatar initials={account.initials} color={account.color} />
+          <PersonAvatar name={account.name} initials={account.initials} color={account.color} />
           <span className="flex min-w-0 flex-1 flex-col">
             <span className="typography-label-strong-sm text-ws-static-base truncate">
               {account.name}
@@ -114,7 +115,7 @@ export function AccountMenu({
       >
         {/* Who is signed in: a label, not an action. */}
         <DropdownMenu.Label className="gap-ws-5 flex items-center">
-          <Avatar initials={account.initials} color={account.color} />
+          <PersonAvatar name={account.name} initials={account.initials} color={account.color} />
           <span className="flex min-w-0 flex-col">
             <span className="typography-label-strong-sm text-ws-static-strong truncate">
               {account.name}
@@ -182,7 +183,12 @@ export function AccountMenu({
             {accounts.map((item) => (
               <MenuChoice key={item.id} value={item.id}>
                 <ListItem.Prefix>
-                  <Avatar size="xs" initials={item.initials} color={item.color} />
+                  <PersonAvatar
+                    size="xs"
+                    name={item.name}
+                    initials={item.initials}
+                    color={item.color}
+                  />
                 </ListItem.Prefix>
                 <ListItem.Content>
                   <ListItem.Label>{item.name}</ListItem.Label>

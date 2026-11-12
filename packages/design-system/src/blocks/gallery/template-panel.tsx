@@ -9,7 +9,6 @@ import {
   RiStackLine,
 } from '@remixicon/react';
 import {
-  Avatar,
   AvatarGroup,
   Button,
   DropdownMenu,
@@ -30,6 +29,7 @@ import {
   workspace,
 } from './data';
 import { formatList, formatTeams } from './format';
+import { PersonAvatar } from './person-avatar';
 import { TemplatePreview } from './template-preview';
 
 type TemplatePanelProps = {
@@ -129,10 +129,12 @@ export function TemplatePanel({
               {teammates.length > 0 && (
                 <AvatarGroup size="sm" className="w-auto shrink-0">
                   {teammates.map((person) => (
-                    <Avatar
+                    <PersonAvatar
                       key={person.name}
+                      name={person.name}
                       initials={person.initials}
                       color={person.color}
+                      alt={person.name}
                       title={person.name}
                     />
                   ))}

@@ -1,9 +1,10 @@
 // TODO(custom): whole-row link done with a stretched <a>; Table has no row link.
 import { RiArrowDownLine, RiArrowUpLine } from '@remixicon/react';
-import { Avatar, Table } from '@wideset/react';
+import { Table } from '@wideset/react';
 
 import { maya, type Standing } from './data';
 import { formatShare, formatUsd } from './format';
+import { PersonAvatar } from './person-avatar';
 import { QuotaBar } from './quota-bar';
 
 /**
@@ -69,7 +70,13 @@ export function Leaderboard({ standings }: { standings: Standing[] }) {
               </Table.Cell>
               <Table.Cell>
                 <span className="gap-ws-5 flex items-center">
-                  <Avatar size="sm" initials={person.initials} color={person.color} aria-hidden />
+                  <PersonAvatar
+                    size="sm"
+                    name={person.name}
+                    initials={person.initials}
+                    color={person.color}
+                    aria-hidden
+                  />
                   {/* The name's link stretches over the whole row: one target, the hover on every cell. */}
                   <a
                     href={`#members/${person.id}`}

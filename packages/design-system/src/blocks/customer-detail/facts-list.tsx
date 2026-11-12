@@ -1,16 +1,21 @@
 // TODO(custom): key-value facts list; no DescriptionList in Wideset.
-import { Avatar } from '@wideset/react';
 import type { ReactNode } from 'react';
 
 import { customer } from './data';
 import { formatCount, formatDay, formatEuro } from './format';
+import { PersonAvatar } from './person-avatar';
 
 const FACTS: { label: string; value: ReactNode }[] = [
   {
     label: 'Owner',
     value: (
       <span className="gap-ws-5 flex items-center">
-        <Avatar size="xs" initials={customer.owner.initials} color={customer.owner.color} />
+        <PersonAvatar
+          size="xs"
+          name={customer.owner.name}
+          initials={customer.owner.initials}
+          color={customer.owner.color}
+        />
         {customer.owner.name}
       </span>
     ),

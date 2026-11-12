@@ -1,10 +1,9 @@
 // TODO(custom): comment thread (author, time, text, a menu each); no Comment component in Wideset.
-import { Avatar } from '@wideset/react';
-
 import type { Comment } from './data';
 import { formatDateTime, formatWhen } from './format';
 import { HiddenNotice } from './hidden-notice';
 import { ItemMenu } from './item-menu';
+import { PersonAvatar } from './person-avatar';
 
 type CommentThreadProps = {
   comments: Comment[];
@@ -48,8 +47,9 @@ export function CommentThread({
 
         return (
           <li key={comment.id} id={comment.id} className="group/comment gap-ws-5 flex">
-            <Avatar
+            <PersonAvatar
               size="sm"
+              name={comment.author.name}
               initials={comment.author.initials}
               color={comment.author.color}
               aria-hidden
