@@ -1,4 +1,4 @@
-/** `Sidebar.SectionHeader` titles a group of items. Give it an `id` and point the group's `aria-labelledby` at it. Collapsed, it keeps its height, so the groups stay apart, and its text stays available to screen readers. */
+/** `Sidebar.SectionHeader` titles a group of items. Give it an `id` and point the group's `aria-labelledby` at it. Collapsed, the rail cuts its text short ("P…"), so the groups stay apart and named. */
 import {
   RiBarChartLine,
   RiDashboardLine,

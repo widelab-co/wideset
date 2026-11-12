@@ -79,7 +79,7 @@ Use Tabs to switch sections within a page and Breadcrumbs to show hierarchy.
   </Sidebar.Header>
   <Sidebar.Section>                — layout wrapper for a section (root owns the 12px gap)
   <Sidebar.Section scrollable>     — fills remaining height, scrolls overflow in a ScrollArea
-    <Sidebar.SectionHeader>        — title of a group of items; a spacer when collapsed
+    <Sidebar.SectionHeader>        — title of a group of items; cut short ("P…") when collapsed
     <Sidebar.Item href="/" icon={Icon} label="Label" active />
   </Sidebar.Section>
   <Sidebar.Collapsed>              — what exists only when collapsed

@@ -165,6 +165,44 @@ describe('Sidebar', () => {
   });
 
   describe('Sidebar.Section', () => {
+    // A collapsed rail once centred its items 5px left of the trigger: the scroll gutter stayed.
+    it('keeps a collapsed scrollable section on the rail centre line, with no bar gutter', () => {
+      const nav = (collapsed: boolean) => (
+        <Sidebar collapsed={collapsed}>
+          <Sidebar.Section scrollable>
+            <Sidebar.Item href="#" label="Inbox" />
+          </Sidebar.Section>
+        </Sidebar>
+      );
+      const { container, rerender } = render(nav(true));
+      const viewport = () => container.querySelector('[data-slot="scroll-area-viewport"]');
+      expect(viewport()).not.toHaveClass('pr-ws-6');
+      rerender(nav(false));
+      expect(viewport()).toHaveClass('pr-ws-6');
+    });
+
+    it('centres a collapsed header and footer on the same line', () => {
+      render(
+        <Sidebar collapsed>
+          <Sidebar.Header data-testid="header">Mark</Sidebar.Header>
+          <Sidebar.Footer data-testid="footer">Account</Sidebar.Footer>
+        </Sidebar>,
+      );
+      expect(screen.getByTestId('header')).toHaveClass('flex', 'flex-col', 'items-center');
+      expect(screen.getByTestId('footer')).toHaveClass('flex', 'flex-col', 'items-center');
+    });
+
+    it('leaves an expanded header and footer as plain blocks', () => {
+      render(
+        <Sidebar collapsed={false}>
+          <Sidebar.Header data-testid="header">Mark</Sidebar.Header>
+          <Sidebar.Footer data-testid="footer">Account</Sidebar.Footer>
+        </Sidebar>,
+      );
+      expect(screen.getByTestId('header')).not.toHaveClass('items-center');
+      expect(screen.getByTestId('footer')).not.toHaveClass('items-center');
+    });
+
     it('should render Sidebar.Expanded content when sidebar is expanded', () => {
       render(
         <Sidebar collapsed={false}>
@@ -375,13 +413,16 @@ describe('Sidebar', () => {
       expect(screen.getByText('Products')).not.toHaveClass('sr-only');
     });
 
-    it('should keep its text for screen readers when collapsed', () => {
+    // Figma's collapsed rail shows the heading cut short ("P…"), not an empty gap.
+    it('should keep its text visible and cut short when collapsed', () => {
       render(
         <Sidebar collapsed>
           <Sidebar.SectionHeader>Products</Sidebar.SectionHeader>
         </Sidebar>,
       );
-      expect(screen.getByText('Products')).toHaveClass('sr-only');
+      const text = screen.getByText('Products');
+      expect(text).not.toHaveClass('sr-only');
+      expect(text).toHaveClass('truncate');
     });
 
     it('should name a group through aria-labelledby in both modes', () => {
