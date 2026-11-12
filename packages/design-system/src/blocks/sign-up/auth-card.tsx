@@ -10,8 +10,8 @@ import { type AnchorHTMLAttributes, type ReactNode, useEffect, useRef } from 're
 import { AppIcon } from './app-icon';
 
 /*
-  The card a sign-in or sign-up screen sits in. The three starting points that use it (sign-in,
-  sign-in-card, sign-up) carry byte-identical copies of this file and of app-icon.tsx;
+  The card a sign-in or sign-up screen sits in. Every starting point that uses it (the sign-in,
+  sign-up and account-access screens) carries a byte-identical copy of this file and of app-icon.tsx;
   src/__tests__/blocks.test.tsx keeps them the same.
 */
 
@@ -61,7 +61,7 @@ export function AuthCard({ other, children, className }: AuthCardProps) {
         className,
       )}
     >
-      <div className="gap-ws-12 p-ws-12 sm:p-ws-18 flex flex-col items-start">
+      <div className="gap-ws-14 p-ws-12 sm:p-ws-18 flex flex-col items-start">
         <AppIcon />
         {children}
       </div>

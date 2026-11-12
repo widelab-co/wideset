@@ -4,6 +4,12 @@ Whole screens built from Wideset, one folder each, rebuilt 1:1 from the screens 
 Core Figma file (page "🖥️ Screens"). They are the starting point for anyone generating something
 new with Wideset: pick the screen closest to what you build, copy its folder, change the content.
 
+The SaaS screens after Crypto (Analytics, Sales overview, Customers, Customer detail, Billing,
+Settings, Team) have no Figma screen yet: they are composed from Wideset by the same rules, with
+the library as the measure instead of a drawing. Their parts that Wideset has no component for (a
+key figure card, a chart, a facts list, an activity timeline, an empty state) each sit in a file of
+their own, named after what they are.
+
 A block is consumer code, like an example: it imports the library as `@wideset/react` and its own
 files by a relative path inside its folder (ESLint enforces both). It never imports another block.
 
