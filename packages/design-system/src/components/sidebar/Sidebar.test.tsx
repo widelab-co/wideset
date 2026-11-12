@@ -17,6 +17,16 @@ describe('Sidebar', () => {
         expect(screen.getByText('Test content')).toBeInTheDocument();
       });
 
+      it('should apply custom className', () => {
+        const { container } = render(
+          <Sidebar className="custom-class">
+            <div>Content</div>
+          </Sidebar>,
+        );
+        const root = container.firstChild as HTMLElement;
+        expect(root).toHaveClass('custom-class');
+      });
+
       // Figma's Sidebar: the page's white with a subtle line on its right edge.
       it("is Figma's default: white, with a subtle line on its right edge", () => {
         const { container } = render(
@@ -34,12 +44,7 @@ describe('Sidebar', () => {
         render(
           <Sidebar collapsed={collapsed}>
             <Sidebar.Section>
-              <Sidebar.Expanded>
-                <Sidebar.Item href="#" label="Inbox" suffix="3" />
-              </Sidebar.Expanded>
-              <Sidebar.Collapsed>
-                <Sidebar.Item href="#" label="Inbox" suffix="3" />
-              </Sidebar.Collapsed>
+              <Sidebar.Item href="#" label="Inbox" suffix="3" />
             </Sidebar.Section>
             <Sidebar.Footer data-testid="footer">Account</Sidebar.Footer>
           </Sidebar>,
@@ -70,12 +75,7 @@ describe('Sidebar', () => {
         render(
           <Sidebar collapsed={collapsed}>
             <Sidebar.Section>
-              <Sidebar.Expanded>
-                <Sidebar.Item href="#" label="Important" nested />
-              </Sidebar.Expanded>
-              <Sidebar.Collapsed>
-                <Sidebar.Item href="#" label="Important" nested />
-              </Sidebar.Collapsed>
+              <Sidebar.Item href="#" label="Important" nested />
             </Sidebar.Section>
           </Sidebar>,
         );
@@ -90,16 +90,6 @@ describe('Sidebar', () => {
       it('lines a nested item up with the rest when collapsed', () => {
         renderNested(true);
         expect(screen.getByRole('link', { name: 'Important' }).className).not.toMatch(/pl-\[/);
-      });
-
-      it('should apply custom className', () => {
-        const { container } = render(
-          <Sidebar className="custom-class">
-            <div>Content</div>
-          </Sidebar>,
-        );
-        const root = container.firstChild as HTMLElement;
-        expect(root).toHaveClass('custom-class');
       });
     });
 
@@ -179,16 +169,9 @@ describe('Sidebar', () => {
       render(
         <Sidebar collapsed={collapsed}>
           <Sidebar.Section>
-            <Sidebar.Expanded>
-              <Sidebar.Group label="Core team" data-testid="group">
-                <Sidebar.Item href="#" label="Issues" />
-              </Sidebar.Group>
-            </Sidebar.Expanded>
-            <Sidebar.Collapsed>
-              <Sidebar.Group label="Core team" data-testid="group">
-                <Sidebar.Item href="#" label="Issues" />
-              </Sidebar.Group>
-            </Sidebar.Collapsed>
+            <Sidebar.Group label="Core team" data-testid="group">
+              <Sidebar.Item href="#" label="Issues" />
+            </Sidebar.Group>
           </Sidebar.Section>
         </Sidebar>,
       );
