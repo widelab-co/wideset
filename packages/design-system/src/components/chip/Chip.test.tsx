@@ -425,6 +425,19 @@ describe('Chip Snapshots', () => {
       );
       expect(container.firstChild).toMatchSnapshot();
     });
+
+    it('matches snapshot for individually disabled buttons inside an enabled chip', () => {
+      const { container } = render(
+        <Chip>
+          <Chip.Action disabled>
+            <Chip.Icon icon={RiMapPinLine} />
+            <Chip.Label>Warsaw</Chip.Label>
+          </Chip.Action>
+          <Chip.IconButton disabled aria-label="Remove Warsaw" />
+        </Chip>,
+      );
+      expect(container.firstChild).toMatchSnapshot();
+    });
   });
 });
 

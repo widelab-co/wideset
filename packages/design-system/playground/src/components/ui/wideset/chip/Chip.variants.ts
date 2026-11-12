@@ -5,7 +5,7 @@ import { hoverTintMotion, pressMotion } from '@/lib/wideset/motion/recipes';
 
 export const chipVariants = cva(
   cn(
-    'group/chip relative isolate inline-flex min-w-0 items-center has-[[data-slot=chip-action]]:p-0',
+    'group/chip relative isolate inline-flex min-w-0 items-center has-[[data-slot=chip-action]]:p-ws-0',
     'has-[[data-slot=chip-action]:focus-visible]:wds-focus-visible has-[[data-slot=chip-action]:focus-visible]:outline-ws-dynamic-primary-strong-default',
   ),
   {
@@ -79,7 +79,7 @@ export const chipVariants = cva(
 );
 
 export const chipActionVariants = cva(
-  'inline-flex min-w-0 flex-1 cursor-pointer items-center justify-center self-stretch rounded-[inherit] bg-transparent text-inherit outline-none disabled:pointer-events-none disabled:cursor-default',
+  'group/chip-action inline-flex min-w-0 flex-1 cursor-pointer items-center justify-center self-stretch rounded-[inherit] bg-transparent text-inherit outline-none disabled:pointer-events-none disabled:cursor-default',
   {
     variants: {
       // The action owns the padding so its hit area reaches the chip edges.
@@ -122,8 +122,8 @@ export const chipLabelVariants = cva('min-w-0 truncate');
 
 export const chipIconButtonVariants = cva(
   cn(
-    'shrink-0 bg-transparent text-current shadow-none focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-current disabled:pointer-events-auto disabled:bg-transparent disabled:text-current',
-    'group-has-[[data-slot=chip-action]]/chip:absolute group-has-[[data-slot=chip-action]]/chip:top-1/2 group-has-[[data-slot=chip-action]]/chip:z-[1] group-has-[[data-slot=chip-action]]/chip:-translate-y-1/2',
+    'shrink-0 bg-transparent text-current shadow-none focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-current disabled:pointer-events-auto disabled:bg-transparent',
+    'group-has-[[data-slot=chip-action]]/chip:absolute group-has-[[data-slot=chip-action]]/chip:top-1/2 group-has-[[data-slot=chip-action]]/chip:z-ws-base group-has-[[data-slot=chip-action]]/chip:-translate-y-1/2',
   ),
   {
     variants: {
@@ -140,18 +140,18 @@ export const chipIconButtonVariants = cva(
         variant: 'primary',
         style: 'filled',
         className:
-          'hover:bg-ws-dynamic-primary-hover active:bg-ws-dynamic-primary-pressed hover:text-ws-dynamic-on-primary-hover active:text-ws-dynamic-on-primary-pressed',
+          'hover:bg-ws-dynamic-primary-hover active:bg-ws-dynamic-primary-pressed hover:text-ws-dynamic-on-primary-hover active:text-ws-dynamic-on-primary-pressed disabled:text-ws-dynamic-on-primary-disabled',
       },
       {
         variant: 'primary',
         style: 'border',
         className:
-          'hover:bg-ws-dynamic-primary-alpha-hover active:bg-ws-dynamic-primary-alpha-pressed hover:text-ws-dynamic-primary-hover active:text-ws-dynamic-primary-pressed',
+          'hover:bg-ws-dynamic-primary-alpha-hover active:bg-ws-dynamic-primary-alpha-pressed hover:text-ws-dynamic-primary-hover active:text-ws-dynamic-primary-pressed disabled:text-ws-dynamic-primary-disabled',
       },
       {
         variant: 'secondary',
         className:
-          'hover:bg-ws-dynamic-secondary-alpha-strong-hover active:bg-ws-dynamic-secondary-alpha-strong-pressed hover:text-ws-dynamic-secondary-hover active:text-ws-dynamic-secondary-pressed',
+          'hover:bg-ws-dynamic-secondary-alpha-strong-hover active:bg-ws-dynamic-secondary-alpha-strong-pressed hover:text-ws-dynamic-secondary-hover active:text-ws-dynamic-secondary-pressed disabled:text-ws-dynamic-on-secondary-disabled',
       },
     ],
     defaultVariants: { size: 'md', variant: 'primary', style: 'filled' },
@@ -214,25 +214,25 @@ export const chipIconVariants = cva('', {
       variant: 'primary',
       style: 'filled',
       className:
-        'text-ws-dynamic-on-primary-default group-data-disabled/chip:text-ws-dynamic-on-primary-disabled',
+        'text-ws-dynamic-on-primary-default group-data-disabled/chip:text-ws-dynamic-on-primary-disabled group-disabled/chip-action:text-ws-dynamic-on-primary-disabled',
     },
     {
       variant: 'primary',
       style: 'border',
       className:
-        'text-ws-dynamic-primary-default group-data-disabled/chip:text-ws-dynamic-primary-disabled',
+        'text-ws-dynamic-primary-default group-data-disabled/chip:text-ws-dynamic-primary-disabled group-disabled/chip-action:text-ws-dynamic-primary-disabled',
     },
     {
       variant: 'secondary',
       style: 'filled',
       className:
-        'text-ws-dynamic-on-secondary-default group-data-disabled/chip:text-ws-dynamic-on-secondary-disabled',
+        'text-ws-dynamic-on-secondary-default group-data-disabled/chip:text-ws-dynamic-on-secondary-disabled group-disabled/chip-action:text-ws-dynamic-on-secondary-disabled',
     },
     {
       variant: 'secondary',
       style: 'border',
       className:
-        'text-ws-dynamic-secondary-default group-data-disabled/chip:text-ws-dynamic-on-secondary-disabled',
+        'text-ws-dynamic-secondary-default group-data-disabled/chip:text-ws-dynamic-on-secondary-disabled group-disabled/chip-action:text-ws-dynamic-on-secondary-disabled',
     },
   ],
   defaultVariants: {
