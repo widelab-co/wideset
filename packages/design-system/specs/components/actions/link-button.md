@@ -5,7 +5,7 @@ group: actions
 status: stable
 parts: [LinkButton, LinkButtonTruncatedText]
 related: [Button, IconButton]
-docs: https://wideset-docs.widelab.workers.dev/components/link-button
+docs: https://wideset.co/components/link-button
 storybook: components-button-linkbutton--default
 ---
 
@@ -96,5 +96,5 @@ Renders an `<a>`. `LinkButtonTruncatedText` is `Button.TruncatedText` re-exporte
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/link-button.md` · Types:
+Full props: `https://wideset.co/components/link-button.md` · Types:
 `packages/design-system/src/components/button/LinkButton.types.ts`

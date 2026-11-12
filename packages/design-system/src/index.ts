@@ -370,17 +370,21 @@ export { Sidebar } from './components/sidebar/Sidebar';
 export type {
   SidebarCollapsedProps,
   SidebarExpandedProps,
+  SidebarFooterProps,
   SidebarHeaderProps,
   SidebarItemProps,
   SidebarProps,
+  SidebarSectionHeaderProps,
   SidebarSectionProps,
   SidebarTriggerProps,
 } from './components/sidebar/Sidebar.types';
 export { SidebarCollapsed } from './components/sidebar/SidebarCollapsed';
 export { SidebarExpanded } from './components/sidebar/SidebarExpanded';
+export { SidebarFooter } from './components/sidebar/SidebarFooter';
 export { SidebarHeader } from './components/sidebar/SidebarHeader';
 export { SidebarItem } from './components/sidebar/SidebarItem';
 export { SidebarSection } from './components/sidebar/SidebarSection';
+export { SidebarSectionHeader } from './components/sidebar/SidebarSectionHeader';
 export { SidebarTrigger } from './components/sidebar/SidebarTrigger';
 export { Sidepanel, SidepanelClose, SidepanelTrigger } from './components/sidepanel/Sidepanel';
 export type {
@@ -435,9 +439,8 @@ export { StatusModalContent } from './components/status-modal/StatusModalContent
 export { StatusModalFooter } from './components/status-modal/StatusModalFooter';
 export { StatusModalOverlay } from './components/status-modal/StatusModalOverlay';
 export { StatusModalTitle } from './components/status-modal/StatusModalTitle';
-export { Switch } from './components/switch/Switch';
+export { Switch, SwitchDescription, SwitchLabel } from './components/switch/Switch';
 export type { SwitchLabelProps, SwitchProps } from './components/switch/Switch.types';
-export { SwitchLabel } from './components/switch/SwitchLabel';
 export { SystemAlert } from './components/system-alert/SystemAlert';
 export type {
   SystemAlertActionProps,
@@ -454,6 +457,7 @@ export type {
   SelectionMode,
   SortDirection,
   TableBodyProps,
+  TableCellDescriptionProps,
   TableCellProps,
   TableFootProps,
   TableHeaderProps,
@@ -463,6 +467,7 @@ export type {
 } from './components/table/Table.types';
 export { TableBody } from './components/table/TableBody';
 export { TableCell } from './components/table/TableCell';
+export { TableCellDescription } from './components/table/TableCellDescription';
 export { TableFoot } from './components/table/TableFoot';
 export { TableHead } from './components/table/TableHead';
 export { TableHeader } from './components/table/TableHeader';

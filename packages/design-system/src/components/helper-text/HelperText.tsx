@@ -18,6 +18,7 @@ export const HelperText = ({ children, state, showIcon, className, ...props }: H
   return (
     <span
       data-slot="helper-text"
+      role={state === 'error' ? 'alert' : undefined}
       className={cn(helperTextVariants({ state }), className)}
       {...props}
     >

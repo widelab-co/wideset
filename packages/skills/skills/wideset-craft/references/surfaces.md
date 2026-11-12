@@ -97,9 +97,9 @@ show, neutralise until one or two remain; the red that is left is then impossibl
 
 Pick **one surface language per screen**:
 
-- **Layered** (default for product screens): the page canvas is `bg-ws-static-background`
-  (off-white in light, the darkest grey in dark); content sits on `Card`s (`bg-ws-static-container`,
-  white, bordered). Elevation means "this is a unit of content".
+- **Layered** (default for product screens): the page (`main`) is white
+  (`bg-ws-static-foreground`), the same surface as the `Sidebar` beside it; content sits on
+  bordered `Card`s (`bg-ws-static-container`). A card means "this is a unit of content".
 - **Flat**: one surface (`bg-ws-static-container`) and separation by space and section titles
   only. Good for forms, settings, reading pages and anything inside a Modal or Sidepanel.
 
@@ -110,7 +110,7 @@ the eye three depths to sort out. One language makes the structure obvious and t
 
 ### Do / don't
 
-- Do: on a layered page, put every block of content in a Card; nothing floats on the grey canvas
+- Do: on a layered page, put every block of content in a Card; nothing floats on the page
   except the page header.
 - Do: inside a Card, separate groups with space and `Card.Header` / `Card.Content`, not with
   nested Cards.

@@ -1,12 +1,12 @@
 # Foundations in short
 
-The shared rules behind every screen. Token lists and scales are on the docs site: [tokens](https://wideset-docs.widelab.workers.dev/docs/tokens.md), [colors](https://wideset-docs.widelab.workers.dev/docs/colors.md), [spacing](https://wideset-docs.widelab.workers.dev/docs/spacing.md), [typography](https://wideset-docs.widelab.workers.dev/docs/typography.md), [icons](https://wideset-docs.widelab.workers.dev/docs/icons.md), [theming](https://wideset-docs.widelab.workers.dev/docs/theming.md).
+The shared rules behind every screen. Token lists and scales are on the docs site: [tokens](https://wideset.co/docs/tokens.md), [colors](https://wideset.co/docs/colors.md), [spacing](https://wideset.co/docs/spacing.md), [typography](https://wideset.co/docs/typography.md), [icons](https://wideset.co/docs/icons.md), [theming](https://wideset.co/docs/theming.md).
 
 ## Choosing a token
 
 - Clickable: `dynamic`. Reports a state: `semantic`. Only tells categories apart: `non-semantic`. Anything else: `static`. A delete button is `dynamic-danger`, an error banner is `semantic-negative`, and `non-semantic` red or green never means error or success.
 - Text on a filled surface takes that surface's `on-*` pair, never `text-ws-static-*`.
-- Surfaces stack in order: `bg-ws-static-background`, then `-foreground` or `-container`, then `-overlay`. Your own floating layer takes `bg-ws-static-overlay` and `shadow-ws-medium`.
+- The sidebar and the page share one white surface: `Sidebar` is `bg-ws-static-foreground` with its subtle right line (its default), `main` takes `bg-ws-static-foreground`. Never a grey page beside the white sidebar. Above the page, surfaces stack `-container`, then `-overlay`.
 - No class for what you need: a role variable, `bg-(--ws-static-fill-container)`. A primitive such as `--ws-colors-light-brand-600` does not switch in dark.
 - Steps are indices: `ws-3` 4px, `ws-5` 8px, `ws-7` 12px, `ws-9` 16px, `ws-11` 20px, `ws-12` 24px, `ws-14` 32px, `ws-16` 40px. A value outside the scale is an arbitrary one (`w-[22rem]`), not `w-64`.
 - A custom element beside a control takes that control's height and radius: `h-ws-forms-sm` and `rounded-ws-control-lg` beside the default `size="sm"`. Inner radius is outer radius minus padding.

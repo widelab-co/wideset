@@ -5,7 +5,7 @@ group: selection
 status: stable
 parts: [RadioButton, RadioButtonLabel, RadioButtonDescription]
 related: [RadioButtonGroup, Checkbox, SegmentedControl, TileRadio, Select]
-docs: https://wideset-docs.widelab.workers.dev/components/radio-button
+docs: https://wideset.co/components/radio-button
 storybook: form-radiobutton-radiobutton--default
 ---
 
@@ -106,5 +106,5 @@ the group, see [RadioButtonGroup](./radio-button-group.md).
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/radio-button.md` · Types:
+Full props: `https://wideset.co/components/radio-button.md` · Types:
 `packages/design-system/src/components/radio-button/RadioButton.types.ts`

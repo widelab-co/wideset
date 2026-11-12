@@ -15,7 +15,7 @@ parts:
     AvatarStatus,
   ]
 related: [ListItem, Table, Tag]
-docs: https://wideset-docs.widelab.workers.dev/components/avatar
+docs: https://wideset.co/components/avatar
 storybook: components-avatar--default
 ---
 
@@ -80,7 +80,8 @@ yourself. Named exports (`AvatarGroup`, `AvatarMore`, …) are the same parts fo
 
 ## Content
 
-- Initials: one or two letters, uppercase.
+- Initials: one or two letters, uppercase. At `xs` and `sm` only the first letter is drawn, as in
+  Figma: pass the full initials anyway, the avatar picks.
 - `Avatar.More` label is its children: `+8` for an overflow count, an icon for an action. It
   counts nothing; render the avatars you want shown and pass the rest as the label.
 - Show the name in text next to a single avatar; the avatar supports the name, never replaces it.
@@ -120,5 +121,5 @@ yourself. Named exports (`AvatarGroup`, `AvatarMore`, …) are the same parts fo
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/avatar.md` · Types:
+Full props: `https://wideset.co/components/avatar.md` · Types:
 `packages/design-system/src/components/avatar/Avatar.types.ts`

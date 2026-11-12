@@ -1,4 +1,5 @@
 import { useComposedRefs } from '@radix-ui/react-compose-refs';
+import * as PopoverPrimitive from '@radix-ui/react-popover';
 import { RiArrowDownSLine, RiCloseLine } from '@remixicon/react';
 import React, { useMemo, useRef, useState } from 'react';
 import { IconButton } from 'src/components/button/IconButton';
@@ -9,6 +10,7 @@ import { cn } from 'src/lib/utils';
 
 import { useDefaultMotion } from '../../motion/MotionProvider';
 import { useKeyboardNavigation } from './FilterButton.hooks';
+import { frozenAnchor } from './FilterButton.logic';
 import type { FilterButtonProps } from './FilterButton.types';
 import {
   filterButtonClearPlaceholderVariants,
@@ -77,6 +79,31 @@ export const FilterButton = React.forwardRef<HTMLButtonElement, FilterButtonProp
 
     const hasSelection = selectedValues.length > 0;
 
+    // The trigger's summary grows as options are picked ("Design, +3"). The list must not follow it
+    // while it is open, or it slides out from under the pointer. So while open the popup anchors to
+    // a copy of the trigger frozen at its opening width, pinned to whichever side has not moved:
+    // the left in a left-aligned toolbar, the right in a right-aligned one.
+    const openRect = useRef<DOMRect | null>(null);
+    const makeAnchor = () => ({
+      getBoundingClientRect: () => {
+        const live = triggerRef.current?.getBoundingClientRect() ?? new DOMRect();
+        if (!openRect.current) return live;
+        const { left, top, width, height } = frozenAnchor(openRect.current, live);
+        return new DOMRect(left, top, width, height);
+      },
+      // A getter: the first anchor is made during render, before the trigger mounts.
+      get contextElement() {
+        return triggerRef.current ?? undefined;
+      },
+    });
+    const anchorRef = useRef(makeAnchor());
+    const handleOpenChange = (open: boolean) => {
+      openRect.current = open ? (triggerRef.current?.getBoundingClientRect() ?? null) : null;
+      // A new object each time: Radix registers a virtual anchor only when its identity changes,
+      // and it drops the anchor when the trigger stops being one.
+      anchorRef.current = makeAnchor();
+    };
+
     const displayedValue = useMemo(() => {
       if (!selectedValues.length) return;
 
@@ -86,7 +113,8 @@ export const FilterButton = React.forwardRef<HTMLButtonElement, FilterButtonProp
     }, [selectedValues, options]);
 
     return (
-      <Popup>
+      <Popup onOpenChange={handleOpenChange}>
+        <PopoverPrimitive.Anchor virtualRef={anchorRef} />
         <div data-slot="filter-button-wrapper" className="flex max-w-full items-center">
           <Popup.Trigger asChild>
             <button

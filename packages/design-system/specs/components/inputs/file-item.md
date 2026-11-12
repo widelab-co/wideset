@@ -5,7 +5,7 @@ group: inputs
 status: stable
 parts: [FileItem, FileItemThumbnail, FileItemTitle, FileItemDescription, FileItemLoading]
 related: [FileUpload, FormField]
-docs: https://wideset-docs.widelab.workers.dev/components/file-item
+docs: https://wideset.co/components/file-item
 storybook: form-fileupload-fileitem--default
 ---
 
@@ -106,5 +106,5 @@ storybook: form-fileupload-fileitem--default
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/file-item.md` · Types:
+Full props: `https://wideset.co/components/file-item.md` · Types:
 `packages/design-system/src/components/file-upload/FileItem.types.ts`
