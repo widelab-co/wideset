@@ -108,4 +108,4 @@ does not reach the classes inside it.
 
 ## Docs
 
-https://wideset-docs.widelab.workers.dev/docs/theming · https://wideset-docs.widelab.workers.dev/docs/colors
+https://wideset.co/docs/theming · https://wideset.co/docs/colors

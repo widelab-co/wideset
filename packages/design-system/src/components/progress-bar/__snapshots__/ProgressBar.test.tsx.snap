@@ -169,7 +169,7 @@ exports[`ProgressBar Snapshots > matches snapshot for complete progress bar 1`] 
     aria-valuemin="0"
     aria-valuenow="90"
     aria-valuetext="90%"
-    class="h-ws-3 relative w-full overflow-hidden rounded-full bg-(--ws-dynamic-stroke-secondary-default) mb-ws-3 custom-class"
+    class="h-ws-3 relative w-full overflow-hidden rounded-full bg-(--ws-dynamic-stroke-secondary-default) custom-class"
     data-max="100"
     data-slot="progress-bar"
     data-state="loading"
@@ -185,7 +185,7 @@ exports[`ProgressBar Snapshots > matches snapshot for complete progress bar 1`] 
     />
   </div>
   <span
-    class="typography-body-sm gap-ws-3 flex items-center text-ws-semantic-positive"
+    class="typography-body-sm gap-ws-3 py-ws-3 flex items-center text-ws-semantic-positive"
     data-slot="helper-text"
   >
     <svg
@@ -245,7 +245,7 @@ exports[`ProgressBar Snapshots > matches snapshot for progress bar with descript
     aria-valuemin="0"
     aria-valuenow="30"
     aria-valuetext="30%"
-    class="h-ws-3 relative w-full overflow-hidden rounded-full bg-(--ws-dynamic-stroke-secondary-default) mb-ws-3"
+    class="h-ws-3 relative w-full overflow-hidden rounded-full bg-(--ws-dynamic-stroke-secondary-default)"
     data-max="100"
     data-slot="progress-bar"
     data-state="loading"
@@ -261,7 +261,7 @@ exports[`ProgressBar Snapshots > matches snapshot for progress bar with descript
     />
   </div>
   <span
-    class="typography-body-sm gap-ws-3 flex items-center text-ws-static-subtle"
+    class="typography-body-sm gap-ws-3 py-ws-3 flex items-center text-ws-static-subtle"
     data-slot="helper-text"
   >
     Loading data...

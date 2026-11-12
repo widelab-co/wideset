@@ -44,6 +44,38 @@ describe('HelperText', () => {
     expect(element).toHaveClass('custom-class');
   });
 
+  it('keeps its own classes next to a custom className', () => {
+    render(
+      <HelperText state="error" className="custom-class">
+        Helper text
+      </HelperText>,
+    );
+    const element = screen.getByText('Helper text');
+    expect(element).toHaveClass('custom-class', 'typography-body-sm', 'py-ws-3');
+    expect(element).toHaveClass('text-ws-semantic-negative');
+  });
+
+  describe('Error announcement', () => {
+    it('is an alert in the error state', () => {
+      render(<HelperText state="error">Enter an email address</HelperText>);
+      expect(screen.getByRole('alert')).toHaveTextContent('Enter an email address');
+    });
+
+    it.each(['default', 'warning', 'success'] as const)('is not an alert in state %s', (state) => {
+      render(<HelperText state={state}>Helper text</HelperText>);
+      expect(screen.queryByRole('alert')).not.toBeInTheDocument();
+    });
+
+    it('lets the caller override the role', () => {
+      render(
+        <HelperText state="error" role="status">
+          Helper text
+        </HelperText>,
+      );
+      expect(screen.getByRole('status')).toHaveTextContent('Helper text');
+    });
+  });
+
   it('forwards HTML attributes', () => {
     render(
       <HelperText data-testid="helper-text" aria-label="Helper text" id="helper-id">

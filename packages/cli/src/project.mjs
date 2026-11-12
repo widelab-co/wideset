@@ -87,6 +87,8 @@ export function detectProject(cwd) {
       'vite.config.mjs',
     ]),
     hasTailwind: Boolean(deps.tailwindcss),
+    // A font the project chose itself; init then leaves the page font alone.
+    fontPackages: Object.keys(deps).filter((name) => name.startsWith('@fontsource')),
     hasComponentsJson: existsSync(join(cwd, 'components.json')),
   };
 }
@@ -205,13 +207,28 @@ export const viteAliasSnippet = (srcDir) =>
 // ---------------------------------------------------------------------------------------------
 // Stylesheet imports in the app entry
 
-export function addStyleImports(text, specifiers) {
+export function addStyleImports(text, specifiers, { last = false } = {}) {
   const missing = specifiers.filter((spec) => !text.includes(spec));
   if (!missing.length) return { text, changed: false };
 
   const semi = /^import .*;\s*$/m.test(text) || !/^import /m.test(text) ? ';' : '';
   const quote = /^import .*"/m.test(text) && !/^import .*'/m.test(text) ? '"' : "'";
   const lines = missing.map((spec) => `import ${quote}${spec}${quote}${semi}`).join('\n');
+
+  // After the other imports, so the stylesheet wins over the ones a template already imports.
+  // A statement may span lines, so match up to its module specifier, not to the line end.
+  if (last) {
+    const imports = [...text.matchAll(/^import\b[^'"]*?['"][^'"\n]+['"];?[^\n]*(?:\n|$)/gm)];
+    const lastImport = imports[imports.length - 1];
+    if (lastImport) {
+      const end = lastImport.index + lastImport[0].length;
+      const newline = lastImport[0].endsWith('\n') ? '' : '\n';
+      return {
+        text: `${text.slice(0, end)}${newline}${lines}\n${text.slice(end)}`,
+        changed: true,
+      };
+    }
+  }
 
   // A leading directive ('use client') has to stay the first statement.
   const directive = /^\s*(['"])use \w+\1;?[^\n]*\n/.exec(text);

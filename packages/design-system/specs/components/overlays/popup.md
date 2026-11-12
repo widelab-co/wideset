@@ -16,7 +16,7 @@ parts:
     PopupClose,
   ]
 related: [Modal, Tooltip, DropdownMenu]
-docs: https://wideset-docs.widelab.workers.dev/components/popup
+docs: https://wideset.co/components/popup
 storybook: components-popup--default
 ---
 
@@ -139,5 +139,5 @@ State: `open` + `onOpenChange` (controlled) or `defaultOpen`, on `Popup` (Radix 
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/popup.md` · Types:
+Full props: `https://wideset.co/components/popup.md` · Types:
 `packages/design-system/src/components/popup/Popup.types.ts`

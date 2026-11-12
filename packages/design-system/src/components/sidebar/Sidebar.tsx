@@ -7,6 +7,7 @@ import { SidebarHeader } from './SidebarHeader';
 import { SidebarItem } from './SidebarItem';
 import { SidebarRoot } from './SidebarRoot';
 import { SidebarSection } from './SidebarSection';
+import { SidebarSectionHeader } from './SidebarSectionHeader';
 import { SidebarTrigger } from './SidebarTrigger';
 
 type SidebarWithSubComponents = React.ForwardRefExoticComponent<
@@ -14,6 +15,7 @@ type SidebarWithSubComponents = React.ForwardRefExoticComponent<
 > & {
   Header: typeof SidebarHeader;
   Section: typeof SidebarSection;
+  SectionHeader: typeof SidebarSectionHeader;
   Item: typeof SidebarItem;
   Expanded: typeof SidebarExpanded;
   Collapsed: typeof SidebarCollapsed;
@@ -25,6 +27,7 @@ const Sidebar = SidebarRoot as SidebarWithSubComponents;
 Sidebar.displayName = 'Sidebar';
 Sidebar.Header = SidebarHeader;
 Sidebar.Section = SidebarSection;
+Sidebar.SectionHeader = SidebarSectionHeader;
 Sidebar.Item = SidebarItem;
 Sidebar.Expanded = SidebarExpanded;
 Sidebar.Collapsed = SidebarCollapsed;
