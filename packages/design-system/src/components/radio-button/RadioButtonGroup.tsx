@@ -10,7 +10,8 @@ const RadioButtonGroup = React.forwardRef<
 >(({ orientation = 'vertical', className, ...props }, ref) => (
   <RadioGroupPrimitive.Root
     ref={ref}
-    orientation={orientation}
+    aria-orientation={orientation}
+    data-orientation={orientation}
     className={cn(
       'flex',
       orientation === 'vertical' ? 'gap-ws-7 flex-col' : 'gap-ws-11',

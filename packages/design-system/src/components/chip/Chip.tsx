@@ -1,4 +1,4 @@
-import { forwardRef, type KeyboardEvent } from 'react';
+import { type FocusEvent, forwardRef, type KeyboardEvent, useState } from 'react';
 import { cn } from 'src/lib/utils';
 
 import { useDefaultMotion } from '../../motion/MotionProvider';
@@ -19,31 +19,42 @@ const Chip = forwardRef<HTMLDivElement, ChipProps>(
       children,
       onKeyDown,
       onKeyUp,
+      onBlur,
       ...props
     },
     ref,
   ) => {
     const motion = useDefaultMotion(defaultMotion);
+    const [keyboardPressed, setKeyboardPressed] = useState(false);
 
     const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
       onKeyDown?.(event);
       if (event.defaultPrevented || event.target !== event.currentTarget) return;
       if (event.key === ' ') {
         event.preventDefault();
+        if (!disabled) setKeyboardPressed(true);
         return;
       }
       if (event.key === 'Enter' && !disabled) {
         event.preventDefault();
+        setKeyboardPressed(true);
         event.currentTarget.click();
       }
     };
 
     const handleKeyUp = (event: KeyboardEvent<HTMLDivElement>) => {
+      if (event.key === ' ' || event.key === 'Enter') setKeyboardPressed(false);
+
       onKeyUp?.(event);
       if (event.defaultPrevented || event.target !== event.currentTarget) return;
       if (event.key === ' ' && !disabled) {
         event.currentTarget.click();
       }
+    };
+
+    const handleBlur = (event: FocusEvent<HTMLDivElement>) => {
+      setKeyboardPressed(false);
+      onBlur?.(event);
     };
 
     return (
@@ -58,10 +69,12 @@ const Chip = forwardRef<HTMLDivElement, ChipProps>(
           tabIndex={disabled ? -1 : 0}
           data-disabled={disabled || undefined}
           aria-disabled={disabled || undefined}
+          data-pressed={(keyboardPressed && !disabled) || undefined}
           role="button"
           data-slot="chip"
           onKeyDown={handleKeyDown}
           onKeyUp={handleKeyUp}
+          onBlur={handleBlur}
           {...props}
         >
           {children}

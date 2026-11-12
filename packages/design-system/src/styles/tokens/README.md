@@ -92,7 +92,7 @@ Tailwind inlines an `@theme` value into the utility at build time — so `--shad
 itself cannot be redefined per theme — but it keeps `var()` references intact, emitting
 `.shadow-ws-medium{--tw-shadow:var(--ws-elevation-medium)}`. One redefinition under `.dark` then
 reaches every utility built from that token, including variant-prefixed ones like
-`data-[state=on]:shadow-ws-low`, with no specificity games and no `!important`.
+`data-[state=checked]:shadow-ws-low`, with no specificity games and no `!important`.
 
 Two things to keep in mind when editing:
 
