@@ -1,11 +1,12 @@
 // TODO(custom): a review thread on a line of a diff (the comment, its replies, what to do with it); Wideset has no Comment component.
 import { RiCheckLine } from '@remixicon/react';
-import { Avatar, Button, cn } from '@wideset/react';
+import { Button, cn } from '@wideset/react';
 import { useEffect, useRef, useState } from 'react';
 
 import { CommentComposer } from './changes-comment-composer';
 import type { Thread } from './changes-data';
 import { formatWhen } from './changes-format';
+import { PersonAvatar } from './person-avatar';
 
 type CommentThreadProps = {
   thread: Thread;
@@ -65,12 +66,7 @@ export function CommentThread({ thread, onReply, onResolve, onSend }: CommentThr
           <ol className="gap-ws-7 flex flex-col">
             {thread.comments.map((comment) => (
               <li key={comment.id} className="gap-ws-5 flex">
-                <Avatar
-                  size="xs"
-                  initials={comment.author.initials}
-                  color={comment.author.color}
-                  aria-hidden
-                />
+                <PersonAvatar size="xs" {...comment.author} aria-hidden />
                 <div className="gap-ws-2 flex min-w-0 flex-1 flex-col">
                   <p className="typography-label-sm gap-x-ws-5 flex flex-wrap items-baseline">
                     <span className="typography-label-strong-sm text-ws-static-strong">

@@ -1,7 +1,8 @@
 import { RiDownloadLine, RiSearchLine } from '@remixicon/react';
-import { Avatar, Button, StatusBadge, Table, TextInput, Toast } from '@wideset/react';
+import { Button, StatusBadge, Table, TextInput, Toast } from '@wideset/react';
 import { useEffect, useState } from 'react';
 
+import { PersonAvatar } from './person-avatar';
 import { BOOKINGS, STATUS } from './preview-data';
 import { formatTimeRange } from './preview-format';
 
@@ -116,12 +117,7 @@ export function PreviewBookings({ onExport }: PreviewBookingsProps) {
                   </Table.Cell>
                   <Table.Cell className={WIDE}>
                     <div className="gap-ws-5 flex items-center">
-                      <Avatar
-                        size="sm"
-                        initials={by.initials}
-                        color={by.color}
-                        aria-hidden="true"
-                      />
+                      <PersonAvatar size="sm" {...by} aria-hidden="true" />
                       <span className="truncate">{by.name}</span>
                     </div>
                   </Table.Cell>

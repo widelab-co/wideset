@@ -78,6 +78,8 @@ const AGENT_KIT = [
   'thread-menu.tsx',
   'brand-mark.tsx',
   'home.tsx',
+  'person-avatar.tsx',
+  'people.assets.ts',
   'keyboard-key.tsx',
   'menu-sub.tsx',
   'menu-choice.tsx',

@@ -1,5 +1,6 @@
 import { Avatar, Button, cn } from '@wideset/react';
 
+import { PersonAvatar } from './person-avatar';
 import { PreviewBookings } from './preview-bookings';
 import { HOME, INES } from './preview-data';
 
@@ -26,7 +27,7 @@ export function PreviewPage({ address, className, onExport, onHome }: PreviewPag
           <Avatar shape="square" size="sm" initials="L" color="yellow" aria-hidden="true" />
           <span className="typography-label-strong-md text-ws-static-strong">Lumen</span>
           <span className="ml-auto flex">
-            <Avatar size="sm" initials={INES.initials} color={INES.color} title={INES.name} />
+            <PersonAvatar size="sm" {...INES} title={INES.name} alt={INES.name} />
           </span>
         </div>
         {address === HOME ? (

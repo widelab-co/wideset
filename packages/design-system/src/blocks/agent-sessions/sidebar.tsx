@@ -10,7 +10,6 @@ import {
   RiStackLine,
 } from '@remixicon/react';
 import {
-  Avatar,
   DropdownMenu,
   IconButton,
   ListItem,
@@ -24,6 +23,7 @@ import { type MouseEvent, useEffect, useRef, useState } from 'react';
 import { BrandMark } from './brand-mark';
 import { MODIFIER } from './keyboard-key';
 import type { Mode, ThreadGroup } from './model';
+import { PersonAvatar } from './person-avatar';
 import { ThreadMark } from './thread-mark';
 
 /** A shortcut as a row's hint: "⌘K" on Apple keyboards, "Ctrl K" elsewhere. */
@@ -290,7 +290,7 @@ export function AgentSidebar({
                   type="button"
                   className="gap-ws-5 px-ws-5 py-ws-3 rounded-ws-control-lg hover:bg-ws-dynamic-tertiary-alpha-strong-default focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default flex w-full items-center text-left"
                 >
-                  <Avatar initials={account.initials} color="teal" />
+                  <PersonAvatar name={account.name} initials={account.initials} color="teal" />
                   <span className="flex min-w-0 flex-1 flex-col">
                     <span className="typography-label-strong-sm text-ws-static-base truncate">
                       {account.name}
@@ -328,7 +328,13 @@ export function AgentSidebar({
           </Sidebar.Expanded>
           <Sidebar.Collapsed>
             <div className="flex justify-center">
-              <Avatar initials={account.initials} color="teal" title={account.name} />
+              <PersonAvatar
+                name={account.name}
+                initials={account.initials}
+                color="teal"
+                title={account.name}
+                alt={account.name}
+              />
             </div>
           </Sidebar.Collapsed>
         </div>

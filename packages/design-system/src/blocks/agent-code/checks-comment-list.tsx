@@ -1,10 +1,11 @@
 // TODO(custom): review comments as rows that lead to their line (who, how long ago, the text, the file and line); Wideset has no Comment component.
 import { RiArrowRightSLine } from '@remixicon/react';
-import { Avatar, Card } from '@wideset/react';
+import { Card } from '@wideset/react';
 import { useId } from 'react';
 
 import { splitPath, THREADS } from './changes-data';
 import { formatWhen } from './changes-format';
+import { PersonAvatar } from './person-avatar';
 
 /**
  * The review comments still open, in a card: who wrote on which file and line, how long ago, and
@@ -29,12 +30,7 @@ export function CommentList() {
             key={id}
             className="border-ws-static-base gap-ws-5 px-ws-11 py-ws-7 hover:bg-ws-dynamic-secondary-alpha-hover relative flex items-start border-b last:border-b-0"
           >
-            <Avatar
-              size="xs"
-              initials={comment.author.initials}
-              color={comment.author.color}
-              aria-hidden
-            />
+            <PersonAvatar size="xs" {...comment.author} aria-hidden />
             <div className="gap-ws-2 flex min-w-0 flex-1 flex-col">
               <p className="typography-label-sm text-ws-static-subtle gap-x-ws-5 flex flex-wrap items-baseline">
                 <span>
