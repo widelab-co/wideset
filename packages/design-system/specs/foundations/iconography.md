@@ -4,7 +4,7 @@ Wideset ships no icons: every icon is a component from Remix Icon (`@remixicon/r
 the Figma library uses, passed to Wideset as a component reference. Icons are `1em` square and
 `currentColor`, so they follow the font size and text colour around them.
 
-Docs: `https://wideset-docs.widelab.workers.dev/docs/icons` · Sizing rule:
+Docs: `https://wideset.co/docs/icons` · Sizing rule:
 `packages/design-system/src/styles/utilities/overrides.css`
 
 ## Finding an icon

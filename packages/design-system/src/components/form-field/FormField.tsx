@@ -30,7 +30,12 @@ export const FormField = React.forwardRef<HTMLDivElement | HTMLFieldSetElement, 
     const hasHelperText = Boolean(errorText || helperText);
 
     const helperTextComponent = hasHelperText ? (
-      <HelperText state={errorText ? 'error' : 'default'} showIcon={!!errorText} id={helperTextId}>
+      <HelperText
+        key={errorText ? 'error' : 'helper'}
+        state={errorText ? 'error' : 'default'}
+        showIcon={!!errorText}
+        id={helperTextId}
+      >
         {errorText || helperText}
       </HelperText>
     ) : null;

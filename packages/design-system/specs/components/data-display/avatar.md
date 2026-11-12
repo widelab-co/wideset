@@ -15,7 +15,7 @@ parts:
     AvatarStatus,
   ]
 related: [ListItem, Table, Tag]
-docs: https://wideset-docs.widelab.workers.dev/components/avatar
+docs: https://wideset.co/components/avatar
 storybook: components-avatar--default
 ---
 
@@ -121,5 +121,5 @@ yourself. Named exports (`AvatarGroup`, `AvatarMore`, …) are the same parts fo
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/avatar.md` · Types:
+Full props: `https://wideset.co/components/avatar.md` · Types:
 `packages/design-system/src/components/avatar/Avatar.types.ts`

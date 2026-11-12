@@ -25,6 +25,33 @@ describe('Checkbox', () => {
       expect(screen.getByRole('checkbox')).toBeInTheDocument();
     });
 
+    it('keeps the description out of the name and links it as the description', () => {
+      render(<Checkbox label="Test checkbox" description="This is a description" />);
+      const checkbox = screen.getByRole('checkbox', { name: 'Test checkbox' });
+      expect(checkbox).toHaveAccessibleDescription('This is a description');
+    });
+
+    it('keeps a caller aria-describedby next to the description', () => {
+      render(
+        <>
+          <Checkbox
+            label="Test checkbox"
+            description="This is a description"
+            aria-describedby="hint"
+          />
+          <p id="hint">Hint</p>
+        </>,
+      );
+      expect(screen.getByRole('checkbox')).toHaveAccessibleDescription(
+        'Hint This is a description',
+      );
+    });
+
+    it('sets no aria-describedby without a description', () => {
+      render(<Checkbox label="Test checkbox" />);
+      expect(screen.getByRole('checkbox')).not.toHaveAttribute('aria-describedby');
+    });
+
     it('renders as unchecked by default', () => {
       render(<Checkbox />);
       expect(screen.getByRole('checkbox')).not.toBeChecked();
@@ -169,6 +196,30 @@ describe('Checkbox', () => {
       );
       expect(screen.getByText('Test checkbox')).toBeInTheDocument();
       expect(screen.getByText('This is a description')).toBeInTheDocument();
+    });
+
+    it('links Checkbox.Description to the checkbox', () => {
+      render(
+        <Checkbox>
+          <Checkbox.Label>Test checkbox</Checkbox.Label>
+          <Checkbox.Description>This is a description</Checkbox.Description>
+        </Checkbox>,
+      );
+      const checkbox = screen.getByRole('checkbox', { name: 'Test checkbox' });
+      expect(checkbox).toHaveAccessibleDescription('This is a description');
+    });
+
+    it('links Checkbox.Description with a custom id', () => {
+      render(
+        <Checkbox>
+          <Checkbox.Label>Test checkbox</Checkbox.Label>
+          <Checkbox.Description id="custom-description">This is a description</Checkbox.Description>
+        </Checkbox>,
+      );
+      expect(screen.getByRole('checkbox')).toHaveAttribute(
+        'aria-describedby',
+        'custom-description',
+      );
     });
 
     it('associates Checkbox.Label with checkbox via id and htmlFor prop', () => {

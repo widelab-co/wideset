@@ -1,31 +1,51 @@
 // The documentation site, with the shadcn registry under /r, as a Cloudflare Worker serving
 // static assets. Deployed from GitHub Actions (the deploy job in .github/workflows/build.yaml),
 // not from the Cloudflare dashboard's Git integration:
-//   main    → this Worker (production; custom domain wideset-docs.widelab.workers.dev)
-//   develop → the "develop" environment, a second Worker named wideset-docs-develop
-//   PRs     → `wrangler versions upload --preview-alias <branch>` on this Worker, which gives
-//             https://<branch>-wideset-docs.<account>.workers.dev
+//   main    → this Worker, on wideset.co through the routes below (production)
+//   develop → the "develop" environment, a second Worker named wideset-docs-develop, on workers.dev
+//   PRs     → `wrangler versions upload --preview-alias <branch>` on the develop Worker, which gives
+//             https://<branch>-wideset-docs-develop.<account>.workers.dev
+// wideset.co is shared with the landing page: the docs own only the paths routed here, so every
+// file the site serves lives under one of them (assets under /_docs, see astro.config.mjs). The
+// rest of wideset.co goes to the landing page. URLs have no trailing slash (drop-trailing-slash).
+// A route matches a query string only when it ends in `*`, so every pattern does. Cloudflare
+// allows no `?` in a pattern, so /docs* and /components* also take /docs-anything: the landing
+// page must not use paths that start with /docs or /components (the Redirect Rule that sends
+// the rest of wideset.co to www makes the same cut). /docs?utm=… reaching the docs wins.
 // Astro writes a 404.html, so unknown paths (a missing registry item too) answer with a 404 status.
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "wideset-docs",
   "compatibility_date": "2026-10-01",
-  "workers_dev": true,
-  "preview_urls": true,
+  // Production lives on wideset.co only: the old workers.dev address is retired. Previews run on
+  // the develop Worker, which keeps its workers.dev address.
+  "workers_dev": false,
+  "preview_urls": false,
+  "routes": [
+    { "pattern": "wideset.co/docs*", "zone_name": "wideset.co" },
+    { "pattern": "wideset.co/components*", "zone_name": "wideset.co" },
+    { "pattern": "wideset.co/r/*", "zone_name": "wideset.co" },
+    { "pattern": "wideset.co/_docs/*", "zone_name": "wideset.co" },
+    { "pattern": "wideset.co/llms.txt*", "zone_name": "wideset.co" },
+    { "pattern": "wideset.co/llms-full.txt*", "zone_name": "wideset.co" },
+    { "pattern": "wideset.co/.well-known/agent-skills/*", "zone_name": "wideset.co" },
+  ],
   "assets": {
     "directory": "./dist",
     "not_found_handling": "404-page",
-    "html_handling": "auto-trailing-slash",
+    "html_handling": "drop-trailing-slash",
   },
   "env": {
     "develop": {
       "name": "wideset-docs-develop",
       "workers_dev": true,
       "preview_urls": true,
+      // Routes are inherited by environments; the develop Worker has none.
+      "routes": [],
       "assets": {
         "directory": "./dist",
         "not_found_handling": "404-page",
-        "html_handling": "auto-trailing-slash",
+        "html_handling": "drop-trailing-slash",
       },
     },
   },

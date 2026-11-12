@@ -5,7 +5,7 @@ weight together; it never sets the font family. The product scale is flat: most 
 between 0.75rem and 1.125rem, and hierarchy comes from weight (`-strong-`) and colour
 (`text-ws-static-*`), not from bigger sizes.
 
-Docs: `https://wideset-docs.widelab.workers.dev/docs/typography` · Source:
+Docs: `https://wideset.co/docs/typography` · Source:
 `packages/design-system/src/styles/utilities/typography.css`
 
 ## Classes

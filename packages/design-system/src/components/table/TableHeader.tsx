@@ -50,6 +50,7 @@ export const TableHeader = ({
       variant="secondary"
       preset="ghost"
       disabled={disabled}
+      iconClassName={sortDirection ? undefined : 'text-ws-static-subtle'}
       className="ml-ws-2 align-middle"
       aria-label={
         sortAriaLabel ?? `Sort by ${typeof children === 'string' ? children : 'this column'}`

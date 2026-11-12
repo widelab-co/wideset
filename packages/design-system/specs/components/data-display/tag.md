@@ -5,7 +5,7 @@ group: data-display
 status: stable
 parts: [Tag, TagIcon]
 related: [StatusBadge, Chip, Avatar]
-docs: https://wideset-docs.widelab.workers.dev/components/tag
+docs: https://wideset.co/components/tag
 storybook: components-tag--default
 ---
 
@@ -92,5 +92,5 @@ See `README.md` in this folder for Tag vs StatusBadge vs Chip.
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/tag.md` · Types:
+Full props: `https://wideset.co/components/tag.md` · Types:
 `packages/design-system/src/components/tag/Tag.types.ts`
