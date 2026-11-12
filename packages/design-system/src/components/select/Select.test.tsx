@@ -348,7 +348,7 @@ describe('Select', () => {
     it('keeps the trigger text left-aligned on one line', () => {
       render(<Select options={longOptions} defaultValue="marek" aria-label="Assignee" />);
       const trigger = screen.getByRole('combobox', { name: 'Assignee' });
-      expect(trigger).toHaveClass('text-left', 'whitespace-nowrap');
+      expect(trigger).toHaveClass('text-start', 'whitespace-nowrap');
     });
 
     it('cuts a long label with an ellipsis next to a prefix', () => {

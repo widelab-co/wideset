@@ -91,7 +91,10 @@ export const FilterButton = React.forwardRef<HTMLButtonElement, FilterButtonProp
         const { left, top, width, height } = frozenAnchor(openRect.current, live);
         return new DOMRect(left, top, width, height);
       },
-      contextElement: triggerRef.current ?? undefined,
+      // A getter: the first anchor is made during render, before the trigger mounts.
+      get contextElement() {
+        return triggerRef.current ?? undefined;
+      },
     });
     const anchorRef = useRef(makeAnchor());
     const handleOpenChange = (open: boolean) => {
