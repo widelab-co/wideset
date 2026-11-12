@@ -1,10 +1,11 @@
 // TODO(custom): mail row (avatar, sender and company, subject, one line of the message, time, star, unread dot, attached files); ListItem is a one-line menu row with a brand-tinted checked state.
 import { RiAttachment2, RiStarFill } from '@remixicon/react';
-import { Avatar, cn, Tag } from '@wideset/react';
+import { cn, Tag } from '@wideset/react';
 import { forwardRef } from 'react';
 
 import { account, type Conversation } from './data';
 import { formatDateTime, formatListTime } from './format';
+import { PersonAvatar } from './person-avatar';
 
 type ConversationRowProps = {
   conversation: Conversation;
@@ -36,7 +37,12 @@ export const ConversationRow = forwardRef<HTMLButtonElement, ConversationRowProp
           'focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default focus-visible:-outline-offset-2',
         )}
       >
-        <Avatar initials={contact.initials} color={contact.color} aria-hidden />
+        <PersonAvatar
+          name={contact.name}
+          initials={contact.initials}
+          color={contact.color}
+          aria-hidden
+        />
         <span className="gap-ws-2 flex min-w-0 flex-1 flex-col">
           <span className="gap-ws-5 flex items-center">
             <span className="gap-ws-3 flex min-w-0 flex-1 items-baseline">

@@ -1,10 +1,11 @@
 // TODO(custom): account menu trigger is composed by hand; no account switcher in Wideset.
 import { RiArrowDownSLine } from '@remixicon/react';
-import { Avatar, DropdownMenu, ListItem, Sidebar } from '@wideset/react';
+import { DropdownMenu, ListItem, Sidebar } from '@wideset/react';
 import { useState } from 'react';
 
 import { BrandMark } from './brand-mark';
 import { account, navigation, workspace, workspaceNavigation } from './data';
+import { PersonAvatar } from './person-avatar';
 
 /** The account menu: who is signed in, their settings and sign-out. */
 function AccountMenu() {
@@ -15,7 +16,7 @@ function AccountMenu() {
           type="button"
           className="gap-ws-5 px-ws-5 py-ws-3 rounded-ws-control-lg hover:bg-ws-dynamic-tertiary-alpha-strong-default focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default flex w-full items-center text-left"
         >
-          <Avatar initials={account.initials} status="online" />
+          <PersonAvatar name={account.name} initials={account.initials} status="online" />
           <span className="flex min-w-0 flex-1 flex-col">
             <span className="typography-label-strong-sm text-ws-static-base truncate">
               {account.name}
@@ -30,7 +31,7 @@ function AccountMenu() {
       <DropdownMenu.Content side="top" align="start" className="w-[13.875rem]">
         <DropdownMenu.Item>
           <ListItem.Prefix>
-            <Avatar initials={account.initials} status="online" />
+            <PersonAvatar name={account.name} initials={account.initials} status="online" />
           </ListItem.Prefix>
           <ListItem.Content>
             <ListItem.Label>{account.name}</ListItem.Label>
@@ -112,7 +113,13 @@ export function InboxSidebar({ unread }: { unread: number }) {
           <AccountMenu />
         </Sidebar.Expanded>
         <Sidebar.Collapsed>
-          <Avatar initials={account.initials} status="online" aria-label={account.name} />
+          <PersonAvatar
+            name={account.name}
+            initials={account.initials}
+            status="online"
+            alt={account.name}
+            aria-label={account.name}
+          />
         </Sidebar.Collapsed>
       </Sidebar.Footer>
     </Sidebar>

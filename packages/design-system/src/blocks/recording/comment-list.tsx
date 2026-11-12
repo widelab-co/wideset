@@ -1,8 +1,7 @@
 // TODO(custom): comments left at a moment of a recording (who, the moment, when, text or a voice note); no Comment component in Wideset.
-import { Avatar } from '@wideset/react';
-
 import type { Comment } from './data';
 import { formatClock, formatWhen } from './format';
+import { PersonAvatar } from './person-avatar';
 import { TextButton } from './text-button';
 import { VoiceNote } from './voice-note';
 
@@ -21,8 +20,9 @@ export function CommentList({ comments, onSeek }: CommentListProps) {
     <ol aria-label="Comments" className="gap-ws-9 flex flex-col">
       {comments.map((comment) => (
         <li key={comment.id} className="gap-ws-5 flex">
-          <Avatar
+          <PersonAvatar
             size="sm"
+            name={comment.author.name}
             initials={comment.author.initials}
             color={comment.author.color}
             aria-hidden

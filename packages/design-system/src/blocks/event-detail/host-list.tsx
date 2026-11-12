@@ -1,8 +1,9 @@
 // TODO(custom): person rows with an e-mail action; Wideset has no person row (ListItem is a 32px menu row with its own hover).
 import { RiMailLine } from '@remixicon/react';
-import { Avatar, IconButton } from '@wideset/react';
+import { IconButton } from '@wideset/react';
 
 import type { Host } from './data';
+import { PersonAvatar } from './person-avatar';
 
 /**
  * The hosts, each with a way to reach them: a quiet e-mail button at the row's end, named for the
@@ -13,7 +14,12 @@ export function HostList({ hosts }: { hosts: Host[] }) {
     <ul className="gap-ws-7 flex flex-col">
       {hosts.map((host) => (
         <li key={host.id} className="gap-ws-5 flex items-center">
-          <Avatar initials={host.initials} color={host.color} aria-hidden="true" />
+          <PersonAvatar
+            name={host.name}
+            initials={host.initials}
+            color={host.color}
+            aria-hidden="true"
+          />
           <div className="flex min-w-0 flex-1 flex-col">
             <span className="typography-label-strong-sm text-ws-static-strong truncate">
               {host.name}

@@ -1,7 +1,8 @@
-import { Avatar, Checkbox, StatusBadge, Table } from '@wideset/react';
+import { Checkbox, StatusBadge, Table } from '@wideset/react';
 
 import { type Customer, HEALTH, PEOPLE } from './data';
 import { formatDay, formatUsd } from './format';
+import { PersonAvatar } from './person-avatar';
 
 /**
  * One page of customers. A click anywhere on a row selects it; the checkbox is the same control
@@ -75,7 +76,12 @@ export function CustomersTable({
                 </Table.Cell>
                 <Table.Cell>
                   <div className="gap-ws-5 flex items-center">
-                    <Avatar size="sm" initials={owner.initials} color={owner.color} />
+                    <PersonAvatar
+                      size="sm"
+                      name={owner.name}
+                      initials={owner.initials}
+                      color={owner.color}
+                    />
                     <span className="truncate">{owner.name}</span>
                   </div>
                 </Table.Cell>

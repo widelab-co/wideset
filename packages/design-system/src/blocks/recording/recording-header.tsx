@@ -12,6 +12,7 @@ import { Avatar, Button, DropdownMenu, IconButton, ListItem } from '@wideset/rea
 
 import { call, speakers } from './data';
 import { formatDateTime, formatLength } from './format';
+import { PersonAvatar } from './person-avatar';
 import { TextLink } from './text-link';
 
 const MENU: { label: string; icon: RemixiconComponentType }[] = [
@@ -42,7 +43,12 @@ export function RecordingHeader() {
           <span className="gap-ws-5 flex items-center">
             <Avatar.Group size="xs" className="w-fit shrink-0">
               {speakers.map((person) => (
-                <Avatar key={person.id} initials={person.initials} color={person.color} />
+                <PersonAvatar
+                  key={person.id}
+                  name={person.name}
+                  initials={person.initials}
+                  color={person.color}
+                />
               ))}
             </Avatar.Group>
             {speakers.map((person) => person.name).join(' and ')}

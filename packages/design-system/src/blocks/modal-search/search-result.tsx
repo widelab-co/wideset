@@ -3,6 +3,7 @@ import type { RemixiconComponentType } from '@remixicon/react';
 import { Avatar, cn } from '@wideset/react';
 
 import { Highlight } from './highlight';
+import { PHOTOS } from './people.assets';
 
 export type SearchResult = {
   id: string;
@@ -35,6 +36,9 @@ export function SearchResultRow({
   onActivate: () => void;
   onOpen: () => void;
 }) {
+  /** A person's photo, when they have one; a file has none. */
+  const photo = result.kind === 'person' ? PHOTOS[result.title] : undefined;
+
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events -- the search field holds the focus and its keys open the active option
     <li
@@ -51,7 +55,16 @@ export function SearchResultRow({
           active && 'bg-ws-dynamic-tertiary-alpha-hover',
         )}
       >
-        {result.kind === 'person' ? (
+        {result.kind === 'person' && photo ? (
+          <Avatar
+            size="lg"
+            aria-hidden="true"
+            src={photo}
+            alt=""
+            initials={result.initials}
+            status={result.online ? 'online' : 'unavailable'}
+          />
+        ) : result.kind === 'person' ? (
           <Avatar
             size="lg"
             aria-hidden="true"

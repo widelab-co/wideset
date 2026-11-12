@@ -3,6 +3,7 @@ import { Avatar, Checkbox, StatusBadge, Table, Tag } from '@wideset/react';
 import { type Customer, HEALTH, OWNERS, PLAN_LABEL, type SortKey } from './data';
 import { EmptyState } from './empty-state';
 import { formatActivity, formatDateTime, formatUsd } from './format';
+import { PersonAvatar } from './person-avatar';
 import { RowMenu } from './row-menu';
 
 export type Sort = { key: SortKey; direction: 'asc' | 'desc' };
@@ -136,7 +137,7 @@ export function CustomersTable({
                   </Table.Cell>
                   <Table.Cell>
                     <div className="gap-ws-5 flex items-center">
-                      <Avatar size="sm" initials={owner.initials} />
+                      <PersonAvatar size="sm" name={owner.name} initials={owner.initials} />
                       <span className="truncate">{owner.name}</span>
                     </div>
                   </Table.Cell>

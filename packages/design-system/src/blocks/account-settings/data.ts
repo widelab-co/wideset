@@ -20,6 +20,8 @@ import {
 } from '@remixicon/react';
 import type { AvatarColor } from '@wideset/react';
 
+import { PHOTOS } from './people.assets';
+
 /*
   Maya's own account, reached from the account menu at the foot of the sidebar. She works from
   London (GMT in November), reads Orbit in US English with US dates and numbers, signs in with a
@@ -68,7 +70,7 @@ export const helpLink: NavLink = { id: 'help', label: 'Help and support', icon: 
 
 /** What the save bar saves: the profile and the language and region, as the server holds them. */
 export type AccountValues = {
-  /** An uploaded image's object URL; `null` shows the initials. */
+  /** The saved photo, or an uploaded image's object URL; `null` shows the initials. */
   photo: string | null;
   name: string;
   jobTitle: string;
@@ -83,7 +85,7 @@ export type AccountValues = {
 export type FieldErrors = Partial<Record<keyof AccountValues, string>>;
 
 export const saved: AccountValues = {
-  photo: null,
+  photo: PHOTOS['Maya Okafor'] ?? null,
   name: 'Maya Okafor',
   jobTitle: 'Head of Sales',
   email: 'maya@lumenstudio.co',

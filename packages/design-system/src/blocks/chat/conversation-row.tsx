@@ -1,8 +1,9 @@
 // TODO(custom): chat list row (channel sign or avatar with presence, name, muted sign, unread dot); Sidebar.Item is a navigation link and ListItem a menu row with a brand-tinted checked state.
 import { RiHashtag, RiNotificationOffLine } from '@remixicon/react';
-import { Avatar, cn } from '@wideset/react';
+import { cn } from '@wideset/react';
 
 import type { Conversation } from './data';
+import { PersonAvatar } from './person-avatar';
 
 type ConversationRowProps = {
   conversation: Conversation;
@@ -34,7 +35,12 @@ export function ConversationRow({ conversation, selected, onSelect }: Conversati
           <RiHashtag aria-hidden className="size-ws-9 text-ws-static-subtle" />
         </span>
       ) : (
-        <Avatar size="xs" initials={members[0].initials} status={members[0].status} />
+        <PersonAvatar
+          size="xs"
+          name={members[0].name}
+          initials={members[0].initials}
+          status={members[0].status}
+        />
       )}
       <span
         className={cn(

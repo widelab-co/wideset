@@ -76,13 +76,13 @@ export const task: TaskDetail = {
     {
       id: 'subtasks-added',
       text: 'Subtasks added by',
-      person: { ...priya, name: 'Priya' },
+      person: priya,
       date: 'Nov 6, 2026',
     },
     {
       id: 'created',
       text: 'Task created by',
-      person: { ...maya, name: 'Maya' },
+      person: maya,
       date: 'Nov 6, 2026',
     },
   ],

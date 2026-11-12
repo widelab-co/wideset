@@ -5,6 +5,7 @@ import { forwardRef } from 'react';
 
 import type { Notification } from './data';
 import { formatAge, formatDateTime } from './format';
+import { PersonAvatar } from './person-avatar';
 
 /**
  * Who did it: a person's initials, or, when Orbit itself reports it, an icon for what it is about
@@ -12,7 +13,7 @@ import { formatAge, formatDateTime } from './format';
  */
 export function Actor({ notification }: { notification: Notification }) {
   const { actor, subject } = notification;
-  if (actor) return <Avatar initials={actor.initials} aria-hidden />;
+  if (actor) return <PersonAvatar name={actor.name} initials={actor.initials} aria-hidden />;
   const Icon = subject.kind === 'Invoice' ? RiBankCardLine : RiCalendarScheduleLine;
   return <Avatar icon={<Icon />} aria-hidden />;
 }

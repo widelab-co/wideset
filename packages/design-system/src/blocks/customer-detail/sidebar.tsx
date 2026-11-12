@@ -1,6 +1,6 @@
 // TODO(custom): workspace switcher and account menu are composed by hand.
 import { RiAddLine, RiArrowDownSLine, RiLogoutBoxRLine, RiSearchLine } from '@remixicon/react';
-import { Avatar, DropdownMenu, IconButton, ListItem, Sidebar, TextInput } from '@wideset/react';
+import { DropdownMenu, IconButton, ListItem, Sidebar, TextInput } from '@wideset/react';
 import { useState } from 'react';
 
 import { BrandMark } from './brand-mark';
@@ -13,6 +13,7 @@ import {
   recordLinks,
   workspace,
 } from './data';
+import { PersonAvatar } from './person-avatar';
 
 /** The workspace sidebar on the grey frame: switcher, search, pages and the signed-in account. */
 export function CustomerSidebar() {
@@ -104,7 +105,12 @@ export function CustomerSidebar() {
                   type="button"
                   className="gap-ws-5 px-ws-5 py-ws-3 rounded-ws-control-lg hover:bg-ws-dynamic-tertiary-alpha-strong-default focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default flex w-full items-center text-left"
                 >
-                  <Avatar initials={account.initials} color={account.color} status="online" />
+                  <PersonAvatar
+                    name={account.name}
+                    initials={account.initials}
+                    color={account.color}
+                    status="online"
+                  />
                   <span className="flex min-w-0 flex-1 flex-col">
                     <span className="typography-label-strong-sm text-ws-static-base truncate">
                       {account.name}

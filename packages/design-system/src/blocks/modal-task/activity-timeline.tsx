@@ -1,8 +1,9 @@
 // TODO(custom): activity timeline (dot, entry, date, subtask card); no Timeline in Wideset.
 import { RiChat2Line, RiMoreFill, RiUserFill } from '@remixicon/react';
-import { Avatar, IconButton, StatusBadge } from '@wideset/react';
+import { IconButton, StatusBadge } from '@wideset/react';
 
 import type { Activity } from './data';
+import { PersonAvatar } from './person-avatar';
 
 /** The task's history on a line of dots, newest first; an entry about a subtask shows its card. */
 export function ActivityTimeline({ items }: { items: Activity[] }) {
@@ -27,8 +28,13 @@ export function ActivityTimeline({ items }: { items: Activity[] }) {
                 {item.person ? (
                   <>
                     {/* No status dot, unlike Figma's photos: at 20px it would sit on the initials. */}
-                    <Avatar size="xs" initials={item.person.initials} color={item.person.color} />
-                    {item.person.name}
+                    <PersonAvatar
+                      size="xs"
+                      name={item.person.name}
+                      initials={item.person.initials}
+                      color={item.person.color}
+                    />
+                    {item.person.name.split(' ')[0]}
                   </>
                 ) : null}
               </p>

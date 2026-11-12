@@ -1,9 +1,10 @@
 // TODO(custom): person rows and a text-style button that opens the full list; Wideset has no person row (ListItem is a 32px menu row) and no text-style button.
 import { RiCloseLine } from '@remixicon/react';
-import { Avatar, IconButton, Popup } from '@wideset/react';
+import { IconButton, Popup } from '@wideset/react';
 import { type ComponentPropsWithoutRef, forwardRef } from 'react';
 
 import type { Person } from './data';
+import { PersonAvatar } from './person-avatar';
 
 /** How many people the column shows before "and N others". */
 const FIRST = 5;
@@ -12,7 +13,12 @@ const FIRST = 5;
 function PersonRow({ person, you }: { person: Person; you: boolean }) {
   return (
     <li className="gap-ws-5 flex items-center">
-      <Avatar initials={person.initials} color={person.color} aria-hidden="true" />
+      <PersonAvatar
+        name={person.name}
+        initials={person.initials}
+        color={person.color}
+        aria-hidden="true"
+      />
       <div className="flex min-w-0 flex-1 flex-col">
         <span className="typography-label-strong-sm text-ws-static-strong truncate">
           {person.name}

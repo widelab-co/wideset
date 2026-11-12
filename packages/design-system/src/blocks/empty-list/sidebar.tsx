@@ -1,10 +1,11 @@
 // TODO(custom): workspace switcher and account menu are composed by hand (copied from customers).
 import { RiArrowDownSLine } from '@remixicon/react';
-import { Avatar, Sidebar } from '@wideset/react';
+import { Sidebar } from '@wideset/react';
 import { useState } from 'react';
 
 import { BrandMark } from './brand-mark';
 import { account, navigation, workspace } from './data';
+import { PersonAvatar } from './person-avatar';
 
 /** The workspace sidebar: product, workspace switcher, pages and the account. No saved lists yet. */
 export function AppSidebar() {
@@ -73,7 +74,7 @@ export function AppSidebar() {
             type="button"
             className="gap-ws-5 px-ws-5 py-ws-3 rounded-ws-control-lg hover:bg-ws-dynamic-tertiary-alpha-strong-default focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default flex w-full items-center text-left"
           >
-            <Avatar initials={account.initials} status="online" />
+            <PersonAvatar name={account.name} initials={account.initials} status="online" />
             <span className="flex min-w-0 flex-1 flex-col">
               <span className="typography-label-strong-sm text-ws-static-base truncate">
                 {account.name}
@@ -88,7 +89,13 @@ export function AppSidebar() {
           </button>
         </Sidebar.Expanded>
         <Sidebar.Collapsed>
-          <Avatar initials={account.initials} status="online" title={account.name} />
+          <PersonAvatar
+            name={account.name}
+            initials={account.initials}
+            status="online"
+            alt={account.name}
+            title={account.name}
+          />
         </Sidebar.Collapsed>
       </Sidebar.Footer>
     </Sidebar>

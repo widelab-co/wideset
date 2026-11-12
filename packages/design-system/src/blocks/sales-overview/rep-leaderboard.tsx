@@ -1,9 +1,10 @@
 // TODO(custom): ranked person row (Avatar, name, meta, value); no component in Wideset.
-import { Avatar, cn } from '@wideset/react';
+import { cn } from '@wideset/react';
 import { useId } from 'react';
 
 import { REPS } from './data';
 import { formatPercent, formatUsd } from './format';
+import { PersonAvatar } from './person-avatar';
 
 /** The reps ranked by what they closed this quarter, with how much of their quota that is. */
 export function RepLeaderboard({ className }: { className?: string }) {
@@ -27,7 +28,7 @@ export function RepLeaderboard({ className }: { className?: string }) {
       <ol className="gap-ws-6 flex flex-col">
         {ranked.map(({ rep, won, quota }) => (
           <li key={rep.name} className="gap-ws-7 flex items-center">
-            <Avatar initials={rep.initials} color={rep.color} aria-hidden />
+            <PersonAvatar name={rep.name} initials={rep.initials} color={rep.color} aria-hidden />
             <div className="flex min-w-0 flex-1 flex-col">
               <span className="typography-label-sm text-ws-static-strong truncate">{rep.name}</span>
               <span className="typography-caption-md text-ws-static-subtle tabular-nums">

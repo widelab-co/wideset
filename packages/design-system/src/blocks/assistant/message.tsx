@@ -4,6 +4,7 @@ import { Avatar } from '@wideset/react';
 
 import { AnswerFeedback } from './answer-feedback';
 import { maya, type Turn } from './data';
+import { PersonAvatar } from './person-avatar';
 import { ProposedChange } from './proposed-change';
 import { SourceLinks } from './source-links';
 
@@ -35,7 +36,7 @@ export function Message({ turn, partial, onApply, onDiscard, onRate }: MessagePr
       {assistant ? (
         <Avatar icon={<RiQuestionAnswerLine />} aria-hidden />
       ) : (
-        <Avatar initials={maya.initials} color={maya.color} aria-hidden />
+        <PersonAvatar name={maya.name} initials={maya.initials} color={maya.color} aria-hidden />
       )}
       <div className="gap-ws-7 flex min-w-0 flex-1 flex-col">
         <div className="flex flex-col">

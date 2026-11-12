@@ -5,6 +5,7 @@ import type { ReactNode } from 'react';
 
 import type { Notification } from './data';
 import { formatTime } from './format';
+import { PersonAvatar } from './person-avatar';
 
 /** The names the eye looks for: who did it and what it is about. */
 const NAME = 'text-ws-static-strong font-ws-medium';
@@ -31,7 +32,7 @@ function Body({ notification, children }: { notification: Notification; children
   return (
     <>
       {actor ? (
-        <Avatar initials={actor.initials} aria-hidden />
+        <PersonAvatar name={actor.name} initials={actor.initials} aria-hidden />
       ) : (
         <Avatar icon={Icon && <Icon />} aria-hidden />
       )}

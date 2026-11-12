@@ -1,9 +1,10 @@
 import { RiSendPlaneLine } from '@remixicon/react';
-import { Avatar, TextInput } from '@wideset/react';
+import { TextInput } from '@wideset/react';
 import { type FormEvent, useState } from 'react';
 
 import { maya } from './data';
 import { formatClock } from './format';
+import { PersonAvatar } from './person-avatar';
 
 type CommentFieldProps = {
   /** The moment of the call a comment sent now refers to. */
@@ -27,7 +28,13 @@ export function CommentField({ at, onComment }: CommentFieldProps) {
 
   return (
     <form onSubmit={send} className="gap-ws-5 flex items-center">
-      <Avatar size="sm" initials={maya.initials} color={maya.color} aria-hidden />
+      <PersonAvatar
+        size="sm"
+        name={maya.name}
+        initials={maya.initials}
+        color={maya.color}
+        aria-hidden
+      />
       <TextInput
         size="sm"
         className="min-w-0 flex-1"

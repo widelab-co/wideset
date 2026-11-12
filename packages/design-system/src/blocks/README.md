@@ -106,7 +106,10 @@ grey take `bg-ws-static-highlight-base`.
   a calendar month grid, a kanban column, a chart) is composed inside the block from `ws` tokens
   and gets its own component pull request, Figma's component first; the block switches to the
   component once it lands.
-- People are `Avatar` with initials and a colour; no photos or other binary assets. The product's
+- People are `Avatar`, a mix as in a real product (and in the Figma screens): some with a photo,
+  `src` from the block's `people.assets.ts` with the initials as its fallback, the rest initials and
+  a colour. A block ships only `.ts` and `.tsx`, so a photo is a 96px JPEG data URL in that file,
+  and a person has the same face on every screen. No other binary assets. The product's
   mark is the block's own `brand-mark.tsx` (Figma's workspace Thumbnail on inverse tokens, 32px,
   36px in a larger switcher); other workspaces are `Avatar shape="square"` with initials. The
   sign-in screens show the app icon instead (`app-icon.tsx`, Figma's glass tile, the same in

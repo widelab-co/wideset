@@ -1,11 +1,12 @@
 // TODO(custom): call transcript (speaker, time, text; the spoken line marked and followed; search with the match marked); Wideset has no transcript or timed list.
 import { RiSearchLine } from '@remixicon/react';
-import { Avatar, TextInput } from '@wideset/react';
+import { TextInput } from '@wideset/react';
 import { useEffect, useRef, useState } from 'react';
 
 import type { Line } from './data';
 import { formatClock } from './format';
 import { Highlight } from './highlight';
+import { PersonAvatar } from './person-avatar';
 import { Section } from './section';
 
 type TranscriptProps = {
@@ -90,8 +91,9 @@ export function Transcript({ lines, time, playing, onSeek }: TranscriptProps) {
                 onClick={() => onSeek(line.at)}
                 className="gap-ws-7 px-ws-5 py-ws-5 rounded-ws-control-lg hover:bg-ws-dynamic-tertiary-alpha-strong-default aria-[current=true]:bg-ws-dynamic-primary-alpha-strong-default focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default flex w-full cursor-pointer items-start text-left"
               >
-                <Avatar
+                <PersonAvatar
                   size="sm"
+                  name={line.speaker.name}
                   initials={line.speaker.initials}
                   color={line.speaker.color}
                   aria-hidden

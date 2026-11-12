@@ -7,6 +7,7 @@ import { CommentField } from './comment-field';
 import { CommentThread } from './comment-thread';
 import type { Post } from './data';
 import { formatDateTime, formatWhen } from './format';
+import { PersonAvatar } from './person-avatar';
 import { PostActions } from './post-actions';
 import { PostMenu } from './post-menu';
 import { RecordLink } from './record-link';
@@ -80,7 +81,12 @@ export function FeedPost({
             {event ? (
               <Avatar icon={<RiTrophyLine />} aria-hidden />
             ) : (
-              <Avatar initials={author.initials} color={author.color} aria-hidden />
+              <PersonAvatar
+                name={author.name}
+                initials={author.initials}
+                color={author.color}
+                aria-hidden
+              />
             )}
 
             <div className="flex min-w-0 flex-1 flex-col">

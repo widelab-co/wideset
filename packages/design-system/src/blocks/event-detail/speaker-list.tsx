@@ -1,7 +1,7 @@
 // TODO(custom): speaker rows (avatar, name, role at company, one line); Wideset has no person or bio row.
-import { Avatar } from '@wideset/react';
 
 import type { Speaker } from './data';
+import { PersonAvatar } from './person-avatar';
 
 /**
  * Who speaks, two to a row: the face, the name, their role where they work, and one line on why
@@ -12,7 +12,13 @@ export function SpeakerList({ speakers }: { speakers: Speaker[] }) {
     <ul className="gap-x-ws-12 gap-y-ws-11 grid grid-cols-1 md:grid-cols-2">
       {speakers.map((speaker) => (
         <li key={speaker.id} className="gap-ws-7 flex items-start">
-          <Avatar size="lg" initials={speaker.initials} color={speaker.color} aria-hidden="true" />
+          <PersonAvatar
+            size="lg"
+            name={speaker.name}
+            initials={speaker.initials}
+            color={speaker.color}
+            aria-hidden="true"
+          />
           <div className="gap-ws-2 flex min-w-0 flex-col">
             <div className="flex flex-col">
               <span className="typography-label-strong-sm text-ws-static-strong">

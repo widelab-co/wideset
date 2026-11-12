@@ -1,9 +1,10 @@
 import { RiPushpinFill, RiPushpinLine } from '@remixicon/react';
-import { Avatar, Checkbox, cn, IconButton, ProgressBar, Table } from '@wideset/react';
+import { Checkbox, cn, IconButton, ProgressBar, Table } from '@wideset/react';
 
 import { type Item, PEOPLE } from './data';
 import { FileIcon } from './file-icon';
 import { formatDateTime, formatModified, formatSize } from './format';
+import { PersonAvatar } from './person-avatar';
 import { type RowAction, RowMenu } from './row-menu';
 
 type FilesTableProps = {
@@ -96,7 +97,12 @@ export function FilesTable({
                 </Table.Cell>
                 <Table.Cell>
                   <div className="gap-ws-5 flex items-center">
-                    <Avatar size="sm" initials={owner.initials} color={owner.color} />
+                    <PersonAvatar
+                      size="sm"
+                      name={owner.name}
+                      initials={owner.initials}
+                      color={owner.color}
+                    />
                     <span className="truncate">{owner.name}</span>
                   </div>
                 </Table.Cell>

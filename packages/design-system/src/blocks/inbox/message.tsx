@@ -1,10 +1,10 @@
 // TODO(custom): e-mail message that folds to one line (sender, first line, time); Accordion draws a titled section with a chevron, not a message.
-import { Avatar } from '@wideset/react';
 import { useId } from 'react';
 
 import { Attachment } from './attachment';
 import type { Message as MessageData } from './data';
 import { formatDateTime, formatMessageTime } from './format';
+import { PersonAvatar } from './person-avatar';
 
 type MessageProps = {
   message: MessageData;
@@ -32,7 +32,7 @@ export function Message({ message, to, open, onToggle }: MessageProps) {
         onClick={onToggle}
         className="gap-ws-7 px-ws-5 py-ws-5 -mx-ws-5 rounded-ws-control-lg hover:bg-ws-static-alpha-subtle focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default flex w-[calc(100%+1rem)] items-center text-left focus-visible:-outline-offset-2"
       >
-        <Avatar initials={from.initials} color={from.color} aria-hidden />
+        <PersonAvatar name={from.name} initials={from.initials} color={from.color} aria-hidden />
         {open ? (
           <span className="flex min-w-0 flex-1 flex-col">
             <span className="gap-ws-3 flex min-w-0 items-baseline">

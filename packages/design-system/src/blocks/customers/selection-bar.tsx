@@ -1,7 +1,8 @@
 import { RiDeleteBinLine, RiDownloadLine, RiUserSharedLine } from '@remixicon/react';
-import { ActionBar, Avatar, Button, DropdownMenu, ListItem } from '@wideset/react';
+import { ActionBar, Button, DropdownMenu, ListItem } from '@wideset/react';
 
 import { type OwnerId, OWNERS } from './data';
+import { PersonAvatar } from './person-avatar';
 
 /** The actions on the selected rows, floating over the page while anything is selected. */
 export function SelectionBar({
@@ -31,7 +32,7 @@ export function SelectionBar({
           {(Object.keys(OWNERS) as OwnerId[]).map((id) => (
             <DropdownMenu.Item key={id} onSelect={() => onAssign(id)}>
               <ListItem.Prefix>
-                <Avatar size="xs" initials={OWNERS[id].initials} />
+                <PersonAvatar size="xs" name={OWNERS[id].name} initials={OWNERS[id].initials} />
               </ListItem.Prefix>
               <ListItem.Content>
                 <ListItem.Label>{OWNERS[id].name}</ListItem.Label>

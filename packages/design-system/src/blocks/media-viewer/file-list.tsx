@@ -1,8 +1,9 @@
-import { Avatar, Table } from '@wideset/react';
+import { Table } from '@wideset/react';
 
 import { type FileItem, PEOPLE } from './data';
 import { FileIcon } from './file-icon';
 import { formatDateTime, formatModified, formatSize } from './format';
+import { PersonAvatar } from './person-avatar';
 
 /** The id of a file's name button, so the viewer can give the focus back to it on close. */
 export const fileButtonId = (id: string) => `file-${id}`;
@@ -45,7 +46,12 @@ export function FileList({ files, onOpen }: { files: FileItem[]; onOpen: (id: st
                 </Table.Cell>
                 <Table.Cell>
                   <div className="gap-ws-5 flex items-center">
-                    <Avatar size="sm" initials={owner.initials} color={owner.color} />
+                    <PersonAvatar
+                      size="sm"
+                      name={owner.name}
+                      initials={owner.initials}
+                      color={owner.color}
+                    />
                     <span className="truncate">{owner.name}</span>
                   </div>
                 </Table.Cell>

@@ -1,8 +1,7 @@
 // TODO(custom): comment thread (author, time, text); no Comment component in Wideset.
-import { Avatar } from '@wideset/react';
-
 import type { Comment } from './data';
 import { formatDateTime, formatWhen } from './format';
+import { PersonAvatar } from './person-avatar';
 
 /**
  * A post's comments, oldest first: who wrote, when, and what they said. One size below the post
@@ -13,8 +12,9 @@ export function CommentThread({ comments }: { comments: Comment[] }) {
     <ol aria-label="Comments" className="gap-ws-7 flex flex-col">
       {comments.map((comment) => (
         <li key={comment.id} className="gap-ws-5 flex">
-          <Avatar
+          <PersonAvatar
             size="sm"
+            name={comment.author.name}
             initials={comment.author.initials}
             color={comment.author.color}
             aria-hidden

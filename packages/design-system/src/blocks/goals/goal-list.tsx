@@ -1,12 +1,13 @@
 // TODO(custom): goal rows that open onto their key results; Table has no expandable row.
 import { RiArrowDownSLine, RiArrowRightSLine } from '@remixicon/react';
-import { Avatar, Card, cn, StatusBadge, type StatusBadgeProps } from '@wideset/react';
+import { Card, cn, StatusBadge, type StatusBadgeProps } from '@wideset/react';
 import { useId } from 'react';
 
 import { figureOf, type Goal, type GoalState, MEASURES, stateOf } from './data';
 import { formatDay, formatMeasure } from './format';
 import { GoalMeter } from './goal-meter';
 import { KeyResultList } from './key-result-list';
+import { PersonAvatar } from './person-avatar';
 
 /**
  * The columns every row shares, header and key results included: goal, owner, progress, state,
@@ -98,8 +99,9 @@ export function GoalList({ goals, done, open, onOpenChange, onDoneChange }: Goal
                   </span>
                 </button>
                 <span className="gap-ws-5 typography-label-sm text-ws-static-base flex min-w-0 items-center">
-                  <Avatar
+                  <PersonAvatar
                     size="sm"
+                    name={goal.owner.name}
                     initials={goal.owner.initials}
                     color={goal.owner.color}
                     aria-hidden

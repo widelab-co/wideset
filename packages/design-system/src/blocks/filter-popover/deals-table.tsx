@@ -1,8 +1,9 @@
-import { Avatar, StatusBadge, Table } from '@wideset/react';
+import { StatusBadge, Table } from '@wideset/react';
 
 import type { Sort, SortKey } from './conditions';
 import { type Deal, OWNERS } from './data';
 import { formatDate, formatUsd } from './format';
+import { PersonAvatar } from './person-avatar';
 
 const initialsOf = (name: string) =>
   name
@@ -72,7 +73,11 @@ export function DealsTable({
                 </Table.Cell>
                 <Table.Cell>
                   <div className="gap-ws-5 flex items-center">
-                    <Avatar size="sm" initials={initialsOf(OWNERS[deal.owner])} />
+                    <PersonAvatar
+                      size="sm"
+                      name={OWNERS[deal.owner]}
+                      initials={initialsOf(OWNERS[deal.owner])}
+                    />
                     <span className="truncate">{OWNERS[deal.owner]}</span>
                   </div>
                 </Table.Cell>

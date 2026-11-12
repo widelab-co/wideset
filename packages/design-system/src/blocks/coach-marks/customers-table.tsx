@@ -2,6 +2,7 @@ import { Avatar, StatusBadge, Table, Tag } from '@wideset/react';
 
 import { type Customer, HEALTH, OWNERS, PLAN_LABEL } from './data';
 import { formatActivity, formatDateTime, formatUsd } from './format';
+import { PersonAvatar } from './person-avatar';
 import { RowMenu } from './row-menu';
 import { TourSpot } from './tour-spot';
 
@@ -85,7 +86,7 @@ export function CustomersTable({
                 </Table.Cell>
                 <Table.Cell>
                   <div className="gap-ws-5 flex items-center">
-                    <Avatar size="sm" initials={owner.initials} />
+                    <PersonAvatar size="sm" name={owner.name} initials={owner.initials} />
                     <span className="truncate">{owner.name}</span>
                   </div>
                 </Table.Cell>

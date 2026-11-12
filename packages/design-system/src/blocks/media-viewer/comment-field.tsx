@@ -1,8 +1,9 @@
 import { RiSendPlaneLine } from '@remixicon/react';
-import { Avatar, TextInput } from '@wideset/react';
+import { TextInput } from '@wideset/react';
 import { type FormEvent, useState } from 'react';
 
 import { PEOPLE } from './data';
+import { PersonAvatar } from './person-avatar';
 
 /**
  * The one-line field for a new comment, under the others (copied from the recording block):
@@ -21,7 +22,7 @@ export function CommentField({ onComment }: { onComment: (text: string) => void 
 
   return (
     <form onSubmit={send} className="gap-ws-5 flex items-center">
-      <Avatar size="sm" initials={me.initials} color={me.color} aria-hidden />
+      <PersonAvatar size="sm" name={me.name} initials={me.initials} color={me.color} aria-hidden />
       <TextInput
         size="sm"
         className="min-w-0 flex-1"

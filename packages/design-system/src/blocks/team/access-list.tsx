@@ -2,6 +2,7 @@
 import { Avatar } from '@wideset/react';
 import { useId } from 'react';
 
+import { PersonAvatar } from './person-avatar';
 import { RoleMenu, type RoleOption } from './role-menu';
 
 export type AccessPerson<Role extends string = string> = {
@@ -42,9 +43,10 @@ export function AccessList<Role extends string>({
       <ul aria-labelledby={id} className="gap-ws-5 flex max-h-[18rem] flex-col overflow-y-auto">
         {people.map((person) => (
           <li key={person.id} className="gap-ws-5 py-ws-3 flex items-center">
-            {person.initials ? (
-              <Avatar
+            {person.name && person.initials ? (
+              <PersonAvatar
                 aria-hidden="true"
+                name={person.name}
                 initials={person.initials}
                 status={person.online ? 'online' : undefined}
               />
