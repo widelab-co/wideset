@@ -13,7 +13,6 @@ parts:
     SidebarExpanded,
     SidebarCollapsed,
     SidebarItem,
-    SidebarGroup,
     SidebarTrigger,
   ]
 related: [Tabs, Breadcrumbs, Sidepanel]
@@ -95,9 +94,6 @@ The root fills its parent's height; place it in a full-height flex row next to t
 - A child page under an item (pages inside "Pages") is `nested`: indented so its icon starts under
   the parent's label, one level deep, with its own icon. The indent is the whole cue: never draw a
   guide line or add margins to build a tree.
-- Items that belong together under a name (a team, a workspace) go in `Sidebar.Group label="…"`.
-  The heading is text only and lines up with the item icons; collapsed, it is hidden and still
-  names the group for screen readers.
 - Section headers are one or two words; collapsed they become a gap between groups.
 - Prefer hiding a page the user will never reach over showing it disabled.
 
@@ -124,10 +120,11 @@ The root fills its parent's height; place it in a full-height flex row next to t
 // Don't: children on a plain item (the type forbids it); use label
 <Sidebar.Item href="/projects">Projects</Sidebar.Item>
 
-// Do: a named group of items
-<Sidebar.Group label="Core team">
+// Do: a named group of items under a section header
+<Sidebar.SectionHeader id="core-team">Core team</Sidebar.SectionHeader>
+<div role="group" aria-labelledby="core-team" className="gap-ws-2 flex flex-col">
   <Sidebar.Item href="/issues" icon={RiStackLine} label="Issues" />
-</Sidebar.Group>
+</div>
 
 // Don't: a hand-made heading with its own icon; it falls out of line with the items
 <div className="flex items-center gap-ws-3"><RiTeamLine /> Core team</div>

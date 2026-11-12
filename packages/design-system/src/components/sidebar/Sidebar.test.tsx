@@ -164,46 +164,6 @@ describe('Sidebar', () => {
     });
   });
 
-  describe('Sidebar.Group', () => {
-    const renderGroup = (collapsed: boolean) =>
-      render(
-        <Sidebar collapsed={collapsed}>
-          <Sidebar.Section>
-            <Sidebar.Group label="Core team" data-testid="group">
-              <Sidebar.Item href="#" label="Issues" />
-            </Sidebar.Group>
-          </Sidebar.Section>
-        </Sidebar>,
-      );
-
-    it('names its items with the heading', () => {
-      renderGroup(false);
-      const group = screen.getByRole('group', { name: 'Core team' });
-      expect(group).toContainElement(screen.getByRole('link', { name: 'Issues' }));
-    });
-
-    it('draws the heading as Figma does: caption strong, subtle, item-aligned padding', () => {
-      renderGroup(false);
-      expect(screen.getByText('Core team')).toHaveClass(
-        'typography-caption-strong-md',
-        'text-ws-static-subtle',
-        'px-ws-5',
-        'py-ws-3',
-      );
-    });
-
-    it('keeps the name for screen readers but hides the heading when collapsed', () => {
-      renderGroup(true);
-      expect(screen.getByText('Core team')).toHaveClass('sr-only');
-      expect(screen.getByRole('group', { name: 'Core team' })).toBeInTheDocument();
-    });
-
-    it('marks its slot and spreads rest props', () => {
-      renderGroup(false);
-      expect(screen.getByTestId('group')).toHaveAttribute('data-slot', 'sidebar-group');
-    });
-  });
-
   describe('Sidebar.Section', () => {
     it('should render Sidebar.Expanded content when sidebar is expanded', () => {
       render(

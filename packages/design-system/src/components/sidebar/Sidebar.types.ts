@@ -96,15 +96,3 @@ export type SidebarContextValue = {
   /** The root element's `id`, referenced by the trigger's `aria-controls`. */
   sidebarId: string;
 };
-
-/** Props for a named group of items inside a `Sidebar.Section`. */
-export type SidebarGroupProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'children'> & {
-  /**
-   * The group's heading, e.g. a team name. Text only: the heading aligns with the item icons
-   * below it, so it takes no icon of its own. Hidden when the sidebar is collapsed, where it
-   * still names the group for screen readers.
-   */
-  label: React.ReactNode;
-  /** The group's `Sidebar.Item`s. */
-  children?: React.ReactNode;
-};

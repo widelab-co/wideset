@@ -23,10 +23,11 @@
 // Don't: children on a plain item (the type forbids it); use label
 <Sidebar.Item href="/projects">Projects</Sidebar.Item>
 
-// Do: a named group of items
-<Sidebar.Group label="Core team">
+// Do: a named group of items under a section header
+<Sidebar.SectionHeader id="core-team">Core team</Sidebar.SectionHeader>
+<div role="group" aria-labelledby="core-team" className="gap-ws-2 flex flex-col">
   <Sidebar.Item href="/issues" icon={RiStackLine} label="Issues" />
-</Sidebar.Group>
+</div>
 
 // Don't: a hand-made heading with its own icon; it falls out of line with the items
 <div className="flex items-center gap-ws-3"><RiTeamLine /> Core team</div>
