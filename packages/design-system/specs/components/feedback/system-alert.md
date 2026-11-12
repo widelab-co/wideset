@@ -5,7 +5,7 @@ group: feedback
 status: stable
 parts: [SystemAlert, SystemAlertMessage, SystemAlertAction]
 related: [InlineAlert, Toast]
-docs: https://wideset-docs.widelab.workers.dev/components/system-alert
+docs: https://wideset.co/components/system-alert
 storybook: components-systemalert--default
 ---
 
@@ -101,5 +101,5 @@ storybook: components-systemalert--default
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/system-alert.md` · Types:
+Full props: `https://wideset.co/components/system-alert.md` · Types:
 `packages/design-system/src/components/system-alert/SystemAlert.types.ts`

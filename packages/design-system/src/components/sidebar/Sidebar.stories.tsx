@@ -18,11 +18,14 @@ import { IconButton } from '../button/IconButton';
 import { ProgressBar } from '../progress-bar/ProgressBar';
 import CollapsedExample from './examples/sidebar/collapsed';
 import collapsedSource from './examples/sidebar/collapsed?raw';
+import GroupsExample from './examples/sidebar/groups';
+import groupsSource from './examples/sidebar/groups?raw';
 import StatesExample from './examples/sidebar/states';
 import statesSource from './examples/sidebar/states?raw';
 import { Sidebar } from './Sidebar';
 import { SidebarItem } from './SidebarItem';
 import { SidebarSection } from './SidebarSection';
+import { SidebarSectionHeader } from './SidebarSectionHeader';
 import { SidebarTrigger } from './SidebarTrigger';
 
 type NavEntry = {
@@ -56,8 +59,8 @@ const meta = {
   component: Sidebar,
   subcomponents: {
     'Sidebar.Section': SidebarSection,
+    'Sidebar.SectionHeader': SidebarSectionHeader,
     'Sidebar.Item': SidebarItem,
-
     'Sidebar.Trigger': SidebarTrigger,
   },
   parameters: {
@@ -71,19 +74,15 @@ Use Tabs to switch sections within a page and Breadcrumbs to show hierarchy.
 \`\`\`
 <Sidebar>                          — root container; controls collapsed state
   <Sidebar.Header>                 — sidebar title/branding row; never scrolls
-    <Sidebar.Expanded>             — logo + name + trigger
-    <Sidebar.Collapsed>            — trigger only
+    <Sidebar.Expanded>             — what exists only when expanded: logo + name
+    <Sidebar.Trigger />            — default icon button that toggles collapse
   </Sidebar.Header>
-  <Sidebar.Section>                 — layout wrapper for a section (root owns the 12px gap)
-  <Sidebar.Section scrollable>      — fills remaining height, scrolls overflow in a ScrollArea
-    <Sidebar.Expanded>             — shown when expanded
-      <Sidebar.Item href="/" icon={Icon} label="Label" active />
-    </Sidebar.Expanded>
-    <Sidebar.Collapsed>            — shown when collapsed (omit to hide the section)
-      <Sidebar.Item href="/" icon={Icon} label="Label" active />
-    </Sidebar.Collapsed>
+  <Sidebar.Section>                — layout wrapper for a section (root owns the 12px gap)
+  <Sidebar.Section scrollable>     — fills remaining height, scrolls overflow in a ScrollArea
+    <Sidebar.SectionHeader>        — title of a group of items; a spacer when collapsed
+    <Sidebar.Item href="/" icon={Icon} label="Label" active />
   </Sidebar.Section>
-  <Sidebar.Trigger />              — default icon button that toggles collapse
+  <Sidebar.Collapsed>              — what exists only when collapsed
   <Sidebar.Trigger asChild>        — merge toggle behaviour onto a custom element
     <button>Custom</button>
   </Sidebar.Trigger>
@@ -133,6 +132,19 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
+const Logo = () => (
+  <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden focusable="false">
+    <path
+      className="fill-(--ws-non-semantic-fill-brand-strong)"
+      d="M0 16C0 8.45753 0 4.68629 2.34315 2.34315C4.68629 0 8.45753 0 16 0C23.5425 0 27.3137 0 29.6569 2.34315C32 4.68629 32 8.45753 32 16C32 23.5425 32 27.3137 29.6569 29.6569C27.3137 32 23.5425 32 16 32C8.45753 32 4.68629 32 2.34315 29.6569C0 27.3137 0 23.5425 0 16Z"
+    />
+    <path
+      className="fill-ws-non-semantic-brand-on-strong"
+      d="M21.6907 12C21.6907 12 19.618 17.322 19.5381 17.5183C19.4954 17.4215 17.1775 12 17.1775 12H15.0877C15.0877 12 12.7755 17.5183 12.7413 17.5916C12.7042 17.5157 10.2409 12 10.2409 12H8L11.7434 20H13.8047L16.1483 14.3403H16.1853C16.211 14.3953 18.5802 20 18.5802 20H20.7042C20.7042 20 23.9772 12.0707 24 12.0052L21.6935 12H21.6907Z"
+    />
+  </svg>
+);
+
 export const Default: Story = {
   parameters: {
     docs: {
@@ -146,52 +158,24 @@ export const Default: Story = {
     <div className="bg-ws-static-background border-ws-dynamic-secondary-default flex h-screen w-full border">
       <Sidebar {...args}>
         <Sidebar.Header>
-          <Sidebar.Expanded>
-            <div className="gap-ws-7 py-ws-3 pl-ws-5 flex items-center justify-between">
-              <svg
-                width="32"
-                height="32"
-                viewBox="0 0 32 32"
-                fill="none"
-                aria-hidden
-                focusable="false"
-              >
-                <path
-                  className="fill-(--ws-non-semantic-fill-brand-strong)"
-                  d="M0 16C0 8.45753 0 4.68629 2.34315 2.34315C4.68629 0 8.45753 0 16 0C23.5425 0 27.3137 0 29.6569 2.34315C32 4.68629 32 8.45753 32 16C32 23.5425 32 27.3137 29.6569 29.6569C27.3137 32 23.5425 32 16 32C8.45753 32 4.68629 32 2.34315 29.6569C0 27.3137 0 23.5425 0 16Z"
-                />
-                <path
-                  className="fill-ws-non-semantic-brand-on-strong"
-                  d="M21.6907 12C21.6907 12 19.618 17.322 19.5381 17.5183C19.4954 17.4215 17.1775 12 17.1775 12H15.0877C15.0877 12 12.7755 17.5183 12.7413 17.5916C12.7042 17.5157 10.2409 12 10.2409 12H8L11.7434 20H13.8047L16.1483 14.3403H16.1853C16.211 14.3953 18.5802 20 18.5802 20H20.7042C20.7042 20 23.9772 12.0707 24 12.0052L21.6935 12H21.6907Z"
-                />
-              </svg>
-              <span className="typography-label-strong-sm text-ws-dynamic-secondary-default flex-1">
-                Wideset
-              </span>
-              <Sidebar.Trigger />
-            </div>
-          </Sidebar.Expanded>
-          <Sidebar.Collapsed>
-            <div className="py-ws-3 flex items-center">
-              <Sidebar.Trigger />
-            </div>
-          </Sidebar.Collapsed>
+          <div className="gap-ws-7 py-ws-3 flex items-center">
+            <Sidebar.Expanded>
+              <div className="gap-ws-7 pl-ws-5 flex min-w-0 flex-1 items-center">
+                <Logo />
+                <span className="typography-label-strong-sm text-ws-dynamic-secondary-default">
+                  Wideset
+                </span>
+              </div>
+            </Sidebar.Expanded>
+            <Sidebar.Trigger />
+          </div>
         </Sidebar.Header>
         <Sidebar.Section>
-          <Sidebar.Expanded>
-            <nav className="gap-ws-2 flex flex-col">
-              {mainNav.map(({ icon, label, active }) => (
-                <Sidebar.Item key={label} href="#" icon={icon} label={label} active={active} />
-              ))}
-            </nav>
-          </Sidebar.Expanded>
-          <Sidebar.Collapsed>
-            <nav className="gap-ws-2 flex flex-col">
-              {mainNav.map(({ icon, label, active }) => (
-                <Sidebar.Item key={label} href="#" icon={icon} label={label} active={active} />
-              ))}
-            </nav>
-          </Sidebar.Collapsed>
+          <nav className="gap-ws-2 flex flex-col">
+            {mainNav.map(({ icon, label, active }) => (
+              <Sidebar.Item key={label} href="#" icon={icon} label={label} active={active} />
+            ))}
+          </nav>
         </Sidebar.Section>
       </Sidebar>
     </div>
@@ -203,6 +187,8 @@ export const Default: Story = {
 
 export const Collapsed: Story = exampleStory(CollapsedExample, collapsedSource);
 
+export const Groups: Story = exampleStory(GroupsExample, groupsSource);
+
 export const States: Story = exampleStory(StatesExample, statesSource);
 
 export const Composition: Story = {
@@ -210,7 +196,7 @@ export const Composition: Story = {
     docs: {
       description: {
         story:
-          'Full application sidebar with a branded header, account switcher, primary navigation, secondary navigation, onboarding progress, and user profile section.',
+          'Full application sidebar with a branded header, account switcher, primary navigation, secondary navigation, onboarding progress, and user profile section. The navigation is one tree for both modes; `Sidebar.Expanded` and `Sidebar.Collapsed` wrap only what differs between them.',
       },
     },
   },
@@ -218,36 +204,17 @@ export const Composition: Story = {
     <div className="bg-ws-static-background border-ws-dynamic-secondary-default flex h-screen w-full border">
       <Sidebar {...args}>
         <Sidebar.Header>
-          <Sidebar.Expanded>
-            <div className="gap-ws-7 py-ws-3 pl-ws-5 flex items-center justify-between">
-              <svg
-                width="32"
-                height="32"
-                viewBox="0 0 32 32"
-                fill="none"
-                aria-hidden
-                focusable="false"
-              >
-                <path
-                  className="fill-(--ws-non-semantic-fill-brand-strong)"
-                  d="M0 16C0 8.45753 0 4.68629 2.34315 2.34315C4.68629 0 8.45753 0 16 0C23.5425 0 27.3137 0 29.6569 2.34315C32 4.68629 32 8.45753 32 16C32 23.5425 32 27.3137 29.6569 29.6569C27.3137 32 23.5425 32 16 32C8.45753 32 4.68629 32 2.34315 29.6569C0 27.3137 0 23.5425 0 16Z"
-                />
-                <path
-                  className="fill-ws-non-semantic-brand-on-strong"
-                  d="M21.6907 12C21.6907 12 19.618 17.322 19.5381 17.5183C19.4954 17.4215 17.1775 12 17.1775 12H15.0877C15.0877 12 12.7755 17.5183 12.7413 17.5916C12.7042 17.5157 10.2409 12 10.2409 12H8L11.7434 20H13.8047L16.1483 14.3403H16.1853C16.211 14.3953 18.5802 20 18.5802 20H20.7042C20.7042 20 23.9772 12.0707 24 12.0052L21.6935 12H21.6907Z"
-                />
-              </svg>
-              <span className="typography-label-strong-sm text-ws-dynamic-secondary-default flex-1">
-                Wideset
-              </span>
-              <Sidebar.Trigger />
-            </div>
-          </Sidebar.Expanded>
-          <Sidebar.Collapsed>
-            <div className="py-ws-3 flex items-center">
-              <Sidebar.Trigger />
-            </div>
-          </Sidebar.Collapsed>
+          <div className="gap-ws-7 py-ws-3 flex items-center">
+            <Sidebar.Expanded>
+              <div className="gap-ws-7 pl-ws-5 flex min-w-0 flex-1 items-center">
+                <Logo />
+                <span className="typography-label-strong-sm text-ws-dynamic-secondary-default">
+                  Wideset
+                </span>
+              </div>
+            </Sidebar.Expanded>
+            <Sidebar.Trigger />
+          </div>
         </Sidebar.Header>
         <Sidebar.Section>
           <Sidebar.Expanded>
@@ -283,32 +250,15 @@ export const Composition: Story = {
           </Sidebar.Collapsed>
         </Sidebar.Section>
         <Sidebar.Section scrollable>
-          <Sidebar.Expanded>
-            <nav className="gap-ws-2 flex flex-col">
-              {fullNav.map(({ icon, label, active, group }) =>
-                group ? (
-                  <div key={group} className="h-ws-16 px-ws-5 py-ws-3 flex items-end">
-                    <span className="typography-caption-strong-md text-ws-static-subtle min-w-0 truncate">
-                      {group}
-                    </span>
-                  </div>
-                ) : (
-                  <Sidebar.Item key={label} href="#" icon={icon} label={label} active={active} />
-                ),
-              )}
-            </nav>
-          </Sidebar.Expanded>
-          <Sidebar.Collapsed>
-            <nav className="gap-ws-2 flex flex-col">
-              {fullNav.map(({ icon, label, active, group }) =>
-                group ? (
-                  <div key={group} className="h-ws-16" aria-hidden />
-                ) : (
-                  <Sidebar.Item key={label} href="#" icon={icon} label={label} active={active} />
-                ),
-              )}
-            </nav>
-          </Sidebar.Collapsed>
+          <nav className="gap-ws-2 flex flex-col">
+            {fullNav.map(({ icon, label, active, group }) =>
+              group ? (
+                <Sidebar.SectionHeader key={group}>{group}</Sidebar.SectionHeader>
+              ) : (
+                <Sidebar.Item key={label} href="#" icon={icon} label={label} active={active} />
+              ),
+            )}
+          </nav>
         </Sidebar.Section>
         <Sidebar.Section>
           <Sidebar.Expanded>

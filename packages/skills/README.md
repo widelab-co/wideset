@@ -1,20 +1,20 @@
 # @wideset/skills
 
-[Agent Skills](https://agentskills.io) for building apps with [Wideset](https://wideset-docs.widelab.workers.dev). They tell Claude Code, Codex, Cursor and other agents what component source cannot: which component fits, how components combine, what breaks without an error and what a finished screen should look like.
+[Agent Skills](https://agentskills.io) for building apps with [Wideset](https://wideset.co/docs). They tell Claude Code, Codex, Cursor and other agents what component source cannot: which component fits, how components combine, what breaks without an error and what a finished screen should look like.
 
-The patterns, the component group pages and each component's good practices are copied from the library's specs, so they match the version they ship with. Props, foundations and tokens are not copied: agents read component source and the docs site (`https://wideset-docs.widelab.workers.dev/components/<id>.md`, `https://wideset-docs.widelab.workers.dev/docs/tokens.md`), and `wideset-craft` holds the rules from the foundations in short.
+The patterns, the component group pages and each component's good practices are copied from the library's specs, so they match the version they ship with. Props, foundations and tokens are not copied: agents read component source and the docs site (`https://wideset.co/components/<id>.md`, `https://wideset.co/docs/tokens.md`), and `wideset-craft` holds the rules from the foundations in short.
 
 ## Install
 
-| Channel                        | Command                                                                        |
-| ------------------------------ | ------------------------------------------------------------------------------ |
-| shadcn registry                | `npx shadcn@latest add https://wideset-docs.widelab.workers.dev/r/skills.json` |
-| Skills CLI                     | `npx skills add widelab-co/wideset/packages/skills`                            |
-| Skills CLI, from the docs site | `npx skills add https://wideset-docs.widelab.workers.dev`                      |
-| Wideset CLI                    | `npx wideset skills`                                                           |
-| npm                            | `npm install -D @wideset/skills`, then `npx skills experimental_sync -y`       |
+| Channel                        | Command                                                                  |
+| ------------------------------ | ------------------------------------------------------------------------ |
+| shadcn registry                | `npx shadcn@latest add https://wideset.co/r/skills.json`                 |
+| Skills CLI                     | `npx skills add widelab-co/wideset/packages/skills`                      |
+| Skills CLI, from the docs site | `npx skills add https://wideset.co`                                      |
+| Wideset CLI                    | `npx wideset skills`                                                     |
+| npm                            | `npm install -D @wideset/skills`, then `npx skills experimental_sync -y` |
 
-The Wideset CLI adds the skills to `.agents/skills/`, and to `.claude/skills/` when the project uses Claude Code. It writes `AGENTS.wideset.md` and points your `AGENTS.md` at it with one line. Running it again updates the files and changes nothing else. With the shadcn registry, add that line yourself: `See AGENTS.wideset.md for Wideset rules.` For Claude Code, also add `https://wideset-docs.widelab.workers.dev/r/skills-claude.json`, and `@AGENTS.wideset.md` to `CLAUDE.md`.
+The Wideset CLI adds the skills to `.agents/skills/`, and to `.claude/skills/` when the project uses Claude Code. It writes `AGENTS.wideset.md` and points your `AGENTS.md` at it with one line. Running it again updates the files and changes nothing else. With the shadcn registry, add that line yourself: `See AGENTS.wideset.md for Wideset rules.` For Claude Code, also add `https://wideset.co/r/skills-claude.json`, and `@AGENTS.wideset.md` to `CLAUDE.md`.
 
 The plugin channels need the repository to be public, and the npm channel needs the package to be published and Node 22.20 or later.
 

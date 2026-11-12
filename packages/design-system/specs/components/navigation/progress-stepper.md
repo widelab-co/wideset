@@ -5,7 +5,7 @@ group: navigation
 status: stable
 parts: [ProgressStepper, ProgressStepperStep, ProgressStepperIcon]
 related: [ProgressTracker, ProgressBar, Tabs]
-docs: https://wideset-docs.widelab.workers.dev/components/progress-stepper
+docs: https://wideset.co/components/progress-stepper
 storybook: components-progressstepper--default
 ---
 
@@ -99,5 +99,5 @@ Composed, when you need full control; you then set every step's props yourself:
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/progress-stepper.md` · Types:
+Full props: `https://wideset.co/components/progress-stepper.md` · Types:
 `packages/design-system/src/components/progress-stepper/ProgressStepper.types.ts`

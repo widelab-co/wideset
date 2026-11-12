@@ -393,6 +393,50 @@ describe('Table', () => {
     });
   });
 
+  describe('Table.Foot', () => {
+    // Resolves the cell's `border-t` classes the way Tailwind does: an arbitrary
+    // variant `[selector]:border-t` applies where `&` (the cell) matches it.
+    const hasTopLine = (cell: HTMLElement) =>
+      Array.from(cell.classList).some((cls) => {
+        if (cls === 'border-t') return true;
+        const selector = /^\[(.+)\]:border-t$/.exec(cls)?.[1];
+        return (
+          selector !== undefined && cell.matches(selector.replaceAll('_', ' ').replace('&', '*'))
+        );
+      });
+
+    const renderFooter = () =>
+      render(
+        <Table>
+          <Table.Body>
+            <Table.Row>
+              <Table.Cell>Design review</Table.Cell>
+            </Table.Row>
+          </Table.Body>
+          <Table.Foot>
+            <Table.Row>
+              <Table.Cell>Subtotal</Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell>Total</Table.Cell>
+            </Table.Row>
+          </Table.Foot>
+        </Table>,
+      );
+
+    it('draws the top line above the first footer row', () => {
+      renderFooter();
+
+      expect(hasTopLine(screen.getByRole('cell', { name: 'Subtotal' }))).toBe(true);
+    });
+
+    it('draws no line above the footer rows after the first', () => {
+      renderFooter();
+
+      expect(hasTopLine(screen.getByRole('cell', { name: 'Total' }))).toBe(false);
+    });
+  });
+
   describe('Table-level props applied to cells', () => {
     it('applies align to all cells', () => {
       render(

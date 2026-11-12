@@ -5,7 +5,7 @@ group: date-time
 status: stable
 parts: [DateRangePicker, dateRangePresetLabels]
 related: [DatePicker, Calendar, TimePicker, FormField]
-docs: https://wideset-docs.widelab.workers.dev/components/date-range-picker
+docs: https://wideset.co/components/date-range-picker
 storybook: components-daterangepicker--default
 ---
 
@@ -113,5 +113,5 @@ const [preset, setPreset] = useState<keyof typeof dateRangePresetLabels>('thisMo
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/date-range-picker.md` · Types:
+Full props: `https://wideset.co/components/date-range-picker.md` · Types:
 `packages/design-system/src/components/daterangepicker/DateRangePicker.types.ts`

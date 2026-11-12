@@ -5,7 +5,7 @@ group: selection
 status: stable
 parts: [Switch, SwitchLabel]
 related: [Checkbox, SegmentedControl, TileIndicator]
-docs: https://wideset-docs.widelab.workers.dev/components/switch
+docs: https://wideset.co/components/switch
 storybook: components-switch--default
 ---
 
@@ -102,5 +102,5 @@ Keep one size within a list of switches.
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/switch.md` · Types:
+Full props: `https://wideset.co/components/switch.md` · Types:
 `packages/design-system/src/components/switch/Switch.types.ts`

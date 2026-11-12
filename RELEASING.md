@@ -10,16 +10,16 @@ We use **[Changesets](https://github.com/changesets/changesets)** to manage [sem
 
 ## Branching model
 
-| Branch    | Role                                                                | What a push does                                                                                                          |
-| --------- | ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| `develop` | Integration. All feature PRs land here. Changesets accumulate here. | Runs CI and deploys the `-develop` Workers. **Does not publish.**                                                         |
-| `main`    | Production / release.                                               | Builds, **publishes to npm**, tags, creates a GitHub Release, and **deploys docs + Storybook** to the production Workers. |
+| Branch    | Role                                                                | What a push does                                                                                                                                        |
+| --------- | ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `develop` | Integration. All feature PRs land here. Changesets accumulate here. | Runs CI and deploys the `-develop` Workers. **Does not publish.**                                                                                       |
+| `main`    | Production / release.                                               | Builds, **deploys docs + Storybook** to production (wideset.co), checks the hosts answer, then **publishes to npm**, tags and creates a GitHub Release. |
 
 **Why versioning happens on `develop`, not `main`:** the version bump (updated `package.json` + `CHANGELOG.md`, consumed changeset files) is created on `develop` and flows forward to `main` through the normal promotion PR. `changeset publish` on `main` only adds a git tag + GitHub Release — **no commits** — so `develop` and `main` stay content‑aligned after every release. This is what avoids the classic GitFlow "back‑merge" chore.
 
 ```
 feature/* ──PR──▶ develop ──"Version Packages" PR──▶ develop ──promotion PR──▶ main ──▶ CI publishes
-   (+changeset)        (bump + CHANGELOG)                                          (tag + Release + deploy)
+   (+changeset)        (bump + CHANGELOG)                                          (deploy + check, then npm + tag + Release)
 ```
 
 ---
@@ -106,11 +106,17 @@ Treat **version → promote** as a brief freeze: avoid landing new changesets on
 
 Open a PR `develop → main` and merge it with **"Create a merge commit"** — **never Squash or Rebase** (squash collapses the whole history into one commit). The `main` ruleset allows only merge commits, and only `wideset-core` can merge into `main`.
 
-On push to `main`, CI runs in order: **build → publish → deploy**:
+On push to `main`, CI runs in order: **build → deploy → publish**:
 
+- Deploys docs (with the registry under `/r`) and Storybook to production Workers, then checks
+  that `wideset.co/r/registry.json`, `wideset.co/docs/introduction`, `wideset.co/llms.txt` and
+  `storybook.wideset.co` answer 200. The CLI and every published URL point there, and an npm
+  version cannot be republished, so a failed check stops the release before npm.
 - Publishes the new version to npm (with provenance).
 - Creates the git tag `vX.Y.Z` and a **GitHub Release** with the changelog.
-- Deploys docs (with the registry under `/r`) and Storybook to production Workers.
+
+If the publish fails after a successful deploy, the docs briefly describe a version npm does not
+have yet: fix the cause and re-run the failed job.
 
 After this, `develop` and `main` are aligned. Nothing to back‑merge.
 
@@ -120,22 +126,49 @@ After this, `develop` and `main` are aligned. Nothing to back‑merge.
 
 The `deploy` job in `.github/workflows/build.yaml` publishes to Cloudflare Workers:
 
-| Trigger   | Docs and registry                             | Storybook                   |
-| --------- | --------------------------------------------- | --------------------------- |
-| `main`    | `wideset-docs`                                | `wideset-storybook`         |
-| `develop` | `wideset-docs-develop`                        | `wideset-storybook-develop` |
-| PR        | alias `pr-<number>` on the `-develop` Workers | same                        |
+| Trigger   | Docs and registry                                                              | Storybook                                     |
+| --------- | ------------------------------------------------------------------------------ | --------------------------------------------- |
+| `main`    | `wideset-docs` on `wideset.co` (`/docs`, `/components`, `/r`, `/llms*.txt`, …) | `wideset-storybook` on `storybook.wideset.co` |
+| `develop` | `wideset-docs-develop` on workers.dev                                          | `wideset-storybook-develop` on workers.dev    |
+| PR        | alias `pr-<number>` on the `-develop` Workers                                  | same                                          |
 
 Repository settings: secrets `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`, `NPM_TOKEN`; variable
 `CF_WORKERS_SUBDOMAIN`; environments `production` (branch `main`) and `develop` (branch `develop`);
-Actions allowed to create pull requests. Optional: `DOCS_URL` / `STORYBOOK_URL` per environment,
-once custom domains exist. Chromatic runs only when the variable `CHROMATIC_APP_ID` is set.
+Actions allowed to create pull requests. Chromatic runs only when the variable `CHROMATIC_APP_ID`
+is set.
+
+Production on `wideset.co`:
+
+- The `production` environment sets `DOCS_URL=https://wideset.co` and
+  `STORYBOOK_URL=https://storybook.wideset.co` (the workflow falls back to the same values).
+- The account in `CLOUDFLARE_ACCOUNT_ID` owns the `wideset.co` zone, and `CLOUDFLARE_API_TOKEN`
+  has, on that zone, **Workers Routes: Edit** (the docs routes) and **DNS: Edit** (the
+  `storybook.wideset.co` custom domain creates its record), besides **Workers Scripts: Edit** on
+  the account.
+- The apex `wideset.co` record is **proxied** (orange cloud). Routes run only on proxied
+  hostnames; DNS-only, the deploy succeeds and the post-deploy check fails.
+- A Redirect Rule on the zone (Rules → Redirect Rules, dashboard only) sends every other path on
+  `wideset.co` to `www.wideset.co`, the landing page. It runs before the Worker routes, so it must
+  exclude exactly the routes in `apps/docs/wrangler.jsonc`: **change both together**. Landing
+  pages must not use paths starting with `/docs` or `/components`. Expression:
+
+  ```text
+  (http.host eq "wideset.co" and not starts_with(http.request.uri.path, "/docs") and not starts_with(http.request.uri.path, "/components") and not starts_with(http.request.uri.path, "/r/") and not starts_with(http.request.uri.path, "/_docs/") and not starts_with(http.request.uri.path, "/.well-known/agent-skills/") and http.request.uri.path ne "/llms.txt" and http.request.uri.path ne "/llms-full.txt")
+  ```
+
+  Action: dynamic redirect to `concat("https://www.wideset.co", http.request.uri.path)`, 301,
+  preserve query string.
+
+- The production Workers `wideset-docs` and `wideset-storybook` have `workers_dev: false`: they
+  answer only on wideset.co and storybook.wideset.co, and the old workers.dev addresses are
+  retired. The `-develop` Workers keep workers.dev, which the PR previews need.
 
 ---
 
 ## Caveats
 
 - **Freeze window.** If a new changeset lands on `develop` _between_ the version step and the promotion, `main` arrives with an unconsumed changeset and the Action opens a Version PR instead of publishing. Rare at our cadence; just keep version → promote tight.
+- **Empty changesets.** `changesets/action` neither versions nor publishes while only empty changesets are pending, so the `release` job deletes them from its checkout (nothing is committed) and the action publishes.
 - **Merge method matters.** Always promote `develop → main` with a merge commit. Squash/Rebase destroys the per‑component history.
 
 ---
