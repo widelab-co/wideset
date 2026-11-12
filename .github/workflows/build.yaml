@@ -307,6 +307,36 @@ jobs:
           # build never see the token.
           persist-credentials: false
 
+      # The two changeset steps need only the checkout: they run before install and build, so a
+      # promotion with an unconsumed changeset fails in seconds.
+      #
+      # changesets/action neither versions nor publishes while only empty changesets are pending
+      # (it logs "All changesets are empty" and stops), and on develop it opens no Version PR to
+      # consume them. An empty changeset releases nothing, so it is dropped from the checkout
+      # (not committed) and the action falls through to publishing.
+      - name: Drop empty changesets
+        run: |
+          for f in .changeset/*.md; do
+            [ "$(basename "$f")" = README.md ] && continue
+            if [ "$(sed -n '1,2p' "$f" | tr -d '\r' | paste -sd '|')" = '---|---' ]; then
+              echo "empty changeset: $f"
+              rm "$f"
+            fi
+          done
+
+      # A changeset that landed on develop after the Version PR was merged reaches main
+      # unconsumed. changesets/action would switch to version mode and fail opening a PR from
+      # here, without publishing. Stop with the cause instead.
+      - name: Check every changeset was consumed on develop
+        run: |
+          pending=$(find .changeset -maxdepth 1 -name '*.md' ! -name README.md)
+          if [ -n "$pending" ]; then
+            echo "::error::main has changesets the Version PR did not consume:"
+            echo "$pending"
+            echo "::error::Merge the Version Packages PR on develop, then promote develop → main again."
+            exit 1
+          fi
+
       # Version comes from `packageManager` in package.json.
       - uses: pnpm/action-setup@v4
 
@@ -322,21 +352,8 @@ jobs:
       - name: Build library
         run: pnpm build:lib
 
-      # changesets/action neither versions nor publishes while only empty changesets are pending
-      # (it logs "All changesets are empty" and stops), and on develop it opens no Version PR to
-      # consume them. An empty changeset releases nothing, so it is dropped from the checkout
-      # (not committed) and the action falls through to publishing.
-      - name: Drop empty changesets
-        run: |
-          for f in .changeset/*.md; do
-            [ "$(basename "$f")" = README.md ] && continue
-            if [ "$(sed -n '1,2p' "$f" | tr -d '\r' | paste -sd '|')" = '---|---' ]; then
-              echo "empty changeset: $f"
-              rm "$f"
-            fi
-          done
-
-      # No pending changesets on main (consumed on develop) => publish mode only.
+      # "Check every changeset was consumed on develop" guarantees no pending changesets, so the
+      # action runs in publish mode only.
       - name: Publish to npm
         uses: changesets/action@v1 # consider pinning to a full SHA
         with:
