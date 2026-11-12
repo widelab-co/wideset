@@ -50,7 +50,6 @@ export const TableHeader = ({
       variant="secondary"
       preset="ghost"
       disabled={disabled}
-      // Quiet until its column is the sorted one: the label leads, the sorted column stands out.
       iconClassName={sortDirection ? undefined : 'text-ws-static-subtle'}
       className="ml-ws-2 align-middle"
       aria-label={
