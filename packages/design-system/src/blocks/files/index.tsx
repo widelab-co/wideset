@@ -473,7 +473,7 @@ function FilesPage() {
           >
             {content}
             {dragging && rows.length > 0 && (
-              <div className="bg-ws-static-foreground inset-ws-0 absolute z-10 flex">
+              <div className="bg-ws-static-foreground inset-ws-0 z-ws-base absolute flex">
                 <FileUpload
                   isDragActive
                   onBrowse={browse}

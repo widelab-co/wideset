@@ -42,7 +42,7 @@ export function FileTile({ item, selected, selecting, onToggle, onOpen, onAction
       onCheckedChange={onToggle}
       aria-label={`Select ${item.name}`}
       className={cn(
-        'relative z-10',
+        'z-ws-base relative',
         !showCheckbox && 'opacity-0 group-hover/tile:opacity-100 focus-visible:opacity-100',
       )}
     />
@@ -128,7 +128,7 @@ export function FileTile({ item, selected, selecting, onToggle, onOpen, onAction
           )}
         </div>
         {!uploading && (
-          <div className="relative z-10 flex">
+          <div className="z-ws-base relative flex">
             <RowMenu item={item} onAction={onAction} />
           </div>
         )}

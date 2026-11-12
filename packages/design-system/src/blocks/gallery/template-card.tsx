@@ -54,7 +54,7 @@ export function TemplateCard({ template, saved, added, onOpen, onSaveChange }: T
           aria-label={`Save ${template.name}`}
           aria-pressed={saved}
           onClick={() => onSaveChange(!saved)}
-          className="relative z-10 shrink-0"
+          className="z-ws-base relative shrink-0"
         />
       </div>
     </article>
