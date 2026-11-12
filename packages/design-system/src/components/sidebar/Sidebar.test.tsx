@@ -167,26 +167,17 @@ describe('Sidebar', () => {
   describe('Sidebar.Section', () => {
     // A collapsed rail once centred its items 5px left of the trigger: the scroll gutter stayed.
     it('keeps a collapsed scrollable section on the rail centre line, with no bar gutter', () => {
-      const { container, rerender } = render(
-        <Sidebar collapsed>
+      const nav = (collapsed: boolean) => (
+        <Sidebar collapsed={collapsed}>
           <Sidebar.Section scrollable>
-            <Sidebar.Collapsed>
-              <Sidebar.Item href="#" label="Inbox" />
-            </Sidebar.Collapsed>
+            <Sidebar.Item href="#" label="Inbox" />
           </Sidebar.Section>
-        </Sidebar>,
+        </Sidebar>
       );
+      const { container, rerender } = render(nav(true));
       const viewport = () => container.querySelector('[data-slot="scroll-area-viewport"]');
       expect(viewport()).not.toHaveClass('pr-ws-6');
-      rerender(
-        <Sidebar collapsed={false}>
-          <Sidebar.Section scrollable>
-            <Sidebar.Expanded>
-              <Sidebar.Item href="#" label="Inbox" />
-            </Sidebar.Expanded>
-          </Sidebar.Section>
-        </Sidebar>,
-      );
+      rerender(nav(false));
       expect(viewport()).toHaveClass('pr-ws-6');
     });
 
