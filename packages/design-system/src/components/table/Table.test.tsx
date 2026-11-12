@@ -70,7 +70,7 @@ describe('Table', () => {
             <Table.Row>
               <Table.Cell>
                 Offline sync
-                <Table.CellDescription data-testid="desc" className="mt-ws-1">
+                <Table.CellDescription data-testid="desc" className="mt-ws-1" aria-hidden="false">
                   Edits made offline merge on reconnect.
                 </Table.CellDescription>
               </Table.Cell>
@@ -99,6 +99,7 @@ describe('Table', () => {
       const desc = screen.getByTestId('desc');
       expect(desc).toHaveAttribute('data-slot', 'table-cell-description');
       expect(desc).toHaveClass('mt-ws-1');
+      expect(desc).toHaveAttribute('aria-hidden', 'false');
     });
   });
 
