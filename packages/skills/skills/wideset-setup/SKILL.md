@@ -94,7 +94,9 @@ Shared code comes along with the components that need it. The list of items is `
 
 ## Font
 
-Wideset loads no font. It ships `--font-ws-sans` (Inter with a system fallback), and components inherit the font from the page:
+In registry mode `wideset init` adds Inter for you: `styles/wideset-font.css`, imported last in the app entry (`--no-font` skips it). Check that the file and its import are there before adding a font yourself. If text looks heavier than the design, no variable font is loaded.
+
+In npm mode, or after `--no-font`, the stylesheets load no font. They ship `--font-ws-sans` (Inter with a system fallback), and components inherit the font from the page:
 
 ```css
 body {
