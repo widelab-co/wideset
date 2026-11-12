@@ -228,12 +228,17 @@ async function init(ctx, { nested = false } = {}) {
   const fontSpecifier = '@/styles/wideset-font.css';
   const fontPath = `${project.srcDir === '.' ? '' : `${project.srcDir}/`}styles/wideset-font.css`;
   const hasFontFile = existsSync(join(cwd, fontPath));
+  // An entry that sets --font-ws-sans itself (next/font, as the installation guide shows).
+  const entryText = project.entry ? readFileSync(join(cwd, project.entry), 'utf8') : '';
+  const ownFontVariable = !hasFontFile && entryText.includes('--font-ws-sans');
   if (!opts.font) {
     say(false, 'font: left as it is (--no-font)');
   } else if (existing) {
     say(false, 'font: left as it is');
   } else if (!hasFontFile && project.fontPackages.length) {
     say(false, `font: kept yours (${project.fontPackages.join(', ')})`);
+  } else if (ownFontVariable) {
+    say(false, `font: kept yours (${project.entry} sets --font-ws-sans)`);
   } else {
     let added = hasFontFile;
     if (!hasFontFile) {
@@ -245,16 +250,14 @@ async function init(ctx, { nested = false } = {}) {
         log(`! font: could not add ${NAMESPACE}/font (${error.message})`);
         manual.push(
           'Load a variable font yourself:\n' +
-            'https://wideset-docs.widelab.workers.dev/docs/installation#4-load-the-font',
+            'https://wideset-docs.widelab.workers.dev/docs/installation#3-load-the-font',
         );
       }
     }
     if (!added) {
       // No file to import.
     } else if (project.entry) {
-      const css = addStyleImports(readFileSync(join(cwd, project.entry), 'utf8'), [fontSpecifier], {
-        last: true,
-      });
+      const css = addStyleImports(entryText, [fontSpecifier], { last: true });
       if (css.changed) write(project.entry, css.text);
       say(
         css.changed,

@@ -382,6 +382,34 @@ describe('wideset init', () => {
     expect(read('components.json')).toContain('@wideset');
   });
 
+  it('keeps a font the entry loads itself through --font-ws-sans', async () => {
+    viteApp();
+    write(
+      'src/main.tsx',
+      read('src/main.tsx').replace(
+        "import './index.css'",
+        "import './index.css'\nconst inter = Inter({ subsets: ['latin'], variable: '--font-ws-sans' })",
+      ),
+    );
+    const { shadcn, out } = await run(['init', '--registry', REGISTRY]);
+    expect(shadcn.flat()).not.toContain('@wideset/font');
+    expect(read('src/main.tsx')).not.toContain('wideset-font');
+    expect(out).toContain('font: kept yours (src/main.tsx sets --font-ws-sans)');
+  });
+
+  it('imports a font file that is already there in a project set up for the first time', async () => {
+    viteApp();
+    await run(['init', '--registry', REGISTRY]);
+    rmSync(join(dir, 'components.json'));
+    write('src/main.tsx', read('src/main.tsx').replace("import '@/styles/wideset-font.css'\n", ''));
+    const { shadcn, out } = await run(['init', '--registry', REGISTRY]);
+    expect(shadcn.flat()).not.toContain('@wideset/font');
+    expect(read('src/main.tsx').trimEnd().split('\n').at(-1)).toBe(
+      "import '@/styles/wideset-font.css'",
+    );
+    expect(out).toContain('src/main.tsx: imports @/styles/wideset-font.css');
+  });
+
   it('keeps the import of a font file that is already there', async () => {
     viteApp();
     await run(['init', '--registry', REGISTRY]);

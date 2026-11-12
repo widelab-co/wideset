@@ -5,6 +5,9 @@
   --font-ws-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
 }
 
+/* Outside any cascade layer on purpose, so it beats a template's own `body { font-family }`
+   (create-next-app sets Arial). The flip side: a Tailwind utility on <body> won't change the
+   font either; edit this rule instead. */
 body {
   font-family: var(--font-ws-sans);
 }
