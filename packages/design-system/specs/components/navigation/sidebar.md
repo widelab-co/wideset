@@ -96,7 +96,8 @@ The root fills its parent's height; place it in a full-height flex row next to t
 - A child page under an item (pages inside "Pages") is `nested`: indented so its icon starts under
   the parent's label, one level deep, with its own icon. The indent is the whole cue: never draw a
   guide line or add margins to build a tree.
-- Section headers are one or two words; collapsed they become a gap between groups.
+- Section headers are one or two words; collapsed, the rail cuts them to their first letters
+  ("P…"), so put the distinguishing word first.
 - Prefer hiding a page the user will never reach over showing it disabled.
 
 ## Accessibility
@@ -106,8 +107,8 @@ The root fills its parent's height; place it in a full-height flex row next to t
   when `label` is a node.
 - Write the trigger and the items once, outside `Sidebar.Expanded` / `Sidebar.Collapsed`, so they
   keep focus when the sidebar toggles.
-- `Sidebar.SectionHeader` keeps its text for screen readers when collapsed; give it an `id` and
-  point the group's `aria-labelledby` at it.
+- `Sidebar.SectionHeader` keeps its text in both modes; give it an `id` and point the group's
+  `aria-labelledby` at it.
 - `Sidebar.Trigger` names itself ("Collapse sidebar" / "Expand sidebar", via `collapseLabel` /
   `expandLabel`) and sets `aria-expanded` / `aria-controls`.
 

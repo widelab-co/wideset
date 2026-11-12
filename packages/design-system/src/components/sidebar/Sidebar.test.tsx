@@ -413,13 +413,16 @@ describe('Sidebar', () => {
       expect(screen.getByText('Products')).not.toHaveClass('sr-only');
     });
 
-    it('should keep its text for screen readers when collapsed', () => {
+    // Figma's collapsed rail shows the heading cut short ("P…"), not an empty gap.
+    it('should keep its text visible and cut short when collapsed', () => {
       render(
         <Sidebar collapsed>
           <Sidebar.SectionHeader>Products</Sidebar.SectionHeader>
         </Sidebar>,
       );
-      expect(screen.getByText('Products')).toHaveClass('sr-only');
+      const text = screen.getByText('Products');
+      expect(text).not.toHaveClass('sr-only');
+      expect(text).toHaveClass('truncate');
     });
 
     it('should name a group through aria-labelledby in both modes', () => {
