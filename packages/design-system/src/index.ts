@@ -370,6 +370,7 @@ export { Sidebar } from './components/sidebar/Sidebar';
 export type {
   SidebarCollapsedProps,
   SidebarExpandedProps,
+  SidebarFooterProps,
   SidebarHeaderProps,
   SidebarItemProps,
   SidebarProps,
@@ -379,6 +380,7 @@ export type {
 } from './components/sidebar/Sidebar.types';
 export { SidebarCollapsed } from './components/sidebar/SidebarCollapsed';
 export { SidebarExpanded } from './components/sidebar/SidebarExpanded';
+export { SidebarFooter } from './components/sidebar/SidebarFooter';
 export { SidebarHeader } from './components/sidebar/SidebarHeader';
 export { SidebarItem } from './components/sidebar/SidebarItem';
 export { SidebarSection } from './components/sidebar/SidebarSection';
@@ -455,6 +457,7 @@ export type {
   SelectionMode,
   SortDirection,
   TableBodyProps,
+  TableCellDescriptionProps,
   TableCellProps,
   TableFootProps,
   TableHeaderProps,
@@ -464,6 +467,7 @@ export type {
 } from './components/table/Table.types';
 export { TableBody } from './components/table/TableBody';
 export { TableCell } from './components/table/TableCell';
+export { TableCellDescription } from './components/table/TableCellDescription';
 export { TableFoot } from './components/table/TableFoot';
 export { TableHead } from './components/table/TableHead';
 export { TableHeader } from './components/table/TableHeader';

@@ -27,7 +27,13 @@ const SidebarSection = ({ scrollable, children, className, ...props }: SidebarSe
       className={cn('w-full min-w-0', scrollable && 'min-h-0 flex-1', className)}
       {...props}
     >
-      {scrollable ? <ScrollArea className="h-full">{children}</ScrollArea> : children}
+      {scrollable ? (
+        // Expanded, the bar sits in the sidebar's right padding (-mr), so the items end where the
+        // header and footer end instead of 10px short of them.
+        <ScrollArea className={cn('h-full', !isCollapsed && '-mr-ws-6')}>{children}</ScrollArea>
+      ) : (
+        children
+      )}
     </div>
   );
 };

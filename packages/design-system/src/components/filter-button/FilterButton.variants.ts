@@ -37,7 +37,7 @@ export const filterButtonTriggerVariants = cva(
     compoundVariants: [
       // Selected swaps the trailing chevron for a clear IconButton, which Figma
       // sits closer to the edge and on a tighter gap than the bare chevron.
-      { size: 'sm', selected: true, class: 'gap-ws-2 pr-ws-3 pl-ws-7' },
+      { size: 'sm', selected: true, class: 'gap-ws-4 pr-ws-3 pl-ws-7' },
       { size: 'md', selected: true, class: 'gap-ws-4 pr-ws-3 pl-ws-9' },
       { size: 'lg', selected: true, class: 'gap-ws-4 pr-ws-5 pl-ws-9' },
     ],
@@ -86,7 +86,7 @@ export const filterButtonLabelsVariants = cva('flex min-w-0 items-center overflo
  * stays regular. Disabled drops back to the non-strong utility — Figma renders the
  * disabled value at `Font/Weight/Normal`.
  */
-export const filterButtonValueVariants = cva('', {
+export const filterButtonValueVariants = cva('min-w-0 truncate', {
   variants: {
     size: {
       sm: '',

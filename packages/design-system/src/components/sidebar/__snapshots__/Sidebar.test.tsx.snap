@@ -2,10 +2,10 @@
 
 exports[`Sidebar > Sidebar Snapshots > matches snapshot for a navigation item 1`] = `
 <div
-  class="bg-ws-static-foreground border-ws-static-subtle gap-ws-7 px-ws-5 py-ws-7 relative flex h-full flex-col overflow-hidden border-r w-[16.25rem] transition-[width] duration-(--ws-motion-duration-slow) ease-(--ws-motion-ease-smooth-out)"
+  class="bg-ws-static-foreground border-ws-static-subtle gap-ws-7 pl-ws-5 py-ws-7 relative flex h-full flex-col overflow-hidden border-r pr-ws-6 w-[16.25rem] transition-[width] duration-(--ws-motion-duration-slow) ease-(--ws-motion-ease-smooth-out)"
   data-slot="sidebar"
   data-state="expanded"
-  id="_r_s_"
+  id="_r_12_"
 >
   <div
     class="w-full min-w-0"
@@ -13,12 +13,12 @@ exports[`Sidebar > Sidebar Snapshots > matches snapshot for a navigation item 1`
   >
     <a
       aria-current="page"
-      class="rounded-ws-control-lg gap-ws-5 px-ws-5 py-ws-3 flex w-full cursor-pointer items-center no-underline focus-visible:wds-focus-visible focus-visible:-outline-offset-2 focus-visible:outline-current hover:not-aria-disabled:bg-ws-dynamic-tertiary-alpha-strong-default hover:not-aria-disabled:text-ws-static-strong active:not-aria-disabled:bg-ws-dynamic-tertiary-alpha-strong-pressed active:not-aria-disabled:text-ws-static-strong aria-disabled:text-ws-dynamic-secondary-disabled aria-disabled:pointer-events-none aria-disabled:cursor-default text-ws-static-strong bg-ws-dynamic-tertiary-alpha-strong-default h-ws-14 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+      class="rounded-ws-control-lg gap-ws-5 px-ws-5 py-ws-3 flex w-full cursor-pointer items-center text-left no-underline focus-visible:wds-focus-visible focus-visible:-outline-offset-2 focus-visible:outline-current hover:not-aria-disabled:bg-ws-dynamic-tertiary-alpha-strong-default hover:not-aria-disabled:text-ws-static-strong active:not-aria-disabled:bg-ws-dynamic-tertiary-alpha-strong-pressed active:not-aria-disabled:text-ws-static-strong aria-disabled:text-ws-dynamic-secondary-disabled aria-disabled:pointer-events-none aria-disabled:cursor-default text-ws-static-strong bg-ws-dynamic-tertiary-alpha-strong-default h-ws-14 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
       data-slot="sidebar-item"
       href="/dashboard"
     >
       <span
-        class="typography-label-strong-sm min-w-0 truncate"
+        class="typography-label-strong-sm min-w-0 flex-1 truncate"
       >
         Dashboard
       </span>
@@ -29,10 +29,10 @@ exports[`Sidebar > Sidebar Snapshots > matches snapshot for a navigation item 1`
 
 exports[`Sidebar > Sidebar Snapshots > matches snapshot for collapsed sidebar 1`] = `
 <div
-  class="bg-ws-static-foreground border-ws-static-subtle gap-ws-7 px-ws-5 py-ws-7 relative flex h-full flex-col overflow-hidden border-r w-[3.25rem] items-center transition-[width] duration-(--ws-motion-duration-slow) ease-(--ws-motion-ease-smooth-out)"
+  class="bg-ws-static-foreground border-ws-static-subtle gap-ws-7 pl-ws-5 py-ws-7 relative flex h-full flex-col overflow-hidden border-r pr-ws-5 w-[3.25rem] items-center transition-[width] duration-(--ws-motion-duration-slow) ease-(--ws-motion-ease-smooth-out)"
   data-slot="sidebar"
   data-state="collapsed"
-  id="_r_u_"
+  id="_r_14_"
 >
   <div
     class="w-full min-w-0"
@@ -43,7 +43,7 @@ exports[`Sidebar > Sidebar Snapshots > matches snapshot for collapsed sidebar 1`
     </div>
   </div>
   <button
-    aria-controls="_r_u_"
+    aria-controls="_r_14_"
     aria-expanded="false"
     aria-label="Expand sidebar"
     class="whitespace-nowrap box-border relative inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default shrink-0 px-0 typography-label-strong-sm gap-ws-2 rounded-ws-control-lg bg-ws-dynamic-secondary-alpha-default text-ws-dynamic-secondary-default outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover hover:text-ws-dynamic-secondary-hover active:bg-ws-dynamic-secondary-alpha-pressed active:text-ws-dynamic-secondary-pressed disabled:text-ws-dynamic-secondary-disabled disabled:bg-none transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small) size-ws-15 mx-auto"
@@ -71,10 +71,10 @@ exports[`Sidebar > Sidebar Snapshots > matches snapshot for collapsed sidebar 1`
 
 exports[`Sidebar > Sidebar Snapshots > matches snapshot for expanded sidebar 1`] = `
 <div
-  class="bg-ws-static-foreground border-ws-static-subtle gap-ws-7 px-ws-5 py-ws-7 relative flex h-full flex-col overflow-hidden border-r w-[16.25rem] transition-[width] duration-(--ws-motion-duration-slow) ease-(--ws-motion-ease-smooth-out)"
+  class="bg-ws-static-foreground border-ws-static-subtle gap-ws-7 pl-ws-5 py-ws-7 relative flex h-full flex-col overflow-hidden border-r pr-ws-6 w-[16.25rem] transition-[width] duration-(--ws-motion-duration-slow) ease-(--ws-motion-ease-smooth-out)"
   data-slot="sidebar"
   data-state="expanded"
-  id="_r_t_"
+  id="_r_13_"
 >
   <div
     class="w-full min-w-0"
@@ -85,7 +85,7 @@ exports[`Sidebar > Sidebar Snapshots > matches snapshot for expanded sidebar 1`]
     </div>
   </div>
   <button
-    aria-controls="_r_t_"
+    aria-controls="_r_13_"
     aria-expanded="true"
     aria-label="Collapse sidebar"
     class="whitespace-nowrap box-border relative inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default shrink-0 px-0 typography-label-strong-sm gap-ws-2 rounded-ws-control-lg h-ws-forms-sm w-ws-forms-sm bg-ws-dynamic-secondary-alpha-default text-ws-dynamic-secondary-default outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover hover:text-ws-dynamic-secondary-hover active:bg-ws-dynamic-secondary-alpha-pressed active:text-ws-dynamic-secondary-pressed disabled:text-ws-dynamic-secondary-disabled disabled:bg-none transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small) ml-auto"
@@ -113,10 +113,10 @@ exports[`Sidebar > Sidebar Snapshots > matches snapshot for expanded sidebar 1`]
 
 exports[`Sidebar > Sidebar Snapshots > matches snapshot for sidebar with className 1`] = `
 <div
-  class="bg-ws-static-foreground border-ws-static-subtle gap-ws-7 px-ws-5 py-ws-7 relative flex h-full flex-col overflow-hidden border-r w-[16.25rem] transition-[width] duration-(--ws-motion-duration-slow) ease-(--ws-motion-ease-smooth-out)"
+  class="bg-ws-static-foreground border-ws-static-subtle gap-ws-7 pl-ws-5 py-ws-7 relative flex h-full flex-col overflow-hidden border-r pr-ws-6 w-[16.25rem] transition-[width] duration-(--ws-motion-duration-slow) ease-(--ws-motion-ease-smooth-out)"
   data-slot="sidebar"
   data-state="expanded"
-  id="_r_10_"
+  id="_r_16_"
 >
   <div
     class="w-full min-w-0 custom-wrapper"
@@ -131,10 +131,10 @@ exports[`Sidebar > Sidebar Snapshots > matches snapshot for sidebar with classNa
 
 exports[`Sidebar > Sidebar Snapshots > matches snapshot for sidebar with multiple sections 1`] = `
 <div
-  class="bg-ws-static-foreground border-ws-static-subtle gap-ws-7 px-ws-5 py-ws-7 relative flex h-full flex-col overflow-hidden border-r w-[16.25rem] transition-[width] duration-(--ws-motion-duration-slow) ease-(--ws-motion-ease-smooth-out)"
+  class="bg-ws-static-foreground border-ws-static-subtle gap-ws-7 pl-ws-5 py-ws-7 relative flex h-full flex-col overflow-hidden border-r pr-ws-6 w-[16.25rem] transition-[width] duration-(--ws-motion-duration-slow) ease-(--ws-motion-ease-smooth-out)"
   data-slot="sidebar"
   data-state="expanded"
-  id="_r_v_"
+  id="_r_15_"
 >
   <div
     class="w-full min-w-0"
@@ -161,7 +161,7 @@ exports[`Sidebar > Sidebar Snapshots > matches snapshot for sidebar with multipl
     </div>
   </div>
   <button
-    aria-controls="_r_v_"
+    aria-controls="_r_15_"
     aria-expanded="true"
     aria-label="Collapse sidebar"
     class="whitespace-nowrap box-border relative inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default shrink-0 px-0 typography-label-strong-sm gap-ws-2 rounded-ws-control-lg h-ws-forms-sm w-ws-forms-sm bg-ws-dynamic-secondary-alpha-default text-ws-dynamic-secondary-default outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover hover:text-ws-dynamic-secondary-hover active:bg-ws-dynamic-secondary-alpha-pressed active:text-ws-dynamic-secondary-pressed disabled:text-ws-dynamic-secondary-disabled disabled:bg-none transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small) ml-auto"
