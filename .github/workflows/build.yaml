@@ -307,21 +307,9 @@ jobs:
           # build never see the token.
           persist-credentials: false
 
-      # Version comes from `packageManager` in package.json.
-      - uses: pnpm/action-setup@v4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: pnpm
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      # @wideset/react publishes dist/; the CLI ships its sources as they are.
-      - name: Build library
-        run: pnpm build:lib
-
+      # The two changeset steps need only the checkout: they run before install and build, so a
+      # promotion with an unconsumed changeset fails in seconds.
+      #
       # changesets/action neither versions nor publishes while only empty changesets are pending
       # (it logs "All changesets are empty" and stops), and on develop it opens no Version PR to
       # consume them. An empty changeset releases nothing, so it is dropped from the checkout
@@ -349,7 +337,22 @@ jobs:
             exit 1
           fi
 
-      # The step above guarantees no pending changesets (all consumed on develop), so the
+      # Version comes from `packageManager` in package.json.
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # @wideset/react publishes dist/; the CLI ships its sources as they are.
+      - name: Build library
+        run: pnpm build:lib
+
+      # "Check every changeset was consumed on develop" guarantees no pending changesets, so the
       # action runs in publish mode only.
       - name: Publish to npm
         uses: changesets/action@v1 # consider pinning to a full SHA
