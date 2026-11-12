@@ -9,7 +9,18 @@ const ONE_LETTER_SIZES = new Set<AvatarCommonProps['size']>(['xs', 'sm']);
  */
 export const getVisibleInitials = (initials: string, size: AvatarCommonProps['size']): string => {
   if (!ONE_LETTER_SIZES.has(size ?? 'md')) return initials;
-  // Array.from splits by code point, so "Ł" or a single-code-point emoji stays whole; a letter
-  // built from several code points (a decomposed accent, a ZWJ emoji) keeps only its first.
-  return Array.from(initials.trim())[0] ?? '';
+  return firstGrapheme(initials.trim());
+};
+
+/**
+ * The first user-perceived character: "कि" keeps its vowel sign, "👩🏽‍💻" stays whole.
+ * `Intl.Segmenter` is missing from older browsers (Firefox before 125); there it falls back to
+ * the first code point, which still keeps "Ł" or a single-code-point emoji whole.
+ */
+const firstGrapheme = (text: string): string => {
+  if (typeof Intl !== 'undefined' && typeof Intl.Segmenter === 'function') {
+    const [first] = new Intl.Segmenter(undefined, { granularity: 'grapheme' }).segment(text);
+    return first?.segment ?? '';
+  }
+  return Array.from(text)[0] ?? '';
 };

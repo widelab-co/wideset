@@ -38,6 +38,13 @@ describe('Avatar', () => {
       expect(screen.getByText('Ł')).toBeInTheDocument();
     });
 
+    it('should keep the first character whole when it is made of several code points', () => {
+      const { rerender } = render(<Avatar initials="कि" size="xs" />);
+      expect(screen.getByText('कि')).toBeInTheDocument();
+      rerender(<Avatar initials="👩🏽‍💻A" size="xs" />);
+      expect(screen.getByText('👩🏽‍💻')).toBeInTheDocument();
+    });
+
     it('should show one letter in an image fallback at xs and sm', () => {
       // jsdom never loads the image, so the fallback renders.
       const { rerender } = render(<Avatar src="/photo.jpg" alt="" initials="AS" size="sm" />);
