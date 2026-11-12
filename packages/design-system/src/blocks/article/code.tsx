@@ -1,9 +1,9 @@
-// TODO(custom): code in long text, inline and as a block; Wideset has no Code component and no monospace font token (Tailwind's font-mono stands in).
+// TODO(custom): code in long text, inline and as a block; Wideset has no Code component.
 import type { ReactNode } from 'react';
 
 /** A name to type exactly as written (a column, a field), in the monospace face of its line. */
 export function Code({ children }: { children: ReactNode }) {
-  return <code className="text-ws-static-strong font-mono">{children}</code>;
+  return <code className="text-ws-static-strong font-ws-mono">{children}</code>;
 }
 
 /**
@@ -12,7 +12,7 @@ export function Code({ children }: { children: ReactNode }) {
  */
 export function CodeBlock({ lines }: { lines: string[] }) {
   return (
-    <pre className="border-ws-static-base rounded-ws-container-md px-ws-9 py-ws-7 typography-body-md text-ws-static-strong overflow-x-auto border font-mono">
+    <pre className="border-ws-static-base rounded-ws-container-md px-ws-9 py-ws-7 typography-body-md text-ws-static-strong font-ws-mono overflow-x-auto border">
       <code>{lines.join('\n')}</code>
     </pre>
   );

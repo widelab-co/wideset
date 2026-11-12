@@ -8,6 +8,8 @@ import {
   NAVIGATION_TITLE,
   PANELS,
 } from '../../blocks';
+import AgentChatBlock from '../../blocks/agent-chat';
+import AgentCodeBlock from '../../blocks/agent-code';
 import CustomersBlock from '../../blocks/customers';
 import IntegrationsBlock from '../../blocks/integrations';
 import ProductFormBlock from '../../blocks/product-form';
@@ -170,6 +172,11 @@ export const NewPassword = story('new-password');
 export const VerifyEmail = story('verify-email');
 export const SignedOut = story('signed-out');
 export const ChooseWorkspace = story('choose-workspace');
+export const AgentChat = story('agent-chat');
+export const AgentCode = story('agent-code');
+export const AgentResearch = story('agent-research');
+export const AgentSessions = story('agent-sessions');
+export const AgentStates = story('agent-states');
 export const TaskSidepanel = panelStory('task-sidepanel');
 export const ModalForm = panelStory('modal-form');
 export const ModalStepper = panelStory('modal-stepper');
@@ -190,3 +197,63 @@ export const FeedbackDialog = panelStory('feedback-dialog');
 export const ContextMenu = panelStory('context-menu');
 export const MoveDialog = panelStory('move-dialog');
 export const ExportDialog = panelStory('export-dialog');
+
+/** The same block in another state: a prop picks the screen, the pane or the view it opens on. */
+const variant = <P extends object>(
+  id: string,
+  Block: ComponentType<P>,
+  props: P,
+  name: string,
+  description: string,
+): Story => {
+  const block = BLOCKS.find((entry) => entry.id === id)!;
+  return {
+    name: `${name} (${DIRECTION_TITLE[block.direction]}, ${NAVIGATION_TITLE[block.navigation].toLowerCase()})`,
+    args: { id },
+    render: () => <Block {...props} />,
+    parameters: { docs: { description: { story: description } } },
+  };
+};
+export const AgentChatHome = variant(
+  'agent-chat',
+  AgentChatBlock,
+  { screen: 'home' },
+  'Agent chat, new chat',
+  'A new chat: the composer in the middle of the page with its tools and the model, a few ways to start, and the chats in the sidebar.',
+);
+export const AgentCodeTerminal = variant(
+  'agent-code',
+  AgentCodeBlock,
+  { pane: 'terminal' },
+  'Agent code, terminal',
+  'The session beside its terminal: tabs for the shells, the test run the agent started and the dev server.',
+);
+export const AgentCodePreview = variant(
+  'agent-code',
+  AgentCodeBlock,
+  { pane: 'preview' },
+  'Agent code, preview',
+  'The session beside a browser preview of the dev server: the address, the viewport, the page and its console.',
+);
+export const AgentCodeFiles = variant(
+  'agent-code',
+  AgentCodeBlock,
+  { pane: 'files' },
+  'Agent code, files',
+  'The session beside the repository’s files: the tree with what changed marked, and the open file.',
+);
+export const AgentCodeTasks = variant(
+  'agent-code',
+  AgentCodeBlock,
+  { pane: 'tasks' },
+  'Agent code, tasks',
+  'The session beside its plan: the tasks the agent set itself, the one in progress and what is left.',
+);
+export const AgentCodeChecks = variant(
+  'agent-code',
+  AgentCodeBlock,
+  { pane: 'checks' },
+  'Agent code, checks',
+  'The session beside its pull request: the checks with the failing one open, the review comments still unresolved, and what is left before it is ready.',
+);
+export const AgentContext = panelStory('agent-context');

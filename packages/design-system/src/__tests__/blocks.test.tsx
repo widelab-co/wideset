@@ -25,6 +25,64 @@ const AUTH_BLOCKS = [
   'signed-out',
   'choose-workspace',
 ];
+// The agent interface (agent-*) is one app shown screen by screen: the transcript kit and the shell
+// live in agent-chat, and every other agent block carries copies of the files it uses.
+const agentSources = import.meta.glob<string>('../blocks/agent-*/*.{ts,tsx}', {
+  query: '?raw',
+  import: 'default',
+  eager: true,
+});
+const AGENT_KIT = [
+  'model.ts',
+  'canon.ts',
+  'run.ts',
+  'use-run.ts',
+  'use-session.ts',
+  'use-shell.ts',
+  'format.ts',
+  'motion.ts',
+  'session.tsx',
+  'transcript.tsx',
+  'agent-turn.tsx',
+  'user-message.tsx',
+  'divider.tsx',
+  'reasoning.tsx',
+  'step-row.tsx',
+  'step-group.tsx',
+  'step-mark.tsx',
+  'step-detail.tsx',
+  'approval-card.tsx',
+  'question-card.tsx',
+  'row.tsx',
+  'fold.tsx',
+  'shimmer.tsx',
+  'prose.tsx',
+  'inline.tsx',
+  'code-block.tsx',
+  'copy-button.tsx',
+  'icon-action.tsx',
+  'answer-actions.tsx',
+  'pane-card.tsx',
+  'working-line.tsx',
+  'message-queue.tsx',
+  'composer.tsx',
+  'model-menu.tsx',
+  'tools-menu.tsx',
+  'chat-tools.tsx',
+  'code-tools.tsx',
+  'context-meter.tsx',
+  'context-summary.tsx',
+  'sidebar.tsx',
+  'thread-mark.tsx',
+  'top-bar.tsx',
+  'thread-menu.tsx',
+  'brand-mark.tsx',
+  'home.tsx',
+  'keyboard-key.tsx',
+  'menu-sub.tsx',
+  'menu-choice.tsx',
+];
+
 const SHARED = {
   'app-icon.tsx': AUTH_BLOCKS,
   'auth-card.tsx': AUTH_BLOCKS,
@@ -69,6 +127,16 @@ describe('blocks', () => {
       const copies = ids.map((id) => authSources[`../blocks/${id}/${file}`]);
       expect(copies.every((copy) => typeof copy === 'string')).toBe(true);
       for (const copy of copies) expect(copy).toBe(copies[0]);
+    },
+  );
+
+  it.each(AGENT_KIT)(
+    'keeps the agent kit’s %s identical in every agent block that carries it',
+    (file) => {
+      const source = agentSources[`../blocks/agent-chat/${file}`];
+      expect(typeof source).toBe('string');
+      const copies = Object.entries(agentSources).filter(([path]) => path.endsWith(`/${file}`));
+      for (const [path, copy] of copies) expect(copy, path).toBe(source);
     },
   );
 
