@@ -117,4 +117,4 @@ fills become translucent white; `highlight-strong` becomes visible. Full mechani
 
 ## Docs
 
-https://wideset-docs.widelab.workers.dev/docs/colors · Source: `packages/design-system/src/styles/tokens/`
+https://wideset.co/docs/colors · Source: `packages/design-system/src/styles/tokens/`

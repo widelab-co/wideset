@@ -10,15 +10,16 @@ import { SidebarExpanded } from './SidebarExpanded';
 const SidebarSection = ({ scrollable, children, className, ...props }: SidebarSectionProps) => {
   const { isCollapsed } = useSidebarContext();
   const childArray = React.Children.toArray(children);
-  const hasExpanded = childArray.some(
-    (child) => React.isValidElement(child) && child.type === SidebarExpanded,
+  const isModeSlot = (child: React.ReactNode, type: React.ElementType) =>
+    React.isValidElement(child) && child.type === type;
+  const hasOnlyModeSlots = childArray.every(
+    (child) => isModeSlot(child, SidebarExpanded) || isModeSlot(child, SidebarCollapsed),
   );
-  const hasCollapsed = childArray.some(
-    (child) => React.isValidElement(child) && child.type === SidebarCollapsed,
+  const hasCurrentModeSlot = childArray.some((child) =>
+    isModeSlot(child, isCollapsed ? SidebarCollapsed : SidebarExpanded),
   );
 
-  if (isCollapsed && !hasCollapsed) return null;
-  if (!isCollapsed && !hasExpanded) return null;
+  if (hasOnlyModeSlots && !hasCurrentModeSlot) return null;
 
   return (
     <div

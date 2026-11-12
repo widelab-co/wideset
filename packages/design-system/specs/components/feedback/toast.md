@@ -5,7 +5,7 @@ group: feedback
 status: stable
 parts: [Toast, ToastMessage, ToastDescription, ToastAction, ToastIconAction]
 related: [InlineAlert, SystemAlert, Modal]
-docs: https://wideset-docs.widelab.workers.dev/components/toast
+docs: https://wideset.co/components/toast
 storybook: components-toast--default
 ---
 
@@ -122,5 +122,5 @@ showToast({ content: 'Message archived', action: 'Undo' });
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/toast.md` · Types:
+Full props: `https://wideset.co/components/toast.md` · Types:
 `packages/design-system/src/components/toast/Toast.types.ts`

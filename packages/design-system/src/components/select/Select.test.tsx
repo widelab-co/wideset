@@ -324,7 +324,11 @@ describe('Select', () => {
       render(
         <Select options={withPrefix} defaultValue="marek" preset="ghost" aria-label="Owner" />,
       );
-      const prefix = screen.getByText('MZ').closest('div');
+      // Found by the avatar, not its initials: small avatars draw one letter.
+      const avatar = screen
+        .getByRole('combobox', { name: 'Owner' })
+        .querySelector('[data-slot="avatar"]');
+      const prefix = avatar?.closest('div');
       expect(prefix).toHaveClass('border-r-0');
     });
   });

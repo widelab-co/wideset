@@ -19,19 +19,22 @@ export type SidebarHeaderProps = React.HTMLAttributes<HTMLDivElement>;
 /** Props for the sidebar's bottom area (invite, account). Pinned to the bottom, never scrolls. */
 export type SidebarFooterProps = React.HTMLAttributes<HTMLDivElement>;
 
-/** Props for a Sidebar section wrapper that groups expanded and collapsed content slots. */
+/** Props for a Sidebar section. Its content stays mounted in both modes; the parts inside adapt. */
 export type SidebarSectionProps = React.HTMLAttributes<HTMLDivElement> & {
   /** Makes the section fill the remaining height and scroll its overflow inside a `ScrollArea`. */
   scrollable?: boolean;
 };
 
-/** Props for content shown when the sidebar is expanded. */
+/** Props for the title of a group of items. Collapsed, it keeps its height and its text stays available to screen readers. */
+export type SidebarSectionHeaderProps = React.HTMLAttributes<HTMLDivElement>;
+
+/** Props for content that exists only when the sidebar is expanded, e.g. the product name. */
 export type SidebarExpandedProps = {
   /** Content rendered inside the component. */
   children?: React.ReactNode;
 };
 
-/** Props for content shown when the sidebar is collapsed. */
+/** Props for content that exists only when the sidebar is collapsed. */
 export type SidebarCollapsedProps = {
   /** Content rendered inside the component. */
   children?: React.ReactNode;
@@ -92,16 +95,4 @@ export type SidebarContextValue = {
   motion: boolean;
   /** The root element's `id`, referenced by the trigger's `aria-controls`. */
   sidebarId: string;
-};
-
-/** Props for a named group of items inside a `Sidebar.Section`. */
-export type SidebarGroupProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'children'> & {
-  /**
-   * The group's heading, e.g. a team name. Text only: the heading aligns with the item icons
-   * below it, so it takes no icon of its own. Hidden when the sidebar is collapsed, where it
-   * still names the group for screen readers.
-   */
-  label: React.ReactNode;
-  /** The group's `Sidebar.Item`s. */
-  children?: React.ReactNode;
 };

@@ -6,7 +6,7 @@ status: stable
 parts:
   [ListItem, ListItemPrefix, ListItemContent, ListItemLabel, ListItemDescription, ListItemSuffix]
 related: [DropdownMenu, Select, Table, ActionTile, Avatar]
-docs: https://wideset-docs.widelab.workers.dev/components/list-item
+docs: https://wideset.co/components/list-item
 storybook: helper-components-listitem--default
 ---
 
@@ -106,5 +106,5 @@ are the same parts for Server Components.
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/list-item.md` · Types:
+Full props: `https://wideset.co/components/list-item.md` · Types:
 `packages/design-system/src/components/list-item/ListItem.types.ts`

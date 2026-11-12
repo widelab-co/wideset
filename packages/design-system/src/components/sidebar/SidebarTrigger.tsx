@@ -1,5 +1,5 @@
 import { Slot } from '@radix-ui/react-slot';
-import { RiSidebarFoldLine } from '@remixicon/react';
+import { RiSideBarLine } from '@remixicon/react';
 import * as React from 'react';
 import { cn } from 'src/lib/utils';
 
@@ -56,7 +56,7 @@ const SidebarTrigger = React.forwardRef<HTMLButtonElement, SidebarTriggerProps>(
       <IconButton
         data-slot="sidebar-trigger"
         {...restProps}
-        icon={RiSidebarFoldLine}
+        icon={RiSideBarLine}
         variant="secondary"
         preset="ghost"
         size="sm"
@@ -67,7 +67,7 @@ const SidebarTrigger = React.forwardRef<HTMLButtonElement, SidebarTriggerProps>(
         aria-label={ariaLabel}
         aria-expanded={!isCollapsed}
         aria-controls={sidebarId}
-        className={cn(isCollapsed ? 'size-ws-15 mx-auto rotate-180' : 'ml-auto', className)}
+        className={cn(isCollapsed ? 'size-ws-15 mx-auto' : 'ml-auto', className)}
       >
         {children}
       </IconButton>

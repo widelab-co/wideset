@@ -371,20 +371,20 @@ export type {
   SidebarCollapsedProps,
   SidebarExpandedProps,
   SidebarFooterProps,
-  SidebarGroupProps,
   SidebarHeaderProps,
   SidebarItemProps,
   SidebarProps,
+  SidebarSectionHeaderProps,
   SidebarSectionProps,
   SidebarTriggerProps,
 } from './components/sidebar/Sidebar.types';
 export { SidebarCollapsed } from './components/sidebar/SidebarCollapsed';
 export { SidebarExpanded } from './components/sidebar/SidebarExpanded';
 export { SidebarFooter } from './components/sidebar/SidebarFooter';
-export { SidebarGroup } from './components/sidebar/SidebarGroup';
 export { SidebarHeader } from './components/sidebar/SidebarHeader';
 export { SidebarItem } from './components/sidebar/SidebarItem';
 export { SidebarSection } from './components/sidebar/SidebarSection';
+export { SidebarSectionHeader } from './components/sidebar/SidebarSectionHeader';
 export { SidebarTrigger } from './components/sidebar/SidebarTrigger';
 export { Sidepanel, SidepanelClose, SidepanelTrigger } from './components/sidepanel/Sidepanel';
 export type {

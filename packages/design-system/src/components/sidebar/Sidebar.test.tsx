@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import type * as React from 'react';
+import * as React from 'react';
 import { describe, expect, it, vi } from 'vitest';
 
 import { Sidebar } from './Sidebar';
@@ -15,6 +15,16 @@ describe('Sidebar', () => {
           </Sidebar>,
         );
         expect(screen.getByText('Test content')).toBeInTheDocument();
+      });
+
+      it('should apply custom className', () => {
+        const { container } = render(
+          <Sidebar className="custom-class">
+            <div>Content</div>
+          </Sidebar>,
+        );
+        const root = container.firstChild as HTMLElement;
+        expect(root).toHaveClass('custom-class');
       });
 
       // Figma's Sidebar: the page's white with a subtle line on its right edge.
@@ -34,12 +44,7 @@ describe('Sidebar', () => {
         render(
           <Sidebar collapsed={collapsed}>
             <Sidebar.Section>
-              <Sidebar.Expanded>
-                <Sidebar.Item href="#" label="Inbox" suffix="3" />
-              </Sidebar.Expanded>
-              <Sidebar.Collapsed>
-                <Sidebar.Item href="#" label="Inbox" suffix="3" />
-              </Sidebar.Collapsed>
+              <Sidebar.Item href="#" label="Inbox" suffix="3" />
             </Sidebar.Section>
             <Sidebar.Footer data-testid="footer">Account</Sidebar.Footer>
           </Sidebar>,
@@ -70,12 +75,7 @@ describe('Sidebar', () => {
         render(
           <Sidebar collapsed={collapsed}>
             <Sidebar.Section>
-              <Sidebar.Expanded>
-                <Sidebar.Item href="#" label="Important" nested />
-              </Sidebar.Expanded>
-              <Sidebar.Collapsed>
-                <Sidebar.Item href="#" label="Important" nested />
-              </Sidebar.Collapsed>
+              <Sidebar.Item href="#" label="Important" nested />
             </Sidebar.Section>
           </Sidebar>,
         );
@@ -90,16 +90,6 @@ describe('Sidebar', () => {
       it('lines a nested item up with the rest when collapsed', () => {
         renderNested(true);
         expect(screen.getByRole('link', { name: 'Important' }).className).not.toMatch(/pl-\[/);
-      });
-
-      it('should apply custom className', () => {
-        const { container } = render(
-          <Sidebar className="custom-class">
-            <div>Content</div>
-          </Sidebar>,
-        );
-        const root = container.firstChild as HTMLElement;
-        expect(root).toHaveClass('custom-class');
       });
     });
 
@@ -171,53 +161,6 @@ describe('Sidebar', () => {
         await user.click(trigger);
         expect(handleChange).toHaveBeenCalledWith(true);
       });
-    });
-  });
-
-  describe('Sidebar.Group', () => {
-    const renderGroup = (collapsed: boolean) =>
-      render(
-        <Sidebar collapsed={collapsed}>
-          <Sidebar.Section>
-            <Sidebar.Expanded>
-              <Sidebar.Group label="Core team" data-testid="group">
-                <Sidebar.Item href="#" label="Issues" />
-              </Sidebar.Group>
-            </Sidebar.Expanded>
-            <Sidebar.Collapsed>
-              <Sidebar.Group label="Core team" data-testid="group">
-                <Sidebar.Item href="#" label="Issues" />
-              </Sidebar.Group>
-            </Sidebar.Collapsed>
-          </Sidebar.Section>
-        </Sidebar>,
-      );
-
-    it('names its items with the heading', () => {
-      renderGroup(false);
-      const group = screen.getByRole('group', { name: 'Core team' });
-      expect(group).toContainElement(screen.getByRole('link', { name: 'Issues' }));
-    });
-
-    it('draws the heading as Figma does: caption strong, subtle, item-aligned padding', () => {
-      renderGroup(false);
-      expect(screen.getByText('Core team')).toHaveClass(
-        'typography-caption-strong-md',
-        'text-ws-static-subtle',
-        'px-ws-5',
-        'py-ws-3',
-      );
-    });
-
-    it('keeps the name for screen readers but hides the heading when collapsed', () => {
-      renderGroup(true);
-      expect(screen.getByText('Core team')).toHaveClass('sr-only');
-      expect(screen.getByRole('group', { name: 'Core team' })).toBeInTheDocument();
-    });
-
-    it('marks its slot and spreads rest props', () => {
-      renderGroup(false);
-      expect(screen.getByTestId('group')).toHaveAttribute('data-slot', 'sidebar-group');
     });
   });
 
@@ -315,6 +258,40 @@ describe('Sidebar', () => {
       );
       expect(screen.queryByText('Expanded Content')).not.toBeInTheDocument();
       expect(container.querySelector('.custom-wrapper')).not.toBeInTheDocument();
+    });
+
+    it('should keep content without a mode wrapper in both modes', async () => {
+      const user = userEvent.setup();
+      render(
+        <Sidebar>
+          <Sidebar.Section>
+            <nav aria-label="Main">
+              <Sidebar.Item href="#" label="Dashboard" />
+            </nav>
+          </Sidebar.Section>
+          <Sidebar.Trigger />
+        </Sidebar>,
+      );
+      const item = screen.getByRole('link', { name: 'Dashboard' });
+
+      await user.click(screen.getByRole('button'));
+
+      expect(screen.getByRole('link', { name: 'Dashboard' })).toBe(item);
+    });
+
+    it('should keep a section that mixes plain content with a mode wrapper', () => {
+      render(
+        <Sidebar collapsed>
+          <Sidebar.Section data-testid="section">
+            <Sidebar.Expanded>
+              <span>Northwind</span>
+            </Sidebar.Expanded>
+            <Sidebar.Trigger />
+          </Sidebar.Section>
+        </Sidebar>,
+      );
+      expect(screen.getByTestId('section')).toBeInTheDocument();
+      expect(screen.queryByText('Northwind')).not.toBeInTheDocument();
     });
 
     it('should apply className to wrapper', () => {
@@ -432,6 +409,74 @@ describe('Sidebar', () => {
       expect(button).toHaveTextContent('Custom Button');
       expect(button).toHaveAttribute('aria-label', 'Collapse sidebar');
       expect(button).toHaveAttribute('aria-expanded', 'true');
+    });
+  });
+
+  describe('Sidebar.SectionHeader', () => {
+    it('should render its text when expanded', () => {
+      render(
+        <Sidebar>
+          <Sidebar.SectionHeader>Products</Sidebar.SectionHeader>
+        </Sidebar>,
+      );
+      expect(screen.getByText('Products')).not.toHaveClass('sr-only');
+    });
+
+    it('should keep its text for screen readers when collapsed', () => {
+      render(
+        <Sidebar collapsed>
+          <Sidebar.SectionHeader>Products</Sidebar.SectionHeader>
+        </Sidebar>,
+      );
+      expect(screen.getByText('Products')).toHaveClass('sr-only');
+    });
+
+    it('should name a group through aria-labelledby in both modes', () => {
+      render(
+        <Sidebar collapsed>
+          <Sidebar.SectionHeader id="products">Products</Sidebar.SectionHeader>
+          <nav aria-labelledby="products" />
+        </Sidebar>,
+      );
+      expect(screen.getByRole('navigation', { name: 'Products' })).toBeInTheDocument();
+    });
+
+    it('should forward ref, className and rest props to the root', () => {
+      const ref = React.createRef<HTMLDivElement>();
+      render(
+        <Sidebar>
+          <Sidebar.SectionHeader ref={ref} className="custom-class" data-testid="section-header">
+            Products
+          </Sidebar.SectionHeader>
+        </Sidebar>,
+      );
+      const header = screen.getByTestId('section-header');
+      expect(header).toHaveClass('custom-class');
+      expect(header).toHaveAttribute('data-slot', 'sidebar-section-header');
+      expect(ref.current).toBe(header);
+    });
+  });
+
+  describe('Focus', () => {
+    it('should keep focus on the trigger when toggled from the keyboard', async () => {
+      const user = userEvent.setup();
+      render(
+        <Sidebar>
+          <Sidebar.Header>
+            <Sidebar.Expanded>
+              <span>Northwind</span>
+            </Sidebar.Expanded>
+            <Sidebar.Trigger />
+          </Sidebar.Header>
+        </Sidebar>,
+      );
+      const trigger = screen.getByRole('button', { name: 'Collapse sidebar' });
+      trigger.focus();
+
+      await user.keyboard('{Enter}');
+
+      expect(screen.getByRole('button', { name: 'Expand sidebar' })).toBe(trigger);
+      expect(trigger).toHaveFocus();
     });
   });
 
