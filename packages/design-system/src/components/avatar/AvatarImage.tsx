@@ -2,6 +2,7 @@ import * as AvatarPrimitive from '@radix-ui/react-avatar';
 import { RiUser3Line } from '@remixicon/react';
 import { cn } from 'src/lib/utils';
 
+import { getVisibleInitials } from './Avatar.logic';
 import type { ImageProps } from './Avatar.types';
 import { avatarVariants } from './Avatar.variants';
 import { useAvatarGroupContext } from './AvatarGroup.context';
@@ -20,7 +21,7 @@ const AvatarImage = ({
 
   const FallbackComponent = () =>
     fallback ||
-    initials || (
+    (initials && getVisibleInitials(initials, size || context?.size)) || (
       <RiUser3Line aria-hidden="true" focusable="false" className="fill-ws-static-base" />
     );
 

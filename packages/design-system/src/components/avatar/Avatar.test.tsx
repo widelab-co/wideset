@@ -38,6 +38,14 @@ describe('Avatar', () => {
       expect(screen.getByText('Ł')).toBeInTheDocument();
     });
 
+    it('should show one letter in an image fallback at xs and sm', () => {
+      // jsdom never loads the image, so the fallback renders.
+      const { rerender } = render(<Avatar src="/photo.jpg" alt="" initials="AS" size="sm" />);
+      expect(screen.getByText('A')).toBeInTheDocument();
+      rerender(<Avatar src="/photo.jpg" alt="" initials="AS" size="md" />);
+      expect(screen.getByText('AS')).toBeInTheDocument();
+    });
+
     it('should render avatars in group', () => {
       render(
         <Avatar.Group data-testid="avatar-group">
