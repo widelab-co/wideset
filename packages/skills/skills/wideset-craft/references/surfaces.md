@@ -30,7 +30,11 @@ and status colours keep their meaning because they are not used for decoration.
 - Don't: palette classes (`text-gray-600`, `bg-purple-500`) or hex. Only `ws` tokens, which also
   switch in dark mode.
 
-The main call to action is the default `Button` (primary, brand colour). No near-black primary.
+The main call to action is the default `Button` (primary, brand colour). A near-black primary is
+the person's choice for a quieter product (see "Ask about the style first" in the skill): set it
+once for the whole app by overriding the `--ws-dynamic-fill-primary-*` role tokens
+([theming](https://wideset.co/docs/theming.md)), never with `variant="inverse"`, which is only for
+dark or coloured surfaces.
 
 ## Text colours
 
