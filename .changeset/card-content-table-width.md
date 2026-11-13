@@ -2,4 +2,4 @@
 '@wideset/react': patch
 ---
 
-`Card.Content` no longer widens the card to fit wide content: a table in a card scrolls horizontally inside it.
+A card in a grid track or a flex row no longer grows to fit wide content: a table in `Card.Content` scrolls horizontally inside the card.

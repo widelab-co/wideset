@@ -272,11 +272,11 @@ describe('Card.Content width', () => {
       </Card>,
     );
 
-  it('does not let its content set the card width', () => {
+  // jsdom has no layout, so this checks the mechanism: a min-width of 0 keeps wide content from
+  // setting the card's minimum width in a grid track or flex row (the WithTable story shows it).
+  it('does not let its content set the card minimum width', () => {
     const { container } = renderWideTable();
-    expect(container.querySelector('[data-slot="card-content"]')).toHaveClass(
-      'contain-inline-size',
-    );
+    expect(container.querySelector('[data-slot="card"]')).toHaveClass('min-w-0');
   });
 
   it('scrolls content wider than the card horizontally', () => {

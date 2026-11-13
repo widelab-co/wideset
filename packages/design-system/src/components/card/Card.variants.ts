@@ -2,7 +2,7 @@ import { cva } from 'class-variance-authority';
 import { cn } from 'src/lib/utils';
 
 export const cardVariants = cva(
-  cn('flex w-full flex-col overflow-clip [overflow-clip-margin:border-box]'),
+  cn('flex w-full min-w-0 flex-col overflow-clip [overflow-clip-margin:border-box]'),
   {
     variants: {
       variant: {

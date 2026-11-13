@@ -3,7 +3,7 @@
 exports[`Card > Card.Media > should match snapshot for media with variant="bordered" 1`] = `
 <div>
   <div
-    class="flex flex-col overflow-clip [overflow-clip-margin:border-box] rounded-ws-container-lg bg-ws-static-container border-ws-static-base border w-[300px]"
+    class="flex min-w-0 flex-col overflow-clip [overflow-clip-margin:border-box] rounded-ws-container-lg bg-ws-static-container border-ws-static-base border w-[300px]"
     data-slot="card"
   >
     <div
@@ -41,7 +41,7 @@ exports[`Card > Card.Media > should match snapshot for media with variant="borde
 exports[`Card > Card.Media > should match snapshot for media with variant="flat" 1`] = `
 <div>
   <div
-    class="flex flex-col overflow-clip [overflow-clip-margin:border-box] w-[300px]"
+    class="flex min-w-0 flex-col overflow-clip [overflow-clip-margin:border-box] w-[300px]"
     data-slot="card"
   >
     <div
@@ -79,7 +79,7 @@ exports[`Card > Card.Media > should match snapshot for media with variant="flat"
 exports[`Card > Card.Media > should match snapshot for ratio="1/1" 1`] = `
 <div>
   <div
-    class="flex flex-col overflow-clip [overflow-clip-margin:border-box] rounded-ws-container-lg bg-ws-static-container border-ws-static-base border w-[300px]"
+    class="flex min-w-0 flex-col overflow-clip [overflow-clip-margin:border-box] rounded-ws-container-lg bg-ws-static-container border-ws-static-base border w-[300px]"
     data-slot="card"
   >
     <div
@@ -118,7 +118,7 @@ exports[`Card > Card.Media > should match snapshot for ratio="1/1" 1`] = `
 exports[`Card > Card.Media > should match snapshot for ratio="16/9" 1`] = `
 <div>
   <div
-    class="flex flex-col overflow-clip [overflow-clip-margin:border-box] rounded-ws-container-lg bg-ws-static-container border-ws-static-base border w-[300px]"
+    class="flex min-w-0 flex-col overflow-clip [overflow-clip-margin:border-box] rounded-ws-container-lg bg-ws-static-container border-ws-static-base border w-[300px]"
     data-slot="card"
   >
     <div
@@ -157,7 +157,7 @@ exports[`Card > Card.Media > should match snapshot for ratio="16/9" 1`] = `
 exports[`Card > Card.Media > should match snapshot for ratio="21/9" 1`] = `
 <div>
   <div
-    class="flex flex-col overflow-clip [overflow-clip-margin:border-box] rounded-ws-container-lg bg-ws-static-container border-ws-static-base border w-[300px]"
+    class="flex min-w-0 flex-col overflow-clip [overflow-clip-margin:border-box] rounded-ws-container-lg bg-ws-static-container border-ws-static-base border w-[300px]"
     data-slot="card"
   >
     <div
@@ -196,7 +196,7 @@ exports[`Card > Card.Media > should match snapshot for ratio="21/9" 1`] = `
 exports[`Card > should match snapshot for variant="bordered" 1`] = `
 <div>
   <div
-    class="flex w-full flex-col overflow-clip [overflow-clip-margin:border-box] rounded-ws-container-lg bg-ws-static-container border-ws-static-base border"
+    class="flex w-full min-w-0 flex-col overflow-clip [overflow-clip-margin:border-box] rounded-ws-container-lg bg-ws-static-container border-ws-static-base border"
     data-slot="card"
   >
     <div
@@ -217,7 +217,7 @@ exports[`Card > should match snapshot for variant="bordered" 1`] = `
       </p>
     </div>
     <div
-      class="overflow-hidden grow contain-inline-size"
+      class="overflow-hidden grow"
       data-slot="card-content"
       dir="ltr"
       style="position: relative; --radix-scroll-area-corner-width: 0px; --radix-scroll-area-corner-height: 0px;"
@@ -276,7 +276,7 @@ exports[`Card > should match snapshot for variant="bordered" 1`] = `
 exports[`Card > should match snapshot for variant="flat" 1`] = `
 <div>
   <div
-    class="flex w-full flex-col overflow-clip [overflow-clip-margin:border-box]"
+    class="flex w-full min-w-0 flex-col overflow-clip [overflow-clip-margin:border-box]"
     data-slot="card"
   >
     <div
@@ -297,7 +297,7 @@ exports[`Card > should match snapshot for variant="flat" 1`] = `
       </p>
     </div>
     <div
-      class="overflow-hidden grow contain-inline-size"
+      class="overflow-hidden grow"
       data-slot="card-content"
       dir="ltr"
       style="position: relative; --radix-scroll-area-corner-width: 0px; --radix-scroll-area-corner-height: 0px;"
@@ -356,11 +356,11 @@ exports[`Card > should match snapshot for variant="flat" 1`] = `
 exports[`Card > should match snapshot with content and footer only 1`] = `
 <div>
   <div
-    class="flex w-full flex-col overflow-clip [overflow-clip-margin:border-box] rounded-ws-container-lg bg-ws-static-container border-ws-static-base border"
+    class="flex w-full min-w-0 flex-col overflow-clip [overflow-clip-margin:border-box] rounded-ws-container-lg bg-ws-static-container border-ws-static-base border"
     data-slot="card"
   >
     <div
-      class="overflow-hidden grow contain-inline-size"
+      class="overflow-hidden grow"
       data-slot="card-content"
       dir="ltr"
       style="position: relative; --radix-scroll-area-corner-width: 0px; --radix-scroll-area-corner-height: 0px;"
@@ -408,11 +408,11 @@ exports[`Card > should match snapshot with content and footer only 1`] = `
 exports[`Card > should match snapshot with content only 1`] = `
 <div>
   <div
-    class="flex w-full flex-col overflow-clip [overflow-clip-margin:border-box] rounded-ws-container-lg bg-ws-static-container border-ws-static-base border"
+    class="flex w-full min-w-0 flex-col overflow-clip [overflow-clip-margin:border-box] rounded-ws-container-lg bg-ws-static-container border-ws-static-base border"
     data-slot="card"
   >
     <div
-      class="overflow-hidden grow contain-inline-size"
+      class="overflow-hidden grow"
       data-slot="card-content"
       dir="ltr"
       style="position: relative; --radix-scroll-area-corner-width: 0px; --radix-scroll-area-corner-height: 0px;"
@@ -444,7 +444,7 @@ exports[`Card > should match snapshot with content only 1`] = `
 exports[`Card > should match snapshot with header action containing icon button 1`] = `
 <div>
   <div
-    class="flex flex-col overflow-clip [overflow-clip-margin:border-box] rounded-ws-container-lg bg-ws-static-container border-ws-static-base border w-[350px]"
+    class="flex min-w-0 flex-col overflow-clip [overflow-clip-margin:border-box] rounded-ws-container-lg bg-ws-static-container border-ws-static-base border w-[350px]"
     data-slot="card"
   >
     <div
@@ -503,7 +503,7 @@ exports[`Card > should match snapshot with header action containing icon button 
 exports[`Card > should match snapshot with header action containing tag 1`] = `
 <div>
   <div
-    class="flex flex-col overflow-clip [overflow-clip-margin:border-box] rounded-ws-container-lg bg-ws-static-container border-ws-static-base border w-[350px]"
+    class="flex min-w-0 flex-col overflow-clip [overflow-clip-margin:border-box] rounded-ws-container-lg bg-ws-static-container border-ws-static-base border w-[350px]"
     data-slot="card"
   >
     <div
@@ -547,7 +547,7 @@ exports[`Card > should match snapshot with header action containing tag 1`] = `
 exports[`Card > should match snapshot with header and footer only 1`] = `
 <div>
   <div
-    class="flex w-full flex-col overflow-clip [overflow-clip-margin:border-box] rounded-ws-container-lg bg-ws-static-container border-ws-static-base border"
+    class="flex w-full min-w-0 flex-col overflow-clip [overflow-clip-margin:border-box] rounded-ws-container-lg bg-ws-static-container border-ws-static-base border"
     data-slot="card"
   >
     <div
@@ -590,7 +590,7 @@ exports[`Card > should match snapshot with header and footer only 1`] = `
 exports[`Card > should match snapshot with header only 1`] = `
 <div>
   <div
-    class="flex w-full flex-col overflow-clip [overflow-clip-margin:border-box] rounded-ws-container-lg bg-ws-static-container border-ws-static-base border"
+    class="flex w-full min-w-0 flex-col overflow-clip [overflow-clip-margin:border-box] rounded-ws-container-lg bg-ws-static-container border-ws-static-base border"
     data-slot="card"
   >
     <div
