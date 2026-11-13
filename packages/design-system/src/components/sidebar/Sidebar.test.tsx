@@ -939,12 +939,28 @@ describe('Sidebar.SectionHeader collapsible', () => {
       </Sidebar>,
     );
 
-  it('is a button named by its title, with the chevron before it', () => {
+  it('is a button named by its title', () => {
     renderHeader();
     const toggle = screen.getByRole('button', { name: 'Spaces' });
-    expect(toggle.firstElementChild?.tagName.toLowerCase()).toBe('svg');
     expect(toggle).toHaveAttribute('aria-expanded', 'false');
     expect(toggle).toHaveAttribute('aria-controls', screen.getByTestId('content').id);
+  });
+
+  // Design decision: the title keeps a plain header's left edge, the chevron follows it.
+  it('puts the chevron right after the title, centred on its line', () => {
+    renderHeader();
+    const toggle = screen.getByRole('button', { name: 'Spaces' });
+    expect(toggle.firstElementChild).toHaveTextContent('Spaces');
+    expect(toggle.lastElementChild?.tagName.toLowerCase()).toBe('svg');
+    expect(toggle).toHaveClass('items-center', 'gap-ws-3');
+    expect(screen.getByText('Spaces')).not.toHaveClass('flex-1');
+  });
+
+  it("gives the chevron the title's colour, strengthening with it on hover", () => {
+    renderHeader();
+    const toggle = screen.getByRole('button', { name: 'Spaces' });
+    expect(toggle).toHaveClass('text-ws-static-subtle', 'hover:text-ws-static-strong');
+    expect(toggle.lastElementChild?.getAttribute('class')).not.toMatch(/\btext-ws-/);
   });
 
   it('folds the group on click', async () => {

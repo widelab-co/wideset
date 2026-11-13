@@ -287,9 +287,14 @@ exports[`Sidebar.Group > Rendering > matches snapshot for a collapsible section 
           class="rounded-ws-control-lg p-ws-5 gap-ws-3 flex w-full min-w-0 cursor-pointer items-center text-left text-ws-static-subtle hover:text-ws-static-strong focus-visible:wds-focus-visible focus-visible:-outline-offset-2 focus-visible:outline-current transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
           type="button"
         >
+          <span
+            class="typography-caption-strong-md min-w-0 truncate"
+          >
+            Spaces
+          </span>
           <svg
             aria-hidden="true"
-            class="remixicon text-ws-static-base size-ws-10 shrink-0 rotate-90 transition-transform duration-(--ws-motion-duration-fast) ease-(--ws-motion-ease-smooth-out)"
+            class="remixicon size-ws-10 shrink-0 rotate-90 transition-transform duration-(--ws-motion-duration-fast) ease-(--ws-motion-ease-smooth-out)"
             fill="currentColor"
             height="24"
             viewBox="0 0 24 24"
@@ -300,11 +305,6 @@ exports[`Sidebar.Group > Rendering > matches snapshot for a collapsible section 
               d="M13.1717 12.0007L8.22192 7.05093L9.63614 5.63672L16.0001 12.0007L9.63614 18.3646L8.22192 16.9504L13.1717 12.0007Z"
             />
           </svg>
-          <span
-            class="typography-caption-strong-md min-w-0 truncate"
-          >
-            Spaces
-          </span>
         </button>
       </div>
       <div

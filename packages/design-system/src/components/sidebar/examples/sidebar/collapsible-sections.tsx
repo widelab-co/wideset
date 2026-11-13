@@ -1,7 +1,7 @@
 /**
  * A section the user may want out of the way folds under its header: wrap a
  * `Sidebar.SectionHeader collapsible` and the section's items, in `Sidebar.GroupContent`, in a
- * `Sidebar.Group`. The whole header row is the toggle, with the chevron before its title; it
+ * `Sidebar.Group`. The whole header row is the toggle, with the chevron right after its title; it
  * announces `aria-expanded` and its title is its name. Collapsed, the rail shows the chevron alone
  * and still folds the section. Keep the main pages outside any collapsible section.
  */

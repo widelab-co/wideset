@@ -110,6 +110,9 @@ The root fills its parent's height; place it in a full-height flex row next to t
 - Group open / closed: `Sidebar.Group` and `Sidebar.GroupContent` carry `data-state`; closed rows
   stay mounted but hidden. Collapsed, a group headed by an item hides its chevron and its rows
   (the rail shows the head's icon); a collapsible section shows its chevron alone and still folds.
+- A collapsible section header puts its chevron right after the title, in the title's colour, so
+  the title keeps the left edge of a plain section header. Figma's `Type=Folder` still draws it
+  before the title; Figma follows the code here.
 
 ## Content
 

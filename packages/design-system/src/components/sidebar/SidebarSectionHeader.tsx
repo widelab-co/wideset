@@ -11,9 +11,11 @@ import {
 } from './SidebarGroup.variants';
 
 /**
- * The toggle of a collapsible section: Figma's Sidebar Item `Type=Folder`, 48px tall with the
- * chevron before the title. Collapsed, the rail shows the chevron alone and the title stays the
- * button's name.
+ * The toggle of a collapsible section: Figma's Sidebar Item `Type=Folder`, 48px tall. The chevron
+ * follows the title, right beside it, so the title keeps the left edge of a plain section header
+ * (a design decision ahead of Figma, which still draws it before the title). It takes the title's
+ * colour (currentColor), so both strengthen together on hover. Collapsed, the rail shows the
+ * chevron alone and the title stays the button's name.
  */
 const SectionHeaderToggle = ({ children }: { children: React.ReactNode }) => {
   const isCollapsed = !!React.useContext(SidebarContext)?.isCollapsed;
@@ -30,15 +32,15 @@ const SectionHeaderToggle = ({ children }: { children: React.ReactNode }) => {
         sidebarGroupMotionVariants({ enabled: motion }),
       )}
     >
-      <RiArrowRightSLine
-        aria-hidden="true"
-        className={cn('text-ws-static-base', sidebarGroupChevronVariants({ open: isOpen, motion }))}
-      />
       <span
         className={cn('typography-caption-strong-md min-w-0 truncate', isCollapsed && 'sr-only')}
       >
         {children}
       </span>
+      <RiArrowRightSLine
+        aria-hidden="true"
+        className={sidebarGroupChevronVariants({ open: isOpen, motion })}
+      />
     </button>
   );
 };

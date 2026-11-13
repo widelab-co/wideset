@@ -41,7 +41,7 @@ export type SidebarSectionProps = React.HTMLAttributes<HTMLDivElement> & {
 export type SidebarSectionHeaderProps = React.HTMLAttributes<HTMLDivElement> & {
   /**
    * Makes the header the toggle of the `Sidebar.Group` it heads (Figma Sidebar Item
-   * `Type=Folder`): the title becomes a button with a chevron before it that folds the group's
+   * `Type=Folder`): the title becomes a button with a chevron right after it that folds the group's
    * `Sidebar.GroupContent` in and out. Collapsed, the sidebar shows the chevron alone. Requires a
    * `Sidebar.Group` around it.
    */

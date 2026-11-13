@@ -38,7 +38,10 @@ export const sidebarGroupTriggerVariants = cva(
 
 export const sidebarGroupContentVariants = cva('flex min-w-0 flex-col gap-[inherit]');
 
-/** Figma Sidebar Item `Type=Folder`: a chevron before the title, the whole row is the toggle. */
+/**
+ * Figma Sidebar Item `Type=Folder`, the whole row is the toggle. The chevron follows the title
+ * (Figma still has it before), centred on the title's line and in its colour (currentColor).
+ */
 export const sidebarSectionHeaderToggleVariants = cva(
   cn(
     'rounded-ws-control-lg p-ws-5 gap-ws-3 flex w-full min-w-0 cursor-pointer items-center text-left',
