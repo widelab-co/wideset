@@ -128,6 +128,76 @@ describe('generate: foundations token data', () => {
   });
 });
 
+describe('gen-token-usage: the token half of the graph', () => {
+  const usage = read('token-usage.json');
+  const uses = (id, filter) => usage.components[id].uses.filter(filter);
+
+  it('reads a CVA class with the variant it sits under', () => {
+    const [row] = uses(
+      'button',
+      (use) => use.class === 'bg-ws-dynamic-primary-default' && use.state === 'default',
+    );
+    assert.deepEqual(row?.when, { variant: 'primary', preset: 'filled' });
+    assert.equal(row.token, '--ws-dynamic-fill-primary-default');
+  });
+
+  it('reads a state prefix as the state', () => {
+    assert.ok(
+      uses('button', (use) => use.class === 'bg-ws-dynamic-primary-hover')[0]?.state === 'hover',
+    );
+  });
+
+  it('keeps the CVA defaults', () => {
+    assert.equal(usage.components.button.defaults.variant, 'primary');
+  });
+
+  it('resolves a token to its light and dark primitive and the components it changes', () => {
+    const token = usage.tokens['--ws-dynamic-fill-primary-default'];
+    assert.match(token.light, /^--ws-colors-light-/);
+    assert.match(token.dark, /^--ws-colors-dark-/);
+    assert.ok(token.usedBy.includes('button'));
+  });
+
+  it('finds no ws class that points at nothing (a typo or a removed token)', () => {
+    assert.deepEqual(usage.unresolved, {});
+  });
+
+  // FormField once listed 1 token: its label and helper text are internal parts with no page.
+  it('counts the internal parts a component is built from, marked via', () => {
+    const vias = new Set(usage.components['form-field'].uses.map((use) => use.via));
+    assert.ok(vias.has('FieldLabel'));
+    assert.ok(vias.has('HelperText'));
+  });
+
+  // Card once listed only Card.tsx: its own parts (CardContent, …) were never read.
+  it("reads a component's own parts, not just its root file", () => {
+    const tokens = new Set(usage.components.accordion.uses.map((use) => use.class));
+    assert.ok(tokens.has('border-ws-dynamic-secondary-disabled'), 'AccordionItem border');
+  });
+
+  it('does not fold a sibling public component in (IconButton is not part of Button)', () => {
+    const own = new Set(usage.components['icon-button'].uses.map((use) => use.class));
+    const button = usage.components.button.uses.map((use) => use.class);
+    assert.ok(button.length > 0 && own.size > 0);
+    assert.ok(!usage.components.button.uses.some((use) => use.via === 'Button'));
+  });
+
+  it('records a class written under a condition as conditional, not always on', () => {
+    const [row] = uses(
+      'checkbox',
+      (use) => use.class === 'text-ws-static-subtle' && use.when.if === 'disabled',
+    );
+    assert.ok(row);
+  });
+
+  it('files layout-only prefixes as other, not as states', () => {
+    const states = new Set(
+      Object.values(usage.components).flatMap((c) => c.uses.map((use) => use.state)),
+    );
+    assert.ok(![...states].some((state) => /\[|first|last|has-/.test(state)));
+  });
+});
+
 describe('gen-guidance', () => {
   const page = (id) => readFileSync(join(generatedDir, 'guidance', `${id}.md`), 'utf8');
 
