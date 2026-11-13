@@ -149,6 +149,26 @@ describe('DateRangePicker', () => {
       expect(screen.getByRole('grid')).toBeInTheDocument();
       expect(baseElement).toMatchSnapshot();
     });
+
+    it('should count a preset from the today prop', async () => {
+      const user = userEvent.setup();
+      const onSelect = vi.fn();
+
+      render(<DateRangePicker showDatePresets today={new Date(2024, 0, 10)} onSelect={onSelect} />);
+      await user.click(screen.getByRole('button'));
+      await user.click(screen.getByRole('button', { name: 'Last Month' }));
+
+      expect(onSelect).toHaveBeenCalledWith({ from: '2023-12-01', to: '2023-12-31' }, 'lastMonth');
+    });
+
+    it('should count defaultDatePreset from the today prop', async () => {
+      const user = userEvent.setup();
+
+      render(<DateRangePicker defaultDatePreset="thisMonth" today={new Date(2024, 0, 10)} />);
+      await user.click(screen.getByRole('button'));
+
+      expect(screen.getByRole('grid', { name: 'January 2024' })).toBeInTheDocument();
+    });
   });
 
   describe('Calendar selection', () => {
@@ -243,6 +263,30 @@ describe('DateRangePicker', () => {
       render(<DateRangePicker ref={ref} />);
 
       expect(ref.current).toBeInstanceOf(HTMLButtonElement);
+    });
+  });
+
+  describe('Preset labels', () => {
+    it('should show a custom preset label in the trigger', () => {
+      render(
+        <DateRangePicker defaultDatePreset="thisWeek" presetLabels={{ thisWeek: 'This week' }} />,
+      );
+
+      expect(screen.getByRole('button', { name: 'This week' })).toBeInTheDocument();
+    });
+
+    it('should fall back to the built-in label for a key left undefined', async () => {
+      const user = userEvent.setup();
+
+      render(
+        <DateRangePicker
+          showDatePresets
+          presetLabels={{ thisWeek: undefined, lastMonth: 'Last month' }}
+        />,
+      );
+      await user.click(screen.getByRole('button'));
+
+      expect(screen.getByRole('button', { name: 'This Week' })).toBeInTheDocument();
     });
   });
 });

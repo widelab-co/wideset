@@ -70,6 +70,8 @@ export type DateRangePickerProps = DateRangePickerVariants &
     placeholder?: string;
     /** Shows the preset side panel (Today, This Week, Last Month, …) alongside the calendar. Defaults to `false`. */
     showDatePresets?: boolean;
+    /** The date the calendar marks as today and the presets (Today, This Week, Last Month, …) count from. Defaults to the current date; set it to show a fixed sample date. */
+    today?: Date;
     /** Selected range. Provide to make the component controlled. */
     selected?: DateRangeValue;
     /** Active preset. Provide to make the component controlled. */
@@ -80,7 +82,7 @@ export type DateRangePickerProps = DateRangePickerVariants &
     disabledDates?: Matcher | Matcher[];
     /** Fired when a range or preset is picked. Receives the new range and the matching preset (`'custom'` for arbitrary range selections). */
     onSelect?: (range?: DateRangeValue, preset?: DateRangePreset) => void;
-    /** Override labels for one or more presets shown in the side panel. Unspecified keys fall back to the built-in English labels. Only relevant when `showDatePresets` is `true`. */
+    /** Override labels for one or more presets, in the side panel and in the trigger while a preset other than `custom` is active (`custom` shows the picked dates there). Unspecified keys fall back to the built-in English labels. */
     presetLabels?: Partial<Record<keyof typeof dateRangePresetLabels, string>>;
   };
 

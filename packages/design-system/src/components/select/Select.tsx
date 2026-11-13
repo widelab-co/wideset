@@ -172,16 +172,18 @@ export const Select = ({
       name={name}
       {...triggerProps}
     >
-      <div className={cn(hasPrefix ? 'flex h-full items-center' : 'truncate')}>
+      {/* The value row takes the space the arrow leaves and cuts a long label with an ellipsis:
+          a field never wraps to a second line. */}
+      <div className={cn('flex min-w-0 flex-1 items-center', hasPrefix && 'h-full')}>
         {hasPrefix && (
-          <div className={cn(selectValuePrefixVariants({ size }))} data-disabled={disabled}>
+          <div className={cn(selectValuePrefixVariants({ size, preset }))} data-disabled={disabled}>
             {selectedOption?.prefix}
           </div>
         )}
         {hasValue ? (
           <span
             className={cn(
-              'min-w-0 flex-1',
+              'min-w-0 flex-1 truncate',
               hasClearButton && selectValueRightPaddingVariants({ size }),
             )}
           >
@@ -191,7 +193,7 @@ export const Select = ({
           <SelectValue
             placeholder={placeholder}
             className={cn(
-              'min-w-0 flex-1',
+              'min-w-0 flex-1 truncate',
               hasClearButton && selectValueRightPaddingVariants({ size }),
             )}
           />

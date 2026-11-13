@@ -5,7 +5,7 @@ group: date-time
 status: stable
 parts: [DatePicker]
 related: [DateRangePicker, Calendar, TimePicker, FormField, TextInput]
-docs: https://wideset-docs.widelab.workers.dev/components/date-picker
+docs: https://wideset.co/components/date-picker
 storybook: components-datepicker--default
 ---
 
@@ -101,5 +101,5 @@ const [due, setDue] = useState<string | undefined>('2026-11-03');
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/date-picker.md` · Types:
+Full props: `https://wideset.co/components/date-picker.md` · Types:
 `packages/design-system/src/components/datepicker/DatePicker.types.ts`

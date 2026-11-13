@@ -148,8 +148,8 @@ describe('Wideset token prefix', () => {
   // Components inherit the page font, so nothing in src/ uses these. Consumers do — README and
   // the Typography docs point at them — so they have to survive tree-shaking into styles.css.
   it('ships the opt-in font classes and their variables', () => {
-    const css = compile('index.css', 'font-ws-heading font-ws-body font-ws-sans');
-    for (const name of ['sans', 'heading', 'body']) {
+    const css = compile('index.css', 'font-ws-heading font-ws-body font-ws-sans font-ws-mono');
+    for (const name of ['sans', 'heading', 'body', 'mono']) {
       expect(css).toMatch(new RegExp(`\\.font-ws-${name}\\s*\\{[^}]*var\\(--font-ws-${name}\\)`));
       expect(css).toMatch(new RegExp(`--font-ws-${name}\\s*:`));
     }

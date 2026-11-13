@@ -8,7 +8,7 @@ exports[`TimePicker Snapshots > matches snapshot when disabled 1`] = `
     <button
       aria-autocomplete="none"
       aria-expanded="false"
-      class="text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base border-ws-dynamic-secondary-default shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-md max-h-ws-forms-md rounded-ws-control-lg px-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+      class="group/select-trigger text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden text-start whitespace-nowrap outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base border-ws-dynamic-secondary-default shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-md max-h-ws-forms-md rounded-ws-control-lg px-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
       data-danger="false"
       data-disabled="true"
       data-placeholder=""
@@ -20,7 +20,7 @@ exports[`TimePicker Snapshots > matches snapshot when disabled 1`] = `
       type="button"
     >
       <div
-        class="truncate"
+        class="flex min-w-0 flex-1 items-center"
       >
         <span
           data-slot="select-value"
@@ -69,7 +69,7 @@ exports[`TimePicker Snapshots > matches snapshot with 12h format 1`] = `
       aria-autocomplete="none"
       aria-controls="radix-_r_oc_"
       aria-expanded="true"
-      class="text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base border-ws-dynamic-secondary-default shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-md max-h-ws-forms-md rounded-ws-control-lg px-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+      class="group/select-trigger text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden text-start whitespace-nowrap outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base border-ws-dynamic-secondary-default shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-md max-h-ws-forms-md rounded-ws-control-lg px-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
       data-danger="false"
       data-placeholder=""
       data-radix-popper-align="start"
@@ -81,7 +81,7 @@ exports[`TimePicker Snapshots > matches snapshot with 12h format 1`] = `
       type="button"
     >
       <div
-        class="truncate"
+        class="flex min-w-0 flex-1 items-center"
       >
         <span
           data-slot="select-value"
@@ -2374,7 +2374,7 @@ exports[`TimePicker Snapshots > matches snapshot with custom min/max 1`] = `
       aria-autocomplete="none"
       aria-controls="radix-_r_ud_"
       aria-expanded="true"
-      class="text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base border-ws-dynamic-secondary-default shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-md max-h-ws-forms-md rounded-ws-control-lg px-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+      class="group/select-trigger text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden text-start whitespace-nowrap outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base border-ws-dynamic-secondary-default shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-md max-h-ws-forms-md rounded-ws-control-lg px-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
       data-danger="false"
       data-placeholder=""
       data-radix-popper-align="start"
@@ -2386,7 +2386,7 @@ exports[`TimePicker Snapshots > matches snapshot with custom min/max 1`] = `
       type="button"
     >
       <div
-        class="truncate"
+        class="flex min-w-0 flex-1 items-center"
       >
         <span
           data-slot="select-value"
@@ -2954,7 +2954,7 @@ exports[`TimePicker Snapshots > matches snapshot with default props 1`] = `
       aria-autocomplete="none"
       aria-controls="radix-_r_ib_"
       aria-expanded="true"
-      class="text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base border-ws-dynamic-secondary-default shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-md max-h-ws-forms-md rounded-ws-control-lg px-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+      class="group/select-trigger text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden text-start whitespace-nowrap outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base border-ws-dynamic-secondary-default shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-md max-h-ws-forms-md rounded-ws-control-lg px-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
       data-danger="false"
       data-placeholder=""
       data-radix-popper-align="start"
@@ -2966,7 +2966,7 @@ exports[`TimePicker Snapshots > matches snapshot with default props 1`] = `
       type="button"
     >
       <div
-        class="truncate"
+        class="flex min-w-0 flex-1 items-center"
       >
         <span
           data-slot="select-value"

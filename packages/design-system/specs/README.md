@@ -5,7 +5,7 @@ first, then only the files the task needs: a component's group file to pick the 
 its spec (or, in the Wideset skills, its docs page) to use it, a foundation file to style around it, a pattern file to build a screen.
 
 Facts live in the code (types, CVA variants, JSDoc) and in the generated reference
-(`https://wideset-docs.widelab.workers.dev/components/<id>.md`). Specs add what the code cannot say: when to use
+(`https://wideset.co/components/<id>.md`). Specs add what the code cannot say: when to use
 a component and when not, which variant for which job, how its parts compose, what not to do.
 Sources of truth, in order: Figma → code → specs. Writing or changing a spec:
 [AUTHORING.md](AUTHORING.md).

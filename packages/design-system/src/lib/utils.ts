@@ -8,7 +8,7 @@ const isWs = (value: string) => value.startsWith('ws-');
 const isWsFontSize = (value: string) => /^ws-(\d+|[a-z0-9]+-desktop)$/.test(value);
 const isWsFontWeight = (value: string) =>
   /^ws-(thin|extralight|light|normal|medium|semibold|bold|extrabold|black|md)$/.test(value);
-const isWsFontFamily = (value: string) => /^ws-(sans|heading|body)$/.test(value);
+const isWsFontFamily = (value: string) => /^ws-(sans|heading|body|mono)$/.test(value);
 
 const twMerge = extendTailwindMerge<string>({
   extend: {

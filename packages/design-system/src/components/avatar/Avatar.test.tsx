@@ -20,6 +20,39 @@ describe('Avatar', () => {
       expect(screen.getByText('WD')).toBeInTheDocument();
     });
 
+    it('should show one letter at xs and sm, where two crowd the circle', () => {
+      const { rerender } = render(<Avatar initials="AS" size="xs" />);
+      expect(screen.getByText('A')).toBeInTheDocument();
+      rerender(<Avatar initials="AS" size="sm" />);
+      expect(screen.getByText('A')).toBeInTheDocument();
+      rerender(<Avatar initials="AS" size="md" />);
+      expect(screen.getByText('AS')).toBeInTheDocument();
+    });
+
+    it('should take the one-letter size from its group and keep a letter whole', () => {
+      render(
+        <Avatar.Group size="sm">
+          <Avatar initials="ŁK" />
+        </Avatar.Group>,
+      );
+      expect(screen.getByText('Ł')).toBeInTheDocument();
+    });
+
+    it('should keep the first character whole when it is made of several code points', () => {
+      const { rerender } = render(<Avatar initials="कि" size="xs" />);
+      expect(screen.getByText('कि')).toBeInTheDocument();
+      rerender(<Avatar initials="👩🏽‍💻A" size="xs" />);
+      expect(screen.getByText('👩🏽‍💻')).toBeInTheDocument();
+    });
+
+    it('should show one letter in an image fallback at xs and sm', () => {
+      // jsdom never loads the image, so the fallback renders.
+      const { rerender } = render(<Avatar src="/photo.jpg" alt="" initials="AS" size="sm" />);
+      expect(screen.getByText('A')).toBeInTheDocument();
+      rerender(<Avatar src="/photo.jpg" alt="" initials="AS" size="md" />);
+      expect(screen.getByText('AS')).toBeInTheDocument();
+    });
+
     it('should render avatars in group', () => {
       render(
         <Avatar.Group data-testid="avatar-group">
@@ -266,6 +299,36 @@ describe('Avatar', () => {
     });
   });
 
+  describe('Focus ring', () => {
+    // A bare `wds-focus-visible` draws the outline all the time; the
+    // `focus-visible:` variant keeps it to keyboard focus.
+    const ringClasses = (element: Element) =>
+      element.className
+        .split(/\s+/)
+        .filter((name) => name.includes('wds-focus-visible') || name.includes('outline-ws-'));
+    const keyboardOnly = [
+      'focus-visible:wds-focus-visible',
+      'focus-visible:outline-ws-dynamic-primary-strong-default',
+    ];
+
+    it('should draw the ring of a clickable avatar only on keyboard focus', () => {
+      const { container } = render(<Avatar initials="WD" onClick={() => {}} />);
+
+      expect(ringClasses(container.firstElementChild as HTMLElement)).toEqual(keyboardOnly);
+    });
+
+    it('should draw the ring of a clickable +N only on keyboard focus', () => {
+      render(
+        <Avatar.Group>
+          <Avatar initials="WD" />
+          <Avatar.More onClick={() => {}}>+2</Avatar.More>
+        </Avatar.Group>,
+      );
+
+      expect(ringClasses(screen.getByRole('button', { name: '+2' }))).toEqual(keyboardOnly);
+    });
+  });
+
   describe('Selection', () => {
     const sizes = ['xs', 'sm', 'md', 'lg', 'xl', '2xl'] as const;
     const radiusOf = (classes: string) => classes.match(/rounded-\S+/)?.[0] ?? null;
@@ -484,6 +547,63 @@ describe('Avatar', () => {
       render(<Avatar agent alt="Research assistant" />);
 
       expect(screen.getByAltText('Research assistant')).toBeInTheDocument();
+    });
+
+    it.each([
+      ['the default icon', <Avatar key="default" />],
+      ['a custom icon', <Avatar key="custom" icon={<RiBugLine />} />],
+    ])('should keep %s decorative', (_, avatar) => {
+      render(avatar);
+
+      expect(screen.queryByRole('img')).not.toBeInTheDocument();
+    });
+
+    it('should take an icon avatar name from aria-label on the root', () => {
+      render(<Avatar aria-label="Bug tracker" icon={<RiBugLine />} />);
+
+      expect(screen.getByRole('img', { name: 'Bug tracker' })).toHaveAttribute(
+        'data-slot',
+        'avatar',
+      );
+    });
+
+    it('should stay a button when a clickable avatar carries aria-label', () => {
+      render(<Avatar aria-label="Open profile" onClick={() => {}} />);
+
+      expect(screen.getByRole('button', { name: 'Open profile' })).toBeInTheDocument();
+    });
+
+    it('should add the status to an aria-label name', () => {
+      render(<Avatar aria-label="Jane" status="online" />);
+
+      expect(screen.getByRole('img', { name: 'Jane, online' })).toBeInTheDocument();
+    });
+
+    it('should add the status to an aria-labelledby name', () => {
+      render(
+        <>
+          <span id="person">Jane</span>
+          <Avatar aria-labelledby="person" status="online" />
+        </>,
+      );
+
+      expect(screen.getByRole('img', { name: 'Jane online' })).toBeInTheDocument();
+    });
+
+    it('should warn when a clickable icon avatar has no name', () => {
+      const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+      render(<Avatar onClick={() => {}} />);
+
+      expect(warn).toHaveBeenCalledWith(expect.stringContaining('needs `aria-label`'));
+      warn.mockRestore();
+    });
+
+    it('should not warn when a clickable avatar has initials', () => {
+      const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+      render(<Avatar initials="JD" onClick={() => {}} />);
+
+      expect(warn).not.toHaveBeenCalled();
+      warn.mockRestore();
     });
   });
   describe('Colour', () => {

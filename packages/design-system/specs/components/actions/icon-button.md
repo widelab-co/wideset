@@ -5,7 +5,7 @@ group: actions
 status: stable
 parts: [IconButton, IconButtonIcon]
 related: [Button, LinkButton, SplitButton]
-docs: https://wideset-docs.widelab.workers.dev/components/icon-button
+docs: https://wideset.co/components/icon-button
 storybook: components-button-iconbutton--default
 ---
 
@@ -89,5 +89,5 @@ What differs for icon-only use:
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/icon-button.md` · Types:
+Full props: `https://wideset.co/components/icon-button.md` · Types:
 `packages/design-system/src/components/button/IconButton.types.ts`

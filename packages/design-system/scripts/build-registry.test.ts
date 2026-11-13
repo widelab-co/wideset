@@ -33,6 +33,12 @@ let out: string;
 let items: Item[];
 let byName: Map<string, Item>;
 
+const SOURCE: { items: { name: string; dependencies?: string[] }[] } = JSON.parse(
+  readFileSync(join(ROOT, 'registry.json'), 'utf8'),
+);
+const declaredDependencies = (name: string) =>
+  SOURCE.items.find((item) => item.name === name)?.dependencies ?? [];
+
 const readAll = (dir: string): Item[] =>
   readdirSync(dir)
     .filter((f) => f.endsWith('.json') && f !== 'registry.json')
@@ -118,7 +124,9 @@ describe('registry build', () => {
       for (const dep of item.dependencies ?? []) {
         const at = dep.lastIndexOf('@');
         const [name, range] = [dep.slice(0, at), dep.slice(at + 1)];
-        expect(pkg.dependencies[name], `${item.name}: ${dep}`).toBe(range);
+        // A CSS-only item names its own packages in registry.json; the library does not use them.
+        if (declaredDependencies(item.name).includes(dep)) expect(range).toMatch(/^[\^~]?\d/);
+        else expect(pkg.dependencies[name], `${item.name}: ${dep}`).toBe(range);
       }
     }
   });
@@ -236,7 +244,9 @@ describe('registry build', () => {
     expect(buttonVariants.content).not.toContain('use client');
   });
 
-  it('is deterministic', () => {
+  // A second full build, the work beforeAll gets 180s for: under the pre-push hook's parallel
+  // `pnpm test` it took longer than vitest's 5s default and failed at random.
+  it('is deterministic', { timeout: 30_000 }, () => {
     const again = mkdtempSync(join(tmpdir(), 'ws-registry-again-'));
     try {
       buildRegistry({ out: again, base: BASE, commit: 'test' });

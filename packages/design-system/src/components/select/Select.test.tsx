@@ -294,6 +294,76 @@ describe('Select', () => {
     });
   });
 
+  // Ghost reads as a value, not a boxed control (an issue's properties, a table cell).
+  describe('Ghost preset', () => {
+    const withPrefix = [
+      { label: 'Marek Zieliński', value: 'marek', prefix: <Avatar size="xs" initials="MZ" /> },
+    ];
+    const arrowOf = (trigger: HTMLElement) => trigger.querySelector('svg[aria-hidden="true"]');
+
+    it('hides the arrow until the trigger is hovered, focused or open', () => {
+      render(
+        <Select options={withPrefix} defaultValue="marek" preset="ghost" aria-label="Owner" />,
+      );
+      const arrow = arrowOf(screen.getByRole('combobox', { name: 'Owner' }));
+      expect(arrow).toHaveClass(
+        'opacity-0',
+        'group-hover/select-trigger:not-data-[disabled=true]:opacity-100',
+        'group-focus-visible/select-trigger:opacity-100',
+        'group-data-[state=open]/select-trigger:opacity-100',
+        'pointer-coarse:opacity-100',
+      );
+    });
+
+    it('keeps the arrow visible on a bordered field', () => {
+      render(<Select options={withPrefix} defaultValue="marek" aria-label="Owner" />);
+      expect(arrowOf(screen.getByRole('combobox', { name: 'Owner' }))).not.toHaveClass('opacity-0');
+    });
+
+    it('draws no divider after the prefix', () => {
+      render(
+        <Select options={withPrefix} defaultValue="marek" preset="ghost" aria-label="Owner" />,
+      );
+      // Found by the avatar, not its initials: small avatars draw one letter.
+      const avatar = screen
+        .getByRole('combobox', { name: 'Owner' })
+        .querySelector('[data-slot="avatar"]');
+      const prefix = avatar?.closest('div');
+      expect(prefix).toHaveClass('border-r-0');
+    });
+  });
+
+  // A field reads left to right on one line: a <button> centres and wraps by default, so a long
+  // value next to a prefix once broke onto two centred lines.
+  describe('Long values', () => {
+    const longOptions = [
+      {
+        label: 'Marek Zieliński from the platform team',
+        value: 'marek',
+        prefix: <Avatar size="xs" initials="MZ" />,
+      },
+      { label: 'Ola Nowicka from the design team', value: 'ola' },
+    ];
+
+    it('keeps the trigger text left-aligned on one line', () => {
+      render(<Select options={longOptions} defaultValue="marek" aria-label="Assignee" />);
+      const trigger = screen.getByRole('combobox', { name: 'Assignee' });
+      expect(trigger).toHaveClass('text-start', 'whitespace-nowrap');
+    });
+
+    it('cuts a long label with an ellipsis next to a prefix', () => {
+      render(<Select options={longOptions} defaultValue="marek" aria-label="Assignee" />);
+      const label = screen.getByText('Marek Zieliński from the platform team');
+      expect(label).toHaveClass('truncate', 'min-w-0', 'flex-1');
+      expect(label.parentElement).toHaveClass('min-w-0', 'flex-1');
+    });
+
+    it('cuts a long label with an ellipsis without a prefix', () => {
+      render(<Select options={longOptions} defaultValue="ola" aria-label="Assignee" />);
+      expect(screen.getByText('Ola Nowicka from the design team')).toHaveClass('truncate');
+    });
+  });
+
   describe('Disabled state', () => {
     it('renders as disabled when disabled prop is true', () => {
       render(<Select options={baseOptions} disabled placeholder="Select country" />);

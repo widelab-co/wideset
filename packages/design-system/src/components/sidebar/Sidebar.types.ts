@@ -16,19 +16,25 @@ export type SidebarProps = React.HTMLAttributes<HTMLDivElement> & {
 /** Props for the Sidebar header — the title/branding row. Never scrolls; hidden when empty. */
 export type SidebarHeaderProps = React.HTMLAttributes<HTMLDivElement>;
 
-/** Props for a Sidebar section wrapper that groups expanded and collapsed content slots. */
+/** Props for the sidebar's bottom area (invite, account). Pinned to the bottom, never scrolls. */
+export type SidebarFooterProps = React.HTMLAttributes<HTMLDivElement>;
+
+/** Props for a Sidebar section. Its content stays mounted in both modes; the parts inside adapt. */
 export type SidebarSectionProps = React.HTMLAttributes<HTMLDivElement> & {
   /** Makes the section fill the remaining height and scroll its overflow inside a `ScrollArea`. */
   scrollable?: boolean;
 };
 
-/** Props for content shown when the sidebar is expanded. */
+/** Props for the title of a group of items. Collapsed, it keeps its height and its text stays available to screen readers. */
+export type SidebarSectionHeaderProps = React.HTMLAttributes<HTMLDivElement>;
+
+/** Props for content that exists only when the sidebar is expanded, e.g. the product name. */
 export type SidebarExpandedProps = {
   /** Content rendered inside the component. */
   children?: React.ReactNode;
 };
 
-/** Props for content shown when the sidebar is collapsed. */
+/** Props for content that exists only when the sidebar is collapsed. */
 export type SidebarCollapsedProps = {
   /** Content rendered inside the component. */
   children?: React.ReactNode;
@@ -40,6 +46,17 @@ type SidebarItemBaseProps = Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 
   icon?: RemixiconComponentType;
   /** Row label. Hidden when the sidebar is collapsed, where it falls back to `aria-label`. */
   label?: React.ReactNode;
+  /**
+   * Trailing content on the row's right edge: a count (`3`) or a `StatusBadge`. Not interactive,
+   * since the row is a link. Hidden when the sidebar is collapsed.
+   */
+  suffix?: React.ReactNode;
+  /**
+   * A child of the item above it (Figma `Nesting=Level 1`), e.g. a page inside "Pages": indented
+   * so its icon starts under the parent's label. One level only; the indent is the whole cue, so
+   * draw no guide line. Collapsed, nested items line up like the rest.
+   */
+  nested?: boolean;
   /** Marks the row as the current page: active styling plus `aria-current="page"`. */
   active?: boolean;
   /** Blocks navigation and applies disabled styling via `aria-disabled`. */

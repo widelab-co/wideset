@@ -15,23 +15,23 @@ this passes.
 Score each line 2 (yes), 1 (mostly) or 0 (no). Total out of 30; **below 26 (85%) is not done**.
 Report the score and the lines below 2.
 
-| #   | Check                                                                                                   |
-| --- | ------------------------------------------------------------------------------------------------------- |
-| 1   | One control height across the screen; no mixed `size` props ([sizing](sizing.md))                       |
-| 2   | One page title; everything else within the flat scale; no `title-*` sizes ([typography](typography.md)) |
-| 3   | Hierarchy by colour and weight; three text greys, no opacity hacks                                      |
-| 4   | Five spacing levels, visibly different; only `ws` steps ([spacing](spacing.md))                         |
-| 5   | Content width chosen for the screen type; nothing stretched edge to edge without reason                 |
-| 6   | One left axis for title, sections and content                                                           |
-| 7   | One accent: one filled primary per view; status colours only for status ([colour](surfaces.md))         |
-| 8   | One surface language; no card in card; no decorative shadows or tints                                   |
-| 9   | Right component for each job; right container for the task ([components](components-and-actions.md))    |
-| 10  | Action hierarchy and placement; verb + object labels; destructive actions kept apart                    |
-| 11  | Empty, loading, error and long-content states designed                                                  |
-| 12  | Numbers right-aligned, tabular, consistent; dates and amounts formatted ([data](data.md))               |
-| 13  | No custom motion; components' motion untouched ([motion](motion.md))                                    |
-| 14  | Works in dark mode and at 390px without changes to the code                                             |
-| 15  | Accessible basics: labels on every control, visible focus, headings in order, errors announced          |
+| #   | Check                                                                                                                                                                                                             |
+| --- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | One control height across the screen; no mixed `size` props ([sizing](sizing.md))                                                                                                                                 |
+| 2   | One page heading; each title sized by its container; everything else flat ([typography](typography.md))                                                                                                           |
+| 3   | Hierarchy by colour and weight; three text greys, no opacity hacks                                                                                                                                                |
+| 4   | Five spacing levels, visibly different; only `ws` steps; nothing under `gap-ws-3` between text; every container, a rail or aside you compose included, padded so nothing touches its edge ([spacing](spacing.md)) |
+| 5   | Content width chosen for the screen type; nothing stretched edge to edge without reason                                                                                                                           |
+| 6   | One left axis for title, sections and content                                                                                                                                                                     |
+| 7   | One accent: one filled primary per view; status colours only for status ([colour](surfaces.md))                                                                                                                   |
+| 8   | One surface language; no card in card; no decorative shadows or tints                                                                                                                                             |
+| 9   | Right component for each job; right container for the task ([components](components-and-actions.md))                                                                                                              |
+| 10  | Action hierarchy and placement; verb + object labels; destructive actions kept apart                                                                                                                              |
+| 11  | Empty, loading, error and long-content states designed                                                                                                                                                            |
+| 12  | Numbers right-aligned, tabular, consistent; dates and amounts formatted ([data](data.md))                                                                                                                         |
+| 13  | No custom motion; components' motion untouched ([motion](motion.md))                                                                                                                                              |
+| 14  | Works in dark mode and at 390px without changes to the code                                                                                                                                                       |
+| 15  | Accessible basics: labels on every control, visible focus, headings in order, errors announced                                                                                                                    |
 
 ## 3. Remove before you add
 
@@ -45,7 +45,7 @@ When a screen feels generic, the fix is almost never another element. In order, 
 
 ## Common tells of generated UI
 
-- Mixed control heights in one row.
+- Mixed control heights in one row, including a text `LinkButton` beside a `Button`.
 - A 48px page title above 14px content, and a 20px intro paragraph in between.
 - Every button filled; or the primary not the rightmost.
 - Cards inside cards; a card around a single line.

@@ -5,7 +5,7 @@ group: feedback
 status: stable
 parts: [InlineAlert, InlineAlertTitle, InlineAlertMessage, InlineAlertAction, InlineAlertOutlet]
 related: [SystemAlert, Toast, StatusModal]
-docs: https://wideset-docs.widelab.workers.dev/components/inline-alert
+docs: https://wideset.co/components/inline-alert
 storybook: components-inlinealert--default
 ---
 
@@ -115,5 +115,5 @@ showInlineAlert({ status: 'error', title: 'Publishing failed', message: '…',
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/inline-alert.md` · Types:
+Full props: `https://wideset.co/components/inline-alert.md` · Types:
 `packages/design-system/src/components/inline-alert/InlineAlert.types.ts`

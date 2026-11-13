@@ -132,9 +132,11 @@ A member such as `Card.Header` comes with `Card`; its named form, `CardHeader`, 
 - `import { Sidebar } from '@/components/ui/wideset/sidebar/Sidebar';`
 - `import { SidebarCollapsed } from '@/components/ui/wideset/sidebar/SidebarCollapsed';`
 - `import { SidebarExpanded } from '@/components/ui/wideset/sidebar/SidebarExpanded';`
+- `import { SidebarFooter } from '@/components/ui/wideset/sidebar/SidebarFooter';`
 - `import { SidebarHeader } from '@/components/ui/wideset/sidebar/SidebarHeader';`
 - `import { SidebarItem } from '@/components/ui/wideset/sidebar/SidebarItem';`
 - `import { SidebarSection } from '@/components/ui/wideset/sidebar/SidebarSection';`
+- `import { SidebarSectionHeader } from '@/components/ui/wideset/sidebar/SidebarSectionHeader';`
 - `import { SidebarTrigger } from '@/components/ui/wideset/sidebar/SidebarTrigger';`
 - `import { Sidepanel, SidepanelClose, SidepanelTrigger } from '@/components/ui/wideset/sidepanel/Sidepanel';`
 - `import { SidepanelActions } from '@/components/ui/wideset/sidepanel/SidepanelActions';`
@@ -164,14 +166,14 @@ A member such as `Card.Header` comes with `Card`; its named form, `CardHeader`, 
 - `import { StatusModalFooter } from '@/components/ui/wideset/status-modal/StatusModalFooter';`
 - `import { StatusModalOverlay } from '@/components/ui/wideset/status-modal/StatusModalOverlay';`
 - `import { StatusModalTitle } from '@/components/ui/wideset/status-modal/StatusModalTitle';`
-- `import { Switch } from '@/components/ui/wideset/switch/Switch';`
-- `import { SwitchLabel } from '@/components/ui/wideset/switch/SwitchLabel';`
+- `import { Switch, SwitchDescription, SwitchLabel } from '@/components/ui/wideset/switch/Switch';`
 - `import { SystemAlert } from '@/components/ui/wideset/system-alert/SystemAlert';`
 - `import { SystemAlertAction } from '@/components/ui/wideset/system-alert/SystemAlertAction';`
 - `import { SystemAlertMessage } from '@/components/ui/wideset/system-alert/SystemAlertMessage';`
 - `import { Table } from '@/components/ui/wideset/table/Table';`
 - `import { TableBody } from '@/components/ui/wideset/table/TableBody';`
 - `import { TableCell } from '@/components/ui/wideset/table/TableCell';`
+- `import { TableCellDescription } from '@/components/ui/wideset/table/TableCellDescription';`
 - `import { TableFoot } from '@/components/ui/wideset/table/TableFoot';`
 - `import { TableHead } from '@/components/ui/wideset/table/TableHead';`
 - `import { TableHeader } from '@/components/ui/wideset/table/TableHeader';`
@@ -255,7 +257,7 @@ A member such as `Card.Header` comes with `Card`; its named form, `CardHeader`, 
 - `import type { SearchProps } from '@/components/ui/wideset/search/Search.types';`
 - `import type { SegmentedControlIconProps, SegmentedControlItemProps, SegmentedControlProps, SegmentedControlWithSubComponents } from '@/components/ui/wideset/segmented-control/SegmentedControl.types';`
 - `import type { SelectContentProps, SelectGroupProps, SelectItemIndicatorProps, SelectItemTextProps, SelectLabelProps, SelectOptionProps, SelectOptionType, SelectProps, SelectRootProps, SelectScrollDownButtonProps, SelectScrollUpButtonProps, SelectSearchProps, SelectSeparatorProps, SelectTriggerProps, SelectValueProps } from '@/components/ui/wideset/select/Select.types';`
-- `import type { SidebarCollapsedProps, SidebarExpandedProps, SidebarHeaderProps, SidebarItemProps, SidebarProps, SidebarSectionProps, SidebarTriggerProps } from '@/components/ui/wideset/sidebar/Sidebar.types';`
+- `import type { SidebarCollapsedProps, SidebarExpandedProps, SidebarFooterProps, SidebarHeaderProps, SidebarItemProps, SidebarProps, SidebarSectionHeaderProps, SidebarSectionProps, SidebarTriggerProps } from '@/components/ui/wideset/sidebar/Sidebar.types';`
 - `import type { SidepanelActionsProps, SidepanelCloseProps, SidepanelContentProps, SidepanelDescriptionProps, SidepanelFooterProps, SidepanelHeaderProps, SidepanelPanelProps, SidepanelProps, SidepanelTitleProps, SidepanelTriggerProps } from '@/components/ui/wideset/sidepanel/Sidepanel.types';`
 - `import type { SliderLabelProps, SliderProps } from '@/components/ui/wideset/slider/Slider.types';`
 - `import type { SpreadsheetAlign, SpreadsheetBodyProps, SpreadsheetCellProps, SpreadsheetColumnHeaderIconProps, SpreadsheetColumnHeaderProps, SpreadsheetColumnHeaderTriggerProps, SpreadsheetHeadProps, SpreadsheetProps, SpreadsheetRowHeaderProps, SpreadsheetRowProps, SpreadsheetSize } from '@/components/ui/wideset/spreadsheet/Spreadsheet.types';`
@@ -263,7 +265,7 @@ A member such as `Card.Header` comes with `Card`; its named form, `CardHeader`, 
 - `import type { StatusModalBodyProps, StatusModalCloseProps, StatusModalContentProps, StatusModalFooterProps, StatusModalOrientation, StatusModalOverlayProps, StatusModalStatus, StatusModalTitleProps, StatusModalTriggerProps } from '@/components/ui/wideset/status-modal/StatusModal.types';`
 - `import type { SwitchLabelProps, SwitchProps } from '@/components/ui/wideset/switch/Switch.types';`
 - `import type { SystemAlertActionProps, SystemAlertEmphasis, SystemAlertMessageProps, SystemAlertProps, SystemAlertStatus, SystemAlertWithSubComponents } from '@/components/ui/wideset/system-alert/SystemAlert.types';`
-- `import type { SelectionMode, SortDirection, TableBodyProps, TableCellProps, TableFootProps, TableHeadProps, TableHeaderProps, TableProps, TableRowProps } from '@/components/ui/wideset/table/Table.types';`
+- `import type { SelectionMode, SortDirection, TableBodyProps, TableCellDescriptionProps, TableCellProps, TableFootProps, TableHeadProps, TableHeaderProps, TableProps, TableRowProps } from '@/components/ui/wideset/table/Table.types';`
 - `import type { TabsContentProps, TabsCountProps, TabsItemProps, TabsListProps, TabsProps } from '@/components/ui/wideset/tabs/Tabs.types';`
 - `import type { TagContextValue, TagIconProps, TagProps } from '@/components/ui/wideset/tag/Tag.types';`
 - `import type { TextInputButtonProps, TextInputClearButtonProps, TextInputIconButtonProps, TextInputIconProps, TextInputInputProps, TextInputProps } from '@/components/ui/wideset/text-input/TextInput.types';`
