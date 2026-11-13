@@ -44,9 +44,10 @@ const buildPresetResolvers = (
 export const getPresetRange = (
   preset: DateRangePreset,
   weekStartsOn: WeekStartsOn = 1,
+  today: Date = new Date(),
 ): DateRangeValue => {
   const resolvers = buildPresetResolvers(weekStartsOn);
-  const [from, to] = resolvers[preset](startOfDay(new Date()));
+  const [from, to] = resolvers[preset](startOfDay(today));
   return { from: formatDateToISOString(from), to: formatDateToISOString(to) };
 };
 
