@@ -1,3 +1,4 @@
+import { RiArrowUpDownLine, RiSortAsc, RiSortDesc } from '@remixicon/react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
@@ -662,6 +663,17 @@ describe('Table', () => {
     it('sets aria-sort="none" when sortable is true and sortDirection is null', () => {
       render(<SortableTable sortable sortDirection={null} onSort={vi.fn()} data-testid="th" />);
       expect(screen.getByTestId('th')).toHaveAttribute('aria-sort', 'none');
+    });
+
+    it.each([
+      [null, RiArrowUpDownLine],
+      ['asc', RiSortAsc],
+      ['desc', RiSortDesc],
+    ] as const)('draws the %s sort state with its own icon', (sortDirection, Icon) => {
+      const pathOf = (root: Element) => root.querySelector('svg path')?.getAttribute('d');
+      const { container: icon } = render(<Icon />);
+      render(<SortableTable sortable sortDirection={sortDirection} onSort={vi.fn()} />);
+      expect(pathOf(screen.getByRole('button', { name: 'Sort by Name' }))).toBe(pathOf(icon));
     });
 
     it('sets aria-sort="ascending" when sortDirection is "asc"', () => {
