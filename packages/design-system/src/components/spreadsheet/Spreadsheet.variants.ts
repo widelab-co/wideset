@@ -17,6 +17,12 @@ export const SPREADSHEET_CLASS = 'bg-ws-static-container isolate w-full overflow
 export const SPREADSHEET_TABLE_CLASS =
   'w-full table-fixed border-separate border-spacing-0 bg-inherit tabular-nums';
 
+const CLEAR_TINT = cn(
+  '[--spreadsheet-tint:var(--ws-dynamic-fill-secondary-alpha-default)]',
+  'hover:[--spreadsheet-tint:var(--ws-dynamic-fill-secondary-alpha-hover)]',
+  'active:[--spreadsheet-tint:var(--ws-dynamic-fill-secondary-alpha-pressed)]',
+);
+
 /* Figma: Spreadsheet Cell (10590:65934). Every type shares one frame: Size=Small is 32px high
    with 8px sides, Size=Medium 40px with 12px, Body/Small text, a 1px Static/Stroke/Subtle line
    on the right and bottom. The fill is a translucent tint per State, held in
@@ -46,18 +52,16 @@ export const spreadsheetCellVariants = cva(
       },
       /* Column headers sit on a 4% tint (Clients screen 13501:3173 sets the header row to
          Static/Fill/Alpha/Subtle; Tertiary/Alpha/Strong is the same value in light and dark),
-         so their hover and pressed steps start from it. Every other cell is clear at rest. */
-      header: {
-        true: cn(
+         so their hover and pressed steps start from it. Every other cell is clear at rest; the
+         row header (the row number) is a Text cell in Static/Text/Subtle. */
+      part: {
+        cell: CLEAR_TINT,
+        columnHeader: cn(
           '[--spreadsheet-tint:var(--ws-dynamic-fill-tertiary-alpha-strong-default)]',
           'hover:[--spreadsheet-tint:var(--ws-dynamic-fill-tertiary-alpha-strong-hover)]',
           'active:[--spreadsheet-tint:var(--ws-dynamic-fill-tertiary-alpha-strong-pressed)]',
         ),
-        false: cn(
-          '[--spreadsheet-tint:var(--ws-dynamic-fill-secondary-alpha-default)]',
-          'hover:[--spreadsheet-tint:var(--ws-dynamic-fill-secondary-alpha-hover)]',
-          'active:[--spreadsheet-tint:var(--ws-dynamic-fill-secondary-alpha-pressed)]',
-        ),
+        rowHeader: cn(CLEAR_TINT, 'text-ws-static-subtle'),
       },
       align: {
         left: 'text-left',
@@ -67,7 +71,7 @@ export const spreadsheetCellVariants = cva(
     },
     defaultVariants: {
       size: 'sm',
-      header: false,
+      part: 'cell',
       align: 'left',
     },
   },

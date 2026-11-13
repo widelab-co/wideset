@@ -44,8 +44,10 @@ text-ws-static-subtle`, not in its own narrow column.
 
 - At most one row of three or four. More than four becomes a table.
 - Label (`typography-label-sm text-ws-static-subtle`) above the value
-  (`typography-subtitle-md tabular-nums text-ws-static-strong`), the change and its comparison under
+  (`typography-title-md tabular-nums text-ws-static-strong`), the change and its comparison under
   it.
+- The one figure a page is about (an account balance) goes one step up to `typography-title-lg`;
+  the rest of the page stays at the flat scale.
 - The colour of a change follows its meaning, not its direction: prep time down is good, revenue
   down is bad. Use the status tokens through `StatusBadge`; add the direction in words for screen
   readers.

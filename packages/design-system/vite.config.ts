@@ -170,6 +170,7 @@ export default defineConfig(({ mode }) => {
               utilityClassNames.add('font-ws-sans');
               utilityClassNames.add('font-ws-heading');
               utilityClassNames.add('font-ws-body');
+              utilityClassNames.add('font-ws-mono');
 
               const inlineSource =
                 `\n@source inline("${Array.from(utilityClassNames).join(' ')}");\n` +

@@ -9,14 +9,14 @@ parts:
     SidebarHeader,
     SidebarFooter,
     SidebarSection,
+    SidebarSectionHeader,
     SidebarExpanded,
     SidebarCollapsed,
     SidebarItem,
-    SidebarGroup,
     SidebarTrigger,
   ]
-related: [Tabs, Breadcrumbs, Sidepanel]
-docs: https://wideset-docs.widelab.workers.dev/components/sidebar
+related: [AppShell, Tabs, Breadcrumbs, Sidepanel]
+docs: https://wideset.co/components/sidebar
 storybook: components-sidebar--default
 ---
 
@@ -26,7 +26,9 @@ storybook: components-sidebar--default
 
 ## When to use
 
-- The persistent left-hand navigation of an application shell, between product areas.
+- The persistent left-hand navigation of an application shell, between product areas. Put it in
+  an `AppShell`: the sidebar then takes the surface of the app's direction (white with a line,
+  grey tint, or the bare grey frame) without any prop. `surface` overrides it.
 - When the layout needs both a labelled view and a compact icon-only view.
 
 ## When not to use
@@ -41,47 +43,43 @@ storybook: components-sidebar--default
 ```tsx
 <Sidebar>
   <Sidebar.Header>
-    <Sidebar.Expanded>
-      <div className="gap-ws-7 flex items-center justify-between">
-        <span className="typography-label-strong-sm text-ws-static-strong">Northwind</span>
-        <Sidebar.Trigger />
-      </div>
-    </Sidebar.Expanded>
-    <Sidebar.Collapsed>
+    <div className="gap-ws-7 py-ws-3 flex items-center">
+      <Sidebar.Expanded>
+        <span className="typography-label-strong-sm text-ws-static-strong pl-ws-5">Northwind</span>
+      </Sidebar.Expanded>
       <Sidebar.Trigger />
-    </Sidebar.Collapsed>
+    </div>
   </Sidebar.Header>
   <Sidebar.Section scrollable>
-    <Sidebar.Expanded>{nav}</Sidebar.Expanded>
-    <Sidebar.Collapsed>{nav}</Sidebar.Collapsed>
+    <nav aria-label="Main" className="gap-ws-2 flex flex-col">
+      <Sidebar.Item href="/" icon={RiDashboardLine} label="Dashboard" active />
+      <Sidebar.Item href="/projects" icon={RiFolder3Line} label="Projects" />
+      <Sidebar.SectionHeader>Products</Sidebar.SectionHeader>
+      <Sidebar.Item href="/payments" icon={RiSecurePaymentLine} label="Payments" />
+    </nav>
   </Sidebar.Section>
-</Sidebar>;
-
-// nav, reused in both modes:
-const nav = (
-  <nav aria-label="Main" className="gap-ws-2 flex flex-col">
-    <Sidebar.Item href="/" icon={RiDashboardLine} label="Dashboard" active />
-    <Sidebar.Item href="/projects" icon={RiFolder3Line} label="Projects" />
-  </nav>
-);
+</Sidebar>
 ```
+
+One tree serves both modes: `Sidebar.Item`, `Sidebar.SectionHeader` and `Sidebar.Trigger` adapt
+on their own. `Sidebar.Expanded` and `Sidebar.Collapsed` wrap only what exists in one mode (the
+product name, a promo card, an avatar in place of a profile row).
 
 The root fills its parent's height; place it in a full-height flex row next to the page.
 
 ## Choosing props
 
-| Prop               | Value                                 | Use for                                                                                                                                                                                                                                                                             |
-| ------------------ | ------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `surface`          | `page` (default), `tinted` or `frame` | `page`: white with a subtle right line (Flat). `tinted`: a grey tint, no line (Frame). `frame`: no fill, no line, on the grey app frame around an inset page (Inset, Canvas), the nav centred between the window edge and the page. See [directions](../../patterns/directions.md). |
-| `suffixOnHover`    | on `Sidebar.Item`                     | A keyboard shortcut in `suffix`: shown on hover and keyboard focus only, its space kept. Counts and badges stay visible.                                                                                                                                                            |
-| `action`           | on `Sidebar.Group`                    | One `IconButton size="xs"` for the whole group (a "+" that adds a page), ending the heading row on the suffixes' edge.                                                                                                                                                              |
-| `defaultCollapsed` | boolean                               | Start collapsed, sidebar owns the state.                                                                                                                                                                                                                                            |
-| `collapsed`        | boolean + `onCollapsedChange`         | You own the state (persisted preference, responsive rules).                                                                                                                                                                                                                         |
-| `scrollable`       | on `Sidebar.Section`                  | The one section that takes the remaining height and scrolls.                                                                                                                                                                                                                        |
-| `icon` / `label`   | on `Sidebar.Item`                     | Remix icon component and visible label; both, always.                                                                                                                                                                                                                               |
-| `active`           | on `Sidebar.Item`                     | The current page; one per sidebar.                                                                                                                                                                                                                                                  |
-| `disabled`         | on `Sidebar.Item`                     | A page the user's plan or role does not include yet.                                                                                                                                                                                                                                |
-| `asChild`          | on `Sidebar.Item`                     | Render as a router `Link`; icon and label are injected into it.                                                                                                                                                                                                                     |
+| Prop               | Value                         | Use for                                                                                  |
+| ------------------ | ----------------------------- | ---------------------------------------------------------------------------------------- |
+| `defaultCollapsed` | boolean                       | Start collapsed, sidebar owns the state.                                                 |
+| `collapsed`        | boolean + `onCollapsedChange` | You own the state (persisted preference, responsive rules).                              |
+| `surface`          | `page`, `tinted`, `frame`     | Only outside an `AppShell`, or to override its direction.                                |
+| `suffixOnHover`    | on `Sidebar.Item`             | A keyboard shortcut in `suffix`: shown on hover and keyboard focus only, its space kept. |
+| `scrollable`       | on `Sidebar.Section`          | The one section that takes the remaining height and scrolls.                             |
+| `icon` / `label`   | on `Sidebar.Item`             | Remix icon component and visible label; both, always.                                    |
+| `active`           | on `Sidebar.Item`             | The current page; one per sidebar.                                                       |
+| `disabled`         | on `Sidebar.Item`             | A page the user's plan or role does not include yet.                                     |
+| `asChild`          | on `Sidebar.Item`             | Render as a router `Link`; icon and label are injected into it.                          |
 
 ## States
 
@@ -102,16 +100,15 @@ The root fills its parent's height; place it in a full-height flex row next to t
 - A child page under an item (pages inside "Pages") is `nested`: indented so its icon starts under
   the parent's label, one level deep, with its own icon. The indent is the whole cue: never draw a
   guide line or add margins to build a tree.
-- Items that belong together under a name (a team, a workspace) go in `Sidebar.Group label="…"`.
-  The heading is text only and lines up with the item icons; collapsed, it is hidden and still
-  names the group for screen readers. Its one action (a "+") is the group's `action`.
-- Everything on the right of the sidebar ends on one edge: suffixes, the group's action, the
-  arrows in the header and the footer. Use the slots; an absolutely placed button misses the edge.
+- Section headers are one or two words; collapsed, the rail cuts them to their first letters
+  ("P…"), so put the distinguishing word first.
+- Everything on the right of the sidebar ends on one edge: suffixes, a section's "+", the
+  arrows in the header and the footer. An absolutely placed button misses the edge.
 - Every icon button in the sidebar is the same `IconButton size="xs"` (secondary, ghost), 4px in
-  from the content edge: the header's switcher arrow and a group's "+" then read as one family,
+  from the content edge: the header's switcher arrow and a section's "+" then read as one family,
   with the same hover box. A 32px arrow beside a 24px "+" looks like two different controls.
 - A keyboard shortcut (`⌘1`) is a hint: put it in `suffix` with `suffixOnHover`, so it shows on
-  hover and keyboard focus and the column stays quiet.
+  hover and keyboard focus and the column stays quiet. Counts and badges stay visible.
 - A line across the sidebar (above the account, between groups): on `page` it may run edge to
   edge, where it meets the sidebar's own right line; on `frame` it keeps the nav's inset, because
   edge to edge it stops short of the page and reads as broken.
@@ -122,6 +119,10 @@ The root fills its parent's height; place it in a full-height flex row next to t
 - Wrap items in a `<nav aria-label="…">`; the sidebar root is a plain `div`.
 - Collapsed items fall back to `label` as `aria-label` when it is a string; pass `aria-label`
   when `label` is a node.
+- Write the trigger and the items once, outside `Sidebar.Expanded` / `Sidebar.Collapsed`, so they
+  keep focus when the sidebar toggles.
+- `Sidebar.SectionHeader` keeps its text in both modes; give it an `id` and point the group's
+  `aria-labelledby` at it.
 - `Sidebar.Trigger` names itself ("Collapse sidebar" / "Expand sidebar", via `collapseLabel` /
   `expandLabel`) and sets `aria-expanded` / `aria-controls`.
 
@@ -136,10 +137,11 @@ The root fills its parent's height; place it in a full-height flex row next to t
 // Don't: children on a plain item (the type forbids it); use label
 <Sidebar.Item href="/projects">Projects</Sidebar.Item>
 
-// Do: a named group of items
-<Sidebar.Group label="Core team">
+// Do: a named group of items under a section header
+<Sidebar.SectionHeader id="core-team">Core team</Sidebar.SectionHeader>
+<div role="group" aria-labelledby="core-team" className="gap-ws-2 flex flex-col">
   <Sidebar.Item href="/issues" icon={RiStackLine} label="Issues" />
-</Sidebar.Group>
+</div>
 
 // Don't: a hand-made heading with its own icon; it falls out of line with the items
 <div className="flex items-center gap-ws-3"><RiTeamLine /> Core team</div>
@@ -156,28 +158,44 @@ The root fills its parent's height; place it in a full-height flex row next to t
 // Don't: an absolutely placed count over the row; it misses the shared right edge
 <div className="relative"><Sidebar.Item … /><span className="absolute right-ws-5">3</span></div>
 
-// Do: the group's "+" in its action slot, a shortcut that shows on hover
-<Sidebar.Group label="Shared" action={<IconButton size="xs" preset="ghost" variant="secondary" icon={RiAddLine} aria-label="Add a shared page" />}>
-  <Sidebar.Item href="/inbox" icon={RiInboxLine} label="Inbox" suffix="⌘1" suffixOnHover />
-</Sidebar.Group>
+// Don't: the same navigation twice, once per mode (it remounts and drops focus on toggle)
+<Sidebar.Section>
+  <Sidebar.Expanded>{nav}</Sidebar.Expanded>
+  <Sidebar.Collapsed>{nav}</Sidebar.Collapsed>
+</Sidebar.Section>
 
-// Don't: a "+" laid over the heading by hand; it lands off the suffixes' edge
-<div className="relative"><Sidebar.Group label="Shared">…</Sidebar.Group><IconButton className="absolute right-ws-0 top-ws-0" … /></div>
+// Do: one tree
+<Sidebar.Section>{nav}</Sidebar.Section>
+
+// Do: a section's one "+" ends the header row 4px in, a shortcut shows on hover
+<div className="flex items-end">
+  <Sidebar.SectionHeader id="shared" className="flex-1">Shared</Sidebar.SectionHeader>
+  <IconButton size="xs" preset="ghost" variant="secondary" icon={RiAddLine} aria-label="Add a shared page" className="mr-ws-3" />
+</div>
+<div role="group" aria-labelledby="shared" className="gap-ws-2 flex flex-col">
+  <Sidebar.Item href="/inbox" icon={RiInboxLine} label="Inbox" suffix="⌘1" suffixOnHover />
+</div>
+
+// Don't: a "+" laid over the header by hand; it lands off the suffixes' edge
+<div className="relative">…<IconButton className="absolute right-ws-0 top-ws-0" … /></div>
 ```
 
 ## Gotchas
 
+- A `Sidebar.Section` whose only children are `Sidebar.Expanded` / `Sidebar.Collapsed` renders
+  nothing in a mode it has no content for; any other section stays in both modes.
+- A `Sidebar.Trigger` inside `Sidebar.Expanded` or `Sidebar.Collapsed` unmounts on toggle and
+  loses focus; keep one trigger outside them.
 - A row action (a "…" menu) is a button and cannot sit in `suffix`: the row is a link. Lay it
   over the row's right edge as a sibling, at the suffix's inset.
-
-- `Sidebar.Section` renders nothing in a mode it has no `Sidebar.Expanded` / `Sidebar.Collapsed`
-  child for. Content put straight into a Section without them disappears.
 - The item's `icon` takes a component (`icon={RiFolder3Line}`), not an element.
 - `onCollapsedChange` fires in both modes; with `collapsed` set, nothing changes until you update it.
 - `Sidebar.Trigger` with `asChild` merges the toggle onto your own button.
 - Every part except `Sidebar.Header` throws outside `<Sidebar>`.
+- Restyling the sidebar's fill or line through `className` fights the surface classes; set
+  `AppShell direction` (or `surface`) instead.
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/sidebar.md` · Types:
+Full props: `https://wideset.co/components/sidebar.md` · Types:
 `packages/design-system/src/components/sidebar/Sidebar.types.ts`

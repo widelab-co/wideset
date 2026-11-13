@@ -2,7 +2,9 @@
 
 ## When to use
 
-- The persistent left-hand navigation of an application shell, between product areas.
+- The persistent left-hand navigation of an application shell, between product areas. Put it in
+  an `AppShell`: the sidebar then takes the surface of the app's direction (white with a line,
+  grey tint, or the bare grey frame) without any prop. `surface` overrides it.
 - When the layout needs both a labelled view and a compact icon-only view.
 
 ## When not to use
@@ -23,10 +25,11 @@
 // Don't: children on a plain item (the type forbids it); use label
 <Sidebar.Item href="/projects">Projects</Sidebar.Item>
 
-// Do: a named group of items
-<Sidebar.Group label="Core team">
+// Do: a named group of items under a section header
+<Sidebar.SectionHeader id="core-team">Core team</Sidebar.SectionHeader>
+<div role="group" aria-labelledby="core-team" className="gap-ws-2 flex flex-col">
   <Sidebar.Item href="/issues" icon={RiStackLine} label="Issues" />
-</Sidebar.Group>
+</div>
 
 // Don't: a hand-made heading with its own icon; it falls out of line with the items
 <div className="flex items-center gap-ws-3"><RiTeamLine /> Core team</div>
@@ -43,23 +46,27 @@
 // Don't: an absolutely placed count over the row; it misses the shared right edge
 <div className="relative"><Sidebar.Item … /><span className="absolute right-ws-5">3</span></div>
 
-// Do: the group's "+" in its action slot, a shortcut that shows on hover
-<Sidebar.Group label="Shared" action={<IconButton size="xs" preset="ghost" variant="secondary" icon={RiAddLine} aria-label="Add a shared page" />}>
-  <Sidebar.Item href="/inbox" icon={RiInboxLine} label="Inbox" suffix="⌘1" suffixOnHover />
-</Sidebar.Group>
+// Don't: the same navigation twice, once per mode (it remounts and drops focus on toggle)
+<Sidebar.Section>
+  <Sidebar.Expanded>{nav}</Sidebar.Expanded>
+  <Sidebar.Collapsed>{nav}</Sidebar.Collapsed>
+</Sidebar.Section>
 
-// Don't: a "+" laid over the heading by hand; it lands off the suffixes' edge
-<div className="relative"><Sidebar.Group label="Shared">…</Sidebar.Group><IconButton className="absolute right-ws-0 top-ws-0" … /></div>
+// Do: one tree
+<Sidebar.Section>{nav}</Sidebar.Section>
 ```
 
 ## Gotchas
 
+- A `Sidebar.Section` whose only children are `Sidebar.Expanded` / `Sidebar.Collapsed` renders
+  nothing in a mode it has no content for; any other section stays in both modes.
+- A `Sidebar.Trigger` inside `Sidebar.Expanded` or `Sidebar.Collapsed` unmounts on toggle and
+  loses focus; keep one trigger outside them.
 - A row action (a "…" menu) is a button and cannot sit in `suffix`: the row is a link. Lay it
   over the row's right edge as a sibling, at the suffix's inset.
-
-- `Sidebar.Section` renders nothing in a mode it has no `Sidebar.Expanded` / `Sidebar.Collapsed`
-  child for. Content put straight into a Section without them disappears.
 - The item's `icon` takes a component (`icon={RiFolder3Line}`), not an element.
 - `onCollapsedChange` fires in both modes; with `collapsed` set, nothing changes until you update it.
 - `Sidebar.Trigger` with `asChild` merges the toggle onto your own button.
 - Every part except `Sidebar.Header` throws outside `<Sidebar>`.
+- Restyling the sidebar's fill or line through `className` fights the surface classes; set
+  `AppShell direction` (or `surface`) instead.

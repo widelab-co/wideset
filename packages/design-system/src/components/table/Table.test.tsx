@@ -1,3 +1,4 @@
+import { RiArrowUpDownLine, RiSortAsc, RiSortDesc } from '@remixicon/react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
@@ -70,7 +71,7 @@ describe('Table', () => {
             <Table.Row>
               <Table.Cell>
                 Offline sync
-                <Table.CellDescription data-testid="desc" className="mt-ws-1">
+                <Table.CellDescription data-testid="desc" className="mt-ws-1" aria-hidden="false">
                   Edits made offline merge on reconnect.
                 </Table.CellDescription>
               </Table.Cell>
@@ -99,6 +100,7 @@ describe('Table', () => {
       const desc = screen.getByTestId('desc');
       expect(desc).toHaveAttribute('data-slot', 'table-cell-description');
       expect(desc).toHaveClass('mt-ws-1');
+      expect(desc).toHaveAttribute('aria-hidden', 'false');
     });
   });
 
@@ -433,6 +435,50 @@ describe('Table', () => {
     });
   });
 
+  describe('Table.Foot', () => {
+    // Resolves the cell's `border-t` classes the way Tailwind does: an arbitrary
+    // variant `[selector]:border-t` applies where `&` (the cell) matches it.
+    const hasTopLine = (cell: HTMLElement) =>
+      Array.from(cell.classList).some((cls) => {
+        if (cls === 'border-t') return true;
+        const selector = /^\[(.+)\]:border-t$/.exec(cls)?.[1];
+        return (
+          selector !== undefined && cell.matches(selector.replaceAll('_', ' ').replace('&', '*'))
+        );
+      });
+
+    const renderFooter = () =>
+      render(
+        <Table>
+          <Table.Body>
+            <Table.Row>
+              <Table.Cell>Design review</Table.Cell>
+            </Table.Row>
+          </Table.Body>
+          <Table.Foot>
+            <Table.Row>
+              <Table.Cell>Subtotal</Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell>Total</Table.Cell>
+            </Table.Row>
+          </Table.Foot>
+        </Table>,
+      );
+
+    it('draws the top line above the first footer row', () => {
+      renderFooter();
+
+      expect(hasTopLine(screen.getByRole('cell', { name: 'Subtotal' }))).toBe(true);
+    });
+
+    it('draws no line above the footer rows after the first', () => {
+      renderFooter();
+
+      expect(hasTopLine(screen.getByRole('cell', { name: 'Total' }))).toBe(false);
+    });
+  });
+
   describe('Table-level props applied to cells', () => {
     it('applies align to all cells', () => {
       render(
@@ -617,6 +663,17 @@ describe('Table', () => {
     it('sets aria-sort="none" when sortable is true and sortDirection is null', () => {
       render(<SortableTable sortable sortDirection={null} onSort={vi.fn()} data-testid="th" />);
       expect(screen.getByTestId('th')).toHaveAttribute('aria-sort', 'none');
+    });
+
+    it.each([
+      [null, RiArrowUpDownLine],
+      ['asc', RiSortAsc],
+      ['desc', RiSortDesc],
+    ] as const)('draws the %s sort state with its own icon', (sortDirection, Icon) => {
+      const pathOf = (root: Element) => root.querySelector('svg path')?.getAttribute('d');
+      const { container: icon } = render(<Icon />);
+      render(<SortableTable sortable sortDirection={sortDirection} onSort={vi.fn()} />);
+      expect(pathOf(screen.getByRole('button', { name: 'Sort by Name' }))).toBe(pathOf(icon));
     });
 
     it('sets aria-sort="ascending" when sortDirection is "asc"', () => {

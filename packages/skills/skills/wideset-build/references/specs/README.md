@@ -5,7 +5,7 @@ first, then only the files the task needs: a component's group file to pick the 
 its good-practices file to use it, a pattern file to build a screen.
 
 Facts live in the code (types, CVA variants, JSDoc) and in the generated reference
-(`https://wideset-docs.widelab.workers.dev/components/<id>.md`). Specs add what the code cannot say: when to use
+(`https://wideset.co/components/<id>.md`). Specs add what the code cannot say: when to use
 a component and when not, which variant for which job, how its parts compose, what not to do.
 Sources of truth, in order: Figma → code → specs.
 
@@ -15,9 +15,9 @@ Sources of truth, in order: Figma → code → specs.
   If no component fits, compose existing ones and say so; don't invent a new public component.
 - Style only with `ws` token classes (`bg-ws-static-container`, `p-ws-4`, `gap-ws-5`,
   `rounded-ws-control-md`). Plain Tailwind scale classes (`p-4`, `text-sm`, `rounded-lg`) and
-  palette classes (`text-gray-900`) are wrong: see [tokens.md](https://wideset-docs.widelab.workers.dev/docs/tokens.md).
+  palette classes (`text-gray-900`) are wrong: see [tokens.md](https://wideset.co/docs/tokens.md).
 - Icons are Remix components passed by reference through the `icon` prop: `icon={RiCheckLine}`
-  ([iconography](https://wideset-docs.widelab.workers.dev/docs/icons.md)).
+  ([iconography](https://wideset.co/docs/icons.md)).
 - Deprecated components (`status: deprecated`) name their replacement on their first line; use
   the replacement even when older code uses the deprecated one.
 
@@ -121,6 +121,8 @@ Sources of truth, in order: Figma → code → specs.
 
 ### [Layout](components/layout/README.md)
 
+- [AppShell](../good-practices/app-shell.md): the screen's frame; one `direction` (inset by
+  default, flat, frame, canvas) sets the window, sidebar and page.
 - [Card](../good-practices/card.md): a bounded surface for one subject; not clickable, not a page
   wrapper.
 - [Accordion](../good-practices/accordion.md): named sections opened in place.
@@ -131,7 +133,7 @@ Sources of truth, in order: Figma → code → specs.
 Wideset has no page templates; patterns are compositions of real components with `ws` layout
 classes.
 
-- [App shell](patterns/app-shell.md): Sidebar next to the one scrolling main area.
+- [App shell](patterns/app-shell.md): `AppShell` with a Sidebar and the one scrolling main area.
 - [Form page](patterns/form-page.md): FormFields, validation, submit and cancel.
 - [List and filters](patterns/list-and-filters.md): search, filters, table, pagination, empty and
   loading.

@@ -80,6 +80,7 @@ One file per component: when to use it, when not, do and don't, and gotchas. Rea
 
 ## [Layout](specs/components/layout/README.md)
 
+- [AppShell](good-practices/app-shell.md): the screen's frame; one `direction` (inset by default, flat, frame, canvas) sets the window, sidebar and page.
 - [Card](good-practices/card.md): a bounded surface for one subject; not clickable, not a page wrapper.
 - [Accordion](good-practices/accordion.md): named sections opened in place.
 - [Divider](good-practices/divider.md): a horizontal separator, optionally labelled.

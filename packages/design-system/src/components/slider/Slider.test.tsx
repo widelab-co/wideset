@@ -183,6 +183,40 @@ describe('Slider Snapshots', () => {
   });
 });
 
+describe('Thumbs', () => {
+  it('renders one thumb per value without type', () => {
+    render(<Slider defaultValue={[20, 80]} aria-label="Price" />);
+
+    expect(screen.getByRole('slider', { name: 'Minimum Price' })).toHaveAttribute(
+      'aria-valuenow',
+      '20',
+    );
+    expect(screen.getByRole('slider', { name: 'Maximum Price' })).toHaveAttribute(
+      'aria-valuenow',
+      '80',
+    );
+  });
+
+  it('follows a controlled value', () => {
+    render(<Slider value={[10, 90]} />);
+
+    expect(screen.getAllByRole('slider')).toHaveLength(2);
+  });
+});
+
+describe('Children', () => {
+  it('renders children inside the slider', () => {
+    render(
+      <Slider data-testid="slider">
+        <span data-testid="tick" />
+      </Slider>,
+    );
+
+    expect(screen.getByTestId('slider')).toContainElement(screen.getByTestId('tick'));
+    expect(screen.getByRole('slider')).toBeInTheDocument();
+  });
+});
+
 describe('data-slot', () => {
   it('marks each part with data-slot', () => {
     const { container } = render(<Slider type="range" defaultValue={[20, 80]} labels="side" />);
@@ -263,9 +297,9 @@ describe('Accessible names', () => {
     expect(screen.queryByLabelText('Slider thumb')).toBeNull();
   });
 
-  it('falls back to "Slider thumb" when nothing names a single thumb', () => {
+  it('leaves the thumb unnamed when nothing names it', () => {
     render(<Slider />);
 
-    expect(screen.getByRole('slider', { name: 'Slider thumb' })).toBeInTheDocument();
+    expect(screen.getByRole('slider')).not.toHaveAttribute('aria-label');
   });
 });

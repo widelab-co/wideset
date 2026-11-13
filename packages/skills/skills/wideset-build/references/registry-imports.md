@@ -19,6 +19,8 @@ A member such as `Card.Header` comes with `Card`; its named form, `CardHeader`, 
 - `import { ActionTileEntity } from '@/components/ui/wideset/action-tile/ActionTileEntity';`
 - `import { ActionTileIcon } from '@/components/ui/wideset/action-tile/ActionTileIcon';`
 - `import { ActionTileTitle } from '@/components/ui/wideset/action-tile/ActionTileTitle';`
+- `import { AppShell } from '@/components/ui/wideset/app-shell/AppShell';`
+- `import { AppShellMain } from '@/components/ui/wideset/app-shell/AppShellMain';`
 - `import { Avatar } from '@/components/ui/wideset/avatar/Avatar';`
 - `import { AvatarAgent } from '@/components/ui/wideset/avatar/AvatarAgent';`
 - `import { AvatarGroup } from '@/components/ui/wideset/avatar/AvatarGroup';`
@@ -73,7 +75,6 @@ A member such as `Card.Header` comes with `Card`; its named form, `CardHeader`, 
 - `import { FileUploadTrigger } from '@/components/ui/wideset/file-upload/FileUploadTrigger';`
 - `import { FilterButton } from '@/components/ui/wideset/filter-button/FilterButton';`
 - `import { FormField } from '@/components/ui/wideset/form-field/FormField';`
-- `import { Illustration } from '@/components/ui/wideset/illustration/Illustration';`
 - `import { InlineAlert } from '@/components/ui/wideset/inline-alert/InlineAlert';`
 - `import { useInlineAlert } from '@/components/ui/wideset/inline-alert/InlineAlert.hooks';`
 - `import { InlineAlertAction } from '@/components/ui/wideset/inline-alert/InlineAlertAction';`
@@ -134,10 +135,10 @@ A member such as `Card.Header` comes with `Card`; its named form, `CardHeader`, 
 - `import { SidebarCollapsed } from '@/components/ui/wideset/sidebar/SidebarCollapsed';`
 - `import { SidebarExpanded } from '@/components/ui/wideset/sidebar/SidebarExpanded';`
 - `import { SidebarFooter } from '@/components/ui/wideset/sidebar/SidebarFooter';`
-- `import { SidebarGroup } from '@/components/ui/wideset/sidebar/SidebarGroup';`
 - `import { SidebarHeader } from '@/components/ui/wideset/sidebar/SidebarHeader';`
 - `import { SidebarItem } from '@/components/ui/wideset/sidebar/SidebarItem';`
 - `import { SidebarSection } from '@/components/ui/wideset/sidebar/SidebarSection';`
+- `import { SidebarSectionHeader } from '@/components/ui/wideset/sidebar/SidebarSectionHeader';`
 - `import { SidebarTrigger } from '@/components/ui/wideset/sidebar/SidebarTrigger';`
 - `import { Sidepanel, SidepanelClose, SidepanelTrigger } from '@/components/ui/wideset/sidepanel/Sidepanel';`
 - `import { SidepanelActions } from '@/components/ui/wideset/sidepanel/SidepanelActions';`
@@ -167,8 +168,7 @@ A member such as `Card.Header` comes with `Card`; its named form, `CardHeader`, 
 - `import { StatusModalFooter } from '@/components/ui/wideset/status-modal/StatusModalFooter';`
 - `import { StatusModalOverlay } from '@/components/ui/wideset/status-modal/StatusModalOverlay';`
 - `import { StatusModalTitle } from '@/components/ui/wideset/status-modal/StatusModalTitle';`
-- `import { Switch } from '@/components/ui/wideset/switch/Switch';`
-- `import { SwitchLabel } from '@/components/ui/wideset/switch/SwitchLabel';`
+- `import { Switch, SwitchDescription, SwitchLabel } from '@/components/ui/wideset/switch/Switch';`
 - `import { SystemAlert } from '@/components/ui/wideset/system-alert/SystemAlert';`
 - `import { SystemAlertAction } from '@/components/ui/wideset/system-alert/SystemAlertAction';`
 - `import { SystemAlertMessage } from '@/components/ui/wideset/system-alert/SystemAlertMessage';`
@@ -226,6 +226,7 @@ A member such as `Card.Header` comes with `Card`; its named form, `CardHeader`, 
 - `import type { AccordionCaptionProps, AccordionContentProps, AccordionIconProps, AccordionItemProps, AccordionProps, AccordionTitleProps, AccordionTriggerProps } from '@/components/ui/wideset/accordion/Accordion.types';`
 - `import type { ActionBarProps } from '@/components/ui/wideset/action-bar/ActionBar.types';`
 - `import type { ActionTileProps, DescriptionProps as ActionTileDescriptionProps, EntityProps as ActionTileEntityProps, IconProps as ActionTileIconProps, TitleProps as ActionTileTitleProps } from '@/components/ui/wideset/action-tile/ActionTile.types';`
+- `import type { AppShellDirection, AppShellMainProps, AppShellProps } from '@/components/ui/wideset/app-shell/AppShell.types';`
 - `import type { AvatarColor } from '@/components/ui/wideset/avatar/Avatar.colors';`
 - `import type { AgentProps as AvatarAgentProps, AvatarGroupContextType, AvatarProps, GroupProps as AvatarGroupProps, IconProps as AvatarIconProps, ImageProps as AvatarImageProps, InitialsProps as AvatarInitialsProps, MoreProps as AvatarMoreProps, StatusProps as AvatarStatusProps } from '@/components/ui/wideset/avatar/Avatar.types';`
 - `import type { BreadcrumbsDividerProps, BreadcrumbsItemProps, BreadcrumbsProps, BreadcrumbsWithSubComponents } from '@/components/ui/wideset/breadcrumbs/Breadcrumbs.types';`
@@ -246,7 +247,6 @@ A member such as `Card.Header` comes with `Card`; its named form, `CardHeader`, 
 - `import type { FileUploadDropzoneProps, FileUploadLabels, FileUploadProps, FileUploadTriggerProps } from '@/components/ui/wideset/file-upload/FileUpload.types';`
 - `import type { FilterButtonProps } from '@/components/ui/wideset/filter-button/FilterButton.types';`
 - `import type { FormFieldProps } from '@/components/ui/wideset/form-field/FormField.types';`
-- `import type { IllustrationName, IllustrationProps, IllustrationSize } from '@/components/ui/wideset/illustration/Illustration.types';`
 - `import type { InlineAlertActionProps, InlineAlertItem, InlineAlertMessageProps, InlineAlertOrientation, InlineAlertOutletHandle, InlineAlertOutletProps, InlineAlertProps, InlineAlertShowConfig, InlineAlertStatus, InlineAlertTitleProps, InlineAlertWithSubComponents } from '@/components/ui/wideset/inline-alert/InlineAlert.types';`
 - `import type { ListItemContentProps, ListItemDescriptionProps, ListItemLabelProps, ListItemPrefixProps, ListItemProps, ListItemSuffixProps, ListItemWithSubComponents } from '@/components/ui/wideset/list-item/ListItem.types';`
 - `import type { ModalBodyProps, ModalCloseProps, ModalContentProps, ModalDescriptionProps, ModalFooterProps, ModalHeaderProps, ModalOverlayProps, ModalProps, ModalTitleProps, ModalTriggerProps } from '@/components/ui/wideset/modal/Modal.types';`
@@ -260,7 +260,7 @@ A member such as `Card.Header` comes with `Card`; its named form, `CardHeader`, 
 - `import type { SearchProps } from '@/components/ui/wideset/search/Search.types';`
 - `import type { SegmentedControlIconProps, SegmentedControlItemProps, SegmentedControlProps, SegmentedControlWithSubComponents } from '@/components/ui/wideset/segmented-control/SegmentedControl.types';`
 - `import type { SelectContentProps, SelectGroupProps, SelectItemIndicatorProps, SelectItemTextProps, SelectLabelProps, SelectOptionProps, SelectOptionType, SelectProps, SelectRootProps, SelectScrollDownButtonProps, SelectScrollUpButtonProps, SelectSearchProps, SelectSeparatorProps, SelectTriggerProps, SelectValueProps } from '@/components/ui/wideset/select/Select.types';`
-- `import type { SidebarCollapsedProps, SidebarExpandedProps, SidebarFooterProps, SidebarGroupProps, SidebarHeaderProps, SidebarItemProps, SidebarProps, SidebarSectionProps, SidebarTriggerProps } from '@/components/ui/wideset/sidebar/Sidebar.types';`
+- `import type { SidebarCollapsedProps, SidebarExpandedProps, SidebarFooterProps, SidebarHeaderProps, SidebarItemProps, SidebarProps, SidebarSectionHeaderProps, SidebarSectionProps, SidebarTriggerProps } from '@/components/ui/wideset/sidebar/Sidebar.types';`
 - `import type { SidepanelActionsProps, SidepanelCloseProps, SidepanelContentProps, SidepanelDescriptionProps, SidepanelFooterProps, SidepanelHeaderProps, SidepanelPanelProps, SidepanelProps, SidepanelTitleProps, SidepanelTriggerProps } from '@/components/ui/wideset/sidepanel/Sidepanel.types';`
 - `import type { SliderLabelProps, SliderProps } from '@/components/ui/wideset/slider/Slider.types';`
 - `import type { SpreadsheetAlign, SpreadsheetBodyProps, SpreadsheetCellProps, SpreadsheetColumnHeaderIconProps, SpreadsheetColumnHeaderProps, SpreadsheetColumnHeaderTriggerProps, SpreadsheetHeadProps, SpreadsheetProps, SpreadsheetRowHeaderProps, SpreadsheetRowProps, SpreadsheetSize } from '@/components/ui/wideset/spreadsheet/Spreadsheet.types';`

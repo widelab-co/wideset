@@ -95,6 +95,23 @@ describe('Spreadsheet', () => {
       expect(root).toContainElement(screen.getByRole('grid'));
     });
 
+    it('forwards the column header icon ref to its svg', () => {
+      const ref = createRef<SVGSVGElement>();
+      render(
+        <Spreadsheet aria-label="Clients">
+          <Spreadsheet.Head>
+            <Spreadsheet.Row>
+              <Spreadsheet.ColumnHeader>
+                <Spreadsheet.ColumnHeaderIcon ref={ref} icon={RiHashtag} />
+                Customers
+              </Spreadsheet.ColumnHeader>
+            </Spreadsheet.Row>
+          </Spreadsheet.Head>
+        </Spreadsheet>,
+      );
+      expect(ref.current?.tagName.toLowerCase()).toBe('svg');
+    });
+
     it('marks every part with its data-slot', () => {
       const { container } = render(
         <Spreadsheet aria-label="Clients">
@@ -123,6 +140,7 @@ describe('Spreadsheet', () => {
       expect(new Set(slots)).toEqual(
         new Set([
           'spreadsheet',
+          'spreadsheet-grid',
           'spreadsheet-head',
           'spreadsheet-row',
           'spreadsheet-column-header',
@@ -563,6 +581,145 @@ describe('Spreadsheet', () => {
       expect(screen.getByRole('checkbox', { name: 'Verified: Tech Nova' })).toHaveFocus();
       expect(cell('Paid')).toHaveAttribute('aria-selected', 'true');
     });
+
+    it('moves between the controls of one cell with Tab before leaving the grid', () => {
+      render(
+        <Spreadsheet aria-label="Contacts">
+          <Spreadsheet.Body>
+            <Spreadsheet.Row>
+              <Spreadsheet.Cell>
+                <input aria-label="First name" />
+                <input aria-label="Last name" />
+              </Spreadsheet.Cell>
+              <Spreadsheet.Cell>
+                <input aria-label="Email" />
+              </Spreadsheet.Cell>
+            </Spreadsheet.Row>
+          </Spreadsheet.Body>
+        </Spreadsheet>,
+      );
+      act(() => screen.getByRole('textbox', { name: 'First name' }).focus());
+      fireEvent.keyDown(screen.getByRole('textbox', { name: 'First name' }), { key: 'Tab' });
+      expect(screen.getByRole('textbox', { name: 'Last name' })).toHaveFocus();
+      fireEvent.keyDown(screen.getByRole('textbox', { name: 'Last name' }), {
+        key: 'Tab',
+        shiftKey: true,
+      });
+      expect(screen.getByRole('textbox', { name: 'First name' })).toHaveFocus();
+      fireEvent.keyDown(screen.getByRole('textbox', { name: 'Last name' }), { key: 'Tab' });
+      expect(screen.getByRole('textbox', { name: 'Email' })).toHaveFocus();
+    });
+
+    it('skips a control in the cell that does not take focus when tabbing within it', () => {
+      render(
+        <Spreadsheet aria-label="Contacts">
+          <Spreadsheet.Body>
+            <Spreadsheet.Row>
+              <Spreadsheet.Cell>
+                <input aria-label="First name" />
+                <button type="button" aria-label="Hidden action" />
+                <input aria-label="Last name" />
+              </Spreadsheet.Cell>
+            </Spreadsheet.Row>
+          </Spreadsheet.Body>
+        </Spreadsheet>,
+      );
+      vi.spyOn(screen.getByRole('button', { name: 'Hidden action' }), 'focus').mockImplementation(
+        () => {},
+      );
+      act(() => screen.getByRole('textbox', { name: 'First name' }).focus());
+      fireEvent.keyDown(screen.getByRole('textbox', { name: 'First name' }), { key: 'Tab' });
+      expect(screen.getByRole('textbox', { name: 'Last name' })).toHaveFocus();
+      fireEvent.keyDown(screen.getByRole('textbox', { name: 'Last name' }), {
+        key: 'Tab',
+        shiftKey: true,
+      });
+      expect(screen.getByRole('textbox', { name: 'First name' })).toHaveFocus();
+    });
+
+    it('enters the first control that takes focus with Enter', async () => {
+      const user = userEvent.setup();
+      render(
+        <Spreadsheet aria-label="Contacts">
+          <Spreadsheet.Body>
+            <Spreadsheet.Row>
+              <Spreadsheet.Cell>
+                Ada
+                <input type="hidden" name="id" value="7" />
+                <button type="button" aria-label="Hidden action" />
+                <input aria-label="Note" />
+              </Spreadsheet.Cell>
+            </Spreadsheet.Row>
+          </Spreadsheet.Body>
+        </Spreadsheet>,
+      );
+      vi.spyOn(screen.getByRole('button', { name: 'Hidden action' }), 'focus').mockImplementation(
+        () => {},
+      );
+      await user.click(screen.getByRole('gridcell'));
+      await user.keyboard('{Enter}');
+      expect(screen.getByRole('textbox', { name: 'Note' })).toHaveFocus();
+    });
+
+    it('skips a last control that does not take focus when Tab leaves the grid', async () => {
+      // A hidden control (display: none, inert) ignores focus(); the hand-off goes to the one before.
+      const user = userEvent.setup();
+      render(<WithControls />);
+      const link = screen.getByRole('link', { name: 'ecosolutions.com' });
+      vi.spyOn(link, 'focus').mockImplementation(() => {});
+      await user.click(cell('Tech Nova'));
+      fireEvent.keyDown(cell('Tech Nova'), { key: 'Tab' });
+      expect(screen.getByRole('textbox', { name: 'Notes: Tech Nova' })).toHaveFocus();
+    });
+  });
+
+  describe('Rows that change', () => {
+    const Rows = ({ names }: { names: string[] }) => (
+      <>
+        <button type="button">Outside</button>
+        <Spreadsheet aria-label="Clients">
+          <Spreadsheet.Body>
+            {names.map((name) => (
+              <Spreadsheet.Row key={name}>
+                <Spreadsheet.Cell>{name}</Spreadsheet.Cell>
+                <Spreadsheet.Cell>{`${name} notes`}</Spreadsheet.Cell>
+              </Spreadsheet.Row>
+            ))}
+          </Spreadsheet.Body>
+        </Spreadsheet>
+      </>
+    );
+    const names = clients.map(([name]) => name);
+
+    it('hands focus to the cell that takes the place of a removed focused cell', async () => {
+      const user = userEvent.setup();
+      const { rerender } = render(<Rows names={names} />);
+      await user.click(cell('Eco Solutions notes'));
+      rerender(<Rows names={names.filter((name) => name !== 'Eco Solutions')} />);
+      await act(async () => {});
+      expect(cell('Skyline Innovations notes')).toHaveFocus();
+      expect(cell('Skyline Innovations notes')).toHaveAttribute('aria-selected', 'true');
+    });
+
+    it('moves up a row when the focused last row is removed', async () => {
+      const user = userEvent.setup();
+      const { rerender } = render(<Rows names={names} />);
+      await user.click(cell('Skyline Innovations'));
+      rerender(<Rows names={names.slice(0, 2)} />);
+      await act(async () => {});
+      expect(cell('Eco Solutions')).toHaveFocus();
+    });
+
+    it('moves the tab stop without taking focus when focus is elsewhere', async () => {
+      const user = userEvent.setup();
+      const { rerender } = render(<Rows names={names} />);
+      await user.click(cell('Eco Solutions notes'));
+      await user.click(screen.getByRole('button', { name: 'Outside' }));
+      rerender(<Rows names={names.filter((name) => name !== 'Eco Solutions')} />);
+      await act(async () => {});
+      expect(screen.getByRole('button', { name: 'Outside' })).toHaveFocus();
+      expect(cell('Skyline Innovations notes')).toHaveAttribute('tabindex', '0');
+    });
   });
 
   describe('Sticky columns', () => {
@@ -593,6 +750,130 @@ describe('Spreadsheet', () => {
     it('pins no column with stickyColumns={0}', () => {
       render(<Clients stickyColumns={0} />);
       expect(pinned()).toEqual([]);
+    });
+
+    it('pins by the column a cell starts in, measuring columns a spanning header covers', () => {
+      // Every column is 100px wide; a cell is as wide as the columns it spans.
+      vi.spyOn(HTMLElement.prototype, 'getBoundingClientRect').mockImplementation(function (
+        this: HTMLElement,
+      ) {
+        const span = (this as HTMLTableCellElement).colSpan ?? 1;
+        return { width: 100 * span } as DOMRect;
+      });
+      render(
+        <Spreadsheet aria-label="Sales" stickyColumns={2}>
+          <Spreadsheet.Head>
+            <Spreadsheet.Row>
+              <Spreadsheet.ColumnHeader colSpan={2}>Client</Spreadsheet.ColumnHeader>
+              <Spreadsheet.ColumnHeader>Amount</Spreadsheet.ColumnHeader>
+            </Spreadsheet.Row>
+          </Spreadsheet.Head>
+          <Spreadsheet.Body>
+            <Spreadsheet.Row>
+              <Spreadsheet.RowHeader>1</Spreadsheet.RowHeader>
+              <Spreadsheet.Cell>Tech Nova</Spreadsheet.Cell>
+              <Spreadsheet.Cell>$1,200</Spreadsheet.Cell>
+            </Spreadsheet.Row>
+          </Spreadsheet.Body>
+        </Spreadsheet>,
+      );
+      expect(screen.getByRole('columnheader', { name: 'Amount' })).not.toHaveAttribute(
+        'data-sticky',
+      );
+      expect(cell('Tech Nova')).toHaveAttribute('data-sticky');
+      expect(cell('Tech Nova')).toHaveStyle({ left: '100px' });
+      expect(cell('$1,200')).not.toHaveAttribute('data-sticky');
+      vi.restoreAllMocks();
+    });
+
+    it('pins a column after cells that span the columns before it in every row', () => {
+      vi.spyOn(HTMLElement.prototype, 'getBoundingClientRect').mockImplementation(function (
+        this: HTMLElement,
+      ) {
+        const span = (this as HTMLTableCellElement).colSpan ?? 1;
+        return { width: 100 * span } as DOMRect;
+      });
+      render(
+        <Spreadsheet aria-label="Sales" stickyColumns={3}>
+          <Spreadsheet.Body>
+            {['Tech Nova', 'Eco Solutions'].map((name) => (
+              <Spreadsheet.Row key={name}>
+                <Spreadsheet.RowHeader colSpan={2}>{name}</Spreadsheet.RowHeader>
+                <Spreadsheet.Cell>{`${name} region`}</Spreadsheet.Cell>
+                <Spreadsheet.Cell>{`${name} amount`}</Spreadsheet.Cell>
+              </Spreadsheet.Row>
+            ))}
+          </Spreadsheet.Body>
+        </Spreadsheet>,
+      );
+      expect(cell('Tech Nova region')).toHaveAttribute('data-sticky');
+      expect(cell('Tech Nova region')).toHaveStyle({ left: '200px' });
+      expect(cell('Tech Nova amount')).not.toHaveAttribute('data-sticky');
+      vi.restoreAllMocks();
+    });
+
+    it('finds the pinned column edges from spans that differ from row to row', () => {
+      // Columns 75, 75, 150 and 100px wide; each cell reports the width of the columns it spans.
+      vi.spyOn(HTMLElement.prototype, 'getBoundingClientRect').mockImplementation(function (
+        this: HTMLElement,
+      ) {
+        return { width: Number(this.dataset.width ?? 0) } as DOMRect;
+      });
+      render(
+        <Spreadsheet aria-label="Sales" stickyColumns={3}>
+          <Spreadsheet.Body>
+            <Spreadsheet.Row>
+              <Spreadsheet.Cell colSpan={3} data-width={300}>
+                Totals
+              </Spreadsheet.Cell>
+              <Spreadsheet.Cell data-width={100}>A4</Spreadsheet.Cell>
+            </Spreadsheet.Row>
+            <Spreadsheet.Row>
+              <Spreadsheet.Cell colSpan={2} data-width={150}>
+                B1
+              </Spreadsheet.Cell>
+              <Spreadsheet.Cell colSpan={2} data-width={250}>
+                B3
+              </Spreadsheet.Cell>
+            </Spreadsheet.Row>
+            <Spreadsheet.Row>
+              <Spreadsheet.Cell data-width={75}>C1</Spreadsheet.Cell>
+              <Spreadsheet.Cell data-width={75}>C2</Spreadsheet.Cell>
+              <Spreadsheet.Cell data-width={150}>C3</Spreadsheet.Cell>
+              <Spreadsheet.Cell data-width={100}>C4</Spreadsheet.Cell>
+            </Spreadsheet.Row>
+          </Spreadsheet.Body>
+        </Spreadsheet>,
+      );
+      expect(cell('B3')).toHaveStyle({ left: '150px' });
+      expect(cell('C2')).toHaveStyle({ left: '75px' });
+      expect(cell('C3')).toHaveStyle({ left: '150px' });
+      expect(cell('A4')).not.toHaveAttribute('data-sticky');
+      vi.restoreAllMocks();
+    });
+
+    it('measures each span once however many rows repeat it', () => {
+      const measure = vi
+        .spyOn(HTMLElement.prototype, 'getBoundingClientRect')
+        .mockImplementation(function (this: HTMLElement) {
+          return { width: 100 * ((this as HTMLTableCellElement).colSpan ?? 1) } as DOMRect;
+        });
+      render(
+        <Spreadsheet aria-label="Sales" stickyColumns={3}>
+          <Spreadsheet.Body>
+            {Array.from({ length: 50 }, (_, index) => (
+              <Spreadsheet.Row key={index}>
+                <Spreadsheet.Cell colSpan={2}>{`A${index}`}</Spreadsheet.Cell>
+                <Spreadsheet.Cell colSpan={2}>{`B${index}`}</Spreadsheet.Cell>
+              </Spreadsheet.Row>
+            ))}
+          </Spreadsheet.Body>
+        </Spreadsheet>,
+      );
+      const cells = measure.mock.contexts.filter((el) => (el as Element).matches('td, th'));
+      expect(cells.length).toBeLessThanOrEqual(4);
+      expect(cell('B0')).toHaveStyle({ left: '200px' });
+      vi.restoreAllMocks();
     });
 
     it('keeps the head at the top', () => {

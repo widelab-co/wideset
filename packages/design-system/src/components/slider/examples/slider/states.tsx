@@ -5,14 +5,9 @@ export default function SliderStates() {
   return (
     <div className="gap-x-ws-7 gap-y-ws-16 grid w-[24rem] max-w-full grid-cols-[4rem_1fr] items-center">
       <span className="typography-caption-md text-ws-static-subtle">Default</span>
-      <Slider
-        type="range"
-        thumbAriaLabels={['Minimum price', 'Maximum price']}
-        defaultValue={[20, 80]}
-      />
+      <Slider thumbAriaLabels={['Minimum price', 'Maximum price']} defaultValue={[20, 80]} />
       <span className="typography-caption-md text-ws-static-subtle">Disabled</span>
       <Slider
-        type="range"
         thumbAriaLabels={['Minimum price', 'Maximum price']}
         defaultValue={[20, 80]}
         disabled

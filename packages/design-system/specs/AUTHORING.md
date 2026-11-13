@@ -3,7 +3,7 @@
 Specs are for AI agents (and people) **building with** Wideset. They hold what the code cannot
 say: when to pick a component and when not, which variant for which job, how parts compose, the
 traps. Facts the code already holds (every prop, type, default) stay in the code and in the
-generated reference (`https://wideset-docs.widelab.workers.dev/components/<id>.md`); a spec names only the props
+generated reference (`https://wideset.co/components/<id>.md`); a spec names only the props
 that decide how to use the component.
 
 Sources of truth, in order: **Figma → code (types, CVA variants, stories, examples) → specs**.
@@ -37,7 +37,7 @@ group: actions
 status: stable # stable | beta | deprecated
 parts: [Button, ButtonIcon, ButtonTruncatedText] # named exports, root first
 related: [IconButton, LinkButton, SplitButton]
-docs: https://wideset-docs.widelab.workers.dev/components/button
+docs: https://wideset.co/components/button
 storybook: components-button--default # from the stories title
 ---
 
@@ -83,7 +83,7 @@ Traps agents fall into: wrong prop names, mixing parts, state ownership, portals
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/<id>.md` · Types:
+Full props: `https://wideset.co/components/<id>.md` · Types:
 `packages/design-system/src/components/<folder>/<Name>.types.ts`
 ```
 

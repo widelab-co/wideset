@@ -21,10 +21,38 @@ It sits on top of `wideset-build` and never contradicts it:
 ## North star
 
 **One screen, one focal point, one size, one accent: calm, scannable, consistent to the pixel.**
-When two rules pull apart, choose whatever makes the screen easier to scan and calmer.
 
-The test is the **squint test**: blur the screen. If you cannot say in one glance what matters
-most, the composition is broken, and no amount of alignment fixes it.
+The goal is a composition that is right, not rules that were followed. Judge it optically:
+**blur the rendered screen** until no word is legible. The masses that remain must be coherent:
+one focal point, weight that matches importance, an even rhythm of gaps, even density, shared
+edges, space that is meant. If the blurred screen is coherent the sharp one almost always is; if
+it is not, no correct token fixes it. How to run the blur test and what to look for:
+[composition.md](references/composition.md).
+
+The rules below are knowledge that usually produces that coherence, with the reason for each.
+When the blurred screen shows a rule making the composition worse, change it and say why. Fixed
+are only the system's own decisions: tokens, text colour by job, status colour only for meaning,
+one control height, the type styles that exist.
+
+## Ask about the style first
+
+Before the first screen of a new app or a new kind of screen, ask the person the choices only they
+can make, in one short message, each with your recommended default so they can answer "defaults":
+
+1. **Visual direction:** Inset (a white page panel on a grey frame), Frame (white page beside a
+   grey sidebar), Flat (white page beside a white sidebar) or Canvas (a grey page with the content
+   in white cards). Default: Inset.
+2. **Density:** default 32px controls, or comfortable 40px (a public form, a rarely used setup).
+3. **Cards:** separated by space only (default) or with lines under headers and above footers
+   (`divider`).
+4. **Accent:** the brand colour on the one primary action (default), or a near-black primary for
+   a quieter product.
+5. Anything the request leaves open that changes the whole screen (light or dark first, a
+   reference to match, the font if it is not Wideset's).
+
+Skip the questions the request already answers. If you cannot ask (a batch run, no one to
+answer), take the defaults and list them at the top of your report so a person can overrule them
+in one sentence. Ask once per app, not before every screen.
 
 ## Plan before JSX
 
@@ -46,17 +74,18 @@ code. Read the reference before you apply a rule for the first time in a session
 | --- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
 | 1   | **One control size per screen: `sm` (32px).** Every button, field, filter and segmented control on a screen shares one height, as Figma's Screens draw them. Go `md` (40px) or `lg` only when the person asks or the screen type demands it.         | [sizing.md](references/sizing.md)                                 |
 | 2   | **Pass `size="sm"`; never mix sizes.** Button, IconButton, SplitButton, the fields and SegmentedControl default to `md` (40px), so they take `size="sm"`; `FilterButton`, `Chip` and `Tabs` are 32px at their defaults.                              | [sizing.md](references/sizing.md)                                 |
-| 3   | **Flat type scale.** Body and labels at 14px, one page title, section titles one step up. Hierarchy comes from weight and colour, not size jumps.                                                                                                    | [typography.md](references/typography.md)                         |
+| 3   | **Flat type scale.** Body and labels at 14px, card and section titles 16px, one 32px page title. Hierarchy comes from weight and colour, not size jumps.                                                                                             | [typography.md](references/typography.md)                         |
 | 4   | **Spacing has a hierarchy.** Tight inside a control, medium between fields, wide between sections; the gap grows with the size of what it separates. Only `ws` steps.                                                                                | [spacing.md](references/spacing.md)                               |
 | 5   | **Choose width deliberately.** Reading and form columns stop around 40rem; only data-dense tables and boards run full width. Never stretch a composed screen edge to edge.                                                                           | [spacing.md](references/spacing.md)                               |
 | 6   | **One left axis.** The page title, the section titles and the content start on the same vertical line.                                                                                                                                               | [spacing.md](references/spacing.md)                               |
 | 7   | **One accent: the primary action.** Brand colour appears on one filled primary button per view. A selected row looks like the active `Sidebar.Item` (neutral fill), never a brand tint. Everything else is neutral; status uses status colours only. | [surfaces.md](references/surfaces.md)                             |
-| 8   | **Pick one surface language per screen.** Off-white canvas with white cards, or one flat surface separated by space. Not both, never cards inside cards.                                                                                             | [surfaces.md](references/surfaces.md)                             |
+| 8   | **Pick one surface language per screen.** A white page (like the `Sidebar`) with bordered cards, or one flat surface separated by space. Not both, never cards inside cards.                                                                         | [surfaces.md](references/surfaces.md)                             |
 | 9   | **The right component and container for the job.** Checkbox for a setting saved later, Switch for one that applies now; Modal for something short, Sidepanel for detail in context, a page for a flow.                                               | [components-and-actions.md](references/components-and-actions.md) |
 | 10  | **Action hierarchy.** One primary per view, secondary as border, the rest ghost; actions sit where the eye ends (top right of a page, bottom right of a form or modal).                                                                              | [components-and-actions.md](references/components-and-actions.md) |
 | 11  | **States are part of the design.** Every list, table and panel has its empty, loading and error state designed with the same care as the full one.                                                                                                   | [components-and-actions.md](references/components-and-actions.md) |
 | 12  | **Data reads in columns.** Numbers right-aligned with `tabular-nums`, consistent decimals and units, text left, status as a badge.                                                                                                                   | [data.md](references/data.md)                                     |
 | 13  | **Motion belongs to the components.** Do not add your own transitions; the components animate with Wideset's motion tokens and respect reduced motion.                                                                                               | [motion.md](references/motion.md)                                 |
+| 14  | **Colour by job.** Text that is looked for is `strong`, text that is read is `base`, text that only labels is `subtle`; brand, status and chart highlight colours each appear only for a reason in the data.                                         | [text-colour.md](references/text-colour.md)                       |
 
 Four more habits apply to every screen:
 
@@ -73,35 +102,35 @@ Four more habits apply to every screen:
 
 When nothing in the request says otherwise, use exactly these:
 
-| Decision           | Default                                                                                                                                                                                                         |
-| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Control height     | `sm` (32px): `size="sm"` on Button, IconButton, SplitButton, TextInput, Select, MultiSelect, ComboBox, Textarea, SegmentedControl; `FilterButton`, `Chip` at their defaults                                     |
-| Page tabs          | `Tabs` at their default `sm`, on the page and inside a card or panel                                                                                                                                            |
-| Page surface       | Set once per app by its visual direction; in Flat (the default) `main` is white like the `Sidebar` beside it, cards on it `Card` bordered                                                                       |
-| Page title         | `typography-subtitle-lg text-ws-static-strong` (32px), one per page                                                                                                                                             |
-| Section title      | `typography-subtitle-xs` or `Card.Title`                                                                                                                                                                        |
-| Body / description | `typography-body-md text-ws-static-subtle`                                                                                                                                                                      |
-| Text colours       | `text-ws-static-strong` (headings, key values), `-base` (body), `-subtle` (secondary, metadata)                                                                                                                 |
-| Page padding       | `p-ws-12` (24px); page sections `gap-ws-16` (40px); inside a card `gap-ws-12` (24px)                                                                                                                            |
-| Composed side rail | `w-[20rem]` (never under 18rem), `p-ws-12`; items `gap-ws-11`, parts of an item `gap-ws-3`; nothing touches the edge                                                                                            |
-| Content width      | forms and reading `max-w-[40rem]`; composed pages `max-w-[80rem] mx-auto`; tables may fill                                                                                                                      |
-| Wide windows       | past 1440px the frame (sidebar, top bar, edge panels) keeps filling the window; the content column stops at its cap and centres                                                                                 |
-| Side panel         | sections stack from the top with a section gap; never spread over the panel's height (`justify-between`, `mt-auto`)                                                                                             |
-| Trailing edge      | counts, shortcuts, group actions and arrows in one column end on one right edge: use the `suffix` / `action` slots, not `absolute`                                                                              |
-| Shortcut hints     | shown on hover and keyboard focus (`Sidebar.Item suffixOnHover`), never all the time                                                                                                                            |
-| Row targets        | a row that does one thing is one button or link across the whole row: hover fill on the whole row, inset focus ring; never only its text                                                                        |
-| Selected row       | the active `Sidebar.Item` look in every column: `aria-current` with `bg-ws-dynamic-tertiary-alpha-strong-default text-ws-static-strong`; one selected style per screen, no brand tint                           |
-| List row           | a title (`strong`) and at most one line of `subtle` metadata, a status badge at its start; ids and tags live in the detail ([hierarchy.md](references/hierarchy.md#list-rows))                                  |
-| Status colour      | only for states that ask for action now (failure, firing, the top severity); lifecycle states are neutral badges ([surfaces.md](references/surfaces.md#status-colour-budget))                                   |
-| Nested corners     | a shape around a round one is a pill, and its curve shares the centre: inset the round item by the same padding on every side (a coin in a picker, an avatar in a chip)                                         |
-| Round controls     | a round control is round in every state: give the button itself the full radius, never a round wrapper around a square hover, press or focus ring                                                               |
-| Shadows in flow    | cards inside a grey column or board take the lightest shadow (`shadow-ws-forms-base`); Elevation/Low and up are for raised surfaces (an inset page, a floating panel or bar)                                    |
-| Product mark       | one mark in every screen, its size set by the place (32px in a sidebar or top bar, 36px in a larger switcher), drawn with tokens so it inverts in dark                                                          |
-| Primary action     | `<Button size="sm">` (primary, filled), one per view                                                                                                                                                            |
-| Secondary action   | `<Button size="sm" variant="secondary" preset="border">`                                                                                                                                                        |
-| Tertiary / in-row  | `preset="ghost"` or `IconButton` with an `aria-label`                                                                                                                                                           |
-| Icon button size   | the height of the controls beside it, one height per bar: the screen's size (`sm`, where `Sidebar.Trigger` already is; `md` in a comfortable screen); `xs` only for actions inside a row, card or column header |
-| Icons              | Remix line icons (`Ri…Line`), passed to the component; size comes from the control                                                                                                                              |
+| Decision           | Default                                                                                                                                                                                                                                                                                                                 |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Control height     | `sm` (32px): `size="sm"` on Button, IconButton, SplitButton, TextInput, Select, MultiSelect, ComboBox, Textarea, SegmentedControl; `FilterButton`, `Chip` at their defaults                                                                                                                                             |
+| Page tabs          | `Tabs` at their default `sm`, on the page and inside a card or panel                                                                                                                                                                                                                                                    |
+| Page surface       | Set once per app by `AppShell direction` (default `inset`, the question above); the page is white like the `Sidebar`, cards on it `Card` bordered; only `canvas` leaves it grey                                                                                                                                         |
+| Page title         | `typography-title-md text-ws-static-strong` (32px), one per page                                                                                                                                                                                                                                                        |
+| Section title      | `typography-subtitle-xs` (16px); a card title is `Card.Title` (16px)                                                                                                                                                                                                                                                    |
+| Body / description | `typography-body-md text-ws-static-base`; labels and metadata `-subtle`                                                                                                                                                                                                                                                 |
+| Text colours       | `text-ws-static-strong` (headings, key values), `-base` (body), `-subtle` (secondary, metadata)                                                                                                                                                                                                                         |
+| Page padding       | `p-ws-12` (24px); page sections `gap-ws-16` (40px); inside a card `gap-ws-12` (24px)                                                                                                                                                                                                                                    |
+| Composed side rail | `w-[20rem]` (never under 18rem), `p-ws-12`; items `gap-ws-11`, parts of an item `gap-ws-3`; nothing touches the edge                                                                                                                                                                                                    |
+| Content width      | forms and reading `max-w-[40rem]`; composed pages `max-w-[80rem] mx-auto`; tables may fill                                                                                                                                                                                                                              |
+| Wide windows       | past 1440px the frame (sidebar, top bar, edge panels) keeps filling the window; the content column stops at its cap and centres                                                                                                                                                                                         |
+| Side panel         | sections stack from the top with a section gap; never spread over the panel's height (`justify-between`, `mt-auto`)                                                                                                                                                                                                     |
+| Trailing edge      | counts, shortcuts, a section's "+" and arrows in one column end on one right edge: the `suffix` slot or the row's own flex, never `absolute`                                                                                                                                                                            |
+| Shortcut hints     | shown on hover and keyboard focus (`Sidebar.Item suffixOnHover`), never all the time                                                                                                                                                                                                                                    |
+| Row targets        | a row that does one thing is one button or link across the whole row: hover fill on the whole row, inset focus ring; never only its text                                                                                                                                                                                |
+| Primary action     | `<Button size="sm">` (primary, filled), one per view                                                                                                                                                                                                                                                                    |
+| Secondary action   | `<Button size="sm" variant="secondary" preset="border">`                                                                                                                                                                                                                                                                |
+| Tertiary / in-row  | `preset="ghost"` or `IconButton` with an `aria-label`                                                                                                                                                                                                                                                                   |
+| Icon button size   | the height of the controls beside it, one height per bar: the screen's size (`sm`, where `Sidebar.Trigger` already is; `md` in a comfortable screen); `xs` only for actions inside a row, card or column header                                                                                                         |
+| Selected row       | the active `Sidebar.Item` look in every column: `bg-ws-dynamic-tertiary-alpha-strong-default text-ws-static-strong`; one selected style per screen, no brand tint. The open item (its detail beside it) takes `aria-current="true"`; a row picked to act on takes `aria-selected` in a listbox or grid, or a `Checkbox` |
+| List row           | a title (`strong`) and at most one line of `subtle` metadata, a status badge at its start; ids and tags live in the detail ([hierarchy.md](references/hierarchy.md#list-rows))                                                                                                                                          |
+| Status colour      | only for states that ask for action now (failure, firing, the top severity); lifecycle states are neutral badges ([surfaces.md](references/surfaces.md#status-colour-budget))                                                                                                                                           |
+| Nested corners     | a shape around a round one is a pill, and its curve shares the centre: inset the round item by the same padding on every side (a coin in a picker, an avatar in a chip)                                                                                                                                                 |
+| Round controls     | a round control is round in every state: give the button itself the full radius, never a round wrapper around a square hover, press or focus ring                                                                                                                                                                       |
+| Shadows in flow    | cards inside a grey column or board take the lightest shadow (`shadow-ws-forms-base`); Elevation/Low and up are for raised surfaces (an inset page, a floating panel or bar)                                                                                                                                            |
+| Product mark       | one mark in every screen, its size set by the place (32px in a sidebar or top bar, 36px in a larger switcher), drawn with tokens so it inverts in dark                                                                                                                                                                  |
+| Icons              | Remix line icons (`Ri…Line`), passed to the component; size comes from the control                                                                                                                                                                                                                                      |
 
 Pass `size="sm"` explicitly to the components in the first row that name it: their default is `md`.
 
@@ -113,7 +142,7 @@ Each screen gets a limited amount of loudness:
 | ----------------------------------------------- | ---------------------------- |
 | Filled primary button                           | 1                            |
 | Coloured status or danger fill                  | Only where state requires it |
-| Page title, `typography-subtitle-lg`            | 1                            |
+| Page title, `typography-title-md`               | 1                            |
 | Elevated surface (`shadow-ws-medium` or higher) | Only while it floats         |
 
 When something new has to stand out, take the emphasis from something else.
@@ -161,9 +190,13 @@ These mark a screen as generated. Remove them on sight:
 
 1. **Decide before you build.** Write down in one line: the screen type (list, detail, form,
    dashboard, settings, flow, empty), its focal point, the size mode and the surface language.
-2. **Compose from real components** using the `wideset-build` references; apply the rules above.
-3. **Design the other states** (empty, loading, error, long content, narrow width, dark mode).
-4. **Review** with [review.md](references/review.md): run the squint test and the scored
-   checklist. Below 85% is not done; fix and re-check. Then run `wideset-review`.
-5. **Report the decisions** you made (size mode, surface language, width) so a person can
-   overrule them in one sentence.
+2. **Compose from real components** using the `wideset-build` references; start from the rules
+   above.
+3. **Render it and run the blur test** ([composition.md](references/composition.md)). Fix the
+   composition until the blurred screen is coherent, before any detail.
+4. **Design the other states** (empty, loading, error, long content, narrow width, dark mode), and
+   blur-test the empty state too.
+5. **Check the detail** with [review.md](references/review.md): the scored checklist, then
+   `wideset-review`.
+6. **Report the decisions** you made (size mode, surface language, width) and every departure from
+   the tables with its reason, so a person can overrule them in one sentence.

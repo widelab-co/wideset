@@ -1,5 +1,5 @@
 /**
- * The Agent Skills discovery endpoint, so `npx skills add https://wideset-docs.widelab.workers.dev` works without a
+ * The Agent Skills discovery endpoint, so `npx skills add https://wideset.co` works without a
  * public repository. Same shape as gen-registry: built from packages/skills on every docs build,
  * and never committed. Uses the per-file index the skills CLI reads: `{ skills: [{ name,
  * description, files }] }`, with each file served next to it.

@@ -29,6 +29,13 @@ export { ActionTileDescription } from './components/action-tile/ActionTileDescri
 export { ActionTileEntity } from './components/action-tile/ActionTileEntity';
 export { ActionTileIcon } from './components/action-tile/ActionTileIcon';
 export { ActionTileTitle } from './components/action-tile/ActionTileTitle';
+export { AppShell } from './components/app-shell/AppShell';
+export type {
+  AppShellDirection,
+  AppShellMainProps,
+  AppShellProps,
+} from './components/app-shell/AppShell.types';
+export { AppShellMain } from './components/app-shell/AppShellMain';
 export { Avatar } from './components/avatar/Avatar';
 export type { AvatarColor } from './components/avatar/Avatar.colors';
 export type {
@@ -377,20 +384,20 @@ export type {
   SidebarCollapsedProps,
   SidebarExpandedProps,
   SidebarFooterProps,
-  SidebarGroupProps,
   SidebarHeaderProps,
   SidebarItemProps,
   SidebarProps,
+  SidebarSectionHeaderProps,
   SidebarSectionProps,
   SidebarTriggerProps,
 } from './components/sidebar/Sidebar.types';
 export { SidebarCollapsed } from './components/sidebar/SidebarCollapsed';
 export { SidebarExpanded } from './components/sidebar/SidebarExpanded';
 export { SidebarFooter } from './components/sidebar/SidebarFooter';
-export { SidebarGroup } from './components/sidebar/SidebarGroup';
 export { SidebarHeader } from './components/sidebar/SidebarHeader';
 export { SidebarItem } from './components/sidebar/SidebarItem';
 export { SidebarSection } from './components/sidebar/SidebarSection';
+export { SidebarSectionHeader } from './components/sidebar/SidebarSectionHeader';
 export { SidebarTrigger } from './components/sidebar/SidebarTrigger';
 export { Sidepanel, SidepanelClose, SidepanelTrigger } from './components/sidepanel/Sidepanel';
 export type {
@@ -467,9 +474,8 @@ export { StatusModalContent } from './components/status-modal/StatusModalContent
 export { StatusModalFooter } from './components/status-modal/StatusModalFooter';
 export { StatusModalOverlay } from './components/status-modal/StatusModalOverlay';
 export { StatusModalTitle } from './components/status-modal/StatusModalTitle';
-export { Switch } from './components/switch/Switch';
+export { Switch, SwitchDescription, SwitchLabel } from './components/switch/Switch';
 export type { SwitchLabelProps, SwitchProps } from './components/switch/Switch.types';
-export { SwitchLabel } from './components/switch/SwitchLabel';
 export { SystemAlert } from './components/system-alert/SystemAlert';
 export type {
   SystemAlertActionProps,
