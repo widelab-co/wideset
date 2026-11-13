@@ -85,14 +85,13 @@ const DateRangePicker = forwardRef<HTMLButtonElement, DateRangePickerProps>(
         from: formatDateToISOString(dateRange?.from),
         to: formatDateToISOString(dateRange?.to),
       };
-      if (!isRangeControlled) setInternalRange(newRange);
-      if (!isPresetControlled) setInternalPreset('custom');
-
       if (!pendingRange) {
         setPendingRange(newRange);
         return;
       }
 
+      if (!isRangeControlled) setInternalRange(newRange);
+      if (!isPresetControlled) setInternalPreset('custom');
       setPendingRange(undefined);
       onSelect?.(newRange, 'custom');
     };

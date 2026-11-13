@@ -226,6 +226,17 @@ describe('DateRangePicker', () => {
 
       expect(onSelect).toHaveBeenCalledWith({ from: '2026-03-10', to: '2026-03-15' }, 'custom');
     });
+
+    it('should not commit a single click when the popup closes', async () => {
+      const user = userEvent.setup();
+
+      render(<DateRangePicker defaultMonth={new Date(2026, 2)} />);
+      await user.click(screen.getByRole('button'));
+      await user.click(screen.getByRole('button', { name: /March 10th, 2026/ }));
+      await user.keyboard('{Escape}');
+
+      expect(screen.getByPlaceholderText('Select date range')).toHaveValue('');
+    });
   });
 
   describe('Accessible name', () => {
