@@ -11,7 +11,7 @@ export const GET: APIRoute = ({ params, site }) =>
   new Response(
     blockMarkdown(
       blockById(params.id!)!,
-      site ?? new URL('https://wideset-docs.widelab.workers.dev'),
+      site ?? new URL('https://wideset.co'),
     ),
     { headers: { 'Content-Type': 'text/markdown; charset=utf-8' } },
   );

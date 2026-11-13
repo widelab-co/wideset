@@ -19,7 +19,7 @@ Start from a starting point; each is rebuilt from Wideset Core's Sign In screens
 | `sign-in-card` | The form card alone, centred                               | An internal tool, an admin, a product with nothing to show yet             |
 | `sign-up`      | The form card alone, creating an account                   | Every sign-up; derived from the sign-in card (Figma has no sign-up screen) |
 
-Their code is at `https://wideset-docs.widelab.workers.dev/blocks/<id>.md`.
+Their code is at `https://wideset.co/blocks/<id>.md`.
 
 ## Layout
 

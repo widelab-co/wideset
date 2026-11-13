@@ -5,7 +5,7 @@ group: feedback
 status: stable
 parts: [Illustration]
 related: [Button, InlineAlert]
-docs: https://wideset-docs.widelab.workers.dev/components/illustration
+docs: https://wideset.co/components/illustration
 storybook: components-illustration--default
 ---
 
@@ -77,5 +77,5 @@ in the primary fill (so a rebrand follows). Each size is its own drawing.
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/illustration.md` · Types:
+Full props: `https://wideset.co/components/illustration.md` · Types:
 `packages/design-system/src/components/illustration/Illustration.types.ts`
