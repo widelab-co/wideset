@@ -74,7 +74,8 @@ an element when the page uses another font. Weights are Figma's exact values
 (Inter Variable), or a static family rounds 520 to a visibly heavier cut.
 
 `font-ws-mono` (`--font-ws-mono`: Geist Mono, then the system monospace stack) is for code,
-terminals and diffs. The page loads Geist Mono; without it the system monospace font shows.
+terminals and diffs. Load Geist Mono on the page yourself, as with Inter; without it the
+system monospace font shows.
 
 ## Tracking
 
