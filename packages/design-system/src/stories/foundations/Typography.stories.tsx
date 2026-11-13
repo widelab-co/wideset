@@ -223,7 +223,7 @@ export const FontVariables: Story = {
           },
           {
             token: '--font-ws-mono',
-            default: "'Geist Mono', ui-monospace, SFMono-Regular, …",
+            default: "'IBM Plex Mono', ui-monospace, SFMono-Regular, …",
             applies: 'The font-ws-mono class, for code',
           },
         ].map(({ token, default: def, applies }) => (

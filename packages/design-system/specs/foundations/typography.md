@@ -73,8 +73,8 @@ an element when the page uses another font. Weights are Figma's exact values
 (`font-ws-normal` 480, `font-ws-medium` 520, `font-ws-semibold` 545): load a variable font
 (Inter Variable), or a static family rounds 520 to a visibly heavier cut.
 
-`font-ws-mono` (`--font-ws-mono`: Geist Mono, then the system monospace stack) is for code,
-terminals and diffs. Load Geist Mono on the page yourself, as with Inter; without it the
+`font-ws-mono` (`--font-ws-mono`: IBM Plex Mono, then the system monospace stack) is for code,
+terminals and diffs. Load IBM Plex Mono on the page yourself, as with Inter; without it the
 system monospace font shows.
 
 ## Tracking
