@@ -548,6 +548,63 @@ describe('Avatar', () => {
 
       expect(screen.getByAltText('Research assistant')).toBeInTheDocument();
     });
+
+    it.each([
+      ['the default icon', <Avatar key="default" />],
+      ['a custom icon', <Avatar key="custom" icon={<RiBugLine />} />],
+    ])('should keep %s decorative', (_, avatar) => {
+      render(avatar);
+
+      expect(screen.queryByRole('img')).not.toBeInTheDocument();
+    });
+
+    it('should take an icon avatar name from aria-label on the root', () => {
+      render(<Avatar aria-label="Bug tracker" icon={<RiBugLine />} />);
+
+      expect(screen.getByRole('img', { name: 'Bug tracker' })).toHaveAttribute(
+        'data-slot',
+        'avatar',
+      );
+    });
+
+    it('should stay a button when a clickable avatar carries aria-label', () => {
+      render(<Avatar aria-label="Open profile" onClick={() => {}} />);
+
+      expect(screen.getByRole('button', { name: 'Open profile' })).toBeInTheDocument();
+    });
+
+    it('should add the status to an aria-label name', () => {
+      render(<Avatar aria-label="Jane" status="online" />);
+
+      expect(screen.getByRole('img', { name: 'Jane, online' })).toBeInTheDocument();
+    });
+
+    it('should add the status to an aria-labelledby name', () => {
+      render(
+        <>
+          <span id="person">Jane</span>
+          <Avatar aria-labelledby="person" status="online" />
+        </>,
+      );
+
+      expect(screen.getByRole('img', { name: 'Jane online' })).toBeInTheDocument();
+    });
+
+    it('should warn when a clickable icon avatar has no name', () => {
+      const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+      render(<Avatar onClick={() => {}} />);
+
+      expect(warn).toHaveBeenCalledWith(expect.stringContaining('needs `aria-label`'));
+      warn.mockRestore();
+    });
+
+    it('should not warn when a clickable avatar has initials', () => {
+      const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+      render(<Avatar initials="JD" onClick={() => {}} />);
+
+      expect(warn).not.toHaveBeenCalled();
+      warn.mockRestore();
+    });
   });
   describe('Colour', () => {
     const hueOf = (el: HTMLElement | null) =>

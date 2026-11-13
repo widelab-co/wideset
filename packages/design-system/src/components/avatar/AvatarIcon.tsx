@@ -11,8 +11,8 @@ const AvatarIcon = ({ size, shape, icon, className, status }: IconProps) => {
   return (
     <div
       data-slot="avatar-icon"
-      role="img"
-      aria-label="Default User Icon"
+      // Decorative: the name comes from `aria-label` on the Avatar root.
+      aria-hidden="true"
       className={cn(
         'flex items-center justify-center',
         avatarVariants({

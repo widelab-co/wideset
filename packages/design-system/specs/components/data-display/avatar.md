@@ -93,6 +93,10 @@ yourself. Named exports (`AvatarGroup`, `AvatarMore`, …) are the same parts fo
 - `Avatar.More` with `onClick` is a `<button>`; icon-only needs `aria-label` ("Add member").
   Without `onClick` it is plain text.
 - `agent` reads "Agent" unless you pass `alt`.
+- The default user icon and a custom `icon` are decorative. To name such an avatar, put
+  `aria-label` on `Avatar`: it is then an image with that name, or a button with `onClick`.
+  A `status` joins the name ("Jane, online").
+- A clickable icon avatar needs `aria-label`; without one it is a button with no name.
 
 ## Do / Don't
 
