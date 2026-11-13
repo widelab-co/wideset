@@ -786,6 +786,32 @@ describe('Spreadsheet', () => {
       vi.restoreAllMocks();
     });
 
+    it('pins a column after cells that span the columns before it in every row', () => {
+      vi.spyOn(HTMLElement.prototype, 'getBoundingClientRect').mockImplementation(function (
+        this: HTMLElement,
+      ) {
+        const span = (this as HTMLTableCellElement).colSpan ?? 1;
+        return { width: 100 * span } as DOMRect;
+      });
+      render(
+        <Spreadsheet aria-label="Sales" stickyColumns={3}>
+          <Spreadsheet.Body>
+            {['Tech Nova', 'Eco Solutions'].map((name) => (
+              <Spreadsheet.Row key={name}>
+                <Spreadsheet.RowHeader colSpan={2}>{name}</Spreadsheet.RowHeader>
+                <Spreadsheet.Cell>{`${name} region`}</Spreadsheet.Cell>
+                <Spreadsheet.Cell>{`${name} amount`}</Spreadsheet.Cell>
+              </Spreadsheet.Row>
+            ))}
+          </Spreadsheet.Body>
+        </Spreadsheet>,
+      );
+      expect(cell('Tech Nova region')).toHaveAttribute('data-sticky');
+      expect(cell('Tech Nova region')).toHaveStyle({ left: '200px' });
+      expect(cell('Tech Nova amount')).not.toHaveAttribute('data-sticky');
+      vi.restoreAllMocks();
+    });
+
     it('keeps the head at the top', () => {
       render(<Clients />);
       expect(screen.getAllByRole('rowgroup')[0]).toHaveClass('sticky', 'top-0');

@@ -136,6 +136,28 @@ export const useSpreadsheetLayout = (
           column += cell.colSpan;
         }
       }
+      // A pinned column no cell covers alone (every row spans it) takes an even share of the
+      // first spanning cell over it, less the columns already measured.
+      if (widths.filter((width) => width !== undefined).length < stickyColumns) {
+        for (const row of Array.from(table.rows)) {
+          let column = 0;
+          for (const cell of Array.from(row.cells)) {
+            if (column >= stickyColumns) break;
+            const covered = Array.from({ length: cell.colSpan }, (_, i) => column + i);
+            const unknown = covered.filter((c) => c < stickyColumns && widths[c] === undefined);
+            if (
+              unknown.length &&
+              unknown.length === covered.filter((c) => widths[c] === undefined).length
+            ) {
+              const known = covered.reduce((sum, c) => sum + (widths[c] ?? 0), 0);
+              const share = (cell.getBoundingClientRect().width - known) / unknown.length;
+              unknown.forEach((c) => (widths[c] = share));
+              measured.push(cell);
+            }
+            column += cell.colSpan;
+          }
+        }
+      }
       const offset = (column: number) =>
         widths.slice(0, column).reduce((sum, width) => sum + (width ?? 0), 0);
 
