@@ -572,6 +572,39 @@ describe('Avatar', () => {
 
       expect(screen.getByRole('button', { name: 'Open profile' })).toBeInTheDocument();
     });
+
+    it('should add the status to an aria-label name', () => {
+      render(<Avatar aria-label="Jane" status="online" />);
+
+      expect(screen.getByRole('img', { name: 'Jane, online' })).toBeInTheDocument();
+    });
+
+    it('should add the status to an aria-labelledby name', () => {
+      render(
+        <>
+          <span id="person">Jane</span>
+          <Avatar aria-labelledby="person" status="online" />
+        </>,
+      );
+
+      expect(screen.getByRole('img', { name: 'Jane online' })).toBeInTheDocument();
+    });
+
+    it('should warn when a clickable icon avatar has no name', () => {
+      const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+      render(<Avatar onClick={() => {}} />);
+
+      expect(warn).toHaveBeenCalledWith(expect.stringContaining('needs `aria-label`'));
+      warn.mockRestore();
+    });
+
+    it('should not warn when a clickable avatar has initials', () => {
+      const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+      render(<Avatar initials="JD" onClick={() => {}} />);
+
+      expect(warn).not.toHaveBeenCalled();
+      warn.mockRestore();
+    });
   });
   describe('Colour', () => {
     const hueOf = (el: HTMLElement | null) =>

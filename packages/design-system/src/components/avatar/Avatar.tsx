@@ -1,5 +1,5 @@
 import * as AvatarPrimitive from '@radix-ui/react-avatar';
-import { forwardRef } from 'react';
+import { forwardRef, useEffect, useId } from 'react';
 import { cn } from 'src/lib/utils';
 
 import type { AvatarProps, AvatarWithSubComponents } from './Avatar.types';
@@ -39,6 +39,18 @@ export const Avatar = forwardRef<HTMLSpanElement, AvatarProps>(
     ref,
   ) => {
     const context = useAvatarGroupContext();
+    const label = rest['aria-label'];
+    const labelledBy = rest['aria-labelledby'];
+    const named = Boolean(label || labelledBy);
+    const statusId = useId();
+    const unnamedButton = Boolean(onClick) && !named && !agent && !initials && !(src && alt);
+
+    useEffect(() => {
+      if (unnamedButton) {
+        // eslint-disable-next-line no-console
+        console.warn('Avatar: a clickable avatar with only an icon needs `aria-label`.');
+      }
+    }, [unnamedButton]);
 
     const renderAvatarContent = () => {
       if (agent) {
@@ -99,12 +111,13 @@ export const Avatar = forwardRef<HTMLSpanElement, AvatarProps>(
         }
         // A labelled avatar is an image of that person or thing; `aria-label`
         // on a bare span would be ignored.
-        role={
-          onClick ? 'button' : rest['aria-label'] || rest['aria-labelledby'] ? 'img' : undefined
-        }
+        role={onClick ? 'button' : named ? 'img' : undefined}
         tabIndex={onClick ? 0 : undefined}
         data-slot="avatar"
         {...rest}
+        // Children of an img or button are not read, so the status joins the name.
+        aria-label={label && status ? `${label}, ${status}` : label}
+        aria-labelledby={labelledBy && status ? `${labelledBy} ${statusId}` : labelledBy}
       >
         {renderAvatarContent()}
         {selected && (
@@ -118,6 +131,11 @@ export const Avatar = forwardRef<HTMLSpanElement, AvatarProps>(
           />
         )}
         {status && <AvatarStatus status={status} size={size} />}
+        {status && labelledBy && (
+          <span id={statusId} hidden>
+            {status}
+          </span>
+        )}
       </AvatarPrimitive.Root>
     );
   },
