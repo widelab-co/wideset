@@ -30,7 +30,7 @@ export const SpreadsheetColumnHeader = React.forwardRef<
       {...props}
       {...cell}
       aria-sort={ariaSort(sortDirection)}
-      className={cn(spreadsheetCellVariants({ size, align, header: true }), className)}
+      className={cn(spreadsheetCellVariants({ size, align, part: 'columnHeader' }), className)}
     >
       {content}
     </th>

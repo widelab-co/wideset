@@ -123,6 +123,7 @@ describe('Spreadsheet', () => {
       expect(new Set(slots)).toEqual(
         new Set([
           'spreadsheet',
+          'spreadsheet-grid',
           'spreadsheet-head',
           'spreadsheet-row',
           'spreadsheet-column-header',

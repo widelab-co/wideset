@@ -53,6 +53,7 @@ export const Spreadsheet = React.forwardRef<HTMLDivElement, SpreadsheetProps>(
           <table
             ref={tableRef}
             role="grid"
+            data-slot="spreadsheet-grid"
             aria-label={ariaLabel}
             aria-labelledby={ariaLabelledBy}
             aria-describedby={ariaDescribedBy}
