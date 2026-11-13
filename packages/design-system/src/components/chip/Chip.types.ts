@@ -58,6 +58,7 @@ export type ChipLabelProps = HTMLAttributes<HTMLSpanElement>;
 /**
  * An independent native icon button, normally used for removal. Place it after Action or Label
  * as a sibling. It inherits appearance, motion, and disabled state from Chip.
+ * Requires an accessible name through aria-label or aria-labelledby.
  */
 export type ChipIconButtonProps = Omit<
   IconButtonProps,
@@ -75,7 +76,7 @@ export type ChipIconButtonProps = Omit<
   disabled?: boolean;
   /** Native button type; defaults to `button`. */
   type?: IconButtonProps['type'];
-};
+} & ({ 'aria-label': string } | { 'aria-labelledby': string });
 
 export type ChipWithSubComponents = ForwardRefExoticComponent<
   PropsWithoutRef<ChipProps> & RefAttributes<HTMLDivElement>
