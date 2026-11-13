@@ -212,6 +212,70 @@ describe('DateRangePicker', () => {
       const input = screen.getByPlaceholderText('Select range') as HTMLInputElement;
       expect(input.value).toBe('This Week');
     });
+
+    it('should keep the first click of a range picked in the calendar', async () => {
+      const user = userEvent.setup();
+      const onSelect = vi.fn();
+
+      render(
+        <DateRangePicker selected={{}} onSelect={onSelect} defaultMonth={new Date(2026, 2)} />,
+      );
+      await user.click(screen.getByRole('button'));
+      await user.click(screen.getByRole('button', { name: /March 10th, 2026/ }));
+      await user.click(screen.getByRole('button', { name: /March 15th, 2026/ }));
+
+      expect(onSelect).toHaveBeenCalledWith({ from: '2026-03-10', to: '2026-03-15' }, 'custom');
+    });
+
+    it('should report a one-day range when the start day is clicked twice', async () => {
+      const user = userEvent.setup();
+      const onSelect = vi.fn();
+
+      render(<DateRangePicker onSelect={onSelect} defaultMonth={new Date(2026, 2)} />);
+      await user.click(screen.getByRole('button'));
+      await user.click(screen.getByRole('button', { name: /March 10th, 2026/ }));
+      await user.click(screen.getByRole('button', { name: /March 10th, 2026/ }));
+
+      expect(onSelect).toHaveBeenCalledWith({ from: '2026-03-10', to: '2026-03-10' }, 'custom');
+    });
+
+    it('should keep the start day pending when min rules out a one-day range', async () => {
+      const user = userEvent.setup();
+      const onSelect = vi.fn();
+
+      render(<DateRangePicker min={2} onSelect={onSelect} defaultMonth={new Date(2026, 2)} />);
+      await user.click(screen.getByRole('button'));
+      await user.click(screen.getByRole('button', { name: /March 10th, 2026/ }));
+      await user.click(screen.getByRole('button', { name: /March 10th, 2026/ }));
+
+      expect(onSelect).not.toHaveBeenCalled();
+    });
+
+    it('should commit a min range only once it is long enough', async () => {
+      const user = userEvent.setup();
+      const onSelect = vi.fn();
+
+      render(<DateRangePicker min={3} onSelect={onSelect} defaultMonth={new Date(2026, 2)} />);
+      await user.click(screen.getByRole('button'));
+      await user.click(screen.getByRole('button', { name: /March 10th, 2026/ }));
+      await user.click(screen.getByRole('button', { name: /March 11th, 2026/ }));
+      expect(onSelect).not.toHaveBeenCalled();
+
+      await user.click(screen.getByRole('button', { name: /March 20th, 2026/ }));
+      expect(onSelect).toHaveBeenCalledTimes(1);
+      expect(onSelect.mock.calls[0][0].to).toBe('2026-03-20');
+    });
+
+    it('should not commit a single click when the popup closes', async () => {
+      const user = userEvent.setup();
+
+      render(<DateRangePicker defaultMonth={new Date(2026, 2)} />);
+      await user.click(screen.getByRole('button'));
+      await user.click(screen.getByRole('button', { name: /March 10th, 2026/ }));
+      await user.keyboard('{Escape}');
+
+      expect(screen.getByPlaceholderText('Select date range')).toHaveValue('');
+    });
   });
 
   describe('Accessible name', () => {
