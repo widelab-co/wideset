@@ -5,7 +5,7 @@ group: actions
 status: stable
 parts: [LinkButton, LinkButtonTruncatedText]
 related: [Button, IconButton]
-docs: https://wideset-docs.widelab.workers.dev/components/link-button
+docs: https://wideset.co/components/link-button
 storybook: components-button-linkbutton--default
 ---
 
@@ -22,6 +22,9 @@ storybook: components-button-linkbutton--default
 
 - The control does something here (save, submit, open a dialog) → `Button`.
 - A filled call to action that navigates → `Button asChild` around an `<a>`.
+- Beside other buttons (a form or card footer, a header) → `Button preset="ghost"`, with
+  `asChild` around an `<a>` when it navigates. A row of buttons shares one height and a hover
+  fill; `LinkButton` has neither.
 - Icon-only navigation → `IconButton asChild` around an `<a>`.
 - A tile-shaped destination with title and description → `ActionTile` with `href`.
 
@@ -93,5 +96,5 @@ Renders an `<a>`. `LinkButtonTruncatedText` is `Button.TruncatedText` re-exporte
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/link-button.md` · Types:
+Full props: `https://wideset.co/components/link-button.md` · Types:
 `packages/design-system/src/components/button/LinkButton.types.ts`

@@ -34,7 +34,7 @@
   `ws`-prefixed instead — see prefix-tokens.cjs. Wideset does not load or apply a font: components
   inherit it from the page, and the consumer points `body` at `var(--font-ws-sans)` or their own.
   `static`: the variables must reach :root even when no component uses them, because the
-  `font-ws-heading` / `font-ws-body` classes are an opt-in a consumer applies in their own markup.
+  `font-ws-heading` / `font-ws-body` / `font-ws-mono` classes are an opt-in a consumer applies in their own markup.
 */
 @theme static {
   --font-ws-sans:
@@ -43,4 +43,7 @@
     'Segoe UI Symbol', 'Noto Color Emoji';
   --font-ws-heading: var(--font-ws-sans);
   --font-ws-body: var(--font-ws-sans);
+  --font-ws-mono:
+    'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
+    'Courier New', monospace;
 }

@@ -20,9 +20,6 @@
 <StatusBadge color="positive" role="img" aria-label="Paid">
   <StatusBadge.Icon icon={RiCheckboxCircleFill} />
 </StatusBadge>
-
-// Don't: an icon next to bare text — spacing is wrong
-<StatusBadge color="positive"><StatusBadge.Icon icon={RiCheckLine} />Paid</StatusBadge>
 ```
 
 - Don't make every badge `high`; then none stands out.

@@ -3,7 +3,7 @@ import { cva } from 'class-variance-authority';
 import { sidebarCollapseMotion } from '../../motion/recipes';
 
 export const sidebarVariants = cva(
-  'gap-ws-7 px-ws-5 py-ws-7 relative flex h-full flex-col overflow-hidden',
+  'gap-ws-7 pl-ws-5 py-ws-7 relative flex h-full flex-col overflow-hidden',
   {
     variants: {
       // What the sidebar sits on, from the enclosing AppShell's direction. Figma Sidebar:
@@ -17,14 +17,17 @@ export const sidebarVariants = cva(
         frame: 'bg-transparent',
       },
       collapsed: {
-        true: 'w-[3.25rem] items-center',
-        false: 'w-[16.25rem]',
+        true: 'pr-ws-5 w-[3.25rem] items-center',
+        // The right padding holds a scrollable section's bar (8px + 2px gap), so every part, the
+        // scrolling one included, ends on the same right edge.
+        false: 'pr-ws-6 w-[16.25rem]',
       },
     },
     compoundVariants: [
       // Beside an inset page (`ml-ws-5`) the nav sits centred in its column: the left padding
-      // equals the right padding plus the page's margin, so items never hug the window edge.
-      { surface: 'frame', collapsed: false, class: 'pl-ws-9' },
+      // equals the right padding plus the page's margin, 18px a side expanded and 16px collapsed,
+      // so items and their highlight never hug the window edge.
+      { surface: 'frame', collapsed: false, class: 'pl-ws-10' },
       { surface: 'frame', collapsed: true, class: 'pl-ws-9 w-[3.75rem]' },
     ],
     defaultVariants: { collapsed: false, surface: 'page' },

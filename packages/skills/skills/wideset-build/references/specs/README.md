@@ -5,7 +5,7 @@ first, then only the files the task needs: a component's group file to pick the 
 its good-practices file to use it, a pattern file to build a screen.
 
 Facts live in the code (types, CVA variants, JSDoc) and in the generated reference
-(`https://wideset-docs.widelab.workers.dev/components/<id>.md`). Specs add what the code cannot say: when to use
+(`https://wideset.co/components/<id>.md`). Specs add what the code cannot say: when to use
 a component and when not, which variant for which job, how its parts compose, what not to do.
 Sources of truth, in order: Figma → code → specs.
 
@@ -15,9 +15,9 @@ Sources of truth, in order: Figma → code → specs.
   If no component fits, compose existing ones and say so; don't invent a new public component.
 - Style only with `ws` token classes (`bg-ws-static-container`, `p-ws-4`, `gap-ws-5`,
   `rounded-ws-control-md`). Plain Tailwind scale classes (`p-4`, `text-sm`, `rounded-lg`) and
-  palette classes (`text-gray-900`) are wrong: see [tokens.md](https://wideset-docs.widelab.workers.dev/docs/tokens.md).
+  palette classes (`text-gray-900`) are wrong: see [tokens.md](https://wideset.co/docs/tokens.md).
 - Icons are Remix components passed by reference through the `icon` prop: `icon={RiCheckLine}`
-  ([iconography](https://wideset-docs.widelab.workers.dev/docs/icons.md)).
+  ([iconography](https://wideset.co/docs/icons.md)).
 - Deprecated components (`status: deprecated`) name their replacement on their first line; use
   the replacement even when older code uses the deprecated one.
 
@@ -110,6 +110,8 @@ Sources of truth, in order: Figma → code → specs.
 
 - [Table](../good-practices/table.md): records compared across rows; sorting, selection and
   paging are your state.
+- [Spreadsheet](../good-practices/spreadsheet.md): a dense grid worked cell by cell, with a
+  pinned header and row numbers; not a list of rows to open, that is Table.
 - [ListItem](../good-practices/list-item.md): one compact row; the row inside menus and
   selects.
 - [Avatar](../good-practices/avatar.md): a person, team or the agent orb next to a name.
@@ -134,6 +136,8 @@ classes.
 - [Form page](patterns/form-page.md): FormFields, validation, submit and cancel.
 - [List and filters](patterns/list-and-filters.md): search, filters, table, pagination, empty and
   loading.
+- [Dense data](patterns/dense-data.md): when a screen is spreadsheet-like; Spreadsheet vs Table vs
+  ListItem, density, numbers.
 - [Detail in a sidepanel](patterns/detail-in-sidepanel.md): row → Sidepanel with focus return.
 - [Confirm destructive](patterns/confirm-destructive.md): Modal or StatusModal + a danger Button.
 - [Page feedback](patterns/page-feedback.md): which feedback component for which message.

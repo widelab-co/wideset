@@ -73,6 +73,80 @@ describe('StatusBadge', () => {
     });
   });
 
+  describe('Bare text beside an icon', () => {
+    // `has-[>svg:only-child]` ignores text nodes, so unwrapped text would leave the icon as the
+    // only child and squeeze the badge to an icon-only square.
+    const iconIsOnlyChild = (badge: HTMLElement) =>
+      badge.querySelector(':scope > svg:only-child') !== null;
+
+    it('should wrap the text in a label, so the badge keeps its label padding', () => {
+      render(
+        <StatusBadge data-testid="badge">
+          <StatusBadge.Icon icon={RiBugLine} />
+          Failing
+        </StatusBadge>,
+      );
+
+      expect(screen.getByText('Failing')).toHaveAttribute('data-slot', 'status-badge-label');
+      expect(iconIsOnlyChild(screen.getByTestId('badge'))).toBe(false);
+    });
+
+    it('should join numbers and words into one label', () => {
+      const count = 3;
+      render(
+        <StatusBadge>
+          <StatusBadge.Icon icon={RiBugLine} />
+          {count} failing
+        </StatusBadge>,
+      );
+
+      expect(screen.getByText('3 failing')).toHaveAttribute('data-slot', 'status-badge-label');
+    });
+
+    it('should leave a text-only badge and an explicit label as they are', () => {
+      render(
+        <>
+          <StatusBadge data-testid="text">Paid</StatusBadge>
+          <StatusBadge data-testid="labelled">
+            <StatusBadge.Icon icon={RiBugLine} />
+            <StatusBadge.Label>Paid</StatusBadge.Label>
+          </StatusBadge>
+        </>,
+      );
+
+      expect(
+        screen.getByTestId('text').querySelector('[data-slot="status-badge-label"]'),
+      ).toBeNull();
+      expect(
+        screen.getByTestId('labelled').querySelectorAll('[data-slot="status-badge-label"]'),
+      ).toHaveLength(1);
+    });
+
+    it('should keep an existing element mounted when bare text appears', () => {
+      const badge = (showText: boolean) => (
+        <StatusBadge>
+          <StatusBadge.Label key="label">Details</StatusBadge.Label>
+          {showText && 'Failing'}
+        </StatusBadge>
+      );
+      const { rerender } = render(badge(false));
+      const label = screen.getByText('Details');
+      rerender(badge(true));
+
+      expect(screen.getByText('Details')).toBe(label);
+    });
+
+    it('should keep an icon-only badge icon-only', () => {
+      render(
+        <StatusBadge data-testid="badge" role="img" aria-label="Failing">
+          <StatusBadge.Icon icon={RiBugLine} />
+        </StatusBadge>,
+      );
+
+      expect(iconIsOnlyChild(screen.getByTestId('badge'))).toBe(true);
+    });
+  });
+
   describe('Snapshots', () => {
     it('should match snapshot for default badge', () => {
       const { container } = render(<StatusBadge>Label</StatusBadge>);

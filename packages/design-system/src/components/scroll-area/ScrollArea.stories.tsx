@@ -18,9 +18,9 @@ const meta = {
     orientation: {
       control: 'select',
       description: 'Orientation of the scrollbar',
-      options: ['horizontal', 'vertical'],
+      options: ['horizontal', 'vertical', 'both'],
       table: {
-        type: { summary: "'horizontal' | 'vertical'" },
+        type: { summary: "'horizontal' | 'vertical' | 'both'" },
         defaultValue: { summary: 'vertical' },
       },
     },

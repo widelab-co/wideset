@@ -2,7 +2,7 @@
 
 A React component library for building consistent, accessible products.
 
-**[Documentation →](https://wideset-docs.widelab.workers.dev)** · **[Storybook →](https://wideset-storybook.widelab.workers.dev)**
+**[Documentation →](https://wideset.co/docs)** · **[Storybook →](https://storybook.wideset.co)**
 
 The documentation site covers the same setup in more depth, plus theming, the foundations (colour,
 type, spacing, radius, elevation, motion), every component with a live playground, and working
@@ -76,6 +76,8 @@ Pure `styles` defines no Tailwind variable (`--font-sans`, `--spacing`, …) and
 `theme` ships **tokens and utility classes only** — without the `tailwindcss-radix` & `tailwindcss-animate` plugins Wideset builds with, so if you want to use `radix-*` and `animate-*` variants in your own code, you need those plugins in your Tailwind setup.
 
 ### 3. Load the font
+
+The `wideset` CLI does this step for you: `npx wideset init` adds variable Inter as `styles/wideset-font.css` (skip it with `--no-font`). With the npm package, do it by hand.
 
 Wideset does not load a font by itself. It ships a `--font-ws-sans` variable (Inter with a system fallback), and components inherit the font from the page. Load Inter one of these ways, then apply it:
 
@@ -184,7 +186,7 @@ registry `@wideset` means. Vite (sources in `src/`):
     "hooks": "@/hooks",
     "utils": "@/lib/utils"
   },
-  "registries": { "@wideset": "https://wideset-docs.widelab.workers.dev/r/{name}.json" }
+  "registries": { "@wideset": "https://wideset.co/r/{name}.json" }
 }
 ```
 
@@ -194,7 +196,7 @@ root (`"@/*": ["./*"]`). The `@/*` alias has to exist in `tsconfig.json` (`paths
 register the namespace:
 
 ```bash
-npx shadcn@latest registry add @wideset=https://wideset-docs.widelab.workers.dev/r/{name}.json
+npx shadcn@latest registry add @wideset=https://wideset.co/r/{name}.json
 ```
 
 **2. Add components.** Sub-components and dependencies come along; the item list is `/r/registry.json`.
@@ -318,7 +320,7 @@ brand ramps, `--ws-colors-light-brand-*` and `--ws-colors-dark-brand-*` (steps 1
 or dark mode keeps the old colour; the tinted backgrounds come from `*-brand-opacity-*` tokens,
 which are fixed colours, so derive them with `color-mix()`. The full recipe, and the other ways
 to customise (one role, `className`, composition), are on
-[wideset-docs.widelab.workers.dev/docs/theming](https://wideset-docs.widelab.workers.dev/docs/theming).
+[wideset.co/docs/theming](https://wideset.co/docs/theming).
 
 ### Notes
 
@@ -353,7 +355,7 @@ pnpm test         # Vitest
 
 Before you report:
 
-- Check the [Storybook](https://wideset-storybook.widelab.workers.dev/) to confirm the behaviour isn't intentional
+- Check the [Storybook](https://storybook.wideset.co/) to confirm the behaviour isn't intentional
 - Include your package version (`npm list @wideset/react`) and – if it's a bug – a minimal reproduction
 
 ---

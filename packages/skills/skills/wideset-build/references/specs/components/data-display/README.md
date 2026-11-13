@@ -7,6 +7,8 @@ states. They show; they don't collect input. Selection and filtering live in `se
 ## Pick the right one
 
 - [Table](../../../good-practices/table.md) — several attributes per record, compared across rows; sort, select, totals.
+- [Spreadsheet](../../../good-practices/spreadsheet.md) — a dense grid worked through cell by cell: many columns and rows,
+  pinned header and row numbers, arrow keys moving a selected cell.
 - [ListItem](../../../good-practices/list-item.md) — one compact row (icon, label, description, trailing fact); the row
   inside menus and selects.
 - [Avatar](../../../good-practices/avatar.md) — a person, team or agent next to a name; `Avatar.Group` for several.
@@ -32,9 +34,11 @@ Rules of thumb:
 - If removing or toggling it changes what the user sees, it is a control → `Chip`.
 - Never give a Tag or StatusBadge an `onClick`; a clickable pill is a Chip.
 
-## Table vs ListItem vs Card
+## Table vs Spreadsheet vs ListItem vs Card
 
 - Several attributes per record, compared across rows → `Table`; never a grid of `div`s.
+- Many columns, many rows, worked through cell by cell with the keyboard → `Spreadsheet`
+  ([dense data](../../patterns/dense-data.md)).
 - One compact row per record (files, people, menu rows) → `ListItem`.
 - A bounded surface for one subject → `Card`; not a `div` with a border and a shadow.
 - A bordered group of facts or choices → `Tile` ([selection](../selection/README.md)).

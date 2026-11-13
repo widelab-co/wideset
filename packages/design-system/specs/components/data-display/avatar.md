@@ -15,7 +15,7 @@ parts:
     AvatarStatus,
   ]
 related: [ListItem, Table, Tag]
-docs: https://wideset-docs.widelab.workers.dev/components/avatar
+docs: https://wideset.co/components/avatar
 storybook: components-avatar--default
 ---
 
@@ -80,7 +80,8 @@ yourself. Named exports (`AvatarGroup`, `AvatarMore`, …) are the same parts fo
 
 ## Content
 
-- Initials: one or two letters, uppercase.
+- Initials: one or two letters, uppercase. At `xs` and `sm` only the first letter is drawn, as in
+  Figma: pass the full initials anyway, the avatar picks.
 - `Avatar.More` label is its children: `+8` for an overflow count, an icon for an action. It
   counts nothing; render the avatars you want shown and pass the rest as the label.
 - Show the name in text next to a single avatar; the avatar supports the name, never replaces it.
@@ -92,6 +93,10 @@ yourself. Named exports (`AvatarGroup`, `AvatarMore`, …) are the same parts fo
 - `Avatar.More` with `onClick` is a `<button>`; icon-only needs `aria-label` ("Add member").
   Without `onClick` it is plain text.
 - `agent` reads "Agent" unless you pass `alt`.
+- The default user icon and a custom `icon` are decorative. To name such an avatar, put
+  `aria-label` on `Avatar`: it is then an image with that name, or a button with `onClick`.
+  A `status` joins the name ("Jane, online").
+- A clickable icon avatar needs `aria-label`; without one it is a button with no name.
 
 ## Do / Don't
 
@@ -120,5 +125,5 @@ yourself. Named exports (`AvatarGroup`, `AvatarMore`, …) are the same parts fo
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/avatar.md` · Types:
+Full props: `https://wideset.co/components/avatar.md` · Types:
 `packages/design-system/src/components/avatar/Avatar.types.ts`

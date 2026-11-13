@@ -7,7 +7,7 @@ import { componentPages, componentUrl, docsPages, docUrl, SITE_SUMMARY } from '.
  * and every component's Markdown page with a line on what it covers.
  */
 export const GET: APIRoute = async ({ site }) => {
-  const base = site ?? new URL('https://wideset-docs.widelab.workers.dev');
+  const base = site ?? new URL('https://wideset.co');
   const { top, groups } = await docsPages();
   const link = (title: string, url: string, description?: string | null) =>
     `- [${title}](${url})${description ? `: ${description}` : ''}`;

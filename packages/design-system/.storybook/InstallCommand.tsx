@@ -33,11 +33,7 @@ export const InstallCommand = () => {
       <p>
         Copies this component and everything it depends on into your project. One-time setup is on
         the{' '}
-        <a
-          href="https://wideset-docs.widelab.workers.dev/docs/cli"
-          target="_blank"
-          rel="noreferrer"
-        >
+        <a href="https://wideset.co/docs/cli" target="_blank" rel="noreferrer">
           CLI page
         </a>{' '}
         of the documentation.

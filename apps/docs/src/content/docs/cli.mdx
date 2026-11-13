@@ -13,13 +13,16 @@ Wideset is published as a [shadcn registry](https://ui.shadcn.com/docs/registry)
 `wideset` CLI installs from it:
 
 ```bash
-npx wideset init              # once: components.json, @/* alias, stylesheet import
+npx wideset init              # once: components.json, @/* alias, stylesheet import, Inter
 npx wideset add button select # any components; `npx wideset list` shows them all
 ```
 
 `init` writes `components.json`, adds the `@/*` path alias to `tsconfig` (and, for Vite, to
 `vite.config.ts`), adds the Wideset stylesheet and imports it in `main.tsx` or `app/layout.tsx`;
-apps without Tailwind also get Tailwind's reset. Already using shadcn? `init` keeps your
+apps without Tailwind also get Tailwind's reset. A new project also gets Inter as its page font,
+in `styles/wideset-font.css`: pass `--no-font` to keep your own, or edit or remove that file
+later. A project that already has a `components.json` is left alone.
+Already using shadcn? `init` keeps your
 `components.json` and only registers the `@wideset` namespace. Files land in
 `components/ui/wideset/`, `lib/wideset/` and `hooks/wideset/`.
 
@@ -53,7 +56,7 @@ A `components.json` in your project root tells the CLI where files go and which 
     "hooks": "@/hooks",
     "utils": "@/lib/utils"
   },
-  "registries": { "@wideset": "https://wideset-docs.widelab.workers.dev/r/{name}.json" }
+  "registries": { "@wideset": "https://wideset.co/r/{name}.json" }
 }
 ```
 
@@ -64,7 +67,7 @@ in `vite.config.ts` (`resolve.alias`).
 **Already using shadcn?** Keep your `components.json` and only register the namespace:
 
 ```bash
-npx shadcn@latest registry add @wideset=https://wideset-docs.widelab.workers.dev/r/{name}.json
+npx shadcn@latest registry add @wideset=https://wideset.co/r/{name}.json
 ```
 
 Wideset files land next to your shadcn components, under `components/ui/wideset/`, with their

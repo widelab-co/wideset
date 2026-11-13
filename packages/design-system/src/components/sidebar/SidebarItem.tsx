@@ -7,6 +7,7 @@ import type { SidebarItemProps } from './Sidebar.types';
 import {
   sidebarItemIconVariants,
   sidebarItemMotionVariants,
+  sidebarItemSuffixVariants,
   sidebarItemVariants,
 } from './SidebarItem.variants';
 
@@ -16,6 +17,8 @@ const SidebarItem = React.forwardRef<HTMLAnchorElement, SidebarItemProps>(
       asChild = false,
       icon: Icon,
       label,
+      suffix,
+      nested = false,
       active = false,
       disabled = false,
       className,
@@ -39,7 +42,7 @@ const SidebarItem = React.forwardRef<HTMLAnchorElement, SidebarItemProps>(
         ref={ref}
         data-slot="sidebar-item"
         className={cn(
-          sidebarItemVariants({ active, collapsed: isCollapsed }),
+          sidebarItemVariants({ active, collapsed: isCollapsed, nested }),
           sidebarItemMotionVariants({ enabled: motion }),
           className,
         )}
@@ -55,7 +58,12 @@ const SidebarItem = React.forwardRef<HTMLAnchorElement, SidebarItemProps>(
         {asChild ? <Slottable>{children}</Slottable> : null}
         {Icon ? <Icon className={sidebarItemIconVariants({ active })} /> : null}
         {isCollapsed ? null : (
-          <span className="typography-label-strong-sm min-w-0 truncate">{label}</span>
+          <span className="typography-label-strong-sm min-w-0 flex-1 truncate">{label}</span>
+        )}
+        {isCollapsed || suffix == null ? null : (
+          <span data-slot="sidebar-item-suffix" className={sidebarItemSuffixVariants()}>
+            {suffix}
+          </span>
         )}
       </Comp>
     );

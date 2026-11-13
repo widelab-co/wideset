@@ -17,7 +17,7 @@ ToastProvider                       — once, around the whole app
 └ AppShell direction="…"           — full-height row; the direction's background
   ├ Sidebar                         — navigation; owns collapsed state; surface from AppShell
   │ ├ Sidebar.Header                — product name + Sidebar.Trigger
-  │ └ Sidebar.Section scrollable    — nav > Sidebar.Item, in Expanded and Collapsed
+  │ └ Sidebar.Section scrollable    — nav > Sidebar.Item, one tree for both modes
   └ AppShell.Main                   — <main>, the only scroll container for page content
     ├ SystemAlert                   — optional, page-level notice, first
     ├ header                        — Breadcrumbs (optional), h1, page actions
@@ -53,33 +53,25 @@ export function Shell({ current, children }: { current: string; children: ReactN
       <AppShell direction="inset">
         <Sidebar>
           <Sidebar.Header>
-            <Sidebar.Expanded>
-              <div className="gap-ws-7 py-ws-3 pl-ws-5 flex items-center justify-between">
-                <span className="typography-label-strong-sm text-ws-static-strong">Northwind</span>
-                <Sidebar.Trigger />
-              </div>
-            </Sidebar.Expanded>
-            <Sidebar.Collapsed>
-              <div className="py-ws-3 flex items-center">
-                <Sidebar.Trigger />
-              </div>
-            </Sidebar.Collapsed>
+            <div className="gap-ws-7 py-ws-3 flex items-center">
+              <Sidebar.Expanded>
+                <span className="typography-label-strong-sm text-ws-static-strong pl-ws-5">
+                  Northwind
+                </span>
+              </Sidebar.Expanded>
+              <Sidebar.Trigger />
+            </div>
           </Sidebar.Header>
           <Sidebar.Section scrollable>
-            <Sidebar.Expanded>
-              <Nav current={current} />
-            </Sidebar.Expanded>
-            <Sidebar.Collapsed>
-              <Nav current={current} />
-            </Sidebar.Collapsed>
+            <Nav current={current} />
           </Sidebar.Section>
         </Sidebar>
 
         <AppShell.Main>
           <div className="gap-ws-12 p-ws-12 flex flex-col">
             <header className="gap-ws-9 flex flex-wrap items-center justify-between">
-              <h1 className="typography-title-sm text-ws-static-strong">Projects</h1>
-              <Button>New project</Button>
+              <h1 className="typography-title-md text-ws-static-strong">Projects</h1>
+              <Button size="sm">New project</Button>
             </header>
             {children}
           </div>
@@ -108,14 +100,17 @@ grid-cols-[repeat(auto-fit,minmax(16rem,1fr))] gap-ws-11`) or stack sections wit
 
 ## Rules
 
-- A `Sidebar.Section` renders nothing in a mode where it has no matching `Sidebar.Expanded` or
-  `Sidebar.Collapsed` child, so give it both, as the example does.
+- Write the navigation and the trigger once: one tree serves both modes and keeps focus across a
+  toggle. `Sidebar.Expanded` / `Sidebar.Collapsed` wrap only what exists in one mode, as the
+  product name does in the example.
 - `AppShell.Main` is the only scroll container and already stops a wide table from pushing the
   layout out; do not add a second scrolling wrapper around the page.
 - The direction lives on `AppShell` alone. Do not pass the sidebar a fill or a border through
   `className`, and do not give `AppShell.Main` its own background, radius or shadow.
+- The page is white in every direction (in `inset`, a white card); cards on it stay `Card`
+  bordered on that white.
 - One active item, set by you from the current path.
-- Keep the top level to about seven items; group the rest in sections instead of nesting deeply.
+- Keep the top level to about seven items; group the rest under `Sidebar.SectionHeader`s instead of nesting deeply.
 - Hide pages the user will never reach. `disabled` is for something they could unlock.
 - Wideset ships no router. Routing, data fetching, authentication and URL state belong to the app.
   In Next.js the shell is a client component; the layout that renders it can stay a Server
@@ -150,6 +145,8 @@ changes shape: see [responsive](../foundations/responsive.md).
   replace `AppShell`'s full height (`h-dvh`) with `min-h-screen`.
 - Hand-writing a direction (`bg-ws-static-background` on a row, a rounded `main` with a shadow)
   instead of `<AppShell direction="inset">`.
+- A grey page (`bg-ws-static-background`) on `AppShell.Main` beside the white sidebar: the work
+  then looks like the background.
 - A second `ToastProvider` per page: toasts then stack in two places.
 - Building navigation from `Button`s or `ListItem`s; use `Sidebar.Item` (it renders an `<a>`).
 - Plain Tailwind spacing (`p-6`, `gap-4`) or palette colours; use `p-ws-*`, `gap-ws-*`,

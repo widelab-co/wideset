@@ -1,0 +1,226 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Spreadsheet > Rendering > matches the snapshot 1`] = `
+<div
+  class="bg-ws-static-container isolate w-full overflow-auto"
+  data-slot="spreadsheet"
+  style="scroll-padding-top: 0px; scroll-padding-left: 0px;"
+>
+  <table
+    aria-label="Clients"
+    class="w-full table-fixed border-separate border-spacing-0 bg-inherit tabular-nums"
+    data-slot="spreadsheet-grid"
+    role="grid"
+  >
+    <thead
+      class="z-ws-sticky sticky top-0 bg-inherit"
+      data-slot="spreadsheet-head"
+    >
+      <tr
+        class="bg-inherit"
+        data-slot="spreadsheet-row"
+      >
+        <th
+          aria-label="Row"
+          aria-selected="false"
+          class="typography-body-sm text-ws-static-base truncate align-middle border-ws-static-subtle border-r border-b first:border-l [thead>tr:first-child>&]:border-t bg-(--spreadsheet-tint) data-sticky:z-ws-mask data-sticky:sticky data-sticky:bg-inherit data-sticky:bg-[linear-gradient(var(--spreadsheet-tint),var(--spreadsheet-tint))] aria-selected:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-default)] aria-selected:hover:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-hover)] aria-selected:active:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-pressed)] outline-ws-dynamic-primary-strong-default focus-visible:outline-2 focus-visible:-outline-offset-2 h-ws-14 px-ws-5 [--spreadsheet-tint:var(--ws-dynamic-fill-tertiary-alpha-strong-default)] hover:[--spreadsheet-tint:var(--ws-dynamic-fill-tertiary-alpha-strong-hover)] active:[--spreadsheet-tint:var(--ws-dynamic-fill-tertiary-alpha-strong-pressed)] text-left"
+          data-slot="spreadsheet-column-header"
+          data-spreadsheet-cell="_r_1g_"
+          data-sticky=""
+          scope="col"
+          style="left: 0px;"
+          tabindex="0"
+        />
+        <th
+          aria-selected="false"
+          class="typography-body-sm text-ws-static-base truncate align-middle border-ws-static-subtle border-r border-b first:border-l [thead>tr:first-child>&]:border-t bg-(--spreadsheet-tint) data-sticky:z-ws-mask data-sticky:sticky data-sticky:bg-inherit data-sticky:bg-[linear-gradient(var(--spreadsheet-tint),var(--spreadsheet-tint))] aria-selected:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-default)] aria-selected:hover:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-hover)] aria-selected:active:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-pressed)] outline-ws-dynamic-primary-strong-default focus-visible:outline-2 focus-visible:-outline-offset-2 h-ws-14 px-ws-5 [--spreadsheet-tint:var(--ws-dynamic-fill-tertiary-alpha-strong-default)] hover:[--spreadsheet-tint:var(--ws-dynamic-fill-tertiary-alpha-strong-hover)] active:[--spreadsheet-tint:var(--ws-dynamic-fill-tertiary-alpha-strong-pressed)] text-left"
+          data-slot="spreadsheet-column-header"
+          data-spreadsheet-cell="_r_1h_"
+          scope="col"
+          tabindex="-1"
+          title="Client name"
+        >
+          Client name
+        </th>
+        <th
+          aria-selected="false"
+          class="typography-body-sm text-ws-static-base truncate align-middle border-ws-static-subtle border-r border-b first:border-l [thead>tr:first-child>&]:border-t bg-(--spreadsheet-tint) data-sticky:z-ws-mask data-sticky:sticky data-sticky:bg-inherit data-sticky:bg-[linear-gradient(var(--spreadsheet-tint),var(--spreadsheet-tint))] aria-selected:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-default)] aria-selected:hover:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-hover)] aria-selected:active:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-pressed)] outline-ws-dynamic-primary-strong-default focus-visible:outline-2 focus-visible:-outline-offset-2 h-ws-14 px-ws-5 [--spreadsheet-tint:var(--ws-dynamic-fill-tertiary-alpha-strong-default)] hover:[--spreadsheet-tint:var(--ws-dynamic-fill-tertiary-alpha-strong-hover)] active:[--spreadsheet-tint:var(--ws-dynamic-fill-tertiary-alpha-strong-pressed)] text-left"
+          data-slot="spreadsheet-column-header"
+          data-spreadsheet-cell="_r_1i_"
+          scope="col"
+          tabindex="-1"
+          title="Customers"
+        >
+          Customers
+        </th>
+        <th
+          aria-selected="false"
+          class="typography-body-sm text-ws-static-base truncate align-middle border-ws-static-subtle border-r border-b first:border-l [thead>tr:first-child>&]:border-t bg-(--spreadsheet-tint) data-sticky:z-ws-mask data-sticky:sticky data-sticky:bg-inherit data-sticky:bg-[linear-gradient(var(--spreadsheet-tint),var(--spreadsheet-tint))] aria-selected:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-default)] aria-selected:hover:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-hover)] aria-selected:active:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-pressed)] outline-ws-dynamic-primary-strong-default focus-visible:outline-2 focus-visible:-outline-offset-2 h-ws-14 px-ws-5 [--spreadsheet-tint:var(--ws-dynamic-fill-tertiary-alpha-strong-default)] hover:[--spreadsheet-tint:var(--ws-dynamic-fill-tertiary-alpha-strong-hover)] active:[--spreadsheet-tint:var(--ws-dynamic-fill-tertiary-alpha-strong-pressed)] text-left"
+          data-slot="spreadsheet-column-header"
+          data-spreadsheet-cell="_r_1j_"
+          scope="col"
+          tabindex="-1"
+          title="Country"
+        >
+          Country
+        </th>
+      </tr>
+    </thead>
+    <tbody
+      class="bg-inherit"
+      data-slot="spreadsheet-body"
+    >
+      <tr
+        class="bg-inherit"
+        data-slot="spreadsheet-row"
+      >
+        <th
+          aria-selected="false"
+          class="typography-body-sm truncate align-middle border-ws-static-subtle border-r border-b first:border-l [thead>tr:first-child>&]:border-t bg-(--spreadsheet-tint) data-sticky:z-ws-mask data-sticky:sticky data-sticky:bg-inherit data-sticky:bg-[linear-gradient(var(--spreadsheet-tint),var(--spreadsheet-tint))] aria-selected:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-default)] aria-selected:hover:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-hover)] aria-selected:active:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-pressed)] outline-ws-dynamic-primary-strong-default focus-visible:outline-2 focus-visible:-outline-offset-2 h-ws-14 px-ws-5 [--spreadsheet-tint:var(--ws-dynamic-fill-secondary-alpha-default)] hover:[--spreadsheet-tint:var(--ws-dynamic-fill-secondary-alpha-hover)] active:[--spreadsheet-tint:var(--ws-dynamic-fill-secondary-alpha-pressed)] text-ws-static-subtle text-center"
+          data-slot="spreadsheet-row-header"
+          data-spreadsheet-cell="_r_1k_"
+          data-sticky=""
+          scope="row"
+          style="left: 0px;"
+          tabindex="-1"
+        >
+          0
+        </th>
+        <td
+          aria-selected="false"
+          class="typography-body-sm text-ws-static-base truncate align-middle border-ws-static-subtle border-r border-b first:border-l [thead>tr:first-child>&]:border-t bg-(--spreadsheet-tint) data-sticky:z-ws-mask data-sticky:sticky data-sticky:bg-inherit data-sticky:bg-[linear-gradient(var(--spreadsheet-tint),var(--spreadsheet-tint))] aria-selected:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-default)] aria-selected:hover:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-hover)] aria-selected:active:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-pressed)] outline-ws-dynamic-primary-strong-default focus-visible:outline-2 focus-visible:-outline-offset-2 h-ws-14 px-ws-5 [--spreadsheet-tint:var(--ws-dynamic-fill-secondary-alpha-default)] hover:[--spreadsheet-tint:var(--ws-dynamic-fill-secondary-alpha-hover)] active:[--spreadsheet-tint:var(--ws-dynamic-fill-secondary-alpha-pressed)] text-left"
+          data-slot="spreadsheet-cell"
+          data-spreadsheet-cell="_r_1l_"
+          role="gridcell"
+          tabindex="-1"
+          title="Tech Nova"
+        >
+          Tech Nova
+        </td>
+        <td
+          aria-selected="false"
+          class="typography-body-sm text-ws-static-base truncate align-middle border-ws-static-subtle border-r border-b first:border-l [thead>tr:first-child>&]:border-t bg-(--spreadsheet-tint) data-sticky:z-ws-mask data-sticky:sticky data-sticky:bg-inherit data-sticky:bg-[linear-gradient(var(--spreadsheet-tint),var(--spreadsheet-tint))] aria-selected:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-default)] aria-selected:hover:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-hover)] aria-selected:active:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-pressed)] outline-ws-dynamic-primary-strong-default focus-visible:outline-2 focus-visible:-outline-offset-2 h-ws-14 px-ws-5 [--spreadsheet-tint:var(--ws-dynamic-fill-secondary-alpha-default)] hover:[--spreadsheet-tint:var(--ws-dynamic-fill-secondary-alpha-hover)] active:[--spreadsheet-tint:var(--ws-dynamic-fill-secondary-alpha-pressed)] text-right"
+          data-slot="spreadsheet-cell"
+          data-spreadsheet-cell="_r_1m_"
+          role="gridcell"
+          tabindex="-1"
+          title="23"
+        >
+          23
+        </td>
+        <td
+          aria-selected="false"
+          class="typography-body-sm text-ws-static-base truncate align-middle border-ws-static-subtle border-r border-b first:border-l [thead>tr:first-child>&]:border-t bg-(--spreadsheet-tint) data-sticky:z-ws-mask data-sticky:sticky data-sticky:bg-inherit data-sticky:bg-[linear-gradient(var(--spreadsheet-tint),var(--spreadsheet-tint))] aria-selected:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-default)] aria-selected:hover:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-hover)] aria-selected:active:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-pressed)] outline-ws-dynamic-primary-strong-default focus-visible:outline-2 focus-visible:-outline-offset-2 h-ws-14 px-ws-5 [--spreadsheet-tint:var(--ws-dynamic-fill-secondary-alpha-default)] hover:[--spreadsheet-tint:var(--ws-dynamic-fill-secondary-alpha-hover)] active:[--spreadsheet-tint:var(--ws-dynamic-fill-secondary-alpha-pressed)] text-left"
+          data-slot="spreadsheet-cell"
+          data-spreadsheet-cell="_r_1n_"
+          role="gridcell"
+          tabindex="-1"
+          title="Brazil"
+        >
+          Brazil
+        </td>
+      </tr>
+      <tr
+        class="bg-inherit"
+        data-slot="spreadsheet-row"
+      >
+        <th
+          aria-selected="false"
+          class="typography-body-sm truncate align-middle border-ws-static-subtle border-r border-b first:border-l [thead>tr:first-child>&]:border-t bg-(--spreadsheet-tint) data-sticky:z-ws-mask data-sticky:sticky data-sticky:bg-inherit data-sticky:bg-[linear-gradient(var(--spreadsheet-tint),var(--spreadsheet-tint))] aria-selected:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-default)] aria-selected:hover:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-hover)] aria-selected:active:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-pressed)] outline-ws-dynamic-primary-strong-default focus-visible:outline-2 focus-visible:-outline-offset-2 h-ws-14 px-ws-5 [--spreadsheet-tint:var(--ws-dynamic-fill-secondary-alpha-default)] hover:[--spreadsheet-tint:var(--ws-dynamic-fill-secondary-alpha-hover)] active:[--spreadsheet-tint:var(--ws-dynamic-fill-secondary-alpha-pressed)] text-ws-static-subtle text-center"
+          data-slot="spreadsheet-row-header"
+          data-spreadsheet-cell="_r_1o_"
+          data-sticky=""
+          scope="row"
+          style="left: 0px;"
+          tabindex="-1"
+        >
+          1
+        </th>
+        <td
+          aria-selected="false"
+          class="typography-body-sm text-ws-static-base truncate align-middle border-ws-static-subtle border-r border-b first:border-l [thead>tr:first-child>&]:border-t bg-(--spreadsheet-tint) data-sticky:z-ws-mask data-sticky:sticky data-sticky:bg-inherit data-sticky:bg-[linear-gradient(var(--spreadsheet-tint),var(--spreadsheet-tint))] aria-selected:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-default)] aria-selected:hover:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-hover)] aria-selected:active:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-pressed)] outline-ws-dynamic-primary-strong-default focus-visible:outline-2 focus-visible:-outline-offset-2 h-ws-14 px-ws-5 [--spreadsheet-tint:var(--ws-dynamic-fill-secondary-alpha-default)] hover:[--spreadsheet-tint:var(--ws-dynamic-fill-secondary-alpha-hover)] active:[--spreadsheet-tint:var(--ws-dynamic-fill-secondary-alpha-pressed)] text-left"
+          data-slot="spreadsheet-cell"
+          data-spreadsheet-cell="_r_1p_"
+          role="gridcell"
+          tabindex="-1"
+          title="Eco Solutions"
+        >
+          Eco Solutions
+        </td>
+        <td
+          aria-selected="false"
+          class="typography-body-sm text-ws-static-base truncate align-middle border-ws-static-subtle border-r border-b first:border-l [thead>tr:first-child>&]:border-t bg-(--spreadsheet-tint) data-sticky:z-ws-mask data-sticky:sticky data-sticky:bg-inherit data-sticky:bg-[linear-gradient(var(--spreadsheet-tint),var(--spreadsheet-tint))] aria-selected:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-default)] aria-selected:hover:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-hover)] aria-selected:active:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-pressed)] outline-ws-dynamic-primary-strong-default focus-visible:outline-2 focus-visible:-outline-offset-2 h-ws-14 px-ws-5 [--spreadsheet-tint:var(--ws-dynamic-fill-secondary-alpha-default)] hover:[--spreadsheet-tint:var(--ws-dynamic-fill-secondary-alpha-hover)] active:[--spreadsheet-tint:var(--ws-dynamic-fill-secondary-alpha-pressed)] text-right"
+          data-slot="spreadsheet-cell"
+          data-spreadsheet-cell="_r_1q_"
+          role="gridcell"
+          tabindex="-1"
+          title="37"
+        >
+          37
+        </td>
+        <td
+          aria-selected="false"
+          class="typography-body-sm text-ws-static-base truncate align-middle border-ws-static-subtle border-r border-b first:border-l [thead>tr:first-child>&]:border-t bg-(--spreadsheet-tint) data-sticky:z-ws-mask data-sticky:sticky data-sticky:bg-inherit data-sticky:bg-[linear-gradient(var(--spreadsheet-tint),var(--spreadsheet-tint))] aria-selected:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-default)] aria-selected:hover:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-hover)] aria-selected:active:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-pressed)] outline-ws-dynamic-primary-strong-default focus-visible:outline-2 focus-visible:-outline-offset-2 h-ws-14 px-ws-5 [--spreadsheet-tint:var(--ws-dynamic-fill-secondary-alpha-default)] hover:[--spreadsheet-tint:var(--ws-dynamic-fill-secondary-alpha-hover)] active:[--spreadsheet-tint:var(--ws-dynamic-fill-secondary-alpha-pressed)] text-left"
+          data-slot="spreadsheet-cell"
+          data-spreadsheet-cell="_r_1r_"
+          role="gridcell"
+          tabindex="-1"
+          title="Japan"
+        >
+          Japan
+        </td>
+      </tr>
+      <tr
+        class="bg-inherit"
+        data-slot="spreadsheet-row"
+      >
+        <th
+          aria-selected="false"
+          class="typography-body-sm truncate align-middle border-ws-static-subtle border-r border-b first:border-l [thead>tr:first-child>&]:border-t bg-(--spreadsheet-tint) data-sticky:z-ws-mask data-sticky:sticky data-sticky:bg-inherit data-sticky:bg-[linear-gradient(var(--spreadsheet-tint),var(--spreadsheet-tint))] aria-selected:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-default)] aria-selected:hover:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-hover)] aria-selected:active:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-pressed)] outline-ws-dynamic-primary-strong-default focus-visible:outline-2 focus-visible:-outline-offset-2 h-ws-14 px-ws-5 [--spreadsheet-tint:var(--ws-dynamic-fill-secondary-alpha-default)] hover:[--spreadsheet-tint:var(--ws-dynamic-fill-secondary-alpha-hover)] active:[--spreadsheet-tint:var(--ws-dynamic-fill-secondary-alpha-pressed)] text-ws-static-subtle text-center"
+          data-slot="spreadsheet-row-header"
+          data-spreadsheet-cell="_r_1s_"
+          data-sticky=""
+          scope="row"
+          style="left: 0px;"
+          tabindex="-1"
+        >
+          2
+        </th>
+        <td
+          aria-selected="false"
+          class="typography-body-sm text-ws-static-base truncate align-middle border-ws-static-subtle border-r border-b first:border-l [thead>tr:first-child>&]:border-t bg-(--spreadsheet-tint) data-sticky:z-ws-mask data-sticky:sticky data-sticky:bg-inherit data-sticky:bg-[linear-gradient(var(--spreadsheet-tint),var(--spreadsheet-tint))] aria-selected:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-default)] aria-selected:hover:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-hover)] aria-selected:active:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-pressed)] outline-ws-dynamic-primary-strong-default focus-visible:outline-2 focus-visible:-outline-offset-2 h-ws-14 px-ws-5 [--spreadsheet-tint:var(--ws-dynamic-fill-secondary-alpha-default)] hover:[--spreadsheet-tint:var(--ws-dynamic-fill-secondary-alpha-hover)] active:[--spreadsheet-tint:var(--ws-dynamic-fill-secondary-alpha-pressed)] text-left"
+          data-slot="spreadsheet-cell"
+          data-spreadsheet-cell="_r_1t_"
+          role="gridcell"
+          tabindex="-1"
+          title="Skyline Innovations"
+        >
+          Skyline Innovations
+        </td>
+        <td
+          aria-selected="false"
+          class="typography-body-sm text-ws-static-base truncate align-middle border-ws-static-subtle border-r border-b first:border-l [thead>tr:first-child>&]:border-t bg-(--spreadsheet-tint) data-sticky:z-ws-mask data-sticky:sticky data-sticky:bg-inherit data-sticky:bg-[linear-gradient(var(--spreadsheet-tint),var(--spreadsheet-tint))] aria-selected:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-default)] aria-selected:hover:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-hover)] aria-selected:active:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-pressed)] outline-ws-dynamic-primary-strong-default focus-visible:outline-2 focus-visible:-outline-offset-2 h-ws-14 px-ws-5 [--spreadsheet-tint:var(--ws-dynamic-fill-secondary-alpha-default)] hover:[--spreadsheet-tint:var(--ws-dynamic-fill-secondary-alpha-hover)] active:[--spreadsheet-tint:var(--ws-dynamic-fill-secondary-alpha-pressed)] text-right"
+          data-slot="spreadsheet-cell"
+          data-spreadsheet-cell="_r_1u_"
+          role="gridcell"
+          tabindex="-1"
+          title="15"
+        >
+          15
+        </td>
+        <td
+          aria-selected="false"
+          class="typography-body-sm text-ws-static-base truncate align-middle border-ws-static-subtle border-r border-b first:border-l [thead>tr:first-child>&]:border-t bg-(--spreadsheet-tint) data-sticky:z-ws-mask data-sticky:sticky data-sticky:bg-inherit data-sticky:bg-[linear-gradient(var(--spreadsheet-tint),var(--spreadsheet-tint))] aria-selected:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-default)] aria-selected:hover:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-hover)] aria-selected:active:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-pressed)] outline-ws-dynamic-primary-strong-default focus-visible:outline-2 focus-visible:-outline-offset-2 h-ws-14 px-ws-5 [--spreadsheet-tint:var(--ws-dynamic-fill-secondary-alpha-default)] hover:[--spreadsheet-tint:var(--ws-dynamic-fill-secondary-alpha-hover)] active:[--spreadsheet-tint:var(--ws-dynamic-fill-secondary-alpha-pressed)] text-left"
+          data-slot="spreadsheet-cell"
+          data-spreadsheet-cell="_r_1v_"
+          role="gridcell"
+          tabindex="-1"
+          title="Nigeria"
+        >
+          Nigeria
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;

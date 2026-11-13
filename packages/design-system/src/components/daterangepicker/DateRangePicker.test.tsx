@@ -149,6 +149,26 @@ describe('DateRangePicker', () => {
       expect(screen.getByRole('grid')).toBeInTheDocument();
       expect(baseElement).toMatchSnapshot();
     });
+
+    it('should count a preset from the today prop', async () => {
+      const user = userEvent.setup();
+      const onSelect = vi.fn();
+
+      render(<DateRangePicker showDatePresets today={new Date(2024, 0, 10)} onSelect={onSelect} />);
+      await user.click(screen.getByRole('button'));
+      await user.click(screen.getByRole('button', { name: 'Last Month' }));
+
+      expect(onSelect).toHaveBeenCalledWith({ from: '2023-12-01', to: '2023-12-31' }, 'lastMonth');
+    });
+
+    it('should count defaultDatePreset from the today prop', async () => {
+      const user = userEvent.setup();
+
+      render(<DateRangePicker defaultDatePreset="thisMonth" today={new Date(2024, 0, 10)} />);
+      await user.click(screen.getByRole('button'));
+
+      expect(screen.getByRole('grid', { name: 'January 2024' })).toBeInTheDocument();
+    });
   });
 
   describe('Calendar selection', () => {
@@ -191,6 +211,70 @@ describe('DateRangePicker', () => {
 
       const input = screen.getByPlaceholderText('Select range') as HTMLInputElement;
       expect(input.value).toBe('This Week');
+    });
+
+    it('should keep the first click of a range picked in the calendar', async () => {
+      const user = userEvent.setup();
+      const onSelect = vi.fn();
+
+      render(
+        <DateRangePicker selected={{}} onSelect={onSelect} defaultMonth={new Date(2026, 2)} />,
+      );
+      await user.click(screen.getByRole('button'));
+      await user.click(screen.getByRole('button', { name: /March 10th, 2026/ }));
+      await user.click(screen.getByRole('button', { name: /March 15th, 2026/ }));
+
+      expect(onSelect).toHaveBeenCalledWith({ from: '2026-03-10', to: '2026-03-15' }, 'custom');
+    });
+
+    it('should report a one-day range when the start day is clicked twice', async () => {
+      const user = userEvent.setup();
+      const onSelect = vi.fn();
+
+      render(<DateRangePicker onSelect={onSelect} defaultMonth={new Date(2026, 2)} />);
+      await user.click(screen.getByRole('button'));
+      await user.click(screen.getByRole('button', { name: /March 10th, 2026/ }));
+      await user.click(screen.getByRole('button', { name: /March 10th, 2026/ }));
+
+      expect(onSelect).toHaveBeenCalledWith({ from: '2026-03-10', to: '2026-03-10' }, 'custom');
+    });
+
+    it('should keep the start day pending when min rules out a one-day range', async () => {
+      const user = userEvent.setup();
+      const onSelect = vi.fn();
+
+      render(<DateRangePicker min={2} onSelect={onSelect} defaultMonth={new Date(2026, 2)} />);
+      await user.click(screen.getByRole('button'));
+      await user.click(screen.getByRole('button', { name: /March 10th, 2026/ }));
+      await user.click(screen.getByRole('button', { name: /March 10th, 2026/ }));
+
+      expect(onSelect).not.toHaveBeenCalled();
+    });
+
+    it('should commit a min range only once it is long enough', async () => {
+      const user = userEvent.setup();
+      const onSelect = vi.fn();
+
+      render(<DateRangePicker min={3} onSelect={onSelect} defaultMonth={new Date(2026, 2)} />);
+      await user.click(screen.getByRole('button'));
+      await user.click(screen.getByRole('button', { name: /March 10th, 2026/ }));
+      await user.click(screen.getByRole('button', { name: /March 11th, 2026/ }));
+      expect(onSelect).not.toHaveBeenCalled();
+
+      await user.click(screen.getByRole('button', { name: /March 20th, 2026/ }));
+      expect(onSelect).toHaveBeenCalledTimes(1);
+      expect(onSelect.mock.calls[0][0].to).toBe('2026-03-20');
+    });
+
+    it('should not commit a single click when the popup closes', async () => {
+      const user = userEvent.setup();
+
+      render(<DateRangePicker defaultMonth={new Date(2026, 2)} />);
+      await user.click(screen.getByRole('button'));
+      await user.click(screen.getByRole('button', { name: /March 10th, 2026/ }));
+      await user.keyboard('{Escape}');
+
+      expect(screen.getByPlaceholderText('Select date range')).toHaveValue('');
     });
   });
 
@@ -243,6 +327,30 @@ describe('DateRangePicker', () => {
       render(<DateRangePicker ref={ref} />);
 
       expect(ref.current).toBeInstanceOf(HTMLButtonElement);
+    });
+  });
+
+  describe('Preset labels', () => {
+    it('should show a custom preset label in the trigger', () => {
+      render(
+        <DateRangePicker defaultDatePreset="thisWeek" presetLabels={{ thisWeek: 'This week' }} />,
+      );
+
+      expect(screen.getByRole('button', { name: 'This week' })).toBeInTheDocument();
+    });
+
+    it('should fall back to the built-in label for a key left undefined', async () => {
+      const user = userEvent.setup();
+
+      render(
+        <DateRangePicker
+          showDatePresets
+          presetLabels={{ thisWeek: undefined, lastMonth: 'Last month' }}
+        />,
+      );
+      await user.click(screen.getByRole('button'));
+
+      expect(screen.getByRole('button', { name: 'This Week' })).toBeInTheDocument();
     });
   });
 });
