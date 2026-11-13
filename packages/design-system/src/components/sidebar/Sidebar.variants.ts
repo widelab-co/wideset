@@ -10,7 +10,7 @@ export const sidebarVariants = cva(
       // Static/Fill/Foreground with a 1px Static/Stroke/Subtle line on its right edge (page,
       // Flat). Figma's Communication tints it with Static/Fill/Alpha/Subtle and drops the line
       // (tinted, Frame). Figma's Calendar drops both and shows the grey app frame around an
-      // inset page (frame, Inset).
+      // inset page (frame, Inset and Canvas).
       surface: {
         page: 'bg-ws-static-foreground border-ws-static-subtle border-r',
         tinted: 'bg-ws-static-alpha-subtle',
@@ -39,6 +39,7 @@ export const sidebarSurfaceByDirection = {
   flat: 'page',
   frame: 'tinted',
   inset: 'frame',
+  canvas: 'frame',
 } as const;
 
 export const sidebarMotionVariants = cva('', {

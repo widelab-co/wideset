@@ -7,7 +7,7 @@ import { appShellVariants } from './AppShell.variants';
 import { AppShellMain } from './AppShellMain';
 
 const AppShell = React.forwardRef<HTMLDivElement, AppShellProps>(
-  ({ direction = 'flat', className, children, ...props }, ref) => {
+  ({ direction = 'inset', className, children, ...props }, ref) => {
     const contextValue = React.useMemo(() => ({ direction }), [direction]);
 
     return (

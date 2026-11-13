@@ -5,7 +5,7 @@ import { Sidebar } from '../sidebar/Sidebar';
 import { AppShell } from './AppShell';
 import type { AppShellDirection } from './AppShell.types';
 
-const directions: AppShellDirection[] = ['flat', 'frame', 'inset'];
+const directions: AppShellDirection[] = ['inset', 'flat', 'frame', 'canvas'];
 
 const renderShell = (direction?: AppShellDirection) =>
   render(
@@ -47,9 +47,14 @@ describe('AppShell', () => {
   });
 
   describe('Directions', () => {
-    it('defaults to flat', () => {
+    it('defaults to inset', () => {
       renderShell();
-      expect(screen.getByTestId('shell')).toHaveAttribute('data-direction', 'flat');
+      expect(screen.getByTestId('shell')).toHaveAttribute('data-direction', 'inset');
+      expect(screen.getByTestId('sidebar')).toHaveClass('bg-transparent');
+    });
+
+    it.each(['flat', 'frame'] as const)('lays %s on the white page', (direction) => {
+      renderShell(direction);
       expect(screen.getByTestId('shell')).toHaveClass('bg-ws-static-foreground');
     });
 
@@ -66,10 +71,20 @@ describe('AppShell', () => {
       );
     });
 
+    it('makes the grey the page in canvas, with no card around it', () => {
+      renderShell('canvas');
+      expect(screen.getByTestId('shell')).toHaveClass('bg-ws-static-background');
+      const main = screen.getByRole('main');
+      expect(main).not.toHaveClass('bg-ws-static-foreground');
+      expect(main).not.toHaveClass('rounded-ws-container-lg');
+      expect(main).not.toHaveClass('shadow-ws-low');
+    });
+
     it.each([
       ['flat', 'border-r'],
       ['frame', 'bg-ws-static-alpha-subtle'],
       ['inset', 'bg-transparent'],
+      ['canvas', 'bg-transparent'],
     ] as const)('gives the Sidebar the %s surface', (direction, surfaceClass) => {
       renderShell(direction);
       expect(screen.getByTestId('sidebar')).toHaveClass(surfaceClass);

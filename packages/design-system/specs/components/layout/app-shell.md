@@ -5,7 +5,7 @@ group: layout
 status: beta
 parts: [AppShell, AppShellMain]
 related: [Sidebar, Card, ToastProvider]
-docs: https://wideset-docs.widelab.workers.dev/components/app-shell
+docs: https://wideset.co/components/app-shell
 storybook: components-appshell--default
 ---
 
@@ -17,16 +17,13 @@ storybook: components-appshell--default
 ## When to use
 
 - The root of every screen in an app with persistent navigation: `Sidebar` beside the page.
-- To give the whole app one visual direction (`flat`, `frame`, `inset`) with one prop, instead of
-  hand-written backgrounds, margins and shadows.
+- To give the whole app one visual direction (`inset`, `flat`, `frame`, `canvas`) with one prop,
+  instead of hand-written backgrounds, margins and shadows.
 
 ## When not to use
 
-- Screens before the app (sign in, sign up) or a marketing page → your own layout, no `AppShell`
-  (see `patterns/directions.md`).
+- Screens before the app (sign in, sign up) or a marketing page → your own layout, no `AppShell`.
 - A framed section inside a page → `Card`.
-- A top bar instead of a sidebar → your own `header` above the page; `AppShell` is built for a
-  `Sidebar` on the left.
 - Record detail over the page → `Sidepanel`.
 
 ## Anatomy
@@ -54,15 +51,22 @@ scroll container. Put your padding on a wrapper inside it. The full composition,
 
 ## Choosing props
 
-| Prop        | Value   | Use for                                                                                               |
-| ----------- | ------- | ----------------------------------------------------------------------------------------------------- |
-| `direction` | `flat`  | Default. Simple, dense tools (tables, boards, editors): one white surface, a line splits sidebar/page |
-| `direction` | `frame` | Apps with side-by-side panels (messages, mail): the sidebar on a grey tint, the page full-bleed       |
-| `direction` | `inset` | Apps with a strong page edge and several regions (a calendar, a document): the page a raised card     |
+| Prop        | Value    | Use for                                                                                            |
+| ----------- | -------- | -------------------------------------------------------------------------------------------------- |
+| `direction` | `inset`  | Default. Apps with navigation and several regions (a calendar, a document): the page a raised card |
+| `direction` | `flat`   | Simple, dense tools (tables, boards, editors): one white surface, a line splits sidebar and page   |
+| `direction` | `frame`  | Apps with side-by-side panels (messages, mail): the sidebar on a grey tint, the page full-bleed    |
+| `direction` | `canvas` | Pages made of separate modules (an overview, a wallet): a grey page, the content in white sections |
 
-A `Sidebar` inside `AppShell` takes the matching surface on its own: white with a line (flat),
-grey tint (frame), the bare grey frame with its nav centred in the column (inset). Pass nothing to
-it. Choose by the product, not by taste, and keep one direction for every screen of the app.
+A `Sidebar` inside `AppShell` takes the matching surface on its own: the bare grey frame with its
+nav centred in the column (inset, canvas), white with a line (flat), grey tint (frame). Pass
+nothing to it. Choose by the product, not by taste, and keep one direction for every screen of the
+app. Ask the user which direction they want before the first screen, unless the prompt already
+says; without a way to ask, take `inset`.
+
+With a top bar instead of a `Sidebar`, the bar is the first child of `AppShell.Main` and scrolls
+with the page. In `canvas` it has no fill and no line: it sits on the grey, and the white sections
+below are `bg-ws-static-foreground rounded-ws-container-md`, with no border and no shadow.
 
 ## Accessibility
 
@@ -99,3 +103,5 @@ it. Choose by the product, not by taste, and keep one direction for every screen
 - `AppShell.Main` throws outside an `AppShell`.
 - In `inset` the page scrolls inside the card, so its corners stay put; a calendar or board that
   manages its own scroll fills it with `min-h-0 flex-1`.
+- `canvas` leaves the page grey. Put the content in white sections; a bordered `Card` on the grey
+  belongs to no direction.

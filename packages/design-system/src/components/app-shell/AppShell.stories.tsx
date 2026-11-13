@@ -14,7 +14,7 @@ const meta = {
     layout: 'padded',
     docs: {
       description: {
-        component: `AppShell is the full-height frame a screen sits in: the Sidebar and the page, in the app's visual direction (flat, frame or inset) set by one prop.
+        component: `AppShell is the full-height frame a screen sits in: the Sidebar and the page, in the app's visual direction (inset, flat, frame or canvas) set by one prop.
 Use it once, at the root of every screen, and pick the direction once for the whole app. A \`Sidebar\` inside takes the matching surface on its own.
 Do not use it for screens without app navigation (sign in, a marketing page) or to frame a section inside a page: use \`Card\` for that.
 
@@ -33,11 +33,11 @@ Do not use it for screens without app navigation (sign in, a marketing page) or 
   argTypes: {
     direction: {
       control: 'radio',
-      options: ['flat', 'frame', 'inset'],
+      options: ['inset', 'flat', 'frame', 'canvas'],
       table: {
         category: 'Appearance',
-        type: { summary: "'flat' | 'frame' | 'inset'" },
-        defaultValue: { summary: "'flat'" },
+        type: { summary: "'inset' | 'flat' | 'frame' | 'canvas'" },
+        defaultValue: { summary: "'inset'" },
       },
     },
     children: {
@@ -57,7 +57,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  args: { direction: 'flat' },
+  args: { direction: 'inset' },
   parameters: {
     docs: {
       description: {
