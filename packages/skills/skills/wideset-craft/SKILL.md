@@ -40,8 +40,8 @@ Before the first screen of a new app or a new kind of screen, ask the person the
 can make, in one short message, each with your recommended default so they can answer "defaults":
 
 1. **Visual direction:** Inset (a white page panel on a grey frame), Frame (white page beside a
-   grey sidebar) or Flat (white page beside a white sidebar). Default: Inset for apps with
-   navigation and several regions, Flat for a single simple tool.
+   grey sidebar), Flat (white page beside a white sidebar) or Canvas (a grey page with the content
+   in white cards). Default: Inset.
 2. **Density:** default 32px controls, or comfortable 40px (a public form, a rarely used setup).
 3. **Cards:** separated by space only (default) or with lines under headers and above footers
    (`divider`).
