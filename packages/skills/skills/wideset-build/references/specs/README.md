@@ -120,8 +120,8 @@ Sources of truth, in order: Figma → code → specs.
 
 ### [Layout](components/layout/README.md)
 
-- [AppShell](../good-practices/app-shell.md): the screen's frame; one `direction` (flat, frame,
-  inset) sets the window, sidebar and page.
+- [AppShell](../good-practices/app-shell.md): the screen's frame; one `direction` (inset by
+  default, flat, frame, canvas) sets the window, sidebar and page.
 - [Card](../good-practices/card.md): a bounded surface for one subject; not clickable, not a page
   wrapper.
 - [Accordion](../good-practices/accordion.md): named sections opened in place.

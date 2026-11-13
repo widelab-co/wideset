@@ -10,7 +10,7 @@ components: page structure is plain elements with Tailwind layout classes and `w
 ## Pick the right one
 
 - [AppShell](../../../good-practices/app-shell.md) — the full-height frame of every screen: `Sidebar` and the page in
-  the app's direction (`flat`, `frame`, `inset`).
+  the app's direction (`inset` by default, `flat`, `frame`, `canvas`).
 - [Card](../../../good-practices/card.md) — one subject's title, content, media and actions on a bounded surface.
 - [Accordion](../../../good-practices/accordion.md) — named sections the user opens in place, one or several at a time.
 - [Divider](../../../good-practices/divider.md) — a horizontal line between blocks, optionally labelled ("or",

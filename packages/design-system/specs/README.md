@@ -134,8 +134,8 @@ in the snippet will point into `node_modules/@wideset/react/` then.
 
 ### [Layout](components/layout/README.md)
 
-- [AppShell](components/layout/app-shell.md): the screen's frame; one `direction` (flat, frame,
-  inset) sets the window, sidebar and page.
+- [AppShell](components/layout/app-shell.md): the screen's frame; one `direction` (inset by
+  default, flat, frame, canvas) sets the window, sidebar and page.
 - [Card](components/layout/card.md): a bounded surface for one subject; not clickable, not a page
   wrapper.
 - [Accordion](components/layout/accordion.md): named sections opened in place.
