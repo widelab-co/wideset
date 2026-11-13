@@ -38,7 +38,42 @@ export type SidebarSectionProps = React.HTMLAttributes<HTMLDivElement> & {
 };
 
 /** Props for the title of a group of items. Collapsed, it keeps its height and its text stays available to screen readers. */
-export type SidebarSectionHeaderProps = React.HTMLAttributes<HTMLDivElement>;
+export type SidebarSectionHeaderProps = React.HTMLAttributes<HTMLDivElement> & {
+  /**
+   * Makes the header the toggle of the `Sidebar.Group` it heads (Figma Sidebar Item
+   * `Type=Folder`): the title becomes a button with a chevron before it that folds the group's
+   * `Sidebar.GroupContent` in and out. Collapsed, the sidebar shows the chevron alone. Requires a
+   * `Sidebar.Group` around it.
+   */
+  collapsible?: boolean;
+};
+
+/** Props for a collapsible group: a head row (an item or a collapsible section header) and the rows it folds. */
+export type SidebarGroupProps = React.HTMLAttributes<HTMLDivElement> & {
+  /** Whether the group starts open in uncontrolled mode. Has no effect when `open` is provided. */
+  defaultOpen?: boolean;
+  /** Controls the open state. When provided, the group is in controlled mode. */
+  open?: boolean;
+  /** Fired when the group opens or closes. Receives the new `open` value. */
+  onOpenChange?: (open: boolean) => void;
+} & MotionProps;
+
+/**
+ * Props for the chevron that folds a group headed by a `Sidebar.Item`. A button of its own beside
+ * the item's link, never inside it. Not rendered when the sidebar is collapsed.
+ */
+export type SidebarGroupTriggerProps = Omit<
+  React.ButtonHTMLAttributes<HTMLButtonElement>,
+  'children'
+> & {
+  /** Accessible label while the group is closed. Name the group: `'Show Button components'`. Defaults to `'Expand group'`. Ignored when `aria-label` is set. */
+  expandLabel?: string;
+  /** Accessible label while the group is open. Defaults to `'Collapse group'`. Ignored when `aria-label` is set. */
+  collapseLabel?: string;
+};
+
+/** Props for the rows a `Sidebar.Group` folds in and out. */
+export type SidebarGroupContentProps = React.HTMLAttributes<HTMLDivElement>;
 
 /** Props for content that exists only when the sidebar is expanded, e.g. the product name. */
 export type SidebarExpandedProps = {
@@ -113,4 +148,14 @@ export type SidebarContextValue = {
   motion: boolean;
   /** The root element's `id`, referenced by the trigger's `aria-controls`. */
   sidebarId: string;
+};
+
+export type SidebarGroupContextValue = {
+  isOpen: boolean;
+  toggle: () => void;
+  motion: boolean;
+  /** The content's `id`, referenced by the toggle's `aria-controls`. */
+  contentId: string;
+  /** Headed by an item with a `Sidebar.GroupTrigger`: collapsed, the sidebar hides its rows. */
+  hasTrigger: boolean;
 };
