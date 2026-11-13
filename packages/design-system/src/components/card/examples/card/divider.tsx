@@ -24,7 +24,11 @@ export default function CardDivider() {
           <Card.Description>Invoices and receipts go to this person.</Card.Description>
         </Card.Header>
         <Card.Content>
-          <form id="card-billing-form" className="gap-ws-11 flex flex-col">
+          <form
+            id="card-billing-form"
+            className="gap-ws-11 flex flex-col"
+            onSubmit={(event) => event.preventDefault()}
+          >
             <FormField label="Full name" htmlFor="card-billing-name">
               <TextInput
                 id="card-billing-name"
