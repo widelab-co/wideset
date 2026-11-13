@@ -6,6 +6,7 @@ import { Button } from '../button/Button';
 import { IconButton } from '../button/IconButton';
 import { Tag } from '../tag/Tag';
 import { Card } from './Card';
+import { cardFooterVariants, cardHeaderVariants } from './Card.variants';
 
 const variants = ['bordered', 'flat'] as const;
 const mediaRatios = ['16/9', '21/9', '1/1'] as const;
@@ -185,9 +186,11 @@ describe('Card data-slot', () => {
 });
 
 describe('Card divider', () => {
-  const renderCard = (divider?: boolean) =>
+  // The lines and gaps live in the CVA variants (and the snapshot); these tests check that each
+  // part asks for the right variant, not which classes the variant happens to hold.
+  const renderCard = (props: { variant?: 'bordered' | 'flat'; divider?: boolean } = {}) =>
     render(
-      <Card divider={divider}>
+      <Card {...props}>
         <Card.Header aria-label="Header">
           <Card.Title>Weekly report</Card.Title>
         </Card.Header>
@@ -195,27 +198,42 @@ describe('Card divider', () => {
         <Card.Footer aria-label="Footer">Footer</Card.Footer>
       </Card>,
     );
+  const classesOf = (classes: string) => classes.split(' ');
 
-  it('draws no header or footer line by default', () => {
-    renderCard();
-    expect(screen.getByLabelText('Header')).not.toHaveClass('[&:not(:last-child)]:border-b');
-    expect(screen.getByLabelText('Footer')).not.toHaveClass('[&:not(:first-child)]:border-t');
+  it.each([
+    ['off by default', undefined, false],
+    ['off when false', false, false],
+    ['on when set', true, true],
+  ])('styles the header and footer with the divider %s', (_, divider, expected) => {
+    renderCard({ divider });
+    expect(screen.getByLabelText('Header')).toHaveClass(
+      ...classesOf(cardHeaderVariants({ variant: 'bordered', divider: expected })),
+    );
+    expect(screen.getByLabelText('Footer')).toHaveClass(
+      ...classesOf(cardFooterVariants({ variant: 'bordered', divider: expected })),
+    );
   });
 
-  it('closes the gap padding by default so the content padding is the whole gap', () => {
-    renderCard();
-    expect(screen.getByLabelText('Header')).toHaveClass('[&:has(+[data-slot=card-content])]:pb-0');
-    expect(screen.getByLabelText('Footer')).toHaveClass('[[data-slot=card-content]+&]:pt-0');
+  it('changes the bordered header and footer', () => {
+    expect(cardHeaderVariants({ variant: 'bordered', divider: true })).not.toBe(
+      cardHeaderVariants({ variant: 'bordered', divider: false }),
+    );
+    expect(cardFooterVariants({ variant: 'bordered', divider: true })).not.toBe(
+      cardFooterVariants({ variant: 'bordered', divider: false }),
+    );
   });
 
-  it('draws a line under the header and above the footer with divider', () => {
-    renderCard(true);
-    expect(screen.getByLabelText('Header')).toHaveClass('[&:not(:last-child)]:border-b');
-    expect(screen.getByLabelText('Footer')).toHaveClass('[&:not(:first-child)]:border-t');
+  it('leaves a flat card as it is: there is no frame to divide', () => {
+    expect(cardHeaderVariants({ variant: 'flat', divider: true })).toBe(
+      cardHeaderVariants({ variant: 'flat', divider: false }),
+    );
+    expect(cardFooterVariants({ variant: 'flat', divider: true })).toBe(
+      cardFooterVariants({ variant: 'flat', divider: false }),
+    );
   });
 
   it('does not pass divider to the DOM', () => {
-    const { container } = renderCard(true);
+    const { container } = renderCard({ divider: true });
     expect(container.querySelector('[data-slot="card"]')).not.toHaveAttribute('divider');
   });
 });
