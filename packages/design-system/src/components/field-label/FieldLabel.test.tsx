@@ -1,145 +1,202 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { createRef } from 'react';
 import { describe, expect, it } from 'vitest';
 
 import { Tooltip } from '../tooltip/Tooltip';
 import { FieldLabel } from './FieldLabel';
 
 describe('FieldLabel', () => {
-  describe('data-slot', () => {
-    it('marks each part with data-slot', () => {
-      const { container, rerender } = render(<FieldLabel>Email</FieldLabel>);
+  describe('Rendering', () => {
+    it('renders a <label> with its children', () => {
+      render(<FieldLabel htmlFor="email">Email</FieldLabel>);
+      expect(screen.getByText('Email').closest('label')).toHaveAttribute('for', 'email');
+    });
+
+    it('marks the label with data-slot', () => {
+      const { container } = render(<FieldLabel>Email</FieldLabel>);
       expect(container.firstChild).toHaveAttribute('data-slot', 'field-label');
-      rerender(<FieldLabel description="We never share it.">Email</FieldLabel>);
-      expect(container.firstChild).toHaveAttribute('data-slot', 'field-label');
-      expect(container.querySelectorAll('[data-slot="field-label"]')).toHaveLength(1);
-    });
-  });
-
-  describe('Basic rendering', () => {
-    it('should render label element with children', () => {
-      render(<FieldLabel>Test Label</FieldLabel>);
-      const label = screen.getByText('Test Label').closest('label');
-      expect(label).toBeInTheDocument();
     });
 
-    it('should merge custom className with default classes', () => {
-      render(<FieldLabel className="custom-class">Test Label</FieldLabel>);
-      const label = screen.getByText('Test Label').closest('label');
-      expect(label).toHaveClass('custom-class');
+    it('merges className onto the label', () => {
+      const { container } = render(<FieldLabel className="custom-class">Email</FieldLabel>);
+      expect(container.firstChild).toHaveClass('custom-class', 'inline-flex');
     });
-  });
 
-  describe('HTML attributes', () => {
-    it('should forward HTML attributes to label element', () => {
+    it('forwards the ref to the label', () => {
+      const ref = createRef<HTMLLabelElement>();
+      render(<FieldLabel ref={ref}>Email</FieldLabel>);
+      expect(ref.current).toBeInstanceOf(HTMLLabelElement);
+    });
+
+    it('forwards HTML and aria attributes to the label', () => {
       render(
-        <FieldLabel id="test-id" htmlFor="input-id" data-testid="field-label">
-          Test Label
+        <FieldLabel id="label-id" data-testid="field-label" aria-describedby="description">
+          Email
         </FieldLabel>,
       );
       const label = screen.getByTestId('field-label');
-      expect(label).toHaveAttribute('id', 'test-id');
-      expect(label).toHaveAttribute('for', 'input-id');
-    });
-
-    it('should forward aria attributes', () => {
-      render(
-        <FieldLabel aria-label="Custom label" aria-describedby="description">
-          Test Label
-        </FieldLabel>,
-      );
-      const label = screen.getByText('Test Label').closest('label');
-      expect(label).toHaveAttribute('aria-label', 'Custom label');
+      expect(label).toHaveAttribute('id', 'label-id');
       expect(label).toHaveAttribute('aria-describedby', 'description');
     });
   });
 
-  describe('Required prop', () => {
-    it('should render required asterisk when required is true', () => {
-      render(<FieldLabel required>Test Label</FieldLabel>);
+  describe('required', () => {
+    it('draws a decorative asterisk', () => {
+      render(<FieldLabel required>Email</FieldLabel>);
       const asterisk = screen.getByText('*');
-      expect(asterisk).toBeInTheDocument();
+      expect(asterisk).toHaveAttribute('aria-hidden', 'true');
+      expect(asterisk).toHaveAttribute('data-slot', 'field-label-required');
     });
 
-    it('should not render required asterisk when required is false', () => {
-      render(<FieldLabel required={false}>Test Label</FieldLabel>);
-      expect(screen.queryByText('*')).not.toBeInTheDocument();
-    });
-
-    it('should not render required asterisk when required is undefined', () => {
-      render(<FieldLabel>Test Label</FieldLabel>);
-      expect(screen.queryByText('*')).not.toBeInTheDocument();
-    });
-  });
-
-  it('should render suffix text when provided', () => {
-    render(<FieldLabel suffix="(optional)">Test Label</FieldLabel>);
-    expect(screen.getByText('(optional)')).toBeInTheDocument();
-  });
-
-  describe('Tooltip prop', () => {
-    it('should render tooltip icon when tooltip is provided', () => {
-      const { container } = render(<FieldLabel tooltip="Help text">Test Label</FieldLabel>);
-      const icon = container.querySelector('svg[tabindex="0"]');
-      expect(icon).toBeInTheDocument();
-    });
-
-    it('names the info icon "More information" by default', () => {
-      render(<FieldLabel tooltip="Help text">Test Label</FieldLabel>);
-      expect(screen.getByLabelText('More information')).toHaveAttribute('tabindex', '0');
-    });
-
-    it('takes the info icon name from tooltipAriaLabel', () => {
+    it('keeps the asterisk out of the accessible name', () => {
       render(
-        <FieldLabel tooltip="Help text" tooltipAriaLabel="Więcej informacji">
-          Test Label
+        <>
+          <FieldLabel htmlFor="email" required>
+            Email
+          </FieldLabel>
+          <input id="email" />
+        </>,
+      );
+      expect(screen.getByRole('textbox', { name: 'Email' })).toBeInTheDocument();
+    });
+
+    it('draws no asterisk when not required', () => {
+      render(<FieldLabel>Email</FieldLabel>);
+      expect(screen.queryByText('*')).not.toBeInTheDocument();
+    });
+  });
+
+  describe('FieldLabel.Suffix', () => {
+    it('renders inside the label with data-slot', () => {
+      render(
+        <FieldLabel>
+          Email <FieldLabel.Suffix>(optional)</FieldLabel.Suffix>
         </FieldLabel>,
       );
-      expect(screen.getByLabelText('Więcej informacji')).toHaveAttribute('tabindex', '0');
+      const suffix = screen.getByText('(optional)');
+      expect(suffix).toHaveAttribute('data-slot', 'field-label-suffix');
+      expect(suffix.closest('label')).toBeInTheDocument();
+    });
+
+    it('is part of the accessible name', () => {
+      render(
+        <>
+          <FieldLabel htmlFor="email">
+            Email <FieldLabel.Suffix>(optional)</FieldLabel.Suffix>
+          </FieldLabel>
+          <input id="email" />
+        </>,
+      );
+      expect(screen.getByRole('textbox', { name: 'Email (optional)' })).toBeInTheDocument();
+    });
+  });
+
+  describe('FieldLabel.Tooltip', () => {
+    it('is a button named "More information" by default', () => {
+      render(<FieldLabel.Tooltip>Help text</FieldLabel.Tooltip>);
+      const button = screen.getByRole('button', { name: 'More information' });
+      expect(button).toHaveAttribute('type', 'button');
+      expect(button).toHaveAttribute('data-slot', 'field-label-tooltip');
+    });
+
+    it('takes its name from aria-label', () => {
+      render(<FieldLabel.Tooltip aria-label="Więcej informacji">Help text</FieldLabel.Tooltip>);
+      expect(screen.getByRole('button', { name: 'Więcej informacji' })).toBeInTheDocument();
       expect(screen.queryByLabelText('More information')).not.toBeInTheDocument();
     });
 
-    it('should show tooltip content on hover', async () => {
-      const user = userEvent.setup();
-      const { container } = render(
-        <FieldLabel tooltip={<Tooltip.Label>Help text</Tooltip.Label>}>Test Label</FieldLabel>,
+    it('hides its icon from assistive technology', () => {
+      const { container } = render(<FieldLabel.Tooltip>Help text</FieldLabel.Tooltip>);
+      expect(container.querySelector('svg')).toHaveAttribute('aria-hidden', 'true');
+    });
+
+    it('forwards the ref and rest props to the button', () => {
+      const ref = createRef<HTMLButtonElement>();
+      render(
+        <FieldLabel.Tooltip ref={ref} data-testid="info" className="custom-class">
+          Help text
+        </FieldLabel.Tooltip>,
       );
-      const icon = container.querySelector('svg[tabindex="0"]') as HTMLElement;
-      expect(icon).toBeInTheDocument();
-      await user.hover(icon);
+      expect(ref.current).toBeInstanceOf(HTMLButtonElement);
+      expect(screen.getByTestId('info')).toHaveClass('custom-class');
+    });
+
+    it('shows the tooltip content on hover', async () => {
+      const user = userEvent.setup();
+      render(
+        <FieldLabel.Tooltip>
+          <Tooltip.Label>Help text</Tooltip.Label>
+        </FieldLabel.Tooltip>,
+      );
+      await user.hover(screen.getByRole('button', { name: 'More information' }));
       await waitFor(
         () => {
-          const labels = screen.getAllByText('Help text');
-          expect(labels.length).toBeGreaterThan(0);
+          expect(screen.getAllByText('Help text').length).toBeGreaterThan(0);
+        },
+        { timeout: 2000 },
+      );
+    });
+
+    it('opens from the keyboard', async () => {
+      const user = userEvent.setup();
+      render(
+        <FieldLabel.Tooltip>
+          <Tooltip.Label>Help text</Tooltip.Label>
+        </FieldLabel.Tooltip>,
+      );
+      await user.tab();
+      expect(screen.getByRole('button', { name: 'More information' })).toHaveFocus();
+      await waitFor(
+        () => {
+          expect(screen.getAllByText('Help text').length).toBeGreaterThan(0);
         },
         { timeout: 2000 },
       );
     });
   });
 
-  describe('Aside prop', () => {
-    it('should render aside content when provided', () => {
-      render(<FieldLabel aside="0/100">Test Label</FieldLabel>);
-      expect(screen.getByText('0/100')).toBeInTheDocument();
+  describe('FieldLabel.Aside', () => {
+    it('renders its content with data-slot', () => {
+      render(<FieldLabel.Aside>0/100</FieldLabel.Aside>);
+      expect(screen.getByText('0/100')).toHaveAttribute('data-slot', 'field-label-aside');
     });
 
-    it('should render aside as ReactNode', () => {
+    it('forwards the ref and rest props', () => {
+      const ref = createRef<HTMLDivElement>();
       render(
-        <FieldLabel aside={<span data-testid="custom-aside">Custom aside</span>}>
-          Test Label
-        </FieldLabel>,
+        <FieldLabel.Aside ref={ref} data-testid="aside" className="custom-class">
+          <span>Custom aside</span>
+        </FieldLabel.Aside>,
       );
-      expect(screen.getByTestId('custom-aside')).toBeInTheDocument();
+      expect(ref.current).toBeInstanceOf(HTMLDivElement);
+      expect(screen.getByTestId('aside')).toHaveClass('custom-class');
     });
   });
 
-  it('should render description when provided', () => {
-    render(<FieldLabel description="This is a description">Test Label</FieldLabel>);
-    expect(screen.getByText('This is a description')).toBeInTheDocument();
+  describe('FieldLabel.Description', () => {
+    it('renders its content with data-slot', () => {
+      render(<FieldLabel.Description>This is a description</FieldLabel.Description>);
+      expect(screen.getByText('This is a description')).toHaveAttribute(
+        'data-slot',
+        'field-label-description',
+      );
+    });
+
+    it('forwards the ref and rest props', () => {
+      const ref = createRef<HTMLDivElement>();
+      render(
+        <FieldLabel.Description ref={ref} id="desc" className="custom-class">
+          This is a description
+        </FieldLabel.Description>,
+      );
+      expect(ref.current).toBeInstanceOf(HTMLDivElement);
+      expect(screen.getByText('This is a description')).toHaveAttribute('id', 'desc');
+      expect(screen.getByText('This is a description')).toHaveClass('custom-class');
+    });
   });
 
-  // Snapshot Tests
-  describe('FieldLabel Snapshots', () => {
+  describe('Snapshots', () => {
     it('matches snapshot for basic label', () => {
       const { container } = render(<FieldLabel>Test Label</FieldLabel>);
       expect(container.firstChild).toMatchSnapshot();
@@ -151,40 +208,35 @@ describe('FieldLabel', () => {
     });
 
     it('matches snapshot for label with suffix', () => {
-      const { container } = render(<FieldLabel suffix="(optional)">Test Label</FieldLabel>);
-      expect(container.firstChild).toMatchSnapshot();
-    });
-
-    it('matches snapshot for label with tooltip', () => {
       const { container } = render(
-        <FieldLabel tooltip={<Tooltip.Label>Help text</Tooltip.Label>}>Test Label</FieldLabel>,
-      );
-      expect(container.firstChild).toMatchSnapshot();
-    });
-
-    it('matches snapshot for label with aside', () => {
-      const { container } = render(<FieldLabel aside="0/100">Test Label</FieldLabel>);
-      expect(container.firstChild).toMatchSnapshot();
-    });
-
-    it('matches snapshot for label with description', () => {
-      const { container } = render(
-        <FieldLabel description="This is a description">Test Label</FieldLabel>,
-      );
-      expect(container.firstChild).toMatchSnapshot();
-    });
-
-    it('matches snapshot for label with all features', () => {
-      const { container } = render(
-        <FieldLabel
-          required
-          suffix="(optional)"
-          tooltip={<Tooltip.Label>Help text</Tooltip.Label>}
-          aside="0/100"
-          description="This is a description"
-        >
-          Test Label
+        <FieldLabel>
+          Test Label <FieldLabel.Suffix>(optional)</FieldLabel.Suffix>
         </FieldLabel>,
+      );
+      expect(container.firstChild).toMatchSnapshot();
+    });
+
+    it('matches snapshot for the tooltip button', () => {
+      const { container } = render(
+        <FieldLabel.Tooltip>
+          <Tooltip.Label>Help text</Tooltip.Label>
+        </FieldLabel.Tooltip>,
+      );
+      expect(container.firstChild).toMatchSnapshot();
+    });
+
+    it('matches snapshot for a composed label row', () => {
+      const { container } = render(
+        <div>
+          <FieldLabel required>
+            Test Label <FieldLabel.Suffix>(optional)</FieldLabel.Suffix>
+          </FieldLabel>
+          <FieldLabel.Tooltip>
+            <Tooltip.Label>Help text</Tooltip.Label>
+          </FieldLabel.Tooltip>
+          <FieldLabel.Aside>0/100</FieldLabel.Aside>
+          <FieldLabel.Description>This is a description</FieldLabel.Description>
+        </div>,
       );
       expect(container.firstChild).toMatchSnapshot();
     });
@@ -194,6 +246,37 @@ describe('FieldLabel', () => {
         'This is a very long label text that should wrap properly when it exceeds the available width';
       const { container } = render(<FieldLabel>{longText}</FieldLabel>);
       expect(container.firstChild).toMatchSnapshot();
+    });
+  });
+
+  describe('deprecated props', () => {
+    it('renders the parts from the old props, with the button outside the label', () => {
+      const { container } = render(
+        <FieldLabel
+          htmlFor="email"
+          suffix="(optional)"
+          tooltip="Help"
+          tooltipAriaLabel="About email"
+          aside="0/100"
+          description="Hint"
+        >
+          Email
+        </FieldLabel>,
+      );
+
+      const label = container.querySelector('[data-slot="field-label"]');
+      expect(label).toContainElement(screen.getByText('(optional)'));
+      expect(screen.getByRole('button', { name: 'About email' }).closest('label')).toBeNull();
+      expect(container.querySelector('[data-slot="field-label-aside"]')).toHaveTextContent('0/100');
+      expect(container.querySelector('[data-slot="field-label-description"]')).toHaveTextContent(
+        'Hint',
+      );
+    });
+
+    it('does not pass the old props to the label as attributes', () => {
+      render(<FieldLabel tooltip="Help">Email</FieldLabel>);
+
+      expect(screen.getByText('Email').closest('label')).not.toHaveAttribute('tooltip');
     });
   });
 });

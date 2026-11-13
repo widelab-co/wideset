@@ -2,10 +2,12 @@ import * as React from 'react';
 import { cn } from 'src/lib/utils';
 
 import { FieldLabel } from '../field-label/FieldLabel';
+import { hasContent } from '../field-label/FieldLabel.logic';
 import { HelperText } from '../helper-text/HelperText';
 import type { FormFieldProps } from './FormField.types';
 import {
   formFieldContentVariants,
+  formFieldLabelRowVariants,
   formFieldLabelVariants,
   formFieldVariants,
 } from './FormField.variants';
@@ -21,6 +23,10 @@ export const FormField = React.forwardRef<HTMLDivElement | HTMLFieldSetElement, 
       helperText,
       helperTextId: helperTextIdProp,
       label,
+      suffix,
+      tooltip,
+      tooltipAriaLabel,
+      aside,
       ...props
     },
     ref,
@@ -59,7 +65,21 @@ export const FormField = React.forwardRef<HTMLDivElement | HTMLFieldSetElement, 
     const content = (
       <>
         <div className={formFieldLabelVariants({ variant })}>
-          <FieldLabel {...props}>{label}</FieldLabel>
+          <div data-slot="form-field-label-row" className={formFieldLabelRowVariants()}>
+            <FieldLabel {...props}>
+              {label}
+              {hasContent(suffix) && (
+                <>
+                  {' '}
+                  <FieldLabel.Suffix>{suffix}</FieldLabel.Suffix>
+                </>
+              )}
+            </FieldLabel>
+            {hasContent(tooltip) && (
+              <FieldLabel.Tooltip aria-label={tooltipAriaLabel}>{tooltip}</FieldLabel.Tooltip>
+            )}
+            {hasContent(aside) && <FieldLabel.Aside>{aside}</FieldLabel.Aside>}
+          </div>
           {variant === 'horizontal' && helperTextComponent}
         </div>
         <div className={formFieldContentVariants({ variant })}>

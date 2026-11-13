@@ -7,54 +7,39 @@ const meta = {
   title: 'Helper Components/FieldLabel',
   tags: ['autodocs'],
   component: FieldLabel,
+  subcomponents: {
+    'FieldLabel.Suffix': FieldLabel.Suffix,
+    'FieldLabel.Tooltip': FieldLabel.Tooltip,
+    'FieldLabel.Aside': FieldLabel.Aside,
+    'FieldLabel.Description': FieldLabel.Description,
+  },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'FieldLabel is the `<label>` of a form control, the building block FormField renders above the control. Suffix text goes inside it (`FieldLabel.Suffix`); the info button, aside and description are siblings (`FieldLabel.Tooltip`, `FieldLabel.Aside`, `FieldLabel.Description`) laid out by the parent, since a label must not contain a button. Internal: not exported from the package.',
+      },
+    },
+  },
   argTypes: {
+    children: {
+      control: 'text',
+      table: { category: 'Content', type: { summary: 'ReactNode' } },
+    },
     required: {
       control: 'boolean',
-      description: 'Whether the field is required',
       table: {
+        category: 'Appearance',
         type: { summary: 'boolean' },
         defaultValue: { summary: 'false' },
       },
     },
-    suffix: {
+    htmlFor: {
       control: 'text',
-      description: 'Optional suffix text displayed after the label',
-      table: {
-        type: { summary: 'string' },
-        defaultValue: { summary: 'undefined' },
-      },
+      description: "ID of the labeled control. Match this to the control's id.",
+      table: { category: 'Behavior', type: { summary: 'string' } },
     },
-    tooltip: {
-      control: 'text',
-      description: 'Tooltip content to display in an info icon',
-      table: {
-        type: { summary: 'ReactNode' },
-        defaultValue: { summary: 'undefined' },
-      },
-    },
-    aside: {
-      control: 'text',
-      description: 'Additional content to display on the right side',
-      table: {
-        type: { summary: 'ReactNode' },
-        defaultValue: { summary: 'undefined' },
-      },
-    },
-    description: {
-      control: 'text',
-      description: 'Description text to display below the label',
-      table: {
-        type: { summary: 'ReactNode' },
-        defaultValue: { summary: 'undefined' },
-      },
-    },
-    children: {
-      control: 'text',
-      description: 'The label text',
-      table: {
-        type: { summary: 'ReactNode' },
-      },
-    },
+    className: { control: 'text', table: { category: 'Appearance' } },
   },
 } satisfies Meta<typeof FieldLabel>;
 
@@ -63,45 +48,53 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  render: (args) => <FieldLabel {...args} />,
   args: {
     children: 'Field Label',
   },
 };
 
 export const Required: Story = {
-  render: () => <FieldLabel required>Required Field</FieldLabel>,
+  args: { required: true, children: 'Required Field' },
 };
 
 export const WithSuffix: Story = {
-  render: () => <FieldLabel suffix="(optional)">Field Label</FieldLabel>,
+  render: () => (
+    <FieldLabel>
+      Field Label <FieldLabel.Suffix>(optional)</FieldLabel.Suffix>
+    </FieldLabel>
+  ),
 };
 
 export const WithTooltipAndDescription: Story = {
   render: () => (
-    <FieldLabel
-      tooltip="This is a helpful tooltip that provides additional information about the field."
-      description="This is a description that appears below the label to provide more context."
-    >
-      Field Label
-    </FieldLabel>
+    <div className="gap-ws-3 flex w-[20rem] flex-col">
+      <div className="gap-ws-3 flex items-start">
+        <FieldLabel>Field Label</FieldLabel>
+        <FieldLabel.Tooltip>
+          This is a helpful tooltip that provides additional information about the field.
+        </FieldLabel.Tooltip>
+      </div>
+      <FieldLabel.Description>
+        This is a description that appears below the label to provide more context.
+      </FieldLabel.Description>
+    </div>
   ),
 };
 
 export const WithAside: Story = {
   render: () => (
-    <div className="gap-ws-8 flex flex-col">
-      <FieldLabel aside="0/100">Field Label</FieldLabel>
-      <FieldLabel
-        aside={
-          <div>
-            <LinkButton href="#">Link</LinkButton>
-            <span>Other text</span>
-          </div>
-        }
-      >
-        Field Label
-      </FieldLabel>
+    <div className="gap-ws-8 flex w-[20rem] flex-col">
+      <div className="gap-ws-3 flex flex-wrap items-center">
+        <FieldLabel>Field Label</FieldLabel>
+        <FieldLabel.Aside>0/100</FieldLabel.Aside>
+      </div>
+      <div className="gap-ws-3 flex flex-wrap items-center">
+        <FieldLabel>Field Label</FieldLabel>
+        <FieldLabel.Aside>
+          <LinkButton href="#">Link</LinkButton>
+          <span>Other text</span>
+        </FieldLabel.Aside>
+      </div>
     </div>
   ),
 };
