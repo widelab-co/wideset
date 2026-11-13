@@ -1,6 +1,6 @@
 {
   "name": "wideset",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "type": "module",
   "license": "Apache-2.0",
   "description": "The Wideset CLI: copy Wideset components, and the agent skills and rules, into your React project",
