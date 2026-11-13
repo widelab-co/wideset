@@ -251,6 +251,21 @@ describe('DateRangePicker', () => {
       expect(onSelect).not.toHaveBeenCalled();
     });
 
+    it('should commit a min range only once it is long enough', async () => {
+      const user = userEvent.setup();
+      const onSelect = vi.fn();
+
+      render(<DateRangePicker min={3} onSelect={onSelect} defaultMonth={new Date(2026, 2)} />);
+      await user.click(screen.getByRole('button'));
+      await user.click(screen.getByRole('button', { name: /March 10th, 2026/ }));
+      await user.click(screen.getByRole('button', { name: /March 11th, 2026/ }));
+      expect(onSelect).not.toHaveBeenCalled();
+
+      await user.click(screen.getByRole('button', { name: /March 20th, 2026/ }));
+      expect(onSelect).toHaveBeenCalledTimes(1);
+      expect(onSelect.mock.calls[0][0].to).toBe('2026-03-20');
+    });
+
     it('should not commit a single click when the popup closes', async () => {
       const user = userEvent.setup();
 

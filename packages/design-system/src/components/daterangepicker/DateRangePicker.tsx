@@ -91,7 +91,8 @@ const DateRangePicker = forwardRef<HTMLButtonElement, DateRangePickerProps>(
               from: formatDateToISOString(dateRange?.from),
               to: formatDateToISOString(dateRange?.to),
             };
-      if (!pendingRange) {
+      // Only a complete range commits; with `min` the calendar can report an open-ended one.
+      if (!pendingRange || (dateRange && !dateRange.to)) {
         setPendingRange(newRange);
         return;
       }
