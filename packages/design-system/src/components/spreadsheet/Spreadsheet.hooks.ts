@@ -124,7 +124,9 @@ export const useSpreadsheetLayout = (
       // column's start is known, rows read only as far as needed. An edge no cell pins down is
       // spread evenly between the known ones around it.
       const edges: (number | undefined)[] = [0];
-      const spans: { start: number; end: number; width: number }[] = [];
+      // One measured cell per distinct span: rows repeat the same few, so a long grid costs a
+      // walk over its leading cells, not a measurement or a propagation per row.
+      const spans = new Map<string, { start: number; end: number; width: number }>();
       const measured: HTMLTableCellElement[] = [];
       const known = () => {
         for (let column = 1; column <= stickyColumns; column++)
@@ -134,19 +136,24 @@ export const useSpreadsheetLayout = (
       for (const row of Array.from(table.rows)) {
         if (known()) break;
         let column = 0;
+        let added = false;
         for (const cell of Array.from(row.cells)) {
           if (column >= stickyColumns) break;
-          spans.push({
-            start: column,
-            end: column + cell.colSpan,
-            width: cell.getBoundingClientRect().width,
-          });
-          measured.push(cell);
+          const key = `${column}:${cell.colSpan}`;
+          if (!spans.has(key)) {
+            spans.set(key, {
+              start: column,
+              end: column + cell.colSpan,
+              width: cell.getBoundingClientRect().width,
+            });
+            measured.push(cell);
+            added = true;
+          }
           column += cell.colSpan;
         }
-        for (let changed = true; changed;) {
+        for (let changed = added; changed;) {
           changed = false;
-          for (const { start, end, width } of spans) {
+          for (const { start, end, width } of spans.values()) {
             const [from, to] = [edges[start], edges[end]];
             if (from !== undefined && to === undefined) edges[end] = from + width;
             else if (to !== undefined && from === undefined) edges[start] = to - width;

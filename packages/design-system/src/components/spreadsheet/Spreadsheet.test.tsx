@@ -852,6 +852,30 @@ describe('Spreadsheet', () => {
       vi.restoreAllMocks();
     });
 
+    it('measures each span once however many rows repeat it', () => {
+      const measure = vi
+        .spyOn(HTMLElement.prototype, 'getBoundingClientRect')
+        .mockImplementation(function (this: HTMLElement) {
+          return { width: 100 * ((this as HTMLTableCellElement).colSpan ?? 1) } as DOMRect;
+        });
+      render(
+        <Spreadsheet aria-label="Sales" stickyColumns={3}>
+          <Spreadsheet.Body>
+            {Array.from({ length: 50 }, (_, index) => (
+              <Spreadsheet.Row key={index}>
+                <Spreadsheet.Cell colSpan={2}>{`A${index}`}</Spreadsheet.Cell>
+                <Spreadsheet.Cell colSpan={2}>{`B${index}`}</Spreadsheet.Cell>
+              </Spreadsheet.Row>
+            ))}
+          </Spreadsheet.Body>
+        </Spreadsheet>,
+      );
+      const cells = measure.mock.contexts.filter((el) => (el as Element).matches('td, th'));
+      expect(cells.length).toBeLessThanOrEqual(4);
+      expect(cell('B0')).toHaveStyle({ left: '200px' });
+      vi.restoreAllMocks();
+    });
+
     it('keeps the head at the top', () => {
       render(<Clients />);
       expect(screen.getAllByRole('rowgroup')[0]).toHaveClass('sticky', 'top-0');
