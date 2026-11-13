@@ -81,7 +81,9 @@ const DateRangePicker = forwardRef<HTMLButtonElement, DateRangePickerProps>(
     };
 
     const handleCalendarSelect = (dateRange: DateRange | undefined) => {
-      // A second click on the start day comes back as `undefined`: a one-day range.
+      // A second click on the start day comes back as `undefined`. Without `min` that is a
+      // one-day range; with `min` the calendar rejected it, so the start day stays pending.
+      if (!dateRange && pendingRange && calendarProps.min) return;
       const newRange: DateRangeValue =
         !dateRange && pendingRange
           ? { from: pendingRange.from, to: pendingRange.from }

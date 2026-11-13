@@ -239,6 +239,18 @@ describe('DateRangePicker', () => {
       expect(onSelect).toHaveBeenCalledWith({ from: '2026-03-10', to: '2026-03-10' }, 'custom');
     });
 
+    it('should keep the start day pending when min rules out a one-day range', async () => {
+      const user = userEvent.setup();
+      const onSelect = vi.fn();
+
+      render(<DateRangePicker min={2} onSelect={onSelect} defaultMonth={new Date(2026, 2)} />);
+      await user.click(screen.getByRole('button'));
+      await user.click(screen.getByRole('button', { name: /March 10th, 2026/ }));
+      await user.click(screen.getByRole('button', { name: /March 10th, 2026/ }));
+
+      expect(onSelect).not.toHaveBeenCalled();
+    });
+
     it('should not commit a single click when the popup closes', async () => {
       const user = userEvent.setup();
 
