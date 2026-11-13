@@ -3,16 +3,13 @@
 ## When to use
 
 - The root of every screen in an app with persistent navigation: `Sidebar` beside the page.
-- To give the whole app one visual direction (`flat`, `frame`, `inset`) with one prop, instead of
-  hand-written backgrounds, margins and shadows.
+- To give the whole app one visual direction (`inset`, `flat`, `frame`, `canvas`) with one prop,
+  instead of hand-written backgrounds, margins and shadows.
 
 ## When not to use
 
-- Screens before the app (sign in, sign up) or a marketing page → your own layout, no `AppShell`
-  (see `patterns/directions.md`).
+- Screens before the app (sign in, sign up) or a marketing page → your own layout, no `AppShell`.
 - A framed section inside a page → `Card`.
-- A top bar instead of a sidebar → your own `header` above the page; `AppShell` is built for a
-  `Sidebar` on the left.
 - Record detail over the page → `Sidepanel`.
 
 ## Do / Don't
@@ -44,3 +41,5 @@
 - `AppShell.Main` throws outside an `AppShell`.
 - In `inset` the page scrolls inside the card, so its corners stay put; a calendar or board that
   manages its own scroll fills it with `min-h-0 flex-1`.
+- `canvas` leaves the page grey. Put the content in white sections; a bordered `Card` on the grey
+  belongs to no direction.

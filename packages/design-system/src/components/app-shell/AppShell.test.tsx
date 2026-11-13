@@ -94,6 +94,24 @@ describe('AppShell', () => {
       render(<Sidebar data-testid="sidebar" />);
       expect(screen.getByTestId('sidebar')).toHaveClass('bg-ws-static-foreground', 'border-r');
     });
+
+    it("lets the Sidebar's surface prop override the direction", () => {
+      render(
+        <AppShell direction="inset">
+          <Sidebar data-testid="sidebar" surface="tinted" />
+        </AppShell>,
+      );
+      const sidebar = screen.getByTestId('sidebar');
+      expect(sidebar).toHaveClass('bg-ws-static-alpha-subtle');
+      expect(sidebar).not.toHaveClass('bg-transparent');
+    });
+
+    it('applies the surface prop to a Sidebar outside a shell', () => {
+      render(<Sidebar data-testid="sidebar" surface="frame" />);
+      const sidebar = screen.getByTestId('sidebar');
+      expect(sidebar).toHaveClass('bg-transparent');
+      expect(sidebar).not.toHaveClass('border-r');
+    });
   });
 
   describe('Props', () => {

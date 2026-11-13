@@ -6,9 +6,9 @@
 
 An app needs persistent navigation, a scrolling content area, one place for page-level alerts
 and one place where toasts appear. [`AppShell`](../../good-practices/app-shell.md) is that frame:
-a full-height row holding `Sidebar` and `AppShell.Main`. Its `direction` (`flat`, `frame` or
-`inset`) sets the window background, the sidebar's surface and the page's look together, so
-pick it once for the whole app and do not restyle them by hand.
+a full-height row holding `Sidebar` and `AppShell.Main`. Its `direction` (`inset`, the default,
+`flat`, `frame` or `canvas`) sets the window background, the sidebar's surface and the page's look
+together, so pick it once for the whole app and do not restyle them by hand.
 
 ## Structure
 
@@ -84,9 +84,11 @@ export function Shell({ current, children }: { current: string; children: ReactN
 
 ## Variants
 
-- **Direction.** `inset` for apps with a strong page edge and several regions (a calendar, a
-  document), `frame` for side-by-side panels (messages, mail), `flat` (the default) for simple,
-  dense tools. One direction per app, on every screen, settings and empty states included.
+- **Direction.** `inset` (the default) for apps with navigation and several regions (a calendar,
+  a document), `frame` for side-by-side panels (messages, mail), `flat` for simple, dense tools,
+  `canvas` for pages made of separate modules (an overview, a wallet). One direction per app, on
+  every screen, settings and empty states included. Ask the user before the first screen unless the
+  prompt already says; without a way to ask, take `inset`.
 
 - **Router links.** Wrap your router's link: `<Sidebar.Item asChild icon={…} label="Projects"
 active={…}><Link to="/projects" /></Sidebar.Item>`. Icon and label are injected into the link.
@@ -107,8 +109,8 @@ grid-cols-[repeat(auto-fit,minmax(16rem,1fr))] gap-ws-11`) or stack sections wit
   layout out; do not add a second scrolling wrapper around the page.
 - The direction lives on `AppShell` alone. Do not pass the sidebar a fill or a border through
   `className`, and do not give `AppShell.Main` its own background, radius or shadow.
-- The page is white in every direction (in `inset`, a white card); cards on it stay `Card`
-  bordered on that white.
+- The page is white (in `inset`, a white card) and cards on it stay `Card` bordered on that
+  white. Only `canvas` leaves the page grey: its content goes in white sections with no border.
 - One active item, set by you from the current path.
 - Keep the top level to about seven items; group the rest under `Sidebar.SectionHeader`s instead of nesting deeply.
 - Hide pages the user will never reach. `disabled` is for something they could unlock.

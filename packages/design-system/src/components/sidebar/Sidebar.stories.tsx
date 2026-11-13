@@ -108,6 +108,15 @@ Use Tabs to switch sections within a page and Breadcrumbs to show hierarchy.
         type: { summary: 'boolean' },
       },
     },
+    surface: {
+      control: 'radio',
+      options: ['page', 'tinted', 'frame'],
+      table: {
+        category: 'Appearance',
+        type: { summary: "'page' | 'tinted' | 'frame'" },
+        defaultValue: { summary: "the AppShell direction's surface, 'page' outside one" },
+      },
+    },
     onCollapsedChange: {
       control: false,
       table: {

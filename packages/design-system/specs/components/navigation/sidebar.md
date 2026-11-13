@@ -28,7 +28,7 @@ storybook: components-sidebar--default
 
 - The persistent left-hand navigation of an application shell, between product areas. Put it in
   an `AppShell`: the sidebar then takes the surface of the app's direction (white with a line,
-  grey tint, or the bare grey frame) without any prop.
+  grey tint, or the bare grey frame) without any prop. `surface` overrides it.
 - When the layout needs both a labelled view and a compact icon-only view.
 
 ## When not to use
@@ -73,6 +73,7 @@ The root fills its parent's height; place it in a full-height flex row next to t
 | ------------------ | ----------------------------- | --------------------------------------------------------------- |
 | `defaultCollapsed` | boolean                       | Start collapsed, sidebar owns the state.                        |
 | `collapsed`        | boolean + `onCollapsedChange` | You own the state (persisted preference, responsive rules).     |
+| `surface`          | `page`, `tinted`, `frame`     | Only outside an `AppShell`, or to override its direction.       |
 | `scrollable`       | on `Sidebar.Section`          | The one section that takes the remaining height and scrolls.    |
 | `icon` / `label`   | on `Sidebar.Item`             | Remix icon component and visible label; both, always.           |
 | `active`           | on `Sidebar.Item`             | The current page; one per sidebar.                              |
@@ -168,6 +169,8 @@ The root fills its parent's height; place it in a full-height flex row next to t
 - `onCollapsedChange` fires in both modes; with `collapsed` set, nothing changes until you update it.
 - `Sidebar.Trigger` with `asChild` merges the toggle onto your own button.
 - Every part except `Sidebar.Header` throws outside `<Sidebar>`.
+- Restyling the sidebar's fill or line through `className` fights the surface classes; set
+  `AppShell direction` (or `surface`) instead.
 
 ## API
 
