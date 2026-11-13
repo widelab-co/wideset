@@ -8,7 +8,7 @@ exports[`FilterButton Snapshots > Custom props > matches snapshot with custom la
   <button
     aria-expanded="false"
     aria-haspopup="dialog"
-    class="text-ws-static-base bg-ws-static-highlight-base shadow-ws-controls-control placeholder:text-ws-static-subtle relative flex max-w-full cursor-pointer items-center overflow-hidden border text-nowrap focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default focus-visible:outline-solid [&>svg]:text-ws-dynamic-secondary-default [&_svg]:size-ws-9 [&_svg]:shrink-0 rounded-ws-control-lg typography-label-sm h-ws-forms-sm border-ws-dynamic-primary-default hover:border-ws-dynamic-primary-hover active:border-ws-dynamic-primary-pressed gap-ws-2 pr-ws-3 pl-ws-7 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+    class="text-ws-static-base bg-ws-static-highlight-base shadow-ws-controls-control placeholder:text-ws-static-subtle relative flex max-w-full cursor-pointer items-center overflow-hidden border text-nowrap focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default focus-visible:outline-solid [&>svg]:text-ws-dynamic-secondary-default [&_svg]:size-ws-9 [&_svg]:shrink-0 rounded-ws-control-lg typography-label-sm h-ws-forms-sm border-ws-dynamic-primary-default hover:border-ws-dynamic-primary-hover active:border-ws-dynamic-primary-pressed gap-ws-4 pr-ws-3 pl-ws-7 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
     data-slot="filter-button"
     data-state="closed"
     type="button"
@@ -20,7 +20,7 @@ exports[`FilterButton Snapshots > Custom props > matches snapshot with custom la
         Items
       </span>
       <span
-        class="text-ws-dynamic-primary-default typography-label-strong-sm"
+        class="min-w-0 truncate text-ws-dynamic-primary-default typography-label-strong-sm"
       >
         Option 1
       </span>
@@ -330,7 +330,7 @@ exports[`FilterButton Snapshots > Selected state > matches snapshot for size lg 
         Filter
       </span>
       <span
-        class="text-ws-dynamic-primary-default typography-label-strong-md"
+        class="min-w-0 truncate text-ws-dynamic-primary-default typography-label-strong-md"
       >
         Option 1, +1
       </span>
@@ -385,7 +385,7 @@ exports[`FilterButton Snapshots > Selected state > matches snapshot for size lg 
         Filter
       </span>
       <span
-        class="text-ws-dynamic-primary-default typography-label-strong-md"
+        class="min-w-0 truncate text-ws-dynamic-primary-default typography-label-strong-md"
       >
         Option 1
       </span>
@@ -440,7 +440,7 @@ exports[`FilterButton Snapshots > Selected state > matches snapshot for size md 
         Filter
       </span>
       <span
-        class="text-ws-dynamic-primary-default typography-label-strong-md"
+        class="min-w-0 truncate text-ws-dynamic-primary-default typography-label-strong-md"
       >
         Option 1, +1
       </span>
@@ -495,7 +495,7 @@ exports[`FilterButton Snapshots > Selected state > matches snapshot for size md 
         Filter
       </span>
       <span
-        class="text-ws-dynamic-primary-default typography-label-strong-md"
+        class="min-w-0 truncate text-ws-dynamic-primary-default typography-label-strong-md"
       >
         Option 1
       </span>
@@ -538,7 +538,7 @@ exports[`FilterButton Snapshots > Selected state > matches snapshot for size sm 
   <button
     aria-expanded="false"
     aria-haspopup="dialog"
-    class="text-ws-static-base bg-ws-static-highlight-base shadow-ws-controls-control placeholder:text-ws-static-subtle relative flex max-w-full cursor-pointer items-center overflow-hidden border text-nowrap focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default focus-visible:outline-solid [&>svg]:text-ws-dynamic-secondary-default [&_svg]:size-ws-9 [&_svg]:shrink-0 rounded-ws-control-lg typography-label-sm h-ws-forms-sm border-ws-dynamic-primary-default hover:border-ws-dynamic-primary-hover active:border-ws-dynamic-primary-pressed gap-ws-2 pr-ws-3 pl-ws-7 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+    class="text-ws-static-base bg-ws-static-highlight-base shadow-ws-controls-control placeholder:text-ws-static-subtle relative flex max-w-full cursor-pointer items-center overflow-hidden border text-nowrap focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default focus-visible:outline-solid [&>svg]:text-ws-dynamic-secondary-default [&_svg]:size-ws-9 [&_svg]:shrink-0 rounded-ws-control-lg typography-label-sm h-ws-forms-sm border-ws-dynamic-primary-default hover:border-ws-dynamic-primary-hover active:border-ws-dynamic-primary-pressed gap-ws-4 pr-ws-3 pl-ws-7 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
     data-slot="filter-button"
     data-state="closed"
     type="button"
@@ -550,7 +550,7 @@ exports[`FilterButton Snapshots > Selected state > matches snapshot for size sm 
         Filter
       </span>
       <span
-        class="text-ws-dynamic-primary-default typography-label-strong-sm"
+        class="min-w-0 truncate text-ws-dynamic-primary-default typography-label-strong-sm"
       >
         Option 1, +1
       </span>
@@ -593,7 +593,7 @@ exports[`FilterButton Snapshots > Selected state > matches snapshot for size sm 
   <button
     aria-expanded="false"
     aria-haspopup="dialog"
-    class="text-ws-static-base bg-ws-static-highlight-base shadow-ws-controls-control placeholder:text-ws-static-subtle relative flex max-w-full cursor-pointer items-center overflow-hidden border text-nowrap focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default focus-visible:outline-solid [&>svg]:text-ws-dynamic-secondary-default [&_svg]:size-ws-9 [&_svg]:shrink-0 rounded-ws-control-lg typography-label-sm h-ws-forms-sm border-ws-dynamic-primary-default hover:border-ws-dynamic-primary-hover active:border-ws-dynamic-primary-pressed gap-ws-2 pr-ws-3 pl-ws-7 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+    class="text-ws-static-base bg-ws-static-highlight-base shadow-ws-controls-control placeholder:text-ws-static-subtle relative flex max-w-full cursor-pointer items-center overflow-hidden border text-nowrap focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default focus-visible:outline-solid [&>svg]:text-ws-dynamic-secondary-default [&_svg]:size-ws-9 [&_svg]:shrink-0 rounded-ws-control-lg typography-label-sm h-ws-forms-sm border-ws-dynamic-primary-default hover:border-ws-dynamic-primary-hover active:border-ws-dynamic-primary-pressed gap-ws-4 pr-ws-3 pl-ws-7 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
     data-slot="filter-button"
     data-state="closed"
     type="button"
@@ -605,7 +605,7 @@ exports[`FilterButton Snapshots > Selected state > matches snapshot for size sm 
         Filter
       </span>
       <span
-        class="text-ws-dynamic-primary-default typography-label-strong-sm"
+        class="min-w-0 truncate text-ws-dynamic-primary-default typography-label-strong-sm"
       >
         Option 1
       </span>

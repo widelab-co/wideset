@@ -1,5 +1,5 @@
 import { Slot } from '@radix-ui/react-slot';
-import { RiSideBarLine } from '@remixicon/react';
+import { RiSidebarFoldLine, RiSidebarUnfoldLine } from '@remixicon/react';
 import * as React from 'react';
 import { cn } from 'src/lib/utils';
 
@@ -56,7 +56,9 @@ const SidebarTrigger = React.forwardRef<HTMLButtonElement, SidebarTriggerProps>(
       <IconButton
         data-slot="sidebar-trigger"
         {...restProps}
-        icon={RiSideBarLine}
+        // Figma: the fold arrow (pointing left) when expanded, the unfold arrow (pointing right,
+        // panel bar on the right) when collapsed. Rotating the fold icon would put the bar left.
+        icon={isCollapsed ? RiSidebarUnfoldLine : RiSidebarFoldLine}
         variant="secondary"
         preset="ghost"
         size="sm"

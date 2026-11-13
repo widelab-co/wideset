@@ -8,7 +8,7 @@
 
 ## When not to use
 
-- Between card header, content and footer → `Card` draws its own lines.
+- Between card header, content and footer → `Card` with `divider`.
 - Under a `Sidepanel` header or above its footer → their `divider` prop.
 - Between table rows → `Table` draws row lines; `separated` adds column lines.
 - Between accordion sections → `Accordion` draws them.

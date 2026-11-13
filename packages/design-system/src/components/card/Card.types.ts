@@ -23,6 +23,13 @@ export type CardProps = HTMLAttributes<HTMLDivElement> &
     children?: ReactNode;
     /** Additional CSS classes merged with the card root. */
     className?: string;
+    /**
+     * Draws a line under the header and above the footer. Use it when the content below the
+     * header is heavy: a table, a list, a form with a footer of actions. Bordered cards only; a
+     * flat card has no frame to divide.
+     * @default false
+     */
+    divider?: boolean;
   };
 
 /** The media area with a configurable aspect ratio. */
@@ -99,4 +106,4 @@ export type CardWithSubComponents = ForwardRefExoticComponent<
   Action: typeof CardAction;
 };
 
-export type CardContextType = Pick<CardProps, 'variant'>;
+export type CardContextType = Pick<CardProps, 'variant' | 'divider'>;

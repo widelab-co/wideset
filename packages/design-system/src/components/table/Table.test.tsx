@@ -62,6 +62,47 @@ describe('Table', () => {
     });
   });
 
+  describe('Table.CellDescription', () => {
+    const renderCell = () =>
+      render(
+        <Table size="md">
+          <Table.Body>
+            <Table.Row>
+              <Table.Cell>
+                Offline sync
+                <Table.CellDescription data-testid="desc" className="mt-ws-1" aria-hidden="false">
+                  Edits made offline merge on reconnect.
+                </Table.CellDescription>
+              </Table.Cell>
+            </Table.Row>
+          </Table.Body>
+        </Table>,
+      );
+
+    it('renders a quieter second line under the label (Figma Body/Small, subtle)', () => {
+      renderCell();
+      expect(screen.getByTestId('desc')).toHaveClass(
+        'typography-body-sm',
+        'text-ws-static-subtle',
+        'block',
+      );
+    });
+
+    it('leaves the label in the cell type for its size', () => {
+      renderCell();
+      const cell = screen.getByRole('cell');
+      expect(cell).toHaveClass('typography-label-sm');
+    });
+
+    it('marks its slot, merges className and spreads rest props', () => {
+      renderCell();
+      const desc = screen.getByTestId('desc');
+      expect(desc).toHaveAttribute('data-slot', 'table-cell-description');
+      expect(desc).toHaveClass('mt-ws-1');
+      expect(desc).toHaveAttribute('aria-hidden', 'false');
+    });
+  });
+
   describe('separated', () => {
     it('adds is-separated class to table when separated is true', () => {
       render(<BasicTable separated />);
