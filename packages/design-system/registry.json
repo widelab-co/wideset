@@ -730,6 +730,19 @@
       ]
     },
     {
+      "name": "spreadsheet",
+      "type": "registry:ui",
+      "title": "Spreadsheet",
+      "description": "Spreadsheet is a dense grid of cells that people read, compare and work through one cell at a time.",
+      "files": [
+        {
+          "path": "src/components/spreadsheet/Spreadsheet.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/wideset/spreadsheet/Spreadsheet.tsx"
+        }
+      ]
+    },
+    {
       "name": "status-badge",
       "type": "registry:ui",
       "title": "StatusBadge",

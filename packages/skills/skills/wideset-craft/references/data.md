@@ -16,6 +16,9 @@ decimals or units force reading every cell.
 
 - `Table` rows are `sm` (40px) by default, the smallest Table; `md` 48px for large screens (see
   [sizing.md](sizing.md)).
+- A screen people work through cell by cell (many columns, more rows than fit, a pinned header and
+  row numbers) is a `Spreadsheet`, not a wider `Table`: 32px rows and 12px text, every value on one
+  line, numbers right-aligned in tabular figures. See the dense-data pattern in `wideset-build`.
 - First column is the identity of the row (name, ID), `text-ws-static-strong`; other text columns
   `text-ws-static-base`; secondary information under the name in `typography-caption-md
 text-ws-static-subtle`, not in its own narrow column.

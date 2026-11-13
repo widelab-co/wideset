@@ -148,6 +148,15 @@ A member such as `Card.Header` comes with `Card`; its named form, `CardHeader`, 
 - `import { SidepanelTitle } from '@/components/ui/wideset/sidepanel/SidepanelTitle';`
 - `import { Slider } from '@/components/ui/wideset/slider/Slider';`
 - `import { SliderLabel } from '@/components/ui/wideset/slider/SliderLabel';`
+- `import { Spreadsheet } from '@/components/ui/wideset/spreadsheet/Spreadsheet';`
+- `import { SpreadsheetBody } from '@/components/ui/wideset/spreadsheet/SpreadsheetBody';`
+- `import { SpreadsheetCell } from '@/components/ui/wideset/spreadsheet/SpreadsheetCell';`
+- `import { SpreadsheetColumnHeader } from '@/components/ui/wideset/spreadsheet/SpreadsheetColumnHeader';`
+- `import { SpreadsheetColumnHeaderIcon } from '@/components/ui/wideset/spreadsheet/SpreadsheetColumnHeaderIcon';`
+- `import { SpreadsheetColumnHeaderTrigger } from '@/components/ui/wideset/spreadsheet/SpreadsheetColumnHeaderTrigger';`
+- `import { SpreadsheetHead } from '@/components/ui/wideset/spreadsheet/SpreadsheetHead';`
+- `import { SpreadsheetRow } from '@/components/ui/wideset/spreadsheet/SpreadsheetRow';`
+- `import { SpreadsheetRowHeader } from '@/components/ui/wideset/spreadsheet/SpreadsheetRowHeader';`
 - `import { StatusBadge } from '@/components/ui/wideset/status-badge/StatusBadge';`
 - `import { StatusBadgeIcon } from '@/components/ui/wideset/status-badge/StatusBadgeIcon';`
 - `import { StatusBadgeLabel } from '@/components/ui/wideset/status-badge/StatusBadgeLabel';`
@@ -251,6 +260,7 @@ A member such as `Card.Header` comes with `Card`; its named form, `CardHeader`, 
 - `import type { SidebarCollapsedProps, SidebarExpandedProps, SidebarFooterProps, SidebarHeaderProps, SidebarItemProps, SidebarProps, SidebarSectionHeaderProps, SidebarSectionProps, SidebarTriggerProps } from '@/components/ui/wideset/sidebar/Sidebar.types';`
 - `import type { SidepanelActionsProps, SidepanelCloseProps, SidepanelContentProps, SidepanelDescriptionProps, SidepanelFooterProps, SidepanelHeaderProps, SidepanelPanelProps, SidepanelProps, SidepanelTitleProps, SidepanelTriggerProps } from '@/components/ui/wideset/sidepanel/Sidepanel.types';`
 - `import type { SliderLabelProps, SliderProps } from '@/components/ui/wideset/slider/Slider.types';`
+- `import type { SpreadsheetAlign, SpreadsheetBodyProps, SpreadsheetCellProps, SpreadsheetColumnHeaderIconProps, SpreadsheetColumnHeaderProps, SpreadsheetColumnHeaderTriggerProps, SpreadsheetHeadProps, SpreadsheetProps, SpreadsheetRowHeaderProps, SpreadsheetRowProps, SpreadsheetSize } from '@/components/ui/wideset/spreadsheet/Spreadsheet.types';`
 - `import type { StatusBadgeIconProps, StatusBadgeLabelProps, StatusBadgeProps, StatusBadgeWithSubComponents } from '@/components/ui/wideset/status-badge/StatusBadge.types';`
 - `import type { StatusModalBodyProps, StatusModalCloseProps, StatusModalContentProps, StatusModalFooterProps, StatusModalOrientation, StatusModalOverlayProps, StatusModalStatus, StatusModalTitleProps, StatusModalTriggerProps } from '@/components/ui/wideset/status-modal/StatusModal.types';`
 - `import type { SwitchLabelProps, SwitchProps } from '@/components/ui/wideset/switch/Switch.types';`

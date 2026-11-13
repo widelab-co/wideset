@@ -29,6 +29,7 @@ const SIZES: Record<string, GallerySize> = {
   'action-bar': 'wide',
   'inline-alert': 'wide',
   'progress-stepper': 'wide',
+  spreadsheet: 'wide',
   'system-alert': 'wide',
   // A whole app sidebar, top to bottom.
   sidebar: 'lg',

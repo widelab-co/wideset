@@ -73,6 +73,7 @@ Font: the page font is variable Inter, set through `--font-ws-sans`; `wideset in
 - DropdownMenu: commands that run on select; never for picking a value.
 - Tooltip: a read-only hint on hover or focus.
 - Table: records compared across rows; sorting, selection and paging are your state.
+- Spreadsheet: a dense grid worked cell by cell, with a pinned header and row numbers; not a list of rows to open, that is Table.
 - ListItem: one compact row; the row inside menus and selects.
 - Avatar: a person, team or the agent orb next to a name.
 - Tag: a static category label; colour is categorical.
