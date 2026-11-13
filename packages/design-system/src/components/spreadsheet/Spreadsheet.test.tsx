@@ -564,6 +564,66 @@ describe('Spreadsheet', () => {
       expect(screen.getByRole('checkbox', { name: 'Verified: Tech Nova' })).toHaveFocus();
       expect(cell('Paid')).toHaveAttribute('aria-selected', 'true');
     });
+
+    it('skips a last control that does not take focus when Tab leaves the grid', async () => {
+      // A hidden control (display: none, inert) ignores focus(); the hand-off goes to the one before.
+      const user = userEvent.setup();
+      render(<WithControls />);
+      const link = screen.getByRole('link', { name: 'ecosolutions.com' });
+      vi.spyOn(link, 'focus').mockImplementation(() => {});
+      await user.click(cell('Tech Nova'));
+      fireEvent.keyDown(cell('Tech Nova'), { key: 'Tab' });
+      expect(screen.getByRole('textbox', { name: 'Notes: Tech Nova' })).toHaveFocus();
+    });
+  });
+
+  describe('Rows that change', () => {
+    const Rows = ({ names }: { names: string[] }) => (
+      <>
+        <button type="button">Outside</button>
+        <Spreadsheet aria-label="Clients">
+          <Spreadsheet.Body>
+            {names.map((name) => (
+              <Spreadsheet.Row key={name}>
+                <Spreadsheet.Cell>{name}</Spreadsheet.Cell>
+                <Spreadsheet.Cell>{`${name} notes`}</Spreadsheet.Cell>
+              </Spreadsheet.Row>
+            ))}
+          </Spreadsheet.Body>
+        </Spreadsheet>
+      </>
+    );
+    const names = clients.map(([name]) => name);
+
+    it('hands focus to the cell that takes the place of a removed focused cell', async () => {
+      const user = userEvent.setup();
+      const { rerender } = render(<Rows names={names} />);
+      await user.click(cell('Eco Solutions notes'));
+      rerender(<Rows names={names.filter((name) => name !== 'Eco Solutions')} />);
+      await act(async () => {});
+      expect(cell('Skyline Innovations notes')).toHaveFocus();
+      expect(cell('Skyline Innovations notes')).toHaveAttribute('aria-selected', 'true');
+    });
+
+    it('moves up a row when the focused last row is removed', async () => {
+      const user = userEvent.setup();
+      const { rerender } = render(<Rows names={names} />);
+      await user.click(cell('Skyline Innovations'));
+      rerender(<Rows names={names.slice(0, 2)} />);
+      await act(async () => {});
+      expect(cell('Eco Solutions')).toHaveFocus();
+    });
+
+    it('moves the tab stop without taking focus when focus is elsewhere', async () => {
+      const user = userEvent.setup();
+      const { rerender } = render(<Rows names={names} />);
+      await user.click(cell('Eco Solutions notes'));
+      await user.click(screen.getByRole('button', { name: 'Outside' }));
+      rerender(<Rows names={names.filter((name) => name !== 'Eco Solutions')} />);
+      await act(async () => {});
+      expect(screen.getByRole('button', { name: 'Outside' })).toHaveFocus();
+      expect(cell('Skyline Innovations notes')).toHaveAttribute('tabindex', '0');
+    });
   });
 
   describe('Sticky columns', () => {

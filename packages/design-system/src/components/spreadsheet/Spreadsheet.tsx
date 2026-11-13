@@ -38,9 +38,9 @@ export const Spreadsheet = React.forwardRef<HTMLDivElement, SpreadsheetProps>(
     const tableRef = React.useRef<HTMLTableElement>(null);
     const composedRef = useComposedRefs(ref, scrollerRef);
     const context = React.useMemo(() => ({ size: size ?? 'sm', store }), [size, store]);
-    const { onFocus, onKeyDown } = useSpreadsheetKeyboard(scrollerRef, store);
+    const { focusWithin, onBlur, onFocus, onKeyDown } = useSpreadsheetKeyboard(scrollerRef, store);
 
-    useSpreadsheetLayout(scrollerRef, tableRef, stickyColumns, store);
+    useSpreadsheetLayout(scrollerRef, tableRef, stickyColumns, store, focusWithin);
 
     return (
       <SpreadsheetContext.Provider value={context}>
@@ -58,6 +58,7 @@ export const Spreadsheet = React.forwardRef<HTMLDivElement, SpreadsheetProps>(
             aria-labelledby={ariaLabelledBy}
             aria-describedby={ariaDescribedBy}
             className={SPREADSHEET_TABLE_CLASS}
+            onBlur={onBlur}
             onFocus={onFocus}
             onKeyDown={onKeyDown}
           >
