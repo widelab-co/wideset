@@ -610,6 +610,33 @@ describe('Spreadsheet', () => {
       expect(screen.getByRole('textbox', { name: 'Email' })).toHaveFocus();
     });
 
+    it('skips a control in the cell that does not take focus when tabbing within it', () => {
+      render(
+        <Spreadsheet aria-label="Contacts">
+          <Spreadsheet.Body>
+            <Spreadsheet.Row>
+              <Spreadsheet.Cell>
+                <input aria-label="First name" />
+                <button type="button" aria-label="Hidden action" />
+                <input aria-label="Last name" />
+              </Spreadsheet.Cell>
+            </Spreadsheet.Row>
+          </Spreadsheet.Body>
+        </Spreadsheet>,
+      );
+      vi.spyOn(screen.getByRole('button', { name: 'Hidden action' }), 'focus').mockImplementation(
+        () => {},
+      );
+      act(() => screen.getByRole('textbox', { name: 'First name' }).focus());
+      fireEvent.keyDown(screen.getByRole('textbox', { name: 'First name' }), { key: 'Tab' });
+      expect(screen.getByRole('textbox', { name: 'Last name' })).toHaveFocus();
+      fireEvent.keyDown(screen.getByRole('textbox', { name: 'Last name' }), {
+        key: 'Tab',
+        shiftKey: true,
+      });
+      expect(screen.getByRole('textbox', { name: 'First name' })).toHaveFocus();
+    });
+
     it('enters the first control that takes focus with Enter', async () => {
       const user = userEvent.setup();
       render(

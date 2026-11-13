@@ -263,14 +263,22 @@ export const useSpreadsheetKeyboard = (
     if (!cell) return;
 
     if (event.key === 'Tab') {
-      // From a control, Tab and Shift+Tab first move between the controls of the same cell.
+      // From a control, Tab and Shift+Tab first move between the controls of the same cell,
+      // skipping those that do not take focus (hidden ones).
       if (target !== cell) {
         const controls = tabbables(cell);
-        const next = controls[controls.indexOf(target) + (event.shiftKey ? -1 : 1)];
-        if (controls.includes(target) && next) {
-          event.preventDefault();
-          next.focus();
-          return;
+        const index = controls.indexOf(target);
+        const after = event.shiftKey
+          ? controls.slice(0, Math.max(index, 0)).reverse()
+          : controls.slice(index + 1);
+        if (index !== -1) {
+          for (const control of after) {
+            control.focus();
+            if (table.ownerDocument.activeElement === control) {
+              event.preventDefault();
+              return;
+            }
+          }
         }
       }
       // Hand focus to the grid's last (first) control that takes it, skipping hidden ones, so
