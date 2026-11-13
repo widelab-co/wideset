@@ -3,7 +3,7 @@
 exports[`Card > Card.Media > should match snapshot for media with variant="bordered" 1`] = `
 <div>
   <div
-    class="flex flex-col overflow-clip [overflow-clip-margin:border-box] rounded-ws-container-lg bg-ws-static-container border-ws-static-base border w-[300px]"
+    class="flex min-w-0 flex-col overflow-clip [overflow-clip-margin:border-box] rounded-ws-container-lg bg-ws-static-container border-ws-static-base border w-[300px]"
     data-slot="card"
   >
     <div
@@ -18,7 +18,7 @@ exports[`Card > Card.Media > should match snapshot for media with variant="borde
       />
     </div>
     <div
-      class="ws-card-header flex flex-col border-ws-static-base px-ws-11 pt-ws-9 pb-ws-8 [&:not(:last-child)]:border-b"
+      class="ws-card-header flex flex-col px-ws-11 pt-ws-9 pb-ws-8 [&:has(+[data-slot=card-content])]:pb-0"
       data-slot="card-header"
     >
       <h3
@@ -28,7 +28,7 @@ exports[`Card > Card.Media > should match snapshot for media with variant="borde
         Media Card
       </h3>
       <p
-        class="text-ws-static-subtle typography-body-md mt-ws-5 mb-ws-2"
+        class="text-ws-static-subtle typography-body-md mt-ws-2 mb-ws-2"
         data-slot="card-description"
       >
         Media Card Description
@@ -41,7 +41,7 @@ exports[`Card > Card.Media > should match snapshot for media with variant="borde
 exports[`Card > Card.Media > should match snapshot for media with variant="flat" 1`] = `
 <div>
   <div
-    class="flex flex-col overflow-clip [overflow-clip-margin:border-box] w-[300px]"
+    class="flex min-w-0 flex-col overflow-clip [overflow-clip-margin:border-box] w-[300px]"
     data-slot="card"
   >
     <div
@@ -66,7 +66,7 @@ exports[`Card > Card.Media > should match snapshot for media with variant="flat"
         Media Card
       </h3>
       <p
-        class="text-ws-static-subtle typography-body-md mt-ws-5 mb-ws-2"
+        class="text-ws-static-subtle typography-body-md mt-ws-2 mb-ws-2"
         data-slot="card-description"
       >
         Media Card Description
@@ -79,7 +79,7 @@ exports[`Card > Card.Media > should match snapshot for media with variant="flat"
 exports[`Card > Card.Media > should match snapshot for ratio="1/1" 1`] = `
 <div>
   <div
-    class="flex flex-col overflow-clip [overflow-clip-margin:border-box] rounded-ws-container-lg bg-ws-static-container border-ws-static-base border w-[300px]"
+    class="flex min-w-0 flex-col overflow-clip [overflow-clip-margin:border-box] rounded-ws-container-lg bg-ws-static-container border-ws-static-base border w-[300px]"
     data-slot="card"
   >
     <div
@@ -94,7 +94,7 @@ exports[`Card > Card.Media > should match snapshot for ratio="1/1" 1`] = `
       />
     </div>
     <div
-      class="ws-card-header flex flex-col border-ws-static-base px-ws-11 pt-ws-9 pb-ws-8 [&:not(:last-child)]:border-b"
+      class="ws-card-header flex flex-col px-ws-11 pt-ws-9 pb-ws-8 [&:has(+[data-slot=card-content])]:pb-0"
       data-slot="card-header"
     >
       <h3
@@ -105,7 +105,7 @@ exports[`Card > Card.Media > should match snapshot for ratio="1/1" 1`] = `
         1/1
       </h3>
       <p
-        class="text-ws-static-subtle typography-body-md mt-ws-5 mb-ws-2"
+        class="text-ws-static-subtle typography-body-md mt-ws-2 mb-ws-2"
         data-slot="card-description"
       >
         Media Card Description
@@ -118,7 +118,7 @@ exports[`Card > Card.Media > should match snapshot for ratio="1/1" 1`] = `
 exports[`Card > Card.Media > should match snapshot for ratio="16/9" 1`] = `
 <div>
   <div
-    class="flex flex-col overflow-clip [overflow-clip-margin:border-box] rounded-ws-container-lg bg-ws-static-container border-ws-static-base border w-[300px]"
+    class="flex min-w-0 flex-col overflow-clip [overflow-clip-margin:border-box] rounded-ws-container-lg bg-ws-static-container border-ws-static-base border w-[300px]"
     data-slot="card"
   >
     <div
@@ -133,7 +133,7 @@ exports[`Card > Card.Media > should match snapshot for ratio="16/9" 1`] = `
       />
     </div>
     <div
-      class="ws-card-header flex flex-col border-ws-static-base px-ws-11 pt-ws-9 pb-ws-8 [&:not(:last-child)]:border-b"
+      class="ws-card-header flex flex-col px-ws-11 pt-ws-9 pb-ws-8 [&:has(+[data-slot=card-content])]:pb-0"
       data-slot="card-header"
     >
       <h3
@@ -144,7 +144,7 @@ exports[`Card > Card.Media > should match snapshot for ratio="16/9" 1`] = `
         16/9
       </h3>
       <p
-        class="text-ws-static-subtle typography-body-md mt-ws-5 mb-ws-2"
+        class="text-ws-static-subtle typography-body-md mt-ws-2 mb-ws-2"
         data-slot="card-description"
       >
         Media Card Description
@@ -157,7 +157,7 @@ exports[`Card > Card.Media > should match snapshot for ratio="16/9" 1`] = `
 exports[`Card > Card.Media > should match snapshot for ratio="21/9" 1`] = `
 <div>
   <div
-    class="flex flex-col overflow-clip [overflow-clip-margin:border-box] rounded-ws-container-lg bg-ws-static-container border-ws-static-base border w-[300px]"
+    class="flex min-w-0 flex-col overflow-clip [overflow-clip-margin:border-box] rounded-ws-container-lg bg-ws-static-container border-ws-static-base border w-[300px]"
     data-slot="card"
   >
     <div
@@ -172,7 +172,7 @@ exports[`Card > Card.Media > should match snapshot for ratio="21/9" 1`] = `
       />
     </div>
     <div
-      class="ws-card-header flex flex-col border-ws-static-base px-ws-11 pt-ws-9 pb-ws-8 [&:not(:last-child)]:border-b"
+      class="ws-card-header flex flex-col px-ws-11 pt-ws-9 pb-ws-8 [&:has(+[data-slot=card-content])]:pb-0"
       data-slot="card-header"
     >
       <h3
@@ -183,7 +183,7 @@ exports[`Card > Card.Media > should match snapshot for ratio="21/9" 1`] = `
         21/9
       </h3>
       <p
-        class="text-ws-static-subtle typography-body-md mt-ws-5 mb-ws-2"
+        class="text-ws-static-subtle typography-body-md mt-ws-2 mb-ws-2"
         data-slot="card-description"
       >
         Media Card Description
@@ -196,11 +196,11 @@ exports[`Card > Card.Media > should match snapshot for ratio="21/9" 1`] = `
 exports[`Card > should match snapshot for variant="bordered" 1`] = `
 <div>
   <div
-    class="flex w-full flex-col overflow-clip [overflow-clip-margin:border-box] rounded-ws-container-lg bg-ws-static-container border-ws-static-base border"
+    class="flex w-full min-w-0 flex-col overflow-clip [overflow-clip-margin:border-box] rounded-ws-container-lg bg-ws-static-container border-ws-static-base border"
     data-slot="card"
   >
     <div
-      class="ws-card-header flex flex-col border-ws-static-base px-ws-11 pt-ws-9 pb-ws-8 [&:not(:last-child)]:border-b"
+      class="ws-card-header flex flex-col px-ws-11 pt-ws-9 pb-ws-8 [&:has(+[data-slot=card-content])]:pb-0"
       data-slot="card-header"
     >
       <h3
@@ -210,7 +210,7 @@ exports[`Card > should match snapshot for variant="bordered" 1`] = `
         Card Title
       </h3>
       <p
-        class="text-ws-static-subtle typography-body-md mt-ws-5 mb-ws-2"
+        class="text-ws-static-subtle typography-body-md mt-ws-2 mb-ws-2"
         data-slot="card-description"
       >
         Card Description
@@ -229,7 +229,7 @@ exports[`Card > should match snapshot for variant="bordered" 1`] = `
         class="h-full w-full max-w-full min-w-0 pr-ws-6"
         data-radix-scroll-area-viewport=""
         data-slot="scroll-area-viewport"
-        style="overflow-x: hidden; overflow-y: scroll;"
+        style="overflow-x: scroll; overflow-y: scroll;"
       >
         <div
           style="min-width: 100%; display: table;"
@@ -243,7 +243,7 @@ exports[`Card > should match snapshot for variant="bordered" 1`] = `
       </div>
     </div>
     <div
-      class="flex border-ws-static-base px-ws-11 py-ws-9 [&:not(:first-child)]:border-t [.ws-card-header+&]:border-t-0"
+      class="flex px-ws-11 py-ws-9 [[data-slot=card-content]+&]:pt-0"
       data-slot="card-footer"
     >
       <button
@@ -276,7 +276,7 @@ exports[`Card > should match snapshot for variant="bordered" 1`] = `
 exports[`Card > should match snapshot for variant="flat" 1`] = `
 <div>
   <div
-    class="flex w-full flex-col overflow-clip [overflow-clip-margin:border-box]"
+    class="flex w-full min-w-0 flex-col overflow-clip [overflow-clip-margin:border-box]"
     data-slot="card"
   >
     <div
@@ -290,7 +290,7 @@ exports[`Card > should match snapshot for variant="flat" 1`] = `
         Card Title
       </h3>
       <p
-        class="text-ws-static-subtle typography-body-md mt-ws-5 mb-ws-2"
+        class="text-ws-static-subtle typography-body-md mt-ws-2 mb-ws-2"
         data-slot="card-description"
       >
         Card Description
@@ -309,7 +309,7 @@ exports[`Card > should match snapshot for variant="flat" 1`] = `
         class="h-full w-full max-w-full min-w-0 pr-ws-6"
         data-radix-scroll-area-viewport=""
         data-slot="scroll-area-viewport"
-        style="overflow-x: hidden; overflow-y: scroll;"
+        style="overflow-x: scroll; overflow-y: scroll;"
       >
         <div
           style="min-width: 100%; display: table;"
@@ -356,7 +356,7 @@ exports[`Card > should match snapshot for variant="flat" 1`] = `
 exports[`Card > should match snapshot with content and footer only 1`] = `
 <div>
   <div
-    class="flex w-full flex-col overflow-clip [overflow-clip-margin:border-box] rounded-ws-container-lg bg-ws-static-container border-ws-static-base border"
+    class="flex w-full min-w-0 flex-col overflow-clip [overflow-clip-margin:border-box] rounded-ws-container-lg bg-ws-static-container border-ws-static-base border"
     data-slot="card"
   >
     <div
@@ -372,7 +372,7 @@ exports[`Card > should match snapshot with content and footer only 1`] = `
         class="h-full w-full max-w-full min-w-0 pr-ws-6"
         data-radix-scroll-area-viewport=""
         data-slot="scroll-area-viewport"
-        style="overflow-x: hidden; overflow-y: scroll;"
+        style="overflow-x: scroll; overflow-y: scroll;"
       >
         <div
           style="min-width: 100%; display: table;"
@@ -386,7 +386,7 @@ exports[`Card > should match snapshot with content and footer only 1`] = `
       </div>
     </div>
     <div
-      class="flex border-ws-static-base px-ws-11 py-ws-9 [&:not(:first-child)]:border-t [.ws-card-header+&]:border-t-0"
+      class="flex px-ws-11 py-ws-9 [[data-slot=card-content]+&]:pt-0"
       data-slot="card-footer"
     >
       <button
@@ -408,7 +408,7 @@ exports[`Card > should match snapshot with content and footer only 1`] = `
 exports[`Card > should match snapshot with content only 1`] = `
 <div>
   <div
-    class="flex w-full flex-col overflow-clip [overflow-clip-margin:border-box] rounded-ws-container-lg bg-ws-static-container border-ws-static-base border"
+    class="flex w-full min-w-0 flex-col overflow-clip [overflow-clip-margin:border-box] rounded-ws-container-lg bg-ws-static-container border-ws-static-base border"
     data-slot="card"
   >
     <div
@@ -424,7 +424,7 @@ exports[`Card > should match snapshot with content only 1`] = `
         class="h-full w-full max-w-full min-w-0 pr-ws-6"
         data-radix-scroll-area-viewport=""
         data-slot="scroll-area-viewport"
-        style="overflow-x: hidden; overflow-y: scroll;"
+        style="overflow-x: scroll; overflow-y: scroll;"
       >
         <div
           style="min-width: 100%; display: table;"
@@ -444,11 +444,11 @@ exports[`Card > should match snapshot with content only 1`] = `
 exports[`Card > should match snapshot with header action containing icon button 1`] = `
 <div>
   <div
-    class="flex flex-col overflow-clip [overflow-clip-margin:border-box] rounded-ws-container-lg bg-ws-static-container border-ws-static-base border w-[350px]"
+    class="flex min-w-0 flex-col overflow-clip [overflow-clip-margin:border-box] rounded-ws-container-lg bg-ws-static-container border-ws-static-base border w-[350px]"
     data-slot="card"
   >
     <div
-      class="ws-card-header flex flex-col border-ws-static-base px-ws-11 pt-ws-9 pb-ws-8 [&:not(:last-child)]:border-b"
+      class="ws-card-header flex flex-col px-ws-11 pt-ws-9 pb-ws-8 [&:has(+[data-slot=card-content])]:pb-0"
       data-slot="card-header"
     >
       <div
@@ -462,7 +462,7 @@ exports[`Card > should match snapshot with header action containing icon button 
             Card Title
           </h3>
           <p
-            class="text-ws-static-subtle typography-body-md mt-ws-5 mb-ws-2"
+            class="text-ws-static-subtle typography-body-md mt-ws-2 mb-ws-2"
             data-slot="card-description"
           >
             Card Description
@@ -503,11 +503,11 @@ exports[`Card > should match snapshot with header action containing icon button 
 exports[`Card > should match snapshot with header action containing tag 1`] = `
 <div>
   <div
-    class="flex flex-col overflow-clip [overflow-clip-margin:border-box] rounded-ws-container-lg bg-ws-static-container border-ws-static-base border w-[350px]"
+    class="flex min-w-0 flex-col overflow-clip [overflow-clip-margin:border-box] rounded-ws-container-lg bg-ws-static-container border-ws-static-base border w-[350px]"
     data-slot="card"
   >
     <div
-      class="ws-card-header flex flex-col border-ws-static-base px-ws-11 pt-ws-9 pb-ws-8 [&:not(:last-child)]:border-b"
+      class="ws-card-header flex flex-col px-ws-11 pt-ws-9 pb-ws-8 [&:has(+[data-slot=card-content])]:pb-0"
       data-slot="card-header"
     >
       <div
@@ -521,7 +521,7 @@ exports[`Card > should match snapshot with header action containing tag 1`] = `
             Card Title
           </h3>
           <p
-            class="text-ws-static-subtle typography-body-md mt-ws-5 mb-ws-2"
+            class="text-ws-static-subtle typography-body-md mt-ws-2 mb-ws-2"
             data-slot="card-description"
           >
             Card Description
@@ -547,11 +547,11 @@ exports[`Card > should match snapshot with header action containing tag 1`] = `
 exports[`Card > should match snapshot with header and footer only 1`] = `
 <div>
   <div
-    class="flex w-full flex-col overflow-clip [overflow-clip-margin:border-box] rounded-ws-container-lg bg-ws-static-container border-ws-static-base border"
+    class="flex w-full min-w-0 flex-col overflow-clip [overflow-clip-margin:border-box] rounded-ws-container-lg bg-ws-static-container border-ws-static-base border"
     data-slot="card"
   >
     <div
-      class="ws-card-header flex flex-col border-ws-static-base px-ws-11 pt-ws-9 pb-ws-8 [&:not(:last-child)]:border-b"
+      class="ws-card-header flex flex-col px-ws-11 pt-ws-9 pb-ws-8 [&:has(+[data-slot=card-content])]:pb-0"
       data-slot="card-header"
     >
       <h3
@@ -561,14 +561,14 @@ exports[`Card > should match snapshot with header and footer only 1`] = `
         Card Title
       </h3>
       <p
-        class="text-ws-static-subtle typography-body-md mt-ws-5 mb-ws-2"
+        class="text-ws-static-subtle typography-body-md mt-ws-2 mb-ws-2"
         data-slot="card-description"
       >
         Card Description
       </p>
     </div>
     <div
-      class="flex border-ws-static-base px-ws-11 py-ws-9 [&:not(:first-child)]:border-t [.ws-card-header+&]:border-t-0"
+      class="flex px-ws-11 py-ws-9 [[data-slot=card-content]+&]:pt-0"
       data-slot="card-footer"
     >
       <button
@@ -590,11 +590,11 @@ exports[`Card > should match snapshot with header and footer only 1`] = `
 exports[`Card > should match snapshot with header only 1`] = `
 <div>
   <div
-    class="flex w-full flex-col overflow-clip [overflow-clip-margin:border-box] rounded-ws-container-lg bg-ws-static-container border-ws-static-base border"
+    class="flex w-full min-w-0 flex-col overflow-clip [overflow-clip-margin:border-box] rounded-ws-container-lg bg-ws-static-container border-ws-static-base border"
     data-slot="card"
   >
     <div
-      class="ws-card-header flex flex-col border-ws-static-base px-ws-11 pt-ws-9 pb-ws-8 [&:not(:last-child)]:border-b"
+      class="ws-card-header flex flex-col px-ws-11 pt-ws-9 pb-ws-8 [&:has(+[data-slot=card-content])]:pb-0"
       data-slot="card-header"
     >
       <h3
@@ -604,7 +604,7 @@ exports[`Card > should match snapshot with header only 1`] = `
         Card Title
       </h3>
       <p
-        class="text-ws-static-subtle typography-body-md mt-ws-5 mb-ws-2"
+        class="text-ws-static-subtle typography-body-md mt-ws-2 mb-ws-2"
         data-slot="card-description"
       >
         Card Description
