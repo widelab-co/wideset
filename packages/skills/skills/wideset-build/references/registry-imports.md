@@ -19,6 +19,8 @@ A member such as `Card.Header` comes with `Card`; its named form, `CardHeader`, 
 - `import { ActionTileEntity } from '@/components/ui/wideset/action-tile/ActionTileEntity';`
 - `import { ActionTileIcon } from '@/components/ui/wideset/action-tile/ActionTileIcon';`
 - `import { ActionTileTitle } from '@/components/ui/wideset/action-tile/ActionTileTitle';`
+- `import { AppShell } from '@/components/ui/wideset/app-shell/AppShell';`
+- `import { AppShellMain } from '@/components/ui/wideset/app-shell/AppShellMain';`
 - `import { Avatar } from '@/components/ui/wideset/avatar/Avatar';`
 - `import { AvatarAgent } from '@/components/ui/wideset/avatar/AvatarAgent';`
 - `import { AvatarGroup } from '@/components/ui/wideset/avatar/AvatarGroup';`
@@ -224,6 +226,7 @@ A member such as `Card.Header` comes with `Card`; its named form, `CardHeader`, 
 - `import type { AccordionCaptionProps, AccordionContentProps, AccordionIconProps, AccordionItemProps, AccordionProps, AccordionTitleProps, AccordionTriggerProps } from '@/components/ui/wideset/accordion/Accordion.types';`
 - `import type { ActionBarProps } from '@/components/ui/wideset/action-bar/ActionBar.types';`
 - `import type { ActionTileProps, DescriptionProps as ActionTileDescriptionProps, EntityProps as ActionTileEntityProps, IconProps as ActionTileIconProps, TitleProps as ActionTileTitleProps } from '@/components/ui/wideset/action-tile/ActionTile.types';`
+- `import type { AppShellDirection, AppShellMainProps, AppShellProps } from '@/components/ui/wideset/app-shell/AppShell.types';`
 - `import type { AvatarColor } from '@/components/ui/wideset/avatar/Avatar.colors';`
 - `import type { AgentProps as AvatarAgentProps, AvatarGroupContextType, AvatarProps, GroupProps as AvatarGroupProps, IconProps as AvatarIconProps, ImageProps as AvatarImageProps, InitialsProps as AvatarInitialsProps, MoreProps as AvatarMoreProps, StatusProps as AvatarStatusProps } from '@/components/ui/wideset/avatar/Avatar.types';`
 - `import type { BreadcrumbsDividerProps, BreadcrumbsItemProps, BreadcrumbsProps, BreadcrumbsWithSubComponents } from '@/components/ui/wideset/breadcrumbs/Breadcrumbs.types';`

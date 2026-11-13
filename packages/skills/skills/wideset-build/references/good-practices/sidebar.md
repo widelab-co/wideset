@@ -2,7 +2,9 @@
 
 ## When to use
 
-- The persistent left-hand navigation of an application shell, between product areas.
+- The persistent left-hand navigation of an application shell, between product areas. Put it in
+  an `AppShell`: the sidebar then takes the surface of the app's direction (white with a line,
+  grey tint, or the bare grey frame) without any prop. `surface` overrides it.
 - When the layout needs both a labelled view and a compact icon-only view.
 
 ## When not to use
@@ -66,3 +68,5 @@
 - `onCollapsedChange` fires in both modes; with `collapsed` set, nothing changes until you update it.
 - `Sidebar.Trigger` with `asChild` merges the toggle onto your own button.
 - Every part except `Sidebar.Header` throws outside `<Sidebar>`.
+- Restyling the sidebar's fill or line through `className` fights the surface classes; set
+  `AppShell direction` (or `surface`) instead.

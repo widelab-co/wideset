@@ -1,7 +1,9 @@
 import type { RemixiconComponentType } from '@remixicon/react';
+import type { VariantProps } from 'class-variance-authority';
 import type * as React from 'react';
 
 import type { MotionProps } from '../../motion/Motion.types';
+import type { sidebarVariants } from './Sidebar.variants';
 
 /** Props for the root Sidebar container. Supports both controlled and uncontrolled collapsed state. */
 export type SidebarProps = React.HTMLAttributes<HTMLDivElement> & {
@@ -11,6 +13,16 @@ export type SidebarProps = React.HTMLAttributes<HTMLDivElement> & {
   collapsed?: boolean;
   /** Fired when the collapsed state changes. Receives the new `collapsed` value. */
   onCollapsedChange?: (collapsed: boolean) => void;
+  /**
+   * What the sidebar sits on. Inside an `AppShell` it follows the app's direction, so leave it
+   * off there; set it to override the direction, or for a sidebar outside an `AppShell`.
+   * `page`: the page's white with a subtle line on its right edge (Flat).
+   * `tinted`: a grey tint over the app's white, no line (Frame).
+   * `frame`: no fill and no line, so it shows the grey app frame behind it, its nav centred in
+   * the column beside an inset page (Inset, Canvas).
+   * @default the AppShell direction's surface, `page` outside an AppShell
+   */
+  surface?: NonNullable<VariantProps<typeof sidebarVariants>['surface']>;
 } & MotionProps;
 
 /** Props for the Sidebar header — the title/branding row. Never scrolls; hidden when empty. */

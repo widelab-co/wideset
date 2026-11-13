@@ -8,7 +8,7 @@ Every example here uses only real exports and props; copy the structure, not the
 
 | Pattern                                                | Use it for                                                                              |
 | ------------------------------------------------------ | --------------------------------------------------------------------------------------- |
-| [App shell](app-shell.md)                              | The frame: `Sidebar` beside a scrolling `main`, one `ToastProvider`.                    |
+| [App shell](app-shell.md)                              | The frame: `AppShell` with `Sidebar` and `AppShell.Main`, one `ToastProvider`.          |
 | [Form page](form-page.md)                              | `FormField`s around inputs, field errors, save failure, submit and cancel.              |
 | [List with search and filters](list-and-filters.md)    | `Table` + search `TextInput` + `FilterButton` + `Pagination`, empty and loading states. |
 | [Dense data](dense-data.md)                            | Spreadsheet-like screens: `Spreadsheet` vs `Table` vs `ListItem`, density, numbers.     |
