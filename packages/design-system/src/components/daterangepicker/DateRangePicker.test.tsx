@@ -265,6 +265,30 @@ describe('DateRangePicker', () => {
       expect(ref.current).toBeInstanceOf(HTMLButtonElement);
     });
   });
+
+  describe('Preset labels', () => {
+    it('should show a custom preset label in the trigger', () => {
+      render(
+        <DateRangePicker defaultDatePreset="thisWeek" presetLabels={{ thisWeek: 'This week' }} />,
+      );
+
+      expect(screen.getByRole('button', { name: 'This week' })).toBeInTheDocument();
+    });
+
+    it('should fall back to the built-in label for a key left undefined', async () => {
+      const user = userEvent.setup();
+
+      render(
+        <DateRangePicker
+          showDatePresets
+          presetLabels={{ thisWeek: undefined, lastMonth: 'Last month' }}
+        />,
+      );
+      await user.click(screen.getByRole('button'));
+
+      expect(screen.getByRole('button', { name: 'This Week' })).toBeInTheDocument();
+    });
+  });
 });
 
 describe('data-slot', () => {

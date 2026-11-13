@@ -2,6 +2,7 @@ import { RiCheckLine } from '@remixicon/react';
 import { cn } from 'src/lib/utils';
 
 import { useDefaultMotion } from '../../motion/MotionProvider';
+import { getPresetLabel } from './DateRangePicker.logic';
 import {
   type DateRangePickerPresetsProps,
   type DateRangePreset,
@@ -16,7 +17,6 @@ const DateRangePickerPresets = ({
   defaultMotion,
 }: DateRangePickerPresetsProps) => {
   const motion = useDefaultMotion(defaultMotion);
-  const resolvedLabels = { ...dateRangePresetLabels, ...presetLabels };
 
   return (
     <div
@@ -39,7 +39,7 @@ const DateRangePickerPresets = ({
               isActive && 'bg-ws-dynamic-primary-alpha-strong-default',
             )}
           >
-            <span>{resolvedLabels[preset]}</span>
+            <span>{getPresetLabel(preset, presetLabels)}</span>
             {isActive && (
               <RiCheckLine
                 aria-hidden="true"
