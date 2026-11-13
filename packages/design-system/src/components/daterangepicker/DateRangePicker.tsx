@@ -81,10 +81,14 @@ const DateRangePicker = forwardRef<HTMLButtonElement, DateRangePickerProps>(
     };
 
     const handleCalendarSelect = (dateRange: DateRange | undefined) => {
-      const newRange: DateRangeValue = {
-        from: formatDateToISOString(dateRange?.from),
-        to: formatDateToISOString(dateRange?.to),
-      };
+      // A second click on the start day comes back as `undefined`: a one-day range.
+      const newRange: DateRangeValue =
+        !dateRange && pendingRange
+          ? { from: pendingRange.from, to: pendingRange.from }
+          : {
+              from: formatDateToISOString(dateRange?.from),
+              to: formatDateToISOString(dateRange?.to),
+            };
       if (!pendingRange) {
         setPendingRange(newRange);
         return;
