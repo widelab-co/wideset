@@ -37,7 +37,7 @@ storybook: components-appshell--default
   <AppShell.Main>
     <div className="gap-ws-12 p-ws-12 flex flex-col">
       <header className="gap-ws-9 flex items-center justify-between">
-        <h1 className="typography-title-sm text-ws-static-strong">Projects</h1>
+        <h1 className="typography-title-md text-ws-static-strong">Projects</h1>
       </header>
       …
     </div>
