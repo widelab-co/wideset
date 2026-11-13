@@ -82,7 +82,7 @@ export type DateRangePickerProps = DateRangePickerVariants &
     disabledDates?: Matcher | Matcher[];
     /** Fired when a range or preset is picked. Receives the new range and the matching preset (`'custom'` for arbitrary range selections). */
     onSelect?: (range?: DateRangeValue, preset?: DateRangePreset) => void;
-    /** Override labels for one or more presets, in the side panel and in the trigger while a preset is active. Unspecified keys fall back to the built-in English labels. */
+    /** Override labels for one or more presets, in the side panel and in the trigger while a preset other than `custom` is active (`custom` shows the picked dates there). Unspecified keys fall back to the built-in English labels. */
     presetLabels?: Partial<Record<keyof typeof dateRangePresetLabels, string>>;
   };
 
