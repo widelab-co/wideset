@@ -18,7 +18,8 @@ const isText = (node: unknown): node is string | number =>
 function labelBareText(children: React.ReactNode) {
   const items = React.Children.toArray(children);
   const hasText = items.some((item) => isText(item) && String(item).trim() !== '');
-  if (!hasText || !items.some((item) => React.isValidElement(item))) return children;
+  // `items`, not `children`: keys stay the same whether or not bare text shows up.
+  if (!hasText || !items.some((item) => React.isValidElement(item))) return items;
 
   const out: React.ReactNode[] = [];
   let text = '';

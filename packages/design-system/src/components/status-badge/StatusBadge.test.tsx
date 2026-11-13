@@ -122,6 +122,20 @@ describe('StatusBadge', () => {
       ).toHaveLength(1);
     });
 
+    it('should keep an existing element mounted when bare text appears', () => {
+      const badge = (showText: boolean) => (
+        <StatusBadge>
+          <StatusBadge.Label key="label">Details</StatusBadge.Label>
+          {showText && 'Failing'}
+        </StatusBadge>
+      );
+      const { rerender } = render(badge(false));
+      const label = screen.getByText('Details');
+      rerender(badge(true));
+
+      expect(screen.getByText('Details')).toBe(label);
+    });
+
     it('should keep an icon-only badge icon-only', () => {
       render(
         <StatusBadge data-testid="badge" role="img" aria-label="Failing">
