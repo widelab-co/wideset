@@ -16,7 +16,7 @@ import {
   cellAt,
   cellFor,
   columnOf,
-  firstControl,
+  focusFirstControl,
   rowsPerPage,
   tabbables,
   usesArrowKeys,
@@ -119,32 +119,51 @@ export const useSpreadsheetLayout = (
         if (lostFocus) next?.focus();
       }
 
-      const widths = Array.from(table.rows[0]?.cells ?? [])
-        .slice(0, stickyColumns)
-        .map((cell) => cell.getBoundingClientRect().width);
+      // The width of each pinned column, from the first cell found that covers it alone (a
+      // header spanning two columns says nothing about either). Cells pin by the column they
+      // start in, at the widths of the pinned columns before it.
+      const widths: number[] = [];
+      const measured: HTMLTableCellElement[] = [];
       for (const row of Array.from(table.rows)) {
-        let left = 0;
-        Array.from(row.cells).forEach((cell, index) => {
-          if (index < stickyColumns) {
+        if (measured.length >= stickyColumns) break;
+        let column = 0;
+        for (const cell of Array.from(row.cells)) {
+          if (column >= stickyColumns) break;
+          if (cell.colSpan === 1 && widths[column] === undefined) {
+            widths[column] = cell.getBoundingClientRect().width;
+            measured.push(cell);
+          }
+          column += cell.colSpan;
+        }
+      }
+      const offset = (column: number) =>
+        widths.slice(0, column).reduce((sum, width) => sum + (width ?? 0), 0);
+
+      for (const row of Array.from(table.rows)) {
+        let column = 0;
+        for (const cell of Array.from(row.cells)) {
+          if (column < stickyColumns) {
             cell.setAttribute('data-sticky', '');
-            cell.style.left = `${left}px`;
-            left += widths[index] ?? 0;
+            cell.style.left = `${offset(column)}px`;
           } else if (cell.hasAttribute('data-sticky')) {
             cell.removeAttribute('data-sticky');
             cell.style.left = '';
           }
-        });
+          column += cell.colSpan;
+        }
       }
+      // A pinned column can change width without the table changing size (a class on its header).
+      measured.forEach((cell) => resizeObserver.observe(cell));
 
       scroller.style.scrollPaddingTop = `${table.tHead?.offsetHeight ?? 0}px`;
-      scroller.style.scrollPaddingLeft = `${widths.reduce((sum, width) => sum + width, 0)}px`;
+      scroller.style.scrollPaddingLeft = `${offset(stickyColumns)}px`;
       remember();
     };
 
+    const resizeObserver = new ResizeObserver(() => sync());
+    resizeObserver.observe(table);
     sync();
     const unsubscribe = store.subscribe(remember);
-    const resizeObserver = new ResizeObserver(sync);
-    resizeObserver.observe(table);
     // Rows and cells added or removed; what changes inside a cell does not move the grid.
     const mutationObserver = new MutationObserver((records) => {
       if (
@@ -168,8 +187,9 @@ export const useSpreadsheetLayout = (
 /**
  * Keyboard and focus for the grid (the APG grid pattern). Arrows, Home and End, Ctrl/Cmd+Home and
  * End, Page Up and Page Down move the active cell, which takes focus. Enter or F2 moves focus to
- * the first control in the cell; Escape or F2 brings it back. The grid is one tab stop: Tab leaves
- * it whatever the cells hold, and tabbing back returns to the cell the user left.
+ * the first control in the cell, Tab between the cell's controls; Escape or F2 brings it back.
+ * The grid is one tab stop: past the cell's controls Tab leaves it whatever the other cells hold,
+ * and tabbing back returns to the cell the user left.
  */
 export const useSpreadsheetKeyboard = (
   scrollerRef: RefObject<HTMLDivElement | null>,
@@ -243,6 +263,16 @@ export const useSpreadsheetKeyboard = (
     if (!cell) return;
 
     if (event.key === 'Tab') {
+      // From a control, Tab and Shift+Tab first move between the controls of the same cell.
+      if (target !== cell) {
+        const controls = tabbables(cell);
+        const next = controls[controls.indexOf(target) + (event.shiftKey ? -1 : 1)];
+        if (controls.includes(target) && next) {
+          event.preventDefault();
+          next.focus();
+          return;
+        }
+      }
       // Hand focus to the grid's last (first) control that takes it, skipping hidden ones, so
       // the browser's Tab continues from there out of the grid.
       const stops = tabbables(table);
@@ -266,11 +296,7 @@ export const useSpreadsheetKeyboard = (
       }
       if (usesArrowKeys(target)) return;
     } else if (event.key === 'Enter' || event.key === 'F2') {
-      const control = firstControl(cell);
-      if (control) {
-        event.preventDefault();
-        control.focus();
-      }
+      if (focusFirstControl(cell)) event.preventDefault();
       return;
     } else if (event.key === ' ') {
       // Space would scroll the grid.

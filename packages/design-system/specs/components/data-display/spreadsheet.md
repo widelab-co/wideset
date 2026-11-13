@@ -112,7 +112,8 @@ A `<table role="grid">` inside a scroll container: `ColumnHeader` is a `th scope
 - Name the grid: `aria-label` or `aria-labelledby` on `Spreadsheet` (it reaches the table).
 - Keyboard: arrows move the selected cell, Home / End to the row's ends, Ctrl/Cmd+Home / End to
   the grid's corners, Page Up / Down by a screen of rows. Enter or F2 moves focus into the cell's
-  control, Escape or F2 back. Tab leaves the grid and returns to the same cell.
+  first control, Tab between the cell's controls, Escape or F2 back to the cell. Tab leaves the
+  grid and returns to the same cell.
 - Controls in cells have no visible label: give each an `aria-label` naming column and row
   (`Verified: Tech Nova`). `ColumnHeaderTrigger` requires its own (`Customers options`).
 - An empty corner header still needs a name: `aria-label="Row"`.
