@@ -18,7 +18,7 @@ export const avatarVariants = cva(
         lg: 'typography-label-strong-md h-ws-16 w-ws-16 [&_svg]:size-ws-11 [--mask-edge:0.5px] [--mask-position:7px] [--mask-radius:7px]',
         xl: 'typography-label-strong-lg h-ws-18 w-ws-18 [&_svg]:size-ws-12 [--mask-edge:0.5px] [--mask-position:8px] [--mask-radius:8px]',
         '2xl':
-          'typography-subtitle-lg h-ws-22 w-ws-22 [&_svg]:size-ws-16 [--mask-edge:0.5px] [--mask-position:11px] [--mask-radius:11px]',
+          'typography-title-md h-ws-22 w-ws-22 [&_svg]:size-ws-16 [--mask-edge:0.5px] [--mask-position:11px] [--mask-radius:11px]',
       },
       shape: {
         round: 'rounded-full',

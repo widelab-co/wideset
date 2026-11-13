@@ -18,7 +18,7 @@ Report the score and the lines below 2.
 | #   | Check                                                                                                                                                                                                             |
 | --- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 1   | One control height across the screen; no mixed `size` props ([sizing](sizing.md))                                                                                                                                 |
-| 2   | One page title; everything else within the flat scale; no `title-*` sizes ([typography](typography.md))                                                                                                           |
+| 2   | One page heading; each title sized by its container; everything else flat ([typography](typography.md))                                                                                                           |
 | 3   | Hierarchy by colour and weight; three text greys, no opacity hacks                                                                                                                                                |
 | 4   | Five spacing levels, visibly different; only `ws` steps; nothing under `gap-ws-3` between text; every container, a rail or aside you compose included, padded so nothing touches its edge ([spacing](spacing.md)) |
 | 5   | Content width chosen for the screen type; nothing stretched edge to edge without reason                                                                                                                           |
@@ -45,7 +45,7 @@ When a screen feels generic, the fix is almost never another element. In order, 
 
 ## Common tells of generated UI
 
-- Mixed control heights in one row.
+- Mixed control heights in one row, including a text `LinkButton` beside a `Button`.
 - A 48px page title above 14px content, and a 20px intro paragraph in between.
 - Every button filled; or the primary not the rightmost.
 - Cards inside cards; a card around a single line.

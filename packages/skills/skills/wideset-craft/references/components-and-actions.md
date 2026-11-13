@@ -40,8 +40,13 @@ A Modal that scrolls or a page with one checkbox both mean the container is wron
 - **One primary per view** (filled `Button`). If you cannot pick one, the screen has two jobs;
   split it.
 - **Secondary** actions: `variant="secondary" preset="border"`. **Tertiary** and in-row actions:
-  `preset="ghost"`, `IconButton`, `LinkButton`, or a `DropdownMenu` behind an overflow
-  `IconButton` (`RiMoreLine`) when there are more than two.
+  `preset="ghost"`, `IconButton`, or a `DropdownMenu` behind an overflow `IconButton`
+  (`RiMoreLine`) when there are more than two.
+- **A row of buttons holds only buttons.** Every action beside a `Button` (a form or card footer,
+  a page header) is a `Button` or `IconButton` of the same size, even one that navigates
+  (`Button asChild` around an `<a>`). `LinkButton` has no control height and no hover fill, so in
+  that row it reads as dead text, even when a reference draws plain text there. It belongs in
+  a sentence or alone under a form or card.
 - **Placement**: page actions top right in the header, primary rightmost. Form and dialog actions
   at the end, right-aligned, primary rightmost, Cancel to its left. In a step flow, Back on the far
   left, Continue on the right.
@@ -55,9 +60,9 @@ A Modal that scrolls or a page with one checkbox both mean the container is wron
 ```tsx
 // Do: one primary, rightmost; secondary as border; overflow for the rest
 <div className="gap-ws-5 flex items-center">
-  <IconButton icon={RiMoreLine} preset="ghost" variant="secondary" aria-label="More actions" />
-  <Button variant="secondary" preset="border">Export</Button>
-  <Button>Create order</Button>
+  <IconButton size="sm" icon={RiMoreLine} preset="ghost" variant="secondary" aria-label="More actions" />
+  <Button size="sm" variant="secondary" preset="border">Export</Button>
+  <Button size="sm">Create order</Button>
 </div>
 
 // Don't: three filled buttons competing, the primary not last

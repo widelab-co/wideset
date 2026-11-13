@@ -20,7 +20,8 @@ are specialised controls built on top of it.
 Close calls:
 
 - Button vs LinkButton: going to another page is `LinkButton`, not a `Button` with navigation in
-  `onClick`; running an action is `Button`.
+  `onClick`; running an action is `Button`. In a row of buttons, a link is a `Button asChild`
+  around an `<a>`, not a `LinkButton`.
 - SplitButton vs two buttons: one main action plus alternatives is a `SplitButton`.
 - ActionBar vs a hand-built toolbar: actions on selected rows are an `ActionBar`.
 - DropdownMenu vs Select: a short list of commands is a `DropdownMenu` ([overlays](../overlays/README.md));

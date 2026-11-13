@@ -68,8 +68,8 @@ export function AppShell({ current, children }: { current: string; children: Rea
         <main className="bg-ws-static-foreground min-w-0 flex-1 overflow-y-auto">
           <div className="gap-ws-12 p-ws-12 flex flex-col">
             <header className="gap-ws-9 flex flex-wrap items-center justify-between">
-              <h1 className="typography-title-sm text-ws-static-strong">Projects</h1>
-              <Button>New project</Button>
+              <h1 className="typography-title-md text-ws-static-strong">Projects</h1>
+              <Button size="sm">New project</Button>
             </header>
             {children}
           </div>

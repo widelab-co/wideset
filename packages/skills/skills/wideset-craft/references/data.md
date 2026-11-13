@@ -14,8 +14,8 @@ decimals or units force reading every cell.
 
 ## Tables
 
-- `Table` row height matches the screen's control size (`sm` 40px by default; `md` 48px for roomy
-  pages, see [sizing.md](sizing.md)).
+- `Table` rows are `sm` (40px) by default, the smallest Table; `md` 48px for large screens (see
+  [sizing.md](sizing.md)).
 - First column is the identity of the row (name, ID), `text-ws-static-strong`; other text columns
   `text-ws-static-base`; secondary information under the name in `typography-caption-md
 text-ws-static-subtle`, not in its own narrow column.
@@ -41,8 +41,10 @@ text-ws-static-subtle`, not in its own narrow column.
 
 - At most one row of three or four. More than four becomes a table.
 - Label (`typography-label-sm text-ws-static-subtle`) above the value
-  (`typography-subtitle-md tabular-nums text-ws-static-strong`), the change and its comparison under
+  (`typography-title-md tabular-nums text-ws-static-strong`), the change and its comparison under
   it.
+- The one figure a page is about (an account balance) goes one step up to `typography-title-lg`;
+  the rest of the page stays at the flat scale.
 - The colour of a change follows its meaning, not its direction: prep time down is good, revenue
   down is bad. Use the status tokens through `StatusBadge`; add the direction in words for screen
   readers.
