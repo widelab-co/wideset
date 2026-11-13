@@ -261,11 +261,12 @@ Copilot, Gemini CLI, Amp and Junie. Claude Code reads them through the `.claude/
 On Windows enable Developer Mode and `git config core.symlinks true` before cloning, or the symlink
 checks out as a plain text file.
 
-| Skill                          | Use it for                                                                             |
-| ------------------------------ | -------------------------------------------------------------------------------------- |
-| `wideset-code-review`          | reviewing a PR, branch or working tree: safety, standards, intent                      |
-| `wideset-pr-review-resolve`    | evaluating PR feedback, fixing locally, drafting replies and publishing after approval |
-| `wideset-component-convention` | reviewing a component against the conventions above; DS-readiness                      |
-| `wideset-storybook-docs`       | formatting rules for Storybook MDX pages (form only, not content)                      |
-| `wideset-component-docs`       | a component's docs page: examples, playground and its tuning                           |
-| `wideset-component-anatomy`    | a docs page's Anatomy section: composition, look, audit                                |
+| Skill                          | Use it for                                                                              |
+| ------------------------------ | --------------------------------------------------------------------------------------- |
+| `wideset-code-review`          | reviewing a PR, branch or working tree: safety, standards, intent                       |
+| `wideset-pr-review-resolve`    | evaluating PR feedback, fixing locally, drafting replies and publishing after approval  |
+| `wideset-component-convention` | reviewing a component against the conventions above; DS-readiness                       |
+| `wideset-storybook-docs`       | formatting rules for Storybook MDX pages (form only, not content)                       |
+| `wideset-component-docs`       | a component's docs page: examples, playground and its tuning                            |
+| `wideset-component-anatomy`    | a docs page's Anatomy section: composition, look, audit                                 |
+| `wideset-design-contribution`  | a designer's visual change on a `design/<topic>` branch: sync, scope, handoff, draft PR |

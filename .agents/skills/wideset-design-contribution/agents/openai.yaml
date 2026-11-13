@@ -1,0 +1,4 @@
+interface:
+  display_name: 'Wideset Design Contribution'
+  short_description: 'Designer-safe workflow on design/<topic> branches'
+  default_prompt: 'Use $wideset-design-contribution before changing anything: one design/<topic> branch per topic, synced from develop before every session, visual changes only, handoff file kept current, draft PR into develop.'
