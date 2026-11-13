@@ -99,7 +99,15 @@ function Board() {
                 ))}
               </div>
               {spaceGroups.map((group) => (
-                <Sidebar.Group key={group.label} label={group.label}>
+                <div
+                  key={group.id}
+                  role="group"
+                  aria-labelledby={`sidebar-${group.id}`}
+                  className="gap-ws-2 flex flex-col"
+                >
+                  <Sidebar.SectionHeader id={`sidebar-${group.id}`}>
+                    {group.label}
+                  </Sidebar.SectionHeader>
                   {group.spaces.map((space) => (
                     <Sidebar.Item
                       key={space.id}
@@ -108,7 +116,7 @@ function Board() {
                       label={space.label}
                     />
                   ))}
-                </Sidebar.Group>
+                </div>
               ))}
             </nav>
           </Sidebar.Expanded>

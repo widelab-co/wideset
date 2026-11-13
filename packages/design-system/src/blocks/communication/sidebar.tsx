@@ -153,7 +153,8 @@ export function CommunicationSidebar() {
           />
         ))}
       </div>
-      <Sidebar.Group label="Spaces">
+      <div role="group" aria-labelledby="sidebar-spaces" className="gap-ws-2 flex flex-col">
+        <Sidebar.SectionHeader id="sidebar-spaces">Spaces</Sidebar.SectionHeader>
         {spaces.map(({ id, label, icon }) => (
           <Sidebar.Item
             key={id}
@@ -164,10 +165,11 @@ export function CommunicationSidebar() {
             onClick={() => setActive(id)}
           />
         ))}
-      </Sidebar.Group>
+      </div>
       {/* The line runs edge to edge, out of the sidebar's own inset. */}
       {!collapsed && <Divider weight="thin" className="-mr-ws-6 -ml-ws-5 w-auto" />}
-      <Sidebar.Group label="Categories">
+      <div role="group" aria-labelledby="sidebar-categories" className="gap-ws-2 flex flex-col">
+        <Sidebar.SectionHeader id="sidebar-categories">Categories</Sidebar.SectionHeader>
         {categories.map(({ id, label, color, count }) => (
           <Sidebar.Item
             key={id}
@@ -180,7 +182,7 @@ export function CommunicationSidebar() {
             onClick={() => setActive(id)}
           />
         ))}
-      </Sidebar.Group>
+      </div>
     </nav>
   );
 

@@ -83,10 +83,12 @@ export const navigation = [
 ];
 
 export const spaceGroups: {
+  id: string;
   label: string;
   spaces: { id: string; label: string; color: SpaceColor }[];
 }[] = [
   {
+    id: 'pinned-spaces',
     label: 'Pinned Spaces',
     spaces: [
       { id: 'kick-off', label: 'Project Kick-off', color: 'purple' },
@@ -95,6 +97,7 @@ export const spaceGroups: {
     ],
   },
   {
+    id: 'spaces',
     label: 'Spaces',
     spaces: [
       { id: 'design', label: 'Design', color: 'cyan' },

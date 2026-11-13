@@ -78,7 +78,10 @@ export function TeamSidebar() {
   const nav = (
     <nav aria-label="Main" className="gap-ws-7 flex flex-col">
       <div className="flex flex-col">{navigation.map(item)}</div>
-      <Sidebar.Group label="Workspace">{workspaceNavigation.map(item)}</Sidebar.Group>
+      <div role="group" aria-labelledby="sidebar-workspace" className="gap-ws-2 flex flex-col">
+        <Sidebar.SectionHeader id="sidebar-workspace">Workspace</Sidebar.SectionHeader>
+        {workspaceNavigation.map(item)}
+      </div>
     </nav>
   );
 
@@ -102,10 +105,7 @@ export function TeamSidebar() {
         </Sidebar.Collapsed>
       </Sidebar.Header>
 
-      <Sidebar.Section scrollable>
-        <Sidebar.Expanded>{nav}</Sidebar.Expanded>
-        <Sidebar.Collapsed>{nav}</Sidebar.Collapsed>
-      </Sidebar.Section>
+      <Sidebar.Section scrollable>{nav}</Sidebar.Section>
 
       <Sidebar.Footer>
         <Sidebar.Expanded>

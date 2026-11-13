@@ -143,21 +143,25 @@ export function CalendarSidebar() {
           <nav aria-label="Workspace" className="gap-ws-9 flex flex-col">
             <div className="flex flex-col">{inboxLinks.map(link)}</div>
             <Divider weight="thin" />
-            <Sidebar.Group
-              label="Shared"
-              action={
+            <div role="group" aria-labelledby="sidebar-shared" className="gap-ws-2 flex flex-col">
+              {/* The header's one action ends the row 4px in, its icon on the suffixes' edge. */}
+              <div className="flex items-end">
+                <Sidebar.SectionHeader id="sidebar-shared" className="flex-1">
+                  Shared
+                </Sidebar.SectionHeader>
                 <IconButton
                   icon={RiAddLine}
                   variant="secondary"
                   preset="ghost"
                   size="xs"
                   aria-label="Add a shared page"
+                  className="mr-ws-3"
                 />
-              }
-            >
+              </div>
               {sharedLinks.map(link)}
-            </Sidebar.Group>
-            <Sidebar.Group label="Projects">
+            </div>
+            <div role="group" aria-labelledby="sidebar-projects" className="gap-ws-2 flex flex-col">
+              <Sidebar.SectionHeader id="sidebar-projects">Projects</Sidebar.SectionHeader>
               {projects.map(({ id, label, color }) => (
                 <Sidebar.Item
                   key={id}
@@ -175,7 +179,7 @@ export function CalendarSidebar() {
               >
                 <button type="button" />
               </Sidebar.Item>
-            </Sidebar.Group>
+            </div>
           </nav>
         </Sidebar.Expanded>
       </Sidebar.Section>

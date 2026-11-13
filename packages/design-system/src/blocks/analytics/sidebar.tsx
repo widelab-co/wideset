@@ -25,7 +25,8 @@ export function AppSidebar() {
           />
         ))}
       </div>
-      <Sidebar.Group label="Dashboards">
+      <div role="group" aria-labelledby="sidebar-dashboards" className="gap-ws-2 flex flex-col">
+        <Sidebar.SectionHeader id="sidebar-dashboards">Dashboards</Sidebar.SectionHeader>
         {DASHBOARDS.map((item) => (
           <Sidebar.Item
             key={item.id}
@@ -36,7 +37,7 @@ export function AppSidebar() {
             onClick={() => setActive(item.id)}
           />
         ))}
-      </Sidebar.Group>
+      </div>
     </nav>
   );
 
@@ -78,10 +79,7 @@ export function AppSidebar() {
         </Sidebar.Collapsed>
       </Sidebar.Header>
 
-      <Sidebar.Section scrollable>
-        <Sidebar.Expanded>{links}</Sidebar.Expanded>
-        <Sidebar.Collapsed>{links}</Sidebar.Collapsed>
-      </Sidebar.Section>
+      <Sidebar.Section scrollable>{links}</Sidebar.Section>
 
       <Sidebar.Footer>
         <Sidebar.Expanded>

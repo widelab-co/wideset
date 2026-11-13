@@ -28,7 +28,8 @@ export function CustomersSidebar({ surface }: { surface?: 'page' | 'tinted' | 'f
           />
         ))}
       </div>
-      <Sidebar.Group label="Lists">
+      <div role="group" aria-labelledby="sidebar-lists" className="gap-ws-2 flex flex-col">
+        <Sidebar.SectionHeader id="sidebar-lists">Lists</Sidebar.SectionHeader>
         {savedLists.map((list) => (
           <Sidebar.Item
             key={list.id}
@@ -39,7 +40,7 @@ export function CustomersSidebar({ surface }: { surface?: 'page' | 'tinted' | 'f
             onClick={() => setActive(list.id)}
           />
         ))}
-      </Sidebar.Group>
+      </div>
     </nav>
   );
 
@@ -80,10 +81,7 @@ export function CustomersSidebar({ surface }: { surface?: 'page' | 'tinted' | 'f
         </Sidebar.Collapsed>
       </Sidebar.Header>
 
-      <Sidebar.Section scrollable>
-        <Sidebar.Expanded>{links}</Sidebar.Expanded>
-        <Sidebar.Collapsed>{links}</Sidebar.Collapsed>
-      </Sidebar.Section>
+      <Sidebar.Section scrollable>{links}</Sidebar.Section>
 
       <Sidebar.Footer>
         <Sidebar.Expanded>

@@ -49,7 +49,10 @@ export function IntegrationsSidebar(
     <nav aria-label="Workspace" className="gap-ws-9 flex flex-col">
       <div className="flex flex-col">{MAIN_LINKS.map(link)}</div>
       <Divider weight="thin" />
-      <Sidebar.Group label="Settings">{SETTINGS_LINKS.map(link)}</Sidebar.Group>
+      <div role="group" aria-labelledby="sidebar-settings" className="gap-ws-2 flex flex-col">
+        <Sidebar.SectionHeader id="sidebar-settings">Settings</Sidebar.SectionHeader>
+        {SETTINGS_LINKS.map(link)}
+      </div>
     </nav>
   );
 
@@ -105,10 +108,7 @@ export function IntegrationsSidebar(
       </Sidebar.Header>
 
       {/* A section draws only the slot for the state it is in, so the pages go in both. */}
-      <Sidebar.Section scrollable>
-        <Sidebar.Expanded>{nav}</Sidebar.Expanded>
-        <Sidebar.Collapsed>{nav}</Sidebar.Collapsed>
-      </Sidebar.Section>
+      <Sidebar.Section scrollable>{nav}</Sidebar.Section>
 
       <Sidebar.Footer>
         <div className="gap-ws-9 flex flex-col">
