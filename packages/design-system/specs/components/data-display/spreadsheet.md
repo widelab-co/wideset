@@ -16,7 +16,7 @@ parts:
     SpreadsheetCell,
   ]
 related: [Table, Tag, StatusBadge, Checkbox, DropdownMenu]
-docs: https://wideset-docs.widelab.workers.dev/components/spreadsheet
+docs: https://wideset.co/components/spreadsheet
 storybook: components-spreadsheet--default
 ---
 
@@ -148,5 +148,5 @@ A `<table role="grid">` inside a scroll container: `ColumnHeader` is a `th scope
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/spreadsheet.md` · Types:
+Full props: `https://wideset.co/components/spreadsheet.md` · Types:
 `packages/design-system/src/components/spreadsheet/Spreadsheet.types.ts`
