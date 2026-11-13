@@ -119,47 +119,51 @@ export const useSpreadsheetLayout = (
         if (lostFocus) next?.focus();
       }
 
-      // The width of each pinned column, from the first cell found that covers it alone (a
-      // header spanning two columns says nothing about either). Cells pin by the column they
-      // start in, at the widths of the pinned columns before it.
-      const widths: number[] = [];
+      // Where each pinned column starts. Every cell over the leading columns says how far apart
+      // the column edges it spans are; edges follow from the first one (0) until every pinned
+      // column's start is known, rows read only as far as needed. An edge no cell pins down is
+      // spread evenly between the known ones around it.
+      const edges: (number | undefined)[] = [0];
+      const spans: { start: number; end: number; width: number }[] = [];
       const measured: HTMLTableCellElement[] = [];
+      const known = () => {
+        for (let column = 1; column <= stickyColumns; column++)
+          if (edges[column] === undefined) return false;
+        return true;
+      };
       for (const row of Array.from(table.rows)) {
-        if (measured.length >= stickyColumns) break;
+        if (known()) break;
         let column = 0;
         for (const cell of Array.from(row.cells)) {
           if (column >= stickyColumns) break;
-          if (cell.colSpan === 1 && widths[column] === undefined) {
-            widths[column] = cell.getBoundingClientRect().width;
-            measured.push(cell);
-          }
+          spans.push({
+            start: column,
+            end: column + cell.colSpan,
+            width: cell.getBoundingClientRect().width,
+          });
+          measured.push(cell);
           column += cell.colSpan;
         }
-      }
-      // A pinned column no cell covers alone (every row spans it) takes an even share of the
-      // first spanning cell over it, less the columns already measured.
-      if (widths.filter((width) => width !== undefined).length < stickyColumns) {
-        for (const row of Array.from(table.rows)) {
-          let column = 0;
-          for (const cell of Array.from(row.cells)) {
-            if (column >= stickyColumns) break;
-            const covered = Array.from({ length: cell.colSpan }, (_, i) => column + i);
-            const unknown = covered.filter((c) => c < stickyColumns && widths[c] === undefined);
-            if (
-              unknown.length &&
-              unknown.length === covered.filter((c) => widths[c] === undefined).length
-            ) {
-              const known = covered.reduce((sum, c) => sum + (widths[c] ?? 0), 0);
-              const share = (cell.getBoundingClientRect().width - known) / unknown.length;
-              unknown.forEach((c) => (widths[c] = share));
-              measured.push(cell);
-            }
-            column += cell.colSpan;
+        for (let changed = true; changed;) {
+          changed = false;
+          for (const { start, end, width } of spans) {
+            const [from, to] = [edges[start], edges[end]];
+            if (from !== undefined && to === undefined) edges[end] = from + width;
+            else if (to !== undefined && from === undefined) edges[start] = to - width;
+            else continue;
+            changed = true;
           }
         }
       }
-      const offset = (column: number) =>
-        widths.slice(0, column).reduce((sum, width) => sum + (width ?? 0), 0);
+      for (let column = 1; column <= stickyColumns; column++) {
+        if (edges[column] !== undefined) continue;
+        const before = column - 1;
+        let after = column + 1;
+        while (after < edges.length && edges[after] === undefined) after++;
+        const [from, to] = [edges[before] ?? 0, edges[after]];
+        edges[column] = to === undefined ? from : from + (to - from) / (after - before);
+      }
+      const offset = (column: number) => edges[column] ?? 0;
 
       for (const row of Array.from(table.rows)) {
         let column = 0;

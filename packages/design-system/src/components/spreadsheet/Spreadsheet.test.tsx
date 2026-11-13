@@ -812,6 +812,46 @@ describe('Spreadsheet', () => {
       vi.restoreAllMocks();
     });
 
+    it('finds the pinned column edges from spans that differ from row to row', () => {
+      // Columns 75, 75, 150 and 100px wide; each cell reports the width of the columns it spans.
+      vi.spyOn(HTMLElement.prototype, 'getBoundingClientRect').mockImplementation(function (
+        this: HTMLElement,
+      ) {
+        return { width: Number(this.dataset.width ?? 0) } as DOMRect;
+      });
+      render(
+        <Spreadsheet aria-label="Sales" stickyColumns={3}>
+          <Spreadsheet.Body>
+            <Spreadsheet.Row>
+              <Spreadsheet.Cell colSpan={3} data-width={300}>
+                Totals
+              </Spreadsheet.Cell>
+              <Spreadsheet.Cell data-width={100}>A4</Spreadsheet.Cell>
+            </Spreadsheet.Row>
+            <Spreadsheet.Row>
+              <Spreadsheet.Cell colSpan={2} data-width={150}>
+                B1
+              </Spreadsheet.Cell>
+              <Spreadsheet.Cell colSpan={2} data-width={250}>
+                B3
+              </Spreadsheet.Cell>
+            </Spreadsheet.Row>
+            <Spreadsheet.Row>
+              <Spreadsheet.Cell data-width={75}>C1</Spreadsheet.Cell>
+              <Spreadsheet.Cell data-width={75}>C2</Spreadsheet.Cell>
+              <Spreadsheet.Cell data-width={150}>C3</Spreadsheet.Cell>
+              <Spreadsheet.Cell data-width={100}>C4</Spreadsheet.Cell>
+            </Spreadsheet.Row>
+          </Spreadsheet.Body>
+        </Spreadsheet>,
+      );
+      expect(cell('B3')).toHaveStyle({ left: '150px' });
+      expect(cell('C2')).toHaveStyle({ left: '75px' });
+      expect(cell('C3')).toHaveStyle({ left: '150px' });
+      expect(cell('A4')).not.toHaveAttribute('data-sticky');
+      vi.restoreAllMocks();
+    });
+
     it('keeps the head at the top', () => {
       render(<Clients />);
       expect(screen.getAllByRole('rowgroup')[0]).toHaveClass('sticky', 'top-0');
