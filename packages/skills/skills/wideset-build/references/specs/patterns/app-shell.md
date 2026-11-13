@@ -12,10 +12,10 @@ and one place where toasts appear. Wideset has no shell or page component: the f
 
 ```
 ToastProvider                       — once, around the whole app
-└ div.flex.h-dvh                    — full-height row, page background
+└ div.flex.h-dvh                    — full-height row
   ├ Sidebar                         — navigation; owns collapsed state
   │ ├ Sidebar.Header                — product name + Sidebar.Trigger
-  │ └ Sidebar.Section scrollable    — nav > Sidebar.Item, in Expanded and Collapsed
+  │ └ Sidebar.Section scrollable    — nav > Sidebar.Item, one tree for both modes
   └ main.flex-1.overflow-y-auto     — the only scroll container for page content
     ├ SystemAlert                   — optional, page-level notice, first
     ├ header                        — Breadcrumbs (optional), h1, page actions
@@ -48,32 +48,24 @@ function Nav({ current }: { current: string }) {
 export function AppShell({ current, children }: { current: string; children: ReactNode }) {
   return (
     <ToastProvider>
-      <div className="bg-ws-static-background flex h-dvh">
+      <div className="flex h-dvh">
         <Sidebar>
           <Sidebar.Header>
-            <Sidebar.Expanded>
-              <div className="gap-ws-7 py-ws-3 pl-ws-5 flex items-center justify-between">
-                <span className="typography-label-strong-sm text-ws-static-strong">Northwind</span>
-                <Sidebar.Trigger />
-              </div>
-            </Sidebar.Expanded>
-            <Sidebar.Collapsed>
-              <div className="py-ws-3 flex items-center">
-                <Sidebar.Trigger />
-              </div>
-            </Sidebar.Collapsed>
+            <div className="gap-ws-7 py-ws-3 flex items-center">
+              <Sidebar.Expanded>
+                <span className="typography-label-strong-sm text-ws-static-strong pl-ws-5">
+                  Northwind
+                </span>
+              </Sidebar.Expanded>
+              <Sidebar.Trigger />
+            </div>
           </Sidebar.Header>
           <Sidebar.Section scrollable>
-            <Sidebar.Expanded>
-              <Nav current={current} />
-            </Sidebar.Expanded>
-            <Sidebar.Collapsed>
-              <Nav current={current} />
-            </Sidebar.Collapsed>
+            <Nav current={current} />
           </Sidebar.Section>
         </Sidebar>
 
-        <main className="min-w-0 flex-1 overflow-y-auto">
+        <main className="bg-ws-static-foreground min-w-0 flex-1 overflow-y-auto">
           <div className="gap-ws-12 p-ws-12 flex flex-col">
             <header className="gap-ws-9 flex flex-wrap items-center justify-between">
               <h1 className="typography-title-sm text-ws-static-strong">Projects</h1>
@@ -102,11 +94,14 @@ grid-cols-[repeat(auto-fit,minmax(16rem,1fr))] gap-ws-11`) or stack sections wit
 
 ## Rules
 
-- A `Sidebar.Section` renders nothing in a mode where it has no matching `Sidebar.Expanded` or
-  `Sidebar.Collapsed` child, so give it both, as the example does.
+- Write the navigation and the trigger once: one tree serves both modes and keeps focus across a
+  toggle. `Sidebar.Expanded` / `Sidebar.Collapsed` wrap only what exists in one mode, as the
+  product name does in the example.
+- `Sidebar` and `main` share one white surface (`bg-ws-static-foreground`); the sidebar's own
+  subtle line on its right edge is the split. Cards on the page stay `Card` bordered on that white.
 - `min-w-0` on `main` stops a wide table from pushing the layout out. Only `main` scrolls.
 - One active item, set by you from the current path.
-- Keep the top level to about seven items; group the rest in sections instead of nesting deeply.
+- Keep the top level to about seven items; group the rest under `Sidebar.SectionHeader`s instead of nesting deeply.
 - Hide pages the user will never reach. `disabled` is for something they could unlock.
 - Wideset ships no router. Routing, data fetching, authentication and URL state belong to the app.
   In Next.js the shell is a client component; the layout that renders it can stay a Server
@@ -137,6 +132,8 @@ changes shape: see responsive.
 ## Anti-patterns
 
 - Wrapping the page in a `Card`, or the sidebar and page in one bordered box.
+- A grey page (`bg-ws-static-background`) on `main` beside the white sidebar: the work then looks
+  like the background.
 - Letting `body` scroll instead of `main`: the sidebar then scrolls away. Keep `h-dvh` on the
   row and `overflow-y-auto` on `main`.
 - A second `ToastProvider` per page: toasts then stack in two places.

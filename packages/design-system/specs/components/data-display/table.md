@@ -3,9 +3,10 @@ name: Table
 import: import { Table } from '@wideset/react'
 group: data-display
 status: stable
-parts: [Table, TableHead, TableBody, TableFoot, TableRow, TableHeader, TableCell]
+parts:
+  [Table, TableHead, TableBody, TableFoot, TableRow, TableHeader, TableCell, TableCellDescription]
 related: [ListItem, Pagination, StatusBadge, Tag, Checkbox]
-docs: https://wideset-docs.widelab.workers.dev/components/table
+docs: https://wideset.co/components/table
 storybook: components-table--default
 ---
 
@@ -90,6 +91,8 @@ Native `table` / `thead` / `tbody` / `tfoot` / `tr` / `th` / `td`. Named exports
 - Column headers are nouns, sentence case, one or two words.
 - Numbers and amounts right-aligned, with units in the header or the value, never mixed.
 - Status in a cell → `StatusBadge`; category → `Tag`; person → `Avatar` plus the name in text.
+- A second line under a label (a project's summary under its name) → `Table.CellDescription`, in
+  `md` and `lg` tables. The label keeps the cell's type: never raise its size to make it stand out.
 - Component sizes per table size: Tag / StatusBadge `md` in `sm`/`md` tables and `lg` in `lg`;
   Avatar `sm` in `sm`, `md` otherwise; TextInput `sm`, `md` in `lg`; Checkbox `lg`.
 
@@ -124,6 +127,22 @@ Native `table` / `thead` / `tbody` / `tfoot` / `tr` / `th` / `td`. Named exports
 
 - Don't add `striped` and `separated` to a short table; row lines are enough.
 - Don't build a status pill from a styled `span` in a cell; use `StatusBadge`.
+- Don't put `typography-*` on the text in a cell: the table sets the type for its size, and a
+  two-line cell is the label plus `Table.CellDescription`.
+
+```tsx
+// Do
+<Table.Cell>
+  Offline sync
+  <Table.CellDescription>Edits made offline merge on reconnect.</Table.CellDescription>
+</Table.Cell>
+
+// Don't: a bigger label and a hand-made second line
+<Table.Cell>
+  <div className="typography-label-md">Offline sync</div>
+  <div className="typography-caption-md">Edits made offline merge on reconnect.</div>
+</Table.Cell>
+```
 
 ## Gotchas
 
@@ -139,5 +158,5 @@ Native `table` / `thead` / `tbody` / `tfoot` / `tr` / `th` / `td`. Named exports
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/table.md` · Types:
+Full props: `https://wideset.co/components/table.md` · Types:
 `packages/design-system/src/components/table/Table.types.ts`

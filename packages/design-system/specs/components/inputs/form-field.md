@@ -5,7 +5,7 @@ group: inputs
 status: stable
 parts: [FormField]
 related: [TextInput, Textarea, Select, MultiSelect, ComboBox, FileUpload]
-docs: https://wideset-docs.widelab.workers.dev/components/form-field
+docs: https://wideset.co/components/form-field
 storybook: form-formfield--default
 ---
 
@@ -127,5 +127,5 @@ the first keystroke; `useShake` on the control flags a rejected submit with moti
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/form-field.md` · Types:
+Full props: `https://wideset.co/components/form-field.md` · Types:
 `packages/design-system/src/components/form-field/FormField.types.ts`

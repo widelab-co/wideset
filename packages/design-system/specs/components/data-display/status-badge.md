@@ -5,7 +5,7 @@ group: data-display
 status: stable
 parts: [StatusBadge, StatusBadgeIcon, StatusBadgeLabel]
 related: [Tag, Chip, InlineAlert, ProgressBar]
-docs: https://wideset-docs.widelab.workers.dev/components/status-badge
+docs: https://wideset.co/components/status-badge
 storybook: components-statusbadge--default
 ---
 
@@ -91,5 +91,5 @@ Named exports `StatusBadgeIcon`, `StatusBadgeLabel` are the same parts.
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/status-badge.md` · Types:
+Full props: `https://wideset.co/components/status-badge.md` · Types:
 `packages/design-system/src/components/status-badge/StatusBadge.types.ts`

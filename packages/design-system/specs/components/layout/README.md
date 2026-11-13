@@ -3,7 +3,7 @@
 Components that group and separate content inside a page: a framed surface, collapsible
 sections, a separating line. Wideset has no page, grid, stack or container components: page
 structure is plain elements with Tailwind layout classes and `ws` tokens (`flex`, `grid`,
-`gap-ws-*`, `p-ws-*`, `bg-ws-static-background`). The app frame is `Sidebar` (navigation) and
+`gap-ws-*`, `p-ws-*`, `bg-ws-static-foreground` for the page). The app frame is `Sidebar` (navigation) and
 overlays are `Sidepanel` / `Modal`; see [patterns](../../patterns/README.md) for how they fit
 together.
 

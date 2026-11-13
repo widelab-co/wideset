@@ -15,7 +15,7 @@ parts:
     MultiSelectSeparator,
   ]
 related: [Select, ComboBox, CheckboxGroup, FormField]
-docs: https://wideset-docs.widelab.workers.dev/components/multi-select
+docs: https://wideset.co/components/multi-select
 storybook: form-select-multiselect--default
 ---
 
@@ -112,6 +112,8 @@ Open state: `open` / `defaultOpen` / `onOpenChange`; `modal` blocks the page whi
 - MultiSelect is built on `DropdownMenu`, not on a form element. `name` lands on the trigger
   button; the selected values are not submitted with a native form. Read them from state.
 - `onValueChange` receives the whole new array, not the toggled value.
+- `preset="ghost"` shows its arrow only while the field is hovered, keyboard-focused or open
+  (always on touch screens), like a ghost `Select`.
 - In composed mode the root passes only `open`, `onOpenChange` and `modal`. `value`,
   `onValueChange`, `disabled`, `options`, `variant` and the rest do nothing; each
   `MultiSelect.Option` needs `option`, `isSelected`, `isDisabled` and `onSelect` from you, and
@@ -122,5 +124,5 @@ Open state: `open` / `defaultOpen` / `onOpenChange`; `modal` blocks the page whi
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/multi-select.md` · Types:
+Full props: `https://wideset.co/components/multi-select.md` · Types:
 `packages/design-system/src/components/multi-select/MultiSelect.types.ts`

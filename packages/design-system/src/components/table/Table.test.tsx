@@ -62,6 +62,47 @@ describe('Table', () => {
     });
   });
 
+  describe('Table.CellDescription', () => {
+    const renderCell = () =>
+      render(
+        <Table size="md">
+          <Table.Body>
+            <Table.Row>
+              <Table.Cell>
+                Offline sync
+                <Table.CellDescription data-testid="desc" className="mt-ws-1" aria-hidden="false">
+                  Edits made offline merge on reconnect.
+                </Table.CellDescription>
+              </Table.Cell>
+            </Table.Row>
+          </Table.Body>
+        </Table>,
+      );
+
+    it('renders a quieter second line under the label (Figma Body/Small, subtle)', () => {
+      renderCell();
+      expect(screen.getByTestId('desc')).toHaveClass(
+        'typography-body-sm',
+        'text-ws-static-subtle',
+        'block',
+      );
+    });
+
+    it('leaves the label in the cell type for its size', () => {
+      renderCell();
+      const cell = screen.getByRole('cell');
+      expect(cell).toHaveClass('typography-label-sm');
+    });
+
+    it('marks its slot, merges className and spreads rest props', () => {
+      renderCell();
+      const desc = screen.getByTestId('desc');
+      expect(desc).toHaveAttribute('data-slot', 'table-cell-description');
+      expect(desc).toHaveClass('mt-ws-1');
+      expect(desc).toHaveAttribute('aria-hidden', 'false');
+    });
+  });
+
   describe('separated', () => {
     it('adds is-separated class to table when separated is true', () => {
       render(<BasicTable separated />);
@@ -390,6 +431,50 @@ describe('Table', () => {
       );
 
       expect(screen.getByTestId('row')).not.toHaveClass('cursor-pointer');
+    });
+  });
+
+  describe('Table.Foot', () => {
+    // Resolves the cell's `border-t` classes the way Tailwind does: an arbitrary
+    // variant `[selector]:border-t` applies where `&` (the cell) matches it.
+    const hasTopLine = (cell: HTMLElement) =>
+      Array.from(cell.classList).some((cls) => {
+        if (cls === 'border-t') return true;
+        const selector = /^\[(.+)\]:border-t$/.exec(cls)?.[1];
+        return (
+          selector !== undefined && cell.matches(selector.replaceAll('_', ' ').replace('&', '*'))
+        );
+      });
+
+    const renderFooter = () =>
+      render(
+        <Table>
+          <Table.Body>
+            <Table.Row>
+              <Table.Cell>Design review</Table.Cell>
+            </Table.Row>
+          </Table.Body>
+          <Table.Foot>
+            <Table.Row>
+              <Table.Cell>Subtotal</Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell>Total</Table.Cell>
+            </Table.Row>
+          </Table.Foot>
+        </Table>,
+      );
+
+    it('draws the top line above the first footer row', () => {
+      renderFooter();
+
+      expect(hasTopLine(screen.getByRole('cell', { name: 'Subtotal' }))).toBe(true);
+    });
+
+    it('draws no line above the footer rows after the first', () => {
+      renderFooter();
+
+      expect(hasTopLine(screen.getByRole('cell', { name: 'Total' }))).toBe(false);
     });
   });
 

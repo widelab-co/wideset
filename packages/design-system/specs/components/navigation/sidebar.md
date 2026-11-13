@@ -7,14 +7,16 @@ parts:
   [
     Sidebar,
     SidebarHeader,
+    SidebarFooter,
     SidebarSection,
+    SidebarSectionHeader,
     SidebarExpanded,
     SidebarCollapsed,
     SidebarItem,
     SidebarTrigger,
   ]
 related: [Tabs, Breadcrumbs, Sidepanel]
-docs: https://wideset-docs.widelab.workers.dev/components/sidebar
+docs: https://wideset.co/components/sidebar
 storybook: components-sidebar--default
 ---
 
@@ -39,30 +41,27 @@ storybook: components-sidebar--default
 ```tsx
 <Sidebar>
   <Sidebar.Header>
-    <Sidebar.Expanded>
-      <div className="gap-ws-7 flex items-center justify-between">
-        <span className="typography-label-strong-sm text-ws-static-strong">Northwind</span>
-        <Sidebar.Trigger />
-      </div>
-    </Sidebar.Expanded>
-    <Sidebar.Collapsed>
+    <div className="gap-ws-7 py-ws-3 flex items-center">
+      <Sidebar.Expanded>
+        <span className="typography-label-strong-sm text-ws-static-strong pl-ws-5">Northwind</span>
+      </Sidebar.Expanded>
       <Sidebar.Trigger />
-    </Sidebar.Collapsed>
+    </div>
   </Sidebar.Header>
   <Sidebar.Section scrollable>
-    <Sidebar.Expanded>{nav}</Sidebar.Expanded>
-    <Sidebar.Collapsed>{nav}</Sidebar.Collapsed>
+    <nav aria-label="Main" className="gap-ws-2 flex flex-col">
+      <Sidebar.Item href="/" icon={RiDashboardLine} label="Dashboard" active />
+      <Sidebar.Item href="/projects" icon={RiFolder3Line} label="Projects" />
+      <Sidebar.SectionHeader>Products</Sidebar.SectionHeader>
+      <Sidebar.Item href="/payments" icon={RiSecurePaymentLine} label="Payments" />
+    </nav>
   </Sidebar.Section>
-</Sidebar>;
-
-// nav, reused in both modes:
-const nav = (
-  <nav aria-label="Main" className="gap-ws-2 flex flex-col">
-    <Sidebar.Item href="/" icon={RiDashboardLine} label="Dashboard" active />
-    <Sidebar.Item href="/projects" icon={RiFolder3Line} label="Projects" />
-  </nav>
-);
+</Sidebar>
 ```
+
+One tree serves both modes: `Sidebar.Item`, `Sidebar.SectionHeader` and `Sidebar.Trigger` adapt
+on their own. `Sidebar.Expanded` and `Sidebar.Collapsed` wrap only what exists in one mode (the
+product name, a promo card, an avatar in place of a profile row).
 
 The root fills its parent's height; place it in a full-height flex row next to the page.
 
@@ -81,6 +80,8 @@ The root fills its parent's height; place it in a full-height flex row next to t
 ## States
 
 - Expanded / collapsed: the root carries `data-state="expanded" | "collapsed"`.
+- Collapsed, everything sits on the rail's centre line: the header's trigger and mark, every item
+  icon, the footer's avatar. Nothing in the rail is offset to make room for a scrollbar.
 - Item active (`aria-current="page"`), hover, pressed, focus, disabled (`aria-disabled`, out of
   the tab order, click blocked).
 
@@ -88,6 +89,15 @@ The root fills its parent's height; place it in a full-height flex row next to t
 
 - Labels are page names, one or two words, sentence case.
 - Every item has an icon: collapsed mode shows nothing else.
+- A count or badge on a row is its `suffix` (`suffix={3}`): it sits on the row's right edge,
+  in line with every other suffix. Never position it yourself.
+- What sits at the bottom (an invite button, the account switcher) goes in `Sidebar.Footer`, which
+  keeps the sections' inset so its edges line up with theirs.
+- A child page under an item (pages inside "Pages") is `nested`: indented so its icon starts under
+  the parent's label, one level deep, with its own icon. The indent is the whole cue: never draw a
+  guide line or add margins to build a tree.
+- Section headers are one or two words; collapsed, the rail cuts them to their first letters
+  ("P…"), so put the distinguishing word first.
 - Prefer hiding a page the user will never reach over showing it disabled.
 
 ## Accessibility
@@ -95,6 +105,10 @@ The root fills its parent's height; place it in a full-height flex row next to t
 - Wrap items in a `<nav aria-label="…">`; the sidebar root is a plain `div`.
 - Collapsed items fall back to `label` as `aria-label` when it is a string; pass `aria-label`
   when `label` is a node.
+- Write the trigger and the items once, outside `Sidebar.Expanded` / `Sidebar.Collapsed`, so they
+  keep focus when the sidebar toggles.
+- `Sidebar.SectionHeader` keeps its text in both modes; give it an `id` and point the group's
+  `aria-labelledby` at it.
 - `Sidebar.Trigger` names itself ("Collapse sidebar" / "Expand sidebar", via `collapseLabel` /
   `expandLabel`) and sets `aria-expanded` / `aria-controls`.
 
@@ -108,12 +122,46 @@ The root fills its parent's height; place it in a full-height flex row next to t
 
 // Don't: children on a plain item (the type forbids it); use label
 <Sidebar.Item href="/projects">Projects</Sidebar.Item>
+
+// Do: a named group of items under a section header
+<Sidebar.SectionHeader id="core-team">Core team</Sidebar.SectionHeader>
+<div role="group" aria-labelledby="core-team" className="gap-ws-2 flex flex-col">
+  <Sidebar.Item href="/issues" icon={RiStackLine} label="Issues" />
+</div>
+
+// Don't: a hand-made heading with its own icon; it falls out of line with the items
+<div className="flex items-center gap-ws-3"><RiTeamLine /> Core team</div>
+
+// Do: one level of children, indented by the item itself
+<Sidebar.Item href="/pages/important" icon={RiFileTextLine} label="Important" nested />
+
+// Don't: a hand-made tree with a guide line
+<div className="ml-ws-9 border-l pl-ws-3"><Sidebar.Item … /></div>
+
+// Do: a count on the row's edge
+<Sidebar.Item href="/inbox" icon={RiInboxLine} label="Inbox" suffix={3} />
+
+// Don't: an absolutely placed count over the row; it misses the shared right edge
+<div className="relative"><Sidebar.Item … /><span className="absolute right-ws-5">3</span></div>
+
+// Don't: the same navigation twice, once per mode (it remounts and drops focus on toggle)
+<Sidebar.Section>
+  <Sidebar.Expanded>{nav}</Sidebar.Expanded>
+  <Sidebar.Collapsed>{nav}</Sidebar.Collapsed>
+</Sidebar.Section>
+
+// Do: one tree
+<Sidebar.Section>{nav}</Sidebar.Section>
 ```
 
 ## Gotchas
 
-- `Sidebar.Section` renders nothing in a mode it has no `Sidebar.Expanded` / `Sidebar.Collapsed`
-  child for. Content put straight into a Section without them disappears.
+- A `Sidebar.Section` whose only children are `Sidebar.Expanded` / `Sidebar.Collapsed` renders
+  nothing in a mode it has no content for; any other section stays in both modes.
+- A `Sidebar.Trigger` inside `Sidebar.Expanded` or `Sidebar.Collapsed` unmounts on toggle and
+  loses focus; keep one trigger outside them.
+- A row action (a "…" menu) is a button and cannot sit in `suffix`: the row is a link. Lay it
+  over the row's right edge as a sibling, at the suffix's inset.
 - The item's `icon` takes a component (`icon={RiFolder3Line}`), not an element.
 - `onCollapsedChange` fires in both modes; with `collapsed` set, nothing changes until you update it.
 - `Sidebar.Trigger` with `asChild` merges the toggle onto your own button.
@@ -121,5 +169,5 @@ The root fills its parent's height; place it in a full-height flex row next to t
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/sidebar.md` · Types:
+Full props: `https://wideset.co/components/sidebar.md` · Types:
 `packages/design-system/src/components/sidebar/Sidebar.types.ts`

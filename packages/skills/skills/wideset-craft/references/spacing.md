@@ -15,8 +15,16 @@ in between:
 | 4     | Groups inside a card or panel                                | `gap-ws-12` | 24  |
 | 5     | Sections of a page                                           | `gap-ws-16` | 40  |
 
+Nothing goes below level 1. `gap-ws-1` and `gap-ws-2` (2px) are for inside components; a line of
+text and its caption or time are parts of one element, so they take level 1 (`gap-ws-3`).
+
 Containers: page `p-ws-12` (24px), Card has its own padding (`p-ws-11`, 20px), Modal and
 Sidepanel set theirs. Do not re-pad a component's built-in regions.
+
+A panel you compose yourself (an activity rail, an aside, a filter column) is a container too:
+`w-[20rem]` (never under 18rem) and the page's padding, `p-ws-12`. Nothing in it touches its edge:
+an avatar group, an icon button or a long name sits inside that padding, and a list in it spaces
+its items at level 3 (`gap-ws-11`) with level 1 inside each item.
 
 ### Why
 
@@ -66,6 +74,7 @@ only data that needs the width gets it.
 | List, table, board               | full width of the main area                             |
 | Sign-in, empty first-run, result | centred card or column, `max-w-[28rem]`                 |
 | Reading (docs, terms)            | `max-w-[40rem]`                                         |
+| Side rail or aside beside a page | `w-[20rem]` (never under 18rem), padded `p-ws-12`       |
 
 ### Why
 

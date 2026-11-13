@@ -5,7 +5,7 @@ group: layout
 status: stable
 parts: [Divider]
 related: [Card, Accordion, Table]
-docs: https://wideset-docs.widelab.workers.dev/components/divider
+docs: https://wideset.co/components/divider
 storybook: components-divider--default
 ---
 
@@ -93,5 +93,5 @@ Use the lightest `weight` and `emphasis` that does the job.
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/divider.md` · Types:
+Full props: `https://wideset.co/components/divider.md` · Types:
 `packages/design-system/src/components/divider/Divider.types.ts`
