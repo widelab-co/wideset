@@ -221,6 +221,18 @@ describe('Calendar', () => {
 
       expect(screen.getByRole('grid', { name: 'January 2024' })).toBeInTheDocument();
     });
+
+    it('should open on the earliest selected date in multiple mode', () => {
+      render(
+        <Calendar
+          mode="multiple"
+          selected={[new Date(2024, 5, 20), new Date(2024, 3, 2)]}
+          today={new Date(2024, 0, 10)}
+        />,
+      );
+
+      expect(screen.getByRole('grid', { name: 'April 2024' })).toBeInTheDocument();
+    });
   });
 });
 
