@@ -3,7 +3,7 @@ name: Chip
 import: import { Chip } from '@wideset/react'
 group: selection
 status: stable
-parts: [Chip, ChipIcon]
+parts: [Chip, ChipAction, ChipLabel, ChipIcon, ChipIconButton]
 related: [Tag, StatusBadge, FilterButton, Button, SegmentedControl]
 docs: https://wideset.co/components/chip
 storybook: components-chip--default
@@ -11,7 +11,11 @@ storybook: components-chip--default
 
 # Chip
 
-> A small clickable label for toggling a filter, showing an applied value, or removing it.
+> A compact label with an optional main action and independent removal button.
+
+Chip supplies appearance and native button interactions. Consumers supply `onClick` handlers and
+manage selection, filter updates, and removal in application state; neither button has a built-in
+application action.
 
 ## When to use
 
@@ -30,21 +34,29 @@ storybook: components-chip--default
 ## Anatomy
 
 ```tsx
-import { RiCloseLine, RiMapPinLine } from '@remixicon/react';
+import { RiMapPinLine } from '@remixicon/react';
 
 <Chip variant="secondary">
-  <Chip.Icon icon={RiMapPinLine} />
-  Warsaw
+  <Chip.Action onClick={editFilter}>
+    <Chip.Icon icon={RiMapPinLine} />
+    <Chip.Label>Warsaw</Chip.Label>
+  </Chip.Action>
+  <Chip.IconButton aria-label="Remove Warsaw" onClick={() => remove('warsaw')} />
 </Chip>
 
-// Removable: the whole chip is the button
-<Chip aria-label="Remove Warsaw" onClick={() => remove('warsaw')}>
-  Warsaw
-  <Chip.Icon icon={RiCloseLine} />
+// Removal only: the label is passive
+<Chip>
+  <Chip.Label>Warsaw</Chip.Label>
+  <Chip.IconButton aria-label="Remove Warsaw" onClick={() => remove('warsaw')} />
 </Chip>
 ```
 
-`Chip.Icon` and `ChipIcon` are the same component; place it before or after the label.
+Place the decorative `Chip.Icon` before `Chip.Label`. When the label has an action, wrap both in
+`Chip.Action`. The optional `Chip.IconButton` follows as a sibling, never inside the main button.
+When Action is present, it fills the chip and the removal button is overlaid at the trailing edge.
+The removal button's own box activates removal; the space beyond it belongs to the main action.
+Without Action, the label stays passive and the removal button uses the normal inline layout.
+Every part is also exported by name (`ChipAction`, `ChipLabel`, `ChipIcon`, `ChipIconButton`).
 
 ## Choosing props
 
@@ -74,32 +86,44 @@ on.
 
 ## Accessibility
 
-- A chip is announced as a button and activates with Enter or Space; always give it an `onClick`.
-- For a toggling filter, set `aria-pressed` to the on/off state.
-- Icons are decorative. A removable chip needs an accessible name that says so:
+- The root is passive. `Chip.Action` and `Chip.IconButton` are separate native buttons, each
+  activated with Enter or Space and reached independently with Tab.
+- For a toggling filter, set `aria-pressed` on `Chip.Action` to the on/off state.
+- Leading icons are decorative. The removal button needs an accessible name that says so:
   `aria-label="Remove Warsaw"`.
-- `disabled` sets `aria-disabled` and takes the chip out of the tab order.
+- `disabled` on Chip disables both buttons through their native attributes. Each button can also
+  be disabled independently.
+- After removing a chip, the consumer should move keyboard focus to a suitable remaining control,
+  such as the next removal button or a reset control. Removing a focused item otherwise loses focus.
 
 ## Do / Don't
 
 ```tsx
 // Do: a toggle filter that shows and announces its state
-<Chip style={remote ? 'filled' : 'border'} aria-pressed={remote} onClick={() => setRemote(!remote)}>
-  Remote only
+<Chip style={remote ? 'filled' : 'border'}>
+  <Chip.Action aria-pressed={remote} onClick={() => setRemote(!remote)}>
+    <Chip.Label>Remote only</Chip.Label>
+  </Chip.Action>
 </Chip>
 ```
 
-- Don't put an `IconButton` or any other control inside a chip (nested interactive controls); the
-  whole chip removes, with a trailing `Chip.Icon`.
+- Don't nest `Chip.IconButton` or another interactive control inside `Chip.Action`; the main
+  action and removal button are siblings.
 - Don't use a chip as a read-only label → `Tag`.
 
 ## Gotchas
 
 - `style` is a variant (`'filled' | 'border'`), not the HTML style attribute; inline styles are not
   accepted.
-- The root is a `div` with `role="button"`, not a `<button>`: it never submits a form.
-- `disabled` blocks clicks and keys; your `onClick` will not fire.
-- DOM hooks: `data-slot="chip"`, `"chip-icon"`.
+- The root ref points to an `HTMLDivElement`. Action and IconButton refs point to native buttons;
+  Label's ref points to a span.
+- Both buttons default to `type="button"`; set `type="submit"` on a button explicitly if needed.
+- Appearance and motion are configured on Chip. Both buttons inherit the root's motion setting;
+  IconButton also inherits its size and colors instead of exposing separate appearance props.
+- Click handlers belong on the individual buttons. Removal calls the consumer's handler; Chip
+  does not remove itself or choose where focus moves afterward.
+- DOM hooks: `data-slot="chip"`, `"chip-action"`, `"chip-label"`, `"chip-icon"`,
+  `"chip-icon-button"`.
 
 ## API
 
