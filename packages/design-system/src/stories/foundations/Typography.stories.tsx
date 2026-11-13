@@ -199,7 +199,7 @@ export const FontVariables: Story = {
         style={{ fontSize: 13, color: 'var(--ws-static-text-subtle)', margin: 0, lineHeight: 1.5 }}
       >
         Components inherit the page font, so <code style={{ fontSize: 12 }}>body</code> decides the
-        typeface. These three custom properties back the{' '}
+        typeface. These four custom properties back the{' '}
         <code style={{ fontSize: 12 }}>font-ws-*</code> classes, for text that should keep
         Wideset&rsquo;s own stack; override them at <code style={{ fontSize: 12 }}>:root</code>{' '}
         after importing the design system.
@@ -220,6 +220,11 @@ export const FontVariables: Story = {
             token: '--font-ws-body',
             default: 'var(--font-ws-sans)',
             applies: 'The font-ws-body class',
+          },
+          {
+            token: '--font-ws-mono',
+            default: "'Geist Mono', ui-monospace, SFMono-Regular, …",
+            applies: 'The font-ws-mono class, for code',
           },
         ].map(({ token, default: def, applies }) => (
           <div

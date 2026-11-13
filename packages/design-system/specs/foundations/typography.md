@@ -73,6 +73,9 @@ an element when the page uses another font. Weights are Figma's exact values
 (`font-ws-normal` 480, `font-ws-medium` 520, `font-ws-semibold` 545): load a variable font
 (Inter Variable), or a static family rounds 520 to a visibly heavier cut.
 
+`font-ws-mono` (`--font-ws-mono`: Geist Mono, then the system monospace stack) is for code,
+terminals and diffs. The page loads Geist Mono; without it the system monospace font shows.
+
 ## Tracking
 
 Letter spacing is built into each class: large sizes are tighter (`tracking-ws-tight-300` on
