@@ -123,9 +123,9 @@ describe('Toast.Action', () => {
     expect(onClick).toHaveBeenCalledTimes(1);
   });
 
-  it.each(['basic', 'expanded'] as const)('renders every action in order (%s)', (variant) => {
+  it('renders every action in order on an expanded toast', () => {
     render(
-      <Toast variant={variant}>
+      <Toast variant="expanded">
         <Toast.Message>Export finished</Toast.Message>
         <Toast.Action>Open folder</Toast.Action>
         <Toast.Action>Undo</Toast.Action>
@@ -135,6 +135,22 @@ describe('Toast.Action', () => {
       'Open folder',
       'Undo',
     ]);
+  });
+
+  it('renders only the first action on a basic toast, with a warning', () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    render(
+      <Toast>
+        <Toast.Message>Export finished</Toast.Message>
+        <Toast.Action>Open folder</Toast.Action>
+        <Toast.Action>Undo</Toast.Action>
+      </Toast>,
+    );
+    expect(screen.getAllByRole('button').map((button) => button.textContent)).toEqual([
+      'Open folder',
+    ]);
+    expect(warn).toHaveBeenCalledWith(expect.stringContaining('basic toast shows one'));
+    warn.mockRestore();
   });
 });
 

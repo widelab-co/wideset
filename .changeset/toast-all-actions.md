@@ -2,4 +2,4 @@
 '@wideset/react': patch
 ---
 
-`Toast` renders every `Toast.Action` in order instead of only the first; on a basic toast several actions sit together at the end of the line.
+An expanded `Toast` renders every `Toast.Action` in order instead of only the first. A basic toast keeps one action and warns in the console when given more.

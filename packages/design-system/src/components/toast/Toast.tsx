@@ -73,6 +73,16 @@ const Toast = forwardRef<HTMLDivElement, ToastProps>(
       React.ReactElement<ToastDescriptionProps> | undefined;
     const actionSlots = childArray.filter((child) => isToastSlot(child, ToastAction));
     const iconActionSlots = childArray.filter((child) => containsToastSlot(child, ToastIconAction));
+    const extraBasicActions = !isExpanded && actionSlots.length > 1;
+
+    React.useEffect(() => {
+      if (extraBasicActions) {
+        // eslint-disable-next-line no-console
+        console.warn(
+          'Toast: a basic toast shows one `Toast.Action`; use `variant="expanded"` for more.',
+        );
+      }
+    }, [extraBasicActions]);
 
     const messageContent = messageSlot
       ? messageSlot.props.children
@@ -177,11 +187,7 @@ const Toast = forwardRef<HTMLDivElement, ToastProps>(
                 <div data-slot="toast-message" className="typography-label-strong-sm">
                   {messageContent}
                 </div>
-                {actionSlots.length > 0 && (
-                  // Several actions stay one group at the end of the line, 8px
-                  // apart like InlineAlert's actions.
-                  <div className="gap-ws-5 flex shrink-0 items-center">{actionSlots}</div>
-                )}
+                {actionSlots[0]}
               </div>
               <div className="ml-auto flex items-center leading-0">
                 {iconActionSlots}
