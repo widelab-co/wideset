@@ -29,7 +29,7 @@ export function ArticleHeader() {
   return (
     <header className="gap-ws-12 flex flex-wrap items-start justify-between">
       <div className="gap-ws-2 flex max-w-[42rem] min-w-0 flex-col">
-        <h1 className="typography-subtitle-md text-ws-static-strong">{article.title}</h1>
+        <h1 className="typography-title-md text-ws-static-strong">{article.title}</h1>
         <p className="typography-body-md text-ws-static-subtle tabular-nums">
           Updated {formatDay(article.updated)}, {article.minutes} min read
         </p>

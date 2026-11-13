@@ -13,7 +13,7 @@ export function RatingSummary({ className }: { className?: string }) {
     <section aria-label="Rating summary" className={className}>
       <div className="gap-ws-3 flex flex-col">
         <div className="gap-ws-7 flex items-center">
-          <p className="typography-subtitle-md text-ws-static-strong tabular-nums">
+          <p className="typography-title-md text-ws-static-strong tabular-nums">
             {formatAverage(average)}
           </p>
           <StarRating value={average} size="md" />

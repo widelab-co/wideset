@@ -65,7 +65,7 @@ export default function WhatsNew() {
         <div className="min-h-0 flex-1 overflow-y-auto">
           <div className={cn(COLUMN, 'gap-ws-12 pt-ws-14 pb-ws-16 flex flex-col')}>
             <header className="gap-ws-2 flex flex-col">
-              <h1 className="typography-subtitle-md text-ws-static-strong">
+              <h1 className="typography-title-md text-ws-static-strong">
                 Good morning, {account.firstName}
               </h1>
               <p className="typography-body-md text-ws-static-subtle">

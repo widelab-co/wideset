@@ -65,7 +65,7 @@ export function PlanCard({
         <div className="gap-ws-16 flex flex-col">
           <div className="gap-ws-3 flex flex-col">
             <p className="gap-ws-5 flex items-baseline">
-              <span className="typography-subtitle-lg text-ws-static-strong tabular-nums">
+              <span className="typography-title-md text-ws-static-strong tabular-nums">
                 {formatUsd(periodPrice(plan, interval, seats))}
               </span>
               <span className="typography-body-md text-ws-static-subtle">

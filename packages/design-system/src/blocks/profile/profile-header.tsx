@@ -50,7 +50,7 @@ export function ProfileHeader({
           aria-hidden="true"
         />
         <div className="gap-ws-2 flex min-w-0 flex-col">
-          <h1 className="typography-subtitle-md text-ws-static-strong">{profile.name}</h1>
+          <h1 className="typography-title-md text-ws-static-strong">{profile.name}</h1>
           <p className="typography-body-md text-ws-static-base">
             {profile.role}, {profile.team}
           </p>

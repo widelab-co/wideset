@@ -27,7 +27,7 @@ export function InvoiceHeader() {
     <header className="gap-ws-12 flex flex-wrap items-center justify-between">
       <div className="gap-ws-2 flex min-w-0 flex-col">
         <div className="gap-ws-7 flex items-center">
-          <h1 className="typography-subtitle-md text-ws-static-strong tabular-nums">
+          <h1 className="typography-title-md text-ws-static-strong tabular-nums">
             {invoice.number}
           </h1>
           <StatusBadge size="lg">{invoice.status}</StatusBadge>

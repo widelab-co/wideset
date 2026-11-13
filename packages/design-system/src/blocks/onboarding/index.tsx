@@ -24,7 +24,7 @@ export default function Onboarding() {
         <div className="min-h-0 flex-1 overflow-y-auto">
           <div className="px-ws-16 gap-ws-16 py-ws-16 mx-auto flex w-full max-w-[52rem] flex-col">
             <header className="gap-ws-3 flex flex-col">
-              <h1 className="typography-subtitle-md text-ws-static-strong">
+              <h1 className="typography-title-md text-ws-static-strong">
                 Welcome to Orbit, {account.firstName}
               </h1>
               <p className="typography-body-md text-ws-static-base">

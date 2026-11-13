@@ -15,7 +15,7 @@ export function PageHeader({ line = true }: { line?: boolean }) {
     <header className={cn('px-ws-12 shrink-0', line && 'border-ws-static-subtle border-b')}>
       <div className="gap-ws-9 pt-ws-12 mx-auto flex w-full max-w-[80rem] flex-col">
         <div className="gap-ws-9 flex flex-wrap items-center justify-between">
-          <h1 className="typography-subtitle-md text-ws-static-strong">Customers</h1>
+          <h1 className="typography-title-md text-ws-static-strong">Customers</h1>
           <div className="gap-ws-5 flex items-center">
             <Button variant="secondary" preset="border" size="sm">
               Import

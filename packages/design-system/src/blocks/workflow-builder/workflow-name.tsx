@@ -53,14 +53,14 @@ export function WorkflowName({
           close(event.key === 'Enter', true);
         }}
         onFocus={(event) => event.target.select()}
-        className="typography-subtitle-md text-ws-static-strong rounded-ws-control-md px-ws-3 -mx-ws-3 bg-ws-static-highlight-base outline-ws-dynamic-primary-default field-sizing-content min-w-[12rem] outline-2"
+        className="typography-title-sm text-ws-static-strong rounded-ws-control-md px-ws-3 -mx-ws-3 bg-ws-static-highlight-base outline-ws-dynamic-primary-default field-sizing-content min-w-[12rem] outline-2"
       />
     );
   }
 
   return (
     <div className="gap-ws-3 flex min-w-0 items-center">
-      <h1 className="typography-subtitle-md text-ws-static-strong truncate">{value}</h1>
+      <h1 className="typography-title-sm text-ws-static-strong truncate">{value}</h1>
       <IconButton
         ref={pencilRef}
         icon={RiPencilLine}

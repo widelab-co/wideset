@@ -29,7 +29,7 @@ export function CallHeader({ elapsed, recording, count }: CallHeaderProps) {
   return (
     <header className="gap-ws-12 flex flex-wrap items-end justify-between">
       <div className="gap-ws-3 flex min-w-0 flex-col">
-        <h1 className="typography-subtitle-md text-ws-static-strong">{call.title}</h1>
+        <h1 className="typography-title-md text-ws-static-strong">{call.title}</h1>
         <p className="typography-body-md text-ws-static-subtle gap-ws-5 flex flex-wrap items-center">
           <span>
             Deal <TextLink href={`#${call.deal.id}`}>{call.deal.name}</TextLink>

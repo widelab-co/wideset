@@ -35,9 +35,7 @@ export function GoalProgress({ label, revenue, target, daysLeft, className }: Go
       <div className="gap-ws-7 flex flex-col">
         <div className="gap-ws-9 flex items-baseline justify-between tabular-nums">
           <p className="gap-ws-5 flex items-baseline">
-            <span className="typography-subtitle-md text-ws-static-strong">
-              {formatUsd(revenue)}
-            </span>
+            <span className="typography-title-sm text-ws-static-strong">{formatUsd(revenue)}</span>
             <span className="typography-body-md text-ws-static-subtle">of {formatUsd(target)}</span>
           </p>
           <p className="typography-label-sm text-ws-static-base">{formatShare(revenue / target)}</p>

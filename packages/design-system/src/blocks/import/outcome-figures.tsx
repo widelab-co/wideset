@@ -20,7 +20,7 @@ export function OutcomeFigures({ added, updated, skipped }: OutcomeFiguresProps)
       {figures.map(({ label, value }) => (
         <div key={label} className="gap-ws-3 flex flex-col">
           <dt className="typography-label-sm text-ws-static-subtle">{label}</dt>
-          <dd className="typography-subtitle-md text-ws-static-strong tabular-nums">
+          <dd className="typography-title-md text-ws-static-strong tabular-nums">
             {formatCount(value)}
           </dd>
         </div>

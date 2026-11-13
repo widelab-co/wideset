@@ -37,7 +37,7 @@ export function TestOutput({ run, running }: { run?: TestRun; running: boolean }
       <section aria-label="Returned" className="gap-ws-2 flex flex-col">
         <h3 className={HEADING}>Returned</h3>
         {run.status === 'passed' ? (
-          <p className="typography-subtitle-md text-ws-static-strong tabular-nums">{run.score}</p>
+          <p className="typography-title-md text-ws-static-strong tabular-nums">{run.score}</p>
         ) : (
           <p className="typography-body-md text-ws-static-subtle">Nothing</p>
         )}

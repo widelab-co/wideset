@@ -46,7 +46,7 @@ export function NotificationList({
         {/* 96px, as the detail's header: the two lines meet across the page. */}
         <div className="h-ws-24 flex shrink-0 flex-col justify-end">
           <div className="gap-ws-9 px-ws-11 flex flex-1 items-center justify-between">
-            <h1 id={titleId} className="typography-subtitle-md text-ws-static-strong">
+            <h1 id={titleId} className="typography-title-md text-ws-static-strong">
               Inbox
             </h1>
             <Button

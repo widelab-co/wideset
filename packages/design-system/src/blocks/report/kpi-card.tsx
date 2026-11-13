@@ -35,7 +35,7 @@ export function KpiCard({
     <div className={cn('gap-ws-5 flex flex-col', className)}>
       <div className="gap-ws-3 flex flex-col">
         <p className="typography-label-sm text-ws-static-subtle">{label}</p>
-        <p className="typography-subtitle-md text-ws-static-strong tabular-nums">{value}</p>
+        <p className="typography-title-md text-ws-static-strong tabular-nums">{value}</p>
       </div>
       <div className="gap-ws-5 flex items-center">
         {change && (

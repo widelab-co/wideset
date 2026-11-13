@@ -23,7 +23,7 @@ export function PageHeader({ title, status, description, children }: PageHeaderP
     <header className="gap-ws-12 flex flex-wrap items-center justify-between">
       <div className="gap-ws-2 flex min-w-0 flex-col">
         <div className="gap-ws-5 flex min-w-0 items-center">
-          <h1 className="typography-subtitle-md text-ws-static-strong truncate">{title}</h1>
+          <h1 className="typography-title-md text-ws-static-strong truncate">{title}</h1>
           {status && (
             <StatusBadge color={status === 'active' ? 'positive' : 'neutral'}>
               {status === 'active' ? 'Active' : 'Draft'}

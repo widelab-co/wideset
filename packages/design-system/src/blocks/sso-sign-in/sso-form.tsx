@@ -40,7 +40,7 @@ export function SsoForm() {
 
   return (
     <div className="gap-ws-12 flex w-full flex-col">
-      <h1 className="typography-subtitle-lg text-ws-static-strong mb-ws-5">Sign in to Orbit</h1>
+      <h1 className="typography-title-md text-ws-static-strong mb-ws-5">Sign in to Orbit</h1>
       <div className="gap-ws-5 flex flex-col">
         <Button
           size="lg"

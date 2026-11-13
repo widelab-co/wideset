@@ -19,7 +19,7 @@ export function EmailVerified() {
           ref={title}
           id={`${id}-title`}
           tabIndex={-1}
-          className="typography-subtitle-lg text-ws-static-strong outline-none"
+          className="typography-title-md text-ws-static-strong outline-none"
         >
           E-mail verified
         </h1>

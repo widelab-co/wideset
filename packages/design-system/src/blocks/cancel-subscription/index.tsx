@@ -62,7 +62,7 @@ function CancelSubscriptionPage() {
         <h1
           ref={title}
           tabIndex={-1}
-          className="typography-subtitle-md text-ws-static-strong outline-none"
+          className="typography-title-md text-ws-static-strong outline-none"
         >
           {header.title}
         </h1>

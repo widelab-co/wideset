@@ -34,7 +34,7 @@ export function ChangePlanModal({
         </Modal.Header>
         <Modal.Body>
           <p className="gap-ws-5 flex items-baseline">
-            <span className="typography-subtitle-md text-ws-static-strong tabular-nums">
+            <span className="typography-title-sm text-ws-static-strong tabular-nums">
               {formatUsd(periodPrice(change.plan, change.interval, seats))}
             </span>
             <span className="typography-body-md text-ws-static-base">

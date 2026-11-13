@@ -61,7 +61,7 @@ export function LinkSent({ email, onChangeEmail }: LinkSentProps) {
           ref={title}
           id={`${id}-title`}
           tabIndex={-1}
-          className="typography-subtitle-lg text-ws-static-strong outline-none"
+          className="typography-title-md text-ws-static-strong outline-none"
         >
           Check your e-mail
         </h1>

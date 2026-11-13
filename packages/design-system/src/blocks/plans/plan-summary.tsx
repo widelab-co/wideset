@@ -54,7 +54,7 @@ export function PlanSummary({ plan, interval, seats, badge, action, onAction }: 
 
       <div className="gap-ws-3 flex flex-col">
         <p className="gap-ws-5 flex items-baseline">
-          <span className="typography-subtitle-lg text-ws-static-strong tabular-nums">
+          <span className="typography-title-md text-ws-static-strong tabular-nums">
             {formatUsd(plan.seatPrice[interval])}
           </span>
           <span className="typography-body-md text-ws-static-subtle">per seat a month</span>

@@ -34,7 +34,7 @@ export function InvoiceDocument() {
             <span className="typography-label-strong-md text-ws-static-strong">{product.name}</span>
           </div>
           <div className="gap-ws-2 flex flex-col items-end">
-            <span className="typography-subtitle-lg text-ws-static-strong tabular-nums">
+            <span className="typography-title-md text-ws-static-strong tabular-nums">
               {formatUsd(total)}
             </span>
             <span className="typography-body-md text-ws-static-subtle tabular-nums">

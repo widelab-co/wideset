@@ -7,7 +7,7 @@
 export function PageHeader() {
   return (
     <header className="gap-ws-2 flex min-w-0 flex-col">
-      <h1 className="typography-subtitle-md text-ws-static-strong">Account settings</h1>
+      <h1 className="typography-title-md text-ws-static-strong">Account settings</h1>
       <p className="typography-body-md text-ws-static-subtle">
         Your profile, how Orbit looks and talks to you, and how you sign in. Only you see these.
       </p>

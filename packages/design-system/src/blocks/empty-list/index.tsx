@@ -21,7 +21,7 @@ export default function EmptyList() {
       <main className="flex min-w-0 flex-1 flex-col">
         <header className="border-ws-static-subtle px-ws-12 shrink-0 border-b">
           <div className="h-ws-20 gap-ws-9 mx-auto flex w-full max-w-[80rem] items-center justify-between">
-            <h1 className="typography-subtitle-md text-ws-static-strong">Customers</h1>
+            <h1 className="typography-title-md text-ws-static-strong">Customers</h1>
             <Button size="sm">
               <Button.Icon icon={RiAddLine} />
               Add customer
