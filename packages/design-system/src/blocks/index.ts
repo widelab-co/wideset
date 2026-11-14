@@ -153,12 +153,60 @@ export const BLOCKS: BlockMeta[] = [
       'One customer’s record on a raised page: a header with actions, key facts, tabs over open deals and an activity timeline.',
   },
   {
+    id: 'billing',
+    title: 'Billing',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'A workspace’s plan and usage on a raised page: usage against limits, the payment method, a failed payment to retry and the invoices.',
+  },
+  {
     id: 'invoice',
     title: 'Invoice',
     direction: 'inset',
     navigation: 'sidebar',
     description:
       'One invoice as a document on a raised page: who bills whom, the lines and totals, how it was paid, and downloading or sending it.',
+  },
+  {
+    id: 'settings',
+    title: 'Settings',
+    direction: 'frame',
+    navigation: 'sidebar',
+    description:
+      'Workspace settings: a list of sections beside forms for the profile, the workspace and notifications, and a danger zone.',
+  },
+  {
+    id: 'team',
+    title: 'Team',
+    direction: 'frame',
+    navigation: 'sidebar',
+    description:
+      'The people in a workspace: members with their roles, pending invitations and inviting someone new.',
+  },
+  {
+    id: 'integrations',
+    title: 'Integrations',
+    direction: 'flat',
+    navigation: 'sidebar',
+    description:
+      'A workspace’s integrations as a settings page: search and categories, the connected apps in a table with their status, the ones to add as tiles, and connecting one in a side panel.',
+  },
+  {
+    id: 'plans',
+    title: 'Plans',
+    direction: 'flat',
+    navigation: 'takeover',
+    description:
+      'Choosing a plan over the app: monthly or yearly, three plans as cards side by side, and a feature comparison under them.',
+  },
+  {
+    id: 'notifications',
+    title: 'Notifications',
+    direction: 'frame',
+    navigation: 'sidebar',
+    description:
+      'An inbox of notifications: unread first, grouped by day, filters, and acting on one without leaving.',
   },
   {
     id: 'report',
@@ -185,6 +233,30 @@ export const BLOCKS: BlockMeta[] = [
       'A revenue dashboard on a raised page: a period control over four key figures with their change, a trend against the period before, revenue by owner and progress to the quarter’s goal, split by lines instead of cards.',
   },
   {
+    id: 'order-confirmation',
+    title: 'Order confirmation',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'The page after a plan upgrade on a raised page: a centred confirmation with the next charge, the receipt, two next steps and the way back to the workspace.',
+  },
+  {
+    id: 'checkout',
+    title: 'Checkout',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'Paying for a plan change on a raised page: the plan with seats and add-ons, the billing period, payment method and billing details as tiles, beside a summary with a promo code that reprices as the order changes.',
+  },
+  {
+    id: 'send-payment',
+    title: 'Send payment',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'Sending a payment on a raised page: one narrow card that is the form, then the review before anything moves, then the receipt, with recent transfers beside it and a confirmation only above a stated limit.',
+  },
+  {
     id: 'orders',
     title: 'Orders',
     direction: 'inset',
@@ -199,6 +271,22 @@ export const BLOCKS: BlockMeta[] = [
     navigation: 'sidebar',
     description:
       'One order on a raised page: its items and totals and the delivery timeline, each in a bordered card, the customer and addresses beside them, and refunding it from the header.',
+  },
+  {
+    id: 'referrals',
+    title: 'Referrals',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'A referral programme on a raised page: the deal in one line, the link to copy and an invite by e-mail, the credit earned and available beside progress to the next reward, the people invited with their status, and redeeming credit against the next invoice in a confirm dialog.',
+  },
+  {
+    id: 'cancel-subscription',
+    title: 'Cancel subscription',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'Cancelling a plan on a raised page, in one narrow column: what happens and what is lost, an optional reason, one alternative that fits it, and the only red button; then the result in place, with the way to undo it.',
   },
   {
     id: 'activity-feed',
@@ -233,6 +321,22 @@ export const BLOCKS: BlockMeta[] = [
       'A teammate’s profile on a raised page: who they are and their local time, Follow as the one filled button, followers and following that open a list, their open deals and recent activity beside how to reach them and what they reached this year.',
   },
   {
+    id: 'access-requests',
+    title: 'Access requests',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'Who gets into a workspace, on a raised page: requests to approve with a role or decline, one by one or in an action bar, invitations to resend or revoke, and the people blocked, each answer undoable from its toast.',
+  },
+  {
+    id: 'account-settings',
+    title: 'Account settings',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'A person’s own settings on a raised page, each section’s title beside its controls: profile and a verified e-mail, language and region, a theme that switches, notifications, sign-in and sessions, and deleting the account behind a typed confirmation.',
+  },
+  {
     id: 'files',
     title: 'Files',
     direction: 'inset',
@@ -247,6 +351,22 @@ export const BLOCKS: BlockMeta[] = [
     navigation: 'sidebar',
     description:
       'A template library on a raised page: categories as tabs beside the sort, featured collections, templates as cards with a drawn preview and a save toggle, and a side panel to add one to the workspace.',
+  },
+  {
+    id: 'product-form',
+    title: 'Product form',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'Adding a product to the catalogue on a raised page: details, photos with a cover, pricing with a live margin, options that make variants and inventory as cards, either beside its status, sales channels and a live preview (split) or alone in a centred column with the actions in a bar at the foot (centered).',
+  },
+  {
+    id: 'import',
+    title: 'Import',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'Importing customers from a CSV file in steps on a raised page: the file, matching its columns to fields, a review of what will change with a choice for duplicates, then the result in place, with exporting from the header.',
   },
   {
     id: 'pipeline',
