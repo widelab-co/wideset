@@ -1,0 +1,42 @@
+---
+import '@fontsource-variable/inter';
+import '@wideset/react/styles';
+import '../../../styles/docs.css';
+import BlockFrame from '../../../components/BlockFrame';
+import { blockById, ENTRIES } from '../../../lib/blocks';
+import { THEME_KEY } from '../../../lib/theme';
+
+/** A block alone at full size: what the docs cards frame, and what "Open full screen" opens. */
+export function getStaticPaths() {
+  return ENTRIES.map((block) => ({ params: { id: block.id } }));
+}
+const block = blockById(Astro.params.id!)!;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>{block.title} preview — Wideset</title>
+    <script is:inline define:vars={{ THEME_KEY }}>
+      try {
+        var forced = new URLSearchParams(location.search).get('theme');
+        var saved = localStorage.getItem(THEME_KEY);
+        var dark = forced
+          ? forced === 'dark'
+          : saved === 'dark' ||
+            ((saved === 'system' || !saved) && matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.classList.toggle('dark', dark);
+      } catch (e) {}
+    </script>
+  </head>
+  <body class="bg-ws-static-foreground">
+    <script is:inline>
+      // Framed by a docs page (BlockPreviewFrame), the preview is a picture: nothing in it takes
+      // focus, so a block that focuses its first field on load cannot pull the page to it.
+      if (window.top !== window.self) document.body.inert = true;
+    </script>
+    <BlockFrame id={block.id} client:only="react" />
+  </body>
+</html>

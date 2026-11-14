@@ -20,6 +20,7 @@ export const GET: APIRoute = async ({ site }) => {
     [
       'Every page has a Markdown version at its URL plus `.md`; a component page (`/components/<id>.md`) has usage guidance (when to use it, when not, what breaks), install, import, parts, examples and props.',
       `Everything below in one file: ${new URL('/llms-full.txt', base).href}`,
+      `Starting a new app: pick one of four visual directions and start from a whole screen, with its code: ${new URL('/blocks.md', base).href}`,
     ].join('\n'),
     `## Docs\n\n${docLines(top).join('\n')}`,
     ...groups.map((group) => `## ${group.label}\n\n${docLines(group.pages).join('\n')}`),
