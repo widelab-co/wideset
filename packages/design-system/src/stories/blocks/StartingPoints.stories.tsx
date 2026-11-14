@@ -14,7 +14,9 @@ import ProductFormBlock from '../../blocks/product-form';
 
 /*
   The starting points: whole screens in src/blocks/<id>/, one story each, full screen. The docs
-  site shows the same blocks under Starting points, with their code.
+  site shows the same blocks under Starting points, with their code. A gallery of screens, not a
+  component: no autodocs page and no Controls, and `component` is only the lookup that renders a
+  block by id.
 */
 const modules = import.meta.glob<{ default: ComponentType }>('../../blocks/*/index.tsx', {
   eager: true,
@@ -34,7 +36,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Whole screens to start a new app from, rebuilt 1:1 from the Wideset Core Figma file, in each visual direction (Flat, Frame, Inset, Canvas), with the sign-in and sign-up screens before the app, plus the panels that open over them. Copy the closest one, keep its surround, replace its content.',
+          'Whole screens to start a new app from, the first ones rebuilt 1:1 from the Wideset Core Figma file and the rest composed from Wideset by the same rules, in each visual direction (Flat, Frame, Inset, Canvas), with the sign-in and sign-up screens before the app, plus the panels that open over them. Copy the closest one, keep its surround, replace its content.',
       },
     },
   },

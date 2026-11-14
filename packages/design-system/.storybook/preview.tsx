@@ -1,6 +1,6 @@
 import React from 'react';
 import { create, themes } from 'storybook/theming/create';
-import type { Preview } from '@storybook/react-vite';
+import type { Decorator, Preview } from '@storybook/react-vite';
 import {
   Controls,
   Description,
@@ -108,10 +108,7 @@ const lightControlsTheme = create({
 });
 
 // Whole screens (`parameters.bleed`) fill the window to its edges; everything else gets air.
-const withThemeWrapper = (
-  Story: React.ComponentType,
-  { parameters }: { parameters: { bleed?: boolean } },
-) =>
+const withThemeWrapper: Decorator = (Story, { parameters }) =>
   parameters.bleed ? (
     <Story />
   ) : (
