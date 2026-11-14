@@ -126,11 +126,11 @@ After this, `develop` and `main` are aligned. Nothing to back‑merge.
 
 The `deploy` job in `.github/workflows/build.yaml` publishes to Cloudflare Workers:
 
-| Trigger   | Docs and registry                                                              | Storybook                                     |
-| --------- | ------------------------------------------------------------------------------ | --------------------------------------------- |
-| `main`    | `wideset-docs` on `wideset.co` (`/docs`, `/components`, `/r`, `/llms*.txt`, …) | `wideset-storybook` on `storybook.wideset.co` |
-| `develop` | `wideset-docs-develop` on workers.dev                                          | `wideset-storybook-develop` on workers.dev    |
-| PR        | alias `pr-<number>` on the `-develop` Workers                                  | same                                          |
+| Trigger   | Docs and registry                                                                         | Storybook                                     |
+| --------- | ----------------------------------------------------------------------------------------- | --------------------------------------------- |
+| `main`    | `wideset-docs` on `wideset.co` (`/docs`, `/components`, `/blocks`, `/r`, `/llms*.txt`, …) | `wideset-storybook` on `storybook.wideset.co` |
+| `develop` | `wideset-docs-develop` on workers.dev                                                     | `wideset-storybook-develop` on workers.dev    |
+| PR        | alias `pr-<number>` on the `-develop` Workers                                             | same                                          |
 
 Repository settings: secrets `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`, `NPM_TOKEN`; variable
 `CF_WORKERS_SUBDOMAIN`; environments `production` (branch `main`) and `develop` (branch `develop`);
@@ -150,10 +150,10 @@ Production on `wideset.co`:
 - A Redirect Rule on the zone (Rules → Redirect Rules, dashboard only) sends every other path on
   `wideset.co` to `www.wideset.co`, the landing page. It runs before the Worker routes, so it must
   exclude exactly the routes in `apps/docs/wrangler.jsonc`: **change both together**. Landing
-  pages must not use paths starting with `/docs` or `/components`. Expression:
+  pages must not use paths starting with `/docs`, `/components` or `/blocks`. Expression:
 
   ```text
-  (http.host eq "wideset.co" and not starts_with(http.request.uri.path, "/docs") and not starts_with(http.request.uri.path, "/components") and not starts_with(http.request.uri.path, "/r/") and not starts_with(http.request.uri.path, "/_docs/") and not starts_with(http.request.uri.path, "/.well-known/agent-skills/") and http.request.uri.path ne "/llms.txt" and http.request.uri.path ne "/llms-full.txt")
+  (http.host eq "wideset.co" and not starts_with(http.request.uri.path, "/docs") and not starts_with(http.request.uri.path, "/components") and not starts_with(http.request.uri.path, "/blocks") and not starts_with(http.request.uri.path, "/r/") and not starts_with(http.request.uri.path, "/_docs/") and not starts_with(http.request.uri.path, "/.well-known/agent-skills/") and http.request.uri.path ne "/llms.txt" and http.request.uri.path ne "/llms-full.txt")
   ```
 
   Action: dynamic redirect to `concat("https://www.wideset.co", http.request.uri.path)`, 301,
