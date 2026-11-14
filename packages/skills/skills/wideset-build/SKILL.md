@@ -12,6 +12,8 @@ The pages here and on the docs site are written once. Their examples import from
 
 ## Before you write
 
+0. **For a new app, pick its visual direction and start from its screen.** Once per app, before the first screen: [directions](references/specs/patterns/directions.md) describes Inset (page a raised card on the grey frame; the default), Flat (one white surface, lines), Frame (navigation on a grey tint, page white) and Canvas (grey page, content in white cards). If the person gave a screenshot or a reference, match its surround; otherwise ask, or take Inset. Set it once with `<AppShell direction>`. Then start from the closest whole screen rather than an empty file: `https://wideset.co/blocks.md` lists them, and `https://wideset.co/blocks/<id>.md` holds each one's code (`calendar` for Inset, `kanban`, `process`, `finance-dashboard` for Flat, `communication` for Frame, `crypto` for Canvas). Keep its `AppShell` and replace its content. In an existing app, keep the direction it already has. Sign in and sign up start from `sign-in`, `sign-in-card` or `sign-up`.
+
 1. **Find the screen's pattern** and copy its structure:
 
    | Building                                  | Read                                                                       |
@@ -23,6 +25,7 @@ The pages here and on the docs site are written once. Their examples import from
    | Delete or another action hard to undo     | [confirm-destructive](references/specs/patterns/confirm-destructive.md)    |
    | Success, error, loading and empty states  | [page-feedback](references/specs/patterns/page-feedback.md)                |
    | Several components sharing state or value | [composition](references/specs/patterns/composition.md)                    |
+   | Sign in, sign up, a password reset        | [auth](references/specs/patterns/auth.md)                                  |
    | Anything else                             | [the specs index](references/specs/README.md), which lists every component |
 
 2. **Choose each component from its group**, not from what looks close. Each group file asks the questions in order:

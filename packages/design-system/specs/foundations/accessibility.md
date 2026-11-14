@@ -10,15 +10,16 @@ the rules shared by all of them.
 
 ## Consumer duties
 
-| Duty                          | How                                                                                                  |
-| ----------------------------- | ---------------------------------------------------------------------------------------------------- |
-| Name icon-only controls       | `aria-label` on `IconButton`; icon-only `SegmentedControl.Item` requires it by type                  |
-| Label every field             | Wrap the control in `FormField` with `label` and `htmlFor` matching the control `id`                 |
-| Explain errors in text        | `FormField` `errorText` (linked by `aria-describedby`); a shake or red border alone is not announced |
-| Title every dialog            | `Modal.Title` / `Popup.Title` / `Sidepanel.Title` inside the content                                 |
-| Keep headings in order        | Use real `h1`–`h6`; `typography-*` classes are visual only                                           |
-| Say why something is disabled | Nearby text or a Tooltip on a focusable wrapper; a disabled control cannot explain itself            |
-| Do not rely on colour         | Status needs text or an icon plus text; see [Iconography](./iconography.md)                          |
+| Duty                          | How                                                                                                                                                                                                                                                                     |
+| ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Name icon-only controls       | `aria-label` on `IconButton`; icon-only `SegmentedControl.Item` requires it by type                                                                                                                                                                                     |
+| Label every field             | Wrap the control in `FormField` with `label` and `htmlFor` matching the control `id`                                                                                                                                                                                    |
+| Explain errors in text        | `FormField` `errorText` (linked by `aria-describedby`); a shake or red border alone is not announced                                                                                                                                                                    |
+| Title every dialog            | `Modal.Title` / `Popup.Title` / `Sidepanel.Title` inside the content                                                                                                                                                                                                    |
+| Keep headings in order        | Use real `h1`–`h6`; `typography-*` classes are visual only                                                                                                                                                                                                              |
+| Say why something is disabled | Nearby text or a Tooltip on a focusable wrapper; a disabled control cannot explain itself                                                                                                                                                                               |
+| Do not rely on colour         | Status needs text or an icon plus text; see [Iconography](./iconography.md)                                                                                                                                                                                             |
+| Make a row one target         | A row that does one thing (opens a record, expands a group, picks an option) is one `button` or link across its full width and height, with the hover fill on the whole row and an inset focus ring; never only its text. Every target is at least 24×24px (WCAG 2.5.8) |
 
 See [Iconography](./iconography.md) for decorative vs meaningful icons.
 
