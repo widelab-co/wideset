@@ -34,8 +34,8 @@ const SHARED = {
 /*
   Blocks (src/blocks/<id>/index.tsx) are whole screens, and panels that open over them, a consumer
   copies as a starting point, listed in reading order by src/blocks/index.ts (the docs site reads
-  those lists). Each one must be listed, and must render on its own, in light and in dark, with
-  nothing missing from the library.
+  those lists). Each one must be listed, and must render on its own with nothing missing from the
+  library. Dark mode is CSS only (jsdom applies none of it), so it is checked in Storybook, not here.
 */
 const modules = import.meta.glob<{ default: ComponentType }>('../blocks/*/index.tsx', {
   eager: true,
@@ -46,10 +46,9 @@ const listed = [...BLOCKS, ...PANELS];
 
 afterEach(() => {
   cleanup();
-  document.documentElement.classList.remove('dark');
 });
 
-describe('blocks', () => {
+describe('Manifest', () => {
   it('lists every block folder in the manifest, and nothing else', () => {
     expect(entries.map(([id]) => id).sort()).toEqual(listed.map((block) => block.id).sort());
   });
@@ -57,7 +56,9 @@ describe('blocks', () => {
   it('gives every block a one-sentence description', () => {
     for (const block of listed) expect(block.description, block.id).toMatch(/^[A-Z].+\.$/);
   });
+});
 
+describe('Shared copies', () => {
   // Blocks are copied whole, so Gantt carries its own copy of the task side panel: one source.
   it('keeps Gantt’s task side panel identical to the task-sidepanel block’s', () => {
     expect(ganttPanelSource).toBe(panelSource);
@@ -71,17 +72,12 @@ describe('blocks', () => {
       for (const copy of copies) expect(copy).toBe(copies[0]);
     },
   );
+});
 
+describe('Rendering', () => {
   it.each(entries)('%s renders', (_, module) => {
     const Block = module.default;
     expect(typeof Block).toBe('function');
-    const { container } = render(<Block />);
-    expect(container.firstElementChild).not.toBeNull();
-  });
-
-  it.each(entries)('%s renders in dark', (_, module) => {
-    document.documentElement.classList.add('dark');
-    const Block = module.default;
     const { container } = render(<Block />);
     expect(container.firstElementChild).not.toBeNull();
   });
