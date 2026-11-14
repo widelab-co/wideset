@@ -1,4 +1,4 @@
-import { type ProductDraft, variantFields, variantNames } from './data';
+import { type ProductDraft, variantFields, variantsOf } from './data';
 import { parseAmount } from './format';
 
 /** The fields a save can stop at, in the order they sit on the page. */
@@ -25,7 +25,7 @@ export function validate(draft: ProductDraft, publishing: boolean): Errors {
   if (draft.photos.length === 0) errors.photos = 'Add at least one photo for the cover.';
 
   const prices = draft.hasOptions
-    ? variantNames(draft.options).map((name) => variantFields(draft, name).price)
+    ? variantsOf(draft.options).map((variant) => variantFields(draft, variant).price)
     : [draft.price];
   if (!(parseAmount(draft.price) > 0)) errors.price = 'Enter a price above $0.00.';
   else if (prices.some((price) => !(parseAmount(price) > 0)))

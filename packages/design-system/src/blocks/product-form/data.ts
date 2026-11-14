@@ -109,7 +109,11 @@ export type ProductDraft = {
   taxClass: string;
   hasOptions: boolean;
   options: ProductOption[];
-  /** By variant name ("M", "M / Black"), as typed; see `variantFields` for one not in here. */
+  /**
+   * By variant key, the combination's values (`variantKey(['M', 'Black'])`), as typed: two
+   * combinations never share an entry, even when their names read alike. See `variantFields` for
+   * one not in here.
+   */
   variants: Record<string, VariantFields>;
   sku: string;
   stock: string;
@@ -136,9 +140,9 @@ export const initialDraft: ProductDraft = {
   hasOptions: true,
   options: [{ id: 'size', name: 'Size', values: ['S', 'M', 'L'] }],
   variants: {
-    S: { price: '129.00', stock: '24' },
-    M: { price: '149.00', stock: '40' },
-    L: { price: '179.00', stock: '12' },
+    [variantKey(['S'])]: { price: '129.00', stock: '24' },
+    [variantKey(['M'])]: { price: '149.00', stock: '40' },
+    [variantKey(['L'])]: { price: '179.00', stock: '12' },
   },
   sku: 'LS-MNT-01',
   stock: '',
@@ -146,28 +150,37 @@ export const initialDraft: ProductDraft = {
   channels: ['store', 'quotes'],
 };
 
+/** A combination's identity: its values in option order, never its display name. */
+export function variantKey(values: string[]) {
+  return JSON.stringify(values);
+}
+
+/** One combination of option values: its key for the draft, its name for people. */
+export type Variant = { key: string; name: string; values: string[] };
+
 /**
  * The variants the options make: every combination of their values, in order ("S / Black",
  * "S / White", "M / Black"…). An option with no values yet adds nothing.
  */
-export function variantNames(options: ProductOption[]) {
+export function variantsOf(options: ProductOption[]): Variant[] {
   return options
     .filter((option) => option.values.length > 0)
-    .reduce<string[]>(
-      (names, option) =>
-        names.length === 0
-          ? option.values
-          : names.flatMap((name) => option.values.map((value) => `${name} / ${value}`)),
+    .reduce<string[][]>(
+      (combos, option) =>
+        combos.length === 0
+          ? option.values.map((value) => [value])
+          : combos.flatMap((combo) => option.values.map((value) => [...combo, value])),
       [],
-    );
+    )
+    .map((values) => ({ key: variantKey(values), name: values.join(' / '), values }));
 }
 
 /**
  * A variant's price and stock: what was typed for it; else, for a new combination, the price of
  * the variant it grew from ("S / Black" from "S") or the product's, and no stock yet.
  */
-export const variantFields = (draft: ProductDraft, name: string): VariantFields =>
-  draft.variants[name] ?? {
-    price: (draft.variants[name.split(' / ')[0]] ?? draft).price,
+export const variantFields = (draft: ProductDraft, variant: Variant): VariantFields =>
+  draft.variants[variant.key] ?? {
+    price: (draft.variants[variantKey(variant.values.slice(0, 1))] ?? draft).price,
     stock: '',
   };
