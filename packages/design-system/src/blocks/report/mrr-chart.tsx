@@ -61,8 +61,10 @@ export function MrrChart({
   className,
 }: MrrChartProps) {
   const id = useId().replace(/[^\w-]/g, '');
-  const [hover, setHover] = useState<number | null>(null);
+  const [hovered, setHover] = useState<number | null>(null);
   const last = current.length - 1;
+  // A range change (by keyboard, the pointer still) can leave fewer days than the hovered index.
+  const hover = hovered !== null && hovered <= last ? hovered : null;
 
   const values = [...current, ...(previous ?? [])];
   const low = Math.min(...values);
