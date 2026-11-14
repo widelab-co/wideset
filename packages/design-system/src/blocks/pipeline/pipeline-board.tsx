@@ -98,7 +98,7 @@ export function PipelineBoard({
       if (event.button !== 0 || target.closest('button') || !event.currentTarget.contains(target))
         return;
       const box = event.currentTarget.getBoundingClientRect();
-      event.currentTarget.setPointerCapture?.(event.pointerId);
+      // No pointer capture yet: a press that never moves far enough stays a click on the deal's link.
       setDrag({
         id: deal.id,
         pointerId: event.pointerId,
@@ -116,6 +116,8 @@ export function PipelineBoard({
       if (drag?.pointerId !== event.pointerId) return;
       const distance = Math.hypot(event.clientX - drag.startX, event.clientY - drag.startY);
       if (!drag.active && distance < THRESHOLD) return;
+      // The drag starts here: from now on the card follows the pointer even outside it.
+      if (!drag.active) event.currentTarget.setPointerCapture?.(event.pointerId);
       setDrag({
         ...drag,
         active: true,

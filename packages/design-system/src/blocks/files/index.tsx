@@ -79,6 +79,10 @@ function FilesPage() {
   const picker = useRef<HTMLInputElement>(null);
   const opened = useRef(0);
   const uploadBatch = useRef<{ count: number; where: string } | undefined>(undefined);
+  // New files, copies and collections take ids from a counter, never from a list's length, which
+  // returns to an earlier value after a deletion.
+  const lastId = useRef(0);
+  const newId = (prefix: string) => `${prefix}-new-${++lastId.current}`;
   const [items, setItems] = useState(ITEMS);
   const [collections, setCollections] = useState(COLLECTIONS);
   const [place, setPlace] = useState<PlaceId>('all');
@@ -94,6 +98,17 @@ function FilesPage() {
   const [emptying, setEmptying] = useState(false);
 
   const byId = (id: string | null) => items.find((item) => item.id === id);
+  /**
+   * In use: active, and so is every folder above it. Archiving, trashing or deleting a folder
+   * takes everything inside with it, and restoring it brings them back, without touching them.
+   */
+  const isLive = (item: Item | undefined): boolean =>
+    !!item && item.state === 'active' && (item.parent === null || isLive(byId(item.parent)));
+  /** An item and everything inside it, for copies and permanent deletion. */
+  const subtree = (id: string): Item[] => [
+    byId(id)!,
+    ...items.filter((item) => item.parent === id).flatMap((child) => subtree(child.id)),
+  ];
   const folderName = (id: string | null) => byId(id)?.name ?? PLACE_LABEL.all;
   const collectionOf = (id: PlaceId) =>
     id.startsWith('c:') ? collections.find((c) => `c:${c.id}` === id) : undefined;
@@ -105,7 +120,7 @@ function FilesPage() {
   // ——— What is on screen ———
   const search = query.trim().toLowerCase();
   const inPlace = (item: Item) => {
-    const active = item.state === 'active';
+    const active = isLive(item);
     if (place === 'all') return active && (search ? true : item.parent === folder);
     if (place === 'pinned') return active && Boolean(item.pinned);
     if (place === 'shared') return active && Boolean(item.sharedWithMe);
@@ -149,16 +164,23 @@ function FilesPage() {
       all.map((item) => (ids.includes(item.id) ? { ...item, ...patch(item) } : item)),
     );
 
-  /** A toast whose Undo puts every file back as it was before the action. */
-  const toastWithUndo = (content: string) => {
-    const before = items;
+  /**
+   * A toast whose Undo reverses this action only: the items it changed go back as they were and
+   * the ones it added go, while anything changed since (an upload, a rename) stays.
+   */
+  const toastWithUndo = (content: string, changed: string[], added: string[] = []) => {
+    const before = new Map(items.filter((item) => changed.includes(item.id)).map((i) => [i.id, i]));
     const id = showToast({
       content,
       action: (
         <Toast.Action
           preset="ghost"
           onClick={() => {
-            setItems(before);
+            setItems((all) =>
+              all
+                .filter((item) => !added.includes(item.id))
+                .map((item) => before.get(item.id) ?? item),
+            );
             dismissToast(id);
           }}
         >
@@ -176,59 +198,73 @@ function FilesPage() {
   const moveTo = (ids: string[], parent: string | null) => {
     change(ids, () => ({ parent }));
     setSelected([]);
-    toastWithUndo(`Moved ${what(ids)} to ${folderName(parent)}`);
+    toastWithUndo(`Moved ${what(ids)} to ${folderName(parent)}`, ids);
   };
 
-  /** Copies sit beside the original as "Copy of …"; elsewhere they keep the name. */
+  /**
+   * Copies sit beside the original as "Copy of …"; elsewhere they keep the name. A folder is
+   * copied with everything inside it, each copy under its copied folder.
+   */
   const copyTo = (ids: string[], parent: string | null, announce = true) => {
     const taken = new Set(items.filter((i) => i.parent === parent).map((i) => i.name));
-    const copies = ids.map((id, n): Item => {
-      const source = byId(id)!;
-      const name = taken.has(source.name) ? `Copy of ${source.name}` : source.name;
-      return {
+    const copies: Item[] = [];
+    const copy = (source: Item, into: string | null, top: boolean) => {
+      const id = newId(`${source.id}-copy`);
+      const name = top && taken.has(source.name) ? `Copy of ${source.name}` : source.name;
+      copies.push({
         ...source,
-        id: `${id}-copy-${items.length + n}`,
+        id,
         name,
-        parent,
+        parent: into,
         owner: ME,
         modified: NOW,
         pinned: false,
         sharedWithMe: false,
-      };
-    });
+      });
+      items
+        .filter((item) => item.parent === source.id && item.state === 'active')
+        .forEach((child) => copy(child, id, false));
+    };
+    ids.forEach((id) => copy(byId(id)!, parent, true));
     setItems((all) => [...copies, ...all]);
     setSelected([]);
-    if (announce) toastWithUndo(`Copied ${what(ids)} to ${folderName(parent)}`);
+    if (announce) {
+      toastWithUndo(
+        `Copied ${what(ids)} to ${folderName(parent)}`,
+        [],
+        copies.map((item) => item.id),
+      );
+    }
   };
 
   const archive = (ids: string[]) => {
     change(ids, () => ({ state: 'archived', putAway: NOW }));
     setSelected([]);
-    toastWithUndo(`Archived ${what(ids)}`);
+    toastWithUndo(`Archived ${what(ids)}`, ids);
   };
 
   const trash = (ids: string[]) => {
     change(ids, () => ({ state: 'trashed', putAway: NOW }));
     setSelected([]);
-    toastWithUndo(`Moved ${what(ids)} to the trash`);
+    toastWithUndo(`Moved ${what(ids)} to the trash`, ids);
   };
 
   const restore = (item: Item) => {
     // Back where it was, unless that folder is gone too: then to the top of All files.
-    const parent = byId(item.parent)?.state === 'active' ? item.parent : null;
+    const parent = isLive(byId(item.parent)) ? item.parent : null;
     change([item.id], () => ({ state: 'active', putAway: undefined, parent }));
-    toastWithUndo(`Restored ${item.name} to ${folderName(parent)}`);
+    toastWithUndo(`Restored ${item.name} to ${folderName(parent)}`, [item.id]);
   };
 
   const addToCollection = (ids: string[], collection: Collection) => {
     change(ids, (item) => ({ collections: [...new Set([...item.collections, collection.id])] }));
     setSelected([]);
-    toastWithUndo(`Added ${what(ids)} to ${collection.name}`);
+    toastWithUndo(`Added ${what(ids)} to ${collection.name}`, ids);
   };
 
   const createCollection = (name: string, ids: string[]) => {
     const collection = {
-      id: `${name.toLowerCase().replace(/\W+/g, '-')}-${collections.length}`,
+      id: newId(name.toLowerCase().replace(/\W+/g, '-')),
       name,
     };
     setCollections((all) => [...all, collection]);
@@ -240,8 +276,8 @@ function FilesPage() {
     if (files.length === 0) return;
     const collection = collectionOf(place);
     const parent = place === 'all' ? folder : null;
-    const added = files.map((file, n): Item => ({
-      id: `upload-${items.length}-${n}`,
+    const added = files.map((file): Item => ({
+      id: newId('upload'),
       name: file.name,
       kind: kindOf(file.name),
       parent,
@@ -517,7 +553,7 @@ function FilesPage() {
           key={folderDialog.key}
           mode={folderDialog.mode}
           items={folderItems}
-          folders={items.filter((item) => item.kind === 'folder' && item.state === 'active')}
+          folders={items.filter((item) => item.kind === 'folder' && isLive(item))}
           open={folderDialog.open}
           onOpenChange={(next) => setFolderDialog({ ...folderDialog, open: next })}
           onConfirm={(parent) =>
@@ -569,7 +605,14 @@ function FilesPage() {
         open={emptying}
         onOpenChange={setEmptying}
         onConfirm={() => {
-          setItems((all) => all.filter((item) => item.state !== 'trashed'));
+          // Deleting a folder for good deletes what was inside it too.
+          const gone = new Set(
+            items
+              .filter((item) => item.state === 'trashed')
+              .flatMap((item) => subtree(item.id))
+              .map((item) => item.id),
+          );
+          setItems((all) => all.filter((item) => !gone.has(item.id)));
           showToast({ content: `Deleted ${formatFiles(trashCount)} for good` });
         }}
       />
