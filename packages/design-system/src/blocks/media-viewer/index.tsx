@@ -56,7 +56,6 @@ function Screen() {
   };
 
   const trash = (file: FileItem) => {
-    const before = files;
     const at = files.indexOf(file);
     const rest = files.filter((item) => item !== file);
     setFiles(rest);
@@ -69,7 +68,12 @@ function Screen() {
         <Toast.Action
           preset="ghost"
           onClick={() => {
-            setFiles(before);
+            // Only this file comes back, where it was; comments and other changes since stay.
+            setFiles((current) =>
+              current.some((item) => item.id === file.id)
+                ? current
+                : [...current.slice(0, at), file, ...current.slice(at)],
+            );
             dismissToast(id);
           }}
         >

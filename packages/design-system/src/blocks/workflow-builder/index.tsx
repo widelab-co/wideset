@@ -15,8 +15,10 @@ import {
   allSteps,
   insertStep,
   isComplete,
+  locate,
   newStep,
   removeStep,
+  restoreStep,
   type SequenceKey,
   stepAbove,
   updateFields,
@@ -61,7 +63,7 @@ function WorkflowEditor({ sidebarToggle }: { sidebarToggle: ReactNode }) {
 
   const remove = (step: Step) => {
     if (step.kind === 'trigger') return;
-    const before = flow;
+    const at = locate(flow, step.id) ?? { key: 'root' as const, index: flow.length };
     const above = stepAbove(flow, step.id) ?? flow[0];
     setFlow(removeStep(flow, step.id));
     setSelectedId(above.id);
@@ -77,7 +79,12 @@ function WorkflowEditor({ sidebarToggle }: { sidebarToggle: ReactNode }) {
         <Toast.Action
           preset="ghost"
           onClick={() => {
-            setFlow(before);
+            // Only this step (and its branches) comes back; edits made since stay.
+            setFlow((current) =>
+              allSteps(current).some((item) => item.id === step.id)
+                ? current
+                : restoreStep(current, at.key, at.index, step),
+            );
             setSelectedId(step.id);
             setFocusId(step.id);
             dismissToast(id);
@@ -155,7 +162,11 @@ function WorkflowEditor({ sidebarToggle }: { sidebarToggle: ReactNode }) {
           selectedId={selected.id}
           onSelect={setSelectedId}
           onInsert={insert}
-          onDeleteKey={() => remove(selected)}
+          onDeleteKey={(id) => {
+            // The step with focus, which need not be the selected one.
+            const step = steps.find((item) => item.id === id);
+            if (step) remove(step);
+          }}
         />
         <StepPanel
           step={selected}

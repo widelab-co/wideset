@@ -14,7 +14,7 @@ type SequenceProps = {
   onSelect: (id: string) => void;
   onInsert: (sequence: SequenceKey, index: number, kind: StepKind) => void;
   /** Delete or Backspace on a node: removes the selected step. */
-  onDeleteKey: () => void;
+  onDeleteKey: (id: string) => void;
 };
 
 /**

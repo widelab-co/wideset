@@ -65,7 +65,8 @@ export function AssistantPanel({ onApply }: AssistantPanelProps) {
     setTurns((current) => current.map((turn) => (turn.id === id ? change(turn) : turn)));
 
   const ask = (text: string) => {
-    const answer = answers[text] ?? fallback;
+    // Own keys only: a question like "toString" must not find an inherited function.
+    const answer = Object.prototype.hasOwnProperty.call(answers, text) ? answers[text] : fallback;
     const id = `a${turns.length}`;
     setTurns([
       ...turns,

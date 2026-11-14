@@ -24,7 +24,7 @@ export function WorkflowCanvas({
   selectedId: string;
   onSelect: (id: string) => void;
   onInsert: (sequence: SequenceKey, index: number, kind: StepKind) => void;
-  onDeleteKey: () => void;
+  onDeleteKey: (id: string) => void;
 }) {
   const [zoom, setZoom] = useState(ZOOMS.findIndex((step) => step.value === 1));
   const scrollerRef = useRef<HTMLDivElement>(null);
