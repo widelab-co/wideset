@@ -48,7 +48,7 @@ main.bg-ws-static-background (centres the card)
   ├ body (p-ws-18, gap-ws-12)
   │ ├ app icon                           — the product's mark, decorative
   │ └ form noValidate aria-labelledby    — a real form: Enter submits from any field
-  │   ├ h1 typography-subtitle-lg        — "Sign in to Wideset", one per screen
+  │   ├ h1 typography-title-md           — "Sign in to Wideset", one per screen
   │   ├ FormField > TextInput            — "E-mail or username", focused on load
   │   ├ FormField > TextInput            — "Password"
   │   ├ Checkbox                         — "Keep me signed in"
@@ -111,7 +111,7 @@ export function SignInForm({
       aria-labelledby={`${id}-title`}
       className="gap-ws-12 flex flex-col"
     >
-      <h1 id={`${id}-title`} className="typography-subtitle-lg text-ws-static-strong">
+      <h1 id={`${id}-title`} className="typography-title-md text-ws-static-strong">
         Sign in to Wideset
       </h1>
       {rejected && (
