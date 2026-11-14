@@ -77,12 +77,16 @@ export default function SendPayment() {
     else setStep('review');
   };
 
+  // Cleared on unmount, so the stand-in request never lands on a closed screen.
+  const timer = useRef<number>(undefined);
+  useEffect(() => () => window.clearTimeout(timer.current), []);
+
   // A timeout stands in for the transfer; a real screen awaits it and, when it is refused, stays
   // on the review and says why.
   const send = () => {
     setConfirming(false);
     setSending(true);
-    setTimeout(() => {
+    timer.current = window.setTimeout(() => {
       setSending(false);
       setStep('receipt');
     }, 1200);

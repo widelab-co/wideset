@@ -40,11 +40,15 @@ function CancelSubscriptionPage() {
     shown.current = outcomeId;
   }, [outcomeId]);
 
+  // Cleared on unmount, so the stand-in request never lands on a closed screen.
+  const timer = useRef<number>(undefined);
+  useEffect(() => () => window.clearTimeout(timer.current), []);
+
   // A timeout stands in for the request; a real screen awaits it and, when it fails, stays on the
   // steps and says so in an InlineAlert above the buttons.
   const decide = (id: OutcomeId) => {
     setSaving(id);
-    setTimeout(() => {
+    timer.current = window.setTimeout(() => {
       setSaving(null);
       setOutcomeId(id);
     }, 800);

@@ -1,6 +1,6 @@
 import { RiCloseLine } from '@remixicon/react';
 import { Button, Modal } from '@wideset/react';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { freePlan, type Plan, usage, workspace } from './data';
 import { formatCount, formatDate, formatGb } from './format';
@@ -37,11 +37,15 @@ export function CancelPlanModal({
     `Files over ${formatGb(freePlan.storageGb)} become read-only. You store ${formatGb(usage.storageGb)}.`,
   ];
 
+  // Cleared on unmount, so the stand-in request never lands on a closed screen.
+  const timer = useRef<number>(undefined);
+  useEffect(() => () => window.clearTimeout(timer.current), []);
+
   // A timeout stands in for the request; a real screen awaits it and shows an InlineAlert in the
   // body if it fails, keeping the modal open.
   function confirm() {
     setPending(true);
-    setTimeout(() => {
+    timer.current = window.setTimeout(() => {
       setPending(false);
       onConfirm();
     }, 800);

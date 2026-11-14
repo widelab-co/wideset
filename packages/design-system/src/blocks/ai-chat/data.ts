@@ -1,4 +1,4 @@
-export const USER = { firstName: 'Michał' };
+export const USER = { firstName: 'Maya' };
 
 export const MODELS = ['Wide AI 1.0', 'Wide AI 0.9'];
 

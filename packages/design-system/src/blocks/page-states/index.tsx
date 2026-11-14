@@ -1,6 +1,6 @@
 import { RiSideBarLine } from '@remixicon/react';
 import { AppShell, Breadcrumbs, Button, cn, IconButton, SystemAlert } from '@wideset/react';
-import { useId, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 
 import { customer, deals, lastSynced, tickets } from './data';
 import { DealsTable } from './deals-table';
@@ -31,13 +31,17 @@ export default function PageStates() {
   const [ticketsState, setTicketsState] = useState<'failed' | 'loading' | 'loaded'>('failed');
   const ticketsRef = useRef<HTMLElement>(null);
 
+  // Cleared on unmount, so the stand-in request never lands on a closed screen.
+  const timer = useRef<number>(undefined);
+  useEffect(() => () => window.clearTimeout(timer.current), []);
+
   // A timeout stands in for the request; a real screen awaits it and goes back to `failed` with
   // the reason if it fails again.
   function retry() {
     setTicketsState('loading');
     // Retry goes away with the error: keep the keyboard on the module it was in.
     ticketsRef.current?.focus();
-    setTimeout(() => setTicketsState('loaded'), 1200);
+    timer.current = window.setTimeout(() => setTicketsState('loaded'), 1200);
   }
 
   const viewAll = (

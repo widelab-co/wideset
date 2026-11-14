@@ -80,7 +80,9 @@ centre their panel on a plain white screen.
 - What Wideset has no component for (a top-bar nav item, a keyboard shortcut chip, a chat bubble,
   a calendar month grid, a kanban column, a chart) is composed inside the block from `ws` tokens
   and gets its own component pull request, Figma's component first; the block switches to the
-  component once it lands.
+  component once it lands. Such a part sits in a file of its own that starts with
+  `// TODO(custom): <what it is, what Wideset lacks>`, so `git grep -l "TODO(custom)"` lists the
+  candidate components.
 - People are `Avatar`, a mix as in a real product (and in the Figma screens): some with a photo,
   `src` from the block's `people.assets.ts` with the initials as its fallback, the rest initials and
   a colour. A block ships only `.ts` and `.tsx`, so a photo is a 96px JPEG data URL in that file,

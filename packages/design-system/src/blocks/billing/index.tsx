@@ -1,5 +1,5 @@
 import { AppShell, ToastProvider, useToast } from '@wideset/react';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { CancelPlanModal } from './cancel-plan-modal';
 import { ChangePlanModal } from './change-plan-modal';
@@ -41,11 +41,15 @@ function BillingPage() {
     : invoices;
   const closeDialog = (open: boolean) => !open && setDialog(null);
 
+  // Cleared on unmount, so the stand-in request never lands on a closed screen.
+  const timer = useRef<number>(undefined);
+  useEffect(() => () => window.clearTimeout(timer.current), []);
+
   // A timeout stands in for the charge; a real screen awaits it and keeps the alert, with the
   // bank's reason, if it is declined again.
   function retry() {
     setRetrying(true);
-    setTimeout(() => {
+    timer.current = window.setTimeout(() => {
       setRetrying(false);
       setPaid(true);
       showToast({ content: `Payment of ${formatUsd(failed.amount)} received`, status: 'success' });

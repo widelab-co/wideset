@@ -1,6 +1,6 @@
 import { RiCheckLine, RiFileCopyLine } from '@remixicon/react';
 import { Divider, IconButton, Modal, Tile } from '@wideset/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { AccessList, type AccessPerson } from './access-list';
 import { InviteForm } from './invite-form';
@@ -79,6 +79,12 @@ export function AccessModal<Role extends string>({
 function ShareLink({ link }: { link: string }) {
   const [copied, setCopied] = useState(false);
 
+  useEffect(() => {
+    if (!copied) return;
+    const timer = setTimeout(() => setCopied(false), 2000);
+    return () => clearTimeout(timer);
+  }, [copied]);
+
   return (
     <>
       <IconButton
@@ -90,7 +96,6 @@ function ShareLink({ link }: { link: string }) {
         onClick={() => {
           void navigator.clipboard?.writeText(`https://${link}`).catch(() => {});
           setCopied(true);
-          setTimeout(() => setCopied(false), 2000);
         }}
       />
       <span role="status" className="typography-body-md text-ws-static-subtle">

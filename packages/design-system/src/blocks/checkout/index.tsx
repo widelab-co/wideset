@@ -1,6 +1,6 @@
 import { RiSideBarLine } from '@remixicon/react';
 import { AppShell, Breadcrumbs, cn, IconButton } from '@wideset/react';
-import { useId, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 
 import { BillingDetails } from './billing-details';
 import { BillingPeriod } from './billing-period';
@@ -46,6 +46,10 @@ export default function Checkout() {
 
   const totals = priceOrder({ seats, addOnIds, interval, promo, vatNumber: details.vatNumber });
 
+  // Cleared on unmount, so the stand-in request never lands on a closed screen.
+  const timer = useRef<number>(undefined);
+  useEffect(() => () => window.clearTimeout(timer.current), []);
+
   // A timeout stands in for the charge; a real screen awaits it and, when the bank declines,
   // says why at the card and leaves the order as it was.
   function pay() {
@@ -56,7 +60,7 @@ export default function Checkout() {
       if (first) return document.getElementById(`${cardId}-${first}`)?.focus();
     }
     setPayment('paying');
-    setTimeout(() => setPayment('paid'), 1200);
+    timer.current = window.setTimeout(() => setPayment('paid'), 1200);
   }
 
   return (

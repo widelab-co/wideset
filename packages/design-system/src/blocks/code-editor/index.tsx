@@ -1,6 +1,6 @@
 import { RiSideBarLine } from '@remixicon/react';
 import { AppShell, Breadcrumbs, cn, IconButton, Tabs } from '@wideset/react';
-import { useEffect, useId, useMemo, useState } from 'react';
+import { useEffect, useId, useMemo, useRef, useState } from 'react';
 
 import { CodeEditor, type Reveal } from './code-editor';
 import { fileById, type FileId, FILES, NOW, type Sources, type Version, VERSIONS } from './data';
@@ -75,10 +75,14 @@ function EditorPage() {
     return () => window.removeEventListener('keydown', onKeyDown);
   });
 
+  // Cleared on unmount, so the stand-in request never lands on a closed screen.
+  const timer = useRef<number>(undefined);
+  useEffect(() => () => window.clearTimeout(timer.current), []);
+
   const startRun = () => {
     setTab('output');
     setRunning(true);
-    window.setTimeout(() => {
+    timer.current = window.setTimeout(() => {
       setRun(runTest(problems));
       setRunning(false);
     }, RUN_DELAY);

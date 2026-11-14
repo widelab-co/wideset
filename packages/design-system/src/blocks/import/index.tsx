@@ -10,7 +10,7 @@ import {
   ToastProvider,
   useToast,
 } from '@wideset/react';
-import { useId, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 
 import {
   account,
@@ -77,11 +77,15 @@ function ImportPage({ collapsed, onToggleSidebar, sidebarId }: PageProps) {
     setStep(UPLOAD);
   }
 
+  // Cleared on unmount, so the stand-in request never lands on a closed screen.
+  const timer = useRef<number>(undefined);
+  useEffect(() => () => window.clearTimeout(timer.current), []);
+
   // A timeout stands in for the import; a real one runs on the server and the page can be left
   // while it does, as the help article says.
   function runImport() {
     setImporting(true);
-    setTimeout(() => {
+    timer.current = window.setTimeout(() => {
       setImporting(false);
       setImports([
         { id: `q4-${imports.length}`, file: file.name, date: TODAY, by: account.name, ...result },
