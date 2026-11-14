@@ -1,3 +1,5 @@
+import { AppShell } from '@wideset/react';
+
 import { ClientSheet } from './client-sheet';
 import { StatusBar } from './status-bar';
 import { Toolbar } from './toolbar';
@@ -9,13 +11,13 @@ import { TopBar } from './top-bar';
  */
 export default function SpreadsheetBlock() {
   return (
-    <div className="bg-ws-static-foreground flex h-dvh flex-col">
-      <TopBar />
-      <main className="flex min-h-0 flex-1 flex-col overflow-hidden">
+    <AppShell direction="flat">
+      <AppShell.Main className="flex flex-col">
+        <TopBar />
         <Toolbar />
         <ClientSheet className="min-h-0 flex-1" />
         <StatusBar />
-      </main>
-    </div>
+      </AppShell.Main>
+    </AppShell>
   );
 }

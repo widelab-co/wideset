@@ -86,7 +86,7 @@ export function TeamSidebar() {
   );
 
   return (
-    <Sidebar surface="tinted">
+    <Sidebar>
       <Sidebar.Header>
         <Sidebar.Expanded>
           <div className="gap-ws-7 py-ws-3 pl-ws-5 flex items-center">

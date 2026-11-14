@@ -1,5 +1,5 @@
 import { RiAddLine, RiSearchLine } from '@remixicon/react';
-import { Button, TextInput } from '@wideset/react';
+import { AppShell, Button, TextInput } from '@wideset/react';
 import { useState } from 'react';
 
 import { EmptyState } from './empty-state';
@@ -16,9 +16,9 @@ export default function EmptyList() {
   const searched = query.trim();
 
   return (
-    <div className="bg-ws-static-foreground flex h-dvh">
+    <AppShell direction="flat">
       <AppSidebar />
-      <main className="flex min-w-0 flex-1 flex-col">
+      <AppShell.Main className="flex flex-col">
         <header className="border-ws-static-subtle px-ws-12 shrink-0 border-b">
           <div className="h-ws-20 gap-ws-9 mx-auto flex w-full max-w-[80rem] items-center justify-between">
             <h1 className="typography-title-md text-ws-static-strong">Customers</h1>
@@ -83,7 +83,7 @@ export default function EmptyList() {
             </div>
           </div>
         </div>
-      </main>
-    </div>
+      </AppShell.Main>
+    </AppShell>
   );
 }

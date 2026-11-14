@@ -187,7 +187,7 @@ export function CommunicationSidebar() {
   );
 
   return (
-    <Sidebar surface="tinted">
+    <Sidebar>
       <Sidebar.Header>
         <Sidebar.Expanded>
           <div className="gap-ws-9 flex flex-col">

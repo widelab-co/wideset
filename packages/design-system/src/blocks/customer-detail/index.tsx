@@ -1,6 +1,6 @@
 // TODO(custom): local Section heading (title + one xs action) and a titled Card panel composed by hand.
 import { RiAddLine, RiBuilding2Line } from '@remixicon/react';
-import { Breadcrumbs, Button, Card, IconButton, Tabs } from '@wideset/react';
+import { AppShell, Breadcrumbs, Button, Card, IconButton, Tabs } from '@wideset/react';
 import { type ReactNode, useId, useState } from 'react';
 
 import { ActivityTimeline } from './activity-timeline';
@@ -101,9 +101,9 @@ export default function CustomerDetail() {
   const [tab, setTab] = useState('overview');
 
   return (
-    <div className="bg-ws-static-background flex h-dvh">
+    <AppShell direction="inset">
       <CustomerSidebar />
-      <main className="bg-ws-static-foreground rounded-ws-container-lg shadow-ws-low my-ws-7 mr-ws-7 ml-ws-5 flex min-w-0 flex-1 flex-col overflow-hidden">
+      <AppShell.Main>
         {/* The bar belongs to the surround: it runs edge to edge, the crumbs 20px from its edge. */}
         <div className="h-ws-18 border-ws-static-base flex shrink-0 items-center border-b">
           <div className="px-ws-11 w-full">
@@ -203,7 +203,7 @@ export default function CustomerDetail() {
             </Tabs>
           </div>
         </div>
-      </main>
-    </div>
+      </AppShell.Main>
+    </AppShell>
   );
 }

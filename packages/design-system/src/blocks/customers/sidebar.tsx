@@ -8,10 +8,10 @@ import { account, navigation, savedLists, workspace } from './data';
 import { PersonAvatar } from './person-avatar';
 
 /**
- * The workspace sidebar: product, workspace switcher, pages, saved lists and the account. `surface`
- * follows the screen's direction: `page` in Flat, `tinted` in Frame, `frame` in Inset and Canvas.
+ * The workspace sidebar: product, workspace switcher, pages, saved lists and the account. Its surface
+ * comes from the screen's `AppShell direction`.
  */
-export function CustomersSidebar({ surface }: { surface?: 'page' | 'tinted' | 'frame' }) {
+export function CustomersSidebar() {
   const [active, setActive] = useState('customers');
 
   const links = (
@@ -45,7 +45,7 @@ export function CustomersSidebar({ surface }: { surface?: 'page' | 'tinted' | 'f
   );
 
   return (
-    <Sidebar surface={surface}>
+    <Sidebar>
       <Sidebar.Header>
         <Sidebar.Expanded>
           <div className="gap-ws-7 flex flex-col">

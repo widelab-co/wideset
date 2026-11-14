@@ -1,5 +1,6 @@
 import { RiSideBarLine } from '@remixicon/react';
 import {
+  AppShell,
   Breadcrumbs,
   Button,
   cn,
@@ -281,7 +282,7 @@ export default function ProductForm({ layout = 'split' }: { layout?: ProductForm
   // over the empty end of the bar above the page.
   return (
     <ToastProvider position={layout === 'centered' ? 'top-right' : 'bottom-center'}>
-      <div className="bg-ws-static-background flex h-dvh">
+      <AppShell direction="inset">
         <ProductFormSidebar id={sidebarId} collapsed={collapsed} onCollapsedChange={setCollapsed} />
         <ProductFormPage
           layout={layout}
@@ -289,7 +290,7 @@ export default function ProductForm({ layout = 'split' }: { layout?: ProductForm
           onToggleSidebar={() => setCollapsed(!collapsed)}
           sidebarId={sidebarId}
         />
-      </div>
+      </AppShell>
     </ToastProvider>
   );
 }

@@ -1,3 +1,4 @@
+import { AppShell } from '@wideset/react';
 import { useState } from 'react';
 
 import { type Change, ChangePlanModal } from './change-plan-modal';
@@ -59,11 +60,11 @@ export default function Plans() {
         : undefined;
 
   return (
-    <div className="bg-ws-static-foreground flex h-dvh flex-col">
-      <TopBar />
+    <AppShell direction="flat">
       {/* From lg the plans stay in view and the comparison scrolls under them; narrower, the plans
           stack and the whole page scrolls. */}
-      <main className="relative min-h-0 flex-1 overflow-y-auto lg:flex lg:flex-col lg:overflow-hidden">
+      <AppShell.Main className="relative lg:flex lg:flex-col lg:overflow-hidden">
+        <TopBar />
         <div className="border-ws-static-subtle px-ws-12 shrink-0 border-b">
           {/* Four rows shared by every column (subgrid): titles, prices, limits, actions. */}
           <div className="pt-ws-16 pb-ws-14 gap-y-ws-16 lg:gap-y-ws-12 mx-auto grid w-full max-w-[80rem] grid-cols-1 lg:grid-cols-4 lg:grid-rows-[repeat(4,auto)]">
@@ -99,7 +100,7 @@ export default function Plans() {
             <FeatureTable />
           </div>
         </div>
-      </main>
+      </AppShell.Main>
 
       {change && (
         <ChangePlanModal
@@ -113,6 +114,6 @@ export default function Plans() {
           }}
         />
       )}
-    </div>
+    </AppShell>
   );
 }

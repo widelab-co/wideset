@@ -1,5 +1,5 @@
 import { RiSideBarLine } from '@remixicon/react';
-import { Breadcrumbs, cn, IconButton, StatusBadge } from '@wideset/react';
+import { AppShell, Breadcrumbs, cn, IconButton, StatusBadge } from '@wideset/react';
 import { useEffect, useId, useRef, useState } from 'react';
 
 import { ConfirmDialog } from './confirm-dialog';
@@ -118,9 +118,9 @@ export default function SendPayment() {
   };
 
   return (
-    <div className="bg-ws-static-background flex h-dvh">
+    <AppShell direction="inset">
       <SendPaymentSidebar id={sidebarId} collapsed={collapsed} onCollapsedChange={setCollapsed} />
-      <main className="bg-ws-static-foreground rounded-ws-container-lg shadow-ws-low my-ws-7 mr-ws-7 ml-ws-5 flex min-w-0 flex-1 flex-col overflow-hidden">
+      <AppShell.Main>
         <div className="h-ws-18 border-ws-static-base flex shrink-0 items-center border-b">
           {/* The bar belongs to the surround: it runs edge to edge. The sidebar's toggle is pulled
               left so its glyph, not its box, sits 20px from the edge; the crumbs follow it. */}
@@ -201,7 +201,7 @@ export default function SendPayment() {
             </div>
           </div>
         </div>
-      </main>
+      </AppShell.Main>
 
       <ConfirmDialog
         open={confirming}
@@ -211,6 +211,6 @@ export default function SendPayment() {
         scheduled={quote.scheduled}
         onConfirm={send}
       />
-    </div>
+    </AppShell>
   );
 }

@@ -1,5 +1,5 @@
 import { RiSideBarLine } from '@remixicon/react';
-import { Breadcrumbs, cn, IconButton } from '@wideset/react';
+import { AppShell, Breadcrumbs, cn, IconButton } from '@wideset/react';
 import { useId, useState } from 'react';
 
 import { account, doneAtStart, meetings, type Task, tasks as tasksAtStart, TODAY } from './data';
@@ -31,14 +31,14 @@ export default function WhatsNew() {
     setTasks((current) => [...current, { id: `added-${current.length}`, title }]);
 
   return (
-    <div className="bg-ws-static-background flex h-dvh">
+    <AppShell direction="inset">
       <HomeSidebar
         id={sidebarId}
         collapsed={collapsed}
         onCollapsedChange={setCollapsed}
         onWhatsNew={() => setOpen(true)}
       />
-      <main className="bg-ws-static-foreground rounded-ws-container-lg shadow-ws-low my-ws-7 mr-ws-7 ml-ws-5 flex min-w-0 flex-1 flex-col overflow-hidden">
+      <AppShell.Main>
         <div className="h-ws-18 border-ws-static-base flex shrink-0 items-center border-b">
           {/* The bar belongs to the surround: it runs edge to edge. The sidebar's toggle is pulled
               left so its glyph, not its box, sits 20px from the edge; the crumbs follow it. */}
@@ -79,8 +79,8 @@ export default function WhatsNew() {
             </div>
           </div>
         </div>
-      </main>
+      </AppShell.Main>
       <WhatsNewModal open={open} onOpenChange={setOpen} muted={muted} onMutedChange={setMuted} />
-    </div>
+    </AppShell>
   );
 }

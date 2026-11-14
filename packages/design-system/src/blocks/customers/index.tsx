@@ -1,4 +1,4 @@
-import { cn, Tabs } from '@wideset/react';
+import { AppShell, cn, Tabs } from '@wideset/react';
 import { useState } from 'react';
 
 import { CustomersTable, type Sort } from './customers-table';
@@ -20,21 +20,11 @@ const FIRST_DIRECTION: Record<SortKey, Sort['direction']> = {
 const OPPOSITE = { asc: 'desc', desc: 'asc' } as const;
 
 /**
- * The surround of each visual direction (specs/patterns/directions.md). An app picks one and keeps
- * it on every screen; this screen carries all four only to show that the page inside stays the
- * same. Copy the one your app uses.
+ * The visual directions (specs/patterns/directions.md), each one `<AppShell direction>`. An app
+ * picks one and keeps it on every screen; this screen takes all four only to show that the page
+ * inside stays the same.
  */
-const SURROUND = {
-  flat: { root: 'bg-ws-static-foreground', sidebar: 'page', main: '' },
-  frame: { root: 'bg-ws-static-foreground', sidebar: 'tinted', main: '' },
-  inset: {
-    root: 'bg-ws-static-background',
-    sidebar: 'frame',
-    main: 'bg-ws-static-foreground rounded-ws-container-lg shadow-ws-low my-ws-7 mr-ws-7 ml-ws-5 overflow-hidden',
-  },
-  canvas: { root: 'bg-ws-static-background', sidebar: 'frame', main: '' },
-} as const;
-export type Direction = keyof typeof SURROUND;
+export type Direction = 'flat' | 'frame' | 'inset' | 'canvas';
 
 const compare =
   ({ key, direction }: Sort) =>
@@ -54,7 +44,6 @@ const compare =
  * bar; the table sorts and pages.
  */
 export default function Customers({ direction = 'flat' }: { direction?: Direction }) {
-  const surround = SURROUND[direction];
   const canvas = direction === 'canvas';
   const [customers, setCustomers] = useState(CUSTOMERS);
   const [segment, setSegment] = useState('all');
@@ -94,9 +83,9 @@ export default function Customers({ direction = 'flat' }: { direction?: Directio
     setCustomers((all) => all.map((c) => (ids.includes(c.id) ? { ...c, owner } : c)));
 
   return (
-    <div className={cn(surround.root, 'flex h-dvh')}>
-      <CustomersSidebar surface={surround.sidebar} />
-      <main className={cn(surround.main, 'flex min-w-0 flex-1 flex-col')}>
+    <AppShell direction={direction}>
+      <CustomersSidebar />
+      <AppShell.Main className="flex flex-col">
         <Tabs
           value={segment}
           onValueChange={showSegment}
@@ -141,7 +130,7 @@ export default function Customers({ direction = 'flat' }: { direction?: Directio
             </div>
           </Tabs.Content>
         </Tabs>
-      </main>
+      </AppShell.Main>
       <SelectionBar
         count={selected.length}
         onClear={() => setSelected([])}
@@ -150,6 +139,6 @@ export default function Customers({ direction = 'flat' }: { direction?: Directio
           setSelected([]);
         }}
       />
-    </div>
+    </AppShell>
   );
 }

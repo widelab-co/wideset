@@ -1,5 +1,5 @@
 import { RiSideBarLine } from '@remixicon/react';
-import { Breadcrumbs, cn, IconButton, ToastProvider, useToast } from '@wideset/react';
+import { AppShell, Breadcrumbs, cn, IconButton, ToastProvider, useToast } from '@wideset/react';
 import { useId, useState } from 'react';
 
 import { AddToCalendarMenu } from './add-to-calendar-menu';
@@ -37,9 +37,9 @@ function EventDetailPage() {
   const people = answer === 'going' ? [me, ...going] : going;
 
   return (
-    <div className="bg-ws-static-background flex h-dvh">
+    <AppShell direction="inset">
       <EventSidebar id={sidebarId} collapsed={collapsed} onCollapsedChange={setCollapsed} />
-      <main className="bg-ws-static-foreground rounded-ws-container-lg shadow-ws-low my-ws-7 mr-ws-7 ml-ws-5 flex min-w-0 flex-1 flex-col overflow-hidden">
+      <AppShell.Main>
         <div className="h-ws-18 border-ws-static-base flex shrink-0 items-center border-b">
           {/* The bar belongs to the surround: it runs edge to edge. The sidebar's toggle is pulled
               left so its glyph, not its box, sits 20px from the edge; the crumbs follow it. */}
@@ -125,8 +125,8 @@ function EventDetailPage() {
             </div>
           </div>
         </div>
-      </main>
-    </div>
+      </AppShell.Main>
+    </AppShell>
   );
 }
 

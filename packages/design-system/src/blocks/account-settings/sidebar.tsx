@@ -63,7 +63,7 @@ export function AccountSidebar(
   );
 
   return (
-    <Sidebar surface="frame" {...props}>
+    <Sidebar {...props}>
       <Sidebar.Header>
         <Sidebar.Expanded>
           <div className="gap-ws-9 flex flex-col">

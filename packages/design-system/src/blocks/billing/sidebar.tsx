@@ -46,7 +46,7 @@ export function BillingSidebar() {
   );
 
   return (
-    <Sidebar surface="frame">
+    <Sidebar>
       <Sidebar.Header>
         <div className="gap-ws-9 flex flex-col">
           <div className="gap-ws-7 pt-ws-3 pb-ws-7 flex items-center">

@@ -1,5 +1,6 @@
 import { RiDeleteBinLine, RiSideBarLine } from '@remixicon/react';
 import {
+  AppShell,
   Breadcrumbs,
   Button,
   cn,
@@ -588,9 +589,9 @@ export default function Files() {
 
   return (
     <ToastProvider>
-      <div className="bg-ws-static-background flex h-dvh">
+      <AppShell direction="inset">
         <FilesSidebar id={sidebarId} collapsed={collapsed} onCollapsedChange={setCollapsed} />
-        <main className="bg-ws-static-foreground rounded-ws-container-lg shadow-ws-low my-ws-7 mr-ws-7 ml-ws-5 flex min-w-0 flex-1 flex-col overflow-hidden">
+        <AppShell.Main>
           <div className="h-ws-18 border-ws-static-base flex shrink-0 items-center border-b">
             {/* The bar belongs to the surround: it runs edge to edge. The sidebar's toggle is
                 pulled left so its glyph, not its box, sits 20px from the edge; the crumbs follow
@@ -618,8 +619,8 @@ export default function Files() {
           <div className="min-h-0 flex-1 overflow-y-auto">
             <FilesPage />
           </div>
-        </main>
-      </div>
+        </AppShell.Main>
+      </AppShell>
     </ToastProvider>
   );
 }

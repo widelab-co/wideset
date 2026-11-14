@@ -1,4 +1,4 @@
-import { Avatar, Button } from '@wideset/react';
+import { AppShell, Avatar, Button } from '@wideset/react';
 import { useState } from 'react';
 
 import { GanttChart } from './chart';
@@ -20,9 +20,9 @@ export default function Gantt() {
   };
 
   return (
-    <div className="bg-ws-static-foreground flex h-dvh flex-col">
-      <TopBar />
-      <main className="flex min-h-0 flex-1 flex-col">
+    <AppShell direction="flat">
+      <AppShell.Main className="flex flex-col">
+        <TopBar />
         <div className="px-ws-11 pt-ws-13 pb-ws-11 flex shrink-0 items-center justify-between">
           <h1 className="typography-title-sm text-ws-static-strong">Marketing</h1>
           <div className="gap-ws-12 flex items-center">
@@ -43,8 +43,8 @@ export default function Gantt() {
           </div>
         </div>
         <GanttChart onOpenTask={openTask} />
-      </main>
+      </AppShell.Main>
       <TaskSidepanel task={task} open={open} onOpenChange={setOpen} />
-    </div>
+    </AppShell>
   );
 }

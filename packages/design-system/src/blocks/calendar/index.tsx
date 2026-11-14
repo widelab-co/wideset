@@ -9,7 +9,7 @@ import {
   RiSearchLine,
   RiSortDesc,
 } from '@remixicon/react';
-import { Avatar, Button, IconButton, Illustration, Tabs } from '@wideset/react';
+import { AppShell, Avatar, Button, IconButton, Illustration, Tabs } from '@wideset/react';
 import { useState } from 'react';
 
 import { announcement, events, members, openMonth, page, selectedDay, today, views } from './data';
@@ -75,9 +75,9 @@ export default function Calendar() {
   const year = Math.floor(month / 12);
 
   return (
-    <div className="bg-ws-static-background flex h-dvh">
+    <AppShell direction="inset">
       <CalendarSidebar />
-      <main className="bg-ws-static-foreground rounded-ws-container-lg shadow-ws-low my-ws-7 mr-ws-7 ml-ws-5 relative flex min-w-0 flex-1 flex-col overflow-hidden">
+      <AppShell.Main>
         <Tabs type="ghost" defaultValue="calendar" className="min-h-0 flex-1">
           <header className="gap-ws-7 px-ws-11 h-ws-20 border-ws-static-base flex shrink-0 items-center border-b">
             <div className="gap-ws-9 flex min-w-0 items-center">
@@ -168,7 +168,7 @@ export default function Calendar() {
             ))}
         </Tabs>
         {showAnnouncement && <AnnouncementCard onDismiss={() => setShowAnnouncement(false)} />}
-      </main>
-    </div>
+      </AppShell.Main>
+    </AppShell>
   );
 }

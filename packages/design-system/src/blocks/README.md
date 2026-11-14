@@ -39,61 +39,36 @@ task, as a byte-identical copy that a test keeps in step.
 | **Inset**  | Navigation on the grey frame; the page is a raised white card | Calendar, Sign In        |
 | **Canvas** | Grey page, top bar on it, content in white cards              | Crypto                   |
 
-### Flat
+Every app screen sets its direction with one prop, `<AppShell direction>` (`specs/patterns/directions.md`);
+the `Sidebar` inside takes the matching surface on its own. Never write the surround by hand. The
+screens before the app (sign in, sign up, not found) have no `AppShell`, and the panel stages
+centre their panel on a plain white screen.
 
 ```tsx
-<div className="bg-ws-static-foreground flex h-dvh">
-  <Sidebar>…</Sidebar> {/* surface="page": white + subtle right line */}
-  <main className="min-w-0 flex-1 overflow-y-auto">…</main>
-</div>
+<AppShell direction="inset">
+  {' '}
+  {/* or flat, frame, canvas */}
+  <Sidebar>…</Sidebar>
+  <AppShell.Main>…</AppShell.Main>
+</AppShell>
 ```
 
-Regions inside the page are split by `border-ws-static-subtle` lines (a page header:
-`border-b`). With a top bar instead of a sidebar, the bar is a `header` on the white;
-Figma's Navigation Bar line (`border-b border-ws-static-base`) stays when content starts right
-under it and goes when the page opens with a large title (Finance).
-
-### Frame
-
-```tsx
-<div className="bg-ws-static-foreground flex h-dvh">
-  <Sidebar surface="tinted">…</Sidebar> {/* grey tint over the white, no line */}
-  <main className="min-w-0 flex-1 overflow-y-auto">…</main>
-</div>
-```
-
-The page is white and full-bleed; panels inside it are split by `border-ws-static-subtle` lines.
-The tint is Figma's Static/Fill/Alpha/Subtle, so in dark the sidebar is a step lighter than the
-page, where Inset's frame is a step darker.
-
-### Inset
-
-```tsx
-<div className="bg-ws-static-background flex h-dvh">
-  <Sidebar surface="frame">…</Sidebar>
-  <main className="bg-ws-static-foreground rounded-ws-container-lg shadow-ws-low my-ws-7 mr-ws-7 ml-ws-5 flex min-w-0 flex-1 flex-col overflow-hidden">
-    … {/* the page scrolls inside the card */}
-  </main>
-</div>
-```
-
-Figma Calendar: card 16px radius (`rounded-ws-container-lg`), Elevation/Low (`shadow-ws-low`,
-none in dark, where the lighter surface carries it), 12px from the top, right and bottom edges and
-8px from the sidebar.
-
-### Canvas
-
-```tsx
-<div className="bg-ws-static-background min-h-dvh">
-  <header className="…">…</header> {/* the top bar sits on the grey, no fill */}
-  <main className="…">
-    <section className="bg-ws-static-foreground rounded-ws-container-md …">…</section>
-  </main>
-</div>
-```
-
-Figma Crypto: cards 12px radius (`rounded-ws-container-md`), no shadow, no border; fields on the
-grey take `bg-ws-static-highlight-base`.
+- **Inset** (Figma Calendar): the page is a white card, 16px radius, Elevation/Low (none in dark,
+  where the lighter surface carries it), 12px from the top, right and bottom edges and 8px from the
+  sidebar; the page scrolls inside it. A bar at its top runs edge to edge with a
+  `border-ws-static-base` line.
+- **Flat**: regions inside the page are split by `border-ws-static-subtle` lines (a page header:
+  `border-b`).
+- **Frame**: the sidebar on Figma's Static/Fill/Alpha/Subtle, so in dark it is a step lighter than
+  the page, where Inset's frame is a step darker; panels inside the page are split by
+  `border-ws-static-subtle` lines.
+- **Canvas** (Figma Crypto): the page is the grey; content in white sections, 12px radius
+  (`rounded-ws-container-md`), no shadow, no border; fields on the grey take
+  `bg-ws-static-highlight-base`.
+- With a top bar instead of a sidebar, the bar is the first child of `AppShell.Main`. Figma's
+  Navigation Bar line (`border-b border-ws-static-base`) stays when content starts right under it
+  and goes when the page opens with a large title (Finance). A board, grid or chart that scrolls on
+  its own fills the page with `min-h-0 flex-1`.
 
 ## Rules
 

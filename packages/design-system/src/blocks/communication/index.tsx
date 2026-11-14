@@ -1,4 +1,4 @@
-import { Toast, ToastProvider, useToast } from '@wideset/react';
+import { AppShell, Toast, ToastProvider, useToast } from '@wideset/react';
 import { useState } from 'react';
 
 import { ChatList } from './chat-list';
@@ -40,10 +40,10 @@ function Panels() {
 export default function Communication() {
   return (
     <ToastProvider position="bottom-center">
-      <div className="bg-ws-static-foreground flex h-dvh">
+      <AppShell direction="frame">
         <CommunicationSidebar />
         <Panels />
-      </div>
+      </AppShell>
     </ToastProvider>
   );
 }

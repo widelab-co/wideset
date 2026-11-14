@@ -1,5 +1,5 @@
 import { RiSideBarLine } from '@remixicon/react';
-import { Breadcrumbs, IconButton, Toast, ToastProvider, useToast } from '@wideset/react';
+import { AppShell, Breadcrumbs, IconButton, Toast, ToastProvider, useToast } from '@wideset/react';
 import { type ReactNode, useEffect, useId, useState } from 'react';
 
 import {
@@ -193,9 +193,9 @@ export default function WorkflowBuilder() {
 
   return (
     <ToastProvider>
-      <div className="bg-ws-static-background flex h-dvh">
+      <AppShell direction="inset">
         <WorkflowSidebar id={sidebarId} collapsed={collapsed} onCollapsedChange={setCollapsed} />
-        <main className="bg-ws-static-foreground rounded-ws-container-lg shadow-ws-low my-ws-7 mr-ws-7 ml-ws-5 flex min-w-0 flex-1 flex-col overflow-hidden">
+        <AppShell.Main>
           <WorkflowEditor
             sidebarToggle={
               <IconButton
@@ -212,8 +212,8 @@ export default function WorkflowBuilder() {
               />
             }
           />
-        </main>
-      </div>
+        </AppShell.Main>
+      </AppShell>
     </ToastProvider>
   );
 }
