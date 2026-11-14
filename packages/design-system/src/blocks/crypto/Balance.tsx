@@ -49,13 +49,22 @@ export function Balance() {
                 <div
                   key={month}
                   title={`${month}: ${formatUsd(usd)}`}
+                  aria-hidden
                   className="bg-ws-non-semantic-pink-strong rounded-ws-control-md"
                   style={{ height: `${(usd / MAX) * 100}%` }}
                 />
               ))}
             </div>
           </div>
-          <div className="mt-ws-9 gap-x-ws-14 grid grid-cols-8">
+          {/* The bars say it visually; a screen reader gets the same values as a list. */}
+          <ul className="sr-only">
+            {MONTHLY_BALANCE.map(({ month, usd }) => (
+              <li key={month}>
+                {month}: {formatUsd(usd)}
+              </li>
+            ))}
+          </ul>
+          <div aria-hidden className="mt-ws-9 gap-x-ws-14 grid grid-cols-8">
             {MONTHLY_BALANCE.map(({ month }) => (
               <span key={month} className="typography-body-sm text-ws-static-subtle text-center">
                 {month}

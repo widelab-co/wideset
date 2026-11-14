@@ -21,16 +21,11 @@ export const COINS: { coin: Coin; name: string }[] = [
 export const QUOTE = {
   sell: { coin: 'BTC' as Coin, amount: '0.39' },
   buy: { coin: 'ETH' as Coin, amount: '12' },
-  summary: [
-    { label: 'Estimate fee', value: 0.005, unit: 'percent' },
-    { label: 'You will receive', value: 3_402.8, unit: 'USD' },
-    { label: 'Spread', value: 0.002, unit: 'percent' },
-    { label: 'Gas fee', value: 0.00045, unit: 'ETH' },
-  ],
-  advanced: [
-    { label: 'Price impact', value: 0.0004, unit: 'percent' },
-    { label: 'Minimum received', value: 11.94, unit: 'ETH' },
-  ],
+  /** The swap's costs as shares of the amount; the gas fee is paid in ETH whatever the pair. */
+  fee: 0.005,
+  spread: 0.002,
+  gasEth: 0.00045,
+  priceImpact: 0.0004,
 } as const;
 
 /** Wallet value at the end of each month, in USD. */

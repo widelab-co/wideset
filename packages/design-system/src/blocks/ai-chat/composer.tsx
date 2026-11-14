@@ -50,7 +50,8 @@ export function Composer({ onSend }: { onSend: (text: string) => void }) {
       onSubmit={send}
       className="bg-ws-static-alpha-subtle p-ws-3 gap-ws-5 flex flex-col rounded-(--ws-radius-600)"
     >
-      <div className="bg-ws-static-overlay shadow-ws-low rounded-ws-container-xl p-ws-5 gap-ws-3 flex flex-col">
+      {/* The textarea draws no outline of its own: the card shows the focus ring around it. */}
+      <div className="bg-ws-static-overlay shadow-ws-low rounded-ws-container-xl p-ws-5 gap-ws-3 has-[textarea:focus-visible]:wds-focus-visible flex flex-col">
         <div className="p-ws-3">
           <textarea
             aria-label="Message"

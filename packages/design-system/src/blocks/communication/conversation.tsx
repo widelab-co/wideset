@@ -266,7 +266,10 @@ export function Conversation({
               value={draft}
               onChange={(event) => setDraft(event.target.value)}
               onKeyDown={(event) => {
-                if (event.key === 'Enter' && !event.shiftKey) send(event);
+                // Shift + Enter keeps the new line; Enter that confirms an IME word is not a send.
+                if (event.key === 'Enter' && !event.shiftKey && !event.nativeEvent.isComposing) {
+                  send(event);
+                }
               }}
             />
             <IconButton

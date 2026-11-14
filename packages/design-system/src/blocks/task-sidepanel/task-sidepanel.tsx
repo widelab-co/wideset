@@ -24,7 +24,7 @@ import {
   Tag,
   type TagProps,
 } from '@wideset/react';
-import { Fragment, type ReactNode } from 'react';
+import { Fragment, type KeyboardEvent, type ReactNode } from 'react';
 
 /*
   The task side panel, one file so it can be copied on its own: the Gantt starting point carries a
@@ -64,6 +64,10 @@ type TaskSidepanelProps = {
   task: TaskDetail;
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  /** Up and Down move to the previous or next record. Its hint shows only when this is passed. */
+  onNavigate?: (direction: 'previous' | 'next') => void;
+  /** Left goes back to the parent record. Its hint shows only when this is passed. */
+  onParent?: () => void;
 };
 
 const TABS = [
@@ -78,7 +82,25 @@ const TABS = [
  * use, so there is no scrim: picking another record swaps the panel's content instead of closing
  * it, and focus stays where the user is. The close button and Esc close it.
  */
-export function TaskSidepanel({ task, open, onOpenChange }: TaskSidepanelProps) {
+export function TaskSidepanel({
+  task,
+  open,
+  onOpenChange,
+  onNavigate,
+  onParent,
+}: TaskSidepanelProps) {
+  // The footer promises only the keys that work: each hint comes with its handler.
+  const onKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    const target = event.target as HTMLElement;
+    if (target.closest('input, textarea, [contenteditable="true"], [role="tablist"]')) return;
+    if (onNavigate && (event.key === 'ArrowUp' || event.key === 'ArrowDown')) {
+      event.preventDefault();
+      onNavigate(event.key === 'ArrowUp' ? 'previous' : 'next');
+    } else if (onParent && event.key === 'ArrowLeft') {
+      event.preventDefault();
+      onParent();
+    }
+  };
   return (
     <Sidepanel open={open} onOpenChange={onOpenChange} modal={false}>
       <Sidepanel.Panel
@@ -87,6 +109,7 @@ export function TaskSidepanel({ task, open, onOpenChange }: TaskSidepanelProps) 
         className="shadow-ws-high"
         onInteractOutside={(event) => event.preventDefault()}
         onOpenAutoFocus={(event) => event.preventDefault()}
+        onKeyDown={onKeyDown}
       >
         <Fragment key={task.title}>
           <div className="border-ws-static-base h-ws-20 gap-ws-7 px-ws-12 flex shrink-0 items-center justify-between border-b">
@@ -223,17 +246,23 @@ export function TaskSidepanel({ task, open, onOpenChange }: TaskSidepanelProps) 
 
           <div className="bg-ws-static-overlay px-ws-12 py-ws-9 flex shrink-0 items-center justify-between">
             <div className="gap-ws-12 flex items-center">
-              <Hint
-                keys={
-                  <span className="gap-ws-3 flex">
-                    <Key icon={RiArrowUpSLine} name="Up arrow" />
-                    <Key icon={RiArrowDownSLine} name="Down arrow" />
-                  </span>
-                }
-              >
-                Navigate
-              </Hint>
-              <Hint keys={<Key icon={RiArrowLeftLine} name="Left arrow" />}>Return to parent</Hint>
+              {onNavigate && (
+                <Hint
+                  keys={
+                    <span className="gap-ws-3 flex">
+                      <Key icon={RiArrowUpSLine} name="Up arrow" />
+                      <Key icon={RiArrowDownSLine} name="Down arrow" />
+                    </span>
+                  }
+                >
+                  Navigate
+                </Hint>
+              )}
+              {onParent && (
+                <Hint keys={<Key icon={RiArrowLeftLine} name="Left arrow" />}>
+                  Return to parent
+                </Hint>
+              )}
             </div>
             <Hint keys={<Key>esc</Key>}>Close</Hint>
           </div>

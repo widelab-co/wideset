@@ -126,7 +126,7 @@
     },
     {
       // Blocks (starting points) are copied whole: the package by name, their own files by a
-      // relative path inside the block, never a library file.
+      // relative path inside the block (./), never a library file or another block (../).
       "files": ["packages/design-system/src/blocks/**/*.{ts,tsx}"],
       "rules": {
         "no-restricted-imports": [
@@ -134,8 +134,8 @@
           {
             "patterns": [
               {
-                "group": ["../../*", "../../../*", "src/*"],
-                "message": "Import the library from '@wideset/react', as a consumer does."
+                "group": ["../*", "src/*"],
+                "message": "Import the library from '@wideset/react' and only the block's own files (./), as a consumer does."
               }
             ]
           }

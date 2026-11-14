@@ -149,7 +149,9 @@ Production on `wideset.co`:
   hostnames; DNS-only, the deploy succeeds and the post-deploy check fails.
 - A Redirect Rule on the zone (Rules → Redirect Rules, dashboard only) sends every other path on
   `wideset.co` to `www.wideset.co`, the landing page. It runs before the Worker routes, so it must
-  exclude exactly the routes in `apps/docs/wrangler.jsonc`: **change both together**. Landing
+  exclude exactly the routes in `apps/docs/wrangler.jsonc`: **change both together**, and change
+  the rule **before** merging the `develop → main` PR that adds a route: the deploy checks every
+  route on `wideset.co`, so a route the rule still redirects fails the release before npm. Landing
   pages must not use paths starting with `/docs`, `/components` or `/blocks`. Expression:
 
   ```text

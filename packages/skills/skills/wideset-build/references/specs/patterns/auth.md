@@ -71,18 +71,21 @@ type Field = 'username' | 'password';
 export function SignInForm({
   signIn,
 }: {
-  signIn: (username: string, password: string) => Promise<boolean>;
+  signIn: (username: string, password: string, remember: boolean) => Promise<boolean>;
 }) {
   const id = useId();
   const [errors, setErrors] = useState<Partial<Record<Field, string>>>({});
-  const [rejected, setRejected] = useState(false);
+  // `rejected`: the credentials don't match; `failed`: the request itself did not go through.
+  const [alert, setAlert] = useState<'rejected' | 'failed' | null>(null);
   const [busy, setBusy] = useState(false);
+  const clear = (field: Field) => setErrors((current) => ({ ...current, [field]: undefined }));
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const username = String(data.get('username') ?? '').trim();
     const password = String(data.get('password') ?? '');
+    const remember = data.get('remember') === 'on';
     const next = {
       username: username ? undefined : 'Enter your e-mail or username.',
       password: password ? undefined : 'Enter your password.',
@@ -94,14 +97,20 @@ export function SignInForm({
       return;
     }
     setBusy(true);
-    const signedIn = await signIn(username, password);
-    setBusy(false);
-    if (signedIn) {
-      window.location.assign('/');
-      return;
+    setAlert(null);
+    try {
+      if (await signIn(username, password, remember)) {
+        window.location.assign('/');
+        return;
+      }
+      setAlert('rejected');
+      document.getElementById(`${id}-password`)?.focus();
+    } catch {
+      setAlert('failed');
+    } finally {
+      // The button comes back whatever happened, so the user can try again.
+      setBusy(false);
     }
-    setRejected(true);
-    document.getElementById(`${id}-password`)?.focus();
   }
 
   return (
@@ -114,12 +123,20 @@ export function SignInForm({
       <h1 id={`${id}-title`} className="typography-title-md text-ws-static-strong">
         Sign in to Wideset
       </h1>
-      {rejected && (
+      {alert === 'rejected' && (
         <InlineAlert
           status="error"
           persistent
           title="That e-mail and password don't match"
           message="Check both, or reset your password."
+        />
+      )}
+      {alert === 'failed' && (
+        <InlineAlert
+          status="error"
+          persistent
+          title="We couldn't sign you in"
+          message="Check your connection and try again."
         />
       )}
       <FormField label="E-mail or username" htmlFor={`${id}-username`} errorText={errors.username}>
@@ -132,6 +149,7 @@ export function SignInForm({
           required
           autoFocus
           variant={errors.username ? 'danger' : 'primary'}
+          onChange={() => clear('username')}
         />
       </FormField>
       <FormField label="Password" htmlFor={`${id}-password`} errorText={errors.password}>
@@ -142,6 +160,7 @@ export function SignInForm({
           autoComplete="current-password"
           required
           variant={errors.password ? 'danger' : 'primary'}
+          onChange={() => clear('password')}
         />
       </FormField>
       <Checkbox name="remember" label="Keep me signed in" />

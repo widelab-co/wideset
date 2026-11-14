@@ -48,7 +48,8 @@ export function ProductPreview({ className }: { className?: string }) {
   return (
     <div
       aria-hidden="true"
-      inert
+      // Set as an attribute: React 18 drops a boolean `inert` prop, React 19 accepts both.
+      ref={(node) => node?.setAttribute('inert', '')}
       className={cn(
         'rounded-ws-container-xl shadow-ws-low relative isolate overflow-hidden bg-(--ws-colors-light-neutral-1100)',
         className,
