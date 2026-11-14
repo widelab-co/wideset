@@ -9,6 +9,8 @@ import {
   PANELS,
 } from '../../blocks';
 import CustomersBlock from '../../blocks/customers';
+import IntegrationsBlock from '../../blocks/integrations';
+import ProductFormBlock from '../../blocks/product-form';
 
 /*
   The starting points: whole screens in src/blocks/<id>/, one story each, full screen. The docs
@@ -101,17 +103,47 @@ export const CustomersFrame = inDirection('customers', CustomersBlock, 'frame');
 export const CustomersInset = inDirection('customers', CustomersBlock, 'inset');
 export const CustomersCanvas = inDirection('customers', CustomersBlock, 'canvas');
 export const CustomerDetail = story('customer-detail');
+export const Billing = story('billing');
 export const Invoice = story('invoice');
+export const Settings = story('settings');
+export const Team = story('team');
+export const Integrations = story('integrations');
+export const IntegrationsFrame = inDirection('integrations', IntegrationsBlock, 'frame');
+export const IntegrationsInset = inDirection('integrations', IntegrationsBlock, 'inset');
+export const Plans = story('plans');
+export const Notifications = story('notifications');
 export const Report = story('report');
 export const Home = story('home');
 export const Dashboard = story('dashboard');
+export const OrderConfirmation = story('order-confirmation');
+export const Checkout = story('checkout');
+export const SendPayment = story('send-payment');
 export const Orders = story('orders');
 export const OrderDetail = story('order-detail');
+export const Referrals = story('referrals');
+export const CancelSubscription = story('cancel-subscription');
 export const ActivityFeed = story('activity-feed');
 export const Reviews = story('reviews');
 export const Goals = story('goals');
 export const Profile = story('profile');
+export const AccessRequests = story('access-requests');
+export const AccountSettings = story('account-settings');
 export const Files = story('files');
 export const Gallery = story('gallery');
+export const ProductForm = story('product-form');
+export const ProductFormCentered: Story = {
+  name: 'Product form, centred (Inset, sidebar)',
+  args: { id: 'product-form' },
+  render: () => <ProductFormBlock layout="centered" />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'The product form as one centred column: every section in reading order, the actions in a bar at the bottom. Compare it with the two-column layout.',
+      },
+    },
+  },
+};
+export const Import = story('import');
 export const Pipeline = story('pipeline');
 export const TaskSidepanel = panelStory('task-sidepanel');
