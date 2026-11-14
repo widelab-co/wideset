@@ -1,12 +1,12 @@
 import { Table, TextInput } from '@wideset/react';
 
-import { type ProductDraft, type VariantFields, variantFields } from './data';
+import { type ProductDraft, type Variant, type VariantFields, variantFields } from './data';
 import { MoneyInput } from './money-input';
 
 type VariantsTableProps = {
   draft: ProductDraft;
-  names: string[];
-  onChange: (name: string, fields: VariantFields) => void;
+  variants: Variant[];
+  onChange: (variant: Variant, fields: VariantFields) => void;
 };
 
 /**
@@ -14,7 +14,7 @@ type VariantsTableProps = {
  * tracked, its own count. A new variant starts at the product's price. The figures are fields
  * right-aligned in their column, so they read as numbers, not as a form.
  */
-export function VariantsTable({ draft, names, onChange }: VariantsTableProps) {
+export function VariantsTable({ draft, variants, onChange }: VariantsTableProps) {
   return (
     <Table size="sm" aria-label="Variants" className="w-full">
       <Table.Head>
@@ -31,10 +31,11 @@ export function VariantsTable({ draft, names, onChange }: VariantsTableProps) {
         </Table.Row>
       </Table.Head>
       <Table.Body>
-        {names.map((name) => {
-          const fields = variantFields(draft, name);
+        {variants.map((variant) => {
+          const { name } = variant;
+          const fields = variantFields(draft, variant);
           return (
-            <Table.Row key={name}>
+            <Table.Row key={variant.key}>
               <Table.Cell flushMargin className="text-ws-static-strong">
                 {name}
               </Table.Cell>
@@ -44,7 +45,7 @@ export function VariantsTable({ draft, names, onChange }: VariantsTableProps) {
                   alignEnd
                   className="w-[8rem]"
                   value={fields.price}
-                  onChange={(price) => onChange(name, { ...fields, price })}
+                  onChange={(price) => onChange(variant, { ...fields, price })}
                 />
               </Table.Cell>
               {draft.trackStock && (
@@ -58,7 +59,7 @@ export function VariantsTable({ draft, names, onChange }: VariantsTableProps) {
                     className="w-[6rem]"
                     value={fields.stock}
                     onChange={(event) =>
-                      onChange(name, { ...fields, stock: event.target.value.replace(/\D/g, '') })
+                      onChange(variant, { ...fields, stock: event.target.value.replace(/\D/g, '') })
                     }
                   >
                     <TextInput.Input className="text-right tabular-nums" />

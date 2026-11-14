@@ -1,7 +1,7 @@
 import { RiAddLine } from '@remixicon/react';
 import { Button, Checkbox } from '@wideset/react';
 
-import { OPTION_LIMIT, type ProductDraft, variantNames } from './data';
+import { OPTION_LIMIT, type ProductDraft, variantsOf } from './data';
 import { FormSection } from './form-section';
 import { OPTION_GRID, OptionRow } from './option-row';
 import { VariantsTable } from './variants-table';
@@ -21,7 +21,7 @@ const COLUMN_LABEL = 'typography-label-strong-sm text-ws-static-strong';
  * as most catalogues allow.
  */
 export function OptionsSection({ id, draft, onChange }: OptionsSectionProps) {
-  const names = variantNames(draft.options);
+  const variants = variantsOf(draft.options);
   const nameId = (optionId: string) => `${id}-option-${optionId}`;
 
   const addOption = () => {
@@ -81,12 +81,12 @@ export function OptionsSection({ id, draft, onChange }: OptionsSectionProps) {
             )}
           </div>
 
-          {names.length > 0 && (
+          {variants.length > 0 && (
             <VariantsTable
               draft={draft}
-              names={names}
-              onChange={(name, fields) =>
-                onChange({ variants: { ...draft.variants, [name]: fields } })
+              variants={variants}
+              onChange={(variant, fields) =>
+                onChange({ variants: { ...draft.variants, [variant.key]: fields } })
               }
             />
           )}

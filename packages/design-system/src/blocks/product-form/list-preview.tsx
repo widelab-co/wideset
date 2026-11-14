@@ -2,14 +2,16 @@ import { RiImageAddLine, RiImageLine } from '@remixicon/react';
 import { Card } from '@wideset/react';
 import { useId } from 'react';
 
-import { type ProductDraft, variantFields, variantNames } from './data';
+import { type ProductDraft, variantFields, variantsOf } from './data';
 import { formatUsd, parseAmount } from './format';
 
 /** The price a list shows: one figure, or the lowest with "From" when the variants differ. */
 function priceOf(draft: ProductDraft) {
-  const names = draft.hasOptions ? variantNames(draft.options) : [];
+  const variants = draft.hasOptions ? variantsOf(draft.options) : [];
   const prices = (
-    names.length > 0 ? names.map((name) => variantFields(draft, name).price) : [draft.price]
+    variants.length > 0
+      ? variants.map((variant) => variantFields(draft, variant).price)
+      : [draft.price]
   )
     .map(parseAmount)
     .filter((cents) => cents > 0);
