@@ -53,7 +53,7 @@ in the primary fill (so a rebrand follows). Each size is its own drawing.
 ## Accessibility
 
 - Decorative by default: `aria-hidden`, so a screen reader reads only the text beside it.
-- With `title` it becomes `role="img"` named by its title.
+- With `title` it becomes `role="img"` named by its title; an `aria-label` names it the same way.
 
 ## Do / Don't
 
