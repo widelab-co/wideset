@@ -112,7 +112,7 @@ export const events: CalendarEvent[] = [
   },
   { id: 'time-off', title: 'Time off', start: '2024-05-08', color: 'busy' },
   { id: 'jam-9', title: 'Design Jam', start: '2024-05-09', time: '8pm - 9pm', color: 'teal' },
-  { id: 'sync-9', title: 'Maya & Jonas', start: '2024-05-09', color: 'green' },
+  { id: 'sync-9', title: 'Maciej & Michał', start: '2024-05-09', color: 'green' },
   { id: 'jam-14', title: 'Design Jam', start: '2024-05-14', end: '2024-05-16', color: 'teal' },
   {
     id: 'critique-20',
@@ -121,7 +121,7 @@ export const events: CalendarEvent[] = [
     time: '10am - 11am',
     color: 'cyan',
   },
-  { id: 'sync-23', title: 'Maya & Jonas', start: '2024-05-23', color: 'green' },
+  { id: 'sync-23', title: 'Maciej & Michał', start: '2024-05-23', color: 'green' },
   {
     id: 'sprint',
     title: 'Sprint Planning',
