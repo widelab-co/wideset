@@ -55,7 +55,7 @@
 // Do: one tree
 <Sidebar.Section>{nav}</Sidebar.Section>
 
-// Do: a section's one "+" ends the header row 4px in, a shortcut shows on hover
+// Do: a section's one "+" ends the header row, a shortcut shows on hover
 <div className="flex items-end">
   <Sidebar.SectionHeader id="shared" className="flex-1">Shared</Sidebar.SectionHeader>
   <IconButton size="xs" preset="ghost" variant="secondary" icon={RiAddLine} aria-label="Add a shared page" className="mr-ws-3" />

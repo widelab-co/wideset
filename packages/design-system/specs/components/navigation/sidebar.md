@@ -104,9 +104,9 @@ The root fills its parent's height; place it in a full-height flex row next to t
   ("P…"), so put the distinguishing word first.
 - Everything on the right of the sidebar ends on one edge: suffixes, a section's "+", the
   arrows in the header and the footer. An absolutely placed button misses the edge.
-- Every icon button in the sidebar is the same `IconButton size="xs"` (secondary, ghost), 4px in
-  from the content edge: the header's switcher arrow and a section's "+" then read as one family,
-  with the same hover box. A 32px arrow beside a 24px "+" looks like two different controls.
+- Every icon button in the sidebar is the same `IconButton size="xs"` (secondary, ghost), on the
+  right edge above: the header's switcher arrow and a section's "+" then read as one family, with
+  the same hover box. A bigger arrow beside a smaller "+" looks like two different controls.
 - A keyboard shortcut (`⌘1`) is a hint: put it in `suffix` with `suffixOnHover`, so it shows on
   hover and keyboard focus and the column stays quiet. Counts and badges stay visible.
 - A line across the sidebar (above the account, between groups): on `page` it may run edge to
@@ -167,7 +167,7 @@ The root fills its parent's height; place it in a full-height flex row next to t
 // Do: one tree
 <Sidebar.Section>{nav}</Sidebar.Section>
 
-// Do: a section's one "+" ends the header row 4px in, a shortcut shows on hover
+// Do: a section's one "+" ends the header row, a shortcut shows on hover
 <div className="flex items-end">
   <Sidebar.SectionHeader id="shared" className="flex-1">Shared</Sidebar.SectionHeader>
   <IconButton size="xs" preset="ghost" variant="secondary" icon={RiAddLine} aria-label="Add a shared page" className="mr-ws-3" />

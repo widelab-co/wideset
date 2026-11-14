@@ -45,12 +45,12 @@ only to override it. Spacing and radii are Figma's.
 </AppShell>
 ```
 
-The page is a white card 12px from the top, right and bottom edges and 8px from the sidebar,
-with a 16px radius and `shadow-ws-low` (none in dark, where the lighter surface carries the
-lift). The page scrolls inside the card, so its corners stay put. The sidebar sits on the grey
-frame (`surface="frame"`) and centres its nav in its column: 18px from the window edge, as far as
-from the card. A line inside it (above the account) keeps that inset; run edge to edge it stops
-in the grey before the card and reads as broken.
+`AppShell` draws the page as a raised white card inside the grey frame (in dark the lighter
+surface carries the lift, with no shadow); do not add the card's margin, radius or shadow
+yourself. The page scrolls inside the card, so its corners stay put. The sidebar takes the frame
+surface on its own (`surface="frame"`) and centres its nav in its column. A line inside it (above
+the account) keeps the sidebar's inset; run edge to edge it stops in the grey before the card and
+reads as broken.
 
 ### Flat
 
@@ -90,7 +90,7 @@ page are split by `border-ws-static-subtle` lines, never by gaps of grey.
 ```
 
 The page is the grey itself. The top bar is the first child of `AppShell.Main`, with no fill: it
-sits on the grey and scrolls with the page. Content goes in white sections with a 12px radius, no
+sits on the grey and scrolls with the page. Content goes in white sections (`rounded-ws-container-md`), no
 border and no shadow; a field placed directly on the grey takes `bg-ws-static-highlight-base`.
 
 ### Top bar instead of a sidebar
