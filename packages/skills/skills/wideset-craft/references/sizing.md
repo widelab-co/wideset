@@ -24,18 +24,18 @@ Not every component names its sizes the same way, and **most component defaults 
 not the screen default**. This table is the "same height" row for each mode, with the `size` you
 must pass to get it:
 
-| Component                                          | Default (32px)              | Comfortable (40px)        | Large (48px) | Note                                                         |
-| -------------------------------------------------- | --------------------------- | ------------------------- | ------------ | ------------------------------------------------------------ |
-| Button, IconButton, SplitButton                    | `size="sm"`                 | `md` (default)            | `lg`         | `xs` (24px) only inside dense rows                           |
-| TextInput, Select, MultiSelect, ComboBox, Textarea | `size="sm"`                 | `md` (default)            | `lg`         |                                                              |
-| SegmentedControl                                   | `size="sm"`                 | `md` (default)            | `lg`         |                                                              |
-| FilterButton                                       | `sm` (default)              | `size="md"`               | `lg`         |                                                              |
-| Chip                                               | `md` (default, 32px)        | `size="lg"` (40px)        | —            |                                                              |
-| Tabs                                               | `sm` (default)              | `size="lg"` for page tabs | `lg`         | Tabs inside a card or panel stay `sm` in every mode          |
-| Table rows                                         | `sm` (default, 40px)        | `sm`                      | `md` (48px)  | `size="sm"` is the smallest Table                            |
-| Checkbox, RadioButton, Switch                      | `sm`                        | `lg` (default)            | `lg`         | Label text matches the fields                                |
-| StatusBadge, Tag                                   | `sm`                        | `md` (default)            | `lg`         | Badges are content, not controls; never match the row height |
-| Avatar                                             | `md` in lists, `sm` in rows | the same                  | `lg`         |                                                              |
+| Component                                          | Default (32px)              | Comfortable (40px)        | Large (48px) | Note                                                          |
+| -------------------------------------------------- | --------------------------- | ------------------------- | ------------ | ------------------------------------------------------------- |
+| Button, IconButton, SplitButton                    | `size="sm"`                 | `md` (default)            | `lg`         | `xs` (24px) only inside dense rows                            |
+| TextInput, Select, MultiSelect, ComboBox, Textarea | `size="sm"`                 | `md` (default)            | `lg`         |                                                               |
+| SegmentedControl                                   | `size="sm"`                 | `md` (default)            | `lg`         |                                                               |
+| FilterButton                                       | `sm` (default)              | `size="md"`               | `lg`         |                                                               |
+| Chip                                               | `md` (default, 32px)        | `size="lg"` (40px)        | —            |                                                               |
+| Tabs                                               | `sm` (default)              | `size="lg"` for page tabs | `lg`         | Tabs inside a card or panel stay `sm` in every mode           |
+| Table rows                                         | `sm` (default, 40px)        | `sm`                      | `md` (48px)  | `size="sm"` is the smallest Table; denser work is Spreadsheet |
+| Checkbox, RadioButton, Switch                      | `sm`                        | `lg` (default)            | `lg`         | Label text matches the fields                                 |
+| StatusBadge, Tag                                   | `sm`                        | `md` (default)            | `lg`         | Badges are content, not controls; never match the row height  |
+| Avatar                                             | `md` in lists, `sm` in rows | the same                  | `lg`         |                                                               |
 
 Icons follow the control: pass the icon component and let the control size it; never set `size-*`
 on an icon inside a control.
@@ -69,7 +69,7 @@ on an icon inside a control.
 
 When someone asks for "denser" or "more on the screen", the controls are already 32px: keep them,
 take the gaps one step down (`gap-ws-5` → `gap-ws-4` in toolbars, `gap-ws-12` → `gap-ws-9` between
-sections). Body text stays `typography-body-md`
+sections), and move cell-by-cell data to a `Spreadsheet`. Body text stays `typography-body-md`
 (do not shrink reading text to fit).
 
 ## Comfortable
@@ -94,7 +94,7 @@ colour, not size.
 - **A single hero action** (empty state, result) stays at the screen's size; centring and space
   make it the focal point, not a bigger size.
 - **Sign-in and sign-up** follow Figma's Sign In, not the default: `md` (40px) fields and a `lg`
-  (48px) full-width submit, the only filled button on the screen.
+  (48px) full-width submit, the only filled button on the screen. See the auth pattern.
 - **Checkbox and Switch in a form** take the size that lines their label up with the field values
   (`sm` beside 32px fields, `lg` beside 40px ones).
 

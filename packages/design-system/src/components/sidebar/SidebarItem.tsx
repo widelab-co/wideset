@@ -18,6 +18,7 @@ const SidebarItem = React.forwardRef<HTMLAnchorElement, SidebarItemProps>(
       icon: Icon,
       label,
       suffix,
+      suffixOnHover = false,
       nested = false,
       active = false,
       disabled = false,
@@ -61,7 +62,10 @@ const SidebarItem = React.forwardRef<HTMLAnchorElement, SidebarItemProps>(
           <span className="typography-label-strong-sm min-w-0 flex-1 truncate">{label}</span>
         )}
         {isCollapsed || suffix == null ? null : (
-          <span data-slot="sidebar-item-suffix" className={sidebarItemSuffixVariants()}>
+          <span
+            data-slot="sidebar-item-suffix"
+            className={sidebarItemSuffixVariants({ onHover: suffixOnHover })}
+          >
             {suffix}
           </span>
         )}
