@@ -5,6 +5,7 @@ import { describe, expect, it } from 'vitest';
 import { Button } from '../components/button/Button';
 import { IconButton } from '../components/button/IconButton';
 import { Chip } from '../components/chip/Chip';
+import { FilterButton } from '../components/filter-button/FilterButton';
 import { Select } from '../components/select/Select';
 
 // The press shrink (pressMotion) belongs to buttons only.
@@ -33,6 +34,12 @@ describe('Press scale', () => {
     );
 
     expect(screen.getByRole('combobox', { name: 'Country' }).className).not.toMatch(pressScale);
+  });
+
+  it('does not shrink a FilterButton on press', () => {
+    render(<FilterButton options={[]} defaultValue={[]} onChange={() => {}} />);
+
+    expect(screen.getByRole('button', { name: 'Filter' }).className).not.toMatch(pressScale);
   });
 
   it('does not shrink a Chip on press', () => {

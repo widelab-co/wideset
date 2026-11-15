@@ -31,8 +31,8 @@ Docs: `https://wideset.co/docs/motion` · Source:
 Rule of thumb: opening is `fast` + `smooth-out`, closing is `quick`, hover and press are
 `micro`/`quick` + `ease-out`. Exits are shorter than entrances.
 
-Only buttons shrink on press (Button, IconButton, SplitButton, FilterButton). Fields, select and
-date triggers, tabs, chips, list rows, tiles and calendar days change colour on press, never size.
+Only buttons shrink on press (Button, IconButton, SplitButton). Fields, select, date and filter
+triggers, tabs, chips, list rows, tiles and calendar days change colour on press, never size.
 
 ## Using the tokens in your own UI
 
