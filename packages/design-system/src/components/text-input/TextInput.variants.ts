@@ -195,6 +195,16 @@ export const textInputInfoVariants = cva(
   },
 );
 
+/**
+ * The clear button takes the radius of the IconButton that Figma puts in a field of this size
+ * (XSmall in sm, Small in md and lg).
+ */
+export const textInputClearButtonSizes = {
+  sm: 'xs',
+  md: 'sm',
+  lg: 'sm',
+} as const;
+
 export const textInputClearButtonVariants = cva('shrink-0 p-0', {
   variants: {
     size: {

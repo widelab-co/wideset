@@ -308,6 +308,11 @@ describe('TextInput', () => {
       expect(screen.getByLabelText('Clear')).toBeInTheDocument();
     });
 
+    it('gives the clear button the IconButton radius', () => {
+      render(<Clearable initialValue="some text" />);
+      expect(screen.getByRole('button', { name: 'Clear' })).toHaveClass('rounded-ws-control-lg');
+    });
+
     it('appears with the first typed character and disappears when the value is emptied', async () => {
       const user = userEvent.setup();
       render(<Clearable />);

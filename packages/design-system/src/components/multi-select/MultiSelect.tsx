@@ -21,6 +21,7 @@ import { Select } from '../select/Select';
 import { SelectContext } from '../select/Select.context';
 import {
   selectClearButtonIconVariants,
+  selectClearButtonSizes,
   selectClearButtonVariants,
   selectValueRightPaddingVariants,
 } from '../select/Select.variants';
@@ -397,6 +398,7 @@ export const MultiSelect = ({
               icon={RiCloseLine}
               preset="ghost"
               variant="secondary"
+              size={selectClearButtonSizes[size ?? 'md']}
               defaultMotion={motion}
               className={selectClearButtonVariants({
                 size,

@@ -19,6 +19,7 @@ import type {
 } from './Select.types';
 import {
   selectClearButtonIconVariants,
+  selectClearButtonSizes,
   selectClearButtonVariants,
   selectValuePrefixVariants,
   selectValueRightPaddingVariants,
@@ -248,6 +249,7 @@ export const Select = ({
                   icon={RiCloseLine}
                   preset="ghost"
                   variant="secondary"
+                  size={selectClearButtonSizes[size ?? 'md']}
                   className={selectClearButtonVariants({ size, hideArrow })}
                   iconClassName={selectClearButtonIconVariants({ size })}
                 />

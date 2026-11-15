@@ -408,6 +408,18 @@ describe('Select', () => {
       expect(screen.queryByLabelText('Clear selection')).not.toBeInTheDocument();
     });
 
+    it.each([
+      ['sm', 'rounded-ws-control-md'],
+      ['md', 'rounded-ws-control-lg'],
+      ['lg', 'rounded-ws-control-lg'],
+    ] as const)('gives the clear button the IconButton radius at %s', async (size, radius) => {
+      render(<Select options={baseOptions} defaultValue="poland" clearable size={size} />);
+
+      const clearButton = await screen.findByRole('button', { name: 'Clear selection' });
+      expect(clearButton).toHaveClass(radius);
+      expect(clearButton).not.toHaveClass('rounded-full');
+    });
+
     it('shows clear button when value is selected and clearable is true', async () => {
       render(
         <Select

@@ -7,6 +7,7 @@ import { IconButton } from '../button/IconButton';
 import { Popup } from '../popup/Popup';
 import {
   selectClearButtonIconVariants,
+  selectClearButtonSizes,
   selectClearButtonVariants,
   selectTriggerSuffixIconVariants,
   selectTriggerSuffixVariants,
@@ -190,6 +191,7 @@ const ComboBoxTrigger = React.forwardRef<HTMLDivElement, ComboBoxTriggerProps>(
                 icon={RiCloseLine}
                 preset="ghost"
                 variant="secondary"
+                size={selectClearButtonSizes[size ?? 'md']}
                 className={cn(
                   selectClearButtonVariants({ size, hideArrow: false }),
                   clearButtonOffsetVariants({ size }),

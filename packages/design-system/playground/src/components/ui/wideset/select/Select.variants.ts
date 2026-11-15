@@ -170,7 +170,17 @@ export const selectContentMotionVariants = cva('', {
   defaultVariants: { enabled: true },
 });
 
-export const selectClearButtonVariants = cva('relative shrink-0 rounded-full p-0', {
+/**
+ * The clear button is an IconButton one step below the field, as in Figma (XSmall, Small and
+ * Medium for sm, md and lg): it takes that size's radius, never a radius of its own.
+ */
+export const selectClearButtonSizes = {
+  sm: 'xs',
+  md: 'sm',
+  lg: 'md',
+} as const;
+
+export const selectClearButtonVariants = cva('relative shrink-0 p-0', {
   variants: {
     size: {
       sm: 'size-ws-11',

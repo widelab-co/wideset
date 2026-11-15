@@ -8,6 +8,7 @@ import { setNativeInputValue } from './TextInput.logic';
 import type { TextInputClearButtonProps } from './TextInput.types';
 import {
   textInputClearButtonIconVariants,
+  textInputClearButtonSizes,
   textInputClearButtonVariants,
 } from './TextInput.variants';
 
@@ -38,6 +39,7 @@ export const TextInputClearButton = React.forwardRef<HTMLButtonElement, TextInpu
         icon={icon}
         preset="ghost"
         variant="secondary"
+        size={textInputClearButtonSizes[size ?? 'md']}
         iconClassName={cn(textInputClearButtonIconVariants({ size }), iconClassName)}
         className={cn(textInputClearButtonVariants({ size }), className)}
         defaultMotion={defaultMotion ?? motion}
