@@ -1,0 +1,70 @@
+---
+import PageHead from '../../../components/PageHead.astro';
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import { blockCategories, blocks, blocksNav, shot } from '../../../lib/blocks';
+
+/**
+ * Blocks: whole screens to start a product from, by business domain, two across. A thumbnail is
+ * the top left of the block's screenshot at a readable size on the soft stage (cropped, not
+ * shrunk); the light shot, or the dark one on the dark page. On hover only the title underlines.
+ */
+---
+
+<DocsLayout
+  title="Blocks"
+  description="Whole screens to start a product from."
+  area="blocks"
+  nav={blocksNav}
+  current="/docs/blocks"
+  search="Search blocks…"
+  broad
+>
+  <PageHead
+    title="Blocks"
+    description={`${blocks.length} whole screens built from Wideset components, to start a product from: copy the one closest to yours and change the content.`}
+  />
+  <div class="flex flex-col gap-ws-21">
+    {blockCategories.map((category) => (
+      <section id={category.slug} class="scroll-mt-ws-21">
+        <h2 class="text-ws-static-strong typography-subtitle-sm">{category.label}</h2>
+        <ul class="mt-ws-9 grid grid-cols-1 gap-x-ws-11 gap-y-ws-14 md:grid-cols-2">
+          {category.blocks.map((block) => (
+            <li>
+              <a
+                href={`/docs/blocks/${block.id}`}
+                class="group flex flex-col gap-ws-6 no-underline"
+              >
+                <div class="bg-ws-static-alpha-subtle aspect-[16/10] overflow-hidden rounded-ws-container-md pt-ws-14 pl-ws-14">
+                  {block.shot && (
+                    <div class="border-ws-static-subtle bg-ws-static-foreground h-full w-[150%] overflow-hidden rounded-tl-ws-control-lg border-t border-l">
+                      <img
+                        src={shot(block.id, 'light')}
+                        alt=""
+                        loading="lazy"
+                        class="docs-shot-light block w-full"
+                      />
+                      <img
+                        src={shot(block.id, block.dark ? 'dark' : 'light')}
+                        alt=""
+                        loading="lazy"
+                        class="docs-shot-dark block w-full"
+                      />
+                    </div>
+                  )}
+                </div>
+                <div class="flex flex-col gap-ws-2">
+                  <span class="text-ws-static-strong typography-label-strong-sm group-hover:underline">
+                    {block.title}
+                  </span>
+                  <span class="text-ws-static-subtle line-clamp-1 typography-body-sm">
+                    {block.description}
+                  </span>
+                </div>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))}
+  </div>
+</DocsLayout>
