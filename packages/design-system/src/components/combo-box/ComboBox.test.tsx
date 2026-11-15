@@ -609,3 +609,15 @@ describe('ComboBox aria-invalid', () => {
     expect(await screen.findByRole('combobox')).toHaveAttribute('aria-invalid', 'true');
   });
 });
+
+describe('ComboBox clear button', () => {
+  it('places the clear button in the row, right before the chevron', () => {
+    render(<ComboBox options={options} defaultValue="poland" clearable />);
+
+    const clearButton = screen.getByRole('button', { name: 'Clear selection' });
+    // In the row: no offset or negative margin pulls it away from the chevron.
+    expect(clearButton.className).not.toMatch(/(^|\s)-?(right|left)-|-ml-/);
+    expect(clearButton.previousElementSibling).toHaveTextContent('Poland');
+    expect(clearButton.nextElementSibling?.querySelector('svg')).toBeInTheDocument();
+  });
+});
