@@ -19,7 +19,12 @@ export default function Kanban() {
           const items = column.items.filter(
             (item) => item.assignee != null && assignees.includes(item.assignee.name),
           );
-          return { ...column, items, count: items.length };
+          // The count is of tasks, a stack's hidden ones included, as in the unfiltered column.
+          const count = items.reduce(
+            (total, item) => total + ('tasks' in item ? item.tasks.length + (item.hidden ?? 0) : 1),
+            0,
+          );
+          return { ...column, items, count };
         });
   const [sort, setSort] = useState('newest');
 

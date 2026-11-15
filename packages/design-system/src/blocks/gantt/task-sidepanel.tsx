@@ -95,7 +95,13 @@ export function TaskSidepanel({
     if (target.closest('input, textarea, [contenteditable="true"], [role="tablist"]')) return;
     if (onNavigate && (event.key === 'ArrowUp' || event.key === 'ArrowDown')) {
       event.preventDefault();
+      // The next record remounts the content, and a focused control in it goes too: focus then
+      // returns to the panel, so the next arrow still reaches it.
+      const panel = event.currentTarget;
       onNavigate(event.key === 'ArrowUp' ? 'previous' : 'next');
+      requestAnimationFrame(() => {
+        if (!panel.contains(document.activeElement)) panel.focus();
+      });
     } else if (onParent && event.key === 'ArrowLeft') {
       event.preventDefault();
       onParent();
