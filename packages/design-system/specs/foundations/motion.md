@@ -31,6 +31,9 @@ Docs: `https://wideset.co/docs/motion` · Source:
 Rule of thumb: opening is `fast` + `smooth-out`, closing is `quick`, hover and press are
 `micro`/`quick` + `ease-out`. Exits are shorter than entrances.
 
+Only buttons shrink on press (Button, IconButton, SplitButton, FilterButton). Fields, select and
+date triggers, tabs, chips, list rows, tiles and calendar days change colour on press, never size.
+
 ## Using the tokens in your own UI
 
 Reference tokens with Tailwind's variable syntax, exactly as the components do:
@@ -73,7 +76,7 @@ Redefine a token in a stylesheet loaded after Wideset's; wrap it in
 @media (prefers-reduced-motion: no-preference) {
   :root {
     --ws-motion-duration-quick: 100ms;
-    --ws-motion-scale-small: 1; /* no shrink on press */
+    --ws-motion-scale-small: 1; /* buttons do not shrink on press */
   }
 }
 ```

@@ -8,7 +8,11 @@ export const boxFillMotion =
 export const hoverTintMotion =
   'transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)';
 
-/** Compose with hoverTintMotion for press feedback and a smooth release. */
+/**
+ * Press feedback for buttons only (Button, IconButton, SplitButton, FilterButton): a slight
+ * shrink while pressed. Compose with hoverTintMotion for a smooth release. Fields, triggers, tabs,
+ * chips, rows and tiles keep hoverTintMotion alone: they change colour on press, never size.
+ */
 export const pressMotion = cn(
   'active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro)',
   'active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)',
