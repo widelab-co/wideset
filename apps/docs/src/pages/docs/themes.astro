@@ -1,0 +1,22 @@
+---
+import PageHead from '../../components/PageHead.astro';
+import Themes from '../../components/Themes';
+import DocsLayout from '../../layouts/DocsLayout.astro';
+
+/** The theme customiser, in the shell every page has. */
+---
+
+<DocsLayout title="Themes" description="Make Wideset your own." area="themes" broad>
+  {/* Poppins (open) for the Lime preset's specimen and components; the other brand fonts are
+      proprietary and stand in as Inter. */}
+  <link
+    slot="head"
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+  />
+  <PageHead
+    title="Themes"
+    description="Make it yours, keep the foundation: a brand preset sets the colour, the corners and the font, and every component follows."
+  />
+  <Themes client:load />
+</DocsLayout>

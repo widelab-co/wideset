@@ -1,0 +1,26 @@
+---
+import PageHead from '../../components/PageHead.astro';
+import PlaygroundPage from '../../components/PlaygroundPage';
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import { projectPaths } from '../../lib/registry';
+import { playgroundItems, playgroundSidebar } from '../../lib/sidebar';
+
+/** The Playground, in the shell every page has: the components in the sidebar (`?c=`). */
+---
+
+<DocsLayout
+  title="Playground"
+  description="Try every component's props live."
+  area="playground"
+  nav={playgroundSidebar()}
+  current="/docs/playground?c=button"
+  search="Search components…"
+  soft
+  broad
+>
+  <PageHead
+    title="Playground"
+    description="Pick a component, set its props and copy the code; the address keeps the configuration."
+  />
+  <PlaygroundPage items={playgroundItems} paths={projectPaths()} client:only="react" />
+</DocsLayout>
