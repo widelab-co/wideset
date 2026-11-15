@@ -12,6 +12,9 @@ Components animate out of the box: press feedback, hover tints, menus, toasts, f
 Every transition reads its duration, easing, distance and scale from `--ws-motion-*` tokens,
 and all of it respects `prefers-reduced-motion`. There is nothing to set up.
 
+Only buttons shrink when pressed. Fields, selects, tabs, chips and list rows change colour on
+press, never size.
+
 ## Turn it off
 
 `MotionProvider` for the whole app or a subtree, `defaultMotion` for one component. The prop
@@ -36,7 +39,7 @@ follows:
 @media (prefers-reduced-motion: no-preference) {
   :root {
     --ws-motion-duration-quick: 100ms; /* snappier hovers and closes */
-    --ws-motion-scale-small: 1; /* no shrink on press */
+    --ws-motion-scale-small: 1; /* buttons do not shrink on press */
   }
 }
 ```

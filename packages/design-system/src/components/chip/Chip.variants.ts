@@ -1,7 +1,7 @@
 import { cva } from 'class-variance-authority';
 import { cn } from 'src/lib/utils';
 
-import { hoverTintMotion, pressMotion } from '../../motion/recipes';
+import { hoverTintMotion } from '../../motion/recipes';
 
 export const chipVariants = cva(
   cn(
@@ -69,15 +69,7 @@ export const chipVariants = cva(
 
 export const chipMotionVariants = cva('', {
   variants: {
-    enabled: {
-      true: cn(
-        hoverTintMotion,
-        pressMotion,
-        'data-[pressed=true]:duration-(--ws-motion-duration-micro)',
-        'data-[pressed=true]:scale-(--ws-motion-scale-small)',
-      ),
-      false: '',
-    },
+    enabled: { true: hoverTintMotion, false: '' },
   },
   defaultVariants: { enabled: true },
 });

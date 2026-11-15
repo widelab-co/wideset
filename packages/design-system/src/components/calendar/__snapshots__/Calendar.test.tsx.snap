@@ -249,7 +249,7 @@ exports[`Calendar > Snapshots > should match snapshot for days view 1`] = `
               >
                 <button
                   aria-label="Wednesday, January 1st, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="0"
                   type="button"
                 >
@@ -263,7 +263,7 @@ exports[`Calendar > Snapshots > should match snapshot for days view 1`] = `
               >
                 <button
                   aria-label="Thursday, January 2nd, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -277,7 +277,7 @@ exports[`Calendar > Snapshots > should match snapshot for days view 1`] = `
               >
                 <button
                   aria-label="Friday, January 3rd, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -291,7 +291,7 @@ exports[`Calendar > Snapshots > should match snapshot for days view 1`] = `
               >
                 <button
                   aria-label="Saturday, January 4th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -309,7 +309,7 @@ exports[`Calendar > Snapshots > should match snapshot for days view 1`] = `
               >
                 <button
                   aria-label="Sunday, January 5th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -323,7 +323,7 @@ exports[`Calendar > Snapshots > should match snapshot for days view 1`] = `
               >
                 <button
                   aria-label="Monday, January 6th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -337,7 +337,7 @@ exports[`Calendar > Snapshots > should match snapshot for days view 1`] = `
               >
                 <button
                   aria-label="Tuesday, January 7th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -351,7 +351,7 @@ exports[`Calendar > Snapshots > should match snapshot for days view 1`] = `
               >
                 <button
                   aria-label="Wednesday, January 8th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -365,7 +365,7 @@ exports[`Calendar > Snapshots > should match snapshot for days view 1`] = `
               >
                 <button
                   aria-label="Thursday, January 9th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -379,7 +379,7 @@ exports[`Calendar > Snapshots > should match snapshot for days view 1`] = `
               >
                 <button
                   aria-label="Friday, January 10th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -393,7 +393,7 @@ exports[`Calendar > Snapshots > should match snapshot for days view 1`] = `
               >
                 <button
                   aria-label="Saturday, January 11th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -411,7 +411,7 @@ exports[`Calendar > Snapshots > should match snapshot for days view 1`] = `
               >
                 <button
                   aria-label="Sunday, January 12th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -425,7 +425,7 @@ exports[`Calendar > Snapshots > should match snapshot for days view 1`] = `
               >
                 <button
                   aria-label="Monday, January 13th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -439,7 +439,7 @@ exports[`Calendar > Snapshots > should match snapshot for days view 1`] = `
               >
                 <button
                   aria-label="Tuesday, January 14th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -453,7 +453,7 @@ exports[`Calendar > Snapshots > should match snapshot for days view 1`] = `
               >
                 <button
                   aria-label="Wednesday, January 15th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -467,7 +467,7 @@ exports[`Calendar > Snapshots > should match snapshot for days view 1`] = `
               >
                 <button
                   aria-label="Thursday, January 16th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -481,7 +481,7 @@ exports[`Calendar > Snapshots > should match snapshot for days view 1`] = `
               >
                 <button
                   aria-label="Friday, January 17th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -495,7 +495,7 @@ exports[`Calendar > Snapshots > should match snapshot for days view 1`] = `
               >
                 <button
                   aria-label="Saturday, January 18th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -513,7 +513,7 @@ exports[`Calendar > Snapshots > should match snapshot for days view 1`] = `
               >
                 <button
                   aria-label="Sunday, January 19th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -527,7 +527,7 @@ exports[`Calendar > Snapshots > should match snapshot for days view 1`] = `
               >
                 <button
                   aria-label="Monday, January 20th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -541,7 +541,7 @@ exports[`Calendar > Snapshots > should match snapshot for days view 1`] = `
               >
                 <button
                   aria-label="Tuesday, January 21st, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -555,7 +555,7 @@ exports[`Calendar > Snapshots > should match snapshot for days view 1`] = `
               >
                 <button
                   aria-label="Wednesday, January 22nd, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -569,7 +569,7 @@ exports[`Calendar > Snapshots > should match snapshot for days view 1`] = `
               >
                 <button
                   aria-label="Thursday, January 23rd, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -583,7 +583,7 @@ exports[`Calendar > Snapshots > should match snapshot for days view 1`] = `
               >
                 <button
                   aria-label="Friday, January 24th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -597,7 +597,7 @@ exports[`Calendar > Snapshots > should match snapshot for days view 1`] = `
               >
                 <button
                   aria-label="Saturday, January 25th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -615,7 +615,7 @@ exports[`Calendar > Snapshots > should match snapshot for days view 1`] = `
               >
                 <button
                   aria-label="Sunday, January 26th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -629,7 +629,7 @@ exports[`Calendar > Snapshots > should match snapshot for days view 1`] = `
               >
                 <button
                   aria-label="Monday, January 27th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -643,7 +643,7 @@ exports[`Calendar > Snapshots > should match snapshot for days view 1`] = `
               >
                 <button
                   aria-label="Tuesday, January 28th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -657,7 +657,7 @@ exports[`Calendar > Snapshots > should match snapshot for days view 1`] = `
               >
                 <button
                   aria-label="Wednesday, January 29th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -671,7 +671,7 @@ exports[`Calendar > Snapshots > should match snapshot for days view 1`] = `
               >
                 <button
                   aria-label="Thursday, January 30th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -685,7 +685,7 @@ exports[`Calendar > Snapshots > should match snapshot for days view 1`] = `
               >
                 <button
                   aria-label="Friday, January 31st, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -958,7 +958,7 @@ exports[`Calendar > Snapshots > should match snapshot for range mode 1`] = `
               >
                 <button
                   aria-label="Wednesday, January 1st, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -972,7 +972,7 @@ exports[`Calendar > Snapshots > should match snapshot for range mode 1`] = `
               >
                 <button
                   aria-label="Thursday, January 2nd, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -986,7 +986,7 @@ exports[`Calendar > Snapshots > should match snapshot for range mode 1`] = `
               >
                 <button
                   aria-label="Friday, January 3rd, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -1000,7 +1000,7 @@ exports[`Calendar > Snapshots > should match snapshot for range mode 1`] = `
               >
                 <button
                   aria-label="Saturday, January 4th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -1018,7 +1018,7 @@ exports[`Calendar > Snapshots > should match snapshot for range mode 1`] = `
               >
                 <button
                   aria-label="Sunday, January 5th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -1032,7 +1032,7 @@ exports[`Calendar > Snapshots > should match snapshot for range mode 1`] = `
               >
                 <button
                   aria-label="Monday, January 6th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -1046,7 +1046,7 @@ exports[`Calendar > Snapshots > should match snapshot for range mode 1`] = `
               >
                 <button
                   aria-label="Tuesday, January 7th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -1060,7 +1060,7 @@ exports[`Calendar > Snapshots > should match snapshot for range mode 1`] = `
               >
                 <button
                   aria-label="Wednesday, January 8th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -1074,7 +1074,7 @@ exports[`Calendar > Snapshots > should match snapshot for range mode 1`] = `
               >
                 <button
                   aria-label="Thursday, January 9th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -1090,7 +1090,7 @@ exports[`Calendar > Snapshots > should match snapshot for range mode 1`] = `
               >
                 <button
                   aria-label="Friday, January 10th, 2025, selected"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="0"
                   type="button"
                 >
@@ -1106,7 +1106,7 @@ exports[`Calendar > Snapshots > should match snapshot for range mode 1`] = `
               >
                 <button
                   aria-label="Saturday, January 11th, 2025, selected"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -1126,7 +1126,7 @@ exports[`Calendar > Snapshots > should match snapshot for range mode 1`] = `
               >
                 <button
                   aria-label="Sunday, January 12th, 2025, selected"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -1142,7 +1142,7 @@ exports[`Calendar > Snapshots > should match snapshot for range mode 1`] = `
               >
                 <button
                   aria-label="Monday, January 13th, 2025, selected"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -1158,7 +1158,7 @@ exports[`Calendar > Snapshots > should match snapshot for range mode 1`] = `
               >
                 <button
                   aria-label="Tuesday, January 14th, 2025, selected"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -1174,7 +1174,7 @@ exports[`Calendar > Snapshots > should match snapshot for range mode 1`] = `
               >
                 <button
                   aria-label="Wednesday, January 15th, 2025, selected"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -1188,7 +1188,7 @@ exports[`Calendar > Snapshots > should match snapshot for range mode 1`] = `
               >
                 <button
                   aria-label="Thursday, January 16th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -1202,7 +1202,7 @@ exports[`Calendar > Snapshots > should match snapshot for range mode 1`] = `
               >
                 <button
                   aria-label="Friday, January 17th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -1216,7 +1216,7 @@ exports[`Calendar > Snapshots > should match snapshot for range mode 1`] = `
               >
                 <button
                   aria-label="Saturday, January 18th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -1234,7 +1234,7 @@ exports[`Calendar > Snapshots > should match snapshot for range mode 1`] = `
               >
                 <button
                   aria-label="Sunday, January 19th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -1248,7 +1248,7 @@ exports[`Calendar > Snapshots > should match snapshot for range mode 1`] = `
               >
                 <button
                   aria-label="Monday, January 20th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -1262,7 +1262,7 @@ exports[`Calendar > Snapshots > should match snapshot for range mode 1`] = `
               >
                 <button
                   aria-label="Tuesday, January 21st, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -1276,7 +1276,7 @@ exports[`Calendar > Snapshots > should match snapshot for range mode 1`] = `
               >
                 <button
                   aria-label="Wednesday, January 22nd, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -1290,7 +1290,7 @@ exports[`Calendar > Snapshots > should match snapshot for range mode 1`] = `
               >
                 <button
                   aria-label="Thursday, January 23rd, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -1304,7 +1304,7 @@ exports[`Calendar > Snapshots > should match snapshot for range mode 1`] = `
               >
                 <button
                   aria-label="Friday, January 24th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -1318,7 +1318,7 @@ exports[`Calendar > Snapshots > should match snapshot for range mode 1`] = `
               >
                 <button
                   aria-label="Saturday, January 25th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -1336,7 +1336,7 @@ exports[`Calendar > Snapshots > should match snapshot for range mode 1`] = `
               >
                 <button
                   aria-label="Sunday, January 26th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -1350,7 +1350,7 @@ exports[`Calendar > Snapshots > should match snapshot for range mode 1`] = `
               >
                 <button
                   aria-label="Monday, January 27th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -1364,7 +1364,7 @@ exports[`Calendar > Snapshots > should match snapshot for range mode 1`] = `
               >
                 <button
                   aria-label="Tuesday, January 28th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -1378,7 +1378,7 @@ exports[`Calendar > Snapshots > should match snapshot for range mode 1`] = `
               >
                 <button
                   aria-label="Wednesday, January 29th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -1392,7 +1392,7 @@ exports[`Calendar > Snapshots > should match snapshot for range mode 1`] = `
               >
                 <button
                   aria-label="Thursday, January 30th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -1406,7 +1406,7 @@ exports[`Calendar > Snapshots > should match snapshot for range mode 1`] = `
               >
                 <button
                   aria-label="Friday, January 31st, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -1679,7 +1679,7 @@ exports[`Calendar > Snapshots > should match snapshot with footer 1`] = `
               >
                 <button
                   aria-label="Wednesday, January 1st, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="0"
                   type="button"
                 >
@@ -1693,7 +1693,7 @@ exports[`Calendar > Snapshots > should match snapshot with footer 1`] = `
               >
                 <button
                   aria-label="Thursday, January 2nd, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -1707,7 +1707,7 @@ exports[`Calendar > Snapshots > should match snapshot with footer 1`] = `
               >
                 <button
                   aria-label="Friday, January 3rd, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -1721,7 +1721,7 @@ exports[`Calendar > Snapshots > should match snapshot with footer 1`] = `
               >
                 <button
                   aria-label="Saturday, January 4th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -1739,7 +1739,7 @@ exports[`Calendar > Snapshots > should match snapshot with footer 1`] = `
               >
                 <button
                   aria-label="Sunday, January 5th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -1753,7 +1753,7 @@ exports[`Calendar > Snapshots > should match snapshot with footer 1`] = `
               >
                 <button
                   aria-label="Monday, January 6th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -1767,7 +1767,7 @@ exports[`Calendar > Snapshots > should match snapshot with footer 1`] = `
               >
                 <button
                   aria-label="Tuesday, January 7th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -1781,7 +1781,7 @@ exports[`Calendar > Snapshots > should match snapshot with footer 1`] = `
               >
                 <button
                   aria-label="Wednesday, January 8th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -1795,7 +1795,7 @@ exports[`Calendar > Snapshots > should match snapshot with footer 1`] = `
               >
                 <button
                   aria-label="Thursday, January 9th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -1809,7 +1809,7 @@ exports[`Calendar > Snapshots > should match snapshot with footer 1`] = `
               >
                 <button
                   aria-label="Friday, January 10th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -1823,7 +1823,7 @@ exports[`Calendar > Snapshots > should match snapshot with footer 1`] = `
               >
                 <button
                   aria-label="Saturday, January 11th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -1841,7 +1841,7 @@ exports[`Calendar > Snapshots > should match snapshot with footer 1`] = `
               >
                 <button
                   aria-label="Sunday, January 12th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -1855,7 +1855,7 @@ exports[`Calendar > Snapshots > should match snapshot with footer 1`] = `
               >
                 <button
                   aria-label="Monday, January 13th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -1869,7 +1869,7 @@ exports[`Calendar > Snapshots > should match snapshot with footer 1`] = `
               >
                 <button
                   aria-label="Tuesday, January 14th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -1883,7 +1883,7 @@ exports[`Calendar > Snapshots > should match snapshot with footer 1`] = `
               >
                 <button
                   aria-label="Wednesday, January 15th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -1897,7 +1897,7 @@ exports[`Calendar > Snapshots > should match snapshot with footer 1`] = `
               >
                 <button
                   aria-label="Thursday, January 16th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -1911,7 +1911,7 @@ exports[`Calendar > Snapshots > should match snapshot with footer 1`] = `
               >
                 <button
                   aria-label="Friday, January 17th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -1925,7 +1925,7 @@ exports[`Calendar > Snapshots > should match snapshot with footer 1`] = `
               >
                 <button
                   aria-label="Saturday, January 18th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -1943,7 +1943,7 @@ exports[`Calendar > Snapshots > should match snapshot with footer 1`] = `
               >
                 <button
                   aria-label="Sunday, January 19th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -1957,7 +1957,7 @@ exports[`Calendar > Snapshots > should match snapshot with footer 1`] = `
               >
                 <button
                   aria-label="Monday, January 20th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -1971,7 +1971,7 @@ exports[`Calendar > Snapshots > should match snapshot with footer 1`] = `
               >
                 <button
                   aria-label="Tuesday, January 21st, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -1985,7 +1985,7 @@ exports[`Calendar > Snapshots > should match snapshot with footer 1`] = `
               >
                 <button
                   aria-label="Wednesday, January 22nd, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -1999,7 +1999,7 @@ exports[`Calendar > Snapshots > should match snapshot with footer 1`] = `
               >
                 <button
                   aria-label="Thursday, January 23rd, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -2013,7 +2013,7 @@ exports[`Calendar > Snapshots > should match snapshot with footer 1`] = `
               >
                 <button
                   aria-label="Friday, January 24th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -2027,7 +2027,7 @@ exports[`Calendar > Snapshots > should match snapshot with footer 1`] = `
               >
                 <button
                   aria-label="Saturday, January 25th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -2045,7 +2045,7 @@ exports[`Calendar > Snapshots > should match snapshot with footer 1`] = `
               >
                 <button
                   aria-label="Sunday, January 26th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -2059,7 +2059,7 @@ exports[`Calendar > Snapshots > should match snapshot with footer 1`] = `
               >
                 <button
                   aria-label="Monday, January 27th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -2073,7 +2073,7 @@ exports[`Calendar > Snapshots > should match snapshot with footer 1`] = `
               >
                 <button
                   aria-label="Tuesday, January 28th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -2087,7 +2087,7 @@ exports[`Calendar > Snapshots > should match snapshot with footer 1`] = `
               >
                 <button
                   aria-label="Wednesday, January 29th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -2101,7 +2101,7 @@ exports[`Calendar > Snapshots > should match snapshot with footer 1`] = `
               >
                 <button
                   aria-label="Thursday, January 30th, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
@@ -2115,7 +2115,7 @@ exports[`Calendar > Snapshots > should match snapshot with footer 1`] = `
               >
                 <button
                   aria-label="Friday, January 31st, 2025"
-                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+                  class="flex h-full w-full cursor-pointer items-center justify-center rounded-full text-ws-static-subtle typography-number-md hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed disabled:cursor-default disabled:opacity-50 disabled:hover:bg-transparent disabled:active:bg-transparent focus-visible:wds-focus-visible focus-visible:outline-ws-dynamic-primary-strong-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
                   tabindex="-1"
                   type="button"
                 >
