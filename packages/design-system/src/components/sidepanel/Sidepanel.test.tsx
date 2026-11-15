@@ -198,3 +198,17 @@ describe('data-slot', () => {
     expect(screen.getByText('Footer')).toHaveAttribute('data-slot', 'sidepanel-footer');
   });
 });
+
+describe('Focus', () => {
+  it('draws no outline around the focused dialog', async () => {
+    render(
+      <Sidepanel defaultOpen>
+        <Sidepanel.Panel>
+          <Sidepanel.Title>Title</Sidepanel.Title>
+        </Sidepanel.Panel>
+      </Sidepanel>,
+    );
+    const dialog = await screen.findByRole('dialog');
+    expect(dialog).toHaveClass('outline-hidden');
+  });
+});
