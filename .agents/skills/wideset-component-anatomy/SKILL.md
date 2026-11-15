@@ -9,6 +9,12 @@ metadata:
 
 # Component anatomy
 
+> **Status: the section is not on the page at present.** The redesigned component page
+> (title, stage, Installation, Examples, API reference, Accessibility) has no Anatomy section,
+> and the files this skill names (`AnatomyDiagram.tsx`, the playgrounds' `anatomy()`,
+> `--docs-anatomy-veil`) are not in `apps/docs`. The rules below describe the section as it was
+> and apply again if it returns; until then there is nothing to write or audit.
+
 The Anatomy section shows a component's parts: the component drawn 1:1 with each part named
 beside it, and a table of the parts as a tree. Hovering a name or a row spotlights that part.
 Both halves are generated; a component contributes only its **composition** (what the picture
