@@ -100,34 +100,6 @@ ${navCode(v, '    ')}
   </Sidebar.Section>
 </Sidebar>`;
   },
-  // Parts the picture cannot draw. Each renders its children only in its own state, with no element of its own.
-  absent: {
-    SidebarExpanded: 'Only when expanded',
-    SidebarCollapsed: 'Only when collapsed',
-  },
-  // Expanded and Collapsed render no element of their own, so the picture cannot point at them.
-  anatomy: () => (
-    <div className="flex h-[16rem] overflow-hidden rounded-ws-control-lg border border-ws-static-base bg-ws-static-background">
-      <Sidebar>
-        <Sidebar.Header>
-          <div className="flex items-center gap-ws-7 py-ws-3">
-            <span className="pl-ws-5 typography-label-strong-sm text-ws-static-strong">
-              Northwind
-            </span>
-            <Sidebar.Trigger />
-          </div>
-        </Sidebar.Header>
-        <Sidebar.Section>
-          <nav className="flex flex-col gap-ws-2">
-            <Sidebar.Item href="#" icon={RiDashboardLine} label="Dashboard" active />
-            <Sidebar.Item href="#" icon={RiFolder3Line} label="Projects" />
-            <Sidebar.SectionHeader>People</Sidebar.SectionHeader>
-            <Sidebar.Item href="#" icon={RiUser3Line} label="Customers" />
-          </nav>
-        </Sidebar.Section>
-      </Sidebar>
-    </div>
-  ),
   // The gallery card shows a whole app sidebar, built like the Storybook "Full" story.
   preview: () => (
     <div className="flex h-[27rem] overflow-hidden rounded-ws-container-lg border border-ws-static-base bg-ws-static-background shadow-ws-high">

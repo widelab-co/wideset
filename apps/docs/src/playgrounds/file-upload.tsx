@@ -63,13 +63,4 @@ export default playground({
       '</div>',
     ].join('\n');
   },
-  // The dropzone takes no props of its own; `zoneProps` is the way onto it. The button
-  // trigger (`FileUpload.Trigger`) is the other type and cannot be shown at the same time.
-  // Both types: the dropzone, and the button type that renders `FileUpload.Trigger`.
-  anatomy: () => (
-    <div className="flex flex-col items-center gap-ws-11">
-      <FileUpload className="w-[20rem] max-w-full" browse onBrowse={browseNothing} />
-      <FileUpload type="button" onBrowse={browseNothing} />
-    </div>
-  ),
 });

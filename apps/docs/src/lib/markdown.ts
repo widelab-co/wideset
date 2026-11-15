@@ -3,7 +3,7 @@ import { examplesFor } from './examples';
 import { guidanceMarkdown } from './guidance';
 
 /** The part's JSDoc, minus the `Props for \`X\` —` lead-in; the root falls back to the page's sentence. */
-export const describePart = (entry: Entry, index: number) => {
+const describePart = (entry: Entry, index: number) => {
   const parts = partsOf(entry);
   const summary = parts[index].table.summary?.replace(/^Props for `[^`]+`\s*[—–-]\s*/, '');
   const text = summary ?? (index === 0 ? (entry.description ?? '') : '');

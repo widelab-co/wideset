@@ -92,13 +92,4 @@ export default playground({
       '</Avatar.Group>',
     ].join('\n');
   },
-  // A group so the overflow badge has a place; the first avatar carries the status dot.
-  anatomy: () => (
-    <Avatar.Group size="xl">
-      <Avatar initials="AK" status="online" />
-      <Avatar initials="TS" />
-      <Avatar initials="ML" />
-      <Avatar.More>+5</Avatar.More>
-    </Avatar.Group>
-  ),
 });

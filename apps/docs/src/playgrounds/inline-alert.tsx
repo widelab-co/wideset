@@ -53,17 +53,4 @@ export default playground({
     if (!v.action) return `${open}/>`;
     return `${open}>\n  <InlineAlert.Action>${copy.action}</InlineAlert.Action>\n</InlineAlert>`;
   },
-  // Parts the picture cannot draw. Renders nothing until an alert is shown.
-  absent: {
-    InlineAlertOutlet: 'Only while an alert shows',
-  },
-  // Title and Message render no element of their own: the alert marks the spans it places
-  // their text in.
-  anatomy: () => (
-    <InlineAlert className="w-[20rem] max-w-full" status="info">
-      <InlineAlert.Title>{COPY.info.title}</InlineAlert.Title>
-      <InlineAlert.Message>{COPY.info.message}</InlineAlert.Message>
-      <InlineAlert.Action>{COPY.info.action}</InlineAlert.Action>
-    </InlineAlert>
-  ),
 });

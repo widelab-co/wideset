@@ -4,7 +4,6 @@
  */
 await import('./gen-props.mjs');
 await import('./gen-catalog.mjs');
-await import('./gen-graph.mjs');
 await import('./gen-guidance.mjs');
 await import('./gen-registry.mjs');
 await import('./gen-light-scope.mjs');

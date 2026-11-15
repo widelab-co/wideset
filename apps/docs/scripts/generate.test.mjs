@@ -129,26 +129,26 @@ describe('generate: foundations token data', () => {
 });
 
 describe('gen-guidance', () => {
-  const page = (id) => readFileSync(join(generatedDir, 'guidance', `${id}.md`), 'utf8');
+  const page = (id) => readFileSync(join(generatedDir, 'guidance-md', `${id}.md`), 'utf8');
 
-  it('gives every component a page from its spec', () => {
+  it('gives every component its usage Markdown from its spec', () => {
     const missing = catalog
       .map((entry) => entry.id)
-      .filter((id) => !existsSync(join(generatedDir, 'guidance', `${id}.md`)));
+      .filter((id) => !existsSync(join(generatedDir, 'guidance-md', `${id}.md`)));
     assert.deepEqual(missing, []);
   });
 
-  it('shows on the page only when to use a component', () => {
+  it('keeps every usage section in the Markdown for models', () => {
     const select = page('select');
     assert.match(select, /^### When not to use/m);
-    assert.doesNotMatch(select, /^### (Choosing props|Do \/ Don't|Gotchas)/m);
+    assert.match(select, /^### Gotchas/m);
     assert.doesNotMatch(select, /^#+ Anatomy/m);
   });
 
-  it('keeps every usage section in the Markdown for models', () => {
-    const select = readFileSync(join(generatedDir, 'guidance-md', 'select.md'), 'utf8');
-    assert.match(select, /^### Gotchas/m);
-    assert.doesNotMatch(select, /^#+ Anatomy/m);
+  it('writes the Accessibility notes with no heading of their own', () => {
+    const notes = readFileSync(join(generatedDir, 'guidance-a11y', 'button.md'), 'utf8');
+    assert.ok(notes.trim().length > 0);
+    assert.doesNotMatch(notes, /^#+ Accessibility/m);
   });
 
   it('points links only at pages the site has', () => {

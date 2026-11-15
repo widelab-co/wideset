@@ -98,40 +98,4 @@ export default playground({
       </div>
     </Modal>
   ),
-  // The trigger, then the dialog it opens drawn in place: Modal.Content portals to the body and
-  // renders the overlay beside it, so the stand-ins keep that order, the overlay behind.
-  anatomy: () => (
-    <Modal>
-      <div className="flex w-[20rem] flex-col items-start gap-ws-9">
-        <Modal.Trigger asChild>
-          <Button variant="secondary" preset="border">
-            Archive project
-          </Button>
-        </Modal.Trigger>
-        <div className="relative w-full p-ws-9">
-          <div
-            data-slot="modal-overlay"
-            className="absolute inset-0 rounded-ws-container-md bg-ws-static-scrim-base"
-          />
-          <div
-            data-slot="modal-content"
-            className="relative flex flex-col overflow-hidden rounded-ws-container-md border border-ws-dynamic-secondary-default bg-ws-static-overlay shadow-ws-high"
-          >
-            <Modal.Header>
-              <Modal.Title>Archive “Website redesign”?</Modal.Title>
-              <Modal.Description>Your team will lose edit access.</Modal.Description>
-            </Modal.Header>
-            <Modal.Body>{BODY}</Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary" preset="border">
-                Cancel
-              </Button>
-              <Button>Archive</Button>
-            </Modal.Footer>
-            <Modal.Close className="absolute top-ws-9 right-ws-11" />
-          </div>
-        </div>
-      </div>
-    </Modal>
-  ),
 });

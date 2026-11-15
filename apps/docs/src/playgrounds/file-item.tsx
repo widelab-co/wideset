@@ -70,13 +70,4 @@ export default playground({
       '</FileItem>',
     ].join('\n');
   },
-  // Placing FileItem.Loading puts the row in its uploading state, so every part shows.
-  anatomy: () => (
-    <FileItem className="w-[20rem] max-w-full">
-      <FileItem.Thumbnail name="product-demo.mp4" />
-      <FileItem.Title>product-demo.mp4</FileItem.Title>
-      <FileItem.Description>48 MB{'1 minute left'}</FileItem.Description>
-      <FileItem.Loading />
-    </FileItem>
-  ),
 });

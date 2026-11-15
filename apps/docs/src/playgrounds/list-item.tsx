@@ -65,18 +65,4 @@ export default playground({
     const state = v.checked ? ' data-state="checked"' : '';
     return `<ListItem${attrs()}${state}>\n${parts.join('\n')}\n</ListItem>`;
   },
-  anatomy: () => (
-    <div className="w-[20rem] max-w-full">
-      <ListItem>
-        <ListItem.Prefix>
-          <RiFolderLine className="size-ws-9" />
-        </ListItem.Prefix>
-        <ListItem.Content>
-          <ListItem.Label>Marketing assets</ListItem.Label>
-          <ListItem.Description>24 files, edited today</ListItem.Description>
-        </ListItem.Content>
-        <ListItem.Suffix>2.4 MB</ListItem.Suffix>
-      </ListItem>
-    </div>
-  ),
 });

@@ -1,37 +1,22 @@
 ---
-import { RiBookOpenLine, RiGithubLine } from '@remixicon/react';
-
-import AnatomyDiagram from '../../components/AnatomyDiagram';
-import CopyMenu from '../../components/CopyMenu';
-import Example from '../../components/Example';
-import InstallTabs from '../../components/InstallTabs';
-import OnThisPage from '../../components/OnThisPage';
-import PlaygroundTabs from '../../components/PlaygroundTabs';
-import PropertiesPanel from '../../components/PropertiesPanel';
-import PropsTabs from '../../components/PropsTabs';
-import RelationshipGraph from '../../components/RelationshipGraph';
+import PropsTables from '../../components/PropsTables';
+import PageHead from '../../components/PageHead.astro';
+import { CopyPage, ExampleCard, Install, Rail, Stage } from '../../components/parts';
 import DocsLayout from '../../layouts/DocsLayout.astro';
-import {
-  entries,
-  entryById,
-  partsOf,
-  relatedTo,
-  relationships,
-  sourceUrlFor,
-  storybookUrlFor,
-} from '../../lib/catalog';
+import { entries, entryById, partsOf } from '../../lib/catalog';
 import { examplesFor } from '../../lib/examples';
-import { guidanceContent } from '../../lib/guidance';
-import { componentMarkdown, describePart } from '../../lib/markdown';
-import { hasPlayground, PLAYGROUNDS } from '../../lib/playground';
+import { accessibilityContent } from '../../lib/guidance';
+import { componentMarkdown } from '../../lib/markdown';
+import { hasPlayground } from '../../lib/playground';
 import { manualFiles, projectPaths } from '../../lib/registry';
+import { componentsSidebar } from '../../lib/sidebar';
 
 /**
- * One shape for every component, so a reader never needs Storybook: the header with its
- * links, the playground and the code it produces, install, the parts, examples (preview and
- * code), props per part with the data attributes, related. Everything except the examples is
- * generated from the library.
+ * A component page, kept simple: the title and description with Copy page, the component
+ * on its stage, Installation, every example (title, description, a preview card with its code),
+ * the API reference and Accessibility.
  */
+
 export function getStaticPaths() {
   return entries.map((entry) => ({ params: { id: entry.id } }));
 }
@@ -40,27 +25,7 @@ const entry = entryById(Astro.params.id!)!;
 const examples = examplesFor(entry.id);
 const playground = hasPlayground(entry.id);
 const parts = partsOf(entry);
-const related = relatedTo(entry.id);
-/** The version the component first shipped in, from git (the catalogue). */
-const since = entry.since;
-const root = entry.exports[0];
-/** Each part's `data-slot`: `ButtonIcon` → `button-icon`. The diagram finds parts by it. */
-const slotOf = (exportName: string) =>
-  exportName.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
-/**
- * The picture draws `anatomy()`, or the gallery preview, or the playground stage. With it, the
- * part column is a tree of `Card.Header` names, as Props lists them.
- */
-const anatomy = Boolean(PLAYGROUNDS[entry.id]);
-/**
- * A one-part component has no anatomy to show: the playground already draws it. A playground
- * can also leave the section out with `anatomy: false`.
- */
-const hasAnatomy = parts.length > 1 && PLAYGROUNDS[entry.id]?.anatomy !== false;
-
-const Guidance = guidanceContent(entry.id);
-const markdown = componentMarkdown(entry);
-/** Scaffolded paths for what this page's code can import: every component, plus its examples' parts. */
+const A11yNotes = accessibilityContent(entry.id);
 const allPaths = projectPaths();
 const used = new Set([
   ...entries.flatMap((item) => item.exports),
@@ -72,214 +37,111 @@ const used = new Set([
 ]);
 const paths = Object.fromEntries(Object.entries(allPaths).filter(([name]) => used.has(name)));
 
-const toc = [
-  playground && { id: 'playground', label: 'Playground' },
-  { id: 'install', label: 'Install' },
-  hasAnatomy && { id: 'anatomy', label: 'Anatomy' },
+const rail = [
+  { id: 'installation', label: 'Installation' },
   examples.length > 0 && { id: 'examples', label: 'Examples' },
-  Guidance && { id: 'usage', label: 'Usage' },
-  { id: 'props', label: 'Props' },
-  related.length > 0 && { id: 'related', label: 'Related' },
-].filter((item): item is { id: string; label: string } => Boolean(item));
+  ...examples.map((example) => ({
+    id: `example-${example.name}`,
+    label: example.title,
+    indent: true,
+  })),
+  { id: 'api', label: 'API reference' },
+  A11yNotes && { id: 'accessibility', label: 'Accessibility' },
+].filter((item): item is { id: string; label: string; indent?: boolean } => Boolean(item));
+const searchSections = rail
+  .filter((item) => !item.indent)
+  .map((item) => ({
+    title: item.label,
+    href: `/components/${entry.id}#${item.id}`,
+    group: entry.title,
+  }));
 
-const h2 = 'text-ws-static-strong typography-label-strong-md leading-ws-600';
-const lede = 'text-ws-static-subtle mt-ws-5 max-w-[40rem] typography-body-md leading-ws-600';
-const link =
-  'border-ws-static-subtle text-ws-static-subtle hover:text-ws-static-strong hover:border-ws-static-base inline-flex h-ws-13 items-center gap-ws-4 rounded-ws-control-full border px-ws-7 typography-caption-strong-md transition-colors';
-const th =
-  'text-ws-static-subtle px-ws-9 py-ws-6 text-left typography-caption-strong-md whitespace-nowrap';
-const td = 'px-ws-9 py-ws-6 align-top';
+const h2 = 'text-ws-static-strong scroll-mt-ws-21 typography-subtitle-sm';
+const section = 'mt-ws-21';
 ---
 
-<DocsLayout title={entry.title} description={entry.description ?? entry.title} frame>
-  <div class="flex flex-wrap items-center gap-ws-5">
-    <h1 class="text-ws-static-strong typography-title-md tracking-ws-tight-50">{entry.title}</h1>
-    {since && (
-      <span class="bg-ws-static-alpha-subtle text-ws-static-subtle rounded-ws-control-full px-ws-5 py-ws-2 typography-body-sm">
-        Since {since}
-      </span>
-    )}
-    <div class="ml-auto flex flex-wrap items-center justify-end gap-ws-5">
-      <a class={link} href={sourceUrlFor(entry)} target="_blank" rel="noreferrer">
-        <RiGithubLine className="size-ws-8" />
-        Source
-      </a>
-      <a class={link} href={storybookUrlFor(entry)} target="_blank" rel="noreferrer">
-        <RiBookOpenLine className="size-ws-8" />
-        Storybook
-      </a>
-      <CopyMenu markdown={markdown} className={link} client:idle />
-    </div>
-  </div>
-  <p class="text-ws-static-subtle mt-ws-7 typography-body-md">
-    {entry.description ?? 'Description pending.'}
-  </p>
+<DocsLayout
+  title={entry.title}
+  description={entry.description ?? entry.title}
+  area="components"
+  nav={componentsSidebar()}
+  current={`/components/${entry.id}`}
+  search="Search components…"
+  sections={searchSections}
+>
+  <PageHead title={entry.title} description={entry.description ?? 'Description pending.'}>
+    <CopyPage slot="actions" markdown={componentMarkdown(entry)} client:idle />
+  </PageHead>
 
   {playground && (
-    <section id="playground" data-playground={entry.id} class="mt-ws-14 scroll-mt-ws-23">
-      <PlaygroundTabs component={entry.id} paths={paths} client:load />
-    </section>
+    <div data-playground={entry.id}>
+      <Stage component={entry.id} client:load />
+    </div>
   )}
 
-  <section id="install" class="mt-ws-19 scroll-mt-ws-23">
-    <h2 class={h2}>Install</h2>
-    <p class={lede}>
-      Only for scaffolding the code into your project. Skip if you import wideset as an npm package.
-    </p>
+  <section class={playground ? section : undefined}>
+    <h2 id="installation" class={h2}>
+      Installation
+    </h2>
     <div class="mt-ws-9">
-      <InstallTabs id={entry.id} files={manualFiles(entry.id)} client:idle />
+      <Install id={entry.id} files={manualFiles(entry.id)} client:idle />
     </div>
   </section>
 
-  {hasAnatomy && (
-    <section id="anatomy" class="mt-ws-19 scroll-mt-ws-23">
-      <h2 class={h2}>Anatomy</h2>
-      <p class={lede}>
-        Each part attaches to {root} and is also exported by name: a Server Component can only use
-        the named form.
-      </p>
-      {anatomy && (
-        <div class="mt-ws-9">
-          <AnatomyDiagram
-            component={entry.id}
-            root={root}
-            parts={parts.map((part, index) => ({
-              n: index + 1,
-              slot: slotOf(part.exportName),
-              exportName: part.exportName,
-            }))}
-            client:visible
-          />
-        </div>
-      )}
-      {/* A container: in a narrow one the Renders column steps aside so descriptions keep room. */}
-      <div class="border-ws-static-base @container mt-ws-9 overflow-x-auto rounded-ws-container-lg border">
-        <table class="w-full border-collapse typography-body-md">
-          <thead>
-            <tr class="border-ws-static-base border-b">
-              <th class={th}>Part</th>
-              <th class={`${th} @max-[36rem]:hidden`}>Renders</th>
-              <th class={th}>Description</th>
-            </tr>
-          </thead>
-          <tbody>
-            {parts.map((part, index) => (
-              <tr
-                class="border-ws-static-base border-b transition-colors duration-[80ms] ease-out last:border-b-0 data-[anatomy-active]:bg-ws-static-alpha-base"
-                data-anatomy-row={anatomy ? slotOf(part.exportName) : undefined}
-              >
-                {/* With a picture the part column is a tree: AnatomyDiagram sets --anatomy-depth. */}
-                <td
-                  class={`${td} text-ws-static-strong whitespace-nowrap`}
-                  style={
-                    anatomy
-                      ? 'padding-left: calc(var(--spacing-ws-9) + var(--anatomy-depth, 0) * 1.25rem)'
-                      : undefined
-                  }
-                >
-                  {part.part}
-                  {anatomy && (
-                    // Shown by the picture for a part it has nothing to point at: a provider, a
-                    // portal, or a part that appears only in another state (AnatomyDiagram).
-                    <span
-                      data-anatomy-absent
-                      hidden
-                      class="text-ws-static-subtle block typography-caption-md"
-                    >
-                      {PLAYGROUNDS[entry.id]?.absent?.[part.exportName] ?? 'Renders no element'}
-                    </span>
-                  )}
-                </td>
-                <td class={`${td} text-ws-static-subtle whitespace-nowrap @max-[36rem]:hidden`}>
-                  {part.table.element ?? '—'}
-                </td>
-                {/* A step quieter than the names; nudged down to the 14/20 row's first baseline. */}
-                <td
-                  class={`${td} text-ws-static-subtle pt-[calc(var(--spacing-ws-6)+0.125rem)] typography-body-sm`}
-                >
-                  {describePart(entry, index) || '—'}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </section>
-  )}
-
   {examples.length > 0 && (
-    <section id="examples" class="mt-ws-19 scroll-mt-ws-23">
-      <h2 class={h2}>Examples</h2>
-      <div class="mt-ws-9 flex flex-col gap-ws-16">
+    <section class={section}>
+      <h2 id="examples" class={h2}>
+        Examples
+      </h2>
+      <div class="mt-ws-9 flex flex-col gap-ws-17">
         {examples.map((example) => (
-          <Example
-            file={example.file}
-            title={example.title}
-            caption={example.caption}
-            code={example.code}
-            paths={paths}
-            client:visible
-          />
+          <div>
+            <h3
+              id={`example-${example.name}`}
+              class="text-ws-static-strong scroll-mt-ws-21 typography-label-strong-md"
+            >
+              {example.title}
+            </h3>
+            {example.caption && (
+              <p class="text-ws-static-subtle mt-ws-4 max-w-[65ch] typography-body-md">
+                {example.caption.replace(/`/g, '')}
+              </p>
+            )}
+            <div class="mt-ws-9">
+              <ExampleCard file={example.file} code={example.code} paths={paths} client:visible />
+            </div>
+          </div>
         ))}
       </div>
     </section>
   )}
 
-  {Guidance && (
-    <section id="usage" class="mt-ws-19 scroll-mt-ws-23">
-      <h2 class={h2}>Usage</h2>
-      <div class="docs-prose !max-w-none mt-ws-9">
-        <Guidance />
-      </div>
-    </section>
-  )}
-
-  <section id="props" class="mt-ws-19 scroll-mt-ws-23">
-    <h2 class={h2}>Props</h2>
+  <section class={section}>
+    <h2 id="api" class={h2}>
+      API reference
+    </h2>
     <div class="mt-ws-9">
-      <PropsTabs
-        parts={parts.map((part, index) => ({
+      <PropsTables
+        parts={parts.map((part) => ({
           part: part.part,
           element: part.table.element,
-          slot: slotOf(part.exportName),
-          root: index === 0,
           rows: part.table.props,
         }))}
-        live={playground}
         client:idle
       />
     </div>
   </section>
 
-  {related.length > 0 && (
-    <section id="related" class="mt-ws-19 scroll-mt-ws-23">
-      <h2 class={h2}>Related</h2>
-      <ul class="mt-ws-9 flex flex-wrap gap-ws-5">
-        {related.map((item) => (
-          <li>
-            <a
-              href={`/components/${item.id}`}
-              class="border-ws-static-subtle text-ws-static-strong hover:border-ws-static-base rounded-ws-control-full border px-ws-7 py-ws-3 typography-body-md transition-colors"
-            >
-              {item.entry.title}
-              <span class="text-ws-static-subtle ml-ws-4 typography-body-sm">
-                {item.kind === 'uses' ? 'built with' : 'appears with'}
-              </span>
-            </a>
-          </li>
-        ))}
-      </ul>
+  {A11yNotes && (
+    <section class={section}>
+      <h2 id="accessibility" class={h2}>
+        Accessibility
+      </h2>
+      <div class="docs-prose !max-w-none mt-ws-5">
+        <A11yNotes />
+      </div>
     </section>
   )}
 
-  <OnThisPage items={toc} slot="toc" client:load />
-  <Fragment slot="rail">
-    <RelationshipGraph
-      current={entry.id}
-      graph={relationships}
-      pages={entries.map((item) => item.id)}
-      client:load
-    />
-    {playground && <PropertiesPanel component={entry.id} client:load />}
-  </Fragment>
+  <Rail slot="rail" items={rail} client:load />
 </DocsLayout>

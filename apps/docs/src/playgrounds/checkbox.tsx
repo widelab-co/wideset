@@ -56,11 +56,4 @@ export default playground({
       ? `<Checkbox\n${props.map((prop) => `  ${prop}`).join('\n')}\n/>`
       : `<Checkbox ${props.join(' ')} />`;
   },
-  // Composed from Label and Description: the `label` prop draws a plain label, not the parts.
-  anatomy: () => (
-    <Checkbox defaultChecked>
-      <Checkbox.Label>{LABEL}</Checkbox.Label>
-      <Checkbox.Description>{DESCRIPTION}</Checkbox.Description>
-    </Checkbox>
-  ),
 });

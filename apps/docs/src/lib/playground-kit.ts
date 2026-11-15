@@ -21,20 +21,6 @@ export type PlaygroundDefinition = {
    * the closed trigger (the real overlay portals to the body), the card draws it open.
    */
   preview?: () => React.ReactNode;
-  /**
-   * The composition the Anatomy section draws, with every part present so each one can be
-   * named. Parts are found by their `data-slot` attribute. Rules: the
-   * `wideset-component-anatomy` skill (`.agents/skills/`). `false` leaves the section out: the
-   * parts are kinds of the same thing rather than pieces of one (Pagination's Numbers and
-   * Overflow are two layouts, never drawn together).
-   */
-  anatomy?: false | (() => React.ReactNode);
-  /**
-   * What the parts table says, by named export, for a part the picture cannot draw because it
-   * only exists in another state (`SelectItemText: 'Only when open'`). Others read "Renders no
-   * element": a root, provider or portal with no element of its own.
-   */
-  absent?: Record<string, string>;
   /** Extra classes for the whole stage: the inverse variant paints it dark. */
   stage?: (values: Values) => string | undefined;
   /**
@@ -191,7 +177,7 @@ export const playground = (
   config: PlaygroundConfig & {
     render?: (values: Values, kit: PlaygroundProps) => React.ReactNode;
     code?: (values: Values, kit: PlaygroundProps) => string;
-  } & Pick<PlaygroundDefinition, 'preview' | 'anatomy' | 'absent' | 'stage' | 'clientOnly'>,
+  } & Pick<PlaygroundDefinition, 'preview' | 'stage' | 'clientOnly'>,
 ): PlaygroundDefinition => {
   const tables = Array.isArray(config.from) ? config.from : [config.from];
   const hidden = new Set(config.hide ?? []);
@@ -306,8 +292,6 @@ export const playground = (
       return example ? exampleCode(example.source, kitFor(values).attrs()) : '';
     },
     preview: config.preview,
-    anatomy: config.anatomy,
-    absent: config.absent,
     stage: config.stage,
     clientOnly: config.clientOnly,
   };

@@ -52,25 +52,20 @@ const TINT: Record<string, string> = {
 
 /**
  * The open dialog drawn in place: StatusModal.Content always portals to the body, so the
- * gallery card and the anatomy copy its frame and keep the real Title, Body, Footer and
- * Close inside it; those mark themselves with `data-slot`. `slots` marks the stand-in frame
- * as the content for the anatomy.
+ * gallery card copies its frame and keeps the real Title, Body, Footer and Close inside it.
  */
 const OpenStatusModal = ({
   status,
   orientation,
-  slots = false,
 }: {
   status: StatusModalStatus;
   orientation: 'horizontal' | 'vertical';
-  slots?: boolean;
 }) => {
   const c = CONTENT[status];
   return (
     <StatusModal status={status} orientation={orientation}>
       <div
-        {...(slots ? { 'data-slot': 'status-modal-content' } : {})}
-        className={`relative isolate flex ${slots ? 'w-full' : 'w-[600px]'} max-w-full flex-col overflow-hidden rounded-ws-container-lg bg-ws-static-overlay shadow-ws-high before:absolute before:inset-0 before:z-ws-deep before:block before:bg-inherit before:bg-linear-to-b before:content-[""] ${orientation === 'vertical' ? 'text-center' : 'text-left'} ${TINT[status]}`}
+        className={`relative isolate flex w-[600px] max-w-full flex-col overflow-hidden rounded-ws-container-lg bg-ws-static-overlay shadow-ws-high before:absolute before:inset-0 before:z-ws-deep before:block before:bg-inherit before:bg-linear-to-b before:content-[""] ${orientation === 'vertical' ? 'text-center' : 'text-left'} ${TINT[status]}`}
       >
         <StatusModal.Title>{c.title}</StatusModal.Title>
         <StatusModal.Body>{c.body}</StatusModal.Body>
@@ -158,24 +153,4 @@ export default playground({
 </StatusModal>`;
   },
   preview: () => <OpenStatusModal status="positive" orientation="horizontal" />,
-  // The trigger, then the dialog it opens drawn in place: StatusModal.Content portals to the
-  // body and renders the overlay beside it, so the stand-ins keep that order, the overlay behind.
-  anatomy: () => (
-    <div className="flex w-[20rem] flex-col items-start gap-ws-9">
-      <StatusModal>
-        <StatusModal.Trigger asChild>
-          <Button variant="secondary" preset="border">
-            Check session
-          </Button>
-        </StatusModal.Trigger>
-      </StatusModal>
-      <div className="relative w-full p-ws-9">
-        <div
-          data-slot="status-modal-overlay"
-          className="absolute inset-0 rounded-ws-container-md bg-ws-static-scrim-base"
-        />
-        <OpenStatusModal status="notice" orientation="horizontal" slots />
-      </div>
-    </div>
-  ),
 });

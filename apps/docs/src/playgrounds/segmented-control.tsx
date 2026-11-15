@@ -70,14 +70,4 @@ export default playground({
           .join('\n')}\n</div>`
       : control;
   },
-  anatomy: () => (
-    <SegmentedControl aria-label="View" defaultValue="board" size="lg">
-      {ITEMS.map(({ value, label, Icon }) => (
-        <SegmentedControl.Item key={value} value={value}>
-          <SegmentedControl.Icon icon={Icon} />
-          {label}
-        </SegmentedControl.Item>
-      ))}
-    </SegmentedControl>
-  ),
 });

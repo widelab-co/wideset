@@ -73,23 +73,4 @@ export default playground({
     ).join('\n');
     return `<Tabs${attrs()} defaultValue="overview">\n  <Tabs.List>\n${items}\n  </Tabs.List>\n${panels}\n</Tabs>`;
   },
-  // The first item carries every part, the count included; the second shows the row.
-  anatomy: () => (
-    <Tabs defaultValue="comments" className="w-[20rem] max-w-full">
-      <Tabs.List>
-        <Tabs.Item value="comments">
-          <Tabs.Icon icon={RiChat3Line} />
-          <Tabs.Label>Comments</Tabs.Label>
-          <Tabs.Count>12</Tabs.Count>
-        </Tabs.Item>
-        <Tabs.Item value="overview">
-          <Tabs.Icon icon={RiFileList3Line} />
-          <Tabs.Label>Overview</Tabs.Label>
-        </Tabs.Item>
-      </Tabs.List>
-      <Tabs.Content value="comments" className="py-ws-8 typography-body-md text-ws-static-subtle">
-        Three new replies on the launch plan.
-      </Tabs.Content>
-    </Tabs>
-  ),
 });

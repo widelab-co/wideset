@@ -37,13 +37,4 @@ export default playground({
     });
     return `<RadioButton.Group defaultValue="annual">\n${radios.join('\n')}\n</RadioButton.Group>`;
   },
-  // The composed form, so the label and description are parts of their own.
-  anatomy: () => (
-    <RadioButton.Group defaultValue="annual">
-      <RadioButton value="annual">
-        <RadioButton.Label>Annual billing</RadioButton.Label>
-        <RadioButton.Description>Two months free every year</RadioButton.Description>
-      </RadioButton>
-    </RadioButton.Group>
-  ),
 });

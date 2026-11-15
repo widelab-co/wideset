@@ -53,17 +53,4 @@ export default playground({
       .map((line) => `  ${line}`)
       .join('\n')}\n/>`;
   },
-  // The stage's checkout at its own width: narrower, the steps squeeze and a line overlaps.
-  anatomy: () => (
-    <div className="w-max">
-      <ProgressStepper
-        steps={[
-          { title: 'Account', caption: 'Your details' },
-          { title: 'Billing', caption: 'Plan and card' },
-          { title: 'Review', caption: 'Confirm and pay' },
-        ]}
-        activeStep={1}
-      />
-    </div>
-  ),
 });

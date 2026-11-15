@@ -38,14 +38,4 @@ export default playground({
   <SystemAlert.Action>${copy.action}</SystemAlert.Action>
 </SystemAlert>`;
   },
-  // `SystemAlert.Message` renders no element of its own: the alert marks the span it places
-  // the text in.
-  anatomy: () => (
-    <div className="w-[20rem] max-w-full">
-      <SystemAlert status="info">
-        <SystemAlert.Message>A new version is ready to install</SystemAlert.Message>
-        <SystemAlert.Action>Update</SystemAlert.Action>
-      </SystemAlert>
-    </div>
-  ),
 });

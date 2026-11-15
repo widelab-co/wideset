@@ -1,4 +1,4 @@
-import { Search, Select } from '@wideset/react';
+import { Select } from '@wideset/react';
 
 import { playground } from '../lib/playground-kit';
 
@@ -63,51 +63,6 @@ export default playground({
             {label}
           </Select.Option>
         ))}
-      </div>
-    </div>
-  ),
-  // Parts the picture cannot draw. Only in the open list, which portals.
-  absent: {
-    SelectItemText: 'Only when open',
-    SelectItemIndicator: 'Only when open',
-    SelectScrollUpButton: 'Only when open',
-    SelectScrollDownButton: 'Only when open',
-  },
-  // The trigger, then the list it opens drawn in place: the real one portals to the body,
-  // and the root renders no element, so the list sits beside it.
-  // ItemText and ItemIndicator need the open Radix list, so its options are static rows, and
-  // `Select.Search` focuses itself on mount, so a plain Search marked as the search part
-  // stands in for it.
-  anatomy: () => (
-    <div className="flex w-[16rem] flex-col gap-ws-3">
-      <Select defaultValue="engineering">
-        <Select.Trigger aria-label="Team">
-          <Select.Value placeholder="Choose a team" />
-        </Select.Trigger>
-        {/* Closed, so it draws nothing; its options give the trigger its value. */}
-        <Select.Content>
-          {TEAMS.map(({ value, label }) => (
-            <Select.Option key={value} value={value}>
-              {label}
-            </Select.Option>
-          ))}
-        </Select.Content>
-      </Select>
-      <div data-slot="select-content" className={LIST}>
-        <Search
-          data-slot="select-search"
-          size="sm"
-          aria-label="Search teams"
-          className="m-ws-5 w-auto"
-        />
-        <Select.Separator className="-mx-ws-3" />
-        <Select.Group>
-          <Select.Label>Product</Select.Label>
-          <Select.Option shouldUsePrimitive={false} data-state="checked">
-            Engineering
-          </Select.Option>
-          <Select.Option shouldUsePrimitive={false}>Design</Select.Option>
-        </Select.Group>
       </div>
     </div>
   ),
