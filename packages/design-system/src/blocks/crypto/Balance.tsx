@@ -1,3 +1,5 @@
+import { Tooltip } from '@wideset/react';
+
 import { DISTRIBUTION, MONTHLY_BALANCE } from './data';
 import { formatCompactUsd, formatUsd } from './format';
 
@@ -45,25 +47,26 @@ export function Balance() {
               ))}
             </svg>
             <div className="gap-x-ws-14 relative grid h-full grid-cols-8 items-end">
+              {/* Each bar is a stop for Tab and the pointer alike: its month and value show in a
+                  tooltip on hover and on keyboard focus, and a screen reader reads its label. */}
               {MONTHLY_BALANCE.map(({ month, usd }) => (
-                <div
-                  key={month}
-                  title={`${month}: ${formatUsd(usd)}`}
-                  aria-hidden
-                  className="bg-ws-non-semantic-pink-strong rounded-ws-control-md"
-                  style={{ height: `${(usd / MAX) * 100}%` }}
-                />
+                <Tooltip key={month} size="sm">
+                  <Tooltip.Trigger asChild>
+                    <button
+                      type="button"
+                      aria-label={`${month}: ${formatUsd(usd)}`}
+                      className="bg-ws-non-semantic-pink-strong rounded-ws-control-md focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default cursor-default"
+                      style={{ height: `${(usd / MAX) * 100}%` }}
+                    />
+                  </Tooltip.Trigger>
+                  <Tooltip.Content>
+                    <Tooltip.Label>{month}</Tooltip.Label>
+                    <Tooltip.Description>{formatUsd(usd)}</Tooltip.Description>
+                  </Tooltip.Content>
+                </Tooltip>
               ))}
             </div>
           </div>
-          {/* The bars say it visually; a screen reader gets the same values as a list. */}
-          <ul className="sr-only">
-            {MONTHLY_BALANCE.map(({ month, usd }) => (
-              <li key={month}>
-                {month}: {formatUsd(usd)}
-              </li>
-            ))}
-          </ul>
           <div aria-hidden className="mt-ws-9 gap-x-ws-14 grid grid-cols-8">
             {MONTHLY_BALANCE.map(({ month }) => (
               <span key={month} className="typography-body-sm text-ws-static-subtle text-center">
