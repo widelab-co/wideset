@@ -24,7 +24,7 @@ type Measured = {
   /** The label's width as the frame draws it. */
   width: number;
   rect: Rect;
-  /** The spotlight's corners, as a `border-radius`. */
+  /** The part's corners, as a `border-radius`: the wash around it is cut to them. */
   radius: string;
   /** The middle of the part's first line, from the drawing's top. */
   anchor: number;
@@ -439,6 +439,25 @@ const AnatomyDiagram = ({
   const focus = drawn?.parts.find((part) => part.n === shown) ?? drawn?.parts[0];
   const on = active !== null;
   const info = parts.find((part) => part.n === shown);
+  /** The part in view holds every other drawn part (the root): then nothing fades. */
+  const whole =
+    !focus ||
+    (drawn?.parts ?? []).every(
+      (part) =>
+        part.rect.left >= focus.rect.left - 1 &&
+        part.rect.top >= focus.rect.top - 1 &&
+        part.rect.left + part.rect.width <= focus.rect.left + focus.rect.width + 1 &&
+        part.rect.top + part.rect.height <= focus.rect.top + focus.rect.height + 1,
+    );
+  const fading = on && !whole;
+  // Room for the popup (300px and its gap) beside the drawing, in the window.
+  const beside = (() => {
+    const el = frame.current;
+    if (!el || !view || !drawn) return true;
+    const left = el.getBoundingClientRect().left + view.left;
+    const right = left + drawn.width * view.zoom;
+    return Math.max(left, document.documentElement.clientWidth - right) >= 316;
+  })();
   /** A mouse hovers; a finger taps to open and taps again to close. */
   const hover = (n: number) => ({
     onPointerEnter: (event: React.PointerEvent) => event.pointerType === 'mouse' && highlight(n),
@@ -479,18 +498,20 @@ const AnatomyDiagram = ({
           {(definition.anatomy || undefined)?.() ??
             definition.preview?.() ??
             definition.render(definition.defaults)}
-          {/* The highlight: an outline the part's exact shape. Drawn inside the drawing so it
-              shares the part's scale and pixel edges. It cuts from part to part without moving;
-              it only fades in, and out a step faster. */}
+          {/* The part under the pointer stays as it is and everything else in the drawing fades
+              to about 38%: a box the part's exact shape whose shadow is a wash of the stage's
+              own fill (the soft fill over the page's ground) at 62%, so the stage itself does
+              not change. Drawn inside the drawing so it shares the part's scale and pixel
+              edges. Nothing fades for a part that holds all the others (the root). */}
           {focus && (
             <div
-              className={`pointer-events-none absolute z-[100] transition-opacity ${on ? 'duration-[120ms] ease-out' : 'duration-[80ms] ease-in'}`}
+              className="pointer-events-none absolute z-[100] transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) motion-reduce:transition-none"
               style={{
                 ...focus.rect,
                 borderRadius: focus.radius,
-                outline: '1.5px solid var(--border-color-ws-dynamic-primary-default)',
-                outlineOffset: '-1px',
-                opacity: on ? 1 : 0,
+                boxShadow:
+                  '0 0 0 100vmax color-mix(in srgb, var(--background-color-ws-static-alpha-subtle) 62%, transparent), 0 0 0 100vmax color-mix(in srgb, var(--background-color-ws-static-foreground) 62%, transparent)',
+                opacity: fading ? 1 : 0,
               }}
             />
           )}
@@ -513,7 +534,7 @@ const AnatomyDiagram = ({
             left: x,
             top: y,
             transform: TRANSLATE[side],
-            opacity: on && active !== n ? 0.75 : 1,
+            opacity: fading && active !== n ? 0.4 : 1,
             // Hover lifts the weight a step, the same move as the badge, not a new one.
             fontWeight: active === n ? 'var(--font-weight-ws-medium)' : undefined,
           }}
@@ -533,23 +554,31 @@ const AnatomyDiagram = ({
               {...hover(part.n)}
             />
           ))}
-      {/* The tokens of the part in the spotlight, anchored to the part. It stays open while the
-          pointer is on it, so a class can be copied; Escape or a click elsewhere closes it. */}
+      {/* The tokens of the part under the pointer, beside the component: to its right, or its
+          left when the window has no room there, level with the part's top; under it only when
+          neither side has room. It stays open while the pointer is on it, so a class can be
+          copied; Escape or a click elsewhere closes it. */}
       <Popup open={on && Boolean(info)} onOpenChange={(next) => !next && setActive(null)}>
         <Popup.Trigger asChild>
           <span
             aria-hidden="true"
             className="pointer-events-none absolute"
-            // As wide as the part, as tall as the whole drawing: the popup opens under (or
-            // over) the component, never on it.
+            // As wide as the whole drawing, so the popup never lies on the component; as tall
+            // as the part (beside it) or as the drawing (under it).
             style={
-              (focus && drawn && boxOf({ ...focus.rect, top: 0, height: drawn.height })) ??
+              (focus &&
+                drawn &&
+                boxOf(
+                  beside
+                    ? { ...focus.rect, left: 0, width: drawn.width }
+                    : { left: 0, top: 0, width: drawn.width, height: drawn.height },
+                )) ??
               undefined
             }
           />
         </Popup.Trigger>
         <Popup.Container
-          side="bottom"
+          side={beside ? 'right' : 'bottom'}
           align="start"
           sideOffset={8}
           aria-label={info ? `${info.part}: tokens` : undefined}
@@ -559,7 +588,8 @@ const AnatomyDiagram = ({
           onPointerLeave={(event) => event.pointerType === 'mouse' && highlight(null)}
           onBlur={(event) => !event.currentTarget.contains(event.relatedTarget) && highlight(null)}
           data-anatomy-tokens
-          className="w-auto overflow-hidden border border-ws-static-subtle shadow-ws-medium"
+          // The library's own surface; only its fixed width gives way to the content's.
+          className="w-auto"
         >
           {info && focus && <PartTokens part={info.part} element={info.element} el={focus.el} />}
         </Popup.Container>
