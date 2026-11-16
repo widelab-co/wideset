@@ -1,7 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ComponentType } from 'react';
 
-import { BLOCKS, DIRECTION_TITLE, NAVIGATION_TITLE, PANELS } from '../../blocks';
+import {
+  type BlockDirection,
+  BLOCKS,
+  DIRECTION_TITLE,
+  NAVIGATION_TITLE,
+  PANELS,
+} from '../../blocks';
+import CustomersBlock from '../../blocks/customers';
 
 /*
   The starting points: whole screens in src/blocks/<id>/, one story each, full screen. The docs
@@ -66,5 +73,45 @@ export const SignIn = story('sign-in');
 export const SignInCard = story('sign-in-card');
 export const SignUp = story('sign-up');
 export const Crypto = story('crypto');
+export const Analytics = story('analytics');
+export const SalesOverview = story('sales-overview');
+export const Customers = story('customers');
 
+/** A screen in another direction: the page stays the same, only the surround changes. */
+const inDirection = <D extends BlockDirection>(
+  id: string,
+  Block: ComponentType<{ direction?: D }>,
+  direction: D,
+): Story => {
+  const block = BLOCKS.find((entry) => entry.id === id)!;
+  return {
+    name: `${block.title} (${DIRECTION_TITLE[direction]}, ${NAVIGATION_TITLE[block.navigation].toLowerCase()})`,
+    args: { id },
+    render: () => <Block direction={direction} />,
+    parameters: {
+      docs: {
+        description: {
+          story: `The ${block.title} screen in the ${DIRECTION_TITLE[direction]} direction: the same page, another surround. An app keeps one direction on every screen.`,
+        },
+      },
+    },
+  };
+};
+export const CustomersFrame = inDirection('customers', CustomersBlock, 'frame');
+export const CustomersInset = inDirection('customers', CustomersBlock, 'inset');
+export const CustomersCanvas = inDirection('customers', CustomersBlock, 'canvas');
+export const CustomerDetail = story('customer-detail');
+export const Invoice = story('invoice');
+export const Report = story('report');
+export const Home = story('home');
+export const Dashboard = story('dashboard');
+export const Orders = story('orders');
+export const OrderDetail = story('order-detail');
+export const ActivityFeed = story('activity-feed');
+export const Reviews = story('reviews');
+export const Goals = story('goals');
+export const Profile = story('profile');
+export const Files = story('files');
+export const Gallery = story('gallery');
+export const Pipeline = story('pipeline');
 export const TaskSidepanel = panelStory('task-sidepanel');
