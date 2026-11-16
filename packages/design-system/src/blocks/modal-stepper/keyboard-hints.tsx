@@ -10,41 +10,29 @@ import type { ReactNode } from 'react';
 
 /**
  * The hints in the modal's footer strip, as Figma draws them: moving through the modal, going
- * back to where it was opened from, and closing. A hint shows only for keys the modal handles, so
- * none teaches a key that does nothing: Esc is the Modal's own and always there; turn on
- * `navigate` (Up and Down) or `back` (Left) once the modal wires that key to what it holds.
+ * back to where it was opened from, and closing. They only say what the keys do: Esc is the
+ * Modal's own, the others are yours to wire to what the modal holds.
  */
-export function KeyboardHints({ navigate = false, back = false }: KeyboardHintsProps) {
+export function KeyboardHints() {
   return (
     <>
       <div className="gap-ws-12 flex items-center">
-        {navigate && (
-          <Hint
-            keys={
-              <span className="gap-ws-3 flex">
-                <Key icon={RiArrowUpSLine} name="Up arrow" />
-                <Key icon={RiArrowDownSLine} name="Down arrow" />
-              </span>
-            }
-          >
-            Navigate
-          </Hint>
-        )}
-        {back && (
-          <Hint keys={<Key icon={RiArrowLeftLine} name="Left arrow" />}>Return to parent</Hint>
-        )}
+        <Hint
+          keys={
+            <span className="gap-ws-3 flex">
+              <Key icon={RiArrowUpSLine} name="Up arrow" />
+              <Key icon={RiArrowDownSLine} name="Down arrow" />
+            </span>
+          }
+        >
+          Navigate
+        </Hint>
+        <Hint keys={<Key icon={RiArrowLeftLine} name="Left arrow" />}>Return to parent</Hint>
       </div>
       <Hint keys={<Key>esc</Key>}>Close</Hint>
     </>
   );
 }
-
-type KeyboardHintsProps = {
-  /** Up and Down move through what the modal holds. */
-  navigate?: boolean;
-  /** Left goes back to where the modal was opened from. */
-  back?: boolean;
-};
 
 /** One hint: the keys, then what they do. */
 function Hint({ keys, children }: { keys: ReactNode; children: string }) {

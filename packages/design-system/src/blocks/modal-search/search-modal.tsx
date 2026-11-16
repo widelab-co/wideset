@@ -172,8 +172,7 @@ export function SearchModal({
         </Tabs>
 
         <Modal.Footer variant="extension" className="items-center">
-          {/* Up and Down move through the results (onKeyDown above); Left has nothing to go back to. */}
-          <KeyboardHints navigate />
+          <KeyboardHints />
         </Modal.Footer>
       </Modal.Content>
     </Modal>
