@@ -27,8 +27,13 @@ function Feed() {
 
   const copyLink = (id: string) => {
     const { origin, pathname, search } = window.location;
-    void navigator.clipboard?.writeText(`${origin}${pathname}${search}#${id}`).catch(() => {});
-    showToast({ content: 'Link copied' });
+    // The toast says what happened: copied only once the clipboard took it.
+    Promise.resolve()
+      .then(() => navigator.clipboard.writeText(`${origin}${pathname}${search}#${id}`))
+      .then(
+        () => showToast({ content: 'Link copied' }),
+        () => showToast({ content: 'Couldn’t copy the link', status: 'error' }),
+      );
   };
 
   return (
