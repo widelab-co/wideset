@@ -3,7 +3,10 @@ import { InlineAlert } from '@wideset/react';
 import { limit } from './data';
 
 type LimitNoticeProps = {
-  /** Waiting was chosen: the run goes on by itself when the limit resets. */
+  /**
+   * Waiting was chosen: in an app the run goes on by itself when the limit resets (the app's
+   * timer or server calls the way on). The sample has no such clock, so it stays on this note.
+   */
   waiting: boolean;
   onWait: () => void;
   onCancel: () => void;
