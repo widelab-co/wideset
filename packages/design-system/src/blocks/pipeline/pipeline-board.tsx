@@ -114,9 +114,12 @@ export function PipelineBoard({
     const onPointerUp = (event: globalThis.PointerEvent) => {
       if (drag.pointerId !== event.pointerId) return;
       const moved = deals.find(({ id }) => id === drag.id);
+      // The move that made it a drag may not have rendered yet.
+      const distance = Math.hypot(event.clientX - drag.startX, event.clientY - drag.startY);
+      const dragging = drag.active || distance >= THRESHOLD;
       // From where the pointer is now: the board may have scrolled since the last move.
       const target = targetAt(event.clientX, event.clientY, drag.id) ?? drag.target;
-      if (drag.active && target && moved) {
+      if (dragging && target && moved) {
         dragged.current = true;
         move(moved, target.stage, target.index, false);
       }
