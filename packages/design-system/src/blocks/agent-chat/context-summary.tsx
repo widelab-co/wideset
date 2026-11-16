@@ -17,7 +17,7 @@ export function ContextSummary({
   parts,
   onCompact,
 }: Context & {
-  /** Compacts the conversation; the popup closes after it. */
+  /** Compacts the conversation; the popup closes after it. Without it there is no Compact button. */
   onCompact?: () => void;
 }) {
   return (
@@ -56,17 +56,20 @@ export function ContextSummary({
               </div>
             ))}
           </dl>
-          <Popup.Close asChild>
-            <Button
-              variant="secondary"
-              preset="border"
-              size="sm"
-              className="w-full"
-              onClick={onCompact}
-            >
-              Compact now
-            </Button>
-          </Popup.Close>
+          {/* Offered only when something compacts: a button that does nothing is not offered. */}
+          {onCompact && (
+            <Popup.Close asChild>
+              <Button
+                variant="secondary"
+                preset="border"
+                size="sm"
+                className="w-full"
+                onClick={onCompact}
+              >
+                Compact now
+              </Button>
+            </Popup.Close>
+          )}
         </Popup.Content>
       </Popup.Container>
     </Popup>
