@@ -3,7 +3,7 @@ import { RiChat3Fill, RiCheckboxCircleFill, RiCloseCircleFill } from '@remixicon
 import { Button } from '@wideset/react';
 import { useId } from 'react';
 
-import { THREADS } from './changes-data';
+import type { Thread } from './changes-data';
 import { CHECKS } from './checks-data';
 import { formatCount } from './checks-format';
 
@@ -18,10 +18,10 @@ const MARK = 'size-ws-9 shrink-0';
  * open comment waits for an answer (notice). The button is bordered: the session's composer owns
  * the screen's filled one.
  */
-export function ReadySummary() {
+export function ReadySummary({ threads }: { threads: Thread[] }) {
   const reasonId = useId();
   const failing = CHECKS.filter((check) => check.state === 'failed').length;
-  const unresolved = THREADS.filter((thread) => !thread.resolved).length;
+  const unresolved = threads.filter((thread) => !thread.resolved).length;
   const ready = failing + unresolved === 0;
 
   return (
