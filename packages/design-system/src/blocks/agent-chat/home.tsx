@@ -21,8 +21,8 @@ import { ModelMenu } from './model-menu';
 
 type HomeProps = {
   mode: Mode;
-  /** Starts the thread with its first message. */
-  onSend: (text: string) => void;
+  /** Starts the thread with its first message and the files attached to it. */
+  onSend: (text: string, attachments?: string[]) => void;
 };
 
 /**
@@ -106,7 +106,7 @@ export function Home({ mode, onSend }: HomeProps) {
             }
             model={<ModelMenu models={models} efforts={efforts} />}
             roomy
-            onSend={onSend}
+            onSend={(text) => onSend(text, attached.length > 0 ? attached : undefined)}
           />
           <div role="group" aria-label="Ways to start" className="gap-ws-3 px-ws-3 flex flex-wrap">
             {starters[mode].map(({ label, icon, prompt }) => (
