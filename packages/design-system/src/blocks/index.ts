@@ -185,6 +185,37 @@ export const BLOCKS: BlockMeta[] = [
       'The people in a workspace: members with their roles, pending invitations and inviting someone new.',
   },
   {
+    id: 'onboarding',
+    title: 'Onboarding',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'A first run on a raised page: a welcome, a setup checklist with progress, and the next best actions.',
+  },
+  {
+    id: 'empty-list',
+    title: 'Empty list',
+    direction: 'flat',
+    navigation: 'sidebar',
+    description:
+      'A list before its first record: an empty state that explains what will appear and how to add or import the first one, and the same list with no search results.',
+  },
+  {
+    id: 'no-access',
+    title: 'No access',
+    direction: 'frame',
+    navigation: 'sidebar',
+    description:
+      'A page the viewer may not open: who owns it, why it is closed and a way to request access.',
+  },
+  {
+    id: 'not-found',
+    title: 'Not found',
+    direction: 'inset',
+    navigation: 'none',
+    description: 'A missing page before or outside the app: what happened and the ways back.',
+  },
+  {
     id: 'integrations',
     title: 'Integrations',
     direction: 'flat',
@@ -231,6 +262,14 @@ export const BLOCKS: BlockMeta[] = [
     navigation: 'sidebar',
     description:
       'A revenue dashboard on a raised page: a period control over four key figures with their change, a trend against the period before, revenue by owner and progress to the quarter’s goal, split by lines instead of cards.',
+  },
+  {
+    id: 'page-states',
+    title: 'Page states',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'A customer overview with its four modules in the four states a module can be in: loaded, loading, empty and failed with a working Retry, under one page-wide notice.',
   },
   {
     id: 'order-confirmation',
@@ -289,6 +328,22 @@ export const BLOCKS: BlockMeta[] = [
       'Cancelling a plan on a raised page, in one narrow column: what happens and what is lost, an optional reason, one alternative that fits it, and the only red button; then the result in place, with the way to undo it.',
   },
   {
+    id: 'inbox',
+    title: 'Inbox',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'Mail with customers on a raised page: a searchable list of conversations beside the open one, its earlier messages folded to a line, with archive, star and a reply in place.',
+  },
+  {
+    id: 'chat',
+    title: 'Chat',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'Team chat on a raised page: channels and people in a narrow column, then the open thread grouped by day and sender, with a shared file, a quoted reply, reactions and the composer.',
+  },
+  {
     id: 'activity-feed',
     title: 'Activity feed',
     direction: 'inset',
@@ -337,6 +392,38 @@ export const BLOCKS: BlockMeta[] = [
       'A person’s own settings on a raised page, each section’s title beside its controls: profile and a verified e-mail, language and region, a theme that switches, notifications, sign-in and sessions, and deleting the account behind a typed confirmation.',
   },
   {
+    id: 'help-center',
+    title: 'Help center',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'Help inside the product on a raised page: a search that turns the page into its matches, the topics as tiles, popular articles and the ways to reach support.',
+  },
+  {
+    id: 'article',
+    title: 'Article',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'A help article on a raised page: the text in a reading column with steps, a note, a table and code, the contents following the scroll, whether it helped and what to read next.',
+  },
+  {
+    id: 'lesson',
+    title: 'Lesson',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'A course lesson on a raised page: the video with its chapters, the course outline with progress, and a short quiz at the end that completes the lesson.',
+  },
+  {
+    id: 'recording',
+    title: 'Recording',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'A call recording on a raised page: who spoke when, the transcript that follows the player, highlights and comments at a moment, and a voice note.',
+  },
+  {
     id: 'files',
     title: 'Files',
     direction: 'inset',
@@ -369,12 +456,60 @@ export const BLOCKS: BlockMeta[] = [
       'Importing customers from a CSV file in steps on a raised page: the file, matching its columns to fields, a review of what will change with a choice for duplicates, then the result in place, with exporting from the header.',
   },
   {
+    id: 'event-detail',
+    title: 'Event detail',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'One customer event on a raised page: the date beside the name, its facts in a quiet row, the answer to the invitation as the one filled control with a follow-up in place, the agenda as a timeline, and who is going beside it.',
+  },
+  {
+    id: 'booking',
+    title: 'Booking',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'Booking a customer meeting on a raised page from the time they shared: the meeting, a month of open days and the free times in your time zone side by side, the details with a way back to each choice, then the confirmation in both time zones.',
+  },
+  {
+    id: 'call',
+    title: 'Call',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'A video call inside the app on a raised page: the people as tiles on a dark stage with the speaker outlined, a control bar to mute, share and record, and notes, chat and people in a panel beside it.',
+  },
+  {
+    id: 'assistant',
+    title: 'Assistant',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'An assistant beside a record on a raised page: the deal on the left, and a conversation on the right that cites its sources and proposes a change to apply, which lands in the record and its activity.',
+  },
+  {
+    id: 'workflow-builder',
+    title: 'Workflow builder',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'Building an automation on a raised page: steps on a canvas joined by lines with a + to insert one, a condition that splits the flow, the selected step’s settings in a panel beside it, and a switch that turns the workflow on once every step is complete.',
+  },
+  {
     id: 'pipeline',
     title: 'Pipeline',
     direction: 'inset',
     navigation: 'sidebar',
     description:
       'A deal pipeline on a raised page: stages as columns of deal cards with each stage’s total, dragged between and within stages or moved from the keyboard, filtered by owner, close date and search.',
+  },
+  {
+    id: 'code-editor',
+    title: 'Code editor',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'Editing a script on a raised page: files beside the editor with line numbers and colouring, a test run with its output and problems, and saving or restoring a version.',
   },
 ];
 
@@ -393,6 +528,12 @@ export const PANELS: PanelMeta[] = [
     title: 'Task side panel',
     description:
       'A record’s detail beside the page: its properties, subtasks, tabs over an activity timeline, and keyboard hints.',
+  },
+  {
+    id: 'media-viewer',
+    title: 'Media viewer',
+    description:
+      'A file opened full screen over the app: the file large in the middle with zoom, moving to the previous or next, its details and comments beside it, and closing back to its row.',
   },
 ];
 
