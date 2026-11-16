@@ -35,14 +35,16 @@ const clock = (seconds: number) =>
  * Verifying the address given at sign-up: where the code went, with a way to correct it, the code
  * as six boxes that check themselves the moment the sixth digit is in (typed, pasted or filled by
  * the phone), and a new code once a cooldown has run out. A wrong code is said under the boxes,
- * which keep the digits to correct; the button stays for a short code and shows the check is
- * running. Nothing here talks to a server: the demo accepts only the code in `data.ts`.
+ * which empty and take focus from the first, so the next try is a whole new code and never five
+ * old digits with one new; the button stays for a short code and shows the check is running. Nothing here talks to a server: the demo accepts only the code in `data.ts`.
  */
 export function VerifyForm({ onVerified }: { onVerified: () => void }) {
   const id = useId();
   const { showToast } = useToast();
   const [error, setError] = useState<string>();
   const [checking, setChecking] = useState(false);
+  // A new key after a wrong code: the boxes start empty, focused on the first.
+  const [attempt, setAttempt] = useState(0);
   const [left, restart] = useCooldown(RESEND_COOLDOWN);
   const timer = useRef<number>(undefined);
   useEffect(() => () => window.clearTimeout(timer.current), []);
@@ -65,7 +67,7 @@ export function VerifyForm({ onVerified }: { onVerified: () => void }) {
         return;
       }
       setError('That code didn’t work. Check the latest e-mail, or send a new code.');
-      focusCode();
+      setAttempt((count) => count + 1);
     }, 700);
   };
 
@@ -105,6 +107,7 @@ export function VerifyForm({ onVerified }: { onVerified: () => void }) {
         errorText={error}
       >
         <CodeInput
+          key={attempt}
           id={`${id}-code`}
           labelId={`${id}-code-label`}
           name="code"

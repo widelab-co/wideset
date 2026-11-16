@@ -23,6 +23,13 @@ const COLUMN = 'px-ws-14 mx-auto w-full max-w-[80rem]';
 
 type MenuState = { customer: Customer; anchor: MenuAnchor; open: boolean };
 
+/** Puts a row back before the first of the rows that followed it which is still in the list. */
+function restore(all: Customer[], row: Customer, after: Customer[]) {
+  const next = after.find((item) => all.some((other) => other.id === item.id));
+  const at = next ? all.findIndex((item) => item.id === next.id) : all.length;
+  return [...all.slice(0, at), row, ...all.slice(at)];
+}
+
 /**
  * The page inside the card, under the toasts. It holds the customers, so every item in the menu
  * changes the list in one place and says so: the owner and the tags change in the row, a
@@ -70,16 +77,15 @@ function CustomersPage() {
       all.map((customer) => (customer.id === id ? { ...customer, ...patch } : customer)),
     );
 
-  /** A toast whose Undo puts the list back as it was before the action. */
-  const toastWithUndo = (content: string) => {
-    const before = rows;
+  /** A toast whose Undo reverses its own action only, not anything done since. */
+  const toastWithUndo = (content: string, undo: () => void) => {
     const id = showToast({
       content,
       action: (
         <Toast.Action
           preset="ghost"
           onClick={() => {
-            setRows(before);
+            undo();
             dismissToast(id);
           }}
         >
@@ -93,8 +99,13 @@ function CustomersPage() {
     if (action === 'open') showToast({ content: `Opening ${customer.name}` });
     if (action === 'open-new-tab') showToast({ content: `${customer.name} opened in a new tab` });
     if (action === 'copy-link') {
-      navigator.clipboard?.writeText(customerUrl(customer.id)).catch(() => {});
-      showToast({ content: `Copied the link to ${customer.name}` });
+      // The toast says what happened: copied only once the clipboard took it.
+      Promise.resolve()
+        .then(() => navigator.clipboard.writeText(customerUrl(customer.id)))
+        .then(
+          () => showToast({ content: `Copied the link to ${customer.name}` }),
+          () => showToast({ content: 'Couldn’t copy the link', status: 'error' }),
+        );
     }
     if (action === 'duplicate') {
       const copy = {
@@ -103,11 +114,16 @@ function CustomersPage() {
         name: `Copy of ${customer.name}`,
       };
       setRows((all) => all.flatMap((item) => (item.id === customer.id ? [item, copy] : [item])));
-      toastWithUndo(`Duplicated ${customer.name}`);
+      toastWithUndo(`Duplicated ${customer.name}`, () =>
+        setRows((all) => all.filter((item) => item.id !== copy.id)),
+      );
     }
     if (action === 'archive') {
+      const after = rows.slice(rows.findIndex((item) => item.id === customer.id) + 1);
       setRows((all) => all.filter((item) => item.id !== customer.id));
-      toastWithUndo(`Archived ${customer.name}`);
+      toastWithUndo(`Archived ${customer.name}`, () =>
+        setRows((all) => restore(all, customer, after)),
+      );
     }
     if (action === 'delete') setDeleting({ customer, open: true });
   };
@@ -115,7 +131,10 @@ function CustomersPage() {
   const assign = (customer: Customer, owner: PersonId) => {
     if (owner === customer.owner) return;
     change(customer.id, { owner });
-    toastWithUndo(`${customer.name} assigned to ${owner === 'maya' ? 'you' : PEOPLE[owner].name}`);
+    toastWithUndo(
+      `${customer.name} assigned to ${owner === 'maya' ? 'you' : PEOPLE[owner].name}`,
+      () => change(customer.id, { owner: customer.owner }),
+    );
   };
 
   // The menu reads the row as it is now, so a tag ticked in it shows at once.

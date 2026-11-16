@@ -85,6 +85,8 @@ export function useShell({
   const nextId = () => `new-${(ids.current += 1)}`;
 
   const open = (id: string) => {
+    // The thread is open already: nothing to leave, so the draft and the queue stay.
+    if (id === openId) return;
     session.leave();
     setOpenIds({ ...openIds, [mode]: id });
     const target = groups[mode].flatMap((item) => item.threads).find((item) => item.id === id);

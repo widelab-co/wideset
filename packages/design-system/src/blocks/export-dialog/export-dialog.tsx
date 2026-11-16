@@ -180,6 +180,8 @@ export function ExportDialog({
                     <DateRangePicker
                       key={cleared}
                       id={`${id}-added`}
+                      // Hidden while the scope is Selected; back, it shows the range that filters.
+                      defaultSelected={range}
                       placeholder="Any time"
                       className="flex-1"
                       dateFormat="MMM d, yyyy"

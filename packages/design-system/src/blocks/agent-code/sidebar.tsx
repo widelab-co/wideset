@@ -75,6 +75,9 @@ export function AgentSidebar({
   const [query, setQuery] = useState('');
   const [searching, setSearching] = useState(false);
   const field = useRef<HTMLInputElement>(null);
+  const searchRow = useRef<HTMLAnchorElement>(null);
+  /** Search was left from the keyboard: the cursor goes back to the Search row it came from. */
+  const backToRow = useRef(false);
   const groupId = useId();
   const thread = mode === 'chat' ? 'chat' : 'session';
   const modifier = useModifier();
@@ -96,14 +99,21 @@ export function AgentSidebar({
     setSearching(true);
   };
 
-  const endSearch = () => {
+  const endSearch = (refocus = false) => {
+    // Only ever set here: a blur as the field leaves must not cancel the way back.
+    if (refocus) backToRow.current = true;
     setQuery('');
     setSearching(false);
   };
 
-  // The row became the field to be typed in: the cursor is there.
+  // The row became the field to be typed in: the cursor is there. Back from the field by Escape
+  // or Clear, the cursor goes to the Search row again rather than to the page.
   useEffect(() => {
     if (searching && !collapsed) field.current?.focus();
+    else if (!searching && backToRow.current) {
+      backToRow.current = false;
+      searchRow.current?.focus();
+    }
   }, [searching, collapsed]);
 
   // The rows' shortcuts, the ones their hints show.
@@ -187,7 +197,12 @@ export function AgentSidebar({
                 size="sm"
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
-                onKeyDown={(event) => event.key === 'Escape' && endSearch()}
+                onKeyDown={(event) => {
+                  if (event.key !== 'Escape') return;
+                  // Escape is spent closing the search: it does not also stop a running turn.
+                  event.preventDefault();
+                  endSearch(true);
+                }}
                 onBlur={() => query.trim() === '' && endSearch()}
               >
                 <TextInput.Prefix inner>
@@ -200,11 +215,15 @@ export function AgentSidebar({
                   aria-label={`Search ${thread}s`}
                 />
                 <TextInput.Suffix inner>
-                  <TextInput.ClearButton aria-label="Clear search" onClear={endSearch} />
+                  <TextInput.ClearButton
+                    aria-label="Clear search"
+                    onClear={() => endSearch(true)}
+                  />
                 </TextInput.Suffix>
               </TextInput>
             ) : (
               <Sidebar.Item
+                ref={searchRow}
                 href="#search"
                 icon={RiSearchLine}
                 label="Search"

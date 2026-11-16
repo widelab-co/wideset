@@ -94,8 +94,11 @@ function ShareLink({ link }: { link: string }) {
         icon={copied ? RiCheckLine : RiFileCopyLine}
         aria-label="Copy link"
         onClick={() => {
-          void navigator.clipboard?.writeText(`https://${link}`).catch(() => {});
-          setCopied(true);
+          // Said copied only once the clipboard took it; without access nothing claims it did.
+          Promise.resolve()
+            .then(() => navigator.clipboard.writeText(`https://${link}`))
+            .then(() => setCopied(true))
+            .catch(() => {});
         }}
       />
       <span role="status" className="typography-body-md text-ws-static-subtle">
