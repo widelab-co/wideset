@@ -35,6 +35,8 @@ function TeamPage() {
   const [inviting, setInviting] = useState(false);
   // The modal has no trigger, so the button that opened it is kept to take the focus back.
   const inviteOpener = useRef<HTMLElement | null>(null);
+  // The header's button stays when an empty state's button is gone (the first invitation replaces it).
+  const headerInvite = useRef<HTMLButtonElement>(null);
   const openInvite = () => {
     inviteOpener.current = document.activeElement as HTMLElement | null;
     setInviting(true);
@@ -94,7 +96,7 @@ function TeamPage() {
   return (
     <main className="px-ws-16 min-w-0 flex-1 overflow-y-auto">
       <div className="gap-ws-14 py-ws-14 mx-auto flex w-full max-w-[80rem] flex-col">
-        <PageHeader seatsUsed={members.length} onInvite={openInvite} />
+        <PageHeader seatsUsed={members.length} onInvite={openInvite} inviteRef={headerInvite} />
 
         <Tabs value={tab} onValueChange={(value) => setTab(value as Tab)} className="gap-ws-9">
           <Tabs.List aria-label="People in the workspace" className="w-full">
@@ -179,7 +181,8 @@ function TeamPage() {
         onOpenChange={setInviting}
         onCloseAutoFocus={(event) => {
           event.preventDefault();
-          inviteOpener.current?.focus();
+          const opener = inviteOpener.current;
+          (opener?.isConnected ? opener : headerInvite.current)?.focus();
         }}
         members={members}
         taken={[...members.map((m) => m.email), ...invitations.map((i) => i.email)]}
