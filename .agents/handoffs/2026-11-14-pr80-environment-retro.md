@@ -4,8 +4,8 @@ Written 2026-11-14 after the session that merged `develop` into #80 (starting po
 blocks onto `AppShell` and migrated them to the new title scale. The work itself is in #80's
 commits; this file lists what in the repository's environment made that session slower or let
 mistakes through, and how to fix each. One small pull request per item, from `develop`, in the
-order below. Items 1–3 are mechanical and should land before #81 (stacked on #80), which repeats
-the same patterns.
+order below, except item 6, which is resolved outside the repository. Items 1–3 are mechanical
+and should land before #81 (stacked on #80), which repeats the same patterns.
 
 ## 1. Git hooks never run
 
@@ -98,20 +98,11 @@ Storybook's loading spinner, and dialogs were caught mid-animation. `.claude/lau
 `CLAUDE.md` point at preview tools that were not available in that session, so the instruction
 did nothing there.
 
-**Fix.** `packages/design-system/scripts/storybook-shots.mjs` plus a root script
-(`pnpm shots -- --ref <git ref> --stories <prefix>`):
-
-- start Storybook for the current tree and, for `--ref`, in a temporary `git worktree` with
-  `pnpm install --offline` on another port;
-- drive headless Chrome over the DevTools protocol (Node 22 has `fetch` and `WebSocket`; no new
-  dependency): per story open `iframe.html?id=…&viewMode=story`, wait until `body` has
-  `sb-show-main` and `#storybook-root` has children, then `document.fonts.ready` and about 2.5s;
-  emulate `prefers-color-scheme` and `prefers-reduced-motion: reduce`; 3 tabs in parallel;
-- write PNG pairs, a pixel-difference percentage per story, and a static `index.html` that shows
-  the pairs side by side, sorted by difference.
-
-Add one line to `CLAUDE.md`: without preview tools, run Storybook with
-`pnpm --filter @wideset/react exec storybook dev -p <port> --ci --no-open`.
+**Resolved outside the repository.** The tool is only needed while reviewing, so it is a
+personal, local skill (`storybook-shots`, in the reviewer's `~/.claude/skills/`), not a script
+in the repository: the working tree against `--ref` in a temporary worktree, headless Chrome over
+the DevTools protocol, a wait for the rendered story, transitions and animations at their end
+state, focus emulated per tab, and an `index.html` sorted by differing pixels. Nothing to do here.
 
 ## 7. Context cost of generated files
 
