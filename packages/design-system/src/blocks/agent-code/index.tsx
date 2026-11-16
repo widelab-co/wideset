@@ -214,7 +214,7 @@ export default function AgentCode({ pane: initial = 'changes' }: { pane?: Pane }
                   label="Replay"
                   icon={RiRestartLine}
                   side="bottom"
-                  onClick={session.replay}
+                  onClick={() => session.replay()}
                 />
                 <ThreadMenu view={view} onViewChange={setView} />
               </>

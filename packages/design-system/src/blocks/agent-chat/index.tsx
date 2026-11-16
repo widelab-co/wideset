@@ -110,7 +110,12 @@ export default function AgentChat({ screen = 'chat' }: { screen?: 'chat' | 'home
           >
             {thread && (
               <>
-                <Button variant="secondary" preset="ghost" size="sm" onClick={session.replay}>
+                <Button
+                  variant="secondary"
+                  preset="ghost"
+                  size="sm"
+                  onClick={() => session.replay()}
+                >
                   <Button.Icon icon={RiRestartLine} />
                   Replay
                 </Button>
