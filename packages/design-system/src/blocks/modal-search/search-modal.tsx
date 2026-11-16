@@ -32,7 +32,9 @@ type SearchModalProps = {
  * Figma's Modal `Type=Search`: search across the workspace. The field is the modal's default
  * 40px, the largest control in it; the tabs only narrow the results, so they carry no counts.
  * The field keeps the focus the whole time: typing filters the results, the arrow keys move the
- * highlight (the field points at it for screen readers), Enter opens it and Esc closes. The
+ * highlight (the field points at it for screen readers), Enter opens it and Esc closes; Left,
+ * with the caret at the start of the field, goes back from a tab to All and from All to the page.
+ * The
  * results keep the height of five rows, so the modal does not jump while the list shrinks and
  * grows.
  */
@@ -61,6 +63,10 @@ export function SearchModal({
     setActive(0);
   };
 
+  /** Left moves the caret, unless it stands at the start of the field with nothing selected. */
+  const caretAtStart = () =>
+    input.current?.selectionStart === 0 && input.current.selectionEnd === 0;
+
   const onKeyDown = (event: KeyboardEvent) => {
     if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
       event.preventDefault();
@@ -70,6 +76,19 @@ export function SearchModal({
       document.getElementById(optionId(next))?.scrollIntoView({ block: 'nearest' });
     } else if (event.key === 'Enter' && event.target === input.current && current) {
       onOpenResult(current);
+    } else if (
+      event.key === 'ArrowLeft' &&
+      !event.shiftKey &&
+      event.target === input.current &&
+      caretAtStart()
+    ) {
+      // Back a level: from a tab to All, and from All to the page it was opened from.
+      event.preventDefault();
+      if (scope === 'all') onOpenChange(false);
+      else {
+        setScope('all');
+        setActive(0);
+      }
     }
   };
 
