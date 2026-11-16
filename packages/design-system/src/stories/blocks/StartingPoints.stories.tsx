@@ -176,7 +176,9 @@ export const SignedOut = story('signed-out');
 export const ChooseWorkspace = story('choose-workspace');
 export const AgentChat = story('agent-chat');
 export const AgentCode = story('agent-code');
+export const AgentResearch = story('agent-research');
 export const AgentSessions = story('agent-sessions');
+export const AgentStates = story('agent-states');
 export const TaskSidepanel = panelStory('task-sidepanel');
 export const ModalForm = panelStory('modal-form');
 export const ModalStepper = panelStory('modal-stepper');
@@ -256,3 +258,4 @@ export const AgentCodeChecks = variant(
   'Agent code, checks',
   'The session beside its pull request: the checks with the failing one open, the review comments still unresolved, and what is left before it is ready.',
 );
+export const AgentContext = panelStory('agent-context');
