@@ -33,15 +33,15 @@ export { AppShell } from './components/app-shell/AppShell';
 export type {
   AppShellDirection,
   AppShellMainProps,
+  AppShellPageBarActionsProps,
+  AppShellPageBarProps,
   AppShellProps,
   AppShellSidebarTriggerProps,
-  AppShellTopBarActionsProps,
-  AppShellTopBarProps,
 } from './components/app-shell/AppShell.types';
 export { AppShellMain } from './components/app-shell/AppShellMain';
+export { AppShellPageBar } from './components/app-shell/AppShellPageBar';
+export { AppShellPageBarActions } from './components/app-shell/AppShellPageBarActions';
 export { AppShellSidebarTrigger } from './components/app-shell/AppShellSidebarTrigger';
-export { AppShellTopBar } from './components/app-shell/AppShellTopBar';
-export { AppShellTopBarActions } from './components/app-shell/AppShellTopBarActions';
 export { Avatar } from './components/avatar/Avatar';
 export type { AvatarColor } from './components/avatar/Avatar.colors';
 export type {

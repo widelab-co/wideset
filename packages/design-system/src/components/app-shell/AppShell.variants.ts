@@ -45,7 +45,7 @@ export const appShellMainVariants = cva('min-w-0 flex-1 overflow-y-auto', {
  * raised Inset page and Static/Stroke/Subtle on the full-bleed white of Flat and Frame. Loose text
  * in it reads as the crumbs do (Caption/Medium, subtle).
  */
-export const appShellTopBarVariants = cva(
+export const appShellPageBarVariants = cva(
   'typography-caption-md text-ws-static-subtle h-ws-18 gap-ws-5 px-ws-11 z-ws-sticky sticky top-0 flex shrink-0 items-center',
   {
     variants: {
@@ -61,7 +61,7 @@ export const appShellTopBarVariants = cva(
 );
 
 /** The page's small tools, pushed to the far end of the bar. */
-export const appShellTopBarActionsVariants = cva('gap-ws-5 ml-auto flex shrink-0 items-center');
+export const appShellPageBarActionsVariants = cva('gap-ws-5 ml-auto flex shrink-0 items-center');
 
 /**
  * Pulled left by its own padding so the glyph, not the 32px box, sits 20px from the bar's edge,

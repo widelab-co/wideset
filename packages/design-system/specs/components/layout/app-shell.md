@@ -3,7 +3,7 @@ name: AppShell
 import: import { AppShell } from '@wideset/react'
 group: layout
 status: beta
-parts: [AppShell, AppShellMain, AppShellTopBar, AppShellTopBarActions, AppShellSidebarTrigger]
+parts: [AppShell, AppShellMain, AppShellPageBar, AppShellPageBarActions, AppShellSidebarTrigger]
 related: [Sidebar, Breadcrumbs, Card, ToastProvider]
 docs: https://wideset.co/components/app-shell
 storybook: components-appshell--default
@@ -35,7 +35,7 @@ storybook: components-appshell--default
     <Sidebar.Section scrollable>…</Sidebar.Section>
   </Sidebar>
   <AppShell.Main>
-    <AppShell.TopBar>
+    <AppShell.PageBar>
       <AppShell.SidebarTrigger />
       <Breadcrumbs separator="arrow">
         <Breadcrumbs.Item asChild>
@@ -43,8 +43,8 @@ storybook: components-appshell--default
         </Breadcrumbs.Item>
         <Breadcrumbs.Item>Projects</Breadcrumbs.Item>
       </Breadcrumbs>
-      <AppShell.TopBarActions>…</AppShell.TopBarActions>
-    </AppShell.TopBar>
+      <AppShell.PageBarActions>…</AppShell.PageBarActions>
+    </AppShell.PageBar>
     <div className="gap-ws-12 px-ws-14 pt-ws-14 pb-ws-16 flex w-full flex-col">
       <header className="gap-ws-2 flex flex-col">
         <h1 className="typography-title-md text-ws-static-strong">Projects</h1>
@@ -59,9 +59,9 @@ storybook: components-appshell--default
 scroll container. Put your padding on a wrapper inside it. The full composition, with
 `ToastProvider` and the nav, is in `patterns/app-shell.md`.
 
-## The page's top bar
+## The page bar
 
-`AppShell.TopBar` is the slim bar across the top of the page, as the starting points draw it:
+`AppShell.PageBar` is the slim bar across the top of the page, as the starting points draw it:
 48px, edge to edge, a line under it, and it stays put while the page scrolls under it. It is the
 first child of `AppShell.Main` and holds, in order:
 
@@ -69,7 +69,7 @@ first child of `AppShell.Main` and holds, in order:
 | ------------------------- | -------------------------------------------------------------------------------------- |
 | `AppShell.SidebarTrigger` | The button that collapses and expands the `Sidebar`; its glyph sits 20px from the edge |
 | `Breadcrumbs`             | Where you are (`separator="arrow"`); one crumb on a top-level page                     |
-| `AppShell.TopBarActions`  | The page's small tools at the far end: `sm` buttons and icon buttons, an avatar group  |
+| `AppShell.PageBarActions` | The page's small tools at the far end: `sm` buttons and icon buttons, an avatar group  |
 
 - The trigger works the `Sidebar` in the same shell from outside it. The `Sidebar` still owns the
   state: `defaultCollapsed`, or `collapsed` + `onCollapsedChange`, go on `Sidebar` as before. With
@@ -109,7 +109,7 @@ below are `bg-ws-static-foreground rounded-ws-container-md`, with no border and 
 ## Accessibility
 
 - `AppShell.Main` is the page's `main` landmark: one per page, with one `h1` inside.
-- `AppShell.TopBar` is a `header` inside `main`, so it is not a second banner. `Breadcrumbs` in it
+- `AppShell.PageBar` is a `header` inside `main`, so it is not a second banner. `Breadcrumbs` in it
   is a `nav` landmark of its own.
 - `AppShell.SidebarTrigger` is a button named by what it will do ("Collapse sidebar" /
   "Expand sidebar"; change the words with `collapseLabel` / `expandLabel`), with `aria-expanded`
@@ -143,9 +143,9 @@ below are `bg-ws-static-foreground rounded-ws-container-md`, with no border and 
 
 - `AppShell` fills the window (`h-dvh`). Inside a bounded preview, pass a height through
   `className` (`h-[24rem]`).
-- `AppShell.Main`, `AppShell.TopBar` and `AppShell.SidebarTrigger` throw outside an `AppShell`.
+- `AppShell.Main`, `AppShell.PageBar` and `AppShell.SidebarTrigger` throw outside an `AppShell`.
 - `AppShell.SidebarTrigger` needs a `Sidebar` in the same `AppShell`; without one it does nothing.
-- `AppShell.TopBar` sticks to the top of `AppShell.Main`. When the content under it scrolls by
+- `AppShell.PageBar` sticks to the top of `AppShell.Main`. When the content under it scrolls by
   itself (`min-h-0 flex-1` with its own overflow), the bar simply stays above it.
 - On narrow screens the trigger still collapses the `Sidebar` to its rail; `Sidebar` has no drawer
   mode (see `foundations/responsive.md`).

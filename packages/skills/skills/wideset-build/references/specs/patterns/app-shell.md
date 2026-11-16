@@ -20,10 +20,10 @@ ToastProvider                       — once, around the whole app
   │ ├ Sidebar.Header                — product name
   │ └ Sidebar.Section scrollable    — nav > Sidebar.Item, one tree for both modes
   └ AppShell.Main                   — <main>, the only scroll container for page content
-    ├ AppShell.TopBar               — 48px, stays at the top of the page
+    ├ AppShell.PageBar               — 48px, stays at the top of the page
     │ ├ AppShell.SidebarTrigger     — collapses and expands the Sidebar
     │ ├ Breadcrumbs                 — where you are
-    │ └ AppShell.TopBarActions      — optional, the page's small tools
+    │ └ AppShell.PageBarActions      — optional, the page's small tools
     ├ SystemAlert                   — optional, page-level notice, first
     ├ header                        — h1, summary, page actions
     └ page content                  — Cards, Table, forms …
@@ -70,12 +70,12 @@ export function Shell({ current, children }: { current: string; children: ReactN
         </Sidebar>
 
         <AppShell.Main>
-          <AppShell.TopBar>
+          <AppShell.PageBar>
             <AppShell.SidebarTrigger />
             <Breadcrumbs separator="arrow">
               <Breadcrumbs.Item>Projects</Breadcrumbs.Item>
             </Breadcrumbs>
-          </AppShell.TopBar>
+          </AppShell.PageBar>
           <div className="gap-ws-12 px-ws-14 pt-ws-14 pb-ws-16 flex w-full flex-col">
             <header className="gap-ws-9 flex flex-wrap items-center justify-between">
               <h1 className="typography-title-md text-ws-static-strong">Projects</h1>
@@ -102,13 +102,13 @@ export function Shell({ current, children }: { current: string; children: ReactN
 active={…}><Link to="/projects" /></Sidebar.Item>`. Icon and label are injected into the link.
 - **Controlled collapse.** `collapsed` + `onCollapsedChange` on `Sidebar` when the state must
   persist (user setting) or follow the viewport; `defaultCollapsed` otherwise.
-- **Nested pages.** The path goes in the top bar: `Breadcrumbs separator="arrow"` after
+- **Nested pages.** The path goes in the page bar: `Breadcrumbs separator="arrow"` after
   `AppShell.SidebarTrigger`, the parents as links and the current page last. The `h1` stays in the
   page, under the bar.
-- **No top bar.** A screen that opens with its own toolbar (a calendar, a board) leaves
-  `AppShell.TopBar` out and keeps `Sidebar.Trigger` in `Sidebar.Header`, beside the product name.
+- **No page bar.** A screen that opens with its own toolbar (a calendar, a board) leaves
+  `AppShell.PageBar` out and keeps `Sidebar.Trigger` in `Sidebar.Header`, beside the product name.
 - **Bar tools.** Small tools for the page (Share, an avatar group, a menu) go in
-  `AppShell.TopBarActions`; the page's primary action stays beside the `h1`.
+  `AppShell.PageBarActions`; the page's primary action stays beside the `h1`.
 - **Page sections.** Inside `main`, group content in `Card`s on a `grid` (`grid
 grid-cols-[repeat(auto-fit,minmax(16rem,1fr))] gap-ws-11`) or stack sections with `gap-ws-12`.
 - **Page-level notice.** `SystemAlert` as the first child of the content column, above the
@@ -116,10 +116,10 @@ grid-cols-[repeat(auto-fit,minmax(16rem,1fr))] gap-ws-11`) or stack sections wit
 
 ## Rules
 
-- One trigger per screen: `AppShell.SidebarTrigger` in the top bar, or `Sidebar.Trigger` in the
+- One trigger per screen: `AppShell.SidebarTrigger` in the page bar, or `Sidebar.Trigger` in the
   sidebar's header when the screen has no bar. Both work the same `Sidebar`, whose
   `collapsed` / `onCollapsedChange` stay the place to keep the state.
-- The top bar is the small text of the screen (12px crumbs); the title's size follows its room:
+- The page bar is the small text of the screen (12px crumbs); the title's size follows its room:
   `typography-title-md` for a whole page, `typography-title-sm` in a tight header or a narrow
   column. Do not put the `h1` in the bar.
 - Write the navigation and the trigger once: one tree serves both modes and keeps focus across a
@@ -163,7 +163,7 @@ changes shape: see responsive.
 ## Anti-patterns
 
 - A hand-built bar (`h-ws-18 border-b` with an `IconButton` wired to your own `collapsed` state)
-  instead of `AppShell.TopBar` and `AppShell.SidebarTrigger`.
+  instead of `AppShell.PageBar` and `AppShell.SidebarTrigger`.
 - Wrapping the page in a `Card`, or the sidebar and page in one bordered box.
 - Letting `body` scroll instead of `AppShell.Main`: the sidebar then scrolls away. Do not
   replace `AppShell`'s full height (`h-dvh`) with `min-h-screen`.
