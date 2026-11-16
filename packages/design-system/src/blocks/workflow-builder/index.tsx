@@ -15,6 +15,7 @@ import {
   allSteps,
   insertStep,
   isComplete,
+  isFilled,
   locate,
   newStep,
   removeStep,
@@ -114,7 +115,7 @@ function WorkflowEditor({ sidebarToggle }: { sidebarToggle: ReactNode }) {
     const stuck = unfinished[0];
     if (stuck) {
       const field = STEP_TYPES[stuck.kind].fields.find(
-        (option) => option.missing && !stuck.fields[option.name]?.trim(),
+        (option) => !isFilled(option, stuck.fields[option.name]),
       );
       setSelectedId(stuck.id);
       showToast({

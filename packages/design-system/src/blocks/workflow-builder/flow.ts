@@ -1,4 +1,4 @@
-import { type Step, STEP_TYPES, type StepKind } from './data';
+import { type Field, type Step, STEP_TYPES, type StepKind } from './data';
 
 /**
  * Where a step sits: `root` is the main line, `<conditionId>:yes` and `<conditionId>:no` a
@@ -11,9 +11,13 @@ export function allSteps(flow: Step[]): Step[] {
   return flow.flatMap((step) => [step, ...allSteps(step.yes ?? []), ...allSteps(step.no ?? [])]);
 }
 
-/** A step cannot run while a field it needs is empty. */
+/** Whether a field holds what the step needs: anything for an optional field, else usable text. */
+export const isFilled = (field: Field, value = '') =>
+  !field.missing || (value.trim() !== '' && (field.valid?.(value) ?? true));
+
+/** A step cannot run while a field it needs is empty or unusable ("abc" for an amount). */
 export const isComplete = (step: Step) =>
-  STEP_TYPES[step.kind].fields.every((field) => !field.missing || step.fields[field.name]?.trim());
+  STEP_TYPES[step.kind].fields.every((field) => isFilled(field, step.fields[field.name]));
 
 /** Applies `edit` to one sequence of the tree and returns the new tree. */
 function editSequence(
