@@ -9,6 +9,8 @@ import { type ChangedFile, splitPath } from './changes-data';
 type FileSectionProps = {
   file: ChangedFile;
   open: boolean;
+  /** Left out by the filter: hidden, not unmounted, so its comment drafts stay. */
+  hidden?: boolean;
   viewed: boolean;
   onOpenChange: (open: boolean) => void;
   onViewedChange: (viewed: boolean) => void;
@@ -27,6 +29,7 @@ type FileSectionProps = {
 export function FileSection({
   file,
   open,
+  hidden = false,
   viewed,
   onOpenChange,
   onViewedChange,
@@ -36,7 +39,7 @@ export function FileSection({
   const { folder, name } = splitPath(file.path);
 
   return (
-    <section aria-label={file.path} className="border-ws-static-subtle border-b">
+    <section aria-label={file.path} hidden={hidden} className="border-ws-static-subtle border-b">
       <div
         className={cn(
           'bg-ws-static-foreground top-ws-0 z-ws-base h-ws-16 gap-ws-7 px-ws-11 border-ws-static-subtle sticky flex items-center',
@@ -80,7 +83,10 @@ export function FileSection({
           />
         </div>
       </div>
-      {open && <div id={diffId}>{children}</div>}
+      {/* Folded, the diff is hidden rather than dropped: a comment half written stays. */}
+      <div id={diffId} hidden={!open}>
+        {children}
+      </div>
     </section>
   );
 }

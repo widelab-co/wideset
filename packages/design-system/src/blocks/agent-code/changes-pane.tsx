@@ -134,11 +134,12 @@ export function ChangesPane({ reveal, threads, onThreadsChange, onAsk }: Changes
       />
 
       <div ref={scroller} className="min-h-0 flex-1 overflow-y-auto">
-        {shown.map((file) => (
+        {FILES.map((file) => (
           <FileSection
             key={file.path}
             file={file}
             open={open.includes(file.path)}
+            hidden={!shown.includes(file)}
             viewed={viewed.includes(file.path)}
             onOpenChange={(value) => setOpenFor([file.path], value)}
             onViewedChange={(value) => setViewedFor(file.path, value)}
