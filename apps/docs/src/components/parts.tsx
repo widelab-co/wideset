@@ -41,7 +41,6 @@ import { useShownCode } from './ComponentCode';
 import { Fit } from './Example';
 import { ManualSteps } from './ManualSteps';
 import SearchPalette, { type SearchItem } from './SearchPalette';
-import TabRow from './TabRow';
 import ThemeToggle from './ThemeToggle';
 
 const useCopy = () => {
@@ -766,20 +765,19 @@ export const PageTabs = ({ tabs }: { tabs: { id: string; label: string }[] }) =>
   return (
     <div className="docs-page-tabs mb-ws-14" data-ready={ready ? '' : undefined}>
       <Tabs value={value} onValueChange={pick} size="sm">
-        <TabRow>
-          <Tabs.List aria-label="Sections of this page">
-            {tabs.map((tab) => (
-              <Tabs.Item
-                key={tab.id}
-                value={tab.id}
-                id={`tab-${tab.id}`}
-                aria-controls={`panel-${tab.id}`}
-              >
-                <Tabs.Label>{tab.label}</Tabs.Label>
-              </Tabs.Item>
-            ))}
-          </Tabs.List>
-        </TabRow>
+        {/* The list spans the column, so its own divider is the one line under the tabs. */}
+        <Tabs.List aria-label="Sections of this page" className="w-full">
+          {tabs.map((tab) => (
+            <Tabs.Item
+              key={tab.id}
+              value={tab.id}
+              id={`tab-${tab.id}`}
+              aria-controls={`panel-${tab.id}`}
+            >
+              <Tabs.Label>{tab.label}</Tabs.Label>
+            </Tabs.Item>
+          ))}
+        </Tabs.List>
       </Tabs>
     </div>
   );
