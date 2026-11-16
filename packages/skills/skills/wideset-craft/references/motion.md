@@ -24,7 +24,8 @@ so a screen built only from them already moves as one system.
 - Motion explains a change (something appeared, moved, was removed). It never decorates, loops or
   waits for attention.
 - Respect `prefers-reduced-motion`: keep opacity, drop movement.
-- Only buttons shrink on press. Never add `active:scale-*` to a row, card, tab, chip or field: they
-  change colour on press, never size.
+- Only free-standing buttons shrink on press. Never add `active:scale-*` to a row, card, tab, chip
+  or field: they change colour on press, never size. Never join two Buttons by hand either (each
+  half shrinks alone and the seam opens): use `SplitButton`.
 
 Wideset's motion tokens are the motion system. No springs or custom timings on top.
