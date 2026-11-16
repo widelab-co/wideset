@@ -2,8 +2,9 @@ import type { SnapshotSerializer } from 'vitest';
 
 // React 18 uses :r0:, and React 19 uses «r0» or _r_0_. Keep Radix prefixes and
 // component-specific suffixes intact; only the generated React identity is noise.
+// Match at the start of an ID token, not inside an explicit consumer ID.
 const generatedId =
-  /:[rR][\da-v]+(?:H[\da-v]+)*:|«[rR][\da-v]+(?:H[\da-v]+)*»|_[rR]_[\da-v]+(?:H[\da-v]+)*_/g;
+  /(^|\s)(radix-)?(:[rR][\da-v]+(?:H[\da-v]+)*:|«[rR][\da-v]+(?:H[\da-v]+)*»|_[rR]_[\da-v]+(?:H[\da-v]+)*_)/g;
 const idAttributes = new Set([
   'id',
   'for',
@@ -33,10 +34,13 @@ export function normalizeSnapshotIds<T extends Element | DocumentFragment>(node:
   for (const element of elements(clone)) {
     for (const attribute of element.attributes) {
       if (!idAttributes.has(attribute.name)) continue;
-      attribute.value = attribute.value.replace(generatedId, (id) => {
-        if (!ids.has(id)) ids.set(id, `:id-${ids.size + 1}:`);
-        return ids.get(id)!;
-      });
+      attribute.value = attribute.value.replace(
+        generatedId,
+        (_match, separator: string, prefix: string | undefined, id: string) => {
+          if (!ids.has(id)) ids.set(id, `:id-${ids.size + 1}:`);
+          return `${separator}${prefix ?? ''}${ids.get(id)!}`;
+        },
+      );
     }
   }
 

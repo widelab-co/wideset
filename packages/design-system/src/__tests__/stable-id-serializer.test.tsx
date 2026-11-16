@@ -2,7 +2,7 @@ import { render } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
 import { Tabs } from '../components/tabs/Tabs';
-import { normalizeSnapshotIds } from './helpers/stable-id-serializer';
+import { normalizeSnapshotIds, stableIdSerializer } from './helpers/stable-id-serializer';
 
 describe('Stable snapshot IDs', () => {
   it('preserves ID relationships, suffixes, and distinct identities without changing the DOM', () => {
@@ -44,6 +44,23 @@ describe('Stable snapshot IDs', () => {
     expect(normalized.querySelector('p')).toHaveAttribute('data-example', '_r_39_');
     expect(normalized.querySelector('p')).toHaveTextContent('Literal _r_39_');
     expect(element.innerHTML).toBe(original);
+  });
+
+  it('preserves generated-looking text inside explicit IDs and normalizes separate reference tokens', () => {
+    const element = document.createElement('div');
+    element.id = 'report_r_1_details';
+    expect(stableIdSerializer.test(element)).toBe(false);
+    element.setAttribute(
+      'aria-describedby',
+      'report_r_1_details\t_r_2_\nradix-_r_3_-hint report-radix-_r_4_',
+    );
+
+    const normalized = normalizeSnapshotIds(element);
+    expect(normalized).toHaveAttribute('id', 'report_r_1_details');
+    expect(normalized).toHaveAttribute(
+      'aria-describedby',
+      'report_r_1_details\t:id-1:\nradix-:id-2:-hint report-radix-_r_4_',
+    );
   });
 
   it.each([':r1:', '«r1»', '_r_1_', ':R1H2:', '_R_1H2_'])(
