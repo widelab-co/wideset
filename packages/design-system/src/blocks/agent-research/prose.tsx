@@ -23,7 +23,7 @@ export function Prose({ blocks, size = 'md' }: { blocks: ProseBlock[]; size?: 'm
         switch (block.kind) {
           case 'title':
             return (
-              <h1 key={index} className="typography-subtitle-md text-ws-static-strong">
+              <h1 key={index} className="typography-title-sm text-ws-static-strong">
                 {block.text}
               </h1>
             );

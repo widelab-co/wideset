@@ -44,7 +44,7 @@ export function PreviewBookings({ onExport }: PreviewBookingsProps) {
     <>
       <div className="gap-ws-9 px-ws-11 pt-ws-12 pb-ws-9 flex flex-col">
         <div className="gap-ws-2 flex flex-col">
-          <h3 className="typography-subtitle-md text-ws-static-strong">Bookings</h3>
+          <h3 className="typography-title-sm text-ws-static-strong">Bookings</h3>
           <p className="typography-body-md text-ws-static-subtle">
             Every room booked today, Tuesday, November 10
           </p>
