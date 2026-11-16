@@ -134,8 +134,10 @@ function TeamPage() {
               onClearSearch={() => setQuery('')}
               onRoleChange={changeRole}
               onCopyEmail={(member) => {
-                void navigator.clipboard?.writeText(member.email).catch(() => {});
-                showToast({ content: `Copied ${member.email}` });
+                navigator.clipboard
+                  ?.writeText(member.email)
+                  .then(() => showToast({ content: `Copied ${member.email}` }))
+                  .catch(() => {});
               }}
               onRemind={(member) =>
                 showToast({ content: `Two-factor reminder sent to ${member.name}` })
