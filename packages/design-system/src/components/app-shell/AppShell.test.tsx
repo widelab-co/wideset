@@ -1,11 +1,43 @@
 import { render, screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
+import userEvent from '@testing-library/user-event';
+import * as React from 'react';
+import { describe, expect, it, vi } from 'vitest';
 
 import { Sidebar } from '../sidebar/Sidebar';
 import { AppShell } from './AppShell';
 import type { AppShellDirection } from './AppShell.types';
 
 const directions: AppShellDirection[] = ['inset', 'flat', 'frame', 'canvas'];
+
+type SidebarProps = React.ComponentProps<typeof Sidebar>;
+type TriggerProps = React.ComponentProps<typeof AppShell.SidebarTrigger>;
+
+const renderWithTopBar = ({
+  direction,
+  sidebar,
+  trigger,
+}: { direction?: AppShellDirection; sidebar?: SidebarProps; trigger?: TriggerProps } = {}) =>
+  render(
+    <AppShell direction={direction}>
+      <Sidebar id="sidebar" data-testid="sidebar" {...sidebar}>
+        <Sidebar.Header>
+          <Sidebar.Trigger collapseLabel="Fold navigation" expandLabel="Unfold navigation" />
+        </Sidebar.Header>
+      </Sidebar>
+      <AppShell.Main>
+        <AppShell.TopBar>
+          <AppShell.SidebarTrigger {...trigger} />
+          <span>Projects</span>
+          <AppShell.TopBarActions>
+            <button type="button">Share</button>
+          </AppShell.TopBarActions>
+        </AppShell.TopBar>
+        <h1>Projects</h1>
+      </AppShell.Main>
+    </AppShell>,
+  );
+
+const barTrigger = (name: string | RegExp = /sidebar/) => screen.getByRole('button', { name });
 
 const renderShell = (direction?: AppShellDirection) =>
   render(
@@ -134,6 +166,240 @@ describe('AppShell', () => {
       expect(() => render(<AppShell.Main />)).toThrow(
         'useAppShellContext must be used within a <AppShell>',
       );
+    });
+  });
+
+  describe('Top bar', () => {
+    describe('Rendering', () => {
+      it('should match snapshot with a top bar', () => {
+        const { container } = renderWithTopBar();
+        expect(container).toMatchSnapshot();
+      });
+
+      it('renders the bar as a header inside the main landmark', () => {
+        renderWithTopBar();
+        const bar = screen.getByRole('main').querySelector('header');
+        expect(bar).toHaveAttribute('data-slot', 'app-shell-top-bar');
+        expect(bar).toContainElement(barTrigger());
+      });
+
+      it('marks the actions and the trigger with data-slot', () => {
+        renderWithTopBar();
+        expect(barTrigger()).toHaveAttribute('data-slot', 'app-shell-sidebar-trigger');
+        expect(screen.getByRole('button', { name: 'Share' }).parentElement).toHaveAttribute(
+          'data-slot',
+          'app-shell-top-bar-actions',
+        );
+      });
+
+      it('keeps the bar at the top of the scrolling page, at the text size of the crumbs', () => {
+        renderWithTopBar();
+        expect(screen.getByRole('main').querySelector('header')).toHaveClass(
+          'sticky',
+          'top-0',
+          'h-ws-18',
+          'typography-caption-md',
+        );
+      });
+
+      it.each([
+        ['inset', 'border-ws-static-base'],
+        ['flat', 'border-ws-static-subtle'],
+        ['frame', 'border-ws-static-subtle'],
+      ] as const)('draws the %s line under the bar on the white page', (direction, line) => {
+        renderWithTopBar({ direction });
+        expect(screen.getByRole('main').querySelector('header')).toHaveClass(
+          'bg-ws-static-foreground',
+          'border-b',
+          line,
+        );
+      });
+
+      it('leaves the bar on the grey with no line in canvas', () => {
+        renderWithTopBar({ direction: 'canvas' });
+        const bar = screen.getByRole('main').querySelector('header');
+        expect(bar).toHaveClass('bg-ws-static-background');
+        expect(bar).not.toHaveClass('border-b');
+      });
+    });
+
+    describe('Sidebar trigger', () => {
+      it('collapses and expands the sidebar', async () => {
+        const user = userEvent.setup();
+        renderWithTopBar();
+        const sidebar = screen.getByTestId('sidebar');
+        expect(sidebar).toHaveAttribute('data-state', 'expanded');
+
+        await user.click(barTrigger());
+        expect(sidebar).toHaveAttribute('data-state', 'collapsed');
+
+        await user.click(barTrigger());
+        expect(sidebar).toHaveAttribute('data-state', 'expanded');
+      });
+
+      it('names itself by what it will do and points at the sidebar', async () => {
+        const user = userEvent.setup();
+        renderWithTopBar();
+        const trigger = barTrigger('Collapse sidebar');
+        expect(trigger).toHaveAttribute('aria-expanded', 'true');
+        expect(trigger).toHaveAttribute('aria-controls', 'sidebar');
+
+        await user.click(trigger);
+        expect(trigger).toHaveAccessibleName('Expand sidebar');
+        expect(trigger).toHaveAttribute('aria-expanded', 'false');
+      });
+
+      it('works from the keyboard', async () => {
+        const user = userEvent.setup();
+        renderWithTopBar();
+        barTrigger().focus();
+        await user.keyboard('{Enter}');
+        expect(screen.getByTestId('sidebar')).toHaveAttribute('data-state', 'collapsed');
+      });
+
+      it('starts from the defaultCollapsed of the sidebar', () => {
+        renderWithTopBar({ sidebar: { defaultCollapsed: true } });
+        expect(barTrigger('Expand sidebar')).toHaveAttribute('aria-expanded', 'false');
+      });
+
+      it('follows the trigger inside the sidebar', async () => {
+        const user = userEvent.setup();
+        renderWithTopBar();
+        await user.click(screen.getByRole('button', { name: 'Fold navigation' }));
+        expect(barTrigger('Expand sidebar')).toHaveAttribute('aria-expanded', 'false');
+      });
+
+      it('asks a controlled sidebar to change and leaves the state to it', async () => {
+        const user = userEvent.setup();
+        const onCollapsedChange = vi.fn();
+        renderWithTopBar({ sidebar: { collapsed: false, onCollapsedChange } });
+
+        await user.click(barTrigger());
+        expect(onCollapsedChange).toHaveBeenCalledExactlyOnceWith(true);
+        expect(screen.getByTestId('sidebar')).toHaveAttribute('data-state', 'expanded');
+        expect(barTrigger()).toHaveAttribute('aria-expanded', 'true');
+      });
+
+      it('toggles a controlled sidebar through its owner', async () => {
+        const user = userEvent.setup();
+        const Controlled = () => {
+          const [collapsed, setCollapsed] = React.useState(true);
+          return (
+            <AppShell>
+              <Sidebar
+                data-testid="sidebar"
+                collapsed={collapsed}
+                onCollapsedChange={setCollapsed}
+              />
+              <AppShell.Main>
+                <AppShell.TopBar>
+                  <AppShell.SidebarTrigger />
+                </AppShell.TopBar>
+              </AppShell.Main>
+            </AppShell>
+          );
+        };
+        render(<Controlled />);
+
+        await user.click(barTrigger('Expand sidebar'));
+        expect(screen.getByTestId('sidebar')).toHaveAttribute('data-state', 'expanded');
+        expect(barTrigger('Collapse sidebar')).toHaveAttribute('aria-expanded', 'true');
+      });
+
+      it('fires onCollapsedChange in uncontrolled mode too', async () => {
+        const user = userEvent.setup();
+        const onCollapsedChange = vi.fn();
+        renderWithTopBar({ sidebar: { onCollapsedChange } });
+        await user.click(barTrigger());
+        expect(onCollapsedChange).toHaveBeenCalledExactlyOnceWith(true);
+      });
+
+      it('takes its own labels', () => {
+        renderWithTopBar({ trigger: { collapseLabel: 'Hide navigation' } });
+        expect(barTrigger('Hide navigation')).toBeInTheDocument();
+      });
+
+      it('prefers an explicit aria-label', () => {
+        renderWithTopBar({ trigger: { 'aria-label': 'Navigation' } });
+        expect(barTrigger('Navigation')).toHaveAttribute('aria-expanded', 'true');
+      });
+
+      it('does not toggle when onClick prevents the default', async () => {
+        const user = userEvent.setup();
+        renderWithTopBar({ trigger: { onClick: (event) => event.preventDefault() } });
+        await user.click(barTrigger());
+        expect(screen.getByTestId('sidebar')).toHaveAttribute('data-state', 'expanded');
+      });
+
+      it('reads as expanded and does nothing in a shell with no Sidebar', async () => {
+        const user = userEvent.setup();
+        render(
+          <AppShell>
+            <AppShell.Main>
+              <AppShell.SidebarTrigger />
+            </AppShell.Main>
+          </AppShell>,
+        );
+        const trigger = barTrigger('Collapse sidebar');
+        await user.click(trigger);
+        expect(trigger).toHaveAttribute('aria-expanded', 'true');
+        expect(trigger).not.toHaveAttribute('aria-controls');
+      });
+
+      it('forgets a sidebar that unmounts', () => {
+        const Shell = ({ withSidebar }: { withSidebar: boolean }) => (
+          <AppShell>
+            {withSidebar && <Sidebar id="sidebar" defaultCollapsed />}
+            <AppShell.Main>
+              <AppShell.SidebarTrigger />
+            </AppShell.Main>
+          </AppShell>
+        );
+        const { rerender } = render(<Shell withSidebar />);
+        expect(barTrigger()).toHaveAttribute('aria-controls', 'sidebar');
+
+        rerender(<Shell withSidebar={false} />);
+        expect(barTrigger()).not.toHaveAttribute('aria-controls');
+      });
+    });
+
+    describe('Props', () => {
+      it('spreads rest props and merges className on the bar and its actions', () => {
+        render(
+          <AppShell>
+            <AppShell.Main>
+              <AppShell.TopBar className="px-ws-12" aria-label="Page" data-test="bar">
+                <AppShell.TopBarActions className="gap-ws-3" data-test="actions" />
+              </AppShell.TopBar>
+            </AppShell.Main>
+          </AppShell>,
+        );
+        const bar = screen.getByLabelText('Page');
+        expect(bar).toHaveClass('px-ws-12', 'sticky');
+        expect(bar).not.toHaveClass('px-ws-11');
+        expect(bar).toHaveAttribute('data-test', 'bar');
+        const actions = bar.firstElementChild as HTMLElement;
+        expect(actions).toHaveClass('gap-ws-3', 'ml-auto');
+        expect(actions).toHaveAttribute('data-test', 'actions');
+      });
+
+      it('spreads rest props and merges className on the trigger', () => {
+        renderWithTopBar({
+          trigger: { className: 'ml-ws-0', disabled: true, 'data-test': 'toggle' } as TriggerProps,
+        });
+        const trigger = barTrigger();
+        expect(trigger).toHaveClass('ml-ws-0', 'shrink-0');
+        expect(trigger).not.toHaveClass('-ml-ws-5');
+        expect(trigger).toBeDisabled();
+        expect(trigger).toHaveAttribute('data-test', 'toggle');
+      });
+
+      it.each([
+        ['AppShell.TopBar', <AppShell.TopBar key="bar" />],
+        ['AppShell.SidebarTrigger', <AppShell.SidebarTrigger key="trigger" />],
+      ])('throws when %s is used outside AppShell', (_, part) => {
+        expect(() => render(part)).toThrow('useAppShellContext must be used within a <AppShell>');
+      });
     });
   });
 });

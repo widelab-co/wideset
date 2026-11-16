@@ -17,11 +17,15 @@ says which to pick and which starting screens go with each.
 ToastProvider                       — once, around the whole app
 └ AppShell direction="…"           — full-height row; the direction's background
   ├ Sidebar                         — navigation; owns collapsed state; surface from AppShell
-  │ ├ Sidebar.Header                — product name + Sidebar.Trigger
+  │ ├ Sidebar.Header                — product name
   │ └ Sidebar.Section scrollable    — nav > Sidebar.Item, one tree for both modes
   └ AppShell.Main                   — <main>, the only scroll container for page content
+    ├ AppShell.TopBar               — 48px, stays at the top of the page
+    │ ├ AppShell.SidebarTrigger     — collapses and expands the Sidebar
+    │ ├ Breadcrumbs                 — where you are
+    │ └ AppShell.TopBarActions      — optional, the page's small tools
     ├ SystemAlert                   — optional, page-level notice, first
-    ├ header                        — Breadcrumbs (optional), h1, page actions
+    ├ header                        — h1, summary, page actions
     └ page content                  — Cards, Table, forms …
 ```
 
@@ -29,7 +33,7 @@ ToastProvider                       — once, around the whole app
 
 ```tsx
 import { RiDashboardLine, RiFolder3Line, RiSettings3Line } from '@remixicon/react';
-import { AppShell, Button, Sidebar, ToastProvider } from '@wideset/react';
+import { AppShell, Breadcrumbs, Button, Sidebar, ToastProvider } from '@wideset/react';
 import type { ReactNode } from 'react';
 
 const NAV = [
@@ -54,14 +58,11 @@ export function Shell({ current, children }: { current: string; children: ReactN
       <AppShell direction="inset">
         <Sidebar>
           <Sidebar.Header>
-            <div className="gap-ws-7 py-ws-3 flex items-center">
-              <Sidebar.Expanded>
-                <span className="typography-label-strong-sm text-ws-static-strong pl-ws-5">
-                  Northwind
-                </span>
-              </Sidebar.Expanded>
-              <Sidebar.Trigger />
-            </div>
+            <Sidebar.Expanded>
+              <div className="typography-label-strong-sm text-ws-static-strong py-ws-3 pl-ws-5">
+                Northwind
+              </div>
+            </Sidebar.Expanded>
           </Sidebar.Header>
           <Sidebar.Section scrollable>
             <Nav current={current} />
@@ -69,7 +70,13 @@ export function Shell({ current, children }: { current: string; children: ReactN
         </Sidebar>
 
         <AppShell.Main>
-          <div className="gap-ws-12 p-ws-12 flex flex-col">
+          <AppShell.TopBar>
+            <AppShell.SidebarTrigger />
+            <Breadcrumbs separator="arrow">
+              <Breadcrumbs.Item>Projects</Breadcrumbs.Item>
+            </Breadcrumbs>
+          </AppShell.TopBar>
+          <div className="gap-ws-12 px-ws-14 pt-ws-14 pb-ws-16 flex w-full flex-col">
             <header className="gap-ws-9 flex flex-wrap items-center justify-between">
               <h1 className="typography-title-md text-ws-static-strong">Projects</h1>
               <Button size="sm">New project</Button>
@@ -95,7 +102,13 @@ export function Shell({ current, children }: { current: string; children: ReactN
 active={…}><Link to="/projects" /></Sidebar.Item>`. Icon and label are injected into the link.
 - **Controlled collapse.** `collapsed` + `onCollapsedChange` on `Sidebar` when the state must
   persist (user setting) or follow the viewport; `defaultCollapsed` otherwise.
-- **Nested pages.** Put `Breadcrumbs` above the `h1` in the page header.
+- **Nested pages.** The path goes in the top bar: `Breadcrumbs separator="arrow"` after
+  `AppShell.SidebarTrigger`, the parents as links and the current page last. The `h1` stays in the
+  page, under the bar.
+- **No top bar.** A screen that opens with its own toolbar (a calendar, a board) leaves
+  `AppShell.TopBar` out and keeps `Sidebar.Trigger` in `Sidebar.Header`, beside the product name.
+- **Bar tools.** Small tools for the page (Share, an avatar group, a menu) go in
+  `AppShell.TopBarActions`; the page's primary action stays beside the `h1`.
 - **Page sections.** Inside `main`, group content in `Card`s on a `grid` (`grid
 grid-cols-[repeat(auto-fit,minmax(16rem,1fr))] gap-ws-11`) or stack sections with `gap-ws-12`.
 - **Page-level notice.** `SystemAlert` as the first child of the content column, above the
@@ -103,6 +116,12 @@ grid-cols-[repeat(auto-fit,minmax(16rem,1fr))] gap-ws-11`) or stack sections wit
 
 ## Rules
 
+- One trigger per screen: `AppShell.SidebarTrigger` in the top bar, or `Sidebar.Trigger` in the
+  sidebar's header when the screen has no bar. Both work the same `Sidebar`, whose
+  `collapsed` / `onCollapsedChange` stay the place to keep the state.
+- The top bar is the small text of the screen (12px crumbs); the title's size follows its room:
+  `typography-title-md` for a whole page, `typography-title-sm` in a tight header or a narrow
+  column. Do not put the `h1` in the bar.
 - Write the navigation and the trigger once: one tree serves both modes and keeps focus across a
   toggle. `Sidebar.Expanded` / `Sidebar.Collapsed` wrap only what exists in one mode, as the
   product name does in the example.
@@ -138,11 +157,13 @@ changes shape: see responsive.
 - Exactly one `main` and one `h1` per page.
 - `active` sets `aria-current="page"` on the current item.
 - Collapsed, each item's `label` becomes its `aria-label`, so always pass `label`.
-- `Sidebar.Trigger` announces Expand / Collapse and points at the sidebar with `aria-controls`;
-  change the words with `expandLabel` / `collapseLabel`.
+- `AppShell.SidebarTrigger` and `Sidebar.Trigger` announce Expand / Collapse and point at the
+  sidebar with `aria-controls`; change the words with `expandLabel` / `collapseLabel`.
 
 ## Anti-patterns
 
+- A hand-built bar (`h-ws-18 border-b` with an `IconButton` wired to your own `collapsed` state)
+  instead of `AppShell.TopBar` and `AppShell.SidebarTrigger`.
 - Wrapping the page in a `Card`, or the sidebar and page in one bordered box.
 - Letting `body` scroll instead of `AppShell.Main`: the sidebar then scrolls away. Do not
   replace `AppShell`'s full height (`h-dvh`) with `min-h-screen`.

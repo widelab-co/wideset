@@ -36,3 +36,35 @@ export const appShellMainVariants = cva('min-w-0 flex-1 overflow-y-auto', {
   },
   defaultVariants: { direction: 'inset' },
 });
+
+/**
+ * The bar at the top of the page, as the starting points draw it: 48px, edge to edge, 20px of
+ * padding and 8px between its parts (Figma Screens › Kanban, Header Row: 48px, padding 8/20, a
+ * bottom line). It sticks to the top of `AppShell.Main`, so it carries the page's fill: white, or
+ * the grey itself in Canvas, where it also drops the line. The line is Static/Stroke/Base on the
+ * raised Inset page and Static/Stroke/Subtle on the full-bleed white of Flat and Frame. Loose text
+ * in it reads as the crumbs do (Caption/Medium, subtle).
+ */
+export const appShellTopBarVariants = cva(
+  'typography-caption-md text-ws-static-subtle h-ws-18 gap-ws-5 px-ws-11 z-ws-sticky sticky top-0 flex shrink-0 items-center',
+  {
+    variants: {
+      direction: {
+        flat: 'bg-ws-static-foreground border-ws-static-subtle border-b',
+        frame: 'bg-ws-static-foreground border-ws-static-subtle border-b',
+        inset: 'bg-ws-static-foreground border-ws-static-base border-b',
+        canvas: 'bg-ws-static-background',
+      },
+    },
+    defaultVariants: { direction: 'inset' },
+  },
+);
+
+/** The page's small tools, pushed to the far end of the bar. */
+export const appShellTopBarActionsVariants = cva('gap-ws-5 ml-auto flex shrink-0 items-center');
+
+/**
+ * Pulled left by its own padding so the glyph, not the 32px box, sits 20px from the bar's edge,
+ * on the line the page's content starts from.
+ */
+export const appShellSidebarTriggerVariants = cva('-ml-ws-5 shrink-0');
