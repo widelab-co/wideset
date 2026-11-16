@@ -565,6 +565,13 @@ body.docs main .docs-prose :is(h2, h3) {
 html:has(body.docs) {
   scrollbar-gutter: stable;
 }
+/* An open menu or dialog locks the page's scroll, and the library that does it gives the body a
+   margin as wide as the scrollbar, to stand in for the bar it hides. The window keeps that room
+   already (the gutter above), so the margin would move the whole page sideways: none here. */
+html body.docs[data-scroll-locked] {
+  margin-right: 0 !important;
+  padding-right: 0 !important;
+}
 /* On a narrow window the bar's menu button opens the pages and the page's list. */
 html[data-docs-menu] #docs-menu {
   display: flex;
