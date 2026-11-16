@@ -40,6 +40,11 @@ export function PlanCard({ steps, live, defaultOpen, locked, onChange }: PlanCar
     setOpen(live || defaultOpen);
   }, [live, defaultOpen]);
 
+  // Locked while the card was being edited (a message was sent meanwhile): the edit ends.
+  useEffect(() => {
+    if (locked) setDraft(null);
+  }, [locked]);
+
   // Edit was pressed to write: the cursor is in the field.
   useEffect(() => {
     if (editing) field.current?.focus();
@@ -52,6 +57,7 @@ export function PlanCard({ steps, live, defaultOpen, locked, onChange }: PlanCar
       .map((line) => line.trim())
       .filter(Boolean);
     setDraft(null);
+    if (locked) return;
     if (next.length > 0 && next.join('\n') !== steps.join('\n')) onChange(next);
   };
 

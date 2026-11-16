@@ -71,8 +71,13 @@ export default function AgentResearch() {
   const { mode, thread, session } = shell;
   const research = thread?.id === OPEN_CHAT;
 
-  /* The report is a card that is written like an answer: this is its text as far as it has come. */
-  const reportTurn = session.shown.findLast((turn) => turn.role === 'agent');
+  /* The report is a card that is written like an answer: this is its text as far as it has come.
+     It belongs to the research turn, which a follow-up does not replace. */
+  const reportTurn = session.shown.findLast(
+    (turn) =>
+      turn.role === 'agent' &&
+      turn.blocks.some((block) => block.kind === 'card' && block.card === REPORT),
+  );
   const report =
     reportTurn?.role === 'agent'
       ? reportTurn.blocks.find((block) => block.kind === 'card' && block.card === REPORT)
@@ -97,7 +102,8 @@ export default function AgentResearch() {
 
   const replay = () => {
     setPinned(null);
-    session.replay();
+    // The research turn, not the newest: a follow-up may have come after it.
+    session.replay(reportTurn?.id);
   };
 
   const card: CardRender = (name, of) =>
