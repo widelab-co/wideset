@@ -37,8 +37,11 @@ export function FilesCopyPath({ path }: { path: string }) {
             size="xs"
             aria-label="Copy path"
             onClick={() => {
-              void navigator.clipboard?.writeText(path).catch(() => {});
-              setCopied(true);
+              // "Copied" only once the path is there; with no clipboard nothing changes.
+              navigator.clipboard?.writeText(path).then(
+                () => setCopied(true),
+                () => undefined,
+              );
             }}
           />
         </Tooltip.Trigger>

@@ -99,8 +99,11 @@ export function TerminalPane() {
   };
 
   const copy = () => {
-    void navigator.clipboard?.writeText(textOf(shell)).catch(() => {});
-    setCopied(true);
+    // "Copied" only once the output is there; with no clipboard nothing changes.
+    navigator.clipboard?.writeText(textOf(shell)).then(
+      () => setCopied(true),
+      () => undefined,
+    );
   };
 
   return (
