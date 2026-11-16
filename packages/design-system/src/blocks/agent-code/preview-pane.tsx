@@ -90,9 +90,11 @@ export function PreviewPane() {
           key={loads}
           address={current}
           className={cn('h-full', WIDTH[viewport])}
-          onExport={(rows) =>
-            setMessages((all) => [...all, exportLog(`export-${(logged.current += 1)}`, rows)])
-          }
+          onExport={(rows) => {
+            // The id is taken here, in the event, so the state updater stays pure.
+            const message = exportLog(`export-${(logged.current += 1)}`, rows);
+            setMessages((all) => [...all, message]);
+          }}
           onHome={() => go(HOME)}
         />
       </div>
