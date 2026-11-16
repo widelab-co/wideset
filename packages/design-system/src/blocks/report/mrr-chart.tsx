@@ -226,6 +226,41 @@ export function MrrChart({
             ))}
           </svg>
         </div>
+        {/* The lines are drawn for the eye and read by the pointer; this is the same data in text. */}
+        <figcaption className="sr-only">
+          {currentLabel}: from {formatUsd(current[0])} to {formatUsd(current[last])}.
+          {previous && ` ${previousLabel}: closed at ${formatUsd(previous[previous.length - 1])}.`}
+        </figcaption>
+        <table className="sr-only">
+          <caption>MRR at the close of each day</caption>
+          <thead>
+            <tr>
+              <th scope="col">Day</th>
+              <th scope="col">{currentLabel}</th>
+              {previous && <th scope="col">{previousLabel}</th>}
+            </tr>
+          </thead>
+          <tbody>
+            {days.map((day, index) => {
+              // The day it is compared with, as the readout pairs them.
+              const paired = previous
+                ? Math.round((index / Math.max(last, 1)) * (previous.length - 1))
+                : 0;
+              return (
+                <tr key={day}>
+                  <th scope="row">{formatDay(day)}</th>
+                  <td>{formatUsd(current[index])}</td>
+                  {previous && (
+                    <td>
+                      {formatUsd(previous[paired])}
+                      {previousDays && `, ${formatDay(previousDays[paired])}`}
+                    </td>
+                  )}
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
       </figure>
     </section>
   );
