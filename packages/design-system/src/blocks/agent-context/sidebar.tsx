@@ -1,4 +1,4 @@
-// TODO(custom): the account menu is composed by hand, and the Search row turns into a TextInput in place; Sidebar.Group cannot fold and Sidebar has no search part.
+// TODO(custom): the account menu is composed by hand, and the Search row turns into a TextInput in place; a thread group cannot fold (Sidebar.SectionHeader is a heading only) and Sidebar has no search part.
 import {
   RiAddLine,
   RiArrowDownSLine,
@@ -18,7 +18,7 @@ import {
   type SidebarProps,
   TextInput,
 } from '@wideset/react';
-import { type MouseEvent, useEffect, useRef, useState } from 'react';
+import { type MouseEvent, useEffect, useId, useRef, useState } from 'react';
 
 import { BrandMark } from './brand-mark';
 import { MODIFIER } from './keyboard-key';
@@ -79,6 +79,7 @@ export function AgentSidebar({
   const [query, setQuery] = useState('');
   const [searching, setSearching] = useState(false);
   const field = useRef<HTMLInputElement>(null);
+  const groupId = useId();
   const thread = mode === 'chat' ? 'chat' : 'session';
   const { collapsed, onCollapsedChange } = props;
 
@@ -234,22 +235,29 @@ export function AgentSidebar({
             className="gap-ws-9 flex flex-col contain-inline-size"
           >
             {shown.map((group) => (
-              <Sidebar.Group
+              <div
                 key={group.id}
-                label={group.label}
-                action={
-                  group.fixed ? undefined : (
+                role="group"
+                aria-labelledby={`${groupId}-${group.id}`}
+                className="gap-ws-2 flex flex-col"
+              >
+                {/* The header's one action ends the row 4px in, its icon on the suffixes' edge. */}
+                <div className="flex items-end">
+                  <Sidebar.SectionHeader id={`${groupId}-${group.id}`} className="flex-1">
+                    {group.label}
+                  </Sidebar.SectionHeader>
+                  {!group.fixed && (
                     <IconButton
                       icon={RiAddLine}
                       variant="secondary"
                       preset="ghost"
                       size="xs"
                       aria-label={`New ${thread} in ${group.label}`}
+                      className="mr-ws-3"
                       onClick={() => onNew(group.id)}
                     />
-                  )
-                }
-              >
+                  )}
+                </div>
                 {group.threads.map((item) => {
                   const working = item.id === workingId;
                   return (
@@ -268,7 +276,7 @@ export function AgentSidebar({
                     />
                   );
                 })}
-              </Sidebar.Group>
+              </div>
             ))}
             {shown.length === 0 && (
               <p className="typography-body-md text-ws-static-subtle px-ws-5">
