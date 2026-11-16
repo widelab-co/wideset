@@ -3,11 +3,12 @@ import { AppShell, Breadcrumbs, IconButton, Toast, ToastProvider, useToast } fro
 import { useEffect, useId, useRef, useState } from 'react';
 
 import { Conversation } from './conversation';
-import { ConversationList, type Filter } from './conversation-list';
+import { ConversationList } from './conversation-list';
 import {
   account,
   type Conversation as ConversationData,
   conversations as initialConversations,
+  type Filter,
   NOW,
 } from './data';
 import { InboxSidebar } from './sidebar';

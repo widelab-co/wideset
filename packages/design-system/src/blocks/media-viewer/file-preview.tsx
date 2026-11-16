@@ -1,7 +1,7 @@
 // TODO(custom): a file drawn at its real size (a proposal's first page, a deck's title slide, a chart image), scaled for zoom; Wideset has no file viewer, and blocks ship no images.
 import { cn } from '@wideset/react';
 
-import { CHARTS, type FileItem, type Kind, KIND_LABEL, PEOPLE } from './data';
+import { CHARTS, type FileItem, type Kind, KIND_LABEL, PEOPLE, PRICING } from './data';
 import { formatChartValue } from './format';
 
 /** Each kind's size at 100%: a US Letter page at 96 dpi, a 16:9 slide, a chart export. */
@@ -17,12 +17,6 @@ export const NATURAL: Record<Kind, { width: number; height: number }> = {
   as a document is.
 */
 const PAPER = 'bg-ws-static-inverse-background text-ws-static-inverse-strong h-full w-full';
-
-const PRICING = [
-  { item: 'Discovery, two weeks', amount: '$18,000.00' },
-  { item: 'Design and delivery, six months', amount: '$96,000.00' },
-  { item: 'Support after launch, six months', amount: '$24,000.00' },
-];
 
 /** A proposal's first page: who it is for, the summary, the scope and the price. */
 function ProposalPage({ file }: { file: FileItem }) {

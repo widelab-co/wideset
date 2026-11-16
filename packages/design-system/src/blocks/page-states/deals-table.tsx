@@ -24,8 +24,8 @@ export function DealsTable({ deals }: { deals: Deal[] }) {
       <Table.Body>
         {deals.map((deal) => (
           <Table.Row key={deal.id}>
-            <Table.Cell truncate className="text-ws-static-strong">
-              {deal.name}
+            <Table.Cell truncate>
+              <span className="text-ws-static-strong">{deal.name}</span>
             </Table.Cell>
             <Table.Cell>
               <StatusBadge size="sm">{deal.stage}</StatusBadge>
