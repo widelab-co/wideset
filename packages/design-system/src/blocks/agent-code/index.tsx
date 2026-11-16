@@ -6,7 +6,7 @@ import {
   RiLayoutRightLine,
   RiRestartLine,
 } from '@remixicon/react';
-import { Button, StatusBadge } from '@wideset/react';
+import { AppShell, Button, StatusBadge } from '@wideset/react';
 import { useEffect, useId, useState } from 'react';
 
 import {
@@ -160,7 +160,7 @@ export default function AgentCode({ pane: initial = 'changes' }: { pane?: Pane }
   };
 
   return (
-    <div className="bg-ws-static-background flex h-dvh">
+    <AppShell direction="inset">
       <AgentSidebar
         id={sidebarId}
         collapsed={collapsed}
@@ -171,8 +171,8 @@ export default function AgentCode({ pane: initial = 'changes' }: { pane?: Pane }
         {...shell.sidebar}
       />
 
-      <div className="bg-ws-static-foreground rounded-ws-container-lg shadow-ws-low my-ws-7 mr-ws-7 ml-ws-5 flex min-w-0 flex-1 overflow-hidden">
-        <main className="flex min-w-0 flex-1 flex-col">
+      <AppShell.Main className="flex-row overflow-hidden">
+        <div className="flex min-w-0 flex-1 flex-col">
           <TopBar
             sidebarId={sidebarId}
             collapsed={collapsed}
@@ -254,7 +254,7 @@ export default function AgentCode({ pane: initial = 'changes' }: { pane?: Pane }
           ) : (
             <Home key={mode} mode={mode} onSend={shell.begin} />
           )}
-        </main>
+        </div>
 
         {paneShown && (
           <CodePane
@@ -266,7 +266,7 @@ export default function AgentCode({ pane: initial = 'changes' }: { pane?: Pane }
             onAsk={session.write}
           />
         )}
-      </div>
-    </div>
+      </AppShell.Main>
+    </AppShell>
   );
 }

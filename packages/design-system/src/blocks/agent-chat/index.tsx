@@ -1,5 +1,5 @@
 import { RiFileTextLine, RiRestartLine } from '@remixicon/react';
-import { Button } from '@wideset/react';
+import { AppShell, Button } from '@wideset/react';
 import { useId, useState } from 'react';
 
 import {
@@ -89,7 +89,7 @@ export default function AgentChat({ screen = 'chat' }: { screen?: 'chat' | 'home
   };
 
   return (
-    <div className="bg-ws-static-background flex h-dvh">
+    <AppShell direction="inset">
       <AgentSidebar
         id={sidebarId}
         collapsed={collapsed}
@@ -100,8 +100,8 @@ export default function AgentChat({ screen = 'chat' }: { screen?: 'chat' | 'home
         {...shell.sidebar}
       />
 
-      <div className="bg-ws-static-foreground rounded-ws-container-lg shadow-ws-low my-ws-7 mr-ws-7 ml-ws-5 flex min-w-0 flex-1 overflow-hidden">
-        <main className="flex min-w-0 flex-1 flex-col">
+      <AppShell.Main className="flex-row overflow-hidden">
+        <div className="flex min-w-0 flex-1 flex-col">
           <TopBar
             sidebarId={sidebarId}
             collapsed={collapsed}
@@ -141,7 +141,7 @@ export default function AgentChat({ screen = 'chat' }: { screen?: 'chat' | 'home
           ) : (
             <Home key={mode} mode={mode} onSend={shell.begin} />
           )}
-        </main>
+        </div>
 
         {paneShown !== null && (
           <DocumentPane
@@ -154,7 +154,7 @@ export default function AgentChat({ screen = 'chat' }: { screen?: 'chat' | 'home
             onClose={() => setPaneVersion(null)}
           />
         )}
-      </div>
-    </div>
+      </AppShell.Main>
+    </AppShell>
   );
 }

@@ -1,4 +1,4 @@
-import { cn } from '@wideset/react';
+import { AppShell, cn } from '@wideset/react';
 import { useId, useState } from 'react';
 
 import { account, chatGroups, product, workspace } from './canon';
@@ -114,7 +114,7 @@ export default function AgentSessions() {
   };
 
   return (
-    <div className="bg-ws-static-background flex h-dvh">
+    <AppShell direction="inset">
       <AgentSidebar
         id={sidebarId}
         collapsed={collapsed}
@@ -133,7 +133,7 @@ export default function AgentSessions() {
         onNew={() => {}}
       />
 
-      <main className="bg-ws-static-foreground rounded-ws-container-lg shadow-ws-low my-ws-7 mr-ws-7 ml-ws-5 flex min-w-0 flex-1 flex-col overflow-hidden">
+      <AppShell.Main className="overflow-hidden">
         <TopBar
           sidebarId={sidebarId}
           collapsed={collapsed}
@@ -157,7 +157,7 @@ export default function AgentSessions() {
             </section>
           </div>
         </div>
-      </main>
+      </AppShell.Main>
 
       <SelectionBar
         count={picked.length}
@@ -166,6 +166,6 @@ export default function AgentSessions() {
         onStop={stop}
         onArchive={archive}
       />
-    </div>
+    </AppShell>
   );
 }
