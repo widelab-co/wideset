@@ -1,5 +1,5 @@
 import { Button, FormField, Modal, TextInput } from '@wideset/react';
-import { type FormEvent, useId, useState } from 'react';
+import { useId, useState } from 'react';
 
 import type { Entry } from './data';
 import { formatPeople, formatReports } from './format';
@@ -20,8 +20,9 @@ type DeleteFolderDialogProps = {
  * The title names the folder; the line under it says, in plain words, what goes with it, who
  * loses access and that it cannot be undone. Typing the folder's name is the pause before it:
  * focus starts in that field, never on the danger button, and the button, which names the action,
- * stays disabled until the name matches (spaces around it and case aside). Enter deletes once it
- * does; Cancel, the X and Esc leave everything as it was.
+ * stays disabled until the name matches (spaces around it and case aside). Enter does not press
+ * it: the delete takes a deliberate click or Space on the button. Cancel, the X and Esc leave
+ * everything as it was.
  */
 export function DeleteFolderDialog({
   folder,
@@ -61,13 +62,8 @@ function DeleteFolderForm({
   const matches = typed.trim().toLowerCase() === folder.name.toLowerCase();
   const access = folder.people?.length ? `, and ${formatPeople(folder.people)} lose access` : '';
 
-  const submit = (event: FormEvent) => {
-    event.preventDefault();
-    if (matches) onConfirm();
-  };
-
   return (
-    <form onSubmit={submit} noValidate>
+    <>
       <Modal.Header>
         <Modal.Title>Delete “{folder.name}”?</Modal.Title>
         <Modal.Description>
@@ -91,10 +87,10 @@ function DeleteFolderForm({
             Cancel
           </Button>
         </Modal.Close>
-        <Button type="submit" variant="danger" disabled={!matches}>
+        <Button type="button" variant="danger" disabled={!matches} onClick={onConfirm}>
           Delete folder
         </Button>
       </Modal.Footer>
-    </form>
+    </>
   );
 }
