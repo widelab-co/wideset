@@ -37,7 +37,8 @@ function ReportsPage() {
 
   /** One report: no question asked, Undo for as long as the toast stays. */
   const deleteReport = (report: Entry) => {
-    const at = entries.indexOf(report);
+    // The entries after it, so Undo can put it back before whichever of them is still there.
+    const after = entries.slice(entries.indexOf(report) + 1);
     setEntries((all) => all.filter((entry) => entry.id !== report.id));
     const id = showToast({
       content: `Deleted “${report.name}”`,
@@ -46,7 +47,11 @@ function ReportsPage() {
           preset="ghost"
           onClick={() => {
             // Back in its place, without undoing anything deleted since.
-            setEntries((all) => [...all.slice(0, at), report, ...all.slice(at)]);
+            setEntries((all) => {
+              const next = after.find((entry) => all.some((other) => other.id === entry.id));
+              const at = next ? all.findIndex((entry) => entry.id === next.id) : all.length;
+              return [...all.slice(0, at), report, ...all.slice(at)];
+            });
             dismissToast(id);
           }}
         >
