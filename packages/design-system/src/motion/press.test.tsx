@@ -4,11 +4,12 @@ import { describe, expect, it } from 'vitest';
 
 import { Button } from '../components/button/Button';
 import { IconButton } from '../components/button/IconButton';
+import { SplitButton } from '../components/button/SplitButton';
 import { Chip } from '../components/chip/Chip';
 import { FilterButton } from '../components/filter-button/FilterButton';
 import { Select } from '../components/select/Select';
 
-// The press shrink (pressMotion) belongs to buttons only.
+// The press shrink (pressMotion) belongs to free-standing buttons only.
 const pressScale = /scale-\(--ws-motion-scale-small\)/;
 
 describe('Press scale', () => {
@@ -22,6 +23,17 @@ describe('Press scale', () => {
     render(<IconButton icon={RiCloseLine} aria-label="Close" />);
 
     expect(screen.getByRole('button', { name: 'Close' }).className).toMatch(pressScale);
+  });
+
+  it('does not shrink either half of a SplitButton on press', () => {
+    render(
+      <SplitButton icon={RiCloseLine} iconAriaLabel="More options">
+        Save
+      </SplitButton>,
+    );
+
+    expect(screen.getByRole('button', { name: 'Save' }).className).not.toMatch(pressScale);
+    expect(screen.getByRole('button', { name: 'More options' }).className).not.toMatch(pressScale);
   });
 
   it('does not shrink a Select trigger on press', () => {
