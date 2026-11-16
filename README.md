@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src=".github/assets/banner.gif" alt="Wideset components switching from light to dark: a views menu, a form, navigation, an inbox and a theme switch" width="100%" />
+<img src=".github/assets/banner.png" alt="Your design system. Understood by your agent. The Wideset mark connected to button.md, brand.md, an MCP server and the /wideset-build skill" width="100%" />
 
 # Wideset
 
