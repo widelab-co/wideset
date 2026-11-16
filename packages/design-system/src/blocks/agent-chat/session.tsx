@@ -121,7 +121,7 @@ export function Session({
             onAnswer={session.answer}
             onChoose={session.choose}
             onRate={session.rate}
-            onRetry={session.replay}
+            onRetry={() => session.replay()}
           />
         </div>
       </div>
