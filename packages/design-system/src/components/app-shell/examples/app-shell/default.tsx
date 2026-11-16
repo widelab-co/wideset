@@ -1,6 +1,13 @@
-/** The playground's stage: a sidebar and a page in one shell, its direction set from the rail. */
-import { RiDashboardLine, RiFolder3Line, RiSettings3Line } from '@remixicon/react';
-import { AppShell, type AppShellProps, Button, Sidebar } from '@wideset/react';
+/** The playground's stage: a sidebar and a page with its top bar in one shell, its direction set from the rail. */
+import { RiDashboardLine, RiFolder3Line, RiMoreLine, RiSettings3Line } from '@remixicon/react';
+import {
+  AppShell,
+  type AppShellProps,
+  Breadcrumbs,
+  Button,
+  IconButton,
+  Sidebar,
+} from '@wideset/react';
 
 export default function AppShellDefault(props: AppShellProps) {
   return (
@@ -10,14 +17,11 @@ export default function AppShellDefault(props: AppShellProps) {
     >
       <Sidebar>
         <Sidebar.Header>
-          <div className="gap-ws-7 py-ws-3 flex items-center">
-            <Sidebar.Expanded>
-              <span className="typography-label-strong-sm text-ws-static-strong pl-ws-5">
-                Northwind
-              </span>
-            </Sidebar.Expanded>
-            <Sidebar.Trigger />
-          </div>
+          <Sidebar.Expanded>
+            <div className="typography-label-strong-sm text-ws-static-strong py-ws-3 pl-ws-5">
+              Northwind
+            </div>
+          </Sidebar.Expanded>
         </Sidebar.Header>
         <Sidebar.Section>
           <nav aria-label="Main" className="gap-ws-2 flex flex-col">
@@ -28,14 +32,34 @@ export default function AppShellDefault(props: AppShellProps) {
         </Sidebar.Section>
       </Sidebar>
       <AppShell.Main>
-        <div className="gap-ws-11 p-ws-12 flex flex-col">
-          <header className="gap-ws-9 flex items-center justify-between">
+        <AppShell.TopBar>
+          <AppShell.SidebarTrigger />
+          <Breadcrumbs separator="arrow">
+            <Breadcrumbs.Item asChild>
+              <a href="#workspace">Workspace</a>
+            </Breadcrumbs.Item>
+            <Breadcrumbs.Item>Projects</Breadcrumbs.Item>
+          </Breadcrumbs>
+          <AppShell.TopBarActions>
+            <Button size="sm" variant="secondary" preset="border">
+              Share
+            </Button>
+            <IconButton
+              icon={RiMoreLine}
+              size="sm"
+              variant="secondary"
+              preset="ghost"
+              aria-label="More actions"
+            />
+          </AppShell.TopBarActions>
+        </AppShell.TopBar>
+        <div className="gap-ws-12 px-ws-14 pt-ws-14 pb-ws-16 flex w-full flex-col">
+          <header className="gap-ws-2 flex flex-col">
             <h1 className="typography-title-md text-ws-static-strong">Projects</h1>
-            <Button size="sm">New project</Button>
+            <p className="typography-body-md text-ws-static-subtle">
+              12 active projects, 3 due this week.
+            </p>
           </header>
-          <p className="typography-body-md text-ws-static-subtle">
-            12 active projects, 3 due this week.
-          </p>
         </div>
       </AppShell.Main>
     </AppShell>

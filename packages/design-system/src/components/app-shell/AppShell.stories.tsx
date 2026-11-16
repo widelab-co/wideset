@@ -2,14 +2,18 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { exampleStory } from '../../stories/example';
 import { AppShell } from './AppShell';
+import { AppShellSidebarTrigger } from './AppShellSidebarTrigger';
 import DefaultExample from './examples/app-shell/default';
 import DirectionsExample from './examples/app-shell/directions';
 import directionsSource from './examples/app-shell/directions?raw';
+import TopBarExample from './examples/app-shell/top-bar';
+import topBarSource from './examples/app-shell/top-bar?raw';
 
 const meta = {
   title: 'Components/AppShell',
   tags: ['autodocs'],
   component: AppShell,
+  subcomponents: { 'AppShell.SidebarTrigger': AppShellSidebarTrigger },
   parameters: {
     layout: 'padded',
     docs: {
@@ -20,10 +24,17 @@ Do not use it for screens without app navigation (sign in, a marketing page) or 
 
 **Composition:**
 \`\`\`
-<AppShell direction="inset">   — full-height row; the window background of the direction
-  <Sidebar>…</Sidebar>          — navigation; its surface follows the direction
-  <AppShell.Main>               — <main>, the page; the only scroll container
-    …                           — page header and content
+<AppShell direction="inset">        — full-height row; the window background of the direction
+  <Sidebar>…</Sidebar>               — navigation; its surface follows the direction
+  <AppShell.Main>                    — <main>, the page; the only scroll container
+    <AppShell.TopBar>                — optional: the 48px bar that stays at the top of the page
+      <AppShell.SidebarTrigger />    — collapses and expands the Sidebar
+      <Breadcrumbs>…</Breadcrumbs>   — where you are
+      <AppShell.TopBarActions>       — the page's small tools, at the far end
+        …
+      </AppShell.TopBarActions>
+    </AppShell.TopBar>
+    …                                — page header and content
   </AppShell.Main>
 </AppShell>
 \`\`\``,
@@ -62,12 +73,14 @@ export const Default: Story = {
     docs: {
       description: {
         story:
-          'A sidebar and a page in one shell. Switch `direction` in Controls: the window background, the sidebar surface and the page change together.',
+          'A sidebar and a page with its top bar in one shell. Switch `direction` in Controls: the window background, the sidebar surface, the page and the line under the bar change together.',
       },
     },
   },
   render: (args) => <DefaultExample {...args} />,
 };
+
+export const TopBar: Story = exampleStory(TopBarExample, topBarSource);
 
 export const Directions: Story = exampleStory(DirectionsExample, directionsSource);
 
@@ -75,10 +88,11 @@ export const FullScreen: Story = {
   args: { direction: 'inset' },
   parameters: {
     layout: 'fullscreen',
+    bleed: true,
     docs: {
       description: {
         story:
-          'The shell at the window size, as a screen uses it: `h-dvh`, the sidebar fixed, only the page scrolls.',
+          'The shell at the window size, as a screen uses it: `h-dvh`, the sidebar fixed, only the page scrolls, under its top bar.',
       },
     },
   },

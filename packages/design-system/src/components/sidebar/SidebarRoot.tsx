@@ -29,7 +29,8 @@ const SidebarRoot = React.forwardRef<HTMLDivElement, SidebarProps>(
     const motion = useDefaultMotion(defaultMotion);
     // Inside an AppShell the sidebar takes the surface of the app's direction; its own
     // `surface` prop wins.
-    const direction = React.useContext(AppShellContext)?.direction;
+    const shell = React.useContext(AppShellContext);
+    const direction = shell?.direction;
     const surface = surfaceProp ?? (direction ? sidebarSurfaceByDirection[direction] : 'page');
     const [internalCollapsed, setInternalCollapsed] = React.useState(!!defaultCollapsed);
     const isControlled = collapsed !== undefined;
@@ -51,6 +52,17 @@ const SidebarRoot = React.forwardRef<HTMLDivElement, SidebarProps>(
       () => ({ isCollapsed, toggle, motion, sidebarId }),
       [isCollapsed, toggle, motion, sidebarId],
     );
+
+    // Inside an AppShell the sidebar reports its state, so `AppShell.SidebarTrigger` in the page's
+    // top bar can toggle it. The state stays here: controlled or not, as outside a shell.
+    const registerSidebar = shell?.registerSidebar;
+    React.useLayoutEffect(() => {
+      if (!registerSidebar) return;
+
+      registerSidebar({ isCollapsed, toggle, sidebarId });
+
+      return () => registerSidebar(null);
+    }, [registerSidebar, isCollapsed, toggle, sidebarId]);
 
     return (
       <SidebarContext.Provider value={contextValue}>
