@@ -1,4 +1,5 @@
 import * as RadixTabs from '@radix-ui/react-tabs';
+import { forwardRef } from 'react';
 import { cn } from 'src/lib/utils';
 
 import { useDefaultMotion } from '../../motion/MotionProvider';
@@ -12,37 +13,34 @@ import { TabsItem } from './TabsItem';
 import { TabsLabel } from './TabsLabel';
 import { TabsList } from './TabsList';
 
-const Tabs = ({
-  children,
-  size,
-  type,
-  divider = true,
-  className,
-  disabled,
-  defaultMotion,
-  ...props
-}: TabsProps) => {
-  const motion = useDefaultMotion(defaultMotion);
+const TabsRoot = forwardRef<HTMLDivElement, TabsProps>(
+  ({ children, size, type, divider = true, className, disabled, defaultMotion, ...props }, ref) => {
+    const motion = useDefaultMotion(defaultMotion);
 
-  return (
-    <TabsContext.Provider value={{ size, type, divider, disabled, motion }}>
-      <RadixTabs.Root
-        data-slot="tabs"
-        className={cn(tabsVariants({ size, type }), className)}
-        {...props}
-      >
-        {children}
-      </RadixTabs.Root>
-    </TabsContext.Provider>
-  );
-};
+    return (
+      <TabsContext.Provider value={{ size, type, divider, disabled, motion }}>
+        <RadixTabs.Root
+          ref={ref}
+          data-slot="tabs"
+          className={cn(tabsVariants({ size, type }), className)}
+          {...props}
+        >
+          {children}
+        </RadixTabs.Root>
+      </TabsContext.Provider>
+    );
+  },
+);
 
-Tabs.displayName = 'Tabs';
-Tabs.Icon = TabsIcon;
-Tabs.Label = TabsLabel;
-Tabs.Count = TabsCount;
-Tabs.List = TabsList;
-Tabs.Item = TabsItem;
-Tabs.Content = TabsContent;
+TabsRoot.displayName = 'Tabs';
+
+const Tabs = Object.assign(TabsRoot, {
+  Icon: TabsIcon,
+  Label: TabsLabel,
+  Count: TabsCount,
+  List: TabsList,
+  Item: TabsItem,
+  Content: TabsContent,
+});
 
 export { Tabs };

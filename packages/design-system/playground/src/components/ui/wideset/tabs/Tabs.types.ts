@@ -54,8 +54,6 @@ export type TabsListProps = ComponentProps<typeof RadixTabs.List>;
 export type TabsItemProps = ComponentProps<typeof RadixTabs.Trigger> & {
   /** The value that identifies this tab. */
   value: string;
-  /** Forces the active visual state — useful when using `asChild` with router links. */
-  active?: boolean;
   /** Disables this specific tab item. Overrides the parent `Tabs` `disabled` prop. */
   disabled?: boolean;
 };

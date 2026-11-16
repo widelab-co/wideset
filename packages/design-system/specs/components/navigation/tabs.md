@@ -17,7 +17,7 @@ storybook: components-tabs--default
 
 - Content splits cleanly into peer groups (Overview / Members / Comments) and the user moves
   between them on the same page.
-- A row of route-level sections inside a page, rendered as router links (`asChild` + `active`).
+- A row of route-level sections inside a page, with the root `value` derived from the URL and `onValueChange` handling navigation.
 
 ## When not to use
 
@@ -61,13 +61,12 @@ Named exports (`TabsList`, `TabsItem`, …) are the same parts for Server Compon
 | `size`     | `sm` (default) / `lg` | `sm` for panels and dense screens, `lg` for the top level of a page. |
 | `divider`  | `true` (default)      | Line under the list. Ignored by `pills` and `ghost`.                 |
 | `disabled` | on `Tabs` or one item | Root disables every tab; item disables only that tab.                |
-| `active`   | on `Tabs.Item`        | Forces the active look when the item is a router link (`asChild`).   |
 
 State: `value` + `onValueChange` (controlled) or `defaultValue` (uncontrolled), from Radix Tabs.
 
 ## States
 
-- Active: set by `value` / `defaultValue`, or `active` on a link item.
+- Active: set by the root `value` / `defaultValue`. For routing, derive `value` from the current URL.
 - Disabled: dimmed and skipped by the keyboard. Keep a disabled tab only when the user can tell
   why it is unavailable.
 
@@ -88,13 +87,40 @@ State: `value` + `onValueChange` (controlled) or `defaultValue` (uncontrolled), 
 ## Do / Don't
 
 ```tsx
-// Do: router links keep the tab look through asChild + active
-<Tabs.Item value="billing" asChild active={pathname === '/billing'}>
-  <a href="/billing"><Tabs.Label>Billing</Tabs.Label></a>
-</Tabs.Item>
+import { Tabs } from '@wideset/react';
+import { useLocation, useNavigate } from 'react-router-dom';
+
+// Do: keep URL-driven selection and its content panels together.
+function RoutingTabs() {
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const currentTab = pathname === '/billing' ? 'billing' : 'overview';
+
+  return (
+    <Tabs
+      value={currentTab}
+      onValueChange={(value) => {
+        if (value !== currentTab) navigate('/' + value);
+      }}
+    >
+      <Tabs.List>
+        <Tabs.Item value="overview">
+          <Tabs.Label>Overview</Tabs.Label>
+        </Tabs.Item>
+        <Tabs.Item value="billing">
+          <Tabs.Label>Billing</Tabs.Label>
+        </Tabs.Item>
+      </Tabs.List>
+      <Tabs.Content value="overview">Overview content</Tabs.Content>
+      <Tabs.Content value="billing">Billing content</Tabs.Content>
+    </Tabs>
+  );
+}
 
 // Don't: an icon passed as a bare child
-<Tabs.Item value="x"><RiTeamLine /></Tabs.Item>
+<Tabs.Item value="x">
+  <RiTeamLine />
+</Tabs.Item>;
 ```
 
 - Don't mix `size` or `type` between tab rows on one screen.
