@@ -8,7 +8,8 @@ import { FileSection } from './changes-file-section';
 import { ChangesToolbar } from './changes-toolbar';
 
 /** A line of a changed file to bring into view; a new `key` asks again for the same line. */
-export type Reveal = { path: string; line: number; key: number };
+/** A changed file to bring into view, at one of its lines or, with no `line`, from its top. */
+export type Reveal = { path: string; line?: number; key: number };
 
 type ChangesPaneProps = {
   reveal?: Reveal;
@@ -53,13 +54,17 @@ export function ChangesPane({ reveal, threads, onThreadsChange, onAsk }: Changes
     if (!reveal || revealed.current === reveal.key || query || !open.includes(reveal.path)) return;
     revealed.current = reveal.key;
     const pane = scroller.current;
-    const line = pane?.querySelector(
-      `[aria-label="${reveal.path}"] [data-new-line="${reveal.line}"]`,
+    const file = `[aria-label="${reveal.path}"]`;
+    const target = pane?.querySelector(
+      reveal.line === undefined ? file : `${file} [data-new-line="${reveal.line}"]`,
     );
-    // The pane's own scroll only: `scrollIntoView` would move every box around it as well.
-    if (pane && line) {
+    // The pane's own scroll only: `scrollIntoView` would move every box around it as well. A line
+    // comes to the middle, a file's top to the pane's top.
+    if (pane && target) {
       pane.scrollTop +=
-        line.getBoundingClientRect().top - pane.getBoundingClientRect().top - pane.clientHeight / 2;
+        target.getBoundingClientRect().top -
+        pane.getBoundingClientRect().top -
+        (reveal.line === undefined ? 0 : pane.clientHeight / 2);
     }
   }, [reveal, open, query]);
 

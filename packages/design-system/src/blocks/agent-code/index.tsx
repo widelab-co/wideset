@@ -88,16 +88,20 @@ export default function AgentCode({ pane: initial = 'changes' }: { pane?: Pane }
   const here = thread?.id === OPEN_SESSION;
   const paneShown = here && paneOpen ? pane : null;
 
-  // A link to a line of a changed file (`#changes/<path>:<line>`, as a comment in Checks has)
-  // brings up Changes on that line. The address then goes back to the page's own, so the same
+  // A link to a changed file (`#changes/<path>`, as the context popover's list has) or to one of
+  // its lines (`#changes/<path>:<line>`, as a comment in Checks has) brings up Changes there. The address then goes back to the page's own, so the same
   // link works a second time.
   useEffect(() => {
     const route = () => {
-      const [, path, line] = /^#changes\/(.+):(\d+)$/.exec(window.location.hash) ?? [];
+      const [, path, line] = /^#changes\/(.+?)(?::(\d+))?$/.exec(window.location.hash) ?? [];
       if (!path) return;
       setPane('changes');
       setPaneOpen(true);
-      setReveal((last) => ({ path, line: Number(line), key: (last?.key ?? 0) + 1 }));
+      setReveal((last) => ({
+        path,
+        line: line === undefined ? undefined : Number(line),
+        key: (last?.key ?? 0) + 1,
+      }));
       window.history.replaceState(null, '', window.location.pathname + window.location.search);
     };
     window.addEventListener('hashchange', route);
