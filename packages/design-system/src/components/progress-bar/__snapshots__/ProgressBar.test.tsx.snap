@@ -147,7 +147,7 @@ exports[`ProgressBar Snapshots > matches snapshot for complete progress bar 1`] 
       >
         <label
           class="text-ws-static-strong typography-label-strong-sm gap-ws-3 flex min-w-0 flex-wrap items-center"
-          id="_r_r_"
+          id=":id-1:"
         >
           <span
             class="min-w-0 break-words"
@@ -164,7 +164,7 @@ exports[`ProgressBar Snapshots > matches snapshot for complete progress bar 1`] 
     </span>
   </div>
   <div
-    aria-labelledby="_r_r_"
+    aria-labelledby=":id-1:"
     aria-valuemax="100"
     aria-valuemin="0"
     aria-valuenow="90"
@@ -285,7 +285,7 @@ exports[`ProgressBar Snapshots > matches snapshot for progress bar with label 1`
       >
         <label
           class="text-ws-static-strong typography-label-strong-sm gap-ws-3 flex min-w-0 flex-wrap items-center"
-          id="_r_p_"
+          id=":id-1:"
         >
           <span
             class="min-w-0 break-words"
@@ -302,7 +302,7 @@ exports[`ProgressBar Snapshots > matches snapshot for progress bar with label 1`
     </span>
   </div>
   <div
-    aria-labelledby="_r_p_"
+    aria-labelledby=":id-1:"
     aria-valuemax="100"
     aria-valuemin="0"
     aria-valuenow="75"

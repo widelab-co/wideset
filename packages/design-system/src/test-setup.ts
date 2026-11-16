@@ -1,6 +1,10 @@
 import '@testing-library/jest-dom';
 
-import { vi } from 'vitest';
+import { expect, vi } from 'vitest';
+
+import { stableIdSerializer } from './__tests__/helpers/stable-id-serializer';
+
+expect.addSnapshotSerializer(stableIdSerializer);
 
 // Mock scrollIntoView for jsdom (used by Radix primitives)
 Element.prototype.scrollIntoView = vi.fn();

@@ -13,14 +13,14 @@ exports[`Accordion > Snapshots > should match snapshot for contained variant 1`]
     data-state="open"
   >
     <button
-      aria-controls="radix-_r_17_"
+      aria-controls="radix-:id-1:"
       aria-expanded="true"
       class="bg-ws-dynamic-secondary-alpha-default gap-ws-7 py-ws-8 box-border flex w-full cursor-pointer text-left outline-hidden group/trigger text-ws-static-strong typography-label-strong-sm radix-disabled:text-ws-static-subtle radix-disabled:cursor-default radix-disabled:pointer-events-none px-ws-9"
       data-orientation="vertical"
       data-radix-collection-item=""
       data-slot="accordion-trigger"
       data-state="open"
-      id="radix-_r_16_"
+      id="radix-:id-2:"
       type="button"
     >
       Item 1
@@ -39,12 +39,12 @@ exports[`Accordion > Snapshots > should match snapshot for contained variant 1`]
       </svg>
     </button>
     <div
-      aria-labelledby="radix-_r_16_"
+      aria-labelledby="radix-:id-2:"
       class="text-ws-static-subtle typography-body-md px-ws-9 pb-ws-9 overflow-hidden data-[state=open]:animate-[ws-accordion-down_var(--ws-motion-duration-fast)_var(--ws-motion-ease-smooth-out)] data-[state=closed]:animate-[ws-accordion-up_var(--ws-motion-duration-quick)_var(--ws-motion-ease-smooth-out)]"
       data-orientation="vertical"
       data-slot="accordion-content"
       data-state="open"
-      id="radix-_r_17_"
+      id="radix-:id-1:"
       role="region"
       style="--radix-accordion-content-height: var(--radix-collapsible-content-height); --radix-accordion-content-width: var(--radix-collapsible-content-width); transition-duration: 0s; animation-name: none;"
     >
@@ -64,7 +64,7 @@ exports[`Accordion > Snapshots > should match snapshot for contained variant 1`]
       data-radix-collection-item=""
       data-slot="accordion-trigger"
       data-state="closed"
-      id="radix-_r_18_"
+      id="radix-:id-3:"
       type="button"
     >
       Item 2
@@ -83,13 +83,13 @@ exports[`Accordion > Snapshots > should match snapshot for contained variant 1`]
       </svg>
     </button>
     <div
-      aria-labelledby="radix-_r_18_"
+      aria-labelledby="radix-:id-3:"
       class="text-ws-static-subtle typography-body-md px-ws-9 pb-ws-9 overflow-hidden data-[state=open]:animate-[ws-accordion-down_var(--ws-motion-duration-fast)_var(--ws-motion-ease-smooth-out)] data-[state=closed]:animate-[ws-accordion-up_var(--ws-motion-duration-quick)_var(--ws-motion-ease-smooth-out)]"
       data-orientation="vertical"
       data-slot="accordion-content"
       data-state="closed"
       hidden=""
-      id="radix-_r_19_"
+      id="radix-:id-4:"
       role="region"
       style="--radix-accordion-content-height: var(--radix-collapsible-content-height); --radix-accordion-content-width: var(--radix-collapsible-content-width);"
     />
@@ -110,14 +110,14 @@ exports[`Accordion > Snapshots > should match snapshot for default accordion 1`]
     data-state="open"
   >
     <button
-      aria-controls="radix-_r_v_"
+      aria-controls="radix-:id-1:"
       aria-expanded="true"
       class="bg-ws-dynamic-secondary-alpha-default gap-ws-7 py-ws-8 box-border flex w-full cursor-pointer text-left outline-hidden group/trigger text-ws-static-strong typography-label-strong-sm radix-disabled:text-ws-static-subtle radix-disabled:cursor-default radix-disabled:hover:no-underline hover:underline"
       data-orientation="vertical"
       data-radix-collection-item=""
       data-slot="accordion-trigger"
       data-state="open"
-      id="radix-_r_u_"
+      id="radix-:id-2:"
       type="button"
     >
       Item 1
@@ -136,12 +136,12 @@ exports[`Accordion > Snapshots > should match snapshot for default accordion 1`]
       </svg>
     </button>
     <div
-      aria-labelledby="radix-_r_u_"
+      aria-labelledby="radix-:id-2:"
       class="text-ws-static-subtle typography-body-md pb-ws-7 overflow-hidden data-[state=open]:animate-[ws-accordion-down_var(--ws-motion-duration-fast)_var(--ws-motion-ease-smooth-out)] data-[state=closed]:animate-[ws-accordion-up_var(--ws-motion-duration-quick)_var(--ws-motion-ease-smooth-out)]"
       data-orientation="vertical"
       data-slot="accordion-content"
       data-state="open"
-      id="radix-_r_v_"
+      id="radix-:id-1:"
       role="region"
       style="--radix-accordion-content-height: var(--radix-collapsible-content-height); --radix-accordion-content-width: var(--radix-collapsible-content-width); transition-duration: 0s; animation-name: none;"
     >
@@ -161,7 +161,7 @@ exports[`Accordion > Snapshots > should match snapshot for default accordion 1`]
       data-radix-collection-item=""
       data-slot="accordion-trigger"
       data-state="closed"
-      id="radix-_r_10_"
+      id="radix-:id-3:"
       type="button"
     >
       Item 2
@@ -180,13 +180,13 @@ exports[`Accordion > Snapshots > should match snapshot for default accordion 1`]
       </svg>
     </button>
     <div
-      aria-labelledby="radix-_r_10_"
+      aria-labelledby="radix-:id-3:"
       class="text-ws-static-subtle typography-body-md pb-ws-7 overflow-hidden data-[state=open]:animate-[ws-accordion-down_var(--ws-motion-duration-fast)_var(--ws-motion-ease-smooth-out)] data-[state=closed]:animate-[ws-accordion-up_var(--ws-motion-duration-quick)_var(--ws-motion-ease-smooth-out)]"
       data-orientation="vertical"
       data-slot="accordion-content"
       data-state="closed"
       hidden=""
-      id="radix-_r_11_"
+      id="radix-:id-4:"
       role="region"
       style="--radix-accordion-content-height: var(--radix-collapsible-content-height); --radix-accordion-content-width: var(--radix-collapsible-content-width);"
     />
@@ -208,7 +208,7 @@ exports[`Accordion > Snapshots > should match snapshot for disabled accordion 1`
     data-state="open"
   >
     <button
-      aria-controls="radix-_r_13_"
+      aria-controls="radix-:id-1:"
       aria-expanded="true"
       class="bg-ws-dynamic-secondary-alpha-default gap-ws-7 py-ws-8 box-border flex w-full cursor-pointer text-left outline-hidden group/trigger text-ws-static-strong typography-label-strong-sm radix-disabled:text-ws-static-subtle radix-disabled:cursor-default radix-disabled:hover:no-underline hover:underline"
       data-disabled=""
@@ -217,7 +217,7 @@ exports[`Accordion > Snapshots > should match snapshot for disabled accordion 1`
       data-slot="accordion-trigger"
       data-state="open"
       disabled=""
-      id="radix-_r_12_"
+      id="radix-:id-2:"
       type="button"
     >
       Item 1
@@ -236,13 +236,13 @@ exports[`Accordion > Snapshots > should match snapshot for disabled accordion 1`
       </svg>
     </button>
     <div
-      aria-labelledby="radix-_r_12_"
+      aria-labelledby="radix-:id-2:"
       class="text-ws-static-subtle typography-body-md pb-ws-7 overflow-hidden data-[state=open]:animate-[ws-accordion-down_var(--ws-motion-duration-fast)_var(--ws-motion-ease-smooth-out)] data-[state=closed]:animate-[ws-accordion-up_var(--ws-motion-duration-quick)_var(--ws-motion-ease-smooth-out)]"
       data-disabled=""
       data-orientation="vertical"
       data-slot="accordion-content"
       data-state="open"
-      id="radix-_r_13_"
+      id="radix-:id-1:"
       role="region"
       style="--radix-accordion-content-height: var(--radix-collapsible-content-height); --radix-accordion-content-width: var(--radix-collapsible-content-width); transition-duration: 0s; animation-name: none;"
     >
@@ -265,7 +265,7 @@ exports[`Accordion > Snapshots > should match snapshot for disabled accordion 1`
       data-slot="accordion-trigger"
       data-state="closed"
       disabled=""
-      id="radix-_r_14_"
+      id="radix-:id-3:"
       type="button"
     >
       Item 2
@@ -284,14 +284,14 @@ exports[`Accordion > Snapshots > should match snapshot for disabled accordion 1`
       </svg>
     </button>
     <div
-      aria-labelledby="radix-_r_14_"
+      aria-labelledby="radix-:id-3:"
       class="text-ws-static-subtle typography-body-md pb-ws-7 overflow-hidden data-[state=open]:animate-[ws-accordion-down_var(--ws-motion-duration-fast)_var(--ws-motion-ease-smooth-out)] data-[state=closed]:animate-[ws-accordion-up_var(--ws-motion-duration-quick)_var(--ws-motion-ease-smooth-out)]"
       data-disabled=""
       data-orientation="vertical"
       data-slot="accordion-content"
       data-state="closed"
       hidden=""
-      id="radix-_r_15_"
+      id="radix-:id-4:"
       role="region"
       style="--radix-accordion-content-height: var(--radix-collapsible-content-height); --radix-accordion-content-width: var(--radix-collapsible-content-width);"
     />
