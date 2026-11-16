@@ -71,13 +71,15 @@ export default function AgentResearch() {
   const { mode, thread, session } = shell;
   const research = thread?.id === OPEN_CHAT;
 
-  /* The report is a card that is written like an answer: this is its text as far as it has come.
-     It belongs to the research turn, which a follow-up does not replace. */
-  const reportTurn = session.shown.findLast(
+  /* The research turn, found in the thread as its data holds it: there from the start, while the
+     transcript shows only what the clock has reached, and a follow-up does not replace it. */
+  const researchTurn = thread?.turns.findLast(
     (turn) =>
       turn.role === 'agent' &&
       turn.blocks.some((block) => block.kind === 'card' && block.card === REPORT),
   );
+  /* The report is a card that is written like an answer: this is its text as far as it has come. */
+  const reportTurn = session.shown.find((turn) => turn.id === researchTurn?.id);
   const report =
     reportTurn?.role === 'agent'
       ? reportTurn.blocks.find((block) => block.kind === 'card' && block.card === REPORT)
@@ -94,6 +96,7 @@ export default function AgentResearch() {
   const citing: Citing = {
     active: peeked ?? pinned,
     onPeek: setPeeked,
+    pinned,
     onPin: (source) => {
       setPinned(pinned === source ? null : source);
       setPaneOpen(true);
@@ -103,7 +106,7 @@ export default function AgentResearch() {
   const replay = () => {
     setPinned(null);
     // The research turn, not the newest: a follow-up may have come after it.
-    session.replay(reportTurn?.id);
+    session.replay(researchTurn?.id);
   };
 
   const card: CardRender = (name, of) =>
@@ -112,7 +115,8 @@ export default function AgentResearch() {
         steps={plan}
         live={session.running}
         defaultOpen={view === 'verbose'}
-        locked={session.running || !report}
+        // Open to change once the run rests, stopped before the report too: a change runs it again.
+        locked={session.running}
         onChange={(steps) => {
           setPlan(steps);
           replay();
