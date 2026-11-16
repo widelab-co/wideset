@@ -70,9 +70,18 @@ export function useSession({
   );
   const [draft, setDraft] = useState({ text: opening ?? '', id: 0 });
   const [attachments, setAttachments] = useState<string[]>([]);
-  const { playback, at, start, stop: end } = useRun(turns, playing);
+  const { playback, at, start: play, stop: end } = useRun(turns, playing);
   const running = playback !== null;
   const whole = reducedMotion();
+  /** The turn last set playing: the one Continue goes on with once stopped, wherever it stands. */
+  const [played, setPlayed] = useState(playing?.id);
+  const start = useCallback(
+    (id: string, from?: number) => {
+      setPlayed(id);
+      play(id, from);
+    },
+    [play],
+  );
 
   const shown = turns.map((turn) =>
     turn.role !== 'agent'
@@ -82,8 +91,18 @@ export function useSession({
         : showTurn(turn, undefined, whole),
   );
   const steps = shown.flatMap(stepsOf);
-  const last = turns.at(-1);
-  const cut = !running && last?.role === 'agent' && last.stoppedAt !== undefined ? last : null;
+  // The turn stopped: the one last played (a replay of an earlier turn too), else the newest.
+  const target = played ? turns.find((turn) => turn.id === played) : turns.at(-1);
+  const cut =
+    !running && target?.role === 'agent' && target.stoppedAt !== undefined ? target : null;
+  /** The questions on the page still open: a message sent answers these, never one not shown yet. */
+  const open = shown.flatMap((turn) =>
+    turn.role !== 'agent'
+      ? []
+      : turn.blocks.flatMap((block) =>
+          block.kind === 'question' && block.answer === undefined ? [block.id] : [],
+        ),
+  );
 
   const changeTurn = (id: string, change: (turn: AgentTurn) => AgentTurn) =>
     onChange((all) =>
@@ -91,10 +110,12 @@ export function useSession({
     );
 
   const deliver = useCallback(
-    (text: string, sentWith?: string[]) => {
+    (text: string, sentWith?: string[], answering: string[] = []) => {
       const answer = reply(`sent-${(ids.current += 1)}`, text);
+      const answered = (turn: AgentTurn) =>
+        answering.reduce((item, id) => answerQuestion(item, text, id), turn);
       onChange((all) => [
-        ...all.map((turn) => (turn.role === 'agent' ? abandon(answerQuestion(turn, text)) : turn)),
+        ...all.map((turn) => (turn.role === 'agent' ? abandon(answered(turn)) : turn)),
         { id: `sent-${(ids.current += 1)}`, role: 'user', text, sentWith },
         answer,
       ]);
@@ -103,13 +124,22 @@ export function useSession({
     [onChange, reply, start],
   );
 
-  const send = (text: string) => {
+  /** Sends a message; it answers the questions named, the ones open on the page when it is sent. */
+  const post = (text: string, answering: string[]) => {
     const sentWith = attachments.length > 0 ? attachments : undefined;
     setAttachments([]);
     // While the agent works the files wait with the message, not on the tray for the next one.
-    if (running) return setQueue([...queue, { id: (queued.current += 1), text, sentWith }]);
-    deliver(text, sentWith);
+    const message = { id: (queued.current += 1), text, sentWith };
+    if (running) return setQueue([...queue, message]);
+    // Stopped with messages waiting: sending goes on in order, the first that waited goes now.
+    if (queue.length > 0) {
+      setQueue([...queue.slice(1), message]);
+      return deliver(queue[0].text, queue[0].sentWith, answering);
+    }
+    deliver(text, sentWith, answering);
   };
+
+  const send = (text: string) => post(text, open);
 
   /** Sets a turn that was held going again from where it stood. */
   const go = (turn: AgentTurn) => start(turn.id, playTurn(turn, Infinity).clock);
@@ -121,12 +151,15 @@ export function useSession({
 
   const awaiting = shown.some((turn) => turn.role === 'agent' && turn.held);
 
-  // When a run ends, the first message that waited goes out; not while the turn waits for you.
+  // When a run ends, the first message that waited goes out; not while the turn waits for you,
+  // and not after you stopped it: the queue waits for Continue, or for what you send next.
+  const stopped = cut !== null;
+  const answering = open.join(' ');
   useEffect(() => {
-    if (running || awaiting || queue.length === 0) return;
-    deliver(queue[0].text, queue[0].sentWith);
+    if (running || awaiting || stopped || queue.length === 0) return;
+    deliver(queue[0].text, queue[0].sentWith, answering ? answering.split(' ') : []);
     setQueue(queue.slice(1));
-  }, [running, awaiting, queue, deliver]);
+  }, [running, awaiting, stopped, queue, deliver, answering]);
 
   return {
     /** The turns as the transcript shows them now. */
@@ -153,6 +186,7 @@ export function useSession({
 
     leave() {
       end();
+      setPlayed(undefined);
       setQueue([]);
       setAttachments([]);
       setDraft({ text: '', id: draft.id + 1 });
@@ -218,7 +252,8 @@ export function useSession({
 
     choose(turnId: string, id: string, text: string) {
       changeTurn(turnId, (item) => answerQuestion(item, text, id));
-      send(text);
+      // The choice answers its own question only.
+      post(text, []);
     },
 
     rate(turnId: string, rating?: 'up' | 'down') {
