@@ -46,7 +46,7 @@ type SessionOptions = {
  *   `edit` takes one back into the composer, `unqueue` drops it. A message sent while a turn
  *   waits for you answers its question, or leaves the turn where it stands.
  * - `stop` keeps what is there and marks the turn stopped; `resume` goes on from there. `replay`
- *   plays the newest turn again from its start, as it was before anyone answered it.
+ *   plays the newest turn (or a named one) again from its start, as before anyone answered it.
  * - What a turn waits for: `answer` (an approval), `choose` (a question: the answer becomes your
  *   message), `proceed` (a step or a card that holds the turn). A turn that waits is at rest;
  *   each of these sets it going again from that point.
@@ -194,11 +194,12 @@ export function useSession({
       start(cut.id, cut.stoppedAt);
     },
 
-    replay() {
-      const newest = turns.findLast((turn) => turn.role === 'agent');
-      if (!newest) return;
-      changeTurn(newest.id, rewind);
-      start(newest.id);
+    /** Plays a turn again from its start: the newest agent turn, or the one named. */
+    replay(turnId?: string) {
+      const turn = turnId ? agentTurn(turnId) : turns.findLast((item) => item.role === 'agent');
+      if (!turn) return;
+      changeTurn(turn.id, rewind);
+      start(turn.id);
     },
 
     answer(turnId: string, stepId: string, answer: ApprovalAnswer) {

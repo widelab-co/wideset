@@ -77,7 +77,7 @@ export default function AgentContext() {
             onCollapsedChange={setCollapsed}
             crumbs={[repository.label, opened.title]}
           >
-            <Button variant="secondary" preset="ghost" size="sm" onClick={session.replay}>
+            <Button variant="secondary" preset="ghost" size="sm" onClick={() => session.replay()}>
               <Button.Icon icon={RiRestartLine} />
               Replay
             </Button>
