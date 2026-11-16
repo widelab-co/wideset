@@ -72,8 +72,11 @@ function FilesScreen() {
   const close = () => setDialog({ ...dialog, open: false });
 
   const move = (destination: string) => {
-    const before = files;
     const { ids } = dialog;
+    // Where each file was, so Undo takes back this move only and nothing done since.
+    const from = new Map(
+      files.filter((file) => ids.includes(file.id)).map((f) => [f.id, f.folder]),
+    );
     setFiles((all) =>
       all.map((file) => (ids.includes(file.id) ? { ...file, folder: destination } : file)),
     );
@@ -90,7 +93,13 @@ function FilesScreen() {
             dismissToast(id);
           }}
           onUndo={() => {
-            setFiles(before);
+            setFiles((all) =>
+              all.map((file) =>
+                from.has(file.id) && file.folder === destination
+                  ? { ...file, folder: from.get(file.id)! }
+                  : file,
+              ),
+            );
             dismissToast(id);
           }}
         />
@@ -99,7 +108,6 @@ function FilesScreen() {
   };
 
   const archive = (ids: string[]) => {
-    const before = files;
     setFiles((all) =>
       all.map((file) => (ids.includes(file.id) ? { ...file, archived: true } : file)),
     );
@@ -111,7 +119,9 @@ function FilesScreen() {
         <Toast.Action
           preset="ghost"
           onClick={() => {
-            setFiles(before);
+            setFiles((all) =>
+              all.map((file) => (ids.includes(file.id) ? { ...file, archived: false } : file)),
+            );
             dismissToast(id);
           }}
         >
