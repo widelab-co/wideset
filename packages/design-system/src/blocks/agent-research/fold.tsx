@@ -1,6 +1,6 @@
 // TODO(custom): content that folds open and shut under a transcript row; Accordion folds only under its own titled trigger, and the library exports no bare collapsible.
 import { cn } from '@wideset/react';
-import type { ReactNode } from 'react';
+import { type ReactNode, useEffect, useRef } from 'react';
 
 /**
  * What a row opens to. The height runs on a one-row grid going from `0fr` to `1fr`, so it needs
@@ -8,6 +8,12 @@ import type { ReactNode } from 'react';
  * stays in the page but is inert: out of the tab order and unseen by a screen reader.
  */
 export function Fold({ open, children }: { open: boolean; children: ReactNode }) {
+  const content = useRef<HTMLDivElement>(null);
+  // Set on the element, not as a prop: React 18 drops a boolean `inert` attribute.
+  useEffect(() => {
+    if (content.current) content.current.inert = !open;
+  }, [open]);
+
   return (
     <div
       className={cn(
@@ -17,7 +23,7 @@ export function Fold({ open, children }: { open: boolean; children: ReactNode })
           : 'grid-rows-[0fr] opacity-0 duration-(--ws-motion-duration-quick)',
       )}
     >
-      <div inert={!open} className="min-h-0 overflow-hidden">
+      <div ref={content} className="min-h-0 overflow-hidden">
         {children}
       </div>
     </div>

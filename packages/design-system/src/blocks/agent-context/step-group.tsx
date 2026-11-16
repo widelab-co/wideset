@@ -39,6 +39,8 @@ function partial(label: string, done: number, total: number) {
  */
 export function StepGroup({ block, defaultOpen, live, card, onAnswer }: StepGroupProps) {
   const [open, setOpen] = useState(defaultOpen);
+  // Playback never makes an empty group, but turns passed in from outside could.
+  if (block.steps.length === 0) return null;
   const current = block.steps[block.steps.length - 1];
   const busy = current.status === 'running' || current.status === 'waiting';
   const finished = block.steps.filter(({ status }) => status === 'done' || status === 'failed');

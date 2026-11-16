@@ -21,14 +21,10 @@ import {
 import { type MouseEvent, useEffect, useId, useRef, useState } from 'react';
 
 import { BrandMark } from './brand-mark';
-import { MODIFIER } from './keyboard-key';
+import { useModifier } from './keyboard-key';
 import type { Mode, ThreadGroup } from './model';
 import { PersonAvatar } from './person-avatar';
 import { ThreadMark } from './thread-mark';
-
-/** A shortcut as a row's hint: "⌘K" on Apple keyboards, "Ctrl K" elsewhere. */
-const shortcut = (...keys: string[]) =>
-  MODIFIER === '⌘' ? `⌘${keys.join('')}` : `Ctrl ${keys.join(' ')}`;
 
 type AgentSidebarProps = Pick<SidebarProps, 'id' | 'collapsed' | 'onCollapsedChange'> & {
   product: string;
@@ -81,6 +77,10 @@ export function AgentSidebar({
   const field = useRef<HTMLInputElement>(null);
   const groupId = useId();
   const thread = mode === 'chat' ? 'chat' : 'session';
+  const modifier = useModifier();
+  /** A shortcut as a row's hint: "⌘K" on Apple keyboards, "Ctrl K" elsewhere. */
+  const shortcut = (...keys: string[]) =>
+    modifier === '⌘' ? `⌘${keys.join('')}` : `Ctrl ${keys.join(' ')}`;
   const { collapsed, onCollapsedChange } = props;
 
   const needle = query.trim().toLowerCase();
@@ -115,6 +115,8 @@ export function AgentSidebar({
         event.preventDefault();
         onCollapsedChange?.(false);
         setSearching(true);
+        // Already open (a query kept it after the field lost focus): the effect will not run again.
+        field.current?.focus();
       } else if (key === 'o' && event.shiftKey) {
         event.preventDefault();
         onNew();
@@ -211,13 +213,13 @@ export function AgentSidebar({
                 onClick={act(search)}
               />
             )}
-            {mode === 'code' && (
+            {mode === 'code' && onAll && (
               <Sidebar.Item
                 href="#sessions"
                 icon={RiStackLine}
                 label="All sessions"
                 active={allOpen}
-                onClick={act(() => onAll?.())}
+                onClick={act(onAll)}
               />
             )}
           </nav>

@@ -11,7 +11,15 @@ const tokens = new Intl.NumberFormat('en-US', { notation: 'compact' });
  * (the amount, the limit beside it, a bar, one line of what happens next), then what the context
  * is made of and the one thing to do about it.
  */
-export function ContextSummary({ used, limit, parts }: Context) {
+export function ContextSummary({
+  used,
+  limit,
+  parts,
+  onCompact,
+}: Context & {
+  /** Compacts the conversation; the popup closes after it. */
+  onCompact?: () => void;
+}) {
   return (
     <Popup>
       <Popup.Trigger asChild>
@@ -49,7 +57,13 @@ export function ContextSummary({ used, limit, parts }: Context) {
             ))}
           </dl>
           <Popup.Close asChild>
-            <Button variant="secondary" preset="border" size="sm" className="w-full">
+            <Button
+              variant="secondary"
+              preset="border"
+              size="sm"
+              className="w-full"
+              onClick={onCompact}
+            >
               Compact now
             </Button>
           </Popup.Close>

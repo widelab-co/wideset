@@ -52,7 +52,7 @@ export function Reasoning({ block, defaultOpen, live }: ReasoningProps) {
         )}
       </Row>
       <Fold open={open}>
-        <p className="typography-body-md text-ws-static-subtle border-ws-static-base ml-ws-7 my-ws-3 border-l pl-[0.9375rem] whitespace-pre-line">
+        <p className="typography-body-md text-ws-static-subtle border-ws-static-base ml-ws-7 my-ws-3 border-l pl-[calc(var(--spacing-ws-9)-1px)] whitespace-pre-line">
           {block.text}
         </p>
       </Fold>

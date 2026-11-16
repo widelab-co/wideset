@@ -14,13 +14,23 @@ const DIFF: Record<string, string> = {
  * error lines in the negative colour, a diff with added and removed lines tinted, or the results
  * of a search as titles with where they are from. Long content scrolls inside the box.
  */
+const NAME: Record<Detail['kind'], string> = { output: 'Output', diff: 'Diff', results: 'Results' };
+
 export function StepDetail({ detail }: { detail: Detail }) {
   return (
-    <div className="border-ws-static-base rounded-ws-container-sm ml-ws-12 mt-ws-2 mb-ws-3 max-h-[15rem] overflow-auto border">
+    // Long content scrolls, so the box takes the keyboard's focus to be scrolled with the arrows.
+    <div
+      role="region"
+      aria-label={NAME[detail.kind]}
+      // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- a scrolling region must be reachable by keyboard
+      tabIndex={0}
+      className="border-ws-static-base rounded-ws-container-sm ml-ws-12 mt-ws-2 mb-ws-3 focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default max-h-[15rem] overflow-auto border"
+    >
       {detail.kind === 'results' ? (
         <ul className="px-ws-7 py-ws-5 typography-body-md flex flex-col">
-          {detail.items.map((item) => (
-            <li key={item.title} className="gap-ws-7 py-ws-2 flex items-baseline">
+          {detail.items.map((item, index) => (
+            // Two results can share a title; the list is fixed once the step has ended.
+            <li key={index} className="gap-ws-7 py-ws-2 flex items-baseline">
               <span className="text-ws-static-base min-w-0 flex-1 truncate">{item.title}</span>
               <span className="text-ws-static-subtle shrink-0">{item.source}</span>
             </li>
