@@ -16,19 +16,32 @@ export function Shimmer({ children }: { children: ReactNode }) {
   useEffect(() => {
     const node = ref.current;
     if (!node || typeof node.animate !== 'function') return;
-    const tokens = getComputedStyle(node);
-    const beat = toMs(tokens.getPropertyValue('--ws-motion-duration-slow'));
-    if (!(beat > 1)) return;
-    // The gradient is two texts wide and repeats, so moving it by its own width loops unseen.
-    const sweep = node.animate(
-      { backgroundPosition: ['200% 0', '0% 0'] },
-      {
-        duration: beat * 4,
-        iterations: Infinity,
-        easing: tokens.getPropertyValue('--ws-motion-ease-linear').trim() || 'linear',
-      },
-    );
-    return () => sweep.cancel();
+    let sweep: Animation | undefined;
+    const run = () => {
+      sweep?.cancel();
+      sweep = undefined;
+      const tokens = getComputedStyle(node);
+      // Reduced motion sets the beat to zero: no sweep.
+      const beat = toMs(tokens.getPropertyValue('--ws-motion-duration-slow'));
+      if (!(beat > 1)) return;
+      // The gradient is two texts wide and repeats, so moving it by its own width loops unseen.
+      sweep = node.animate(
+        { backgroundPosition: ['200% 0', '0% 0'] },
+        {
+          duration: beat * 4,
+          iterations: Infinity,
+          easing: tokens.getPropertyValue('--ws-motion-ease-linear').trim() || 'linear',
+        },
+      );
+    };
+    run();
+    // Reduced motion turned on (or off) while it shows: the beat changed, so start again.
+    const query = window.matchMedia?.('(prefers-reduced-motion: reduce)');
+    query?.addEventListener('change', run);
+    return () => {
+      query?.removeEventListener('change', run);
+      sweep?.cancel();
+    };
   }, []);
 
   return (
