@@ -5,6 +5,7 @@ import { context, efforts, models, permissions, product } from './canon';
 import { CodeTools } from './code-tools';
 import { ConnectorStep } from './connector-step';
 import { ContextNotice } from './context-notice';
+import { ContextSummary } from './context-summary';
 import { BEFORE_PUSH, compactedContext, fullContext, limit, REVIEW, type Scene } from './data';
 import { FailedStep } from './failed-step';
 import { LimitNotice } from './limit-notice';
@@ -28,7 +29,8 @@ type StateSessionProps = {
  * This draws only what is the state's own: what hangs under such a step (through `card`), the
  * notice over the composer when the state is about what you can send next, and the alert under
  * the bar when it is about the whole app. Every way out lets the turn go on from where it
- * stood. A new scene is a new instance, so nothing of the last one lingers.
+ * stood, except waiting for the usage limit: the sample stops at the note that says so, and the
+ * reset that resumes the turn is the app's (a timer or a message from the server). A new scene is a new instance, so nothing of the last one lingers.
  */
 export function StateSession({ scene, view, onMarkChange }: StateSessionProps) {
   const [turns, setTurns] = useState(scene.turns);
@@ -55,6 +57,13 @@ export function StateSession({ scene, view, onMarkChange }: StateSessionProps) {
   useEffect(() => onMarkChange(mark), [mark, onMarkChange]);
 
   const proceed = (id: string) => session.proceed(REVIEW, id);
+
+  /** The earlier turns become their summary; what came after them (a message sent meanwhile) stays. */
+  const compact = () => {
+    const { compacted } = scene;
+    if (compacted) setTurns((current) => [...compacted, ...current.slice(scene.turns.length)]);
+    setSettled(true);
+  };
 
   /** What is this block's own in the transcript: the mark where the run paused, and the ways out
    *  of the step it stands at. They are there only while the turn is held there. */
@@ -105,6 +114,12 @@ export function StateSession({ scene, view, onMarkChange }: StateSessionProps) {
           <CodeTools
             permissions={permissions}
             context={scene.id !== 'context' ? context : settled ? compactedContext : fullContext}
+            // Nearly full, Compact now in the meter's summary compacts as the notice does.
+            meter={
+              scene.id === 'context' && !settled ? (
+                <ContextSummary {...fullContext} onCompact={compact} />
+              ) : undefined
+            }
           />
         }
         model={
@@ -126,14 +141,7 @@ export function StateSession({ scene, view, onMarkChange }: StateSessionProps) {
                 onSwitch={() => proceed('review-limit')}
               />
             )}
-            {scene.id === 'context' && !settled && (
-              <ContextNotice
-                onCompact={() => {
-                  setTurns(scene.compacted ?? turns);
-                  setSettled(true);
-                }}
-              />
-            )}
+            {scene.id === 'context' && !settled && <ContextNotice onCompact={compact} />}
           </>
         }
         blocked={
