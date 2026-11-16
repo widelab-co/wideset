@@ -10,8 +10,9 @@ type ConnectorListProps = {
 
 /**
  * What the session can reach beyond the repository, one row each: its icon and name, then its
- * state in the colour of its meaning. A connector whose sign-in ran out says so and has
- * Reconnect beside it, bordered: the way to fix it is on the row that has the problem.
+ * state in the colour of its meaning. A connector whose sign-in ran out says so in the notice
+ * colour, as the step that needs it does in agent-states (nothing is broken, it needs you), and
+ * has Reconnect beside it, bordered: the way to fix it is on the row that has the problem.
  */
 export function ConnectorList({ connectors, onReconnect }: ConnectorListProps) {
   return (
@@ -28,7 +29,7 @@ export function ConnectorList({ connectors, onReconnect }: ConnectorListProps) {
             </StatusBadge>
           ) : (
             <>
-              <StatusBadge size="sm" color="negative">
+              <StatusBadge size="sm" color="notice">
                 Sign-in expired
               </StatusBadge>
               <Button
