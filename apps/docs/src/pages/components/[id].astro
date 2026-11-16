@@ -205,64 +205,57 @@ const td = 'px-ws-9 py-ws-8 align-top';
             n: index + 1,
             slot: kebab(part.exportName),
             exportName: part.exportName,
+            part: part.part,
+            element: part.table.element,
           }))}
           client:visible
         />
       )}
-      <section class={picture ? section : undefined}>
-        <h2 id="parts" class={h2}>
-          Parts
-        </h2>
-        <p class={text}>
-          Each part attaches to {root} and is also exported by name: a Server Component can only use
-          the named form.
-        </p>
-        {/* A container: in a narrow one the Renders column steps aside so descriptions keep room. */}
-        <div class="docs-card @container mt-ws-9 overflow-x-auto">
-          <table class="w-full border-collapse typography-body-md">
-            <thead>
-              <tr class="border-ws-static-base border-b">
-                <th class={th}>Part</th>
-                <th class={`${th} @max-[36rem]:hidden`}>Renders</th>
-                <th class={th}>Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              {parts.map((part, index) => (
-                <tr
-                  class="border-ws-static-base border-b transition-colors duration-[80ms] ease-out last:border-b-0 data-[anatomy-active]:bg-ws-static-alpha-base"
-                  data-anatomy-row={picture ? kebab(part.exportName) : undefined}
+      {/* A container: in a narrow one the Renders column steps aside so descriptions keep room. */}
+      <div class:list={['docs-card @container overflow-x-auto', picture && 'mt-ws-14']}>
+        <table aria-label="Parts" class="w-full border-collapse typography-body-md">
+          <thead>
+            <tr class="border-ws-static-base border-b">
+              <th class={th}>Part</th>
+              <th class={`${th} @max-[36rem]:hidden`}>Renders</th>
+              <th class={th}>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            {parts.map((part, index) => (
+              <tr
+                class="border-ws-static-base border-b transition-colors duration-[80ms] ease-out last:border-b-0 data-[anatomy-active]:bg-ws-static-alpha-base"
+                data-anatomy-row={picture ? kebab(part.exportName) : undefined}
+              >
+                {/* With a picture the part column is a tree: AnatomyDiagram sets --anatomy-depth. */}
+                <td
+                  class={`${td} text-ws-static-strong whitespace-nowrap`}
+                  style={
+                    picture ? 'padding-left: calc(var(--anatomy-depth, 0) * 1.25rem)' : undefined
+                  }
                 >
-                  {/* With a picture the part column is a tree: AnatomyDiagram sets --anatomy-depth. */}
-                  <td
-                    class={`${td} text-ws-static-strong whitespace-nowrap`}
-                    style={
-                      picture ? 'padding-left: calc(var(--anatomy-depth, 0) * 1.25rem)' : undefined
-                    }
-                  >
-                    {part.part}
-                    {picture && (
-                      // Shown by the picture for a part it has nothing to point at: a provider,
-                      // a portal, or a part that appears only in another state.
-                      <span
-                        data-anatomy-absent
-                        hidden
-                        class="text-ws-static-subtle block typography-caption-md"
-                      >
-                        {PLAYGROUNDS[entry.id]?.absent?.[part.exportName] ?? 'Renders no element'}
-                      </span>
-                    )}
-                  </td>
-                  <td class={`${td} text-ws-static-subtle whitespace-nowrap @max-[36rem]:hidden`}>
-                    {part.table.element ?? '—'}
-                  </td>
-                  <td class={`${td} text-ws-static-subtle`}>{describePart(entry, index) || '—'}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </section>
+                  {part.part}
+                  {picture && (
+                    // Shown by the picture for a part it has nothing to point at: a provider,
+                    // a portal, or a part that appears only in another state.
+                    <span
+                      data-anatomy-absent
+                      hidden
+                      class="text-ws-static-subtle block typography-caption-md"
+                    >
+                      {PLAYGROUNDS[entry.id]?.absent?.[part.exportName] ?? 'Renders no element'}
+                    </span>
+                  )}
+                </td>
+                <td class={`${td} text-ws-static-subtle whitespace-nowrap @max-[36rem]:hidden`}>
+                  {part.table.element ?? '—'}
+                </td>
+                <td class={`${td} text-ws-static-subtle`}>{describePart(entry, index) || '—'}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   )}
 

@@ -10,14 +10,14 @@ metadata:
 # Component anatomy
 
 The Anatomy tab of a component page (`?tab=anatomy`) shows a component's parts: the component drawn 1:1 with each part named
-beside it, and a table of the parts as a tree. Hovering a name or a row spotlights that part.
+beside it, and a table of the parts as a tree. Hovering a name or a row outlines that part.
 Both halves are generated; a component contributes only its **composition** (what the picture
 draws) and its parts' **`data-slot`s**. Card is the pattern to copy.
 
 Paths: `pkg/` = `packages/design-system/`, `docs/` = `apps/docs/`. The section lives in
 `docs/src/components/AnatomyDiagram.tsx` (picture, table wiring),
-`docs/src/pages/components/[id].astro` (the Anatomy tab's panel and table markup) and `--docs-anatomy-veil` in
-`docs/src/styles/docs.css`. Nothing in them is per component: never special-case a component
+`docs/src/pages/components/[id].astro` (the Anatomy tab's panel and table markup) and
+`docs/src/components/PartTokens.tsx` (a part's tokens). Nothing in them is per component: never special-case a component
 there; fix its composition instead.
 
 ## What the page does on its own
@@ -53,14 +53,13 @@ there; fix its composition instead.
     name already there (a header's close button) off its own: then it stays on the left.
 - **Hover** a name or a table row:
   - the name becomes a badge: `bg-ws-static-foreground`, no stroke, `rounded-ws-control-sm`,
-    `text-ws-static-strong`, weight one step up; the other names fade to 40%;
-  - the part is **spotlit**: a box of its exact rect and corners (its own radius, a rounded
+    `text-ws-static-strong`, weight one step up; the other names step back a little (75%);
+  - the part is **outlined**: a box of its exact rect and corners (its own radius, a rounded
     ancestor's where their corners meet, or the only child's that fills it), drawn **inside the
-    drawing** so it shares the part's scale and pixel edges, its shadow a tint over everything
-    else: `--docs-anatomy-veil`, the table row's own highlight (`alpha-base`, 8% black) on the
-    light page and the system scrim at 70% (about 40% black) on the dark one;
-  - the spotlight **cuts** from part to part without moving; only the tint fades (120ms in,
-    80ms out), and leaving a name waits 80ms so moving onto the next does not flash; badges
+    drawing** so it shares the part's scale and pixel edges, with a 1.5px line in the primary
+    colour. The stage keeps its fill: nothing else is tinted or dimmed;
+  - the outline **cuts** from part to part without moving; it only fades (120ms in, 80ms out),
+    and leaving a name waits 160ms, long enough to move onto the next name or into the popup; badges
     80ms in, 60ms out; the row lights with the same tint.
 - **The table** follows the picture: rows in the order the component is built, indented 1.25rem
   per level of nesting, a root that draws nothing (a provider) first, parts the picture cannot
@@ -95,7 +94,7 @@ Add it to `docs/src/playgrounds/<page>.tsx` only when the stage or the preview l
    the frame and covers the page.
 4. **Give empty parts a size, nothing more.** A media slot shows the sample image its own
    examples use (Card: the Media example's photo, cropped to the frame), so it reads as media.
-   No borders, backgrounds or padding added to make parts visible: the spotlight shows each
+   No borders, backgrounds or padding added to make parts visible: the outline shows each
    part's shape. The context a part lives in (a modal on its scrim) is fine.
 5. **Parts that start on the same line** (`Card > Media`, `Tabs > List`, `Accordion > Item >
 Trigger`) share a first line: their names stack 22px apart and only the first is level.
@@ -118,7 +117,7 @@ Anything else missing is a composition bug or a missing `data-slot`.
 
 Every rendered part sets `data-slot="<kebab of its export>"` before `{...props}` (`CardHeader`
 → `card-header`). A wrapper whose only child is the visible part (Card.Action around a badge) is
-fine: the spotlight takes the child's corners. Adding or fixing a `data-slot` is a library
+fine: the outline takes the child's corners. Adding or fixing a `data-slot` is a library
 change.
 
 ## Rejected — do not bring these back
@@ -133,13 +132,13 @@ Each was built, looked at and removed. If a request seems to ask for one, say so
   lines only on hover): they cut through text, two lines landed on the same edge, and names
   level with their parts read without them. No **dots** either.
 - **An accent outline** around the hovered part: too loud. The tint does the work.
-- **A padded spotlight** (3–4px around the part, matched or fixed 4px corners): read as random
-  gaps spilling outside the component. The spotlight is the part's exact box.
+- **A padded outline** (3–4px around the part, matched or fixed 4px corners): read as random
+  gaps spilling outside the component. The outline is the part's exact box.
 - **A glass rim** (frosted band, light edge, soft shadow): invisible on white, fussy elsewhere.
-- **The spotlight outside the drawing's layer** (an SVG mask or a sibling box): at a fractional
+- **The outline outside the drawing's layer** (an SVG mask or a sibling box): at a fractional
   scale its edges and the part's fall on different half-pixels and a seam shows. It must be
   drawn inside the drawing.
-- **An animated spotlight** sliding between parts: the cut is calmer.
+- **An animated outline** sliding between parts: the cut is calmer.
 - **A stroke on the badge:** a plain foreground pill.
 - **A dark scrim on the light page** (22% and more): too heavy. 4% (`alpha-subtle`) was too faint to notice; 8% (`alpha-base`) is the tint.
 - **The table's white-wash tint on the dark page:** it lights the rest up instead of dimming it.
@@ -149,6 +148,22 @@ Each was built, looked at and removed. If a request seems to ask for one, say so
 - **In the table:** a `#` column; mono or mixed sizes in one row; tall rows; folder icons,
   chevrons and folding; tree guide lines (├ │ └) and elbows; rules missing under the part
   column; a doubled bottom rule.
+
+## Tokens of a part
+
+Hovering a part in the picture, its name or its table row (or focusing a name with the keyboard,
+or tapping it) opens a popup under or over the component, 8px clear of it: the part's name and
+element, then one line per class that sets a visual property (property, class, value). A click
+copies the class; Escape closes the popup. Nothing here is written by hand or generated:
+
+- The lines are read from the part **as rendered in the picture**: its own class list, mapped to
+  properties by `docs/src/lib/tokenClasses.ts`; the value is the part's computed style, so it is
+  the current theme's. A wrapper with no such classes shows its first child that has them.
+- A `ws` class is a token; a value without one (`w-[16rem]`, Tailwind's own scale) is marked "no
+  token": a finding to report, not to hide. Layout classes are left out.
+- Eight lines at most, the most telling first (colour, radius, size, padding, type); "+N more"
+  opens the rest and the classes that apply only in a state (hover, disabled, open…).
+- "No design tokens on this part" is then a fact about the component, not missing data.
 
 ## Check
 
@@ -161,8 +176,9 @@ Open `/components/<page>?tab=anatomy` (`pnpm docs:dev`) at 1440px and 1280px wid
 - [ ] Each name is level with its part's first line, or is a shared-top case (writing rule 5).
 - [ ] Names in the row above only on a one-line drawing, or for a part at the top whose column
       slot was taken.
-- [ ] Hover every name and every row: the spotlight is exactly the part, corners included, the
-      rest dims (light: a faint grey, dark: a real dim), and the row lights up.
+- [ ] Hover every name and every row: the outline is exactly the part, corners included, the
+      stage keeps its fill, and the row lights up.
+- [ ] Hover every part: its popup lists its tokens, or says none are recorded; Escape closes it.
 - [ ] At 1280px the drawing is not below about 0.6×; if it is, the composition is wider than it
       needs to be (writing rule 2).
 

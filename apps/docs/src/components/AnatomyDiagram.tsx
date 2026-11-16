@@ -1,10 +1,19 @@
 import * as Wideset from '@wideset/react';
+import { Popup } from '@wideset/react';
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
 import { PLAYGROUNDS, withPlayground } from '../lib/playground';
+import PartTokens from './PartTokens';
 
 /** A part: its named export (`TabsLabel`) and the `data-slot` it renders (`tabs-label`). */
-export type AnatomyPart = { n: number; slot: string; exportName: string };
+export type AnatomyPart = {
+  n: number;
+  slot: string;
+  exportName: string;
+  /** The part as the page writes it (`Button.Icon`), and what it renders. */
+  part: string;
+  element?: string;
+};
 
 /** A rect in the drawing's own space: unscaled CSS pixels from its top left corner. */
 type Rect = { left: number; top: number; width: number; height: number };
@@ -22,6 +31,8 @@ type Measured = {
   /** Where the part comes in the rendered component, and how many parts it sits inside. */
   order: number;
   depth: number;
+  /** The part's element in the drawing: its classes are the tokens the popup lists. */
+  el: Element;
 };
 /** The drawing measured: its parts in the order they render, and its own size. */
 type Drawing = { parts: Measured[]; width: number; height: number };
@@ -170,6 +181,7 @@ const measure = (
   return {
     parts: found.map(({ el, ...part }, order) => ({
       ...part,
+      el,
       order,
       depth: found.filter((other) => other.el !== el && other.el.contains(el)).length,
     })),
@@ -304,7 +316,8 @@ const TRANSLATE: Record<Side, string> = {
 /**
  * The Anatomy picture: the component at its real size with each part named beside it, level
  * with it. Hovering a name, or its row in the table below, turns the name into a badge and
- * spotlights the part, greying out the rest. Parts are found by their `data-slot`, so the
+ * outlines the part and opens a popup with the tokens the part binds, read from its classes
+ * (also on keyboard focus of a name, and on a tap). Parts are found by their `data-slot`, so the
  * picture follows the component's real DOM rather than a drawing of it.
  */
 const AnatomyDiagram = ({
@@ -361,7 +374,8 @@ const AnatomyDiagram = ({
   const highlight = (n: number | null) => {
     window.clearTimeout(leaving.current);
     if (n === null) {
-      leaving.current = window.setTimeout(() => setActive(null), 80);
+      // Long enough to cross from a part to its popup.
+      leaving.current = window.setTimeout(() => setActive(null), 160);
       return;
     }
     setShown(n);
@@ -424,11 +438,26 @@ const AnatomyDiagram = ({
   // Mounted from the start (on the first part, unseen), so the first hover fades it in.
   const focus = drawn?.parts.find((part) => part.n === shown) ?? drawn?.parts[0];
   const on = active !== null;
+  const info = parts.find((part) => part.n === shown);
+  /** A mouse hovers; a finger taps to open and taps again to close. */
+  const hover = (n: number) => ({
+    onPointerEnter: (event: React.PointerEvent) => event.pointerType === 'mouse' && highlight(n),
+    onPointerLeave: (event: React.PointerEvent) => event.pointerType === 'mouse' && highlight(null),
+    onPointerDown: (event: React.PointerEvent) =>
+      event.pointerType !== 'mouse' && highlight(active === n ? null : n),
+  });
+  /** A part's box in the frame: the drawing's rect, moved and scaled as the drawing is. */
+  const boxOf = (rect: Rect) =>
+    view && {
+      left: view.left + rect.left * view.zoom,
+      top: view.top + rect.top * view.zoom,
+      width: rect.width * view.zoom,
+      height: rect.height * view.zoom,
+    };
 
   return (
     <div
       ref={frame}
-      aria-hidden="true"
       className="docs-frame relative overflow-hidden rounded-ws-container-lg border border-ws-static-base"
       style={{ height: view?.height ?? MIN_HEIGHT }}
     >
@@ -450,18 +479,17 @@ const AnatomyDiagram = ({
           {(definition.anatomy || undefined)?.() ??
             definition.preview?.() ??
             definition.render(definition.defaults)}
-          {/* The spotlight: a box the part's exact shape, its shadow a tint over everything else
-              (`--docs-anatomy-veil`: the table row's highlight on the light page, a dim on the
-              dark one). Drawn inside the drawing so it shares the part's scale and pixel edges.
-              It cuts from part to part without moving; only the tint fades in, and out a step
-              faster. */}
+          {/* The highlight: an outline the part's exact shape. Drawn inside the drawing so it
+              shares the part's scale and pixel edges. It cuts from part to part without moving;
+              it only fades in, and out a step faster. */}
           {focus && (
             <div
               className={`pointer-events-none absolute z-[100] transition-opacity ${on ? 'duration-[120ms] ease-out' : 'duration-[80ms] ease-in'}`}
               style={{
                 ...focus.rect,
                 borderRadius: focus.radius,
-                boxShadow: '0 0 0 100vmax var(--docs-anatomy-veil)',
+                outline: '1.5px solid var(--border-color-ws-dynamic-primary-default)',
+                outlineOffset: '-1px',
                 opacity: on ? 1 : 0,
               }}
             />
@@ -471,21 +499,71 @@ const AnatomyDiagram = ({
       {view?.marks.map(({ n, label, side, x, y }) => (
         <span
           key={n}
-          className={`${LABEL_BOX} absolute cursor-default transition-[color,background-color,opacity,font-weight] ease-out motion-reduce:transition-opacity ${active === n ? 'bg-ws-static-foreground text-ws-static-strong duration-[80ms]' : 'text-ws-static-subtle duration-[60ms]'}`}
+          role="button"
+          tabIndex={0}
+          aria-label={`${parts.find((part) => part.n === n)?.part ?? label}: tokens`}
+          onFocus={() => highlight(n)}
+          // Focus moving into the popup (a click on one of its rows) keeps it open.
+          onBlur={(event) =>
+            !event.relatedTarget?.closest('[data-anatomy-tokens]') && highlight(null)
+          }
+          {...hover(n)}
+          className={`${LABEL_BOX} absolute cursor-default outline-ws-dynamic-primary-strong-default transition-[color,background-color,opacity,font-weight] ease-out focus-visible:wds-focus-visible motion-reduce:transition-opacity ${active === n ? 'bg-ws-static-foreground text-ws-static-strong duration-[80ms]' : 'text-ws-static-subtle duration-[60ms]'}`}
           style={{
             left: x,
             top: y,
             transform: TRANSLATE[side],
-            opacity: on && active !== n ? 0.4 : 1,
+            opacity: on && active !== n ? 0.75 : 1,
             // Hover lifts the weight a step, the same move as the badge, not a new one.
             fontWeight: active === n ? 'var(--font-weight-ws-medium)' : undefined,
           }}
-          onPointerEnter={() => highlight(n)}
-          onPointerLeave={() => highlight(null)}
         >
           {label}
         </span>
       ))}
+      {/* Each part's own area answers the pointer too; a part inside another lies over it. */}
+      {view &&
+        [...(drawn?.parts ?? [])]
+          .sort((a, b) => a.depth - b.depth)
+          .map((part) => (
+            <div
+              key={part.n}
+              className="absolute"
+              style={boxOf(part.rect) ?? undefined}
+              {...hover(part.n)}
+            />
+          ))}
+      {/* The tokens of the part in the spotlight, anchored to the part. It stays open while the
+          pointer is on it, so a class can be copied; Escape or a click elsewhere closes it. */}
+      <Popup open={on && Boolean(info)} onOpenChange={(next) => !next && setActive(null)}>
+        <Popup.Trigger asChild>
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute"
+            // As wide as the part, as tall as the whole drawing: the popup opens under (or
+            // over) the component, never on it.
+            style={
+              (focus && drawn && boxOf({ ...focus.rect, top: 0, height: drawn.height })) ??
+              undefined
+            }
+          />
+        </Popup.Trigger>
+        <Popup.Container
+          side="bottom"
+          align="start"
+          sideOffset={8}
+          aria-label={info ? `${info.part}: tokens` : undefined}
+          onOpenAutoFocus={(event) => event.preventDefault()}
+          onCloseAutoFocus={(event) => event.preventDefault()}
+          onPointerEnter={() => window.clearTimeout(leaving.current)}
+          onPointerLeave={(event) => event.pointerType === 'mouse' && highlight(null)}
+          onBlur={(event) => !event.currentTarget.contains(event.relatedTarget) && highlight(null)}
+          data-anatomy-tokens
+          className="w-auto overflow-hidden border border-ws-static-subtle shadow-ws-medium"
+        >
+          {info && focus && <PartTokens part={info.part} element={info.element} el={focus.el} />}
+        </Popup.Container>
+      </Popup>
     </div>
   );
 };

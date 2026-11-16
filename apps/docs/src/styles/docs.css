@@ -37,20 +37,6 @@
   --docs-hairline-faint: rgba(255, 255, 255, 0.03);
 }
 
-/* The tint around a part the Anatomy picture spotlights. On the light page it is the table row's
-   own highlight, so picture and table hover alike; on the dark page that highlight is a white
-   wash, which would light the rest up, so the system's scrim dims it instead. */
-:root {
-  --docs-anatomy-veil: var(--background-color-ws-static-alpha-base);
-}
-.dark {
-  --docs-anatomy-veil: color-mix(
-    in srgb,
-    var(--background-color-ws-static-scrim-base) 70%,
-    transparent
-  );
-}
-
 @layer base {
   html {
     color-scheme: light;

@@ -44,7 +44,9 @@ Markdown, or handed to a model), then up to three tabs whose content switches in
   Manual and the package manager; Examples, each a card with the live example and its code; API
   reference, one props table per part; Accessibility, when the component's spec has the section.
 - **Anatomy:** the component drawn 1:1 with each part named beside it, then the parts as a table
-  (Part, Renders, Description). Only for a component with two or more parts whose playground
+  (Part, Renders, Description). Hovering a part, its name or its row opens a popup with the
+  tokens the part binds, read from the classes of the part as rendered (`src/lib/tokenClasses.ts`)
+  with the values from its computed style, so they follow the theme. Only for a component with two or more parts whose playground
   does not say `anatomy: false`.
 - **Relationships:** the map of what the component is built with and appears beside
   (`gen-graph.mjs`), with a button that widens it to the whole system, then the same as lists:
