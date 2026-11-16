@@ -1,2 +1,2 @@
 /** The AppShell page's examples, in reading order. `default.tsx` is the playground's stage. */
-export default ['top-bar', 'directions'];
+export default ['page-bar', 'directions'];

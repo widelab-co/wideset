@@ -1,4 +1,4 @@
-/** The playground's stage: a sidebar and a page with its top bar in one shell, its direction set from the rail. */
+/** The playground's stage: a sidebar and a page with its bar in one shell, its direction set from the rail. */
 import { RiDashboardLine, RiFolder3Line, RiMoreLine, RiSettings3Line } from '@remixicon/react';
 import {
   AppShell,
@@ -32,7 +32,7 @@ export default function AppShellDefault(props: AppShellProps) {
         </Sidebar.Section>
       </Sidebar>
       <AppShell.Main>
-        <AppShell.TopBar>
+        <AppShell.PageBar>
           <AppShell.SidebarTrigger />
           <Breadcrumbs separator="arrow">
             <Breadcrumbs.Item asChild>
@@ -40,7 +40,7 @@ export default function AppShellDefault(props: AppShellProps) {
             </Breadcrumbs.Item>
             <Breadcrumbs.Item>Projects</Breadcrumbs.Item>
           </Breadcrumbs>
-          <AppShell.TopBarActions>
+          <AppShell.PageBarActions>
             <Button size="sm" variant="secondary" preset="border">
               Share
             </Button>
@@ -51,8 +51,8 @@ export default function AppShellDefault(props: AppShellProps) {
               preset="ghost"
               aria-label="More actions"
             />
-          </AppShell.TopBarActions>
-        </AppShell.TopBar>
+          </AppShell.PageBarActions>
+        </AppShell.PageBar>
         <div className="gap-ws-12 px-ws-14 pt-ws-14 pb-ws-16 flex w-full flex-col">
           <header className="gap-ws-2 flex flex-col">
             <h1 className="typography-title-md text-ws-static-strong">Projects</h1>

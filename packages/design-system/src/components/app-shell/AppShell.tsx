@@ -9,9 +9,9 @@ import type {
 } from './AppShell.types';
 import { appShellVariants } from './AppShell.variants';
 import { AppShellMain } from './AppShellMain';
+import { AppShellPageBar } from './AppShellPageBar';
+import { AppShellPageBarActions } from './AppShellPageBarActions';
 import { AppShellSidebarTrigger } from './AppShellSidebarTrigger';
-import { AppShellTopBar } from './AppShellTopBar';
-import { AppShellTopBarActions } from './AppShellTopBarActions';
 
 const AppShell = React.forwardRef<HTMLDivElement, AppShellProps>(
   ({ direction = 'inset', className, children, ...props }, ref) => {
@@ -41,8 +41,8 @@ const AppShell = React.forwardRef<HTMLDivElement, AppShellProps>(
 
 AppShell.displayName = 'AppShell';
 AppShell.Main = AppShellMain;
-AppShell.TopBar = AppShellTopBar;
-AppShell.TopBarActions = AppShellTopBarActions;
+AppShell.PageBar = AppShellPageBar;
+AppShell.PageBarActions = AppShellPageBarActions;
 AppShell.SidebarTrigger = AppShellSidebarTrigger;
 
 export { AppShell };
