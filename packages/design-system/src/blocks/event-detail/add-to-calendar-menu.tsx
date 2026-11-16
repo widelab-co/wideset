@@ -38,7 +38,8 @@ const outlookUrl = (entry: CalendarEntry) =>
 
 /** A one-event .ics file, saved through a temporary link. */
 function downloadIcs(entry: CalendarEntry) {
-  const text = (value: string) => value.replace(/[\\;,]/g, (match) => `\\${match}`);
+  const text = (value: string) =>
+    value.replace(/[\\;,]/g, (match) => `\\${match}`).replace(/\r\n|\r|\n/g, '\\n');
   const ics = [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',

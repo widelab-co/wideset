@@ -114,6 +114,14 @@ function ChartImage({ file }: { file: FileItem }) {
         <h3 className="typography-title-sm">{file.subject}</h3>
         <p className="typography-body-md text-ws-static-inverse-subtle">{chart.note}</p>
       </div>
+      {/* The bars are drawn for the eye; a screen reader gets the same values as a list. */}
+      <ul className="sr-only">
+        {chart.bars.map((bar) => (
+          <li key={bar.label}>
+            {bar.label}: {formatChartValue(bar.value, chart.unit)}
+          </li>
+        ))}
+      </ul>
       <svg viewBox="0 0 1040 520" className="w-full flex-1" aria-hidden="true">
         {chart.bars.map((bar, row) => {
           const y = row * (520 / chart.bars.length);
@@ -149,13 +157,14 @@ function ChartImage({ file }: { file: FileItem }) {
 /**
  * A file at its real size times `scale`: an SVG whose width and height carry the zoom, with the
  * file drawn inside at 100% (HTML in a foreignObject), so zooming scales it as one picture and
- * the page needs no inline style. Its name and kind are its accessible name.
+ * the page needs no inline style. A named group, not an image, so a screen reader reads the
+ * file's own headings, text and table inside it.
  */
 export function FilePreview({ file, scale }: { file: FileItem; scale: number }) {
   const { width, height } = NATURAL[file.kind];
   return (
     <svg
-      role="img"
+      role="group"
       aria-label={`${KIND_LABEL[file.kind]}: ${file.name}`}
       viewBox={`0 0 ${width} ${height}`}
       width={Math.round(width * scale)}

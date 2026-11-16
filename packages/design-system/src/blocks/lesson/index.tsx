@@ -38,8 +38,10 @@ export default function Lesson() {
   const done = allLessons.filter((item) => item.state === 'done').length + (completed ? 1 : 0);
   const watch = () => setStage('video');
 
-  const seek = (time: number) => {
+  /** A transcript line plays from its moment. Play goes first: from the end it rewinds to 0. */
+  const playFrom = (time: number) => {
     watch();
+    playback.play();
     playback.seek(time);
   };
 
@@ -133,7 +135,7 @@ export default function Lesson() {
                 outcomes={lesson.outcomes}
                 transcript={lesson.transcript}
                 resources={lesson.resources}
-                onSeek={seek}
+                onSeek={playFrom}
               />
             </div>
 

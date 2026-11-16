@@ -26,6 +26,11 @@ const matches = (conversation: ConversationData, query: string) => {
   return text.join(' ').toLowerCase().includes(query.trim().toLowerCase());
 };
 
+/** When a conversation last moved: its latest message. The inbox reads newest first by it. */
+const latest = (conversation: ConversationData) => conversation.messages.at(-1)?.at ?? '';
+const newestFirst = (a: ConversationData, b: ConversationData) =>
+  latest(b).localeCompare(latest(a));
+
 type PageProps = { sidebarId: string; collapsed: boolean; onToggleSidebar: () => void };
 
 /** The page inside the card: the bar, then the list beside the open conversation. */
@@ -40,9 +45,9 @@ function Page({ sidebarId, collapsed, onToggleSidebar }: PageProps) {
 
   // The open conversation stays listed whatever the filter: reading an unread one does not take it
   // out from under the reader, and a filter never opens (and so reads) something on its own.
-  const shown = items.filter(
-    (item) => matches(item, query) && (PASSES[filter](item) || item.id === selectedId),
-  );
+  const shown = [...items]
+    .sort(newestFirst)
+    .filter((item) => matches(item, query) && (PASSES[filter](item) || item.id === selectedId));
   const selected = items.find((item) => item.id === selectedId) ?? null;
 
   const update = (id: string, change: Partial<ConversationData>) =>
@@ -78,7 +83,7 @@ function Page({ sidebarId, collapsed, onToggleSidebar }: PageProps) {
 
   /** Archiving takes the conversation out of the inbox and opens the next; Undo puts it back. */
   const archive = (conversation: ConversationData) => {
-    const before = { selectedId, at: items.findIndex((item) => item.id === conversation.id) };
+    const before = { selectedId };
     const index = shown.findIndex((item) => item.id === conversation.id);
     const rest = shown.filter((item) => item.id !== conversation.id);
     setItems(items.filter((item) => item.id !== conversation.id));
@@ -89,11 +94,12 @@ function Page({ sidebarId, collapsed, onToggleSidebar }: PageProps) {
         <Toast.Action
           preset="ghost"
           onClick={() => {
-            // Only this conversation comes back, where it was; replies, stars and reads since stay.
+            // Only this conversation comes back; replies, stars and reads since stay. The list's
+            // newest-first order puts it where it belongs.
             setItems((current) =>
               current.some((item) => item.id === conversation.id)
                 ? current
-                : [...current.slice(0, before.at), conversation, ...current.slice(before.at)],
+                : [...current, conversation],
             );
             setSelectedId(before.selectedId);
             dismissToast(id);
