@@ -5,7 +5,7 @@ import { IconAction } from './icon-action';
 
 type MessageQueueProps = {
   /** In the order they go out. */
-  messages: string[];
+  messages: { id: number; text: string }[];
   /** Who they wait for: "Tandem". */
   agent: string;
   /** Takes the message back into the composer to be changed. */
@@ -26,11 +26,8 @@ export function MessageQueue({ messages, agent, onEdit, onRemove }: MessageQueue
         {`Queued, sent in this order when ${agent} is done`}
       </p>
       <ol className="border-ws-static-base divide-ws-static-base rounded-ws-container-md flex flex-col divide-y border">
-        {messages.map((text, index) => (
-          <li
-            key={`${index}-${text}`}
-            className="gap-ws-5 pl-ws-7 pr-ws-3 min-h-ws-16 flex items-center"
-          >
+        {messages.map(({ id, text }, index) => (
+          <li key={id} className="gap-ws-5 pl-ws-7 pr-ws-3 min-h-ws-16 flex items-center">
             <RiTimeLine aria-hidden className="size-ws-9 text-ws-static-subtle shrink-0" />
             <span
               title={text}
