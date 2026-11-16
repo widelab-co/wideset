@@ -183,6 +183,36 @@ export function MovementsChart({ buckets, unit, totals, className }: MovementsCh
             )}
           </svg>
         </div>
+        {/* The bars are drawn for the eye and read by the pointer; this is the same data in text. */}
+        <figcaption className="sr-only">
+          In the range: {formatUsd(totals.new)} new, {formatUsd(totals.expansion)} expansion,{' '}
+          {formatUsd(totals.churn)} churned.
+        </figcaption>
+        <table className="sr-only">
+          <caption>MRR movements by {unit}</caption>
+          <thead>
+            <tr>
+              <th scope="col">
+                {unit === 'month' ? 'Month' : unit === 'week' ? 'Week of' : 'Day'}
+              </th>
+              {SERIES.map((series) => (
+                <th key={series.key} scope="col">
+                  {series.label}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {buckets.map((bucket) => (
+              <tr key={bucket.from}>
+                <th scope="row">{labelOf(bucket, unit)}</th>
+                {SERIES.map((series) => (
+                  <td key={series.key}>{formatUsd(bucket[series.key])}</td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </figure>
     </section>
   );
