@@ -78,6 +78,7 @@ Sources of truth, in order: Figma → code → specs.
 
 ### [Feedback](components/feedback/README.md)
 
+- [Illustration](../good-practices/illustration.md): a drawing for an empty state, a first run or an announcement; not an icon.
 - [InlineAlert](../good-practices/inline-alert.md): persistent feedback attached to one section.
 - [SystemAlert](../good-practices/system-alert.md): a product-wide banner at the top of the page.
 - [Toast](../good-practices/toast.md): brief floating feedback through `useToast`.

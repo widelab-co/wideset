@@ -75,6 +75,7 @@ A member such as `Card.Header` comes with `Card`; its named form, `CardHeader`, 
 - `import { FileUploadTrigger } from '@/components/ui/wideset/file-upload/FileUploadTrigger';`
 - `import { FilterButton } from '@/components/ui/wideset/filter-button/FilterButton';`
 - `import { FormField } from '@/components/ui/wideset/form-field/FormField';`
+- `import { Illustration } from '@/components/ui/wideset/illustration/Illustration';`
 - `import { InlineAlert } from '@/components/ui/wideset/inline-alert/InlineAlert';`
 - `import { useInlineAlert } from '@/components/ui/wideset/inline-alert/InlineAlert.hooks';`
 - `import { InlineAlertAction } from '@/components/ui/wideset/inline-alert/InlineAlertAction';`
@@ -247,6 +248,7 @@ A member such as `Card.Header` comes with `Card`; its named form, `CardHeader`, 
 - `import type { FileUploadDropzoneProps, FileUploadLabels, FileUploadProps, FileUploadTriggerProps } from '@/components/ui/wideset/file-upload/FileUpload.types';`
 - `import type { FilterButtonProps } from '@/components/ui/wideset/filter-button/FilterButton.types';`
 - `import type { FormFieldProps } from '@/components/ui/wideset/form-field/FormField.types';`
+- `import type { IllustrationName, IllustrationProps, IllustrationSize } from '@/components/ui/wideset/illustration/Illustration.types';`
 - `import type { InlineAlertActionProps, InlineAlertItem, InlineAlertMessageProps, InlineAlertOrientation, InlineAlertOutletHandle, InlineAlertOutletProps, InlineAlertProps, InlineAlertShowConfig, InlineAlertStatus, InlineAlertTitleProps, InlineAlertWithSubComponents } from '@/components/ui/wideset/inline-alert/InlineAlert.types';`
 - `import type { ListItemContentProps, ListItemDescriptionProps, ListItemLabelProps, ListItemPrefixProps, ListItemProps, ListItemSuffixProps, ListItemWithSubComponents } from '@/components/ui/wideset/list-item/ListItem.types';`
 - `import type { ModalBodyProps, ModalCloseProps, ModalContentProps, ModalDescriptionProps, ModalFooterProps, ModalHeaderProps, ModalOverlayProps, ModalProps, ModalTitleProps, ModalTriggerProps } from '@/components/ui/wideset/modal/Modal.types';`

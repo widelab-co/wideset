@@ -491,6 +491,19 @@
       ]
     },
     {
+      "name": "illustration",
+      "type": "registry:ui",
+      "title": "Illustration",
+      "description": "A line drawing for an empty state, a first run or an announcement: calendar, computer or folder, in two sizes.",
+      "files": [
+        {
+          "path": "src/components/illustration/Illustration.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/wideset/illustration/Illustration.tsx"
+        }
+      ]
+    },
+    {
       "name": "inline-alert",
       "type": "registry:ui",
       "title": "InlineAlert",

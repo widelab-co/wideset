@@ -58,6 +58,23 @@ describe('Sidebar', () => {
         expect(screen.getByText('Inbox')).toHaveClass('flex-1', 'truncate');
       });
 
+      it('shows a shortcut only on hover or keyboard focus with suffixOnHover', () => {
+        render(
+          <Sidebar>
+            <Sidebar.Section>
+              <Sidebar.Item href="#" label="Inbox" suffix="⌘1" suffixOnHover />
+              <Sidebar.Item href="#" label="Drafts" suffix="3" />
+            </Sidebar.Section>
+          </Sidebar>,
+        );
+        expect(screen.getByText('⌘1')).toHaveClass(
+          'opacity-0',
+          'group-hover/sidebar-item:opacity-100',
+          'group-focus-visible/sidebar-item:opacity-100',
+        );
+        expect(screen.getByText('3')).not.toHaveClass('opacity-0');
+      });
+
       it('hides the suffix when collapsed', () => {
         renderNav(true);
         expect(screen.queryByText('3')).not.toBeInTheDocument();

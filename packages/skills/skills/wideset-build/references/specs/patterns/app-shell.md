@@ -8,7 +8,8 @@ An app needs persistent navigation, a scrolling content area, one place for page
 and one place where toasts appear. [`AppShell`](../../good-practices/app-shell.md) is that frame:
 a full-height row holding `Sidebar` and `AppShell.Main`. Its `direction` (`inset`, the default,
 `flat`, `frame` or `canvas`) sets the window background, the sidebar's surface and the page's look
-together, so pick it once for the whole app and do not restyle them by hand.
+together, so pick it once for the whole app and do not restyle them by hand. [Visual directions](directions.md)
+says which to pick and which starting screens go with each.
 
 ## Structure
 
