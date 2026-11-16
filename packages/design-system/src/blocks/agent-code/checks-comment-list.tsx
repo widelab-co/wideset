@@ -3,7 +3,7 @@ import { RiArrowRightSLine } from '@remixicon/react';
 import { Card } from '@wideset/react';
 import { useId } from 'react';
 
-import { splitPath, THREADS } from './changes-data';
+import { splitPath, type Thread } from './changes-data';
 import { formatWhen } from './changes-format';
 import { PersonAvatar } from './person-avatar';
 
@@ -13,9 +13,9 @@ import { PersonAvatar } from './person-avatar';
  * whole row, and leads to that line in the Changes pane, where the comment is answered, resolved
  * or handed to Tandem. Nothing is decided here, so the rows carry no actions of their own.
  */
-export function CommentList() {
+export function CommentList({ threads }: { threads: Thread[] }) {
   const titleId = useId();
-  const unresolved = THREADS.filter((thread) => !thread.resolved);
+  const unresolved = threads.filter((thread) => !thread.resolved);
 
   return (
     <Card role="region" aria-labelledby={titleId}>

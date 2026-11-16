@@ -18,6 +18,9 @@ const abandon = (turn: AgentTurn): AgentTurn => {
   return rest.done || turn.stoppedAt !== undefined ? turn : { ...turn, stoppedAt: rest.clock };
 };
 
+/** A message waiting its turn: an id that stays with it while others go, its words, its files. */
+export type QueuedMessage = { id: number; text: string; sentWith?: string[] };
+
 type SessionOptions = {
   /** The open thread's turns, whole, as its data holds them. */
   turns: Turn[];
@@ -61,7 +64,10 @@ export function useSession({
   playing,
 }: SessionOptions) {
   const ids = useRef(0);
-  const [queue, setQueue] = useState(waiting ?? []);
+  const queued = useRef(waiting?.length ?? 0);
+  const [queue, setQueue] = useState<QueuedMessage[]>(() =>
+    (waiting ?? []).map((text, index) => ({ id: index + 1, text })),
+  );
   const [draft, setDraft] = useState({ text: opening ?? '', id: 0 });
   const [attachments, setAttachments] = useState<string[]>([]);
   const { playback, at, start, stop: end } = useRun(turns, playing);
@@ -98,9 +104,11 @@ export function useSession({
   );
 
   const send = (text: string) => {
-    if (running) return setQueue([...queue, text]);
-    deliver(text, attachments.length > 0 ? attachments : undefined);
+    const sentWith = attachments.length > 0 ? attachments : undefined;
     setAttachments([]);
+    // While the agent works the files wait with the message, not on the tray for the next one.
+    if (running) return setQueue([...queue, { id: (queued.current += 1), text, sentWith }]);
+    deliver(text, sentWith);
   };
 
   /** Sets a turn that was held going again from where it stood. */
@@ -116,7 +124,7 @@ export function useSession({
   // When a run ends, the first message that waited goes out; not while the turn waits for you.
   useEffect(() => {
     if (running || awaiting || queue.length === 0) return;
-    deliver(queue[0]);
+    deliver(queue[0].text, queue[0].sentWith);
     setQueue(queue.slice(1));
   }, [running, awaiting, queue, deliver]);
 
@@ -163,7 +171,10 @@ export function useSession({
     },
 
     edit(index: number) {
-      setDraft({ text: queue[index], id: draft.id + 1 });
+      const { text, sentWith = [] } = queue[index];
+      setDraft({ text, id: draft.id + 1 });
+      // Its files go back on the tray with it.
+      setAttachments([...attachments, ...sentWith.filter((name) => !attachments.includes(name))]);
       setQueue(queue.filter((_, at) => at !== index));
     },
 

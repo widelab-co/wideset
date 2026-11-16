@@ -1,5 +1,7 @@
 import { Tabs } from '@wideset/react';
+import { useState } from 'react';
 
+import { THREADS } from './changes-data';
 import { ChangesPane, type Reveal } from './changes-pane';
 import { ChecksPane } from './checks-pane';
 import { FilesPane } from './files-pane';
@@ -37,6 +39,11 @@ type CodePaneProps = {
  * sit on it with the open tab's mark over it.
  */
 export function CodePane({ id, pane, onPaneChange, reveal, onAsk }: CodePaneProps) {
+  const [visited, setVisited] = useState<Pane[]>([pane]);
+  if (!visited.includes(pane)) setVisited([...visited, pane]);
+  // The review threads live here: answered in Changes, counted in Checks.
+  const [threads, setThreads] = useState(THREADS);
+
   return (
     <aside
       id={id}
@@ -59,12 +66,25 @@ export function CodePane({ id, pane, onPaneChange, reveal, onAsk }: CodePaneProp
           </Tabs.List>
         </Tabs>
       </div>
-      {pane === 'changes' && <ChangesPane reveal={reveal} onAsk={onAsk} />}
-      {pane === 'terminal' && <TerminalPane />}
-      {pane === 'preview' && <PreviewPane />}
-      {pane === 'files' && <FilesPane />}
-      {pane === 'tasks' && <TasksPane />}
-      {pane === 'checks' && <ChecksPane onFix={onAsk} />}
+      {/* A pane opened once stays mounted, hidden when another is shown, so what was done in it
+          (a reply, a Viewed tick, a stopped server, a shell's history) is there on return. */}
+      {PANES.filter(({ id: value }) => visited.includes(value)).map(({ id: value }) => (
+        <div key={value} hidden={value !== pane} className="flex min-h-0 flex-1 flex-col">
+          {value === 'changes' && (
+            <ChangesPane
+              reveal={reveal}
+              threads={threads}
+              onThreadsChange={setThreads}
+              onAsk={onAsk}
+            />
+          )}
+          {value === 'terminal' && <TerminalPane />}
+          {value === 'preview' && <PreviewPane />}
+          {value === 'files' && <FilesPane />}
+          {value === 'tasks' && <TasksPane />}
+          {value === 'checks' && <ChecksPane threads={threads} onFix={onAsk} />}
+        </div>
+      ))}
     </aside>
   );
 }

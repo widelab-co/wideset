@@ -23,7 +23,12 @@ export function parsePatch(patch: string): Hunk[] {
   const hunks: Hunk[] = [];
   let old = 0;
   let next = 0;
-  for (const raw of patch.trim().split('\n')) {
+  const lines = patch.split('\n');
+  // The sample's patches open and close on a line break: those empty ends are not diff lines.
+  // Trimming instead would also cut a last blank context line and trailing spaces.
+  if (lines[0] === '') lines.shift();
+  if (lines.at(-1) === '') lines.pop();
+  for (const raw of lines) {
     const header = HUNK_HEADER.exec(raw);
     if (header) {
       old = Number(header[1]);

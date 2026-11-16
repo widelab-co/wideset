@@ -1,7 +1,7 @@
 import { Button } from '@wideset/react';
 import { useEffect, useRef, useState } from 'react';
 
-import { FILES, ME, NOW, splitPath, type Thread, THREADS, VIEWED } from './changes-data';
+import { FILES, ME, NOW, splitPath, type Thread, VIEWED } from './changes-data';
 import type { Anchor } from './changes-diff';
 import { FileDiff } from './changes-file-diff';
 import { FileSection } from './changes-file-section';
@@ -12,6 +12,9 @@ export type Reveal = { path: string; line: number; key: number };
 
 type ChangesPaneProps = {
   reveal?: Reveal;
+  /** The review threads, kept by the pane's owner so the Checks pane counts the same ones. */
+  threads: Thread[];
+  onThreadsChange: (change: (threads: Thread[]) => Thread[]) => void;
   /** Puts a request in the session's composer. */
   onAsk?: (text: string) => void;
 };
@@ -30,13 +33,12 @@ const REMOVED = FILES.reduce((sum, file) => sum + file.removed, 0);
  * opens, whatever the filter and its tick, and the line comes to the middle of the pane. `onAsk`
  * takes the words of Ask Tandem to fix to the session's composer.
  */
-export function ChangesPane({ reveal, onAsk }: ChangesPaneProps) {
+export function ChangesPane({ reveal, threads, onThreadsChange, onAsk }: ChangesPaneProps) {
   const [query, setQuery] = useState('');
   const [viewed, setViewed] = useState(VIEWED);
   const [open, setOpen] = useState(() =>
     FILES.map((file) => file.path).filter((path) => !VIEWED.includes(path)),
   );
-  const [threads, setThreads] = useState(THREADS);
   const scroller = useRef<HTMLDivElement>(null);
   /** The `reveal` already scrolled to, so folding a file later does not scroll again. */
   const revealed = useRef<number>(undefined);
@@ -77,10 +79,12 @@ export function ChangesPane({ reveal, onAsk }: ChangesPaneProps) {
   };
 
   const update = (id: string, change: (thread: Thread) => Thread) =>
-    setThreads((current) => current.map((thread) => (thread.id === id ? change(thread) : thread)));
+    onThreadsChange((current) =>
+      current.map((thread) => (thread.id === id ? change(thread) : thread)),
+    );
 
   const comment = (path: string, anchor: Anchor, text: string) =>
-    setThreads((current) => [
+    onThreadsChange((current) => [
       ...current,
       {
         id: `t${current.length + 1}`,

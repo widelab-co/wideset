@@ -36,7 +36,7 @@ type ComposerProps = {
   primary?: boolean;
   /**
    * Why nothing can be sent right now ("You are offline"). Send is disabled and says it; the text
-   * stays editable, so a draft is not lost.
+   * stays editable, so a draft is not lost. A run in progress keeps Stop: stopping is not a send.
    */
   blocked?: string;
   /** On a new-chat screen, where the composer is the page: room for a few lines from the start. */
@@ -99,6 +99,8 @@ export function Composer({
   useEffect(() => {
     if (!running || !onStop) return;
     const onKey = (event: globalThis.KeyboardEvent) => {
+      // Esc that cancels an IME candidate is not a stop (Safari sends it after compositionend).
+      if (event.isComposing || event.keyCode === 229) return;
       const inOverlay =
         event.target instanceof Element &&
         event.target.closest('[role="menu"], [role="dialog"], [role="listbox"]');
@@ -138,8 +140,10 @@ export function Composer({
             value={text}
             onChange={(event) => setText(event.target.value)}
             onKeyDown={(event) => {
-              // Shift + Enter keeps the browser's new line; Enter that confirms an IME word is not a send.
-              if (event.key === 'Enter' && !event.shiftKey && !event.nativeEvent.isComposing) {
+              // Shift + Enter keeps the browser's new line; Enter that confirms an IME word is not a
+              // send. Safari ends the composition before that keydown, so keyCode 229 says it too.
+              const composing = event.nativeEvent.isComposing || event.keyCode === 229;
+              if (event.key === 'Enter' && !event.shiftKey && !composing) {
                 send(event);
               }
             }}
@@ -161,7 +165,15 @@ export function Composer({
               </p>
             </div>
             {model}
-            {blocked ? (
+            {running ? (
+              <IconAction
+                label="Stop"
+                icon={RiStopFill}
+                iconClassName={swapped ? SWAP : undefined}
+                onClick={onStop}
+                {...look}
+              />
+            ) : blocked ? (
               // A disabled button takes no hover, so the tooltip hangs on a wrapper that does. The
               // keyboard and a screen reader have the reason from the field: its placeholder and
               // its description.
@@ -182,14 +194,6 @@ export function Composer({
                   <Tooltip.Label>{blocked}</Tooltip.Label>
                 </Tooltip.Content>
               </Tooltip>
-            ) : running ? (
-              <IconAction
-                label="Stop"
-                icon={RiStopFill}
-                iconClassName={swapped ? SWAP : undefined}
-                onClick={onStop}
-                {...look}
-              />
             ) : (
               <IconAction
                 type="submit"

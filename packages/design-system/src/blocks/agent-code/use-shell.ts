@@ -141,14 +141,14 @@ export function useShell({
       if (next) session.attach(next);
     },
 
-    /** The first message of a new thread. */
-    begin(text: string) {
+    /** The first message of a new thread, with the files attached on the new-thread screen. */
+    begin(text: string, sentWith?: string[]) {
       const id = nextId();
       const answer = reply(nextId(), text);
       const created: Thread = {
         id,
         title: text.length > 32 ? `${text.slice(0, 32).trimEnd()}…` : text,
-        turns: [{ id: nextId(), role: 'user', text }, answer],
+        turns: [{ id: nextId(), role: 'user', text, sentWith }, answer],
       };
       setGroups((current) => ({
         ...current,

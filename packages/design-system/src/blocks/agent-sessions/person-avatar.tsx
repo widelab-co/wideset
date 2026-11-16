@@ -25,6 +25,7 @@ export function PersonAvatar({ name, initials, color, alt = '', ...avatar }: Per
   return photo ? (
     <Avatar src={photo} alt={alt} initials={initials} {...avatar} />
   ) : (
-    <Avatar initials={initials} color={color} {...avatar} />
+    // Initials carry no name of their own: a standalone avatar is named by `alt`, as a photo is.
+    <Avatar initials={initials} color={color} aria-label={alt || undefined} {...avatar} />
   );
 }

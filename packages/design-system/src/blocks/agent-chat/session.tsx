@@ -60,8 +60,12 @@ export function Session({
     pinned.current = true;
   };
 
-  // The log follows its newest line: on opening, with each new turn and while one plays.
-  useEffect(toEnd, [threadId, shown.length, at, view]);
+  // The log goes to its newest line on opening, in another view and with each new turn.
+  useEffect(toEnd, [threadId, shown.length, view]);
+  // While a turn plays it follows only if you left it there: scrolled up, it stays put.
+  useEffect(() => {
+    if (pinned.current) toEnd();
+  }, [at]);
 
   // And it stays there when its size changes under it: a font that lands late, a composer that
   // grows, a notice that comes or goes. It lets go only when you do something in it: press a
