@@ -2,7 +2,7 @@ import { Button, Checkbox, FormField, TextInput } from '@wideset/react';
 import { type FormEvent, useId, useState } from 'react';
 
 import { CodeInput } from './code-input';
-import { CODE_LENGTH, DEMO_BACKUP_CODE, DEMO_CODE, ROUTES, TRUST_DAYS } from './data';
+import { CODE_LENGTH, DEMO_BACKUP_CODE, DEMO_CODE, TRUST_DAYS } from './data';
 import { TextButton } from './text-button';
 
 type Method = 'app' | 'backup';
@@ -15,7 +15,7 @@ const normalise = (code: string) => code.replace(/[\s-]/g, '').toUpperCase();
  * under the boxes, which turn red and keep the digits to correct. Nothing here talks to a server:
  * the demo accepts only the codes in `data.ts`.
  */
-export function TwoFactorForm() {
+export function TwoFactorForm({ onVerified }: { onVerified: (trusted: boolean) => void }) {
   const id = useId();
   const [method, setMethod] = useState<Method>('app');
   const [error, setError] = useState<string>();
@@ -51,8 +51,8 @@ export function TwoFactorForm() {
       document.getElementById(`${id}-${method}`)?.focus();
       return;
     }
-    // Check the code here, remember the device if asked, then open the app.
-    window.location.assign(ROUTES.app);
+    // Check the code here and remember the device if asked; the card then says it worked.
+    onVerified(data.get('trust') === 'on');
   };
 
   return (
