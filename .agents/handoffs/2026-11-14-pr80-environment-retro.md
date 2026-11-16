@@ -19,8 +19,10 @@ enforces them. In the #80 session a Prettier failure reached a commit unnoticed.
 **Fix.** `git update-index --chmod=+x .husky/pre-commit .husky/pre-push`, commit. Optionally
 move to Husky 9 in a separate change.
 
-**Done when** a commit with a Prettier error is stopped locally, and `git push origin develop`
-from a local branch is refused by the hook.
+**Done when**, after the mode change, a commit with a Prettier error is stopped locally, and a
+push to a `develop` branch on a disposable remote (`git init --bare /tmp/remote.git`, then
+`git push /tmp/remote.git HEAD:develop`) is refused by the hook. Never test it against `origin`:
+if the hook still does not run, the push lands on the real `develop`.
 
 ## 2. Classes that do not exist pass every check
 
@@ -68,9 +70,10 @@ changed from Flat to Inset, `wideset-build` kept "Flat, the default" and a link 
 
 - Mechanical: a test in `packages/skills` (or `scripts/`) that fails on `workers.dev` in any file
   that ships: `packages/skills/**`, `packages/design-system/specs/**`,
-  `packages/design-system/src/**`, `apps/docs/src/**`, minus the infrastructure files that
-  legitimately name it (`apps/docs/astro.config.mjs`, `apps/docs/wrangler.jsonc`,
-  `apps/docs/src/layouts/DocsLayout.astro`, `packages/design-system/scripts/registry-smoke.mjs`).
+  `packages/design-system/src/**`, `packages/cli/src/**`, `apps/docs/src/**`, minus the
+  infrastructure files that legitimately name it (`apps/docs/astro.config.mjs`,
+  `apps/docs/wrangler.jsonc`, `apps/docs/src/layouts/DocsLayout.astro`,
+  `packages/design-system/scripts/registry-smoke.mjs`).
   `packages/cli/src/cli.mjs:256` still links to `workers.dev`: fix it in the same pull request
   (needs a changeset).
 - Judgement: state the default direction once, in `directions.md`; the two skills and the craft
