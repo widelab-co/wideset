@@ -37,6 +37,20 @@
   --docs-hairline-faint: rgba(255, 255, 255, 0.03);
 }
 
+/* The tint around a part the Anatomy picture spotlights. On the light page it is the table row's
+   own highlight, so picture and table hover alike; on the dark page that highlight is a white
+   wash, which would light the rest up, so the system's scrim dims it instead. */
+:root {
+  --docs-anatomy-veil: var(--background-color-ws-static-alpha-base);
+}
+.dark {
+  --docs-anatomy-veil: color-mix(
+    in srgb,
+    var(--background-color-ws-static-scrim-base) 70%,
+    transparent
+  );
+}
+
 @layer base {
   html {
     color-scheme: light;
@@ -573,4 +587,19 @@ html[data-docs-menu] #docs-menu {
 html:not(.dark) body.docs.docs .docs-frame[data-playground-stage].dark,
 html.dark body.docs.docs .docs-frame[data-playground-stage].docs-light {
   background: var(--background-color-ws-static-background);
+}
+/* A component page's tabs (Overview, Anatomy, Relationships). The page writes the tab in the
+   address onto `html[data-tab]` before first paint, so the right panel (and its rail) shows with
+   no flash; Overview is the page with no tab. Until the tab row has hydrated on a page opened on
+   another tab, it stays out of sight rather than show Overview as the chosen one. */
+[data-tab-panel] {
+  display: none;
+}
+html:not([data-tab]) [data-tab-panel='overview'],
+html[data-tab='anatomy'] [data-tab-panel='anatomy'],
+html[data-tab='relationships'] [data-tab-panel='relationships'] {
+  display: block;
+}
+html[data-tab] .docs-page-tabs:not([data-ready]) {
+  visibility: hidden;
 }

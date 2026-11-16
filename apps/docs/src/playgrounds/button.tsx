@@ -43,5 +43,12 @@ export default playground({
         : `  ${v.label}\n  <Button.Icon icon={RiArrowRightLine} />`;
     return `${open}\n${icon}\n</Button>`;
   },
+  // Every part at once, on a neutral button so the icon and the label read as parts.
+  anatomy: () => (
+    <Button variant="secondary" preset="border" size="lg">
+      <Button.Icon icon={RiSparkling2Line} />
+      <Button.TruncatedText>Generate report</Button.TruncatedText>
+    </Button>
+  ),
   stage: (v) => (v.variant === 'inverse' ? 'bg-ws-static-inverse-background' : undefined),
 });

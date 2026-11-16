@@ -1,4 +1,5 @@
 import catalog from '../generated/catalog.json';
+import graph from '../generated/graph.json';
 import propsData from '../generated/props.json';
 
 /**
@@ -42,10 +43,39 @@ export type PropTable = {
   inheritsFrom: string[];
 };
 
+export type Graph = {
+  nodes: { id: string; title: string }[];
+  edges: { from: string; to: string; kind: 'uses' | 'with' }[];
+};
+
 export const entries = catalog as Entry[];
+export const relationships = graph as Graph;
 export const props = propsData as Record<string, PropTable>;
 
 export const entryById = (id: string) => entries.find((entry) => entry.id === id);
+
+/**
+ * A component's neighbours in the graph (scripts/gen-graph.mjs), by what the edge says: the
+ * components it is built with, the ones built with it, and the ones it appears beside in a story
+ * or an example. Each list A–Z, only components that have a page.
+ */
+export const relationsOf = (id: string) => {
+  const list = (ids: string[]) =>
+    [...new Set(ids)]
+      .map((other) => entryById(other))
+      .filter((entry): entry is Entry => Boolean(entry))
+      .sort((a, b) => a.title.localeCompare(b.title));
+  const { edges } = relationships;
+  return {
+    builtWith: list(edges.filter((e) => e.kind === 'uses' && e.from === id).map((e) => e.to)),
+    usedBy: list(edges.filter((e) => e.kind === 'uses' && e.to === id).map((e) => e.from)),
+    appearsWith: list(
+      edges
+        .filter((e) => e.kind === 'with' && (e.from === id || e.to === id))
+        .map((e) => (e.from === id ? e.to : e.from)),
+    ),
+  };
+};
 
 export type Part = {
   /** How the page writes it: `Button`, `Button.Icon`. */

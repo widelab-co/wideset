@@ -1,3 +1,4 @@
+import { RiMoreLine } from '@remixicon/react';
 import { Toast } from '@wideset/react';
 
 import { playground } from '../lib/playground-kit';
@@ -67,4 +68,18 @@ export default playground({
     const dismiss = v.dismissible ? ' onDismiss={() => dismiss()}' : '';
     return `<Toast${attrs()}${dismiss}>\n${children.join('\n')}\n</Toast>`;
   },
+  /*
+   * The expanded toast is the one with every part. `Toast.Message` renders no element of its
+   * own; Toast marks the line it draws the message in as `toast-message`.
+   */
+  anatomy: () => (
+    <div className="w-[20rem]">
+      <Toast variant="expanded" status="info" onDismiss={() => {}}>
+        <Toast.Message>A new version is available</Toast.Message>
+        <Toast.Description>Reload to get the latest fixes.</Toast.Description>
+        <Toast.IconAction icon={RiMoreLine} aria-label="More" />
+        <Toast.Action variant="secondary">Reload</Toast.Action>
+      </Toast>
+    </div>
+  ),
 });

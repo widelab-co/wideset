@@ -1,4 +1,4 @@
-import { RiPaletteLine, RiRocketLine, RiSearchLine } from '@remixicon/react';
+import { RiHashtag, RiPaletteLine, RiRocketLine, RiSearchLine } from '@remixicon/react';
 import { Tag } from '@wideset/react';
 
 import { playground } from '../lib/playground-kit';
@@ -38,4 +38,11 @@ export default playground({
       if (v.icon) return `${open}\n  <Tag.Icon icon={${tag.name}} />\n  ${tag.label}\n</Tag>`;
       return `${open}${tag.label}</Tag>`;
     }).join('\n'),
+  // Both parts on one mid-size tag.
+  anatomy: () => (
+    <Tag size="lg" color="blue">
+      <Tag.Icon icon={RiHashtag} />
+      Research
+    </Tag>
+  ),
 });

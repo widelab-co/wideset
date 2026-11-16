@@ -1,4 +1,9 @@
-import { RiArrowGoBackLine, RiShieldCheckLine, RiTruckLine } from '@remixicon/react';
+import {
+  RiArrowGoBackLine,
+  RiQuestionLine,
+  RiShieldCheckLine,
+  RiTruckLine,
+} from '@remixicon/react';
 import { Accordion } from '@wideset/react';
 
 import { playground, type Values } from '../lib/playground-kit';
@@ -131,4 +136,27 @@ export default playground({
       '</Accordion>',
     ].join('\n');
   },
+  // One open section carries every part; the closed one below shows the divider.
+  anatomy: () => (
+    <div className="w-[20rem] max-w-full">
+      <Accordion type="single" defaultValue="help">
+        <Accordion.Item value="help">
+          <Accordion.Trigger>
+            <Accordion.Icon icon={RiQuestionLine} />
+            <div className="flex flex-col">
+              <Accordion.Title>Help centre</Accordion.Title>
+              <Accordion.Caption>Answers in minutes</Accordion.Caption>
+            </div>
+          </Accordion.Trigger>
+          <Accordion.Content>
+            Search the guides or write to us; we reply within a day.
+          </Accordion.Content>
+        </Accordion.Item>
+        <Accordion.Item value="billing">
+          <Accordion.Trigger>Billing</Accordion.Trigger>
+          <Accordion.Content>Invoices are sent on the first of every month.</Accordion.Content>
+        </Accordion.Item>
+      </Accordion>
+    </div>
+  ),
 });

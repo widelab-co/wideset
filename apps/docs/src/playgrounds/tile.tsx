@@ -1,4 +1,4 @@
-import { RiCloudLine, RiRocketLine } from '@remixicon/react';
+import { RiCloudLine, RiRocketLine, RiTeamLine } from '@remixicon/react';
 import { Tile } from '@wideset/react';
 
 import { playground, type Values } from '../lib/playground-kit';
@@ -105,4 +105,23 @@ ${lines([...bodyAttrs(v, PLAN[1]), ...state], '  ')}
   <Tile.Indicator />
 </Tile.Checkbox>`;
   },
+  // Each part is its own kind of tile, so the anatomy stacks one of each.
+  anatomy: () => (
+    <div className="flex w-[20rem] flex-col gap-ws-13">
+      <Tile icon={RiTeamLine} title="Team" description="8 members" />
+      <Tile.Checkbox
+        icon={RiCloudLine}
+        title="Backups"
+        description="Daily, kept 30 days"
+        defaultChecked
+      >
+        <Tile.Indicator />
+      </Tile.Checkbox>
+      <Tile.RadioGroup aria-label="Plan" defaultValue="pro">
+        <Tile.Radio value="pro" icon={RiRocketLine} title="Pro">
+          <Tile.Indicator />
+        </Tile.Radio>
+      </Tile.RadioGroup>
+    </div>
+  ),
 });

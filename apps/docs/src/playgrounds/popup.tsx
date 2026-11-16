@@ -165,4 +165,44 @@ export default playground({
       </div>
     </Popup>
   ),
+  // The trigger, then the popup it opens drawn in place: the box stands in for
+  // Popup.Container, which portals to the body.
+  anatomy: () => (
+    <Popup>
+      <div className="flex w-[20rem] flex-col items-start gap-ws-3">
+        <Popup.Trigger asChild>
+          <Button variant="secondary" preset="border">
+            <Button.Icon icon={RiShareLine} />
+            Share
+          </Button>
+        </Popup.Trigger>
+        <div data-slot="popup-container" className={`${SURFACE} w-full`}>
+          <Popup.Header>
+            <div className="flex items-center justify-between gap-ws-5">
+              <Popup.Title>Share this report</Popup.Title>
+              <Popup.Close asChild>
+                <IconButton
+                  aria-label="Close"
+                  icon={RiCloseLine}
+                  preset="border"
+                  variant="secondary"
+                  size="sm"
+                  className={CLOSE_CLASS}
+                />
+              </Popup.Close>
+            </div>
+          </Popup.Header>
+          <Popup.Content>
+            <Popup.Description>{DESCRIPTION}</Popup.Description>
+          </Popup.Content>
+          <Popup.Footer>
+            <Button variant="secondary" preset="border" size="sm">
+              Cancel
+            </Button>
+            <Button size="sm">Copy link</Button>
+          </Popup.Footer>
+        </div>
+      </div>
+    </Popup>
+  ),
 });

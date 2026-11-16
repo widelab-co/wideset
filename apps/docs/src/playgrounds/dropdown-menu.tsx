@@ -164,4 +164,26 @@ export default playground({
       </div>
     </DropdownMenu>
   ),
+  // Every part drawn open in place. Items are static rows with the item's look (the real one
+  // needs open content); the root and the portal render no element of their own, and the
+  // content's surface is drawn by hand for the same reason.
+  anatomy: () => (
+    <DropdownMenu>
+      <div className="flex flex-col items-start gap-ws-2">
+        <DropdownMenu.Trigger asChild>{trigger}</DropdownMenu.Trigger>
+        <div data-slot="dropdown-menu-content" className={SURFACE}>
+          <DropdownMenu.Group>
+            {row('Rename', RiPencilLine, { 'data-slot': 'dropdown-menu-item' })}
+            {row('Duplicate', RiFileCopyLine)}
+          </DropdownMenu.Group>
+          <DropdownMenu.Separator />
+          <DropdownMenu.Label>Sort by</DropdownMenu.Label>
+          <DropdownMenu.RadioGroup value="name">
+            {row('Name', undefined, { 'data-state': 'checked' })}
+            {row('Last modified')}
+          </DropdownMenu.RadioGroup>
+        </div>
+      </div>
+    </DropdownMenu>
+  ),
 });

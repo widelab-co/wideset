@@ -1,3 +1,4 @@
+import { RiMapPinLine } from '@remixicon/react';
 import { ComboBox } from '@wideset/react';
 
 import { playground } from '../lib/playground-kit';
@@ -43,4 +44,31 @@ export default playground({
     ];
     return `<ComboBox\n${lines.map((line) => `  ${line}`).join('\n')}\n/>`;
   },
+  // Parts the picture cannot draw. Only while typing: the highlighted match in an option's label.
+  absent: {
+    ComboBoxHighlightedLabel: 'Only while typing',
+  },
+  // The list drawn open under the trigger, in place: the real one portals to the body and
+  // only mounts while open. The root renders no element of its own.
+  anatomy: () => (
+    <div className="flex w-[16rem] flex-col gap-ws-2">
+      <ComboBox options={CITIES} defaultValue="lisbon">
+        <ComboBox.Trigger hasPrefix className="w-full">
+          <ComboBox.Prefix>
+            <ComboBox.Icon icon={RiMapPinLine} />
+          </ComboBox.Prefix>
+        </ComboBox.Trigger>
+        <div
+          data-slot="combo-box-content"
+          className="rounded-ws-container-sm bg-ws-static-overlay shadow-ws-medium"
+        >
+          <ul role="listbox" className="p-ws-3">
+            <ComboBox.Item value="lisbon" />
+            <ComboBox.Item value="berlin" />
+            <ComboBox.Item value="warsaw" />
+          </ul>
+        </div>
+      </ComboBox>
+    </div>
+  ),
 });

@@ -1,6 +1,6 @@
 ---
 name: wideset-component-anatomy
-description: Give a Wideset component a correct, quiet Anatomy section on its docs page (apps/docs, /components/<page>#anatomy) — the picture with each part named beside it and spotlit on hover, and the parts table as a tree. Covers what to base the composition on (code exports, Figma with every slot on, the stage's content), writing `anatomy()` in the playground file, the fixed visual rules, the looks that were tried and rejected, and auditing every page at once. Use when a component gains or changes a part, when an Anatomy section looks wrong (names off their parts, a part "not in the picture", a drawing shrunk), when rolling the section out across components, or when asked to change how the section looks.
+description: Give a Wideset component a correct, quiet Anatomy tab on its docs page (apps/docs, /components/<page>?tab=anatomy) — the picture with each part named beside it and spotlit on hover, and the parts table as a tree. Covers what to base the composition on (code exports, Figma with every slot on, the stage's content), writing `anatomy()` in the playground file, the fixed visual rules, the looks that were tried and rejected, and auditing every page at once. Use when a component gains or changes a part, when an Anatomy section looks wrong (names off their parts, a part "not in the picture", a drawing shrunk), when rolling the section out across components, or when asked to change how the section looks.
 license: Apache-2.0
 metadata:
   internal: true
@@ -9,20 +9,14 @@ metadata:
 
 # Component anatomy
 
-> **Status: the section is not on the page at present.** The redesigned component page
-> (title, stage, Installation, Examples, API reference, Accessibility) has no Anatomy section,
-> and the files this skill names (`AnatomyDiagram.tsx`, the playgrounds' `anatomy()`,
-> `--docs-anatomy-veil`) are not in `apps/docs`. The rules below describe the section as it was
-> and apply again if it returns; until then there is nothing to write or audit.
-
-The Anatomy section shows a component's parts: the component drawn 1:1 with each part named
+The Anatomy tab of a component page (`?tab=anatomy`) shows a component's parts: the component drawn 1:1 with each part named
 beside it, and a table of the parts as a tree. Hovering a name or a row spotlights that part.
 Both halves are generated; a component contributes only its **composition** (what the picture
 draws) and its parts' **`data-slot`s**. Card is the pattern to copy.
 
 Paths: `pkg/` = `packages/design-system/`, `docs/` = `apps/docs/`. The section lives in
 `docs/src/components/AnatomyDiagram.tsx` (picture, table wiring),
-`docs/src/pages/components/[id].astro` (section and table markup) and `--docs-anatomy-veil` in
+`docs/src/pages/components/[id].astro` (the Anatomy tab's panel and table markup) and `--docs-anatomy-veil` in
 `docs/src/styles/docs.css`. Nothing in them is per component: never special-case a component
 there; fix its composition instead.
 
@@ -158,7 +152,7 @@ Each was built, looked at and removed. If a request seems to ask for one, say so
 
 ## Check
 
-Open `/components/<page>#anatomy` (`pnpm docs:dev`) at 1440px and 1280px wide, light and dark.
+Open `/components/<page>?tab=anatomy` (`pnpm docs:dev`) at 1440px and 1280px wide, light and dark.
 
 - [ ] Every table row has its name in the picture, or its label for one of the
       three reasons above.

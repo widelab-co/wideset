@@ -9,16 +9,24 @@ metadata:
 
 # Component examples and docs page
 
-The page builds itself from the library, top to bottom: the title and description (the stories
-meta) with "Copy page"; the component on its stage (the thumbnail); Installation (CLI | Manual,
-from the registry item); **Examples (the example files)**, each a card with the live example and
-its code; API reference (one props table per part, from the types); Accessibility (the spec's
-section, when it has one). The same stage with controls is the component's entry on the
-Playground page (`/docs/playground?c=<page>`). One file per example feeds both Storybook and the
-page, so they cannot drift. Tabs is the pattern to copy.
+The page builds itself from the library: the title and description (the stories meta) with
+"Copy page", then up to three tabs.
 
-The page's flow holds at most one row of tabs: a second switch sits inside a card (Installation's
-CLI | Manual) or is another control. Do not add tabbed sections to the page.
+- **Overview:** the component on its stage (the thumbnail); Installation (one card: CLI or
+  Manual, from the registry item); **Examples (the example files)**, each a card with the live
+  example and its code; API reference (one props table per part, from the types); Accessibility
+  (the spec's section, when it has one).
+- **Anatomy** (two or more parts): the picture (parts found by `data-slot`) and the parts table
+  (named exports). Its rules are the `wideset-component-anatomy` skill.
+- **Relationships** (when the graph links the component to another): the map and the lists
+  "Built with", "Uses <name>", "Appears with", read from imports.
+
+The same stage with controls is the component's entry on the Playground page
+(`/docs/playground?c=<page>`). One file per example feeds both Storybook and the page, so they
+cannot drift. Tabs is the pattern to copy.
+
+The page tabs are the only row of tabs in the page's flow: any other switch sits inside a card
+(Installation's CLI | Manual pills) or is another control. Do not add a second row.
 
 Paths: `pkg/` = `packages/design-system/`, `docs/` = `apps/docs/`. A page is a stories file
 whose component `src/index.ts` exports; `<page>` is its kebab name (`IconButton.stories.tsx` →
@@ -97,15 +105,18 @@ export default function LinkButtonDefault(props: Partial<LinkButtonProps>) {
 
 The Playground's Properties panel is every union and boolean of the root props type
 (`gen-props.mjs` reads them); the code under the stage prints the JSX `default.tsx` returns with
-`{...props}` replaced by the chosen props. Use every part a reader should see.
+`{...props}` replaced by the chosen props. Use every part a reader should see, so the anatomy
+picture can name them.
 
 ## 4. Playground tuning — `docs/src/playgrounds/<page>.tsx` (optional)
 
 Only what the types do not say: `playground({ from: '<Name>Props', … })` from
 `docs/src/lib/playground-kit.ts` (read its JSDoc). `hide`, `labels`, `order`, `optional`,
 `defaults`, `stage` (the dark stage for `inverse`), `preview` (an overlay drawn open for the
-gallery card), `render`/`code` with `content` controls only when the stage needs controls the
-types do not have (an icon on/off, a count). Never re-list a union by hand.
+gallery card), `anatomy` (a composition with every part, when the stage lacks some),
+`render`/`code` with `content` controls only when the stage needs controls the types do not have
+(an icon on/off, a count). Never re-list a union by hand. For `anatomy` and anything else on
+the Anatomy tab, use the `wideset-component-anatomy` skill.
 
 ### Playground controls
 
@@ -125,8 +136,8 @@ The Playground page's Properties panel picks each control from the definition's
 ## 5. Parts carry `data-slot`
 
 Every rendered part sets `data-slot="<kebab of its export>"` before `{...props}`
-(`TabsList` → `tabs-list`). It is how a part is found from outside: by a caller's CSS, by the
-tests and by the docs.
+(`TabsList` → `tabs-list`). The anatomy picture finds parts only by it; a part without one says
+"Renders no element" in the table.
 
 ## Check
 
@@ -140,4 +151,5 @@ pnpm lint && pnpm prettier
 Then open the page (`pnpm docs:dev`, `/components/<page>`), its playground
 (`/docs/playground?c=<page>`) and the stories in Storybook: the stage and the thumbnail in the
 gallery, the playground's controls and the code after changing one, each example in light and
-dark, the API tables.
+dark, the API tables, the Anatomy tab (`?tab=anatomy`, the checklist in
+`wideset-component-anatomy`) and the Relationships tab (`?tab=relationships`).

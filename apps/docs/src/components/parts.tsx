@@ -28,7 +28,7 @@ import {
   Tabs,
   TextInput,
 } from '@wideset/react';
-import { type ReactNode, useEffect, useRef, useState } from 'react';
+import { type ReactNode, useEffect, useId, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 import { loadExample } from '../lib/exampleLoader';
@@ -215,59 +215,97 @@ const RUNNERS = [
   { value: 'bun', run: 'bunx' },
 ];
 
-/** Installation: CLI | Manual; the CLI's block picks the package manager in its header. */
+const PILL =
+  'h-ws-12 rounded-ws-control-md px-ws-5 typography-caption-md outline-ws-dynamic-primary-strong-default transition-colors focus-visible:wds-focus-visible';
+/** A row of small pills that picks one value, in a card's header. */
+const Pills = ({
+  label,
+  options,
+  value,
+  onChange,
+  mono = false,
+}: {
+  label: string;
+  options: { value: string; label: string }[];
+  value: string;
+  onChange: (value: string) => void;
+  mono?: boolean;
+}) => (
+  // ds-exempt: small pills in a code block's header; SegmentedControl's items are a 14px
+  // control, too loud for this row, and a second row of Tabs would compete with the page's.
+  <div role="radiogroup" aria-label={label} className="flex shrink-0 gap-ws-2">
+    {options.map((item) => (
+      <button
+        key={item.value}
+        type="button"
+        role="radio"
+        aria-checked={value === item.value}
+        onClick={() => onChange(item.value)}
+        className={cn(
+          PILL,
+          mono && 'font-mono',
+          value === item.value
+            ? 'bg-ws-static-alpha-base text-ws-static-strong'
+            : 'text-ws-static-subtle hover:text-ws-static-strong',
+        )}
+      >
+        {item.label}
+      </button>
+    ))}
+  </div>
+);
+
+const METHODS = [
+  { value: 'cli', label: 'CLI' },
+  { value: 'manual', label: 'Manual' },
+];
+
+/**
+ * Installation, one card: its header picks CLI or Manual (and, for the CLI, the package manager),
+ * its body is the command or the files to copy. The choice lives in the card, so the page's flow
+ * holds no second row of tabs.
+ */
 export const Install = ({ id, files }: { id: string; files: ManualFiles }) => {
+  const [method, setMethod] = useState('cli');
   const [runner, setRunner] = useState('pnpm');
   const run = RUNNERS.find((item) => item.value === runner)!.run;
+  const methods = (
+    <Pills label="Install with" options={METHODS} value={method} onChange={setMethod} />
+  );
+  if (method === 'manual')
+    return (
+      <div className="overflow-hidden rounded-ws-container-md border border-ws-static-subtle">
+        <div className="flex h-ws-15 items-center border-b border-ws-static-subtle pr-ws-4 pl-ws-9">
+          {methods}
+        </div>
+        <div className="p-ws-9">
+          <ManualSteps files={files} />
+        </div>
+      </div>
+    );
   return (
-    <Tabs defaultValue="cli" size="sm" divider={false}>
-      <TabRow>
-        <Tabs.List aria-label="Install with">
-          <Tabs.Item value="cli">
-            <Tabs.Label>CLI</Tabs.Label>
-          </Tabs.Item>
-          <Tabs.Item value="manual">
-            <Tabs.Label>Manual</Tabs.Label>
-          </Tabs.Item>
-        </Tabs.List>
-      </TabRow>
-      <Tabs.Content value="cli" className="pt-ws-9">
-        <Code
-          lang="bash"
-          code={`${run} wideset add ${id}`}
-          rule
-          header={
-            // ds-exempt: the package manager as small pills in a code block's header;
-            // SegmentedControl's items are a 14px control, too loud for this row.
-            <div role="radiogroup" aria-label="Package manager" className="flex gap-ws-2">
-              {RUNNERS.map((item) => (
-                <button
-                  key={item.value}
-                  type="button"
-                  role="radio"
-                  aria-checked={runner === item.value}
-                  onClick={() => setRunner(item.value)}
-                  className={cn(
-                    'h-ws-12 rounded-ws-control-md px-ws-5 font-mono typography-caption-md outline-ws-dynamic-primary-strong-default transition-colors focus-visible:wds-focus-visible',
-                    runner === item.value
-                      ? 'bg-ws-static-alpha-base text-ws-static-strong'
-                      : 'text-ws-static-subtle hover:text-ws-static-strong',
-                  )}
-                >
-                  {item.value}
-                </button>
-              ))}
-            </div>
-          }
-        />
-        <p className="mt-ws-5 typography-body-sm text-ws-static-subtle">
-          Copies the component and any Wideset components it uses into your project.
-        </p>
-      </Tabs.Content>
-      <Tabs.Content value="manual" className="pt-ws-9">
-        <ManualSteps files={files} />
-      </Tabs.Content>
-    </Tabs>
+    <>
+      <Code
+        lang="bash"
+        code={`${run} wideset add ${id}`}
+        rule
+        header={
+          <div className="docs-scroll flex min-w-0 flex-1 items-center justify-between gap-ws-7 overflow-x-auto">
+            {methods}
+            <Pills
+              label="Package manager"
+              options={RUNNERS.map((item) => ({ value: item.value, label: item.value }))}
+              value={runner}
+              onChange={setRunner}
+              mono
+            />
+          </div>
+        }
+      />
+      <p className="mt-ws-5 typography-body-sm text-ws-static-subtle">
+        Copies the component and any Wideset components it uses into your project.
+      </p>
+    </>
   );
 };
 
@@ -687,12 +725,74 @@ export const TopNav = ({
 );
 
 /**
+ * A component page's tabs, under its head: Overview, then Anatomy and Relationships when the
+ * component has them. The panels are the page's own HTML (`data-tab-panel`), shown by
+ * `html[data-tab]` (docs.css), which the page sets from the address before first paint; this row
+ * keeps the two in step. The tab is in the address (`?tab=anatomy`; Overview has none), so Back
+ * and Forward move between tabs and a tab can be linked.
+ */
+export const PageTabs = ({ tabs }: { tabs: { id: string; label: string }[] }) => {
+  const first = tabs[0].id;
+  const [value, setValue] = useState(first);
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    const show = (id: string) => {
+      if (id === first) delete document.documentElement.dataset.tab;
+      else document.documentElement.dataset.tab = id;
+      setValue(id);
+      // The rails read the sections in view.
+      window.dispatchEvent(new Event('scroll'));
+    };
+    const sync = () => {
+      const asked = new URLSearchParams(location.search).get('tab');
+      show(tabs.some((tab) => tab.id === asked) ? asked! : first);
+    };
+    sync();
+    setReady(true);
+    addEventListener('popstate', sync);
+    return () => removeEventListener('popstate', sync);
+    // `tabs` is the page's constant list.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const pick = (id: string) => {
+    if (id === value) return;
+    const url = new URL(location.href);
+    if (id === first) url.searchParams.delete('tab');
+    else url.searchParams.set('tab', id);
+    url.hash = '';
+    history.pushState(null, '', url);
+    window.dispatchEvent(new PopStateEvent('popstate'));
+  };
+  return (
+    <div className="docs-page-tabs mb-ws-14" data-ready={ready ? '' : undefined}>
+      <Tabs value={value} onValueChange={pick} size="sm">
+        <TabRow>
+          <Tabs.List aria-label="Sections of this page">
+            {tabs.map((tab) => (
+              <Tabs.Item
+                key={tab.id}
+                value={tab.id}
+                id={`tab-${tab.id}`}
+                aria-controls={`panel-${tab.id}`}
+              >
+                <Tabs.Label>{tab.label}</Tabs.Label>
+              </Tabs.Item>
+            ))}
+          </Tabs.List>
+        </TabRow>
+      </Tabs>
+    </div>
+  );
+};
+
+/**
  * "On this page": the label, then the sections on a vertical line; the section in view lays a
  * solid segment on the line. Nested rows are indented. A section counts once its top passes the
  * upper quarter of the window; at the very end the last one does.
  */
 export const Rail = ({ items }: { items: { id: string; label: string; indent?: boolean }[] }) => {
   const [current, setCurrent] = useState(items[0]?.id);
+  const labelId = useId();
   useEffect(() => {
     const update = () => {
       const shown = items.filter(({ id }) => document.getElementById(id)?.getClientRects().length);
@@ -708,8 +808,8 @@ export const Rail = ({ items }: { items: { id: string; label: string; indent?: b
     return () => removeEventListener('scroll', update);
   }, [items]);
   return (
-    <nav aria-labelledby="on-this-page" className="flex flex-col gap-ws-7">
-      <p id="on-this-page" className="typography-label-sm text-ws-static-subtle">
+    <nav aria-labelledby={labelId} className="flex flex-col gap-ws-7">
+      <p id={labelId} className="typography-label-sm text-ws-static-subtle">
         On this page
       </p>
       <ul className="flex flex-col border-l border-ws-static-subtle">

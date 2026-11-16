@@ -40,4 +40,11 @@ export default playground({
         : `  ${LABEL}\n  <Chip.Icon icon={RiCloseLine} />`;
     return `${open}\n${body}\n</Chip>`;
   },
+  // With an icon, which the stage starts without; a bordered chip keeps the outline readable.
+  anatomy: () => (
+    <Chip variant="secondary" style="border" size="lg">
+      <Chip.Icon icon={RiMapPinLine} />
+      Remote only
+    </Chip>
+  ),
 });

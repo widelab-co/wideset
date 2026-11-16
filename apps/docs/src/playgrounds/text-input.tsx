@@ -1,5 +1,5 @@
-import { RiSearchLine } from '@remixicon/react';
-import { TextInput } from '@wideset/react';
+import { RiArrowDownSLine, RiMicLine, RiSearchLine } from '@remixicon/react';
+import { Button, TextInput } from '@wideset/react';
 
 import { playground } from '../lib/playground-kit';
 
@@ -61,4 +61,25 @@ ${input}
 </TextInput>`;
     return `${open}\n${input}\n</TextInput>`;
   },
+  /* Every part at once. The clear button only renders while the field holds a value. */
+  anatomy: () => (
+    <div className="w-[20rem]">
+      <TextInput size="lg" value="Quarterly report" onChange={() => {}}>
+        <TextInput.Prefix>
+          <TextInput.Button>
+            All files
+            <Button.Icon icon={RiArrowDownSLine} />
+          </TextInput.Button>
+        </TextInput.Prefix>
+        <TextInput.Prefix inner>
+          <TextInput.Icon icon={RiSearchLine} />
+        </TextInput.Prefix>
+        <TextInput.Input aria-label="Search" />
+        <TextInput.Suffix inner>
+          <TextInput.ClearButton />
+          <TextInput.IconButton icon={RiMicLine} aria-label="Search by voice" />
+        </TextInput.Suffix>
+      </TextInput>
+    </div>
+  ),
 });

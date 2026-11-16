@@ -37,12 +37,24 @@ page and the docs Worker owns only the paths in `wrangler.jsonc` (`/docs*`, `/co
 new top-level path needs a route there, a line in the "Check the deployed host" step of
 `.github/workflows/build.yaml` and an exclusion in the zone's Redirect Rule.
 
-**A component page**, top to bottom: the title and description with "Copy page" (the page as
-Markdown, or handed to a model); the component on its stage; Installation (CLI | Manual);
-Examples, each a card with the live example and its code; API reference, one props table per
-part; Accessibility, when the component's spec has the section. The rail lists these. A page has
-at most one row of tabs in its flow; a second switch sits inside a card (Installation) or is
-another control.
+**A component page** opens with the title and description and "Copy page" (the page as
+Markdown, or handed to a model), then up to three tabs whose content switches in place:
+
+- **Overview:** the component on its stage; Installation, one card whose header picks CLI or
+  Manual and the package manager; Examples, each a card with the live example and its code; API
+  reference, one props table per part; Accessibility, when the component's spec has the section.
+- **Anatomy:** the component drawn 1:1 with each part named beside it, then the parts as a table
+  (Part, Renders, Description). Only for a component with two or more parts whose playground
+  does not say `anatomy: false`.
+- **Relationships:** the map of what the component is built with and appears beside
+  (`gen-graph.mjs`), with a button that widens it to the whole system, then the same as lists:
+  "Built with", "Uses <name>", "Appears with". Only for a component the graph links to another.
+
+A component with only Overview has no tab row. The tab is in the address (`?tab=anatomy`;
+Overview has none), set on `html[data-tab]` before first paint, so nothing flashes and Back and
+Forward move between tabs. Every panel is in the HTML (`data-tab-panel`, shown by docs.css) and
+each tab has its own rail, hidden when the tab has a single section. The page tabs are the only
+row of tabs in the page's flow; any other switch sits inside a card or is another control.
 
 ## How a page is made
 
@@ -51,6 +63,7 @@ scripts/generate.mjs           runs before dev, build, typecheck and test → sr
   gen-catalog.mjs              one entry per public component's *.stories.tsx (TypeScript API, not regexes)
   gen-props.mjs                prop tables from the TypeScript types (cva unions, defaults, JSDoc),
                                and controls.json: the unions and booleans the playgrounds switch
+  gen-graph.mjs                which components use or appear with which (from imports)
   gen-guidance.mjs             from packages/design-system/specs: the usage sections of the
                                Markdown for models, and the Accessibility notes the page shows
   gen-registry.mjs             the registry items `npx wideset add` installs (Install → Manual)
@@ -105,7 +118,8 @@ stage prints the JSX `default.tsx` returns with them.
 `src/playgrounds/<id>.tsx` is optional tuning: `playground({...})` from
 `src/lib/playground-kit.ts` with `hide`, `labels` (`preset` is already "Style"), `order`,
 `optional` (a "None" choice), `defaults`, `stage(values)` (the dark stage for `inverse`),
-`preview()` (an overlay drawn open for the thumbnail), or its own `render(values, { props })` /
+`preview()` (an overlay drawn open for the thumbnail), `anatomy()` (a composition with every
+part, for the Anatomy tab; the `wideset-component-anatomy` skill), or its own `render(values, { props })` /
 `code(values, { attrs })` with `content` controls when the stage needs more than the types say.
 
 The Properties panel picks each control from its definition (`src/components/PropertiesPanel.tsx`):
@@ -170,10 +184,10 @@ font's name shows and Inter stands in).
   and the sidebar. The theme is applied before first paint from `localStorage`
   (`src/lib/theme.ts`).
 - `src/components/` — islands and Astro parts: `PageHead` (every page's title, description and
-  actions), `parts.tsx` (the bar, the sidebar, the rail, the code block, the example card,
-  Installation, "Copy page", breadcrumbs), `SearchPalette` (⌘K, on the system's `Modal` +
+  actions), `parts.tsx` (the bar, the sidebar, the rail, the page tabs, the code block, the
+  example card, Installation, "Copy page", breadcrumbs), `SearchPalette` (⌘K, on the system's `Modal` +
   `Search`), `Thumbnail`, `Playground` + `PlaygroundPage` + `PropertiesPanel` (one shared store),
-  `PropsTables`, `Themes`, `blocks.tsx`.
+  `PropsTables`, `AnatomyDiagram`, `RelationshipGraph`, `Themes`, `blocks.tsx`.
 - `src/styles/docs.css` — Tailwind plus `@import '@wideset/react/theme'`, so the chrome is
   written in `ws` classes (`bg-ws-static-container`, `text-ws-static-subtle`, …) and follows
   light and dark with the system. Inter from `@fontsource-variable/inter`.

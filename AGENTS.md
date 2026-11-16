@@ -113,8 +113,8 @@ The full checklist is the `wideset-component-convention` skill. The rules that m
   discriminated unions.
 - **Behaviour.** Forward `ref` and spread `...props` onto the root element. Merge `className` with
   `cn()`. Every rendered part carries `data-slot="<kebab of its export>"` (`TabsList` → `tabs-list`),
-  written before `{...props}` so a caller (or a parent part) can override it; a part is found
-  from outside by it. Controlled and uncontrolled both work: `isControlled = value !== undefined`, callback
+  written before `{...props}` so a caller (or a parent part) can override it; the docs anatomy
+  picture finds parts by it. Controlled and uncontrolled both work: `isControlled = value !== undefined`, callback
   fires in both modes. Context hooks throw `use{X}Context must be used within a <{X}>`.
 - **Styling.** Design tokens only (`bg-ws-dynamic-primary-default`, `text-ws-static-strong`,
   `rounded-ws-control-lg`), never palette classes like `text-gray-900` or raw hex. A Figma value
@@ -268,4 +268,4 @@ checks out as a plain text file.
 | `wideset-component-convention` | reviewing a component against the conventions above; DS-readiness                      |
 | `wideset-storybook-docs`       | formatting rules for Storybook MDX pages (form only, not content)                      |
 | `wideset-component-docs`       | a component's docs page: examples, playground and its tuning                           |
-| `wideset-component-anatomy`    | a docs page's Anatomy section (not on the page at present): composition, look, audit   |
+| `wideset-component-anatomy`    | a docs page's Anatomy section: composition, look, audit                                |

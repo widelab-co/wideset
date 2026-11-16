@@ -11,10 +11,15 @@ const SURFACE =
   'relative flex h-[22rem] max-w-full flex-col overflow-hidden rounded-ws-container-lg bg-ws-static-container shadow-ws-high';
 
 /**
- * The inside of the panel, open, for the gallery card.
+ * The inside of the panel, open, for the gallery card and the Anatomy section. The parts mark
+ * themselves; the stand-in surface gets its `data-slot` and a narrower width only for the
+ * Anatomy drawing.
  */
-const openPanel = () => (
-  <div className={`${SURFACE} w-[26rem]`}>
+const openPanel = (marked: boolean) => (
+  <div
+    className={`${SURFACE} ${marked ? 'w-full' : 'w-[26rem]'}`}
+    {...(marked ? { 'data-slot': 'sidepanel-panel' } : {})}
+  >
     <Sidepanel.Actions>
       <Sidepanel.Close asChild>
         <IconButton
@@ -134,5 +139,19 @@ export default playground({
   </Sidepanel.Panel>
 </Sidepanel>`;
   },
-  preview: () => <Sidepanel>{openPanel()}</Sidepanel>,
+  preview: () => <Sidepanel>{openPanel(false)}</Sidepanel>,
+  // The trigger, then the panel it opens drawn in place: a div stands in for
+  // `Sidepanel.Panel`, which only renders in a portal while open.
+  anatomy: () => (
+    <Sidepanel>
+      <div className="flex w-[20rem] flex-col items-start gap-ws-9">
+        <Sidepanel.Trigger asChild>
+          <Button variant="secondary" preset="border">
+            View order details
+          </Button>
+        </Sidepanel.Trigger>
+        {openPanel(true)}
+      </div>
+    </Sidepanel>
+  ),
 });

@@ -41,4 +41,6 @@ export default playground({
     ].filter(Boolean);
     return `<Pagination\n${props.map((p) => `  ${p}`).join('\n')}\n/>`;
   },
+  // Numbers and Overflow are the two `type`s, not parts of one bar: no Anatomy section.
+  anatomy: false,
 });
