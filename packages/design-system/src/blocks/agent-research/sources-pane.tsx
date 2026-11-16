@@ -70,7 +70,11 @@ export function SourcesPane({
       <header className="h-ws-18 border-ws-static-base gap-ws-5 pl-ws-11 pr-ws-7 flex shrink-0 items-center border-b">
         <h2 className="typography-label-strong-md text-ws-static-strong">Sources</h2>
         <p aria-live="polite" className="typography-label-sm text-ws-static-subtle tabular-nums">
-          {read > 0 && (vendor === ALL ? `${read} read` : `${shown.length} of ${read}`)}
+          {/* Both counts leave out the source still being read; its row still shows. */}
+          {read > 0 &&
+            (vendor === ALL
+              ? `${read} read`
+              : `${shown.filter((source) => source.id !== readingId).length} of ${read}`)}
         </p>
         <Select
           size="sm"
