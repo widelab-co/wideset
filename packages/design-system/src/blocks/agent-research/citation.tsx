@@ -7,6 +7,8 @@ export type Citing = {
   active: number | null;
   /** Points at a source for as long as the pointer or the focus stays; null when it leaves. */
   onPeek: (source: number | null) => void;
+  /** The source a press keeps in focus, or null: its mark reads as pressed. */
+  pinned: number | null;
   /** Keeps a source in focus and brings it into view in the pane; again lets it go. */
   onPin: (source: number) => void;
 };
@@ -46,6 +48,8 @@ export function Citation({ source, active, citing }: CitationProps) {
     <button
       type="button"
       aria-label={`Source ${source}`}
+      // A press pins the source and another lets it go: a toggle, so it says which it is.
+      aria-pressed={citing.pinned === source}
       onClick={() => citing.onPin(source)}
       onPointerEnter={() => citing.onPeek(source)}
       onPointerLeave={() => citing.onPeek(null)}

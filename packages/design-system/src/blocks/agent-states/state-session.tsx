@@ -54,7 +54,9 @@ export function StateSession({ scene, view, onMarkChange }: StateSessionProps) {
   const offline = scene.id === 'offline' && !settled;
   const mark = session.running ? 'working' : session.awaiting ? scene.mark : undefined;
 
-  useEffect(() => onMarkChange(mark), [mark, onMarkChange]);
+  useEffect(() => {
+    onMarkChange(mark);
+  }, [mark, onMarkChange]);
 
   const proceed = (id: string) => session.proceed(REVIEW, id);
 

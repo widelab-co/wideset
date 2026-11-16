@@ -1,3 +1,4 @@
+// TODO(custom): a table in an outlined box, its last row without a line; Table has no framed variant.
 import { cn, Table } from '@wideset/react';
 
 import { Citation, type Citing } from './citation';
