@@ -49,6 +49,8 @@ export function PipelineBoard({
   const [drag, setDrag] = useState<Drag>();
   // A drag ends in a click on the card's link; this swallows it.
   const dragged = useRef(false);
+  /** The card the press started on: it takes the pointer when the drag starts. */
+  const handle = useRef<HTMLElement | null>(null);
   const [announcement, setAnnouncement] = useState('');
   const [focusId, setFocusId] = useState<string>();
 
@@ -97,6 +99,7 @@ export function PipelineBoard({
       const target = event.target as HTMLElement;
       if (event.button !== 0 || target.closest('button') || !event.currentTarget.contains(target))
         return;
+      handle.current = event.currentTarget;
       const box = event.currentTarget.getBoundingClientRect();
       // No pointer capture yet: a press that never moves far enough stays a click on the deal's link.
       setDrag({
@@ -116,8 +119,11 @@ export function PipelineBoard({
       if (drag?.pointerId !== event.pointerId) return;
       const distance = Math.hypot(event.clientX - drag.startX, event.clientY - drag.startY);
       if (!drag.active && distance < THRESHOLD) return;
-      // The drag starts here: from now on the card follows the pointer even outside it.
-      if (!drag.active) event.currentTarget.setPointerCapture?.(event.pointerId);
+      // The drag starts here: from now on the card follows the pointer even outside it. Before
+      // that nothing has the pointer, so this may be another card the pointer crossed: the card
+      // the press started on takes it.
+      if (!drag.active)
+        (handle.current ?? event.currentTarget).setPointerCapture?.(event.pointerId);
       setDrag({
         ...drag,
         active: true,
@@ -129,9 +135,11 @@ export function PipelineBoard({
     },
     onPointerUp: (event: PointerEvent<HTMLElement>) => {
       if (drag?.pointerId !== event.pointerId) return;
-      if (drag.active && drag.target) {
+      // The deal is the one the drag started on, not necessarily this card's.
+      const moved = deals.find(({ id }) => id === drag.id);
+      if (drag.active && drag.target && moved) {
         dragged.current = true;
-        move(deal, drag.target.stage, drag.target.index, false);
+        move(moved, drag.target.stage, drag.target.index, false);
       }
       setDrag(undefined);
     },
