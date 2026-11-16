@@ -3,6 +3,7 @@ import { Button, FormField, Select, Textarea, TextInput } from '@wideset/react';
 import { useId } from 'react';
 
 import { type Field, type Step, STEP_TYPES } from './data';
+import { isFilled } from './flow';
 
 /** One setting: a select, a line of text or a message, with what it still needs under it. */
 function StepField({
@@ -17,7 +18,7 @@ function StepField({
   onChange: (value: string) => void;
 }) {
   // The step is saved as it is, so a field it cannot run without says so at once, like its node.
-  const error = field.missing && !value.trim() ? field.missing : undefined;
+  const error = isFilled(field, value) ? undefined : field.missing;
   const variant = error ? 'danger' : 'primary';
 
   return (

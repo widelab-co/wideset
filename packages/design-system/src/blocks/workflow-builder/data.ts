@@ -90,6 +90,8 @@ export type Field = {
   helperText?: string;
   /** Says how to fill the field in; set on the fields a step cannot run without. */
   missing?: string;
+  /** For a required field, whether what was typed is usable; empty is never usable. */
+  valid?: (text: string) => boolean;
 };
 
 export type StepType = {
@@ -187,6 +189,7 @@ export const STEP_TYPES: Record<StepKind, StepType> = {
         placeholder: '25,000',
         helperText: 'In US dollars, before discounts.',
         missing: 'Enter an amount, like 25,000.',
+        valid: (text) => parseAmount(text) > 0,
       },
     ],
     defaults: { rule: 'gte', amount: '' },
