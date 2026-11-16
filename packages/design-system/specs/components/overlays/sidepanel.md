@@ -17,7 +17,7 @@ parts:
     SidepanelClose,
   ]
 related: [Modal, Popup, Sidebar]
-docs: https://wideset-docs.widelab.workers.dev/components/sidepanel
+docs: https://wideset.co/components/sidepanel
 storybook: components-sidepanel--default
 ---
 
@@ -132,5 +132,5 @@ State: `open` + `onOpenChange` (controlled) or `defaultOpen`, on `Sidepanel` (Ra
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/sidepanel.md` · Types:
+Full props: `https://wideset.co/components/sidepanel.md` · Types:
 `packages/design-system/src/components/sidepanel/Sidepanel.types.ts`

@@ -1,6 +1,6 @@
 import { RiSideBarLine } from '@remixicon/react';
-import { Breadcrumbs, Button, cn, IconButton, SystemAlert } from '@wideset/react';
-import { useId, useRef, useState } from 'react';
+import { AppShell, Breadcrumbs, Button, cn, IconButton, SystemAlert } from '@wideset/react';
+import { useEffect, useId, useRef, useState } from 'react';
 
 import { customer, deals, lastSynced, tickets } from './data';
 import { DealsTable } from './deals-table';
@@ -31,13 +31,17 @@ export default function PageStates() {
   const [ticketsState, setTicketsState] = useState<'failed' | 'loading' | 'loaded'>('failed');
   const ticketsRef = useRef<HTMLElement>(null);
 
+  // Cleared on unmount, so the stand-in request never lands on a closed screen.
+  const timer = useRef<number>(undefined);
+  useEffect(() => () => window.clearTimeout(timer.current), []);
+
   // A timeout stands in for the request; a real screen awaits it and goes back to `failed` with
   // the reason if it fails again.
   function retry() {
     setTicketsState('loading');
     // Retry goes away with the error: keep the keyboard on the module it was in.
     ticketsRef.current?.focus();
-    setTimeout(() => setTicketsState('loaded'), 1200);
+    timer.current = window.setTimeout(() => setTicketsState('loaded'), 1200);
   }
 
   const viewAll = (
@@ -47,9 +51,9 @@ export default function PageStates() {
   );
 
   return (
-    <div className="bg-ws-static-background flex h-dvh">
+    <AppShell direction="inset">
       <AppSidebar id={sidebarId} collapsed={collapsed} onCollapsedChange={setCollapsed} />
-      <main className="bg-ws-static-foreground rounded-ws-container-lg shadow-ws-low my-ws-7 mr-ws-7 ml-ws-5 flex min-w-0 flex-1 flex-col overflow-hidden">
+      <AppShell.Main>
         <div className="h-ws-18 border-ws-static-base flex shrink-0 items-center border-b">
           {/* The bar belongs to the surround: it runs edge to edge. The sidebar's toggle is pulled
               left so its glyph, not its box, sits 20px from the edge; the crumbs follow it. */}
@@ -135,7 +139,7 @@ export default function PageStates() {
             </div>
           </div>
         </div>
-      </main>
-    </div>
+      </AppShell.Main>
+    </AppShell>
   );
 }

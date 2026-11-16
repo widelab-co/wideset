@@ -16,7 +16,7 @@
 ```tsx
 // Do: slider plus number inputs when the exact value matters
 const [value, setValue] = useState([20, 80]);
-<Slider type="range" value={value} onValueChange={setValue} aria-label="price" />
+<Slider value={value} onValueChange={setValue} aria-label="price" />
 <TextInput size="sm">
   <TextInput.Input
     aria-label="Minimum price"
@@ -36,11 +36,12 @@ const [value, setValue] = useState([20, 80]);
 
 ## Gotchas
 
-- Values are always arrays, even for `type="single"`.
-- Without `defaultValue`, single starts at `min` and range at `[min, max]`.
+- Values are always arrays, even for one thumb.
+- Without `value` or `defaultValue` the slider has one thumb at `min`.
+- `type` and `labels` are deprecated: the value's length sets the number of thumbs, and
+  `Slider.Label` replaces `labels`.
 - `onValueChange` fires on every step while dragging; save on `onValueCommit` when the work is
   expensive.
-- `className` and `ref` go to the outer wrapper (track plus labels); every other prop goes to the
-  slider itself.
+- `className` and `ref` go to the outer wrapper; every other prop goes to the slider itself.
 - The slider is horizontal only; don't pass `orientation="vertical"`.
 - DOM hooks: `data-slot="slider"`, `"slider-thumb"`, `"slider-label"`.

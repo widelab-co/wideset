@@ -56,9 +56,14 @@ const TABS = ['Media', 'Activity', 'Notes', 'More'];
 export function ContactPanel({
   onClose,
   onArchive,
+  note,
+  onNoteChange,
 }: {
   onClose: () => void;
   onArchive: () => void;
+  /** The note lives with the page, so closing the details does not lose it. */
+  note: string;
+  onNoteChange: (note: string) => void;
 }) {
   const { contact } = conversation;
 
@@ -174,7 +179,13 @@ export function ContactPanel({
                 </div>
               ))}
             </div>
-            <Textarea id="contact-note" placeholder="Add a note" rows={3} />
+            <Textarea
+              id="contact-note"
+              placeholder="Add a note"
+              rows={3}
+              value={note}
+              onChange={(event) => onNoteChange(event.target.value)}
+            />
           </div>
         </div>
       </div>

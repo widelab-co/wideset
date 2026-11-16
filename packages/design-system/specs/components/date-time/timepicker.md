@@ -5,7 +5,7 @@ group: date-time
 status: stable
 parts: [TimePicker]
 related: [DatePicker, DateRangePicker, Select, TextInput, FormField]
-docs: https://wideset-docs.widelab.workers.dev/components/timepicker
+docs: https://wideset.co/components/timepicker
 storybook: form-timepicker--default
 ---
 
@@ -106,6 +106,6 @@ A single component: a `Select` whose options are generated from `min`, `max` and
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/timepicker.md` · Types:
+Full props: `https://wideset.co/components/timepicker.md` · Types:
 `packages/design-system/src/components/timepicker/Timepicker.types.ts` (plus `SelectProps` in
 `packages/design-system/src/components/select/Select.types.ts`)

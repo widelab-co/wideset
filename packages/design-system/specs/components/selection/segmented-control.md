@@ -5,7 +5,7 @@ group: selection
 status: stable
 parts: [SegmentedControl, SegmentedControlItem, SegmentedControlIcon]
 related: [Tabs, RadioButtonGroup, Switch, Select]
-docs: https://wideset-docs.widelab.workers.dev/components/segmented-control
+docs: https://wideset.co/components/segmented-control
 storybook: components-segmented-control--default
 ---
 
@@ -113,5 +113,5 @@ const [view, setView] = useState('board');
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/segmented-control.md` · Types:
+Full props: `https://wideset.co/components/segmented-control.md` · Types:
 `packages/design-system/src/components/segmented-control/SegmentedControl.types.ts`

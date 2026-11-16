@@ -8,7 +8,7 @@
     pnpm test:registry --all                   # only the "every item in one app + vite build" run
     pnpm test:registry --next                  # Next.js App Router: Server Components, named exports,
                                                # for the scaffolded files and the packed npm package
-    pnpm test:registry --registry https://<branch>-wideset-docs.<account>.workers.dev/r
+    pnpm test:registry --registry https://<branch>-wideset-docs-develop.<account>.workers.dev/r
                                                # against a deployed registry instead of a local build
 
   Without --registry the script builds the registry itself with a 127.0.0.1 base URL and serves

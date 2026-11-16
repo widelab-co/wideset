@@ -8,7 +8,7 @@ export function PageHeader({ seatsUsed, onInvite }: { seatsUsed: number; onInvit
   return (
     <header className="gap-ws-9 flex items-center justify-between">
       <div className="gap-ws-3 flex min-w-0 flex-col">
-        <h1 className="typography-subtitle-md text-ws-static-strong">Team</h1>
+        <h1 className="typography-title-md text-ws-static-strong">Team</h1>
         <p className="typography-body-md text-ws-static-base">
           <span className="tabular-nums">
             {seatsUsed} of {workspace.seats}

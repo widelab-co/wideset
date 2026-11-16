@@ -51,6 +51,14 @@ describe('Illustration', () => {
       render(<Illustration illustration="calendar" title="An empty calendar" />);
       expect(screen.getByRole('img', { name: 'An empty calendar' })).toBeInTheDocument();
     });
+
+    it('is an image named by aria-label when it has no title', () => {
+      const { container } = render(
+        <Illustration illustration="folder" aria-label="No files yet" />,
+      );
+      expect(screen.getByRole('img', { name: 'No files yet' })).toBeInTheDocument();
+      expect(container.querySelector('svg')).not.toHaveAttribute('aria-hidden');
+    });
   });
 
   describe('Props', () => {

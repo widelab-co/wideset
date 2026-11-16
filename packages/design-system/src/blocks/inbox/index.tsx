@@ -1,5 +1,5 @@
 import { RiSideBarLine } from '@remixicon/react';
-import { Breadcrumbs, IconButton, Toast, ToastProvider, useToast } from '@wideset/react';
+import { AppShell, Breadcrumbs, IconButton, Toast, ToastProvider, useToast } from '@wideset/react';
 import { useEffect, useId, useRef, useState } from 'react';
 
 import { Conversation } from './conversation';
@@ -77,7 +77,7 @@ function Page({ sidebarId, collapsed, onToggleSidebar }: PageProps) {
 
   /** Archiving takes the conversation out of the inbox and opens the next; Undo puts it back. */
   const archive = (conversation: ConversationData) => {
-    const before = { items, selectedId };
+    const before = { selectedId, at: items.findIndex((item) => item.id === conversation.id) };
     const index = shown.findIndex((item) => item.id === conversation.id);
     const rest = shown.filter((item) => item.id !== conversation.id);
     setItems(items.filter((item) => item.id !== conversation.id));
@@ -88,7 +88,12 @@ function Page({ sidebarId, collapsed, onToggleSidebar }: PageProps) {
         <Toast.Action
           preset="ghost"
           onClick={() => {
-            setItems(before.items);
+            // Only this conversation comes back, where it was; replies, stars and reads since stay.
+            setItems((current) =>
+              current.some((item) => item.id === conversation.id)
+                ? current
+                : [...current.slice(0, before.at), conversation, ...current.slice(before.at)],
+            );
             setSelectedId(before.selectedId);
             dismissToast(id);
           }}
@@ -176,14 +181,14 @@ export default function Inbox() {
 
   return (
     <ToastProvider position="bottom-center">
-      <div className="bg-ws-static-background flex h-dvh">
+      <AppShell direction="inset">
         <InboxSidebar id={sidebarId} collapsed={collapsed} onCollapsedChange={setCollapsed} />
         <Page
           sidebarId={sidebarId}
           collapsed={collapsed}
           onToggleSidebar={() => setCollapsed(!collapsed)}
         />
-      </div>
+      </AppShell>
     </ToastProvider>
   );
 }

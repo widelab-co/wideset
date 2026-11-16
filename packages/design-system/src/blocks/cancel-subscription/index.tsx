@@ -1,5 +1,5 @@
 import { RiSideBarLine } from '@remixicon/react';
-import { Breadcrumbs, IconButton, ToastProvider, useToast } from '@wideset/react';
+import { AppShell, Breadcrumbs, IconButton, ToastProvider, useToast } from '@wideset/react';
 import { useEffect, useId, useRef, useState } from 'react';
 
 import { AlternativeOffer } from './alternative-offer';
@@ -40,11 +40,15 @@ function CancelSubscriptionPage() {
     shown.current = outcomeId;
   }, [outcomeId]);
 
+  // Cleared on unmount, so the stand-in request never lands on a closed screen.
+  const timer = useRef<number>(undefined);
+  useEffect(() => () => window.clearTimeout(timer.current), []);
+
   // A timeout stands in for the request; a real screen awaits it and, when it fails, stays on the
   // steps and says so in an InlineAlert above the buttons.
   const decide = (id: OutcomeId) => {
     setSaving(id);
-    setTimeout(() => {
+    timer.current = window.setTimeout(() => {
       setSaving(null);
       setOutcomeId(id);
     }, 800);
@@ -62,7 +66,7 @@ function CancelSubscriptionPage() {
         <h1
           ref={title}
           tabIndex={-1}
-          className="typography-subtitle-md text-ws-static-strong outline-none"
+          className="typography-title-md text-ws-static-strong outline-none"
         >
           {header.title}
         </h1>
@@ -118,13 +122,13 @@ export default function CancelSubscription() {
 
   return (
     <ToastProvider>
-      <div className="bg-ws-static-background flex h-dvh">
+      <AppShell direction="inset">
         <CancelSubscriptionSidebar
           id={sidebarId}
           collapsed={collapsed}
           onCollapsedChange={setCollapsed}
         />
-        <main className="bg-ws-static-foreground rounded-ws-container-lg shadow-ws-low my-ws-7 mr-ws-7 ml-ws-5 flex min-w-0 flex-1 flex-col overflow-hidden">
+        <AppShell.Main>
           <div className="h-ws-18 border-ws-static-base flex shrink-0 items-center border-b">
             {/* The bar belongs to the surround: it runs edge to edge. The sidebar's toggle is
                 pulled left so its glyph, not its box, sits 20px from the edge; the crumbs follow
@@ -158,8 +162,8 @@ export default function CancelSubscription() {
           <div className="min-h-0 flex-1 overflow-y-auto">
             <CancelSubscriptionPage />
           </div>
-        </main>
-      </div>
+        </AppShell.Main>
+      </AppShell>
     </ToastProvider>
   );
 }

@@ -44,7 +44,8 @@ export function PageHeader() {
       <div className="px-ws-11 flex items-center justify-between">
         <Tabs.List aria-label="Views">
           {views.map((view) => (
-            <Tabs.Item key={view.value} value={view.value}>
+            // Only the board has a view so far; the others stay visible but disabled until they do.
+            <Tabs.Item key={view.value} value={view.value} disabled={view.value !== 'board'}>
               <Tabs.Label>{view.label}</Tabs.Label>
             </Tabs.Item>
           ))}

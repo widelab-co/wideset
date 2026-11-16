@@ -34,7 +34,7 @@ export function EventHeader({ actions }: { actions: ReactNode }) {
       <DateLeaf at={event.start} />
       <div className="gap-x-ws-12 gap-y-ws-7 flex flex-wrap items-center justify-between">
         <div className="gap-ws-2 flex min-w-0 flex-col">
-          <h1 className="typography-subtitle-md text-ws-static-strong">{event.name}</h1>
+          <h1 className="typography-title-md text-ws-static-strong">{event.name}</h1>
           <p className="typography-body-md text-ws-static-subtle">{event.summary}</p>
         </div>
         <div className="gap-ws-5 flex flex-wrap items-center">{actions}</div>

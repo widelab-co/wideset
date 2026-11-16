@@ -31,7 +31,7 @@ import { createServer } from 'node:http';
 import { tmpdir } from 'node:os';
 import { dirname, extname, join, sep } from 'node:path';
 
-import { main as wideset } from '../../design-system/cli/cli.mjs';
+import { main as wideset } from '../../cli/src/cli.mjs';
 import { buildRegistry } from '../../design-system/scripts/build-registry.mjs';
 import { grade, parseCase, toolUsage } from '../evals/grade.mjs';
 import { PACKAGE } from './skill-files.mjs';
@@ -40,7 +40,7 @@ const CASES = join(PACKAGE, 'evals/cases');
 const RESULTS = join(PACKAGE, 'evals/results');
 const CREATE_VITE = '9.2.1';
 const TOOLS =
-  'Read,Edit,Write,Glob,Grep,Skill,Task,Bash(npx tsc:*),Bash(npx --no-install tsc:*),Bash(npx --no-install wideset:*),Bash(npx vite:*)';
+  'Read,Edit,Write,Glob,Grep,Skill,Task,Bash(npx tsc:*),Bash(npx --no-install tsc:*),Bash(npx wideset:*),Bash(npx vite:*)';
 const RUN_TIMEOUT = 20 * 60 * 1000;
 
 const args = process.argv.slice(2);

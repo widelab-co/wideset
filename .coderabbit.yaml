@@ -1,0 +1,86 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+# CodeRabbit reviews every pull request first; a maintainer reviews after its threads are resolved
+# (CONTRIBUTING.md). Free for public repositories. Reference: https://docs.coderabbit.ai/reference/configuration
+inheritance: true
+language: en-US
+
+reviews:
+  profile: chill
+  # Request changes on real problems, approve once they are resolved. Its approval does not count
+  # towards the required code-owner approval.
+  request_changes_workflow: true
+
+  # The author writes "Why" in the template; CodeRabbit writes the rest of the description below it.
+  high_level_summary: true
+  high_level_summary_placeholder: '@coderabbitai summary'
+  high_level_summary_instructions: |
+    Summarise the change for a reviewer of a React design system (Radix + Tailwind + CVA,
+    Storybook). Two Markdown sections only:
+
+    ### What changes
+    At most 4 short bullets: components, props, tokens, visual or behaviour changes. Breaking
+    changes first. No file-by-file list.
+
+    ### How to check
+    The Storybook story (Title → Story) or the command that shows the change, one or two lines.
+
+    No other headings, no marketing tone, no emoji.
+
+  collapse_walkthrough: true
+  sequence_diagrams: false
+  changed_files_summary: false
+  related_prs: false
+  suggested_labels: false
+  suggested_reviewers: false
+  poem: false
+
+  auto_review:
+    enabled: true
+    drafts: false
+    base_branches: ['develop', 'main']
+
+  path_filters:
+    - '!**/__snapshots__/**'
+    - '!**/CHANGELOG.md'
+    - '!pnpm-lock.yaml'
+    - '!packages/skills/skills/**/references/**'
+    - '!packages/skills/agents/**'
+    - '!packages/skills/cursor/**'
+    - '!packages/skills/AGENTS.wideset.md'
+    - '!packages/design-system/playground/src/**'
+
+  path_instructions:
+    - path: 'packages/design-system/src/components/**'
+      instructions: |
+        Review against AGENTS.md (Conventions) and the wideset-component-convention skill:
+        composition over configuration, named exports for subcomponents, forwardRef and ...props
+        on the root, data-slot on every part, cn() for className, ws-prefixed design tokens only
+        (no Tailwind scale or palette classes, no raw hex), icons from @remixicon/react,
+        accessibility (native elements, keyboard, visible focus, aria-label on icon-only controls).
+        A change to the API, variants or parts must update the component's spec in
+        packages/design-system/specs/ in the same PR.
+    - path: 'packages/design-system/src/**/*.stories.tsx'
+      instructions: |
+        Follow AGENTS.md (Storybook and tests): Default first, one story per axis, no AllVariants
+        matrices, no `action:` in argTypes, every controllable prop has table.category.
+    - path: 'packages/design-system/src/components/**/examples/**'
+      instructions: |
+        Examples are consumer code printed on the docs site: import from @wideset/react, realistic content, ws tokens, JSDoc first.
+    - path: 'packages/design-system/src/styles/**'
+      instructions: |
+        Generated token files are never hand-edited. Never redefine a Tailwind default in @theme;
+        every new token carries the ws prefix. State the blast radius of a shared utility change.
+    - path: '.github/**'
+      instructions: |
+        No gate removed, no permissions broadened, no secret printed, no continue-on-error.
+
+  pre_merge_checks:
+    description:
+      mode: warning
+    title:
+      mode: 'off'
+    docstrings:
+      mode: 'off'
+
+chat:
+  auto_reply: true

@@ -15,7 +15,7 @@ export function PageHeader({ period, onPeriodChange, range }: PageHeaderProps) {
   return (
     <header className="border-ws-static-subtle px-ws-14 shrink-0 border-b">
       <div className="h-ws-20 gap-ws-9 mx-auto flex w-full max-w-[80rem] items-center justify-between">
-        <h1 className="typography-subtitle-md text-ws-static-strong">Analytics</h1>
+        <h1 className="typography-title-md text-ws-static-strong">Analytics</h1>
         <div className="gap-ws-9 flex items-center">
           <p className="typography-body-md text-ws-static-subtle">{range}</p>
           <SegmentedControl

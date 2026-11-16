@@ -2,7 +2,7 @@
 
 exports[`FormField Snapshots > matches snapshot for default form field 1`] = `
 <div
-  class="flex flex-col gap-[0.375rem]"
+  class="flex gap-ws-4 flex-col"
   data-slot="form-field"
 >
   <div
@@ -28,7 +28,7 @@ exports[`FormField Snapshots > matches snapshot for default form field 1`] = `
     </div>
   </div>
   <div
-    class="flex flex-col gap-[0.375rem]"
+    class="gap-ws-4 flex flex-col"
   >
     <div
       aria-describedby="_r_i_"
@@ -36,7 +36,7 @@ exports[`FormField Snapshots > matches snapshot for default form field 1`] = `
       Child
     </div>
     <span
-      class="typography-body-sm gap-ws-3 flex items-center text-ws-static-subtle"
+      class="typography-body-sm gap-ws-3 py-ws-3 flex items-center text-ws-static-subtle"
       data-slot="helper-text"
       id="_r_i_"
     >
@@ -52,7 +52,7 @@ exports[`FormField Snapshots > matches snapshot for horizontal variant 1`] = `
   data-slot="form-field"
 >
   <div
-    class="gap-ws-5 flex w-full max-w-[10rem] shrink-0 flex-col"
+    class="gap-ws-4 flex w-full max-w-[10rem] shrink-0 flex-col"
   >
     <div
       class="gap-ws-3 flex flex-wrap items-start w-fit"
@@ -73,7 +73,7 @@ exports[`FormField Snapshots > matches snapshot for horizontal variant 1`] = `
       </div>
     </div>
     <span
-      class="typography-body-sm gap-ws-3 flex items-center text-ws-static-subtle"
+      class="typography-body-sm gap-ws-3 py-ws-3 flex items-center text-ws-static-subtle"
       data-slot="helper-text"
       id="_r_j_"
     >
@@ -81,7 +81,7 @@ exports[`FormField Snapshots > matches snapshot for horizontal variant 1`] = `
     </span>
   </div>
   <div
-    class="flex flex-col gap-[0.375rem] min-w-0 flex-1"
+    class="gap-ws-4 flex flex-col min-w-0 flex-1"
   >
     <div
       aria-describedby="_r_j_"
@@ -94,7 +94,7 @@ exports[`FormField Snapshots > matches snapshot for horizontal variant 1`] = `
 
 exports[`FormField Snapshots > matches snapshot with error and icon 1`] = `
 <div
-  class="flex flex-col gap-[0.375rem]"
+  class="flex gap-ws-4 flex-col"
   data-slot="form-field"
 >
   <div
@@ -120,7 +120,7 @@ exports[`FormField Snapshots > matches snapshot with error and icon 1`] = `
     </div>
   </div>
   <div
-    class="flex flex-col gap-[0.375rem]"
+    class="gap-ws-4 flex flex-col"
   >
     <div
       aria-describedby="_r_l_"
@@ -129,9 +129,10 @@ exports[`FormField Snapshots > matches snapshot with error and icon 1`] = `
       Child
     </div>
     <span
-      class="typography-body-sm gap-ws-3 flex items-center text-ws-semantic-negative"
+      class="typography-body-sm gap-ws-3 py-ws-3 flex items-center text-ws-semantic-negative"
       data-slot="helper-text"
       id="_r_l_"
+      role="alert"
     >
       <svg
         aria-hidden="true"
@@ -155,7 +156,7 @@ exports[`FormField Snapshots > matches snapshot with error and icon 1`] = `
 
 exports[`FormField Snapshots > matches snapshot with fieldset 1`] = `
 <fieldset
-  class="flex flex-col gap-[0.375rem]"
+  class="flex gap-ws-4 flex-col"
   data-slot="form-field"
 >
   <div
@@ -181,7 +182,7 @@ exports[`FormField Snapshots > matches snapshot with fieldset 1`] = `
     </div>
   </div>
   <div
-    class="flex flex-col gap-[0.375rem]"
+    class="gap-ws-4 flex flex-col"
   >
     <div>
       Child

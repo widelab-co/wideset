@@ -1,5 +1,6 @@
 import { RiSideBarLine } from '@remixicon/react';
 import {
+  AppShell,
   Breadcrumbs,
   Button,
   cn,
@@ -8,7 +9,7 @@ import {
   ToastProvider,
   useToast,
 } from '@wideset/react';
-import { useId, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 
 import { channels, initialDraft, type ProductDraft, type Status } from './data';
 import { DetailsSection } from './details-section';
@@ -74,6 +75,10 @@ function ProductFormPage({ layout, collapsed, onToggleSidebar, sidebarId }: Page
   const missing = FIELD_ORDER.filter((field) => errors[field]);
   const update = (patch: Partial<ProductDraft>) => setDraft({ ...draft, ...patch });
 
+  // Cleared on unmount, so the stand-in request never lands on a closed screen.
+  const timer = useRef<number>(undefined);
+  useEffect(() => () => window.clearTimeout(timer.current), []);
+
   // A timeout stands in for the request; a real screen awaits it and, when it fails, keeps every
   // field as it was and says so in an InlineAlert above the form.
   function save(publishing: boolean) {
@@ -84,7 +89,7 @@ function ProductFormPage({ layout, collapsed, onToggleSidebar, sidebarId }: Page
 
     const name = draft.name.trim();
     setPending(publishing ? 'publish' : 'draft');
-    setTimeout(() => {
+    timer.current = window.setTimeout(() => {
       setPending(null);
       setAttempt(null);
       setSavedName(name);
@@ -281,7 +286,7 @@ export default function ProductForm({ layout = 'split' }: { layout?: ProductForm
   // over the empty end of the bar above the page.
   return (
     <ToastProvider position={layout === 'centered' ? 'top-right' : 'bottom-center'}>
-      <div className="bg-ws-static-background flex h-dvh">
+      <AppShell direction="inset">
         <ProductFormSidebar id={sidebarId} collapsed={collapsed} onCollapsedChange={setCollapsed} />
         <ProductFormPage
           layout={layout}
@@ -289,7 +294,7 @@ export default function ProductForm({ layout = 'split' }: { layout?: ProductForm
           onToggleSidebar={() => setCollapsed(!collapsed)}
           sidebarId={sidebarId}
         />
-      </div>
+      </AppShell>
     </ToastProvider>
   );
 }

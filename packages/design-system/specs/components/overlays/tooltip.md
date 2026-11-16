@@ -5,7 +5,7 @@ group: overlays
 status: stable
 parts: [Tooltip, TooltipTrigger, TooltipContent, TooltipLabel, TooltipDescription, TooltipPortal]
 related: [Popup, FormField, IconButton]
-docs: https://wideset-docs.widelab.workers.dev/components/tooltip
+docs: https://wideset.co/components/tooltip
 storybook: components-tooltip--default
 ---
 
@@ -94,5 +94,5 @@ Each `Tooltip` brings its own provider; no app-level wrapper is needed.
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/tooltip.md` · Types:
+Full props: `https://wideset.co/components/tooltip.md` · Types:
 `packages/design-system/src/components/tooltip/Tooltip.types.ts`

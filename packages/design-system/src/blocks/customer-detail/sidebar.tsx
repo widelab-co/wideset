@@ -32,7 +32,7 @@ export function CustomerSidebar() {
   );
 
   return (
-    <Sidebar surface="frame">
+    <Sidebar>
       <Sidebar.Header>
         <div className="gap-ws-9 flex flex-col">
           <div className="gap-ws-7 pt-ws-3 pb-ws-7 flex items-center">
@@ -87,8 +87,14 @@ export function CustomerSidebar() {
         <Sidebar.Expanded>
           <nav aria-label="Workspace" className="gap-ws-9 flex flex-col">
             <div className="flex flex-col">{mainLinks.map(link)}</div>
-            <Sidebar.Group label="Records">{recordLinks.map(link)}</Sidebar.Group>
-            <Sidebar.Group label="Insights">{insightLinks.map(link)}</Sidebar.Group>
+            <div role="group" aria-labelledby="sidebar-records" className="gap-ws-2 flex flex-col">
+              <Sidebar.SectionHeader id="sidebar-records">Records</Sidebar.SectionHeader>
+              {recordLinks.map(link)}
+            </div>
+            <div role="group" aria-labelledby="sidebar-insights" className="gap-ws-2 flex flex-col">
+              <Sidebar.SectionHeader id="sidebar-insights">Insights</Sidebar.SectionHeader>
+              {insightLinks.map(link)}
+            </div>
           </nav>
         </Sidebar.Expanded>
       </Sidebar.Section>

@@ -1,5 +1,5 @@
 import { Button, FormField, Modal, Select, TextInput } from '@wideset/react';
-import { useId, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 
 import { formatAmount, formatUsd, parseAmount } from './format';
 
@@ -152,11 +152,15 @@ export function RefundDialog({ open, onOpenChange, order, onConfirm }: RefundDia
   const id = useId();
   const [pending, setPending] = useState(false);
 
+  // Cleared on unmount, so the stand-in request never lands on a closed screen.
+  const timer = useRef<number>(undefined);
+  useEffect(() => () => window.clearTimeout(timer.current), []);
+
   // A timeout stands in for the request; a real screen awaits it and shows an InlineAlert in the
   // body if it fails, keeping the dialog open.
   function refund(amount: number, reason: string) {
     setPending(true);
-    setTimeout(() => {
+    timer.current = window.setTimeout(() => {
       setPending(false);
       onConfirm(amount, reason);
     }, 800);

@@ -401,7 +401,7 @@ export const Composition: Story = {
     docs: {
       description: {
         story:
-          'The Clients screen from Figma: typed column headers whose chevron opens a sort menu (`sortDirection` on the sorted column), row numbers that turn into checkboxes once a row is selected, links in cells, and add-row and add-column buttons. The last column has no width, so it takes the rest of the row and the grid lines run to the edge. The column summary row of the Figma screen (type, mini chart, value count) is screen content, left out here.',
+          'The Clients screen from Figma: typed column headers whose chevron opens a sort menu (`sortDirection` on the sorted column), row numbers that turn into checkboxes on hover, with focus in the row, or once a row is selected, links in cells, and add-row and add-column buttons. The last column has no width, so it takes the rest of the row and the grid lines run to the edge. The column summary row of the Figma screen (type, mini chart, value count) is screen content, left out here.',
       },
     },
   },
@@ -478,17 +478,26 @@ export const Composition: Story = {
         </Spreadsheet.Head>
         <Spreadsheet.Body>
           {rows.map((client, index) => (
-            <Spreadsheet.Row key={client.id}>
+            <Spreadsheet.Row key={client.id} className="group/row">
               <Spreadsheet.RowHeader>
-                {selected.length ? (
-                  <Checkbox
-                    aria-label={`Select ${client.name}`}
-                    checked={selected.includes(client.id)}
-                    onCheckedChange={() => toggle(client.id)}
-                  />
-                ) : (
-                  index
-                )}
+                {/* The number, or the checkbox: on hover, with focus in the row, or once any is selected. */}
+                <span
+                  className={cn(
+                    selected.length
+                      ? 'hidden'
+                      : 'group-focus-within/row:hidden group-hover/row:hidden',
+                  )}
+                >
+                  {index}
+                </span>
+                <Checkbox
+                  aria-label={`Select ${client.name}`}
+                  checked={selected.includes(client.id)}
+                  onCheckedChange={() => toggle(client.id)}
+                  className={cn(
+                    !selected.length && 'hidden group-focus-within/row:flex group-hover/row:flex',
+                  )}
+                />
               </Spreadsheet.RowHeader>
               {COLUMNS.map(({ key }) => (
                 <ClientCell key={key} client={client} column={key} />

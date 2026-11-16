@@ -12,7 +12,7 @@ export function PageHeader() {
   return (
     <header className="gap-ws-12 flex flex-wrap items-center justify-between">
       <div className="gap-ws-2 flex min-w-0 flex-col">
-        <h1 className="typography-subtitle-md text-ws-static-strong">Customers</h1>
+        <h1 className="typography-title-md text-ws-static-strong">Customers</h1>
         <p className="typography-body-md text-ws-static-subtle">
           Everyone Lumen Studio sells to, with their plan, health and owner.
         </p>

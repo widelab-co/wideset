@@ -58,7 +58,13 @@ export function KanbanSidebar() {
         ))}
       </div>
       {spaceGroups.map((group) => (
-        <Sidebar.Group key={group.label} label={group.label}>
+        <div
+          key={group.id}
+          role="group"
+          aria-labelledby={`sidebar-${group.id}`}
+          className="gap-ws-2 flex flex-col"
+        >
+          <Sidebar.SectionHeader id={`sidebar-${group.id}`}>{group.label}</Sidebar.SectionHeader>
           {group.spaces.map((space) => (
             <Sidebar.Item
               key={space.id}
@@ -69,7 +75,7 @@ export function KanbanSidebar() {
               onClick={() => setActive(space.id)}
             />
           ))}
-        </Sidebar.Group>
+        </div>
       ))}
     </nav>
   );
@@ -111,10 +117,7 @@ export function KanbanSidebar() {
         </Sidebar.Collapsed>
       </Sidebar.Header>
 
-      <Sidebar.Section scrollable>
-        <Sidebar.Expanded>{links}</Sidebar.Expanded>
-        <Sidebar.Collapsed>{links}</Sidebar.Collapsed>
-      </Sidebar.Section>
+      <Sidebar.Section scrollable>{links}</Sidebar.Section>
 
       <Sidebar.Footer>
         <Sidebar.Expanded>

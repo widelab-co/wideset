@@ -1,6 +1,6 @@
 # Foundations in short
 
-The shared rules behind every screen. Token lists and scales are on the docs site: [tokens](https://wideset-docs.widelab.workers.dev/docs/tokens.md), [colors](https://wideset-docs.widelab.workers.dev/docs/colors.md), [spacing](https://wideset-docs.widelab.workers.dev/docs/spacing.md), [typography](https://wideset-docs.widelab.workers.dev/docs/typography.md), [icons](https://wideset-docs.widelab.workers.dev/docs/icons.md), [theming](https://wideset-docs.widelab.workers.dev/docs/theming.md).
+The shared rules behind every screen. Token lists and scales are on the docs site: [tokens](https://wideset.co/docs/tokens.md), [colors](https://wideset.co/docs/colors.md), [spacing](https://wideset.co/docs/spacing.md), [typography](https://wideset.co/docs/typography.md), [icons](https://wideset.co/docs/icons.md), [theming](https://wideset.co/docs/theming.md).
 
 ## Choosing a token
 

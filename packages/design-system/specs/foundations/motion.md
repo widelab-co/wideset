@@ -4,7 +4,7 @@ Components animate out of the box (press, hover tint, menus, modals, toasts, fie
 read every duration, easing, distance and scale from `--ws-motion-*` tokens. Reduced motion is
 handled by the tokens themselves, so there is nothing to set up.
 
-Docs: `https://wideset-docs.widelab.workers.dev/docs/motion` · Source:
+Docs: `https://wideset.co/docs/motion` · Source:
 `packages/design-system/src/styles/utilities/motion.css`, `packages/design-system/src/motion/`
 
 ## Tokens

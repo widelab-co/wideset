@@ -44,6 +44,6 @@
   --font-ws-heading: var(--font-ws-sans);
   --font-ws-body: var(--font-ws-sans);
   --font-ws-mono:
-    'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
+    'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
     'Courier New', monospace;
 }

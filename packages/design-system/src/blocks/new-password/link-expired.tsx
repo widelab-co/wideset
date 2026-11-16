@@ -32,7 +32,7 @@ export function LinkExpired({ onSent }: { onSent: () => void }) {
           ref={title}
           id={`${id}-title`}
           tabIndex={-1}
-          className="typography-subtitle-lg text-ws-static-strong outline-none"
+          className="typography-title-md text-ws-static-strong outline-none"
         >
           This link has expired
         </h1>

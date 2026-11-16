@@ -46,7 +46,7 @@ export function BillingSidebar() {
   );
 
   return (
-    <Sidebar surface="frame">
+    <Sidebar>
       <Sidebar.Header>
         <div className="gap-ws-9 flex flex-col">
           <div className="gap-ws-7 pt-ws-3 pb-ws-7 flex items-center">
@@ -102,7 +102,10 @@ export function BillingSidebar() {
           <nav aria-label="Workspace" className="gap-ws-9 flex flex-col">
             <div className="flex flex-col">{mainLinks.map(link)}</div>
             <Divider weight="thin" />
-            <Sidebar.Group label="Settings">{settingsLinks.map(link)}</Sidebar.Group>
+            <div role="group" aria-labelledby="sidebar-settings" className="gap-ws-2 flex flex-col">
+              <Sidebar.SectionHeader id="sidebar-settings">Settings</Sidebar.SectionHeader>
+              {settingsLinks.map(link)}
+            </div>
           </nav>
         </Sidebar.Expanded>
       </Sidebar.Section>

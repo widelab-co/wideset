@@ -35,7 +35,7 @@ function ProposalPage({ file }: { file: FileItem }) {
         <span>Proposal · November 2026</span>
       </div>
       <div className="gap-ws-3 flex flex-col">
-        <h3 className="typography-subtitle-md">A proposal for {file.subject}</h3>
+        <h3 className="typography-title-sm">A proposal for {file.subject}</h3>
         <p className="typography-body-md text-ws-static-inverse-subtle">
           Prepared by {PEOPLE[file.owner].name}, Lumen Studio
         </p>
@@ -117,7 +117,7 @@ function ChartImage({ file }: { file: FileItem }) {
   return (
     <div className={cn(PAPER, 'p-ws-20 gap-ws-16 flex flex-col')}>
       <div className="gap-ws-3 flex flex-col">
-        <h3 className="typography-subtitle-md">{file.subject}</h3>
+        <h3 className="typography-title-sm">{file.subject}</h3>
         <p className="typography-body-md text-ws-static-inverse-subtle">{chart.note}</p>
       </div>
       <svg viewBox="0 0 1040 520" className="w-full flex-1" aria-hidden="true">

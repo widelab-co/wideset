@@ -21,7 +21,7 @@ export function ConfirmationHeader() {
         <RiCheckLine aria-hidden="true" className="size-ws-12" />
       </span>
       <div className="gap-ws-2 flex flex-col">
-        <h1 className="typography-subtitle-md text-ws-static-strong">
+        <h1 className="typography-title-md text-ws-static-strong">
           {workspace.name} is now on {order.plan.name}
         </h1>
         <p className="typography-body-md text-ws-static-subtle tabular-nums">

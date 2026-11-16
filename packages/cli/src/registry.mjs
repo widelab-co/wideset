@@ -4,7 +4,7 @@
   only reads its index and hands item addresses to the shadcn CLI.
 */
 
-export const DEFAULT_REGISTRY = 'https://wideset-docs.widelab.workers.dev/r';
+export const DEFAULT_REGISTRY = 'https://wideset.co/r';
 export const NAMESPACE = '@wideset';
 
 export class CliError extends Error {}

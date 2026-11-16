@@ -32,7 +32,7 @@ export function SignedOut({
       >
         <BrandMark className="size-ws-15" />
         <div className="gap-ws-3 flex flex-col">
-          <h1 id={titleId} className="typography-subtitle-md text-ws-static-strong">
+          <h1 id={titleId} className="typography-title-md text-ws-static-strong">
             Signed out
           </h1>
           <p role="status" className="typography-body-md text-ws-static-subtle">

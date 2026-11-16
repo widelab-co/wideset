@@ -8,10 +8,10 @@ import { account, navigation, savedLists, workspace } from './data';
 import { PersonAvatar } from './person-avatar';
 
 /**
- * The workspace sidebar: product, workspace switcher, pages, saved lists and the account. `surface`
- * follows the screen's direction: `page` in Flat, `tinted` in Frame, `frame` in Inset and Canvas.
+ * The workspace sidebar: product, workspace switcher, pages, saved lists and the account. Its surface
+ * comes from the screen's `AppShell direction`.
  */
-export function CustomersSidebar({ surface }: { surface?: 'page' | 'tinted' | 'frame' }) {
+export function CustomersSidebar() {
   const [active, setActive] = useState('customers');
 
   const links = (
@@ -28,7 +28,8 @@ export function CustomersSidebar({ surface }: { surface?: 'page' | 'tinted' | 'f
           />
         ))}
       </div>
-      <Sidebar.Group label="Lists">
+      <div role="group" aria-labelledby="sidebar-lists" className="gap-ws-2 flex flex-col">
+        <Sidebar.SectionHeader id="sidebar-lists">Lists</Sidebar.SectionHeader>
         {savedLists.map((list) => (
           <Sidebar.Item
             key={list.id}
@@ -39,12 +40,12 @@ export function CustomersSidebar({ surface }: { surface?: 'page' | 'tinted' | 'f
             onClick={() => setActive(list.id)}
           />
         ))}
-      </Sidebar.Group>
+      </div>
     </nav>
   );
 
   return (
-    <Sidebar surface={surface}>
+    <Sidebar>
       <Sidebar.Header>
         <Sidebar.Expanded>
           <div className="gap-ws-7 flex flex-col">
@@ -80,10 +81,7 @@ export function CustomersSidebar({ surface }: { surface?: 'page' | 'tinted' | 'f
         </Sidebar.Collapsed>
       </Sidebar.Header>
 
-      <Sidebar.Section scrollable>
-        <Sidebar.Expanded>{links}</Sidebar.Expanded>
-        <Sidebar.Collapsed>{links}</Sidebar.Collapsed>
-      </Sidebar.Section>
+      <Sidebar.Section scrollable>{links}</Sidebar.Section>
 
       <Sidebar.Footer>
         <Sidebar.Expanded>

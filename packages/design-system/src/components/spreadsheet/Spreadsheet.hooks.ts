@@ -13,8 +13,10 @@ import { useSpreadsheetContext } from './Spreadsheet.context';
 import {
   CELL_ATTRIBUTE,
   CELL_SELECTOR,
+  cellAt,
   cellFor,
-  firstControl,
+  columnOf,
+  focusFirstControl,
   rowsPerPage,
   tabbables,
   usesArrowKeys,
@@ -70,52 +72,131 @@ export const useSpreadsheetCell = () => {
 };
 
 /**
- * Keeps the grid in step with its rows as they come and go: one cell is always the tab stop, the
- * first `stickyColumns` cells of every row stay pinned (each at the width of the pinned cells
- * before it, measured on the first row), and `focus()` scrolls a cell clear of the pinned header
- * and columns.
+ * Keeps the grid in step with its rows as they come and go: one cell is always the tab stop (when
+ * the active cell's row or cell goes away, the cell now in its place takes over, and takes focus
+ * if the removed one had it), the first `stickyColumns` cells of every row stay pinned (each at
+ * the width of the pinned cells before it, measured on the first row), and `focus()` scrolls a
+ * cell clear of the pinned header and columns.
  */
 export const useSpreadsheetLayout = (
   scrollerRef: RefObject<HTMLDivElement | null>,
   tableRef: RefObject<HTMLTableElement | null>,
   stickyColumns: number,
   store: ActiveCellStore,
+  focusWithin: RefObject<boolean>,
 ) => {
   useLayoutEffect(() => {
     const scroller = scrollerRef.current;
     const table = tableRef.current;
     if (!scroller || !table) return;
 
+    // Where the active cell sits, so that the cell taking its place can be found once it is gone.
+    let place: { row: number; column: number } | null = null;
+    const remember = () => {
+      const cell = findCell(table, store.get().id);
+      const row = cell?.parentElement;
+      if (cell && row instanceof HTMLTableRowElement)
+        place = { row: row.rowIndex, column: columnOf(cell as HTMLTableCellElement) };
+    };
+    const successor = () => {
+      const { rows } = table;
+      if (place && rows.length) {
+        const row = rows[Math.min(place.row, rows.length - 1)];
+        const cell = cellAt(row, place.column) ?? row.cells[row.cells.length - 1];
+        if (cell?.hasAttribute(CELL_ATTRIBUTE)) return cell;
+      }
+      return table.querySelector<HTMLElement>(CELL_SELECTOR);
+    };
+
     const sync = () => {
-      if (!findCell(table, store.get().id)) {
-        const first = table.querySelector<HTMLElement>(CELL_SELECTOR);
-        store.set(first?.getAttribute(CELL_ATTRIBUTE) ?? null, false);
+      const active = store.get();
+      if (!findCell(table, active.id)) {
+        const next = successor();
+        const { activeElement, body } = table.ownerDocument;
+        // The removed cell (or a control in it) had focus, which the browser dropped on the body.
+        const lostFocus = focusWithin.current && (!activeElement || activeElement === body);
+        store.set(next?.getAttribute(CELL_ATTRIBUTE) ?? null, active.selected);
+        if (lostFocus) next?.focus();
       }
 
-      const widths = Array.from(table.rows[0]?.cells ?? [])
-        .slice(0, stickyColumns)
-        .map((cell) => cell.getBoundingClientRect().width);
+      // Where each pinned column starts. Every cell over the leading columns says how far apart
+      // the column edges it spans are; edges follow from the first one (0) until every pinned
+      // column's start is known, rows read only as far as needed. An edge no cell pins down is
+      // spread evenly between the known ones around it.
+      const edges: (number | undefined)[] = [0];
+      // One measured cell per distinct span: rows repeat the same few, so a long grid costs a
+      // walk over its leading cells, not a measurement or a propagation per row.
+      const spans = new Map<string, { start: number; end: number; width: number }>();
+      const measured: HTMLTableCellElement[] = [];
+      const known = () => {
+        for (let column = 1; column <= stickyColumns; column++)
+          if (edges[column] === undefined) return false;
+        return true;
+      };
       for (const row of Array.from(table.rows)) {
-        let left = 0;
-        Array.from(row.cells).forEach((cell, index) => {
-          if (index < stickyColumns) {
+        if (known()) break;
+        let column = 0;
+        let added = false;
+        for (const cell of Array.from(row.cells)) {
+          if (column >= stickyColumns) break;
+          const key = `${column}:${cell.colSpan}`;
+          if (!spans.has(key)) {
+            spans.set(key, {
+              start: column,
+              end: column + cell.colSpan,
+              width: cell.getBoundingClientRect().width,
+            });
+            measured.push(cell);
+            added = true;
+          }
+          column += cell.colSpan;
+        }
+        for (let changed = added; changed;) {
+          changed = false;
+          for (const { start, end, width } of spans.values()) {
+            const [from, to] = [edges[start], edges[end]];
+            if (from !== undefined && to === undefined) edges[end] = from + width;
+            else if (to !== undefined && from === undefined) edges[start] = to - width;
+            else continue;
+            changed = true;
+          }
+        }
+      }
+      for (let column = 1; column <= stickyColumns; column++) {
+        if (edges[column] !== undefined) continue;
+        const before = column - 1;
+        let after = column + 1;
+        while (after < edges.length && edges[after] === undefined) after++;
+        const [from, to] = [edges[before] ?? 0, edges[after]];
+        edges[column] = to === undefined ? from : from + (to - from) / (after - before);
+      }
+      const offset = (column: number) => edges[column] ?? 0;
+
+      for (const row of Array.from(table.rows)) {
+        let column = 0;
+        for (const cell of Array.from(row.cells)) {
+          if (column < stickyColumns) {
             cell.setAttribute('data-sticky', '');
-            cell.style.left = `${left}px`;
-            left += widths[index] ?? 0;
+            cell.style.left = `${offset(column)}px`;
           } else if (cell.hasAttribute('data-sticky')) {
             cell.removeAttribute('data-sticky');
             cell.style.left = '';
           }
-        });
+          column += cell.colSpan;
+        }
       }
+      // A pinned column can change width without the table changing size (a class on its header).
+      measured.forEach((cell) => resizeObserver.observe(cell));
 
       scroller.style.scrollPaddingTop = `${table.tHead?.offsetHeight ?? 0}px`;
-      scroller.style.scrollPaddingLeft = `${widths.reduce((sum, width) => sum + width, 0)}px`;
+      scroller.style.scrollPaddingLeft = `${offset(stickyColumns)}px`;
+      remember();
     };
 
-    sync();
-    const resizeObserver = new ResizeObserver(sync);
+    const resizeObserver = new ResizeObserver(() => sync());
     resizeObserver.observe(table);
+    sync();
+    const unsubscribe = store.subscribe(remember);
     // Rows and cells added or removed; what changes inside a cell does not move the grid.
     const mutationObserver = new MutationObserver((records) => {
       if (
@@ -129,17 +210,19 @@ export const useSpreadsheetLayout = (
     mutationObserver.observe(table, { childList: true, subtree: true });
 
     return () => {
+      unsubscribe();
       resizeObserver.disconnect();
       mutationObserver.disconnect();
     };
-  }, [scrollerRef, tableRef, stickyColumns, store]);
+  }, [scrollerRef, tableRef, stickyColumns, store, focusWithin]);
 };
 
 /**
  * Keyboard and focus for the grid (the APG grid pattern). Arrows, Home and End, Ctrl/Cmd+Home and
  * End, Page Up and Page Down move the active cell, which takes focus. Enter or F2 moves focus to
- * the first control in the cell; Escape or F2 brings it back. The grid is one tab stop: Tab leaves
- * it whatever the cells hold, and tabbing back returns to the cell the user left.
+ * the first control in the cell, Tab between the cell's controls; Escape or F2 brings it back.
+ * The grid is one tab stop: past the cell's controls Tab leaves it whatever the other cells hold,
+ * and tabbing back returns to the cell the user left.
  */
 export const useSpreadsheetKeyboard = (
   scrollerRef: RefObject<HTMLDivElement | null>,
@@ -151,6 +234,10 @@ export const useSpreadsheetKeyboard = (
   // True while the grid hands focus to its first or last control, so that the browser's own Tab
   // continues from there out of the grid.
   const leaving = useRef(false);
+  // Whether focus is in the grid (portals included), for the layout to hand focus on when the
+  // focused cell is removed.
+  const focusWithin = useRef(false);
+  const blurTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   useEffect(() => {
     const onKey = (event: globalThis.KeyboardEvent) => {
@@ -164,10 +251,27 @@ export const useSpreadsheetKeyboard = (
     return () => {
       document.removeEventListener('keydown', onKey, true);
       document.removeEventListener('pointerdown', onPointer, true);
+      clearTimeout(blurTimer.current);
     };
   }, []);
 
+  const onBlur = (event: FocusEvent<HTMLTableElement>) => {
+    const target = event.target as Node;
+    clearTimeout(blurTimer.current);
+    if (event.relatedTarget) {
+      // Focus moves on; if it stays in the grid, onFocus sets the flag again.
+      focusWithin.current = false;
+      return;
+    }
+    // Focus that goes with its element (the row was removed) is still the grid's to hand on;
+    // focus lost to nothing (a click on the page, another window) leaves the element in place.
+    blurTimer.current = setTimeout(() => {
+      if (target.isConnected) focusWithin.current = false;
+    });
+  };
+
   const onFocus = (event: FocusEvent<HTMLTableElement>) => {
+    focusWithin.current = true;
     const table = event.currentTarget;
     const target = event.target as HTMLElement;
     // Focus from a portal (an open menu) reaches the table through React; it is not in a cell.
@@ -192,13 +296,35 @@ export const useSpreadsheetKeyboard = (
     if (!cell) return;
 
     if (event.key === 'Tab') {
-      const stops = tabbables(table);
-      const edge = event.shiftKey ? stops[0] : stops[stops.length - 1];
-      if (edge && edge !== target) {
-        leaving.current = true;
-        edge.focus({ preventScroll: true });
-        leaving.current = false;
+      // From a control, Tab and Shift+Tab first move between the controls of the same cell,
+      // skipping those that do not take focus (hidden ones).
+      if (target !== cell) {
+        const controls = tabbables(cell);
+        const index = controls.indexOf(target);
+        const after = event.shiftKey
+          ? controls.slice(0, Math.max(index, 0)).reverse()
+          : controls.slice(index + 1);
+        if (index !== -1) {
+          for (const control of after) {
+            control.focus();
+            if (table.ownerDocument.activeElement === control) {
+              event.preventDefault();
+              return;
+            }
+          }
+        }
       }
+      // Hand focus to the grid's last (first) control that takes it, skipping hidden ones, so
+      // the browser's Tab continues from there out of the grid.
+      const stops = tabbables(table);
+      if (!event.shiftKey) stops.reverse();
+      leaving.current = true;
+      for (const stop of stops) {
+        if (stop === target) break;
+        stop.focus({ preventScroll: true });
+        if (table.ownerDocument.activeElement === stop) break;
+      }
+      leaving.current = false;
       return;
     }
 
@@ -211,11 +337,7 @@ export const useSpreadsheetKeyboard = (
       }
       if (usesArrowKeys(target)) return;
     } else if (event.key === 'Enter' || event.key === 'F2') {
-      const control = firstControl(cell);
-      if (control) {
-        event.preventDefault();
-        control.focus();
-      }
+      if (focusFirstControl(cell)) event.preventDefault();
       return;
     } else if (event.key === ' ') {
       // Space would scroll the grid.
@@ -231,5 +353,5 @@ export const useSpreadsheetKeyboard = (
     next.focus();
   };
 
-  return { onFocus, onKeyDown };
+  return { focusWithin, onBlur, onFocus, onKeyDown };
 };

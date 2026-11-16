@@ -61,9 +61,11 @@ const hasToc = (frame && !gallery) || Astro.slots.has('toc');
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title} — Wideset</title>
     <meta name="description" content={description} />
-    {/* The workers.dev address is temporary; a custom domain (DOCS_URL) is indexed. */}
+    {/* Builds for workers.dev (develop, previews) stay out of search results. */}
     {Astro.site?.hostname.endsWith('.workers.dev') && <meta name="robots" content="noindex" />}
-    <link rel="icon" href="/favicon.png" />
+    {/* The production origin is reachable on workers.dev too; wideset.co is the address to index. */}
+    <link rel="canonical" href={new URL(pathname === '/' ? '/' : pathname, Astro.site)} />
+    <link rel="icon" href="/_docs/favicon.png" />
     <script is:inline define:vars={{ THEME_KEY, RADIUS_KEY }}>
       // Appearance before first paint. Same keys and rules as src/lib/theme.ts and radius.ts.
       try {

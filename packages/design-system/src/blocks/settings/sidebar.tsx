@@ -76,7 +76,7 @@ export function AppSidebar({ workspaceName, email }: { workspaceName: string; em
   );
 
   return (
-    <Sidebar surface="tinted">
+    <Sidebar>
       <Sidebar.Header>
         <Sidebar.Expanded>
           <div className="gap-ws-7 py-ws-3 pl-ws-5 flex items-center">
@@ -95,10 +95,7 @@ export function AppSidebar({ workspaceName, email }: { workspaceName: string; em
         </Sidebar.Collapsed>
       </Sidebar.Header>
 
-      <Sidebar.Section scrollable>
-        <Sidebar.Expanded>{nav}</Sidebar.Expanded>
-        <Sidebar.Collapsed>{nav}</Sidebar.Collapsed>
-      </Sidebar.Section>
+      <Sidebar.Section scrollable>{nav}</Sidebar.Section>
 
       <Sidebar.Footer>
         <Sidebar.Expanded>

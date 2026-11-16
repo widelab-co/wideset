@@ -32,7 +32,7 @@ export function RecordHeader() {
         />
         <div className="gap-ws-2 flex min-w-0 flex-col">
           <div className="gap-ws-7 flex items-center">
-            <h1 className="typography-subtitle-md text-ws-static-strong">{customer.name}</h1>
+            <h1 className="typography-title-md text-ws-static-strong">{customer.name}</h1>
             {/* Active is a healthy state, so it takes the positive colour. */}
             <StatusBadge size="lg" color="positive">
               {customer.status}

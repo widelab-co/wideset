@@ -9,7 +9,7 @@ import { formatUsd } from './format';
 export function PageHeader() {
   return (
     <header className="gap-ws-2 flex min-w-0 flex-col">
-      <h1 className="typography-subtitle-md text-ws-static-strong">Referrals</h1>
+      <h1 className="typography-title-md text-ws-static-strong">Referrals</h1>
       <p className="typography-body-md text-ws-static-subtle tabular-nums">
         Earn {formatUsd(programme.reward)} in credit for each team that subscribes to {product.name}{' '}
         through your link.

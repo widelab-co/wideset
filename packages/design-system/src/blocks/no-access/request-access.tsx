@@ -35,7 +35,7 @@ export function RequestAccess() {
       <StateIcon icon={sent ? RiMailCheckLine : RiLock2Line} />
 
       <div aria-live="polite" className="gap-ws-3 flex flex-col">
-        <h1 className="typography-subtitle-md text-ws-static-strong">
+        <h1 className="typography-title-md text-ws-static-strong">
           {sent ? 'Access requested' : 'You don’t have access to this report'}
         </h1>
         <p className="typography-body-md text-ws-static-base">

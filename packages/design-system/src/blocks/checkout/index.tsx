@@ -1,6 +1,6 @@
 import { RiSideBarLine } from '@remixicon/react';
-import { Breadcrumbs, cn, IconButton } from '@wideset/react';
-import { useId, useState } from 'react';
+import { AppShell, Breadcrumbs, cn, IconButton } from '@wideset/react';
+import { useEffect, useId, useRef, useState } from 'react';
 
 import { BillingDetails } from './billing-details';
 import { BillingPeriod } from './billing-period';
@@ -46,6 +46,10 @@ export default function Checkout() {
 
   const totals = priceOrder({ seats, addOnIds, interval, promo, vatNumber: details.vatNumber });
 
+  // Cleared on unmount, so the stand-in request never lands on a closed screen.
+  const timer = useRef<number>(undefined);
+  useEffect(() => () => window.clearTimeout(timer.current), []);
+
   // A timeout stands in for the charge; a real screen awaits it and, when the bank declines,
   // says why at the card and leaves the order as it was.
   function pay() {
@@ -56,13 +60,13 @@ export default function Checkout() {
       if (first) return document.getElementById(`${cardId}-${first}`)?.focus();
     }
     setPayment('paying');
-    setTimeout(() => setPayment('paid'), 1200);
+    timer.current = window.setTimeout(() => setPayment('paid'), 1200);
   }
 
   return (
-    <div className="bg-ws-static-background flex h-dvh">
+    <AppShell direction="inset">
       <CheckoutSidebar id={sidebarId} collapsed={collapsed} onCollapsedChange={setCollapsed} />
-      <main className="bg-ws-static-foreground rounded-ws-container-lg shadow-ws-low my-ws-7 mr-ws-7 ml-ws-5 flex min-w-0 flex-1 flex-col overflow-hidden">
+      <AppShell.Main>
         <div className="h-ws-18 border-ws-static-base flex shrink-0 items-center border-b">
           {/* The bar belongs to the surround: it runs edge to edge. The sidebar's toggle is pulled
               left so its glyph, not its box, sits 20px from the edge; the crumbs follow it. */}
@@ -95,9 +99,7 @@ export default function Checkout() {
         <div className="min-h-0 flex-1 overflow-y-auto">
           <div className={cn(COLUMN, 'gap-ws-14 pt-ws-14 pb-ws-16 flex flex-col')}>
             <header className="gap-ws-2 flex flex-col">
-              <h1 className="typography-subtitle-md text-ws-static-strong">
-                Upgrade to {plan.name}
-              </h1>
+              <h1 className="typography-title-md text-ws-static-strong">Upgrade to {plan.name}</h1>
               <p className="typography-body-md text-ws-static-subtle">
                 {payment === 'paid'
                   ? `${workspace.name} moved from ${subscription.plan} to ${plan.name} today.`
@@ -151,7 +153,7 @@ export default function Checkout() {
             </div>
           </div>
         </div>
-      </main>
-    </div>
+      </AppShell.Main>
+    </AppShell>
   );
 }

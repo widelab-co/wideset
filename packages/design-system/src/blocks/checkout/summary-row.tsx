@@ -37,7 +37,7 @@ export function SummaryRow({ label, detail, amount, strong }: SummaryRowProps) {
         className={cn(
           'shrink-0 tabular-nums',
           strong
-            ? 'typography-subtitle-md text-ws-static-strong'
+            ? 'typography-title-sm text-ws-static-strong'
             : 'typography-body-md text-ws-static-base',
         )}
       >

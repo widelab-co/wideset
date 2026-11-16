@@ -1,4 +1,4 @@
-import { Toast, ToastProvider, useToast } from '@wideset/react';
+import { AppShell, Toast, ToastProvider, useToast } from '@wideset/react';
 import { useState } from 'react';
 
 import { ChatList } from './chat-list';
@@ -11,6 +11,7 @@ import { CommunicationSidebar } from './sidebar';
 function Panels() {
   const { showToast, dismissToast } = useToast();
   const [details, setDetails] = useState(true);
+  const [note, setNote] = useState('');
 
   const archive = () => {
     const id = showToast({
@@ -31,7 +32,14 @@ function Panels() {
         onArchive={archive}
         onShowDetails={details ? undefined : () => setDetails(true)}
       />
-      {details && <ContactPanel onClose={() => setDetails(false)} onArchive={archive} />}
+      {details && (
+        <ContactPanel
+          onClose={() => setDetails(false)}
+          onArchive={archive}
+          note={note}
+          onNoteChange={setNote}
+        />
+      )}
     </main>
   );
 }
@@ -40,10 +48,10 @@ function Panels() {
 export default function Communication() {
   return (
     <ToastProvider position="bottom-center">
-      <div className="bg-ws-static-foreground flex h-dvh">
+      <AppShell direction="frame">
         <CommunicationSidebar />
         <Panels />
-      </div>
+      </AppShell>
     </ToastProvider>
   );
 }

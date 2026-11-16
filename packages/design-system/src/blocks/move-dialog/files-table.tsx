@@ -88,7 +88,20 @@ export function FilesTable({
           {folders.map((folder) => (
             <Table.Row key={folder.id} onClick={() => onOpenFolder(folder.id)}>
               <Table.Cell />
-              <Table.Cell>{name('folder', folder.name)}</Table.Cell>
+              <Table.Cell>
+                {/* The row opens on a click; the name is the keyboard's way in (Tab, Enter, Space). */}
+                <button
+                  type="button"
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    onOpenFolder(folder.id);
+                  }}
+                  aria-label={`Open ${folder.name}`}
+                  className="rounded-ws-control-sm focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default block max-w-full cursor-pointer text-left"
+                >
+                  {name('folder', folder.name)}
+                </button>
+              </Table.Cell>
               <Table.Cell>{owner(folder.owner)}</Table.Cell>
               <Table.Cell>{modified(folder.modified)}</Table.Cell>
               <Table.Cell align="right">

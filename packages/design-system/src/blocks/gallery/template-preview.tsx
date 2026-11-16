@@ -4,7 +4,7 @@ import { cn } from '@wideset/react';
 import type { Kind } from './data';
 
 const PAPER = 'bg-ws-static-foreground border-ws-static-subtle border rounded-ws-control-md';
-const LINE = 'bg-ws-static-alpha-strong h-ws-2 rounded-full';
+const LINE = 'bg-ws-static-alpha-strong h-ws-2 rounded-ws-control-full';
 
 /** Bar heights for the report's chart, as a share of its height. */
 const BARS = [
@@ -53,7 +53,7 @@ function Sequence({ compact }: { compact: boolean }) {
     <div className="gap-ws-5 absolute inset-x-[16%] top-1/2 flex -translate-y-1/2 flex-col">
       {Array.from({ length: steps }, (_, step) => (
         <div key={step} className={cn(PAPER, 'gap-ws-5 px-ws-5 py-ws-4 flex items-center')}>
-          <div className="size-ws-7 bg-ws-static-alpha-base shrink-0 rounded-full" />
+          <div className="size-ws-7 bg-ws-static-alpha-base rounded-ws-control-full shrink-0" />
           <div className="gap-ws-3 flex flex-1 flex-col">
             <div className={cn(LINE, step === 0 ? 'w-3/5' : 'w-1/2')} />
             {!compact && <div className={cn(LINE, 'bg-ws-static-alpha-base w-4/5')} />}

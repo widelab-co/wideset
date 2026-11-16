@@ -24,7 +24,7 @@ export function KeyFigure({ label, value, note, action, className }: KeyFigurePr
       <div className="gap-ws-3 flex flex-col">
         <p className="typography-label-sm text-ws-static-subtle">{label}</p>
         <div className="gap-ws-9 flex items-center justify-between">
-          <p className="typography-subtitle-md text-ws-static-strong tabular-nums">{value}</p>
+          <p className="typography-title-md text-ws-static-strong tabular-nums">{value}</p>
           {action}
         </div>
       </div>

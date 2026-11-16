@@ -179,7 +179,10 @@ export const MONTHLY_VOLUME = [
 
 export const MONTHLY_PERIOD = { from: '2026-01-06', to: '2026-02-10' };
 
-/** `share` is the bar length, relative to the largest card type. */
+/**
+ * `share` is the bar length as Figma draws it, relative to the largest card type; Figma's lengths
+ * do not follow the amounts. With real data, derive it: `amount / Math.max(...amounts)`.
+ */
 export const CARD_TYPES = [
   { name: 'Visa', amount: 1_500.31, share: 1, color: 'blue' },
   { name: 'Mastercard', amount: 489.3, share: 0.51, color: 'green' },

@@ -65,7 +65,8 @@ export function AssistantPanel({ onApply }: AssistantPanelProps) {
     setTurns((current) => current.map((turn) => (turn.id === id ? change(turn) : turn)));
 
   const ask = (text: string) => {
-    const answer = answers[text] ?? fallback;
+    // Own keys only: a question like "toString" must not find an inherited function.
+    const answer = Object.prototype.hasOwnProperty.call(answers, text) ? answers[text] : fallback;
     const id = `a${turns.length}`;
     setTurns([
       ...turns,
@@ -93,7 +94,7 @@ export function AssistantPanel({ onApply }: AssistantPanelProps) {
   return (
     <aside
       aria-label="Assistant"
-      className="bg-ws-static-foreground rounded-ws-container-lg shadow-ws-low my-ws-7 mr-ws-7 ml-ws-7 flex w-[26rem] shrink-0 flex-col overflow-hidden"
+      className="bg-ws-static-foreground rounded-ws-container-lg shadow-ws-low my-ws-7 mr-ws-7 flex w-[26rem] shrink-0 flex-col overflow-hidden"
     >
       <header className="h-ws-18 border-ws-static-base px-ws-11 gap-ws-5 flex shrink-0 items-center justify-between border-b">
         <h2 className="typography-label-strong-md text-ws-static-strong gap-ws-5 flex items-center">

@@ -50,6 +50,21 @@ const place = ({ start, length }: { start: number; length: number }): CSSPropert
   width: length * WEEK,
 });
 
+/** A point on the timeline as a date a screen reader can say ("Feb 12"); the bars show it only by position. */
+const dateAt = (weeks: number) => {
+  const month = Math.min(Math.floor(weeks / WEEKS_PER_MONTH), MONTHS.length - 1);
+  const inMonth = weeks - month * WEEKS_PER_MONTH;
+  const week = Math.min(Math.floor(inMonth), WEEK_STARTS.length - 1);
+  const day = Math.min(Math.round(WEEK_STARTS[week] + (inMonth - week) * 7), 31);
+  return `${MONTHS[month].slice(0, 3)} ${day}`;
+};
+const spanLabel = ({ start, length }: { start: number; length: number }) =>
+  `${dateAt(start)} to ${dateAt(start + length)}`;
+
+/** A person's load in words: when they are busy and when they pause. */
+const loadLabel = (marks: Mark[]) =>
+  marks.map((mark) => `${mark.kind === 'break' ? 'paused' : 'busy'} ${spanLabel(mark)}`).join(', ');
+
 type Row = { kind: 'member'; member: Member } | { kind: 'task'; task: Task };
 
 /** The people table and their work on a timeline of months; a task opens in the side panel. */
@@ -226,7 +241,7 @@ function MemberCells({
       <button
         type="button"
         aria-expanded={expanded}
-        aria-label={`${member.name}’s tasks`}
+        aria-label={`${member.name}’s tasks, ${loadLabel(member.marks)}`}
         onClick={onToggle}
         className={cn(ROW, 'absolute inset-0')}
       />
@@ -289,7 +304,7 @@ function TimelineMark({
     return title ? (
       <button
         type="button"
-        aria-label={title}
+        aria-label={`${title}, ${spanLabel(mark)}, ${Math.round(mark.progress * 100)}% done`}
         onClick={onOpen}
         className={cn(box, GREY, FOCUS)}
         style={place(mark)}
@@ -318,6 +333,7 @@ function TimelineMark({
       style={place(mark)}
     >
       {title}
+      <span className="sr-only">, {spanLabel(mark)}</span>
       {mark.done ? (
         <>
           <RiCheckboxCircleFill

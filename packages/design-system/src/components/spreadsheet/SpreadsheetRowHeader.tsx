@@ -24,7 +24,7 @@ export const SpreadsheetRowHeader = React.forwardRef<
       data-slot="spreadsheet-row-header"
       {...props}
       {...cell}
-      className={cn(spreadsheetCellVariants({ size, align }), 'text-ws-static-subtle', className)}
+      className={cn(spreadsheetCellVariants({ size, align, part: 'rowHeader' }), className)}
     >
       {content}
     </th>

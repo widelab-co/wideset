@@ -16,7 +16,7 @@ export function DateLeaf({ at }: { at: string }) {
       className="border-ws-static-base rounded-ws-container-md py-ws-4 flex w-[3.5rem] shrink-0 flex-col items-center border"
     >
       <span className="typography-caption-strong-md text-ws-static-subtle">{month}</span>
-      <span className="typography-subtitle-md text-ws-static-strong tabular-nums">{day}</span>
+      <span className="typography-title-sm text-ws-static-strong tabular-nums">{day}</span>
     </div>
   );
 }

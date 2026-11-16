@@ -19,7 +19,7 @@ export function FlowNode({
   step: Step;
   selected: boolean;
   onSelect: () => void;
-  onDeleteKey: () => void;
+  onDeleteKey: (id: string) => void;
 }) {
   const { label, icon: Icon, summary } = STEP_TYPES[step.kind];
   const complete = isComplete(step);
@@ -34,7 +34,7 @@ export function FlowNode({
       onKeyDown={(event) => {
         if (event.key !== 'Delete' && event.key !== 'Backspace') return;
         event.preventDefault();
-        onDeleteKey();
+        onDeleteKey(step.id);
       }}
       className={cn(
         'p-ws-7 gap-ws-7 rounded-ws-container-md bg-ws-static-foreground flex w-[18rem] shrink-0 items-center border text-left',

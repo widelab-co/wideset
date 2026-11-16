@@ -13,8 +13,8 @@ import { CardMedia } from './CardMedia';
 import { CardTitle } from './CardTitle';
 
 export const Card = React.forwardRef<HTMLDivElement, CardProps>(
-  ({ variant, className, children, ...props }, ref) => (
-    <CardContext.Provider value={{ variant }}>
+  ({ variant, divider = false, className, children, ...props }, ref) => (
+    <CardContext.Provider value={{ variant, divider }}>
       <div
         ref={ref}
         data-slot="card"

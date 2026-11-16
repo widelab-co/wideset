@@ -163,10 +163,9 @@ exports[`Avatar > Snapshots > should match snapshot for avatar with Icon 1`] = `
     data-slot="avatar"
   >
     <div
-      aria-label="Default User Icon"
+      aria-hidden="true"
       class="bg-ws-static-alpha-base text-ws-static-base relative box-border inline-flex shrink-0 items-center justify-center object-cover typography-label-strong-sm h-ws-14 w-ws-14 [&_svg]:size-ws-9 [--mask-edge:0.5px] [--mask-position:6px] [--mask-radius:6px] rounded-full"
       data-slot="avatar-icon"
-      role="img"
     >
       <svg
         class="remixicon "
@@ -197,10 +196,9 @@ exports[`Avatar > Snapshots > should match snapshot for avatar with status 1`] =
       style="z-index: 3;"
     >
       <div
-        aria-label="Default User Icon"
+        aria-hidden="true"
         class="bg-ws-static-alpha-base text-ws-static-base relative box-border inline-flex shrink-0 items-center justify-center object-cover typography-caption-strong-sm h-ws-11 w-ws-11 [&_svg]:size-ws-7 [--mask-edge:0.5px] [--mask-position:5px] [--mask-radius:4px] rounded-full mask-[radial-gradient(circle_at_calc(100%-var(--mask-position))_calc(100%-var(--mask-position)),transparent_var(--mask-radius),black_calc(var(--mask-radius)_+_var(--mask-edge)))] [-webkit-mask-image:radial-gradient(circle_at_calc(100%-var(--mask-position))_calc(100%-var(--mask-position)),transparent_var(--mask-radius),black_calc(var(--mask-radius)_+_var(--mask-edge)))]"
         data-slot="avatar-icon"
-        role="img"
       >
         <svg
           aria-hidden="true"
@@ -234,10 +232,9 @@ exports[`Avatar > Snapshots > should match snapshot for avatar with status 1`] =
       style="z-index: 2;"
     >
       <div
-        aria-label="Default User Icon"
+        aria-hidden="true"
         class="bg-ws-static-alpha-base text-ws-static-base relative box-border inline-flex shrink-0 items-center justify-center object-cover typography-caption-strong-sm h-ws-11 w-ws-11 [&_svg]:size-ws-7 [--mask-edge:0.5px] [--mask-position:5px] [--mask-radius:4px] rounded-full mask-[radial-gradient(circle_at_calc(100%-var(--mask-position))_calc(100%-var(--mask-position)),transparent_var(--mask-radius),black_calc(var(--mask-radius)_+_var(--mask-edge)))] [-webkit-mask-image:radial-gradient(circle_at_calc(100%-var(--mask-position))_calc(100%-var(--mask-position)),transparent_var(--mask-radius),black_calc(var(--mask-radius)_+_var(--mask-edge)))]"
         data-slot="avatar-icon"
-        role="img"
       >
         <svg
           aria-hidden="true"
@@ -271,10 +268,9 @@ exports[`Avatar > Snapshots > should match snapshot for avatar with status 1`] =
       style="z-index: 1;"
     >
       <div
-        aria-label="Default User Icon"
+        aria-hidden="true"
         class="bg-ws-static-alpha-base text-ws-static-base relative box-border inline-flex shrink-0 items-center justify-center object-cover typography-caption-strong-sm h-ws-11 w-ws-11 [&_svg]:size-ws-7 [--mask-edge:0.5px] [--mask-position:5px] [--mask-radius:4px] rounded-full mask-[radial-gradient(circle_at_calc(100%-var(--mask-position))_calc(100%-var(--mask-position)),transparent_var(--mask-radius),black_calc(var(--mask-radius)_+_var(--mask-edge)))] [-webkit-mask-image:radial-gradient(circle_at_calc(100%-var(--mask-position))_calc(100%-var(--mask-position)),transparent_var(--mask-radius),black_calc(var(--mask-radius)_+_var(--mask-edge)))]"
         data-slot="avatar-icon"
-        role="img"
       >
         <svg
           aria-hidden="true"

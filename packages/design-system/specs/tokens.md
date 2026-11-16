@@ -72,12 +72,12 @@ the class: `--ws-static-fill-container` → `bg-ws-static-container`, `--ws-stat
 
 1. Decide the family (interactive? status? category? else static) and the property (`bg`,
    `text`, `border`).
-2. Check the name on the [colors page](https://wideset-docs.widelab.workers.dev/docs/colors), which lists every
+2. Check the name on the [colors page](https://wideset.co/docs/colors), which lists every
    colour class once.
 3. Size, radius and type classes: `theme-desktop-semantic.css`. Shadows: `utilities/shadow.css`.
    Z-index: `utilities/z-index.css`. Type composites: `utilities/typography.css`.
 4. Values per theme: `theme-light-tokens.css`, `theme-dark-tokens.css`; ramps in
-   `theme-base-tokens.css`. Visual list: https://wideset-docs.widelab.workers.dev/docs/colors
+   `theme-base-tokens.css`. Visual list: https://wideset.co/docs/colors
 5. Nothing fits? Use a role variable in arbitrary syntax, `bg-(--ws-static-fill-container)`.
    A Figma value with no token is a Figma bug to report, not a hex to hard-code.
 

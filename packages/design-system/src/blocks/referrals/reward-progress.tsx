@@ -36,7 +36,7 @@ export function RewardProgress({
           {label}
         </p>
         <p className="gap-ws-5 flex items-baseline tabular-nums">
-          <span className="typography-subtitle-md text-ws-static-strong">{value}</span>
+          <span className="typography-title-sm text-ws-static-strong">{value}</span>
           <span className="typography-body-md text-ws-static-subtle">
             of {target} {unit}
           </span>

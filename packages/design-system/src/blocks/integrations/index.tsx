@@ -1,5 +1,5 @@
 import { RiSideBarLine } from '@remixicon/react';
-import { Breadcrumbs, Button, cn, IconButton, Tabs } from '@wideset/react';
+import { AppShell, Breadcrumbs, Button, cn, IconButton, Tabs } from '@wideset/react';
 import { useId, useState } from 'react';
 
 import { AppPanel } from './app-panel';
@@ -23,32 +23,17 @@ import { IntegrationsSidebar } from './sidebar';
 type Filter = Category | 'all';
 
 /**
- * The surround of each visual direction (specs/patterns/directions.md). An app picks one and keeps
- * it on every screen; this screen carries three only to show that the page inside stays the same.
- * Copy the one your app uses.
+ * The visual directions (specs/patterns/directions.md), each one `<AppShell direction>`. An app
+ * picks one and keeps it on every screen; this screen takes three only to show that the page
+ * inside stays the same. The top bar's line: the base line on Inset's raised card, as every Inset
+ * screen has it, the subtle one on the page's white.
  */
-const SURROUND = {
-  flat: {
-    root: 'bg-ws-static-foreground',
-    sidebar: 'page',
-    main: '',
-    bar: 'border-ws-static-subtle',
-  },
-  frame: {
-    root: 'bg-ws-static-foreground',
-    sidebar: 'tinted',
-    main: '',
-    bar: 'border-ws-static-subtle',
-  },
-  // On the raised card the bar takes the base line, as every Inset screen does.
-  inset: {
-    root: 'bg-ws-static-background',
-    sidebar: 'frame',
-    main: 'bg-ws-static-foreground rounded-ws-container-lg shadow-ws-low my-ws-7 mr-ws-7 ml-ws-5 overflow-hidden',
-    bar: 'border-ws-static-base',
-  },
+const BAR_LINE = {
+  flat: 'border-ws-static-subtle',
+  frame: 'border-ws-static-subtle',
+  inset: 'border-ws-static-base',
 } as const;
-export type Direction = keyof typeof SURROUND;
+export type Direction = keyof typeof BAR_LINE;
 
 const inView = (app: App, category: Filter, query: string) =>
   (category === 'all' || app.category === category) &&
@@ -61,7 +46,6 @@ const inView = (app: App, category: Filter, query: string) =>
  * panel with what the app may access, and connecting moves it up to Connected.
  */
 export default function Integrations({ direction = 'flat' }: { direction?: Direction }) {
-  const surround = SURROUND[direction];
   const availableId = useId();
   const sidebarId = useId();
   const [collapsed, setCollapsed] = useState(false);
@@ -118,17 +102,12 @@ export default function Integrations({ direction = 'flat' }: { direction?: Direc
   const categoryLabel = CATEGORIES.find((entry) => entry.value === category)!.label;
 
   return (
-    <div className={cn(surround.root, 'flex h-dvh')}>
-      <IntegrationsSidebar
-        id={sidebarId}
-        surface={surround.sidebar}
-        collapsed={collapsed}
-        onCollapsedChange={setCollapsed}
-      />
-      <main className={cn(surround.main, 'flex min-w-0 flex-1 flex-col')}>
+    <AppShell direction={direction}>
+      <IntegrationsSidebar id={sidebarId} collapsed={collapsed} onCollapsedChange={setCollapsed} />
+      <AppShell.Main className="flex flex-col">
         {/* The bar belongs to the surround: it runs edge to edge. The sidebar's toggle is pulled
             left so its glyph, not its box, sits 20px from the edge; the crumbs follow it. */}
-        <div className={cn(surround.bar, 'h-ws-18 flex shrink-0 items-center border-b')}>
+        <div className={cn(BAR_LINE[direction], 'h-ws-18 flex shrink-0 items-center border-b')}>
           <div className="gap-ws-5 px-ws-11 flex w-full items-center">
             <IconButton
               icon={RiSideBarLine}
@@ -221,7 +200,7 @@ export default function Integrations({ direction = 'flat' }: { direction?: Direc
             </div>
           </div>
         </div>
-      </main>
+      </AppShell.Main>
 
       {panel && panelApp && (
         <AppPanel
@@ -234,6 +213,6 @@ export default function Integrations({ direction = 'flat' }: { direction?: Direc
           onSyncChange={(syncing) => setSyncing(panelApp, syncing)}
         />
       )}
-    </div>
+    </AppShell>
   );
 }

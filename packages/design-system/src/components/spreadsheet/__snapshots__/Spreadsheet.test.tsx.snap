@@ -9,6 +9,7 @@ exports[`Spreadsheet > Rendering > matches the snapshot 1`] = `
   <table
     aria-label="Clients"
     class="w-full table-fixed border-separate border-spacing-0 bg-inherit tabular-nums"
+    data-slot="spreadsheet-grid"
     role="grid"
   >
     <thead
@@ -75,7 +76,7 @@ exports[`Spreadsheet > Rendering > matches the snapshot 1`] = `
       >
         <th
           aria-selected="false"
-          class="typography-body-sm truncate align-middle border-ws-static-subtle border-r border-b first:border-l [thead>tr:first-child>&]:border-t bg-(--spreadsheet-tint) data-sticky:z-ws-mask data-sticky:sticky data-sticky:bg-inherit data-sticky:bg-[linear-gradient(var(--spreadsheet-tint),var(--spreadsheet-tint))] aria-selected:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-default)] aria-selected:hover:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-hover)] aria-selected:active:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-pressed)] outline-ws-dynamic-primary-strong-default focus-visible:outline-2 focus-visible:-outline-offset-2 h-ws-14 px-ws-5 [--spreadsheet-tint:var(--ws-dynamic-fill-secondary-alpha-default)] hover:[--spreadsheet-tint:var(--ws-dynamic-fill-secondary-alpha-hover)] active:[--spreadsheet-tint:var(--ws-dynamic-fill-secondary-alpha-pressed)] text-center text-ws-static-subtle"
+          class="typography-body-sm truncate align-middle border-ws-static-subtle border-r border-b first:border-l [thead>tr:first-child>&]:border-t bg-(--spreadsheet-tint) data-sticky:z-ws-mask data-sticky:sticky data-sticky:bg-inherit data-sticky:bg-[linear-gradient(var(--spreadsheet-tint),var(--spreadsheet-tint))] aria-selected:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-default)] aria-selected:hover:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-hover)] aria-selected:active:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-pressed)] outline-ws-dynamic-primary-strong-default focus-visible:outline-2 focus-visible:-outline-offset-2 h-ws-14 px-ws-5 [--spreadsheet-tint:var(--ws-dynamic-fill-secondary-alpha-default)] hover:[--spreadsheet-tint:var(--ws-dynamic-fill-secondary-alpha-hover)] active:[--spreadsheet-tint:var(--ws-dynamic-fill-secondary-alpha-pressed)] text-ws-static-subtle text-center"
           data-slot="spreadsheet-row-header"
           data-spreadsheet-cell="_r_1k_"
           data-sticky=""
@@ -125,7 +126,7 @@ exports[`Spreadsheet > Rendering > matches the snapshot 1`] = `
       >
         <th
           aria-selected="false"
-          class="typography-body-sm truncate align-middle border-ws-static-subtle border-r border-b first:border-l [thead>tr:first-child>&]:border-t bg-(--spreadsheet-tint) data-sticky:z-ws-mask data-sticky:sticky data-sticky:bg-inherit data-sticky:bg-[linear-gradient(var(--spreadsheet-tint),var(--spreadsheet-tint))] aria-selected:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-default)] aria-selected:hover:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-hover)] aria-selected:active:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-pressed)] outline-ws-dynamic-primary-strong-default focus-visible:outline-2 focus-visible:-outline-offset-2 h-ws-14 px-ws-5 [--spreadsheet-tint:var(--ws-dynamic-fill-secondary-alpha-default)] hover:[--spreadsheet-tint:var(--ws-dynamic-fill-secondary-alpha-hover)] active:[--spreadsheet-tint:var(--ws-dynamic-fill-secondary-alpha-pressed)] text-center text-ws-static-subtle"
+          class="typography-body-sm truncate align-middle border-ws-static-subtle border-r border-b first:border-l [thead>tr:first-child>&]:border-t bg-(--spreadsheet-tint) data-sticky:z-ws-mask data-sticky:sticky data-sticky:bg-inherit data-sticky:bg-[linear-gradient(var(--spreadsheet-tint),var(--spreadsheet-tint))] aria-selected:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-default)] aria-selected:hover:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-hover)] aria-selected:active:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-pressed)] outline-ws-dynamic-primary-strong-default focus-visible:outline-2 focus-visible:-outline-offset-2 h-ws-14 px-ws-5 [--spreadsheet-tint:var(--ws-dynamic-fill-secondary-alpha-default)] hover:[--spreadsheet-tint:var(--ws-dynamic-fill-secondary-alpha-hover)] active:[--spreadsheet-tint:var(--ws-dynamic-fill-secondary-alpha-pressed)] text-ws-static-subtle text-center"
           data-slot="spreadsheet-row-header"
           data-spreadsheet-cell="_r_1o_"
           data-sticky=""
@@ -175,7 +176,7 @@ exports[`Spreadsheet > Rendering > matches the snapshot 1`] = `
       >
         <th
           aria-selected="false"
-          class="typography-body-sm truncate align-middle border-ws-static-subtle border-r border-b first:border-l [thead>tr:first-child>&]:border-t bg-(--spreadsheet-tint) data-sticky:z-ws-mask data-sticky:sticky data-sticky:bg-inherit data-sticky:bg-[linear-gradient(var(--spreadsheet-tint),var(--spreadsheet-tint))] aria-selected:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-default)] aria-selected:hover:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-hover)] aria-selected:active:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-pressed)] outline-ws-dynamic-primary-strong-default focus-visible:outline-2 focus-visible:-outline-offset-2 h-ws-14 px-ws-5 [--spreadsheet-tint:var(--ws-dynamic-fill-secondary-alpha-default)] hover:[--spreadsheet-tint:var(--ws-dynamic-fill-secondary-alpha-hover)] active:[--spreadsheet-tint:var(--ws-dynamic-fill-secondary-alpha-pressed)] text-center text-ws-static-subtle"
+          class="typography-body-sm truncate align-middle border-ws-static-subtle border-r border-b first:border-l [thead>tr:first-child>&]:border-t bg-(--spreadsheet-tint) data-sticky:z-ws-mask data-sticky:sticky data-sticky:bg-inherit data-sticky:bg-[linear-gradient(var(--spreadsheet-tint),var(--spreadsheet-tint))] aria-selected:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-default)] aria-selected:hover:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-hover)] aria-selected:active:[--spreadsheet-tint:var(--ws-dynamic-fill-primary-alpha-strong-pressed)] outline-ws-dynamic-primary-strong-default focus-visible:outline-2 focus-visible:-outline-offset-2 h-ws-14 px-ws-5 [--spreadsheet-tint:var(--ws-dynamic-fill-secondary-alpha-default)] hover:[--spreadsheet-tint:var(--ws-dynamic-fill-secondary-alpha-hover)] active:[--spreadsheet-tint:var(--ws-dynamic-fill-secondary-alpha-pressed)] text-ws-static-subtle text-center"
           data-slot="spreadsheet-row-header"
           data-spreadsheet-cell="_r_1s_"
           data-sticky=""

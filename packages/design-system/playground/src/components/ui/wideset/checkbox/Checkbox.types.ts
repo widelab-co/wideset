@@ -11,6 +11,8 @@ import type { CheckboxLabel } from './CheckboxLabel';
 export type CheckboxContextType = {
   disabled?: boolean;
   id?: string;
+  descriptionId?: string;
+  onDescriptionIdChange?: (id: string | undefined) => void;
 };
 
 type CheckboxPropsBase = React.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root> &

@@ -29,7 +29,7 @@ export function KpiCard({ label, value, progress, target, remaining, className }
     >
       <div className="gap-ws-3 flex min-w-0 flex-col">
         <p className="typography-label-sm text-ws-static-subtle">{label}</p>
-        <p className="typography-subtitle-md text-ws-static-strong tabular-nums">{value}</p>
+        <p className="typography-title-md text-ws-static-strong tabular-nums">{value}</p>
       </div>
       <div className="gap-ws-5 flex flex-col">
         <ProgressBar

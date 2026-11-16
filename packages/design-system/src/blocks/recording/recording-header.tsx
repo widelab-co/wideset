@@ -38,7 +38,7 @@ export function RecordingHeader() {
   return (
     <header className="gap-ws-12 flex flex-wrap items-center justify-between">
       <div className="gap-ws-3 flex min-w-0 flex-col">
-        <h1 className="typography-subtitle-md text-ws-static-strong">{call.title}</h1>
+        <h1 className="typography-title-md text-ws-static-strong">{call.title}</h1>
         <div className="typography-body-md text-ws-static-subtle gap-ws-5 flex flex-wrap items-center">
           <span className="gap-ws-5 flex items-center">
             <Avatar.Group size="xs" className="w-fit shrink-0">

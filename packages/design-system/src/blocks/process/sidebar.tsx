@@ -57,7 +57,8 @@ export function ProcessSidebar() {
           />
         ))}
       </div>
-      <Sidebar.Group label="Shortcuts">
+      <div role="group" aria-labelledby="sidebar-shortcuts" className="gap-ws-2 flex flex-col">
+        <Sidebar.SectionHeader id="sidebar-shortcuts">Shortcuts</Sidebar.SectionHeader>
         {shortcuts.map((shortcut) => (
           <Sidebar.Item
             key={shortcut.id}
@@ -68,7 +69,7 @@ export function ProcessSidebar() {
             onClick={() => setActive(shortcut.id)}
           />
         ))}
-      </Sidebar.Group>
+      </div>
     </nav>
   );
 
@@ -91,10 +92,7 @@ export function ProcessSidebar() {
         </Sidebar.Collapsed>
       </Sidebar.Header>
 
-      <Sidebar.Section scrollable>
-        <Sidebar.Expanded>{links}</Sidebar.Expanded>
-        <Sidebar.Collapsed>{links}</Sidebar.Collapsed>
-      </Sidebar.Section>
+      <Sidebar.Section scrollable>{links}</Sidebar.Section>
     </Sidebar>
   );
 }

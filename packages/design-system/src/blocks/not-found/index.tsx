@@ -18,7 +18,7 @@ export default function NotFound() {
         <div className="gap-ws-12 flex w-full flex-col">
           <div className="gap-ws-3 flex flex-col">
             <p className="typography-label-sm text-ws-static-subtle">Error 404</p>
-            <h1 className="typography-subtitle-md text-ws-static-strong">Page not found</h1>
+            <h1 className="typography-title-md text-ws-static-strong">Page not found</h1>
             <p className="typography-body-md text-ws-static-base">
               There’s no page at this address: it was moved or deleted, or the link has a typo.
             </p>

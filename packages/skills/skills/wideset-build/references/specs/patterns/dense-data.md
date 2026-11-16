@@ -13,7 +13,7 @@ the dense grid; `Table` stays the default for records read a row at a time.
 
 A whole screen starts from the `spreadsheet` starting point (Wideset Core's Clients table: view
 tools, column summaries, row selection, a status bar), its code at
-`https://wideset-docs.widelab.workers.dev/blocks/spreadsheet.md`.
+`https://wideset.co/blocks/spreadsheet.md`.
 
 ## Is the screen spreadsheet-like?
 

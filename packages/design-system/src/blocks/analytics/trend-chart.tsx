@@ -60,6 +60,10 @@ export function TrendChart({
   const line = (values: number[]) =>
     values.map((value, index) => `${index ? 'L' : 'M'}${x(index)} ${y(value)}`).join('');
   const last = current.length - 1;
+  // The drawing is hidden from screen readers; this is its text: the totals, the peak, every day.
+  const sum = (values: number[]) => values.reduce((total, value) => total + value, 0);
+  const peak = current.indexOf(Math.max(...current));
+  const number = (value: number) => value.toLocaleString('en-US');
 
   return (
     <section aria-labelledby={`${id}-title`} className={cn('gap-ws-11 flex flex-col', className)}>
@@ -167,6 +171,29 @@ export function TrendChart({
             ))}
           </svg>
         </div>
+        <figcaption className="sr-only">
+          {currentLabel}: {number(sum(current))} in total, the most on {formatDay(dates[peak])} (
+          {number(current[peak])}). {previousLabel}: {number(sum(previous))} in total.
+        </figcaption>
+        <table className="sr-only">
+          <caption>{title} by day</caption>
+          <thead>
+            <tr>
+              <th scope="col">Day</th>
+              <th scope="col">{currentLabel}</th>
+              <th scope="col">{previousLabel}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {dates.map((date, index) => (
+              <tr key={date}>
+                <th scope="row">{formatDay(date)}</th>
+                <td>{number(current[index])}</td>
+                <td>{previous[index] === undefined ? '' : number(previous[index])}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </figure>
     </section>
   );

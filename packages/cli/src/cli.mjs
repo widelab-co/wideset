@@ -46,6 +46,7 @@ Usage
 Options
   --overwrite         add: replace files that already exist (your edits to them are lost)
   --dry-run           init, skills: print what would change, change nothing
+  --no-font           init, add: keep the project's own font instead of adding Inter
   --claude            skills: also install for Claude Code, even with no CLAUDE.md or .claude/
   --json              info: print JSON
   --registry <url>    init, list, skills: use another Wideset registry, e.g. a preview deploy
@@ -61,6 +62,7 @@ function parseArgs(argv) {
     overwrite: false,
     all: false,
     dryRun: false,
+    font: true,
     claude: false,
     json: false,
     help: false,
@@ -78,6 +80,7 @@ function parseArgs(argv) {
     else if (arg === '--overwrite' || arg === '-o') opts.overwrite = true;
     else if (arg === '--all' || arg === '-a') opts.all = true;
     else if (arg === '--dry-run') opts.dryRun = true;
+    else if (arg === '--no-font') opts.font = false;
     else if (arg === '--claude') opts.claude = true;
     else if (arg === '--json') opts.json = true;
     else if (arg === '--registry') opts.registry = value();
@@ -219,6 +222,55 @@ async function init(ctx, { nested = false } = {}) {
     );
   }
 
+  // 5. Font. Inter in a project set up for the first time. One that already has a components.json
+  //    is left alone, so removing the file or its import sticks; one that brought its own font
+  //    keeps it. A registry without the item (an older one, or a deploy in progress) is a warning.
+  const fontSpecifier = '@/styles/wideset-font.css';
+  const fontPath = `${project.srcDir === '.' ? '' : `${project.srcDir}/`}styles/wideset-font.css`;
+  const hasFontFile = existsSync(join(cwd, fontPath));
+  // An entry that defines --font-ws-sans itself: next/font's `variable: '--font-ws-sans'`, as the
+  //    installation guide shows, or a `--font-ws-sans:` declaration. A `var(--font-ws-sans)` read
+  //    does not count: it loads nothing.
+  const entryText = project.entry ? readFileSync(join(cwd, project.entry), 'utf8') : '';
+  const ownFontVariable =
+    !hasFontFile && /variable:\s*['"`]--font-ws-sans['"`]|--font-ws-sans\s*:/.test(entryText);
+  if (!opts.font) {
+    say(false, 'font: left as it is (--no-font)');
+  } else if (existing) {
+    say(false, 'font: left as it is');
+  } else if (!hasFontFile && project.fontPackages.length) {
+    say(false, `font: kept yours (${project.fontPackages.join(', ')})`);
+  } else if (ownFontVariable) {
+    say(false, `font: kept yours (${project.entry} sets --font-ws-sans)`);
+  } else {
+    let added = hasFontFile;
+    if (!hasFontFile) {
+      try {
+        if (!dryRun) await runShadcn(['add', '--yes', '--silent', `${NAMESPACE}/font`], { cwd });
+        added = true;
+        say(true, `font: added ${NAMESPACE}/font (Inter)`);
+      } catch (error) {
+        log(`! font: could not add ${NAMESPACE}/font (${error.message})`);
+        manual.push(
+          'Load a variable font yourself:\n' +
+            'https://wideset-docs.widelab.workers.dev/docs/installation#3-load-the-font',
+        );
+      }
+    }
+    if (!added) {
+      // No file to import.
+    } else if (project.entry) {
+      const css = addStyleImports(entryText, [fontSpecifier], { last: true });
+      if (css.changed) write(project.entry, css.text);
+      say(
+        css.changed,
+        `${project.entry}: ${css.changed ? 'imports' : 'already imports'} ${fontSpecifier}`,
+      );
+    } else {
+      manual.push(`Import once, after your other stylesheets:\nimport '${fontSpecifier}';`);
+    }
+  }
+
   if (manual.length) {
     log('\nOne more thing by hand:\n');
     for (const step of manual) log(`  ${step.replace(/\n/g, '\n  ')}\n`);
@@ -335,10 +387,7 @@ async function skills(ctx) {
   }
 
   if (dryRun) log('\nDry run: nothing was changed.');
-  else
-    log(
-      '\nDone. Your agent can run `npx --no-install wideset info --json` and load the wideset-* skills.',
-    );
+  else log('\nDone. Your agent can run `npx wideset info --json` and load the wideset-* skills.');
   return 0;
 }
 

@@ -10,7 +10,8 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
   (
     {
       className,
-      type = 'single',
+      children,
+      type,
       min = 0,
       max = 100,
       value,
@@ -27,7 +28,7 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
     },
     ref,
   ) => {
-    const computedDefaultValue = defaultValue ?? (type === 'single' ? [min] : [min, max]);
+    const computedDefaultValue = defaultValue ?? (type === 'range' ? [min, max] : [min]);
     const [internalValue, setInternalValue] = useState<number[]>(value ?? computedDefaultValue);
 
     const currentValue = value ?? internalValue;
@@ -40,7 +41,7 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
     const getThumbLabel = (index: number) => {
       const own = thumbAriaLabels?.[index];
       if (own) return own;
-      if (type !== 'range') return ariaLabel ?? (ariaLabelledby ? undefined : 'Slider thumb');
+      if (currentValue.length < 2) return ariaLabel;
       // Two thumbs under one name: prefix it so each thumb is still told apart.
       const endpoint = index === 0 ? 'Minimum' : 'Maximum';
       return ariaLabel ? `${endpoint} ${ariaLabel}` : endpoint;
@@ -83,22 +84,17 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
                 )}
               />
             </SliderPrimitive.Track>
-            <SliderThumb
-              value={currentValue[0]}
-              showTooltipValue={showTooltipValue}
-              aria-label={getThumbLabel(0)}
-              aria-labelledby={ariaLabelledby}
-              defaultMotion={defaultMotion}
-            />
-            {type === 'range' && (
+            {currentValue.map((thumbValue, index) => (
               <SliderThumb
-                value={currentValue[1]}
+                key={index}
+                value={thumbValue}
                 showTooltipValue={showTooltipValue}
-                aria-label={getThumbLabel(1)}
+                aria-label={getThumbLabel(index)}
                 aria-labelledby={ariaLabelledby}
                 defaultMotion={defaultMotion}
               />
-            )}
+            ))}
+            {children}
           </SliderPrimitive.Root>
           {labels === 'bottom' && (
             <div className="pt-ws-8 flex justify-between">

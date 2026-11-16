@@ -7,13 +7,13 @@ import { illustrationToneVariants, illustrationVariants } from './Illustration.v
 
 /**
  * A line drawing for an empty state, a first-run screen or an announcement: Figma's Illustration.
- * Decorative unless it gets a `title`.
+ * Decorative unless it gets a `title` (or an `aria-label`).
  */
 export const Illustration = React.forwardRef<SVGSVGElement, IllustrationProps>(
   ({ illustration, size = 'lg', title, className, ...props }, ref) => {
     const titleId = React.useId();
     const art = ILLUSTRATION_ART[illustration][size];
-    const labelled = Boolean(title);
+    const named = Boolean(title || props['aria-label'] || props['aria-labelledby']);
 
     return (
       <svg
@@ -21,14 +21,14 @@ export const Illustration = React.forwardRef<SVGSVGElement, IllustrationProps>(
         data-slot="illustration"
         viewBox={`0 0 ${art.box} ${art.box}`}
         fill="none"
-        role={labelled ? 'img' : undefined}
-        aria-labelledby={labelled ? titleId : undefined}
-        aria-hidden={labelled ? undefined : true}
+        role={named ? 'img' : undefined}
+        aria-labelledby={title ? titleId : undefined}
+        aria-hidden={named ? undefined : true}
         focusable="false"
         {...props}
         className={cn(illustrationVariants({ size }), className)}
       >
-        {labelled ? <title id={titleId}>{title}</title> : null}
+        {title ? <title id={titleId}>{title}</title> : null}
         {art.paths.map((path, index) => (
           <path
             key={index}

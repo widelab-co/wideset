@@ -38,7 +38,9 @@ type MovementsChartProps = {
  */
 export function MovementsChart({ buckets, unit, totals, className }: MovementsChartProps) {
   const titleId = useId();
-  const [hover, setHover] = useState<number | null>(null);
+  const [hovered, setHover] = useState<number | null>(null);
+  // A range change (by keyboard, the pointer still) can leave fewer buckets than the hovered index.
+  const hover = hovered !== null && hovered < buckets.length ? hovered : null;
 
   const up = Math.max(...buckets.map((b) => b.new + b.expansion));
   const down = Math.max(...buckets.map((b) => b.churn));

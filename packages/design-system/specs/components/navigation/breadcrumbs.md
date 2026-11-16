@@ -5,7 +5,7 @@ group: navigation
 status: stable
 parts: [Breadcrumbs, BreadcrumbsItem, BreadcrumbsDivider]
 related: [Tabs, Sidebar, LinkButton]
-docs: https://wideset-docs.widelab.workers.dev/components/breadcrumbs
+docs: https://wideset.co/components/breadcrumbs
 storybook: components-breadcrumbs--default
 ---
 
@@ -101,5 +101,5 @@ children) between items yourself.
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/breadcrumbs.md` · Types:
+Full props: `https://wideset.co/components/breadcrumbs.md` · Types:
 `packages/design-system/src/components/breadcrumbs/Breadcrumbs.types.ts`

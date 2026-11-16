@@ -14,7 +14,7 @@ export function PageHeader({ summary }: { summary: ReactNode }) {
         <Breadcrumbs.Item>Billing</Breadcrumbs.Item>
       </Breadcrumbs>
       <div className="gap-ws-3 flex flex-col">
-        <h1 className="typography-subtitle-md text-ws-static-strong">Billing</h1>
+        <h1 className="typography-title-md text-ws-static-strong">Billing</h1>
         <p className="typography-body-md text-ws-static-base">{summary}</p>
       </div>
     </header>

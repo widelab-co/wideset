@@ -1,5 +1,5 @@
 import { RiAddLine } from '@remixicon/react';
-import { Button, FilterButton, Select, Tabs } from '@wideset/react';
+import { AppShell, Button, FilterButton, Select, Tabs } from '@wideset/react';
 import { useState } from 'react';
 
 import { KanbanColumn } from './board';
@@ -11,12 +11,27 @@ import { KanbanSidebar } from './sidebar';
 export default function Kanban() {
   const [teams, setTeams] = useState<string[]>([]);
   const [assignees, setAssignees] = useState<string[]>([]);
+  // "Assigned to" narrows every column to the chosen people; a stack keeps its tasks with its person.
+  const visibleColumns =
+    assignees.length === 0
+      ? columns
+      : columns.map((column) => {
+          const items = column.items.filter(
+            (item) => item.assignee != null && assignees.includes(item.assignee.name),
+          );
+          // The count is of tasks, a stack's hidden ones included, as in the unfiltered column.
+          const count = items.reduce(
+            (total, item) => total + ('tasks' in item ? item.tasks.length + (item.hidden ?? 0) : 1),
+            0,
+          );
+          return { ...column, items, count };
+        });
   const [sort, setSort] = useState('newest');
 
   return (
-    <div className="bg-ws-static-foreground flex h-dvh">
+    <AppShell direction="flat">
       <KanbanSidebar />
-      <main className="flex min-w-0 flex-1 flex-col overflow-y-auto">
+      <AppShell.Main className="flex flex-col">
         <Tabs defaultValue="board" divider={false} className="min-h-0 flex-1">
           <PageHeader />
           <Tabs.Content value="board" className="gap-ws-9 py-ws-7 flex min-h-0 flex-1 flex-col">
@@ -50,13 +65,13 @@ export default function Kanban() {
               </Button>
             </div>
             <div className="gap-ws-9 px-ws-11 flex min-h-0 flex-1 overflow-x-auto">
-              {columns.map((column) => (
+              {visibleColumns.map((column) => (
                 <KanbanColumn key={column.id} column={column} />
               ))}
             </div>
           </Tabs.Content>
         </Tabs>
-      </main>
-    </div>
+      </AppShell.Main>
+    </AppShell>
   );
 }

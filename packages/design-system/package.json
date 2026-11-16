@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "type": "module",
   "license": "Apache-2.0",
-  "description": "Wideset, the Widelab design system: React components, and the `wideset` CLI that scaffolds them into your project",
+  "description": "Wideset, the Widelab design system: React components, tokens and stylesheets",
   "keywords": [
     "react",
     "components",
@@ -63,13 +63,8 @@
     },
     "./package.json": "./package.json"
   },
-  "bin": {
-    "wideset": "./cli/wideset.mjs"
-  },
   "files": [
     "dist",
-    "cli",
-    "!cli/**/*.test.*",
     "README.md",
     "LICENSE",
     "NOTICE"
@@ -89,7 +84,6 @@
     "test": "vitest run",
     "test-watch": "vitest",
     "test:registry": "node scripts/registry-smoke.mjs",
-    "test:cli": "node scripts/cli-smoke.mjs",
     "playground": "node scripts/playground.mjs",
     "prefix-tokens": "node prefix-tokens.cjs",
     "generate-semantic-variables": "node generate-semantic-variables.cjs",

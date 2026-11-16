@@ -33,7 +33,7 @@ const WAVE = [
 ];
 
 const PAGE = 'bg-ws-static-foreground border-ws-static-subtle border';
-const LINE = 'bg-ws-static-alpha-strong h-ws-2 rounded-full';
+const LINE = 'bg-ws-static-alpha-strong h-ws-2 rounded-ws-control-full';
 
 /** A portrait page, cropped by the tile's bottom edge, with a title and a paragraph. */
 function Page({ table }: { table?: boolean }) {
@@ -96,7 +96,10 @@ function Wave() {
   return (
     <div className="gap-ws-3 inset-ws-0 absolute flex items-center justify-center">
       {WAVE.map((height, bar) => (
-        <div key={bar} className={cn('bg-ws-static-alpha-strong w-ws-3 rounded-full', height)} />
+        <div
+          key={bar}
+          className={cn('bg-ws-static-alpha-strong w-ws-3 rounded-ws-control-full', height)}
+        />
       ))}
     </div>
   );

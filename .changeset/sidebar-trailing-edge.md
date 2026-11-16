@@ -3,4 +3,4 @@
 '@wideset/skills': patch
 ---
 
-`Sidebar.Group` takes an `action` (one `IconButton size="xs"`, such as a "+"), which ends the heading on the same right edge as the item suffixes. `Sidebar.Item` takes `suffixOnHover`, which shows a keyboard shortcut only on hover and keyboard focus. `Sidebar surface="frame"` now centres the nav between the window edge and the inset page (18px each side). The Sidebar spec, the directions pattern and `wideset-craft` say when to use them, and how starting points behave on windows wider than 1440px.
+`Sidebar.Item` takes `suffixOnHover`, which shows a keyboard shortcut in `suffix` only on hover and keyboard focus, keeping its space. The Sidebar spec and `wideset-craft` add the sidebar's trailing edge (suffixes, a section's "+" and the header arrows end on one right edge), shortcut hints, and how starting points behave on windows wider than 1440px.

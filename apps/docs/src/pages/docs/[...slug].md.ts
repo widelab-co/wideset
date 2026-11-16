@@ -9,9 +9,6 @@ export async function getStaticPaths() {
 }
 
 export const GET: APIRoute = ({ props, site }) =>
-  new Response(
-    docMarkdown(props.page, site ?? new URL('https://wideset-docs.widelab.workers.dev')),
-    {
-      headers: { 'Content-Type': 'text/markdown; charset=utf-8' },
-    },
-  );
+  new Response(docMarkdown(props.page, site ?? new URL('https://wideset.co')), {
+    headers: { 'Content-Type': 'text/markdown; charset=utf-8' },
+  });

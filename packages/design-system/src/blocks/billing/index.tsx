@@ -1,5 +1,5 @@
-import { ToastProvider, useToast } from '@wideset/react';
-import { useState } from 'react';
+import { AppShell, ToastProvider, useToast } from '@wideset/react';
+import { useEffect, useRef, useState } from 'react';
 
 import { CancelPlanModal } from './cancel-plan-modal';
 import { ChangePlanModal } from './change-plan-modal';
@@ -41,11 +41,15 @@ function BillingPage() {
     : invoices;
   const closeDialog = (open: boolean) => !open && setDialog(null);
 
+  // Cleared on unmount, so the stand-in request never lands on a closed screen.
+  const timer = useRef<number>(undefined);
+  useEffect(() => () => window.clearTimeout(timer.current), []);
+
   // A timeout stands in for the charge; a real screen awaits it and keeps the alert, with the
   // bank's reason, if it is declined again.
   function retry() {
     setRetrying(true);
-    setTimeout(() => {
+    timer.current = window.setTimeout(() => {
       setRetrying(false);
       setPaid(true);
       showToast({ content: `Payment of ${formatUsd(failed.amount)} received`, status: 'success' });
@@ -128,15 +132,15 @@ function BillingPage() {
 export default function Billing() {
   return (
     <ToastProvider>
-      <div className="bg-ws-static-background flex h-dvh">
+      <AppShell direction="inset">
         <BillingSidebar />
-        <main className="bg-ws-static-foreground rounded-ws-container-lg shadow-ws-low my-ws-7 mr-ws-7 ml-ws-5 flex min-w-0 flex-1 flex-col overflow-hidden">
+        <AppShell.Main>
           {/* The page scrolls inside the card, so the card's corners stay put. */}
           <div className="min-h-0 flex-1 overflow-y-auto">
             <BillingPage />
           </div>
-        </main>
-      </div>
+        </AppShell.Main>
+      </AppShell>
     </ToastProvider>
   );
 }

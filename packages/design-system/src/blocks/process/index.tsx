@@ -1,5 +1,5 @@
 import { RiArrowDownSLine, RiArrowLeftLine } from '@remixicon/react';
-import { Button, cn, IconButton, ProgressTracker, Tabs } from '@wideset/react';
+import { AppShell, Button, cn, IconButton, ProgressTracker, Tabs } from '@wideset/react';
 import { useId, useState } from 'react';
 
 import { categories, steps } from './data';
@@ -15,10 +15,10 @@ export default function Process() {
   const headingId = useId();
 
   return (
-    <div className="bg-ws-static-foreground flex h-dvh">
+    <AppShell direction="flat">
       <WorkspaceRail />
       <ProcessSidebar />
-      <main className="flex min-w-0 flex-1 flex-col overflow-y-auto">
+      <AppShell.Main className="flex flex-col">
         <header className="border-ws-static-base h-ws-20 px-ws-14 gap-ws-14 flex shrink-0 items-center border-b">
           {/* A bar's icon buttons are sm, like the Sidebar trigger beside it; gap-ws-5 keeps the
               arrow 16px from the title, as before. */}
@@ -105,7 +105,7 @@ export default function Process() {
             </Tabs>
           </section>
         </div>
-      </main>
-    </div>
+      </AppShell.Main>
+    </AppShell>
   );
 }

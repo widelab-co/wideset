@@ -55,7 +55,7 @@ export function PageHeader({
     <header className="px-ws-12 shrink-0">
       <div className="gap-ws-9 pt-ws-11 pb-ws-12 mx-auto flex w-full max-w-[80rem] items-center justify-between">
         <div className="gap-ws-3 flex min-w-0 flex-col">
-          <h1 className="typography-subtitle-md text-ws-static-strong">Revenue report</h1>
+          <h1 className="typography-title-md text-ws-static-strong">Revenue report</h1>
           <p className="typography-body-md text-ws-static-base">{summary}</p>
         </div>
         <div className="gap-ws-5 flex shrink-0 items-center">

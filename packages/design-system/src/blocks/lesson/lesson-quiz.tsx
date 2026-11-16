@@ -92,7 +92,7 @@ export function LessonQuiz({
       <Frame>
         <div className="gap-ws-3 flex flex-col">
           <p className="typography-label-sm text-ws-static-subtle">Quiz result</p>
-          <h2 className="typography-subtitle-md text-ws-static-strong tabular-nums">
+          <h2 className="typography-title-sm text-ws-static-strong tabular-nums">
             {score} of {questions.length} right
           </h2>
           <p className="typography-body-md text-ws-static-subtle">

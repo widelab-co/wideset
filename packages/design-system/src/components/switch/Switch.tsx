@@ -12,6 +12,7 @@ import {
   switchThumbVariants,
   switchVariants,
 } from './Switch.variants';
+import { SwitchDescription } from './SwitchDescription';
 import { SwitchLabel } from './SwitchLabel';
 
 const Switch = React.forwardRef<React.ComponentRef<typeof SwitchPrimitive.Root>, SwitchProps>(
@@ -25,6 +26,8 @@ const Switch = React.forwardRef<React.ComponentRef<typeof SwitchPrimitive.Root>,
       disabled,
       defaultMotion,
       children,
+      wrapperClassName,
+      'aria-describedby': ariaDescribedBy,
       ...props
     },
     ref,
@@ -32,6 +35,28 @@ const Switch = React.forwardRef<React.ComponentRef<typeof SwitchPrimitive.Root>,
     const fallbackId = React.useId();
     const motion = useDefaultMotion(defaultMotion);
     const switchId = id || fallbackId;
+    const descriptionId = `${switchId}-description`;
+    const [registeredDescriptionId, setRegisteredDescriptionId] = React.useState<string>();
+    const childDescriptions = React.Children.toArray(children).filter(
+      (child): child is React.ReactElement<{ id?: string }> =>
+        React.isValidElement(child) && child.type === SwitchDescription,
+    );
+    const childDescription = childDescriptions[0];
+    const extraDescriptions = childDescriptions.length > 1;
+
+    React.useEffect(() => {
+      if (extraDescriptions) {
+        // eslint-disable-next-line no-console
+        console.warn('Switch: render one `Switch.Description` per switch; only one is announced.');
+      }
+    }, [extraDescriptions]);
+    const renderedDescriptionId = childDescription
+      ? (childDescription.props.id ?? descriptionId)
+      : undefined;
+    const describedBy =
+      [ariaDescribedBy, registeredDescriptionId ?? renderedDescriptionId]
+        .filter(Boolean)
+        .join(' ') || undefined;
 
     const containerClassName = cn(
       'gap-ws-7 flex w-fit items-center',
@@ -40,15 +65,20 @@ const Switch = React.forwardRef<React.ComponentRef<typeof SwitchPrimitive.Root>,
         'cursor-pointer': !disabled,
         'pointer-events-none': disabled,
       },
-      className,
+      wrapperClassName,
     );
 
     const switchRoot = (
       <SwitchPrimitive.Root
         ref={ref}
-        className={cn(switchVariants({ size }), switchMotionVariants({ enabled: motion }))}
+        className={cn(
+          switchVariants({ size }),
+          switchMotionVariants({ enabled: motion }),
+          className,
+        )}
         id={switchId}
         disabled={disabled}
+        aria-describedby={describedBy}
         data-slot="switch"
         {...props}
       >
@@ -62,7 +92,14 @@ const Switch = React.forwardRef<React.ComponentRef<typeof SwitchPrimitive.Root>,
     );
 
     return (
-      <SwitchContext.Provider value={{ disabled, id: switchId }}>
+      <SwitchContext.Provider
+        value={{
+          disabled,
+          id: switchId,
+          descriptionId,
+          onDescriptionIdChange: setRegisteredDescriptionId,
+        }}
+      >
         {label ? (
           <Label.Root htmlFor={switchId} className={containerClassName}>
             {switchRoot}
@@ -89,5 +126,6 @@ const Switch = React.forwardRef<React.ComponentRef<typeof SwitchPrimitive.Root>,
 
 Switch.displayName = 'Switch';
 Switch.Label = SwitchLabel;
+Switch.Description = SwitchDescription;
 
-export { Switch };
+export { Switch, SwitchDescription, SwitchLabel };

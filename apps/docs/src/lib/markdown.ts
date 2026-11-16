@@ -45,7 +45,7 @@ export const componentMarkdown = (entry: Entry) => {
     `# ${entry.title}`,
     entry.description ?? '',
     guidanceMarkdown(entry.id) ? `## Usage\n\n${guidanceMarkdown(entry.id)}` : '',
-    `## Install\n\n${fence('bash', `npx shadcn@latest add https://wideset-docs.widelab.workers.dev/r/${entry.id}.json\n# or the package: npm install @wideset/react`)}`,
+    `## Install\n\n${fence('bash', `npx wideset add ${entry.id}\n# or the package: npm install @wideset/react`)}`,
     `## Import\n\n${fence('tsx', `import { ${parts.map((part) => part.exportName).join(', ')} } from '@wideset/react';`)}`,
     parts.length > 1 ? `## Parts\n\n${partLines.join('\n')}` : '',
     ...examples.map(

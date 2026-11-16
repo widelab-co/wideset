@@ -44,7 +44,7 @@ export function ResetForm({ email, onEmailChange, onSent }: ResetFormProps) {
       className="gap-ws-12 flex w-full flex-col"
     >
       <div className="gap-ws-5 mb-ws-5 flex flex-col">
-        <h1 id={`${id}-title`} className="typography-subtitle-lg text-ws-static-strong">
+        <h1 id={`${id}-title`} className="typography-title-md text-ws-static-strong">
           Reset your password
         </h1>
         <p className="typography-body-md text-ws-static-base">

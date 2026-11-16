@@ -73,6 +73,10 @@ const write = (path: string, content: string) => {
 };
 const read = (path: string) => readFileSync(join(dir, path), 'utf8');
 
+// What the fake shadcn writes for @wideset/font; 'missing' is a registry without the item.
+const FONT_CSS = "@import '@fontsource-variable/inter';\n";
+let fontRegistry: 'present' | 'missing' = 'present';
+
 function viteApp() {
   write(
     'package.json',
@@ -95,6 +99,10 @@ async function run(argv: string[]) {
     error: (line: string) => err.push(line),
     runShadcn: async (args: string[]) => {
       shadcn.push(args);
+      if (args.includes('@wideset/font')) {
+        if (fontRegistry === 'missing') throw new Error('item not found: @wideset/font');
+        write('src/styles/wideset-font.css', FONT_CSS);
+      }
     },
     fetchImpl: fakeFetch,
     columns: 200,
@@ -104,6 +112,7 @@ async function run(argv: string[]) {
 
 beforeEach(() => {
   dir = mkdtempSync(join(tmpdir(), 'wideset-cli-'));
+  fontRegistry = 'present';
 });
 afterEach(() => rmSync(dir, { recursive: true, force: true }));
 
@@ -198,6 +207,17 @@ describe('addStyleImports', () => {
     });
   });
 
+  it('appends after a multi-line last import, and after one with no trailing newline', () => {
+    const multi =
+      "import './index.css'\nimport {\n  App,\n  Other,\n} from './App.tsx'\n\nrender()\n";
+    expect(addStyleImports(multi, ['@/styles/wideset-font.css'], { last: true }).text).toBe(
+      "import './index.css'\nimport {\n  App,\n  Other,\n} from './App.tsx'\nimport '@/styles/wideset-font.css'\n\nrender()\n",
+    );
+    expect(addStyleImports("import './a.css'", ['@/styles/b.css'], { last: true }).text).toBe(
+      "import './a.css'\nimport '@/styles/b.css'\n",
+    );
+  });
+
   it('keeps a directive first and follows double quotes and semicolons', () => {
     const { text } = addStyleImports('"use client";\nimport "./globals.css";\n', [
       '@/styles/wideset.css',
@@ -290,11 +310,129 @@ describe('wideset init', () => {
     // No Tailwind in a fresh Vite app, so it gets the reset, imported before the styles.
     expect(shadcn).toEqual([
       ['add', '--yes', '--overwrite', '--silent', '@wideset/preflight', '@wideset/styles'],
+      ['add', '--yes', '--silent', '@wideset/font'],
     ]);
     expect(read('src/main.tsx').split('\n').slice(0, 2)).toEqual([
       "import '@/styles/wideset-preflight.css'",
       "import '@/styles/wideset.css'",
     ]);
+  });
+
+  it('adds Inter and imports it after the stylesheets the template already imports', async () => {
+    viteApp();
+    await run(['init', '--registry', REGISTRY]);
+    const imports = read('src/main.tsx').trimEnd().split('\n');
+    expect(imports.at(-1)).toBe("import '@/styles/wideset-font.css'");
+    expect(imports.indexOf("import './index.css'")).toBeLessThan(imports.length - 1);
+  });
+
+  it('--no-font leaves the page font alone', async () => {
+    viteApp();
+    const { shadcn, out } = await run(['init', '--registry', REGISTRY, '--no-font']);
+    expect(shadcn.flat()).not.toContain('@wideset/font');
+    expect(read('src/main.tsx')).not.toContain('wideset-font');
+    expect(out).toContain('font: left as it is (--no-font)');
+  });
+
+  it('keeps a font the project brought itself', async () => {
+    viteApp();
+    write(
+      'package.json',
+      JSON.stringify({
+        devDependencies: { vite: '^8.0.0' },
+        dependencies: { '@fontsource-variable/geist': '^5.0.0' },
+      }),
+    );
+    const { shadcn, out } = await run(['init', '--registry', REGISTRY]);
+    expect(shadcn.flat()).not.toContain('@wideset/font');
+    expect(out).toContain('font: kept yours (@fontsource-variable/geist)');
+  });
+
+  it('does not bring the font back once its file was deleted', async () => {
+    viteApp();
+    await run(['init', '--registry', REGISTRY]);
+    expect(read('src/styles/wideset-font.css')).toBe(FONT_CSS);
+    rmSync(join(dir, 'src/styles/wideset-font.css'));
+    write('src/main.tsx', read('src/main.tsx').replace("import '@/styles/wideset-font.css'\n", ''));
+    const { shadcn, out } = await run(['init']);
+    expect(shadcn.flat()).not.toContain('@wideset/font');
+    expect(read('src/main.tsx')).not.toContain('wideset-font');
+    expect(out).toContain('font: left as it is');
+  });
+
+  it('does not bring the import back once only the import was removed', async () => {
+    viteApp();
+    await run(['init', '--registry', REGISTRY]);
+    write('src/main.tsx', read('src/main.tsx').replace("import '@/styles/wideset-font.css'\n", ''));
+    const { shadcn } = await run(['init']);
+    expect(shadcn.flat()).not.toContain('@wideset/font');
+    expect(read('src/main.tsx')).not.toContain('wideset-font');
+    expect(read('src/styles/wideset-font.css')).toBe(FONT_CSS);
+  });
+
+  it('finishes with a warning when the registry has no font item', async () => {
+    viteApp();
+    fontRegistry = 'missing';
+    const { code, out } = await run(['init', '--registry', REGISTRY]);
+    expect(code).toBe(0);
+    expect(out).toContain('! font: could not add @wideset/font');
+    expect(out).toContain('Load a variable font');
+    expect(read('src/main.tsx')).toContain("import '@/styles/wideset.css'");
+    expect(read('src/main.tsx')).not.toContain('wideset-font');
+    expect(read('components.json')).toContain('@wideset');
+  });
+
+  it('keeps a font the entry loads itself through --font-ws-sans', async () => {
+    viteApp();
+    write(
+      'src/main.tsx',
+      read('src/main.tsx').replace(
+        "import './index.css'",
+        "import './index.css'\nconst inter = Inter({ subsets: ['latin'], variable: '--font-ws-sans' })",
+      ),
+    );
+    const { shadcn, out } = await run(['init', '--registry', REGISTRY]);
+    expect(shadcn.flat()).not.toContain('@wideset/font');
+    expect(read('src/main.tsx')).not.toContain('wideset-font');
+    expect(out).toContain('font: kept yours (src/main.tsx sets --font-ws-sans)');
+  });
+
+  it('still adds Inter when the entry only reads --font-ws-sans', async () => {
+    viteApp();
+    write(
+      'src/main.tsx',
+      read('src/main.tsx').replace(
+        "import './index.css'",
+        "import './index.css'\ndocument.body.style.fontFamily = 'var(--font-ws-sans)'",
+      ),
+    );
+    const { shadcn, out } = await run(['init', '--registry', REGISTRY]);
+    expect(shadcn.flat()).toContain('@wideset/font');
+    expect(out).not.toContain('font: kept yours');
+    expect(read('src/main.tsx')).toContain("import '@/styles/wideset-font.css'");
+  });
+
+  it('imports a font file that is already there in a project set up for the first time', async () => {
+    viteApp();
+    await run(['init', '--registry', REGISTRY]);
+    rmSync(join(dir, 'components.json'));
+    write('src/main.tsx', read('src/main.tsx').replace("import '@/styles/wideset-font.css'\n", ''));
+    const { shadcn, out } = await run(['init', '--registry', REGISTRY]);
+    expect(shadcn.flat()).not.toContain('@wideset/font');
+    expect(read('src/main.tsx').trimEnd().split('\n').at(-1)).toBe(
+      "import '@/styles/wideset-font.css'",
+    );
+    expect(out).toContain('src/main.tsx: imports @/styles/wideset-font.css');
+  });
+
+  it('keeps the import of a font file that is already there', async () => {
+    viteApp();
+    await run(['init', '--registry', REGISTRY]);
+    write('src/styles/wideset-font.css', 'body { font-family: Georgia; }\n');
+    const { shadcn } = await run(['init']);
+    expect(shadcn.flat()).not.toContain('@wideset/font');
+    expect(read('src/styles/wideset-font.css')).toBe('body { font-family: Georgia; }\n');
+    expect(read('src/main.tsx')).toContain("import '@/styles/wideset-font.css'");
   });
 
   it('changes nothing on a second run', async () => {
@@ -384,6 +522,7 @@ describe('wideset add', () => {
     );
     expect(shadcn).toEqual([
       ['add', '--yes', '--overwrite', '--silent', '@wideset/preflight', '@wideset/styles'],
+      ['add', '--yes', '--silent', '@wideset/font'],
       ['add', '--yes', '@wideset/button'],
     ]);
   });
@@ -594,13 +733,20 @@ describe('shadcn arguments', () => {
 });
 
 describe('package', () => {
+  const manifest = (path: string) => JSON.parse(readFileSync(resolve(__dirname, path), 'utf8'));
+
   it('runs an exact shadcn version, the one the registry smoke tests pin', () => {
     expect(SHADCN_VERSION).toMatch(/^\d+\.\d+\.\d+$/);
+    expect(SHADCN_VERSION).toBe(
+      manifest('../../design-system/package.json').devDependencies.shadcn,
+    );
   });
 
-  it('ships the CLI as the wideset command', () => {
-    const pkg = JSON.parse(readFileSync(resolve(__dirname, '../package.json'), 'utf8'));
-    expect(pkg.bin).toEqual({ wideset: './cli/wideset.mjs' });
-    expect(pkg.files).toContain('cli');
+  it('ships the CLI as the wideset command, with no runtime dependencies', () => {
+    const pkg = manifest('../package.json');
+    expect(pkg.name).toBe('wideset');
+    expect(pkg.bin).toEqual({ wideset: './src/wideset.mjs' });
+    expect(pkg.files).toContain('src');
+    expect(pkg.dependencies).toBeUndefined();
   });
 });

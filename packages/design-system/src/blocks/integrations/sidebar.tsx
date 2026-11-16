@@ -24,13 +24,12 @@ import { PersonAvatar } from './person-avatar';
 
 /**
  * The workspace sidebar: switcher, the app's pages, settings (Integrations is one of them) and the
- * signed-in account. `surface` follows the screen's direction: `page` in Flat, `tinted` in Frame,
- * `frame` in Inset. Its toggle sits in the page bar, so the screen holds `collapsed` and passes it
+ * signed-in account. Its surface comes from the screen's `AppShell direction`. Its toggle sits in the page bar, so the screen holds `collapsed` and passes it
  * down; collapsed, it keeps the mark, the page icons and the avatar. It has no search of its own:
  * the page's search is the one on this screen.
  */
 export function IntegrationsSidebar(
-  props: Pick<SidebarProps, 'id' | 'surface' | 'collapsed' | 'onCollapsedChange'>,
+  props: Pick<SidebarProps, 'id' | 'collapsed' | 'onCollapsedChange'>,
 ) {
   const [active, setActive] = useState('integrations');
 
@@ -49,7 +48,10 @@ export function IntegrationsSidebar(
     <nav aria-label="Workspace" className="gap-ws-9 flex flex-col">
       <div className="flex flex-col">{MAIN_LINKS.map(link)}</div>
       <Divider weight="thin" />
-      <Sidebar.Group label="Settings">{SETTINGS_LINKS.map(link)}</Sidebar.Group>
+      <div role="group" aria-labelledby="sidebar-settings" className="gap-ws-2 flex flex-col">
+        <Sidebar.SectionHeader id="sidebar-settings">Settings</Sidebar.SectionHeader>
+        {SETTINGS_LINKS.map(link)}
+      </div>
     </nav>
   );
 
@@ -105,10 +107,7 @@ export function IntegrationsSidebar(
       </Sidebar.Header>
 
       {/* A section draws only the slot for the state it is in, so the pages go in both. */}
-      <Sidebar.Section scrollable>
-        <Sidebar.Expanded>{nav}</Sidebar.Expanded>
-        <Sidebar.Collapsed>{nav}</Sidebar.Collapsed>
-      </Sidebar.Section>
+      <Sidebar.Section scrollable>{nav}</Sidebar.Section>
 
       <Sidebar.Footer>
         <div className="gap-ws-9 flex flex-col">

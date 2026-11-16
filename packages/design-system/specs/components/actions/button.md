@@ -5,7 +5,7 @@ group: actions
 status: stable
 parts: [Button, ButtonIcon, ButtonTruncatedText]
 related: [IconButton, LinkButton, SplitButton]
-docs: https://wideset-docs.widelab.workers.dev/components/button
+docs: https://wideset.co/components/button
 storybook: components-button-button--default
 ---
 
@@ -110,5 +110,5 @@ Named exports `ButtonIcon` and `ButtonTruncatedText` are the same parts for Serv
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/button.md` · Types:
+Full props: `https://wideset.co/components/button.md` · Types:
 `packages/design-system/src/components/button/Button.types.ts`

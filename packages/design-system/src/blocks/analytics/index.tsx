@@ -1,4 +1,4 @@
-import { cn } from '@wideset/react';
+import { AppShell, cn } from '@wideset/react';
 import { useState } from 'react';
 
 import { type Metric, type Period, PERIODS, report } from './data';
@@ -42,9 +42,9 @@ export default function Analytics() {
   const last = current[current.length - 1].date;
 
   return (
-    <div className="bg-ws-static-foreground flex h-dvh">
+    <AppShell direction="flat">
       <AppSidebar />
-      <main className="flex min-w-0 flex-1 flex-col overflow-y-auto">
+      <AppShell.Main className="flex flex-col">
         <PageHeader period={period} onPeriodChange={setPeriod} range={formatRange(first, last)} />
 
         <section aria-label="Key figures" className="border-ws-static-subtle px-ws-14 border-b">
@@ -85,7 +85,7 @@ export default function Analytics() {
             <TrafficSources sources={sources} className="py-ws-14 pl-ws-14" />
           </div>
         </div>
-      </main>
-    </div>
+      </AppShell.Main>
+    </AppShell>
   );
 }

@@ -8,29 +8,32 @@
   literally; a static family rounds to its nearest cut (400, 500, 600 …), so 520 can look
   semibold. Load a variable font to see the intended weight.
 */
-/* HEADING */ /* Figma's TITLE */
+/* A title's size follows its container: the tighter the container, the smaller the title.
+   TITLE: the headings and figures a page is organised around.
+   `title-lg` the one figure a page is about (a balance); `title-md` the main heading of the
+   whole page, sign-in and sign-up titles, the figures of a KPI row; `title-sm` the heading of a
+   large part of a page or a wide panel, or a page heading in a tight bar (a toolbar, a step). */
 @utility typography-title-lg {
-  @apply text-ws-1800 tracking-ws-tight-300 leading-ws-1800 font-ws-medium;
+  @apply text-ws-1000 tracking-ws-tight-200 leading-ws-1200 font-ws-medium;
 }
 @utility typography-title-md {
-  @apply text-ws-1400 tracking-ws-tight-200 leading-ws-1200 font-ws-medium;
-}
-@utility typography-title-sm {
-  @apply text-ws-1200 tracking-ws-tight-200 leading-ws-1200 font-ws-medium;
-}
-
-/* SUBTITLE */
-@utility typography-subtitle-lg {
   @apply text-ws-800 tracking-ws-tight-200 leading-ws-1000 font-ws-medium;
 }
-@utility typography-subtitle-md {
+@utility typography-title-sm {
   @apply text-ws-600 tracking-ws-tight-100 leading-ws-800 font-ws-medium;
 }
-@utility typography-subtitle-sm {
+
+/* SUBTITLE: titles close to the content they open, one step above it and never competing with
+   the page heading. `subtitle-md` a side panel; `subtitle-sm` a modal, pop-up or status modal;
+   `subtitle-xs` a card or a page section. */
+@utility typography-subtitle-md {
   @apply text-ws-500 tracking-ws-tight-100 leading-ws-700 font-ws-medium;
 }
-@utility typography-subtitle-xs {
+@utility typography-subtitle-sm {
   @apply text-ws-450 tracking-ws-tight-50 leading-ws-600 font-ws-medium;
+}
+@utility typography-subtitle-xs {
+  @apply text-ws-400 tracking-ws-tight-25 leading-ws-600 font-ws-medium;
 }
 
 /* LABEL */

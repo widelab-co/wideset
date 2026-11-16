@@ -78,12 +78,15 @@ export function ReportSidebar() {
   const nav = (
     <nav aria-label="Main" className="gap-ws-7 flex flex-col">
       <div className="flex flex-col">{NAVIGATION.map(item)}</div>
-      <Sidebar.Group label="Reports">{REPORTS.map(item)}</Sidebar.Group>
+      <div role="group" aria-labelledby="sidebar-reports" className="gap-ws-2 flex flex-col">
+        <Sidebar.SectionHeader id="sidebar-reports">Reports</Sidebar.SectionHeader>
+        {REPORTS.map(item)}
+      </div>
     </nav>
   );
 
   return (
-    <Sidebar surface="frame">
+    <Sidebar>
       <Sidebar.Header>
         <Sidebar.Expanded>
           <div className="gap-ws-7 py-ws-3 pl-ws-5 flex items-center">
@@ -102,10 +105,7 @@ export function ReportSidebar() {
         </Sidebar.Collapsed>
       </Sidebar.Header>
 
-      <Sidebar.Section scrollable>
-        <Sidebar.Expanded>{nav}</Sidebar.Expanded>
-        <Sidebar.Collapsed>{nav}</Sidebar.Collapsed>
-      </Sidebar.Section>
+      <Sidebar.Section scrollable>{nav}</Sidebar.Section>
 
       <Sidebar.Footer>
         <Sidebar.Expanded>

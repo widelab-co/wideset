@@ -9,7 +9,7 @@ export const CELL_SELECTOR = `[${CELL_ATTRIBUTE}]`;
 
 /** What a click or `focus()` can reach: the cells, and the links and controls inside them. */
 const FOCUSABLE =
-  'a[href], button:not(:disabled), input:not(:disabled), select:not(:disabled), textarea:not(:disabled), [contenteditable="true"], [tabindex]';
+  'a[href], button:not(:disabled), input:not(:disabled):not([type="hidden"]), select:not(:disabled), textarea:not(:disabled), [contenteditable="true"], [tabindex]';
 
 /**
  * Controls that do not use the arrow keys themselves: with focus on one, the arrows still move
@@ -24,7 +24,17 @@ const focusables = (root: HTMLElement) =>
     a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1,
   );
 
-export const firstControl = (cell: HTMLElement) => focusables(cell)[0] ?? null;
+/**
+ * Focuses the first control in `cell` that takes focus (a hidden one ignores `focus()`), and
+ * returns it, or `null` when none does.
+ */
+export const focusFirstControl = (cell: HTMLElement) => {
+  for (const control of focusables(cell)) {
+    control.focus();
+    if (cell.ownerDocument.activeElement === control) return control;
+  }
+  return null;
+};
 
 /** What Tab would stop on inside `root`, in document order. */
 export const tabbables = (root: HTMLElement) => focusables(root).filter((el) => el.tabIndex >= 0);

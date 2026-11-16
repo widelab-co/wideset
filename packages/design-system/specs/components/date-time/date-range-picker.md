@@ -5,7 +5,7 @@ group: date-time
 status: stable
 parts: [DateRangePicker, dateRangePresetLabels]
 related: [DatePicker, Calendar, TimePicker, FormField]
-docs: https://wideset-docs.widelab.workers.dev/components/date-range-picker
+docs: https://wideset.co/components/date-range-picker
 storybook: components-daterangepicker--default
 ---
 
@@ -41,18 +41,19 @@ A single component; the trigger, the calendar and the preset panel are built in.
 
 ## Choosing props
 
-| Prop                                     | Value                                  | Use for                                                        |
-| ---------------------------------------- | -------------------------------------- | -------------------------------------------------------------- |
-| `selected` / `defaultSelected`           | `{ from?: string; to?: string }` (ISO) | controlled / uncontrolled range                                |
-| `activeDatePreset` / `defaultDatePreset` | a preset key                           | controlled / uncontrolled preset                               |
-| `onSelect`                               | `(range?, preset?) => void`            | the range plus its preset (`'custom'` for a hand-picked span)  |
-| `showDatePresets`                        | `true`                                 | reporting filters; leave off when the user books specific days |
-| `presetLabels`                           | `{ thisWeek: 'Ten tydzień', … }`       | translate or re-word preset labels                             |
-| `preset`                                 | `border` (default) / `ghost`           | form field / toolbar and report header                         |
-| `variant`                                | `primary` (default) / `danger`         | normal / failed validation                                     |
-| `size`                                   | `md` (default) / `sm` / `lg`           | match the inputs beside it                                     |
-| `disabledDates`                          | dates or matchers                      | days that cannot be picked                                     |
-| `dateFormat`                             | date-fns format, default `'MM/dd/yy'`  | how the trigger displays each end                              |
+| Prop                                     | Value                                  | Use for                                                         |
+| ---------------------------------------- | -------------------------------------- | --------------------------------------------------------------- |
+| `selected` / `defaultSelected`           | `{ from?: string; to?: string }` (ISO) | controlled / uncontrolled range                                 |
+| `activeDatePreset` / `defaultDatePreset` | a preset key                           | controlled / uncontrolled preset                                |
+| `onSelect`                               | `(range?, preset?) => void`            | the range plus its preset (`'custom'` for a hand-picked span)   |
+| `showDatePresets`                        | `true`                                 | reporting filters; leave off when the user books specific days  |
+| `presetLabels`                           | `{ thisWeek: 'Ten tydzień', … }`       | translate or re-word preset labels                              |
+| `preset`                                 | `border` (default) / `ghost`           | form field / toolbar and report header                          |
+| `variant`                                | `primary` (default) / `danger`         | normal / failed validation                                      |
+| `size`                                   | `md` (default) / `sm` / `lg`           | match the inputs beside it                                      |
+| `disabledDates`                          | dates or matchers                      | days that cannot be picked                                      |
+| `dateFormat`                             | date-fns format, default `'MM/dd/yy'`  | how the trigger displays each end                               |
+| `today`                                  | a `Date`, default the current date     | a fixed sample date: presets and the today marker count from it |
 
 Preset keys: `custom`, `today`, `yesterday`, `thisWeek`, `lastWeek`, `thisMonth`, `lastMonth`,
 `thisYear`, `lastYear`.
@@ -103,8 +104,9 @@ const [preset, setPreset] = useState<keyof typeof dateRangePresetLabels>('thisMo
 - `onSelect` fires once the range is complete (the second click) or when a preset is picked, not on
   the first click.
 - A preset closes the popup; a hand-picked range leaves it open so the user can adjust it.
-- Preset ranges are worked out from today. Week presets start on Monday unless `weekStartsOn` is
-  set, while the calendar grid follows its own default; pass `weekStartsOn` so both agree.
+- Preset ranges are worked out from `today` (the current date unless the prop is set). Week
+  presets start on Monday unless `weekStartsOn` is set, while the calendar grid follows its own
+  default; pass `weekStartsOn` so both agree.
 - A controlled `activeDatePreset` other than `custom` wins over `selected` in the field's text.
 - Default display format differs from `DatePicker` (`MM/dd/yy` vs `MM.dd.yyyy`); set `dateFormat`
   on both when they appear together.
@@ -113,5 +115,5 @@ const [preset, setPreset] = useState<keyof typeof dateRangePresetLabels>('thisMo
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/date-range-picker.md` · Types:
+Full props: `https://wideset.co/components/date-range-picker.md` · Types:
 `packages/design-system/src/components/daterangepicker/DateRangePicker.types.ts`

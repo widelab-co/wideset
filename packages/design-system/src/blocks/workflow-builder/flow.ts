@@ -54,6 +54,32 @@ export const insertStep = (flow: Step[], key: SequenceKey, index: number, step: 
       : [...sequence.slice(0, index), step, ...sequence.slice(index)],
   );
 
+/** Where a step sits: its sequence and its index there. */
+export function locate(
+  flow: Step[],
+  id: string,
+  key: SequenceKey = 'root',
+): { key: SequenceKey; index: number } | undefined {
+  for (const [index, step] of flow.entries()) {
+    if (step.id === id) return { key, index };
+    const found =
+      locate(step.yes ?? [], id, `${step.id}:yes`) ?? locate(step.no ?? [], id, `${step.id}:no`);
+    if (found) return found;
+  }
+  return undefined;
+}
+
+/**
+ * Puts a removed step back as it was, branches and all, at `index` of its sequence; at the end of
+ * the main line when that sequence is gone (its condition was deleted since).
+ */
+export function restoreStep(flow: Step[], key: SequenceKey, index: number, step: Step): Step[] {
+  const put = (into: SequenceKey, at: number) =>
+    editSequence(flow, into, (sequence) => [...sequence.slice(0, at), step, ...sequence.slice(at)]);
+  const back = put(key, index);
+  return allSteps(back).some((item) => item.id === step.id) ? back : put('root', flow.length);
+}
+
 /** Takes a step out, with everything on its branches when it is a condition. */
 export function removeStep(flow: Step[], id: string): Step[] {
   return flow

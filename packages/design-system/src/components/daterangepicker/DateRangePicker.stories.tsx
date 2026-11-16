@@ -111,6 +111,12 @@ This component uses [\`react-day-picker\`](https://daypicker.dev/) and extends i
         defaultValue: { summary: '1' },
       },
     },
+    today: {
+      description:
+        'The date the calendar marks as today and the presets count from. Defaults to the current date.',
+      control: false,
+      table: { category: 'Behavior', type: { summary: 'Date' } },
+    },
     numberOfMonths: {
       description: 'Number of months rendered side by side in the calendar. Defaults to `1`.',
       control: { type: 'number', min: 1, max: 3 },

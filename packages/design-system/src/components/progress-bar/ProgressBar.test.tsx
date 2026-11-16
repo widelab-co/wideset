@@ -302,3 +302,15 @@ describe('Circle type', () => {
     expect(bar).not.toHaveAttribute('max');
   });
 });
+
+describe('ProgressBar error announcement', () => {
+  it('inserts a new alert when the variant turns error', () => {
+    const { rerender } = render(<ProgressBar description="Uploading" value={50} />);
+    const description = screen.getByText('Uploading');
+
+    rerender(<ProgressBar variant="error" description="Uploading" value={50} />);
+
+    expect(screen.getByRole('alert')).toHaveTextContent('Uploading');
+    expect(description).not.toBeInTheDocument();
+  });
+});

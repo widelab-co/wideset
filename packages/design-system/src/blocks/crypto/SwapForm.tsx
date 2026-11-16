@@ -29,6 +29,18 @@ export function SwapForm({ className }: { className?: string }) {
   const [mode, setMode] = useState<(typeof MODES)[number]>('Swap');
   const [sell, setSell] = useState<Side>(QUOTE.sell);
   const [buy, setBuy] = useState<Side>(QUOTE.buy);
+  // The quote follows the pair and the amount: what arrives, in USD and at worst after the fee.
+  const received = Number.parseFloat(buy.amount) || 0;
+  const summary = [
+    { label: 'Estimate fee', value: QUOTE.fee, unit: 'percent' },
+    { label: 'You will receive', value: received * PRICES[buy.coin], unit: 'USD' },
+    { label: 'Spread', value: QUOTE.spread, unit: 'percent' },
+    { label: 'Gas fee', value: QUOTE.gasEth, unit: 'ETH' },
+  ];
+  const details = [
+    { label: 'Price impact', value: QUOTE.priceImpact, unit: 'percent' },
+    { label: 'Minimum received', value: received * (1 - QUOTE.fee), unit: buy.coin },
+  ];
   const [agreed, setAgreed] = useState(true);
   const [advanced, setAdvanced] = useState(false);
   const advancedId = useId();
@@ -100,7 +112,7 @@ export function SwapForm({ className }: { className?: string }) {
         <h2 id="swap-summary" className="typography-subtitle-xs text-ws-static-base">
           Summary
         </h2>
-        <Rows rows={QUOTE.summary} className="mt-ws-12" />
+        <Rows rows={summary} className="mt-ws-12" />
       </section>
 
       <div className="mt-ws-23 gap-ws-7 flex flex-col">
@@ -128,7 +140,7 @@ export function SwapForm({ className }: { className?: string }) {
             <Button.Icon icon={advanced ? RiArrowUpSLine : RiArrowDownSLine} />
           </Button>
         </div>
-        <Rows id={advancedId} rows={QUOTE.advanced} hidden={!advanced} />
+        <Rows id={advancedId} rows={details} hidden={!advanced} />
       </div>
     </div>
   );
