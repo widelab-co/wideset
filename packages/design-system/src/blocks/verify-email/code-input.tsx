@@ -21,8 +21,9 @@ type CodeInputProps = {
 
 /**
  * A one-time code as one box per digit, each a `TextInput`. Typing a digit moves to the next box,
- * Backspace on an empty box goes back, the arrows move between boxes, and a pasted or autofilled
- * code (`one-time-code`) fills the boxes from the one it lands in. Anything but digits is ignored.
+ * Backspace on an empty box goes back, the arrows move between boxes, and a whole code, pasted or
+ * autofilled (`one-time-code`), fills every box from the first, whichever box it lands in; a part
+ * of a code fills the boxes from the one it lands in. Anything but digits is ignored.
  * The boxes split in two groups of three, the way authenticator apps show the code.
  */
 export function CodeInput({
@@ -44,17 +45,19 @@ export function CodeInput({
     onChange?.(next.join(''));
   };
 
-  /** Writes digits into the boxes from `index` on, then focuses the box after the last one. */
+  /**
+   * Writes digits into the boxes from `index` on, then focuses the box after the last one. A whole
+   * code starts at the first box wherever it lands, so it is never cut to the boxes left.
+   */
   const fill = (index: number, text: string) => {
-    const incoming = text
-      .replace(/\D/g, '')
-      .slice(0, length - index)
-      .split('');
+    const typed = text.replace(/\D/g, '');
+    const from = typed.length >= length ? 0 : index;
+    const incoming = typed.slice(0, length - from).split('');
     if (!incoming.length) return;
     const next = [...digits];
-    incoming.forEach((digit, offset) => (next[index + offset] = digit));
+    incoming.forEach((digit, offset) => (next[from + offset] = digit));
     update(next);
-    focus(index + incoming.length);
+    focus(from + incoming.length);
   };
 
   const onKeyDown = (index: number) => (event: KeyboardEvent<HTMLInputElement>) => {
@@ -88,10 +91,12 @@ export function CodeInput({
       className="w-ws-18 min-w-0"
       value={digits[index]}
       onChange={(event) => {
+        const { value } = event.target;
+        if (!value) return update(digits.map((digit, at) => (at === index ? '' : digit)));
+        // An autofilled code replaces the box's value whole: take it as it is.
+        if (value.replace(/\D/g, '').length >= length) return fill(index, value);
         // The box already holds a digit: keep what was typed beside it.
-        const typed = event.target.value.replace(digits[index], '');
-        if (!event.target.value) update(digits.map((digit, at) => (at === index ? '' : digit)));
-        else fill(index, typed || event.target.value);
+        fill(index, value.replace(digits[index], '') || value);
       }}
       onKeyDown={onKeyDown(index)}
       onPaste={onPaste(index)}
