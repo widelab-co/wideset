@@ -71,9 +71,11 @@ export default function AgentSessions() {
         `${session.title} ${session.branch}`.toLowerCase().includes(words),
     ),
   );
-  const picked = all
+  // A filter can hide selected rows: what the bar counts and acts on is the selection in view.
+  const picked = shown
     .flatMap((repository) => repository.sessions)
     .filter((session) => selected.includes(session.id));
+  const chosen = picked.map((session) => session.id);
 
   const change = (ids: string[], next: (session: CodeSession) => CodeSession) =>
     setAll((current) =>
@@ -96,7 +98,7 @@ export default function AgentSessions() {
 
   /** Only a session at work or waiting can be stopped; it pauses where it is. */
   const stop = () => {
-    change(selected, (session) =>
+    change(chosen, (session) =>
       session.state === 'working' || session.state === 'needs-you'
         ? { ...session, request: undefined, state: 'paused', last: 'Stopped by you', lastAt: NOW }
         : session,
@@ -107,7 +109,7 @@ export default function AgentSessions() {
   const archive = () => {
     setAll((current) =>
       mapSessions(current, (sessions) =>
-        keepSessions(sessions, (session) => !selected.includes(session.id), true),
+        keepSessions(sessions, (session) => !chosen.includes(session.id), true),
       ),
     );
     setSelected([]);
