@@ -92,6 +92,49 @@ export function PipelineBoard({
     return undefined;
   };
 
+  // Tracked on the document: before the card captures the pointer, a move or a release over an
+  // empty column reaches no card.
+  useEffect(() => {
+    if (!drag) return;
+    const onPointerMove = (event: globalThis.PointerEvent) => {
+      if (drag.pointerId !== event.pointerId) return;
+      const distance = Math.hypot(event.clientX - drag.startX, event.clientY - drag.startY);
+      if (!drag.active && distance < THRESHOLD) return;
+      // The drag starts here: from now on the card follows the pointer even outside it.
+      if (!drag.active) handle.current?.setPointerCapture?.(event.pointerId);
+      setDrag({
+        ...drag,
+        active: true,
+        x: event.clientX,
+        y: event.clientY,
+        // Between two columns the line stays where it was.
+        target: targetAt(event.clientX, event.clientY, drag.id) ?? drag.target,
+      });
+    };
+    const onPointerUp = (event: globalThis.PointerEvent) => {
+      if (drag.pointerId !== event.pointerId) return;
+      const moved = deals.find(({ id }) => id === drag.id);
+      // From where the pointer is now: the board may have scrolled since the last move.
+      const target = targetAt(event.clientX, event.clientY, drag.id) ?? drag.target;
+      if (drag.active && target && moved) {
+        dragged.current = true;
+        move(moved, target.stage, target.index, false);
+      }
+      setDrag(undefined);
+    };
+    const onPointerCancel = (event: globalThis.PointerEvent) => {
+      if (drag.pointerId === event.pointerId) setDrag(undefined);
+    };
+    document.addEventListener('pointermove', onPointerMove);
+    document.addEventListener('pointerup', onPointerUp);
+    document.addEventListener('pointercancel', onPointerCancel);
+    return () => {
+      document.removeEventListener('pointermove', onPointerMove);
+      document.removeEventListener('pointerup', onPointerUp);
+      document.removeEventListener('pointercancel', onPointerCancel);
+    };
+  });
+
   const handlersFor = (deal: Deal): HTMLAttributes<HTMLElement> => ({
     onPointerDown: (event: PointerEvent<HTMLElement>) => {
       dragged.current = false;
@@ -115,35 +158,6 @@ export function PipelineBoard({
         active: false,
       });
     },
-    onPointerMove: (event: PointerEvent<HTMLElement>) => {
-      if (drag?.pointerId !== event.pointerId) return;
-      const distance = Math.hypot(event.clientX - drag.startX, event.clientY - drag.startY);
-      if (!drag.active && distance < THRESHOLD) return;
-      // The drag starts here: from now on the card follows the pointer even outside it. Before
-      // that nothing has the pointer, so this may be another card the pointer crossed: the card
-      // the press started on takes it.
-      if (!drag.active)
-        (handle.current ?? event.currentTarget).setPointerCapture?.(event.pointerId);
-      setDrag({
-        ...drag,
-        active: true,
-        x: event.clientX,
-        y: event.clientY,
-        // Between two columns the line stays where it was.
-        target: targetAt(event.clientX, event.clientY, drag.id) ?? drag.target,
-      });
-    },
-    onPointerUp: (event: PointerEvent<HTMLElement>) => {
-      if (drag?.pointerId !== event.pointerId) return;
-      // The deal is the one the drag started on, not necessarily this card's.
-      const moved = deals.find(({ id }) => id === drag.id);
-      if (drag.active && drag.target && moved) {
-        dragged.current = true;
-        move(moved, drag.target.stage, drag.target.index, false);
-      }
-      setDrag(undefined);
-    },
-    onPointerCancel: () => setDrag(undefined),
     onClickCapture: (event) => {
       if (!dragged.current) return;
       event.preventDefault();
