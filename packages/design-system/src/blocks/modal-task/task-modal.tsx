@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import { ActivityTimeline } from './activity-timeline';
 import type { TaskDetail } from './data';
-import { KeyboardHints } from './keyboard-hints';
+import { KeyboardHints, modalKeys } from './keyboard-hints';
 import { SubtaskList } from './subtask-list';
 import { TaskProperties } from './task-properties';
 
@@ -17,7 +17,8 @@ type TaskModalProps = {
 /**
  * Figma's Modal `Type=Task`: a task opened over the page. The header and the keyboard hints stay
  * put and everything between them scrolls, so the modal never outgrows a short window. Ticking a
- * subtask moves the task's progress, which is the average of its subtasks.
+ * subtask moves the task's progress, which is the average of its subtasks. Up and Down move
+ * between its controls, Left goes back to the page it was opened from.
  */
 export function TaskModal({ task, open, onOpenChange }: TaskModalProps) {
   // Kept here, not in the switch: the modal's content unmounts when it closes.
@@ -40,6 +41,7 @@ export function TaskModal({ task, open, onOpenChange }: TaskModalProps) {
           event.preventDefault();
           if (event.currentTarget instanceof HTMLElement) event.currentTarget.focus();
         }}
+        onKeyDown={modalKeys(() => onOpenChange(false))}
       >
         <div className="px-ws-12 py-ws-9 flex shrink-0 items-center justify-between">
           <Switch label="Private" checked={isPrivate} onCheckedChange={setIsPrivate} />

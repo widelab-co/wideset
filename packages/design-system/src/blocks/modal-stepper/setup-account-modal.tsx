@@ -2,7 +2,7 @@ import { Button, Modal, ProgressStepper } from '@wideset/react';
 import { useId, useState } from 'react';
 
 import { PAYMENT_STEP, STEPS } from './data';
-import { KeyboardHints } from './keyboard-hints';
+import { KeyboardHints, modalKeys } from './keyboard-hints';
 import { PaymentForm } from './payment-form';
 
 type SetupAccountModalProps = {
@@ -15,7 +15,8 @@ type SetupAccountModalProps = {
  * state (done, current, still ahead) and lead back to a finished one; the current step's heading,
  * form and actions sit beside them, and the keyboard hints run under both. Each step is a form
  * the footer's button submits by id, so a step moves on only once it is valid. Only the payment
- * step has its form here; the others are yours to fill.
+ * step has its form here; the others are yours to fill. Up and Down move between the fields;
+ * Left goes back a step, and from the first one back to the page.
  */
 export function SetupAccountModal({ open, onOpenChange }: SetupAccountModalProps) {
   const id = useId();
@@ -33,6 +34,7 @@ export function SetupAccountModal({ open, onOpenChange }: SetupAccountModalProps
           event.preventDefault();
           field.focus();
         }}
+        onKeyDown={modalKeys(() => (step > 0 ? setStep(step - 1) : onOpenChange(false)))}
       >
         <div className="flex min-h-0 flex-1">
           <nav

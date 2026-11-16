@@ -3,7 +3,7 @@ import { Button, IconButton, Modal } from '@wideset/react';
 import { useId } from 'react';
 
 import { PRODUCT, WORKSPACE } from './data';
-import { KeyboardHints } from './keyboard-hints';
+import { KeyboardHints, modalKeys } from './keyboard-hints';
 import { PaymentForm } from './payment-form';
 
 type PaymentFormModalProps = {
@@ -16,6 +16,7 @@ type PaymentFormModalProps = {
  * The header leads back to where the modal was opened from, the form scrolls between the header
  * and the footer when the window is short, and the actions stay in the footer: the submit button
  * points at the form by id. Focus starts in the first field; Esc, Cancel and the X close it.
+ * Up and Down move between the fields, Left goes back to billing as the header's arrow does.
  */
 export function PaymentFormModal({ open, onOpenChange }: PaymentFormModalProps) {
   const id = useId();
@@ -27,6 +28,7 @@ export function PaymentFormModal({ open, onOpenChange }: PaymentFormModalProps) 
           event.preventDefault();
           document.getElementById(`${id}-number`)?.focus();
         }}
+        onKeyDown={modalKeys(() => onOpenChange(false))}
       >
         <Modal.Header className="gap-ws-9 flex-row">
           <Modal.Close asChild>
