@@ -43,7 +43,7 @@ type AgentSidebarProps = Pick<SidebarProps, 'id' | 'collapsed' | 'onCollapsedCha
   onNew: (groupId?: string) => void;
   /** Code: the page that lists every session is the one open. */
   allOpen?: boolean;
-  /** Code: opens that page. */
+  /** Code: opens that page in place; without it the row is a plain link to `#sessions`. */
   onAll?: () => void;
 };
 
@@ -213,13 +213,14 @@ export function AgentSidebar({
                 onClick={act(search)}
               />
             )}
-            {mode === 'code' && onAll && (
+            {mode === 'code' && (
               <Sidebar.Item
                 href="#sessions"
                 icon={RiStackLine}
                 label="All sessions"
                 active={allOpen}
-                onClick={act(onAll)}
+                // With no handler it is a plain link to #sessions, for the app's router.
+                onClick={onAll ? act(onAll) : undefined}
               />
             )}
           </nav>
