@@ -25,6 +25,7 @@ import {
   ListItem,
   Popup,
   Sidebar,
+  SplitButton,
   Tabs,
   TextInput,
 } from '@wideset/react';
@@ -347,29 +348,16 @@ export const CopyPage = ({
     );
   const open = (url: string) => window.open(url, '_blank', 'noopener,noreferrer');
   return (
-    <div className="flex">
-      <Button
-        size="sm"
-        variant="secondary"
-        preset="border"
-        className="rounded-r-none"
-        onClick={() => copy(markdown)}
-      >
-        <Button.Icon icon={copied ? RiCheckLine : RiFileCopyLine} />
-        {copied ? 'Copied' : 'Copy page'}
-      </Button>
-      <DropdownMenu>
-        <DropdownMenu.Trigger asChild>
-          <IconButton
-            icon={RiArrowDownSLine}
-            size="sm"
-            variant="secondary"
-            preset="border"
-            aria-label="More ways to use this page"
-            className="-ml-px rounded-l-none"
-          />
-        </DropdownMenu.Trigger>
-        <DropdownMenu.Content align="end">
+    <SplitButton
+      size="sm"
+      variant="secondary"
+      preset="border"
+      icon={RiArrowDownSLine}
+      iconAriaLabel="More ways to use this page"
+      menuAlign="end"
+      onClick={() => copy(markdown)}
+      menuContent={
+        <>
           {twin && (
             <DropdownMenu.Item onSelect={() => open(`${page()}.md`)}>
               <ListItem.Prefix>
@@ -390,9 +378,12 @@ export const CopyPage = ({
               </ListItem.Content>
             </DropdownMenu.Item>
           ))}
-        </DropdownMenu.Content>
-      </DropdownMenu>
-    </div>
+        </>
+      }
+    >
+      <SplitButton.Icon icon={copied ? RiCheckLine : RiFileCopyLine} />
+      {copied ? 'Copied' : 'Copy page'}
+    </SplitButton>
   );
 };
 
