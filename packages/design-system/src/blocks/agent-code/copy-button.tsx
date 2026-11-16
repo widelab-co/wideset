@@ -38,9 +38,12 @@ export function CopyButton({ text, label = 'Copy', size = 'xs', quiet = false }:
       iconClassName={cn(quiet && 'text-ws-static-subtle', copied && SWAP)}
       size={size}
       onClick={() => {
-        // Where the clipboard is out of reach (an insecure page, a test) the button still answers.
-        navigator.clipboard?.writeText(text()).catch(() => undefined);
-        setCopied(true);
+        // "Copied" only once the text is there: an insecure page, a denied permission or a test
+        // has no clipboard to write to, and the button then stays as it was.
+        navigator.clipboard?.writeText(text()).then(
+          () => setCopied(true),
+          () => undefined,
+        );
       }}
     />
   );
