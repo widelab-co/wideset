@@ -110,9 +110,9 @@ export type ProductDraft = {
   hasOptions: boolean;
   options: ProductOption[];
   /**
-   * By variant key, the combination's values (`variantKey(['M', 'Black'])`), as typed: two
-   * combinations never share an entry, even when their names read alike. See `variantFields` for
-   * one not in here.
+   * By variant key, the combination's options and values (`variantKey([['size', 'M'],
+   * ['colour', 'Black']])`), as typed: two combinations never share an entry, even when their
+   * names read alike. See `variantFields` for one not in here.
    */
   variants: Record<string, VariantFields>;
   sku: string;
@@ -140,9 +140,9 @@ export const initialDraft: ProductDraft = {
   hasOptions: true,
   options: [{ id: 'size', name: 'Size', values: ['S', 'M', 'L'] }],
   variants: {
-    [variantKey(['S'])]: { price: '129.00', stock: '24' },
-    [variantKey(['M'])]: { price: '149.00', stock: '40' },
-    [variantKey(['L'])]: { price: '179.00', stock: '12' },
+    [variantKey([['size', 'S']])]: { price: '129.00', stock: '24' },
+    [variantKey([['size', 'M']])]: { price: '149.00', stock: '40' },
+    [variantKey([['size', 'L']])]: { price: '179.00', stock: '12' },
   },
   sku: 'LS-MNT-01',
   stock: '',
@@ -150,13 +150,19 @@ export const initialDraft: ProductDraft = {
   channels: ['store', 'quotes'],
 };
 
-/** A combination's identity: its values in option order, never its display name. */
-export function variantKey(values: string[]) {
-  return JSON.stringify(values);
+/** One option's value in a combination: the option's id, then the value. */
+export type VariantPart = [optionId: string, value: string];
+
+/**
+ * A combination's identity: each option's id with its value, in option order, never its display
+ * name. The ids keep "S" of a Colour apart from "S" of a removed Size.
+ */
+export function variantKey(parts: VariantPart[]) {
+  return JSON.stringify(parts);
 }
 
 /** One combination of option values: its key for the draft, its name for people. */
-export type Variant = { key: string; name: string; values: string[] };
+export type Variant = { key: string; name: string; parts: VariantPart[] };
 
 /**
  * The variants the options make: every combination of their values, in order ("S / Black",
@@ -165,22 +171,33 @@ export type Variant = { key: string; name: string; values: string[] };
 export function variantsOf(options: ProductOption[]): Variant[] {
   return options
     .filter((option) => option.values.length > 0)
-    .reduce<string[][]>(
+    .reduce<VariantPart[][]>(
       (combos, option) =>
         combos.length === 0
-          ? option.values.map((value) => [value])
-          : combos.flatMap((combo) => option.values.map((value) => [...combo, value])),
+          ? option.values.map((value) => [[option.id, value]])
+          : combos.flatMap((combo) =>
+              option.values.map((value): VariantPart[] => [...combo, [option.id, value]]),
+            ),
       [],
     )
-    .map((values) => ({ key: variantKey(values), name: values.join(' / '), values }));
+    .map((parts) => ({
+      key: variantKey(parts),
+      name: parts.map(([, value]) => value).join(' / '),
+      parts,
+    }));
 }
 
 /**
  * A variant's price and stock: what was typed for it; else, for a new combination, the price of
- * the variant it grew from ("S / Black" from "S") or the product's, and no stock yet.
+ * the nearest variant it grew from ("S / Black / Steel" from "S / Black", else from "S") or the
+ * product's, and no stock yet.
  */
-export const variantFields = (draft: ProductDraft, variant: Variant): VariantFields =>
-  draft.variants[variant.key] ?? {
-    price: (draft.variants[variantKey(variant.values.slice(0, 1))] ?? draft).price,
-    stock: '',
-  };
+export function variantFields(draft: ProductDraft, variant: Variant): VariantFields {
+  const typed = draft.variants[variant.key];
+  if (typed) return typed;
+  for (let length = variant.parts.length - 1; length > 0; length -= 1) {
+    const parent = draft.variants[variantKey(variant.parts.slice(0, length))];
+    if (parent) return { price: parent.price, stock: '' };
+  }
+  return { price: draft.price, stock: '' };
+}
