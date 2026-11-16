@@ -38,6 +38,7 @@ const ROLES: RoleOption<Role>[] = [
 export function InviteModal({
   open,
   onOpenChange,
+  onCloseAutoFocus,
   members,
   taken,
   onInvite,
@@ -45,6 +46,8 @@ export function InviteModal({
 }: {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  /** Where the focus goes on close; the modal has no trigger to return it to. */
+  onCloseAutoFocus?: (event: Event) => void;
   members: Member[];
   /** Addresses already in the workspace or invited. */
   taken: string[];
@@ -54,7 +57,7 @@ export function InviteModal({
   return (
     <Modal open={open} onOpenChange={onOpenChange}>
       {/* The e-mail field takes the focus on open (Modal's default): inviting comes first. */}
-      <Modal.Content aria-describedby={undefined}>
+      <Modal.Content aria-describedby={undefined} onCloseAutoFocus={onCloseAutoFocus}>
         <Modal.Header>
           <Modal.Title>Access</Modal.Title>
         </Modal.Header>

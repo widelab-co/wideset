@@ -1,6 +1,6 @@
 import { RiSearchLine } from '@remixicon/react';
 import { AppShell, Tabs, TextInput, Toast, ToastProvider, useToast } from '@wideset/react';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 import {
   account,
@@ -33,6 +33,12 @@ function TeamPage() {
   const [tab, setTab] = useState<Tab>('members');
   const [query, setQuery] = useState('');
   const [inviting, setInviting] = useState(false);
+  // The modal has no trigger, so the button that opened it is kept to take the focus back.
+  const inviteOpener = useRef<HTMLElement | null>(null);
+  const openInvite = () => {
+    inviteOpener.current = document.activeElement as HTMLElement | null;
+    setInviting(true);
+  };
   const [removing, setRemoving] = useState<{ member?: Member; open: boolean }>({ open: false });
 
   const q = query.trim().toLowerCase();
@@ -88,7 +94,7 @@ function TeamPage() {
   return (
     <main className="px-ws-16 min-w-0 flex-1 overflow-y-auto">
       <div className="gap-ws-14 py-ws-14 mx-auto flex w-full max-w-[80rem] flex-col">
-        <PageHeader seatsUsed={members.length} onInvite={() => setInviting(true)} />
+        <PageHeader seatsUsed={members.length} onInvite={openInvite} />
 
         <Tabs value={tab} onValueChange={(value) => setTab(value as Tab)} className="gap-ws-9">
           <Tabs.List aria-label="People in the workspace" className="w-full">
@@ -150,7 +156,7 @@ function TeamPage() {
               invitations={shownInvitations}
               query={query.trim()}
               onClearSearch={() => setQuery('')}
-              onInvite={() => setInviting(true)}
+              onInvite={openInvite}
               onResend={(invitation) => {
                 setInvitations(
                   invitations.map((i) =>
@@ -171,6 +177,10 @@ function TeamPage() {
       <InviteModal
         open={inviting}
         onOpenChange={setInviting}
+        onCloseAutoFocus={(event) => {
+          event.preventDefault();
+          inviteOpener.current?.focus();
+        }}
         members={members}
         taken={[...members.map((m) => m.email), ...invitations.map((i) => i.email)]}
         onInvite={invite}
