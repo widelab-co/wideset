@@ -178,8 +178,10 @@ const PartTokens = ({ part, element, el }: { part: string; element?: string; el:
   return (
     <div className="flex max-h-[22rem] w-max max-w-[18.75rem] min-w-[15rem] flex-col gap-ws-4 overflow-y-auto px-ws-7 py-ws-6">
       <div className="flex items-baseline justify-between gap-ws-7">
-        <span className="font-mono typography-label-strong-sm text-ws-static-strong">{part}</span>
-        {element && <span className={`truncate ${quiet}`}>{element}</span>}
+        <span className="typography-label-strong-sm text-ws-static-strong">{part}</span>
+        {element && (
+          <span className="truncate typography-label-sm text-ws-static-subtle">{element}</span>
+        )}
       </div>
       {source.classes.length === 0 ? (
         <p className={quiet}>No design tokens on this part.</p>
