@@ -160,6 +160,18 @@ is merged.
   and `-dark.webp`, swapped with the page's theme. A block without one yet frames its preview route
   instead, scaled (`BlockPreviewFrame`).
 
+The screenshots come from the docs' own preview route, so they match what the pages render.
+After blocks change, build and serve the site, then shoot them (by hand; Playwright is not a
+dependency of the repository, so point `PLAYWRIGHT` at any install of it):
+
+```bash
+pnpm --filter @wideset/docs build && pnpm --filter @wideset/docs preview   # http://localhost:4322
+PLAYWRIGHT=/path/to/node_modules/playwright/index.mjs node apps/docs/scripts/sync-blocks.mjs
+```
+
+It loads `/blocks/<id>/preview?theme=light|dark` at 1440 × 960 with reduced motion and writes
+WebP at quality 80; `BLOCKS_ONLY=<id>,…` shoots only those blocks, `BLOCKS_URL` points it at
+another server. Screenshots of blocks the manifest no longer lists are removed. Commit the result.
 `scripts/blocks.test.mjs` checks that the categories and the screenshots name only blocks in the
 manifest.
 

@@ -3,11 +3,9 @@ import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, it } from 'node:test';
 
-import { docs, library } from './paths.mjs';
+import { blockIds, docs } from './paths.mjs';
 
-/** The manifest's ids (BLOCKS and PANELS), read as text: these checks run without TypeScript. */
-const manifest = readFileSync(join(library, 'src/blocks/index.ts'), 'utf8');
-const ids = new Set([...manifest.matchAll(/^ {4}id: '([^']+)',$/gm)].map(([, id]) => id));
+const ids = new Set(blockIds());
 const categories = JSON.parse(readFileSync(join(docs, 'src/data/block-categories.json'), 'utf8'));
 
 describe('blocks: what the docs add to the manifest', () => {
