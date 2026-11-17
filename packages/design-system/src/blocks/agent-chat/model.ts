@@ -155,8 +155,13 @@ export type Thread = {
   pullRequest?: { number: number; comments: number };
   /** A fork or a subagent of the thread above it: indented under it. */
   child?: boolean;
+  /** Code: the branch the session works on, as chosen when it started. */
+  branch?: string;
   turns: Turn[];
 };
+
+/** Code: where a new session works, as chosen on the new-session screen. */
+export type Workplace = { repository: string; branch: string };
 
 /** A model to answer with, and a line on what it is for. */
 export type Model = { id: string; name: string; note: string };
