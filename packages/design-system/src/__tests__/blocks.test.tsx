@@ -171,6 +171,18 @@ describe('Agent code', () => {
     expect(getByRole('tabpanel', { name: 'Changes' })).toBeVisible();
   });
 
+  // A session started from a repository's + goes under that repository, the one Home shows.
+  it('starts a new session in the repository it was started from', async () => {
+    const { default: AgentCode } = await import('../blocks/agent-code');
+    const user = userEvent.setup();
+    const { getByRole } = render(<AgentCode />);
+    await user.click(getByRole('button', { name: 'New session in lumen-web' }));
+    expect(getByRole('combobox', { name: 'Repository' })).toHaveTextContent('lumen-web');
+    await user.type(getByRole('textbox', { name: 'Message' }), 'Add a dark theme{Enter}');
+    const group = getByRole('group', { name: 'lumen-web' });
+    expect(group).toHaveTextContent('Add a dark theme');
+  });
+
   // Closing the pane hides it: a review comment written in it is there when it opens again.
   it('keeps a review comment through closing and reopening the pane', async () => {
     const { default: AgentCode } = await import('../blocks/agent-code');
@@ -256,6 +268,35 @@ describe('Agent session', () => {
       result.current.session.attach('b.txt');
     });
     expect(result.current.session.attachments).toEqual(['a.txt', 'b.txt']);
+  });
+
+  // Two turns may ask questions with the same id: a message answers the one on the page only.
+  it('answers only the turn whose question is open', () => {
+    const question = (id: string) => ({
+      kind: 'question' as const,
+      id,
+      title: 'Which?',
+      options: [],
+    });
+    const earlier: AgentTurn = {
+      id: 'earlier',
+      role: 'agent',
+      blocks: [question('q')],
+      stoppedAt: 0,
+    };
+    const later: AgentTurn = { id: 'later', role: 'agent', blocks: [question('q')] };
+    const { result } = renderHook(() => {
+      const [turns, setTurns] = useState<Turn[]>([earlier, later]);
+      return { turns, session: useSession({ turns, onChange: setTurns, reply }) };
+    });
+    act(() => result.current.session.send('Typed answer'));
+    const answer = (id: string) => {
+      const turn = result.current.turns.find((item) => item.id === id) as AgentTurn;
+      const block = turn.blocks[0];
+      return block.kind === 'question' ? block.answer : undefined;
+    };
+    expect(answer('later')).toBe('Typed answer');
+    expect(answer('earlier')).toBeUndefined();
   });
 
   // A thread kept by the app and opened again already holds turns the hook made last time.

@@ -16,13 +16,15 @@ import {
 import { ChatTools } from './chat-tools';
 import { CodeTools } from './code-tools';
 import { Composer } from './composer';
-import type { Mode } from './model';
+import type { Mode, Workplace } from './model';
 import { ModelMenu } from './model-menu';
 
 type HomeProps = {
   mode: Mode;
-  /** Starts the thread with its first message and the files attached to it. */
-  onSend: (text: string, attachments?: string[]) => void;
+  /** Code: the repository the session starts in, the one whose `+` was pressed. */
+  repository?: string;
+  /** Starts the thread with its first message, the files attached to it and, in Code, where. */
+  onSend: (text: string, attachments?: string[], workplace?: Workplace) => void;
 };
 
 /**
@@ -33,10 +35,12 @@ type HomeProps = {
  * Under the composer, a few ways to start; picking one writes its opening words into the
  * composer and leaves the cursor at their end.
  */
-export function Home({ mode, onSend }: HomeProps) {
+export function Home({ mode, repository: chosen, onSend }: HomeProps) {
   const [starter, setStarter] = useState({ text: '', id: 0 });
   const [attached, setAttached] = useState<string[]>([]);
-  const [repository, setRepository] = useState(repositories[0]);
+  const [repository, setRepository] = useState(
+    chosen && repositories.includes(chosen) ? chosen : repositories[0],
+  );
   const [branch, setBranch] = useState(branches[0]);
   const code = mode === 'code';
 
@@ -111,7 +115,13 @@ export function Home({ mode, onSend }: HomeProps) {
             }
             model={<ModelMenu models={models} efforts={efforts} />}
             roomy
-            onSend={(text) => onSend(text, attached.length > 0 ? attached : undefined)}
+            onSend={(text) =>
+              onSend(
+                text,
+                attached.length > 0 ? attached : undefined,
+                code ? { repository, branch } : undefined,
+              )
+            }
           />
           <div role="group" aria-label="Ways to start" className="gap-ws-3 px-ws-3 flex flex-wrap">
             {starters[mode].map(({ label, icon, prompt }) => (

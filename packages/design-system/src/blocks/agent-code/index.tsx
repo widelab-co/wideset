@@ -256,7 +256,12 @@ export default function AgentCode({ pane: initial = 'changes' }: { pane?: Pane }
               model={<ModelMenu models={models} efforts={efforts} />}
             />
           ) : (
-            <Home key={mode} mode={mode} onSend={shell.begin} />
+            <Home
+              key={`${mode}-${shell.newIn ?? ''}`}
+              mode={mode}
+              repository={shell.newIn}
+              onSend={shell.begin}
+            />
           )}
         </div>
 

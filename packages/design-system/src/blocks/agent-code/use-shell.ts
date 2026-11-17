@@ -1,7 +1,7 @@
 // TODO(custom): the app's state around the open thread (the mode, the threads by group, which one is open, starting a new one); Wideset has no app shell state.
 import { useEffect, useRef, useState } from 'react';
 
-import type { AgentTurn, Mode, Thread, ThreadGroup, Turn } from './model';
+import type { AgentTurn, Mode, Thread, ThreadGroup, Turn, Workplace } from './model';
 import { useSession } from './use-session';
 
 /** A thread that is still working when it is opened has been at it for a moment already. */
@@ -122,6 +122,8 @@ export function useShell({
     session,
     changeThread,
     startNew,
+    /** The group whose `+` started the new thread: in Code, the repository it starts in. */
+    newIn,
 
     crumbs:
       thread && group
@@ -151,23 +153,32 @@ export function useShell({
       session.attachNext(files ?? []);
     },
 
-    /** The first message of a new thread, with the files attached on the new-thread screen. */
-    begin(text: string, sentWith?: string[]) {
+    /**
+     * The first message of a new thread, with the files attached on the new-thread screen. In Code
+     * the session goes under the repository chosen there and keeps its branch.
+     */
+    begin(text: string, sentWith?: string[], workplace?: Workplace) {
       const id = nextId();
       const answer = reply(nextId(), text);
       const created: Thread = {
         id,
         title: text.length > 32 ? `${text.slice(0, 32).trimEnd()}…` : text,
+        branch: workplace?.branch,
         turns: [{ id: nextId(), role: 'user', text, sentWith }, answer],
       };
-      setGroups((current) => ({
-        ...current,
-        [mode]: current[mode].map((item) =>
-          (newIn ? item.id === newIn : item.fixed)
-            ? { ...item, threads: [created, ...item.threads] }
-            : item,
-        ),
-      }));
+      setGroups((current) => {
+        // The chosen repository's group, else the group whose + was pressed, else Recents.
+        const wanted = workplace?.repository ?? newIn;
+        const home = current[mode].some((item) => item.id === wanted) ? wanted : undefined;
+        return {
+          ...current,
+          [mode]: current[mode].map((item) =>
+            (home ? item.id === home : item.fixed)
+              ? { ...item, threads: [created, ...item.threads] }
+              : item,
+          ),
+        };
+      });
       setOpenIds((current) => ({ ...current, [mode]: id }));
       session.start(answer.id);
     },
