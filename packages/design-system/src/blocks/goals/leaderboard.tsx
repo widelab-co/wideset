@@ -1,11 +1,10 @@
 // TODO(custom): whole-row link done with a stretched <a>; Table has no row link.
 import { RiArrowDownLine, RiArrowUpLine } from '@remixicon/react';
-import { Table } from '@wideset/react';
+import { ProgressBar, Table } from '@wideset/react';
 
 import { maya, type Standing } from './data';
 import { formatShare, formatUsd } from './format';
 import { PersonAvatar } from './person-avatar';
-import { QuotaBar } from './quota-bar';
 
 /**
  * The table sits in a card, edge to edge: the outer cells are inset like the card's title, and
@@ -35,10 +34,11 @@ function RankChange({ from, to }: { from: number; to: number }) {
 }
 
 /**
- * The team ranked by what it closed this quarter, each with the share of their quota as the
- * neutral bar and how far they moved since last week. No medals and no podium: the rank is a
- * number. The signed-in person's row carries the table's selected fill, the one way it differs.
- * A row opens the person's profile.
+ * The team ranked by what it closed this quarter, each with the share of their quota and how far
+ * they moved since last week. The share is progress to a target, so it is the bar the goals above
+ * use (`ProgressBar`, positive once the quota is met), with the percentage beside it. No medals
+ * and no podium: the rank is a number. The signed-in person's row says "(you)" after the name;
+ * no selected fill, since nothing in the table is selected. A row opens the person's profile.
  */
 export function Leaderboard({ standings }: { standings: Standing[] }) {
   const ranked = [...standings].sort((a, b) => b.revenue - a.revenue);
@@ -63,8 +63,9 @@ export function Leaderboard({ standings }: { standings: Standing[] }) {
       <Table.Body>
         {ranked.map(({ person, revenue, quota, lastWeek }, index) => {
           const you = person.id === maya.id;
+          const share = revenue / quota;
           return (
-            <Table.Row key={person.id} selected={you} className="relative">
+            <Table.Row key={person.id} className="relative">
               <Table.Cell align="right" className="tabular-nums">
                 {index + 1}
               </Table.Cell>
@@ -83,7 +84,7 @@ export function Leaderboard({ standings }: { standings: Standing[] }) {
                     className="text-ws-static-strong focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default after:inset-ws-0 truncate after:absolute"
                   >
                     {person.name}
-                    {you && <span className="sr-only"> (you)</span>}
+                    {you && <span className="text-ws-static-subtle"> (you)</span>}
                   </a>
                 </span>
               </Table.Cell>
@@ -94,9 +95,14 @@ export function Leaderboard({ standings }: { standings: Standing[] }) {
               </Table.Cell>
               <Table.Cell>
                 <span className="gap-ws-7 flex items-center">
-                  <QuotaBar share={revenue / quota} />
+                  <ProgressBar
+                    value={Math.min(revenue, quota)}
+                    max={quota}
+                    variant={share >= 1 ? 'success' : 'default'}
+                    aria-label={`${person.name}, share of quota`}
+                  />
                   <span className="w-[2.5rem] shrink-0 text-right tabular-nums">
-                    {formatShare(revenue / quota)}
+                    {formatShare(share)}
                   </span>
                 </span>
               </Table.Cell>

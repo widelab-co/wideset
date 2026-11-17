@@ -22,7 +22,7 @@ export const loadAppearance = (): Appearance => {
   return 'system';
 };
 
-export const applyAppearance = (value: Appearance) => {
+const applyAppearance = (value: Appearance) => {
   document.documentElement.classList.toggle('dark', isDark(value));
 };
 

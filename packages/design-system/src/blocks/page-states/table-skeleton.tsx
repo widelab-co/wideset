@@ -28,7 +28,7 @@ export function TableSkeleton() {
           <Table.Header className="w-[7.75rem]">
             <span className={cn(BAR, 'w-[4rem]')} />
           </Table.Header>
-          <Table.Header className="w-[6.25rem]">
+          <Table.Header className="w-[6.5rem]">
             <span className={cn(BAR, 'ml-auto w-[3rem]')} />
           </Table.Header>
         </Table.Row>

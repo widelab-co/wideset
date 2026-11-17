@@ -8,7 +8,7 @@ import {
   ToastProvider,
   useToast,
 } from '@wideset/react';
-import { useEffect, useId, useRef, useState } from 'react';
+import { useCallback, useEffect, useId, useRef, useState } from 'react';
 
 import { type FileItem, FILES, FOLDER, NOW, OPEN_ON_LOAD } from './data';
 import { fileButtonId, FileList } from './file-list';
@@ -17,6 +17,7 @@ import { MediaViewer } from './media-viewer';
 import type { MoreAction } from './more-menu';
 import { PageHeader } from './page-header';
 import { MediaViewerSidebar } from './sidebar';
+import { ViewerToast, type ViewerToastData } from './viewer-toast';
 
 /** One column of the page: the header and the body share its edges. */
 const COLUMN = 'px-ws-14 mx-auto w-full max-w-[80rem]';
@@ -34,12 +35,19 @@ function Screen() {
   const [files, setFiles] = useState(FILES);
   const [openId, setOpenId] = useState<string | null>(OPEN_ON_LOAD);
   const lastShown = useRef<string | null>(null);
+  // What an action in the viewer reports is drawn inside the viewer, in its dark scope; the
+  // page's own toasts (ToastProvider) are left for what is said once the viewer has closed.
+  const [viewerToast, setViewerToast] = useState<ViewerToastData>();
+  const dismissViewerToast = useCallback(() => setViewerToast(undefined), []);
+  const say = (message: string, onUndo?: () => void) =>
+    setViewerToast({ key: Date.now(), message, onUndo });
   const index = files.findIndex((file) => file.id === openId);
   const open = index >= 0;
 
   const close = () => {
     lastShown.current = openId;
     setOpenId(null);
+    setViewerToast(undefined);
   };
 
   // Once the page is no longer inert, the opener takes the focus back.
@@ -52,28 +60,36 @@ function Screen() {
   const copyLink = (file: FileItem) => {
     // Clipboard access can be refused (an iframe, a test); the toast still confirms the action.
     navigator.clipboard?.writeText(`https://orbit.so/f/${file.id}`).catch(() => undefined);
-    showToast({ content: `Link to ${file.name} copied. People in the workspace can open it.` });
+    say(`Link to ${file.name} copied. People in the workspace can open it.`);
   };
 
   const trash = (file: FileItem) => {
     const at = files.indexOf(file);
     const rest = files.filter((item) => item !== file);
     setFiles(rest);
-    // The viewer moves on to the file that took its place, or closes on an empty folder.
-    if (rest.length === 0) close();
-    else setOpenId(rest[Math.min(at, rest.length - 1)].id);
+    // Only this file comes back, where it was; comments and other changes since stay.
+    const restore = () =>
+      setFiles((current) =>
+        current.some((item) => item.id === file.id)
+          ? current
+          : [...current.slice(0, at), file, ...current.slice(at)],
+      );
+    const message = `Moved ${file.name} to the trash`;
+    // The viewer moves on to the file that took its place and says so itself.
+    if (rest.length > 0) {
+      setOpenId(rest[Math.min(at, rest.length - 1)].id);
+      say(message, restore);
+      return;
+    }
+    // On an empty folder it closes, so the page says it.
+    close();
     const id = showToast({
-      content: `Moved ${file.name} to the trash`,
+      content: message,
       action: (
         <Toast.Action
           preset="ghost"
           onClick={() => {
-            // Only this file comes back, where it was; comments and other changes since stay.
-            setFiles((current) =>
-              current.some((item) => item.id === file.id)
-                ? current
-                : [...current.slice(0, at), file, ...current.slice(at)],
-            );
+            restore();
             dismissToast(id);
           }}
         >
@@ -151,12 +167,19 @@ function Screen() {
           index={index}
           onIndexChange={(next) => setOpenId(files[next].id)}
           onClose={close}
-          onDownload={(file) =>
-            showToast({ content: `Downloading ${file.name} (${formatSize(file.size)})` })
-          }
+          onDownload={(file) => say(`Downloading ${file.name} (${formatSize(file.size)})`)}
           onShare={copyLink}
           onMore={onMore}
           onComment={addComment}
+          toast={
+            viewerToast && (
+              <ViewerToast
+                key={viewerToast.key}
+                toast={viewerToast}
+                onDismiss={dismissViewerToast}
+              />
+            )
+          }
         />
       )}
     </>

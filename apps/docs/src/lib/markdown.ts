@@ -1,4 +1,4 @@
-import { type Entry, partsOf } from './catalog';
+import { type Entry, partsOf, relationsOf } from './catalog';
 import { examplesFor } from './examples';
 import { guidanceMarkdown } from './guidance';
 
@@ -16,7 +16,7 @@ const cell = (text: string) => text.replace(/\|/g, '\\|').replace(/\s*\n\s*/g, '
 
 /**
  * A component page as Markdown, for a model's context: usage guidance, install, import, parts,
- * examples and props — everything a reader gets except the live stage. Served at `/components/<id>.md`
+ * examples, props and relationships — everything a reader gets except the live stage. Served at `/components/<id>.md`
  * and copied by the page's Copy menu.
  */
 export const componentMarkdown = (entry: Entry) => {
@@ -41,6 +41,14 @@ export const componentMarkdown = (entry: Entry) => {
     return `### ${part.part}\n\n${table}${rest}`;
   });
 
+  const relations = relationsOf(entry.id);
+  const names = (list: Entry[]) => list.map((item) => item.title).join(', ');
+  const relationLines = [
+    relations.builtWith.length ? `- Built with: ${names(relations.builtWith)}` : '',
+    relations.usedBy.length ? `- Uses ${entry.title}: ${names(relations.usedBy)}` : '',
+    relations.appearsWith.length ? `- Appears with: ${names(relations.appearsWith)}` : '',
+  ].filter(Boolean);
+
   return [
     `# ${entry.title}`,
     entry.description ?? '',
@@ -53,6 +61,7 @@ export const componentMarkdown = (entry: Entry) => {
         `## Example: ${example.title}\n\n${example.caption ? `${example.caption}\n\n` : ''}${fence('tsx', example.code)}`,
     ),
     `## Props\n\n${propSections.join('\n\n')}`,
+    relationLines.length ? `## Relationships\n\n${relationLines.join('\n')}` : '',
   ]
     .filter(Boolean)
     .join('\n\n');

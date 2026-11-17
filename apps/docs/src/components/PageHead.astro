@@ -1,0 +1,30 @@
+---
+/**
+ * The head of every page, so they all open alike: the title, one description in subtle, and
+ * the page's actions at the right of the title's row. The first content block follows after the
+ * same gap everywhere.
+ */
+interface Props {
+  title: string;
+  description?: string | null;
+}
+const { title, description } = Astro.props;
+---
+
+<header class="mb-ws-14 flex flex-col gap-ws-9 sm:flex-row sm:items-start sm:justify-between">
+  <div class="min-w-0">
+    <h1 class="text-ws-static-strong text-ws-700 leading-ws-800 font-ws-medium tracking-ws-tight-100">
+      {title}
+    </h1>
+    {description && (
+      <p class="text-ws-static-subtle mt-ws-4 max-w-[65ch] text-[0.9375rem] leading-[1.5rem]">
+        {description}
+      </p>
+    )}
+  </div>
+  {Astro.slots.has('actions') && (
+    <div class="flex shrink-0 items-center gap-ws-5">
+      <slot name="actions" />
+    </div>
+  )}
+</header>

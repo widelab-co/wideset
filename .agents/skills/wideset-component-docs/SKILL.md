@@ -9,11 +9,24 @@ metadata:
 
 # Component examples and docs page
 
-The page builds itself from the library: title and description (the stories meta), install,
-the Anatomy table (named exports) and picture (parts found by `data-slot`), Props (the types),
-the Playground (the stage + controls from the types), **Examples (the example files)**,
-"since" (git) and related components (imports). One file per example feeds both Storybook and
-the page, so they cannot drift. Tabs is the pattern to copy.
+The page builds itself from the library: the title and description (the stories meta) with
+"Copy page", then up to three tabs.
+
+- **Overview:** the component on its stage (the thumbnail); Installation (one card: CLI or
+  Manual, from the registry item); **Examples (the example files)**, each a card with the live
+  example and its code; API reference (one props table per part, from the types); Accessibility
+  (the spec's section, when it has one).
+- **Anatomy** (two or more parts): the picture (parts found by `data-slot`) and the parts table
+  (named exports). Its rules are the `wideset-component-anatomy` skill.
+- **Relationships** (when the graph links the component to another): the map and the lists
+  "Built with", "Uses <name>", "Appears with", read from imports.
+
+The same stage with controls is the component's entry on the Playground page
+(`/docs/playground?c=<page>`). One file per example feeds both Storybook and the page, so they
+cannot drift. Tabs is the pattern to copy.
+
+The page tabs are the only row of tabs in the page's flow: any other switch sits inside a card
+(Installation's CLI | Manual pills) or is another control. Do not add a second row.
 
 Paths: `pkg/` = `packages/design-system/`, `docs/` = `apps/docs/`. A page is a stories file
 whose component `src/index.ts` exports; `<page>` is its kebab name (`IconButton.stories.tsx` →
@@ -74,11 +87,11 @@ stories (Controlled, Composition, edge cases) stay as they are.
 
 ## 3. The playground's stage — `examples/<page>/default.tsx`
 
-The page opens on it: one typical instance with realistic content whose root takes the rail's
-props. Every page has one.
+The page opens on it and the gallery shows it as the component's thumbnail: one typical
+instance with realistic content whose root takes the Playground's props. Every page has one.
 
 ```tsx
-/** The playground's stage: one link button, its props set from the rail. */
+/** The playground's stage: one link button, its props set from the Properties panel. */
 import { LinkButton, type LinkButtonProps } from '@wideset/react';
 
 export default function LinkButtonDefault(props: Partial<LinkButtonProps>) {
@@ -90,9 +103,10 @@ export default function LinkButtonDefault(props: Partial<LinkButtonProps>) {
 }
 ```
 
-The rail is every union and boolean of the root props type (`gen-props.mjs` reads them); the
-Code tab prints the JSX `default.tsx` returns with `{...props}` replaced by the chosen props. Use
-every part a reader should see, so the anatomy picture can name them.
+The Playground's Properties panel is every union and boolean of the root props type
+(`gen-props.mjs` reads them); the code under the stage prints the JSX `default.tsx` returns with
+`{...props}` replaced by the chosen props. Use every part a reader should see, so the anatomy
+picture can name them.
 
 ## 4. Playground tuning — `docs/src/playgrounds/<page>.tsx` (optional)
 
@@ -101,8 +115,23 @@ Only what the types do not say: `playground({ from: '<Name>Props', … })` from
 `defaults`, `stage` (the dark stage for `inverse`), `preview` (an overlay drawn open for the
 gallery card), `anatomy` (a composition with every part, when the stage lacks some),
 `render`/`code` with `content` controls only when the stage needs controls the types do not have
-(an icon on/off, a count). Never re-list a union by hand. For `anatomy` and anything else in
-the Anatomy section, use the `wideset-component-anatomy` skill.
+(an icon on/off, a count). Never re-list a union by hand. For `anatomy` and anything else on
+the Anatomy tab, use the `wideset-component-anatomy` skill.
+
+### Playground controls
+
+The Playground page's Properties panel picks each control from the definition's
+`select | switch` at render time; playground files do not change. Source of truth:
+`docs/src/components/PropertiesPanel.tsx`.
+
+- On/off (`switch`) is a Switch on its row: label left, switch right.
+- A `select` of two or three options whose labels are all short (10 characters or fewer, a
+  "None" counted) is a full-width SegmentedControl. Two named alternatives (Filled / Outline)
+  are segmented, never a switch: a switch cannot say which one is on.
+- Four or more options, or any long label, is a full-width Select.
+- Options keep the definition's order, so a scale reads small to large in both.
+- Layout: the definition's groups under their titles (the strongest text in the panel), apart by
+  space, no lines; each field label above its control in the quietest text; small (`sm`) controls.
 
 ## 5. Parts carry `data-slot`
 
@@ -119,6 +148,8 @@ pnpm docs:build                         # renders every page and example
 pnpm lint && pnpm prettier
 ```
 
-Then open the page (`pnpm docs:dev`, `/components/<page>`) and the stories in Storybook:
-playground controls, the Code tab after changing a control, the anatomy section (the checklist in
-`wideset-component-anatomy`), each example in light and dark.
+Then open the page (`pnpm docs:dev`, `/components/<page>`), its playground
+(`/docs/playground?c=<page>`) and the stories in Storybook: the stage and the thumbnail in the
+gallery, the playground's controls and the code after changing one, each example in light and
+dark, the API tables, the Anatomy tab (`?tab=anatomy`, the checklist in
+`wideset-component-anatomy`) and the Relationships tab (`?tab=relationships`).

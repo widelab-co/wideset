@@ -13,6 +13,7 @@ import { InviteColleague } from './invite-colleague';
 import { RsvpControl } from './rsvp-control';
 import { Section } from './section';
 import { SharePopup } from './share-popup';
+import { SideSection } from './side-section';
 import { EventSidebar } from './sidebar';
 import { SpeakerList } from './speaker-list';
 
@@ -86,8 +87,9 @@ function EventDetailPage() {
               }
             />
 
-            {/* Every part is a card: what happens on the left, who will be there on the right. */}
-            <div className="gap-ws-12 grid grid-cols-1 items-start lg:grid-cols-[minmax(0,1fr)_20rem]">
+            {/* What happens is in cards on the left; who will be there is a quiet side column,
+                plain on the page. */}
+            <div className="gap-ws-16 grid grid-cols-1 items-start lg:grid-cols-[minmax(0,1fr)_18rem]">
               <div className="gap-ws-12 flex min-w-0 flex-col">
                 <Section title="About">
                   <div className="gap-ws-5 typography-body-md text-ws-static-base flex max-w-[44rem] flex-col">
@@ -107,20 +109,22 @@ function EventDetailPage() {
                 </Section>
               </div>
 
-              <aside aria-label="People" className="gap-ws-12 flex flex-col">
-                <Section title="Who is going">
+              {/* Dropped by the card header's inset, so "Who is going" stands on the cards'
+                  title line. */}
+              <aside aria-label="People" className="gap-ws-14 lg:pt-ws-9 flex flex-col">
+                <SideSection title="Who is going">
                   <AttendeeList people={people} meId={me.id} />
-                </Section>
-                <Section title="Hosts">
+                </SideSection>
+                <SideSection title="Hosts">
                   <HostList hosts={hosts} />
-                </Section>
-                <Section title="Invite a colleague">
+                </SideSection>
+                <SideSection title="Invite a colleague">
                   <InviteColleague
                     onInvite={(email) =>
                       showToast({ status: 'success', content: `Invitation sent to ${email}` })
                     }
                   />
-                </Section>
+                </SideSection>
               </aside>
             </div>
           </div>
@@ -135,7 +139,7 @@ function EventDetailPage() {
  * sidebar. No hero and no banner: the header carries the date as a leaf over the name, the facts
  * in a quiet row, and the answer to the invitation as the one filled control. Below, in bordered
  * cards, what happens (about, the agenda as a timeline, the speakers, the practical facts) beside
- * who will be there (who is going, the hosts, inviting a colleague).
+ * a plain side column of who will be there (who is going, the hosts, inviting a colleague).
  */
 export default function EventDetail() {
   return (
