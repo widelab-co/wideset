@@ -70,6 +70,12 @@ export function useSession({
     latest.current = turns;
   });
   const queued = useRef(waiting?.length ?? 0);
+  /**
+   * The queued messages already sent, by id. StrictMode sets an effect up twice in development, and
+   * a send can come before the render that drops a message the run's end just sent: neither may
+   * send it again.
+   */
+  const claimed = useRef(new Set<number>());
   const [queue, setQueue] = useState<QueuedMessage[]>(() =>
     (waiting ?? []).map((text, index) => ({ id: index + 1, text })),
   );
@@ -147,12 +153,18 @@ export function useSession({
     setAttachments([]);
     // While the agent works the files wait with the message, not on the tray for the next one.
     const message = { id: (queued.current += 1), text, sentWith };
-    if (running) return setQueue([...queue, message]);
+    // The queue is changed from what it holds now, so two sends in one handler both stay.
+    const behind = () => setQueue((current) => [...current, message]);
+    if (running) return behind();
     // Stopped with messages waiting: sending goes on in order, the first that waited goes now.
     // A turn that waits for you is answered by what you send now; the queue goes after it.
     if (queue.length > 0 && !awaiting) {
-      setQueue([...queue.slice(1), message]);
-      return deliver(queue[0].text, queue[0].sentWith, answering);
+      const [first] = queue;
+      // Already sent as the run ended: this message waits behind it instead.
+      if (claimed.current.has(first.id)) return behind();
+      claimed.current.add(first.id);
+      setQueue((current) => [...current.filter((item) => item.id !== first.id), message]);
+      return deliver(first.text, first.sentWith, answering);
     }
     deliver(text, sentWith, answering);
   };
@@ -171,16 +183,13 @@ export function useSession({
   // and not after you stopped it: the queue waits for Continue, or for what you send next.
   const stopped = cut !== null;
   const answering = open.join(' ');
-  // Each message is claimed by its id before it goes: StrictMode sets an effect up twice in
-  // development, and the second setup must not send the same message again.
-  const claimed = useRef(new Set<number>());
   useEffect(() => {
     if (running || awaiting || stopped || queue.length === 0) return;
-    const [next, ...rest] = queue;
+    const [next] = queue;
     if (claimed.current.has(next.id)) return;
     claimed.current.add(next.id);
     deliver(next.text, next.sentWith, answering ? answering.split(' ') : []);
-    setQueue(rest);
+    setQueue((current) => current.filter((item) => item.id !== next.id));
   }, [running, awaiting, stopped, queue, deliver, answering]);
 
   return {
@@ -228,15 +237,16 @@ export function useSession({
     },
 
     edit(index: number) {
-      const { text, sentWith = [] } = queue[index];
+      const { id, text, sentWith = [] } = queue[index];
       setDraft({ text, id: draft.id + 1 });
       // Its files go back on the tray with it.
       setAttachments((tray) => [...tray, ...sentWith.filter((name) => !tray.includes(name))]);
-      setQueue(queue.filter((_, at) => at !== index));
+      setQueue((current) => current.filter((item) => item.id !== id));
     },
 
     unqueue(index: number) {
-      setQueue(queue.filter((_, at) => at !== index));
+      const { id } = queue[index];
+      setQueue((current) => current.filter((item) => item.id !== id));
     },
 
     stop() {
