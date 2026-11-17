@@ -75,7 +75,7 @@ export function AgentSidebar({
   const [query, setQuery] = useState('');
   const [searching, setSearching] = useState(false);
   const field = useRef<HTMLInputElement>(null);
-  const searchRow = useRef<HTMLAnchorElement>(null);
+  const searchRow = useRef<HTMLButtonElement>(null);
   /** Search was left from the keyboard: the cursor goes back to the Search row it came from. */
   const backToRow = useRef(false);
   const groupId = useId();
@@ -92,7 +92,10 @@ export function AgentSidebar({
       ...group,
       threads: group.threads.filter((item) => item.title.toLowerCase().includes(needle)),
     }))
-    .filter((group) => group.threads.length > 0);
+    // A search shows only the groups it found something in; without one, an empty project or
+    // repository stays, with its `+` for the first thread in it.
+    .filter((group) => group.threads.length > 0 || (needle === '' && !group.fixed));
+  const nothingFound = needle !== '' && shown.length === 0;
 
   const search = () => {
     onCollapsedChange?.(false);
@@ -184,14 +187,16 @@ export function AgentSidebar({
           </Sidebar.Collapsed>
 
           <nav aria-label={mode === 'chat' ? 'Chat' : 'Code'} className="gap-ws-2 flex flex-col">
+            {/* New and Search act in place, so they are buttons dressed as the rows around them. */}
             <Sidebar.Item
-              href="#new"
+              asChild
               icon={RiAddLine}
               label={`New ${thread}`}
               suffix={shortcut('⇧', 'O')}
               suffixOnHover
-              onClick={act(() => onNew())}
-            />
+            >
+              <button type="button" onClick={() => onNew()} />
+            </Sidebar.Item>
             {searching && !collapsed ? (
               <TextInput
                 size="sm"
@@ -223,14 +228,14 @@ export function AgentSidebar({
               </TextInput>
             ) : (
               <Sidebar.Item
-                ref={searchRow}
-                href="#search"
+                asChild
                 icon={RiSearchLine}
                 label="Search"
                 suffix={shortcut('K')}
                 suffixOnHover
-                onClick={act(search)}
-              />
+              >
+                <button ref={searchRow} type="button" onClick={search} />
+              </Sidebar.Item>
             )}
             {mode === 'code' && (
               <Sidebar.Item
@@ -300,11 +305,15 @@ export function AgentSidebar({
                 })}
               </div>
             ))}
-            {shown.length === 0 && (
-              <p className="typography-body-md text-ws-static-subtle px-ws-5">
-                {`No ${thread}s match “${query.trim()}”`}
-              </p>
-            )}
+            {/* Always there, so a screen reader hears when the search finds nothing. */}
+            <p
+              role="status"
+              className={
+                nothingFound ? 'typography-body-md text-ws-static-subtle px-ws-5' : 'sr-only'
+              }
+            >
+              {nothingFound ? `No ${thread}s match “${query.trim()}”` : ''}
+            </p>
           </nav>
         </Sidebar.Expanded>
       </Sidebar.Section>
