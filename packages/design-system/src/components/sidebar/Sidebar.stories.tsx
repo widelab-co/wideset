@@ -11,6 +11,7 @@ import {
   RiWalletLine,
 } from '@remixicon/react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import * as React from 'react';
 
 import { exampleStory } from '../../stories/example';
 import { Avatar } from '../avatar/Avatar';
@@ -18,6 +19,10 @@ import { IconButton } from '../button/IconButton';
 import { ProgressBar } from '../progress-bar/ProgressBar';
 import CollapsedExample from './examples/sidebar/collapsed';
 import collapsedSource from './examples/sidebar/collapsed?raw';
+import CollapsibleSectionsExample from './examples/sidebar/collapsible-sections';
+import collapsibleSectionsSource from './examples/sidebar/collapsible-sections?raw';
+import ExpandableItemsExample from './examples/sidebar/expandable-items';
+import expandableItemsSource from './examples/sidebar/expandable-items?raw';
 import GroupsExample from './examples/sidebar/groups';
 import groupsSource from './examples/sidebar/groups?raw';
 import StatesExample from './examples/sidebar/states';
@@ -25,6 +30,8 @@ import statesSource from './examples/sidebar/states?raw';
 import SuffixesExample from './examples/sidebar/suffixes';
 import suffixesSource from './examples/sidebar/suffixes?raw';
 import { Sidebar } from './Sidebar';
+import { SidebarGroup } from './SidebarGroup';
+import { SidebarGroupTrigger } from './SidebarGroupTrigger';
 import { SidebarItem } from './SidebarItem';
 import { SidebarSection } from './SidebarSection';
 import { SidebarSectionHeader } from './SidebarSectionHeader';
@@ -63,6 +70,8 @@ const meta = {
     'Sidebar.Section': SidebarSection,
     'Sidebar.SectionHeader': SidebarSectionHeader,
     'Sidebar.Item': SidebarItem,
+    'Sidebar.Group': SidebarGroup,
+    'Sidebar.GroupTrigger': SidebarGroupTrigger,
     'Sidebar.Trigger': SidebarTrigger,
   },
   parameters: {
@@ -83,6 +92,17 @@ Use Tabs to switch sections within a page and Breadcrumbs to show hierarchy.
   <Sidebar.Section scrollable>     — fills remaining height, scrolls overflow in a ScrollArea
     <Sidebar.SectionHeader>        — title of a group of items; cut short ("P…") when collapsed
     <Sidebar.Item href="/" icon={Icon} label="Label" active />
+    <Sidebar.Group defaultOpen>    — a head row and the rows it folds; open / defaultOpen / onOpenChange
+      <Sidebar.Item href="/reports" icon={Icon} label="Reports" />   — the head stays a link
+      <Sidebar.GroupTrigger />     — the chevron beside it, a button of its own
+      <Sidebar.GroupContent>       — the folded rows: nested items
+        <Sidebar.Item href="/reports/revenue" icon={Icon} label="Revenue" nested />
+      </Sidebar.GroupContent>
+    </Sidebar.Group>
+    <Sidebar.Group>                — a collapsible section
+      <Sidebar.SectionHeader collapsible>Spaces</Sidebar.SectionHeader>   — the whole header toggles
+      <Sidebar.GroupContent>…</Sidebar.GroupContent>
+    </Sidebar.Group>
   </Sidebar.Section>
   <Sidebar.Collapsed>              — what exists only when collapsed
   <Sidebar.Trigger asChild>        — merge toggle behaviour onto a custom element
@@ -199,6 +219,13 @@ export const Default: Story = {
 export const Collapsed: Story = exampleStory(CollapsedExample, collapsedSource);
 
 export const Groups: Story = exampleStory(GroupsExample, groupsSource);
+
+export const CollapsibleSections: Story = exampleStory(
+  CollapsibleSectionsExample,
+  collapsibleSectionsSource,
+);
+
+export const ExpandableItems: Story = exampleStory(ExpandableItemsExample, expandableItemsSource);
 
 export const States: Story = exampleStory(StatesExample, statesSource);
 
@@ -317,6 +344,47 @@ export const Composition: Story = {
       </Sidebar>
     </div>
   ),
+  args: {
+    ...Default.args,
+  },
+};
+
+export const ControlledGroup: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          '`open` and `onOpenChange` put the group in your hands, for example to open the one that holds the current page on navigation. `onOpenChange` fires in both modes; with `open` set, nothing changes until you update it.',
+      },
+    },
+  },
+  render: function Render(args) {
+    const [open, setOpen] = React.useState(false);
+    return (
+      <div className="gap-ws-7 flex flex-col items-start">
+        <span className="typography-label-sm text-ws-static-subtle">
+          Reports is {open ? 'open' : 'closed'}
+        </span>
+        <div className="rounded-ws-control-lg border-ws-static-base flex h-[16rem] overflow-hidden border">
+          <Sidebar {...args}>
+            <Sidebar.Section>
+              <nav aria-label="Main" className="gap-ws-2 flex flex-col">
+                <Sidebar.Item href="#" icon={RiDashboardFill} label="Dashboard" active />
+                <Sidebar.Group open={open} onOpenChange={setOpen}>
+                  <Sidebar.Item href="#" icon={RiBarChartLine} label="Reports" />
+                  <Sidebar.GroupTrigger expandLabel="Show reports" collapseLabel="Hide reports" />
+                  <Sidebar.GroupContent>
+                    <Sidebar.Item href="#" icon={RiWalletLine} label="Balances" nested />
+                    <Sidebar.Item href="#" icon={RiFileCopyLine} label="Billing" nested />
+                  </Sidebar.GroupContent>
+                </Sidebar.Group>
+              </nav>
+            </Sidebar.Section>
+          </Sidebar>
+        </div>
+      </div>
+    );
+  },
   args: {
     ...Default.args,
   },
