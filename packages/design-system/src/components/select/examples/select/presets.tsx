@@ -1,7 +1,8 @@
 /**
- * Border is the default, for a select in a form or on the page. Ghost drops the frame and shows a
- * soft background on hover, for a select inside a surface that already has one, such as a toolbar,
- * a card header or a table cell.
+ * Border is the default, for a select in a form or on the page. Ghost drops the frame and reads as
+ * a value: its arrow and a soft background show on hover, keyboard focus or while open. Use it
+ * for a select inside a surface that already has one, such as a toolbar, a card header or a
+ * table cell.
  */
 import { Select } from '@wideset/react';
 

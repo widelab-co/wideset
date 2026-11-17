@@ -35,6 +35,8 @@ showToast({ content: 'Message archived', action: 'Undo' });
 
 - `useToast()` throws outside `ToastProvider`.
 - `Toast.Description`, `footer` and `progress` render only in `variant="expanded"`.
+- A basic toast shows only the first `Toast.Action` (a console warning flags the rest); an
+  expanded toast shows every action in its actions row.
 - `Toast.Action` defaults to `variant="inverse"` for the dark basic toast. On an expanded toast
   (light surface) set `variant="secondary"` yourself. `Toast.IconAction` adapts by itself.
 - `showToast` wraps a string `content` in `Toast.Message` and a string `action` in

@@ -98,7 +98,9 @@ describe('registry imports', () => {
     if (app) rmSync(app, { recursive: true, force: true });
   });
 
-  it('has an entry for every public export, and for nothing else', () => {
+  // Type-checks the whole library entry: under turbo's parallel `pnpm test` (other packages
+  // building and testing at once) that took longer than vitest's 5s default and failed at random.
+  it('has an entry for every public export, and for nothing else', { timeout: 30_000 }, () => {
     const index = join(LIBRARY, 'src/index.ts');
     const program = ts.createProgram([index], COMPILER);
     const expected = exportsOf(program.getTypeChecker(), program.getSourceFile(index)!);

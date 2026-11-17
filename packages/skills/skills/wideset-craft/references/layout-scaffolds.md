@@ -1,6 +1,6 @@
 # Layout scaffolds
 
-Start from one of these. Each describes the layout you write; components fill it. The shell around them is the app-shell pattern in `wideset-build`.
+Start from one of these. Each describes the layout you write; components fill it. The shell around them is the app-shell pattern in `wideset-build`, in the app's visual direction (`<AppShell direction>`: Inset, Flat, Frame or Canvas; the directions pattern there). For a whole new app, start from the closest starting point instead (`https://wideset.co/blocks.md`): a finished screen in its direction beats a scaffold.
 
 ## List page
 
@@ -54,6 +54,10 @@ Title, one sentence, the fields, the footer. Past three or four fields, or when 
 ## Flow
 
 A flow of several steps gets its own page. One question per step, Back on the far left, Continue on the right.
+
+## Sign in and sign up
+
+Before the app, so no navigation: one raised card, `max-w-[38.75rem]`, centred on the grey page; on wide windows the sign-in card can sit beside a picture of the product. Title, the fields, one full-width `lg` submit, a help line with the reset links, a footer with Back and the other screen. See the auth pattern in `wideset-build` and the `sign-in`, `sign-in-card` and `sign-up` starting points.
 
 ## Empty state
 

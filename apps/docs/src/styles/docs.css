@@ -14,6 +14,8 @@
    components are scanned as well: this sheet loads after the library's, so a utility both use
    (`px-ws-9`) would otherwise land here after a library override of it (`pl-0`) and undo it. */
 @source '../../../../packages/design-system/src/components';
+/* The starting points (src/blocks) render on /blocks/<id>/preview with the same sheets. */
+@source '../../../../packages/design-system/src/blocks';
 
 /* The package ships only the font variable; the site loads Inter itself
    (@fontsource-variable/inter, imported in the layout), which registers as `Inter Variable`. */

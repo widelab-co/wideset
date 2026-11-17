@@ -45,6 +45,7 @@ One file per component: when to use it, when not, do and don't, and gotchas. Rea
 
 ## [Feedback](specs/components/feedback/README.md)
 
+- [Illustration](good-practices/illustration.md): a drawing for an empty state, a first run or an announcement; not an icon.
 - [InlineAlert](good-practices/inline-alert.md): persistent feedback attached to one section.
 - [SystemAlert](good-practices/system-alert.md): a product-wide banner at the top of the page.
 - [Toast](good-practices/toast.md): brief floating feedback through `useToast`.
@@ -71,6 +72,7 @@ One file per component: when to use it, when not, do and don't, and gotchas. Rea
 ## [Data display](specs/components/data-display/README.md)
 
 - [Table](good-practices/table.md): records compared across rows; sorting, selection and paging are your state.
+- [Spreadsheet](good-practices/spreadsheet.md): a dense grid worked cell by cell, with a pinned header and row numbers; not a list of rows to open, that is Table.
 - [ListItem](good-practices/list-item.md): one compact row; the row inside menus and selects.
 - [Avatar](good-practices/avatar.md): a person, team or the agent orb next to a name.
 - [Tag](good-practices/tag.md): a static category label; colour is categorical.
@@ -78,6 +80,7 @@ One file per component: when to use it, when not, do and don't, and gotchas. Rea
 
 ## [Layout](specs/components/layout/README.md)
 
+- [AppShell](good-practices/app-shell.md): the screen's frame; one `direction` (inset by default, flat, frame, canvas) sets the window, sidebar and page.
 - [Card](good-practices/card.md): a bounded surface for one subject; not clickable, not a page wrapper.
 - [Accordion](good-practices/accordion.md): named sections opened in place.
 - [Divider](good-practices/divider.md): a horizontal separator, optionally labelled.

@@ -6,6 +6,7 @@ export type ScrollAreaProps = Omit<
   'children'
 > & {
   children: ReactNode;
-  orientation?: 'horizontal' | 'vertical';
+  /** Which edges scroll. `both` adds a horizontal scrollbar for content wider than the area. */
+  orientation?: 'horizontal' | 'vertical' | 'both';
   indicatorHidden?: boolean;
 };

@@ -3,6 +3,7 @@ import type * as React from 'react';
 import type { SidebarProps } from './Sidebar.types';
 import { SidebarCollapsed } from './SidebarCollapsed';
 import { SidebarExpanded } from './SidebarExpanded';
+import { SidebarFooter } from './SidebarFooter';
 import { SidebarHeader } from './SidebarHeader';
 import { SidebarItem } from './SidebarItem';
 import { SidebarRoot } from './SidebarRoot';
@@ -14,6 +15,7 @@ type SidebarWithSubComponents = React.ForwardRefExoticComponent<
   SidebarProps & React.RefAttributes<HTMLDivElement>
 > & {
   Header: typeof SidebarHeader;
+  Footer: typeof SidebarFooter;
   Section: typeof SidebarSection;
   SectionHeader: typeof SidebarSectionHeader;
   Item: typeof SidebarItem;
@@ -26,6 +28,7 @@ const Sidebar = SidebarRoot as SidebarWithSubComponents;
 
 Sidebar.displayName = 'Sidebar';
 Sidebar.Header = SidebarHeader;
+Sidebar.Footer = SidebarFooter;
 Sidebar.Section = SidebarSection;
 Sidebar.SectionHeader = SidebarSectionHeader;
 Sidebar.Item = SidebarItem;

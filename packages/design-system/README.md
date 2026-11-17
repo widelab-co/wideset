@@ -77,6 +77,8 @@ Pure `styles` defines no Tailwind variable (`--font-sans`, `--spacing`, …) and
 
 ### 3. Load the font
 
+The `wideset` CLI does this step for you: `npx wideset init` adds variable Inter as `styles/wideset-font.css` (skip it with `--no-font`). With the npm package, do it by hand.
+
 Wideset does not load a font by itself. It ships a `--font-ws-sans` variable (Inter with a system fallback), and components inherit the font from the page. Load Inter one of these ways, then apply it:
 
 ```css

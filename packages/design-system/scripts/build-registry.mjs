@@ -208,7 +208,8 @@ export function buildRegistry({ root = ROOT, out, base, version, commit } = {}) 
   const built = new Map();
   for (const item of items) {
     const files = new Map(); // abs → { target, type, content }
-    const deps = new Set();
+    // A CSS-only item has no imports to read, so it names its packages itself.
+    const deps = new Set(item.dependencies ?? []);
     // registry:component is an internal building block (FieldLabel, ScrollArea): installed with the
     // components that use it, never listed on its own; it needs the same styles and utils.
     const registryDeps = new Set(

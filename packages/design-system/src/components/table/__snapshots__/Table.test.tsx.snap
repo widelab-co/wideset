@@ -15,7 +15,7 @@ exports[`Table Snapshots > matches snapshot for align center table 1`] = `
       data-slot="table-row"
     >
       <th
-        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-t [tfoot_&]:border-b-0 h-ws-16 px-ws-9 py-ws-3 text-center typography-label-strong-sm [thead_&]:border-b-2"
+        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-b-0 [tfoot>tr:first-child>&]:border-t h-ws-16 px-ws-9 py-ws-3 text-center typography-label-strong-sm [thead_&]:border-b-2"
         data-slot="table-header"
       >
         Name
@@ -31,7 +31,7 @@ exports[`Table Snapshots > matches snapshot for align center table 1`] = `
       data-slot="table-row"
     >
       <td
-        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-t [tfoot_&]:border-b-0 h-ws-16 px-ws-9 py-ws-3 text-center typography-label-sm"
+        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-b-0 [tfoot>tr:first-child>&]:border-t h-ws-16 px-ws-9 py-ws-3 text-center typography-label-sm"
         data-slot="table-cell"
       >
         Row
@@ -57,7 +57,7 @@ exports[`Table Snapshots > matches snapshot for all sortable header states 1`] =
     >
       <th
         aria-sort="none"
-        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-t [tfoot_&]:border-b-0 h-ws-16 px-ws-9 py-ws-3 text-left typography-label-strong-sm [thead_&]:border-b-2"
+        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-b-0 [tfoot>tr:first-child>&]:border-t h-ws-16 px-ws-9 py-ws-3 text-left typography-label-strong-sm [thead_&]:border-b-2"
         data-slot="table-header"
       >
         Unsorted
@@ -69,7 +69,7 @@ exports[`Table Snapshots > matches snapshot for all sortable header states 1`] =
         >
           <svg
             aria-hidden="true"
-            class="remixicon shrink-0 h-ws-9 w-ws-9"
+            class="remixicon shrink-0 h-ws-9 w-ws-9 text-ws-static-subtle"
             data-slot="button-icon"
             fill="currentColor"
             focusable="false"
@@ -79,14 +79,14 @@ exports[`Table Snapshots > matches snapshot for all sortable header states 1`] =
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              d="M16.0503 12.0498L21 16.9996L16.0503 21.9493L14.636 20.5351L17.172 17.9988L4 17.9996V15.9996L17.172 15.9988L14.636 13.464L16.0503 12.0498ZM7.94975 2.0498L9.36396 3.46402L6.828 5.9988L20 5.99955V7.99955L6.828 7.9988L9.36396 10.5351L7.94975 11.9493L3 6.99955L7.94975 2.0498Z"
+              d="M11.9498 7.94975L10.5356 9.36396L8.00079 6.828L8.00004 20H6.00004L6.00079 6.828L3.46451 9.36396L2.05029 7.94975L7.00004 3L11.9498 7.94975ZM21.9498 16.0503L17 21L12.0503 16.0503L13.4645 14.636L16.0008 17.172L16 4H18L18.0008 17.172L20.5356 14.636L21.9498 16.0503Z"
             />
           </svg>
         </button>
       </th>
       <th
         aria-sort="ascending"
-        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-t [tfoot_&]:border-b-0 h-ws-16 px-ws-9 py-ws-3 text-left typography-label-strong-sm [thead_&]:border-b-2"
+        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-b-0 [tfoot>tr:first-child>&]:border-t h-ws-16 px-ws-9 py-ws-3 text-left typography-label-strong-sm [thead_&]:border-b-2"
         data-slot="table-header"
       >
         Ascending
@@ -115,7 +115,7 @@ exports[`Table Snapshots > matches snapshot for all sortable header states 1`] =
       </th>
       <th
         aria-sort="descending"
-        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-t [tfoot_&]:border-b-0 h-ws-16 px-ws-9 py-ws-3 text-left typography-label-strong-sm [thead_&]:border-b-2"
+        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-b-0 [tfoot>tr:first-child>&]:border-t h-ws-16 px-ws-9 py-ws-3 text-left typography-label-strong-sm [thead_&]:border-b-2"
         data-slot="table-header"
       >
         Descending
@@ -144,7 +144,7 @@ exports[`Table Snapshots > matches snapshot for all sortable header states 1`] =
       </th>
       <th
         aria-sort="none"
-        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-t [tfoot_&]:border-b-0 h-ws-16 px-ws-9 py-ws-3 text-left typography-label-strong-sm [thead_&]:border-b-2"
+        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-b-0 [tfoot>tr:first-child>&]:border-t h-ws-16 px-ws-9 py-ws-3 text-left typography-label-strong-sm [thead_&]:border-b-2"
         data-slot="table-header"
       >
         Disabled
@@ -157,7 +157,7 @@ exports[`Table Snapshots > matches snapshot for all sortable header states 1`] =
         >
           <svg
             aria-hidden="true"
-            class="remixicon shrink-0 h-ws-9 w-ws-9"
+            class="remixicon shrink-0 h-ws-9 w-ws-9 text-ws-static-subtle"
             data-slot="button-icon"
             fill="currentColor"
             focusable="false"
@@ -167,7 +167,7 @@ exports[`Table Snapshots > matches snapshot for all sortable header states 1`] =
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              d="M16.0503 12.0498L21 16.9996L16.0503 21.9493L14.636 20.5351L17.172 17.9988L4 17.9996V15.9996L17.172 15.9988L14.636 13.464L16.0503 12.0498ZM7.94975 2.0498L9.36396 3.46402L6.828 5.9988L20 5.99955V7.99955L6.828 7.9988L9.36396 10.5351L7.94975 11.9493L3 6.99955L7.94975 2.0498Z"
+              d="M11.9498 7.94975L10.5356 9.36396L8.00079 6.828L8.00004 20H6.00004L6.00079 6.828L3.46451 9.36396L2.05029 7.94975L7.00004 3L11.9498 7.94975ZM21.9498 16.0503L17 21L12.0503 16.0503L13.4645 14.636L16.0008 17.172L16 4H18L18.0008 17.172L20.5356 14.636L21.9498 16.0503Z"
             />
           </svg>
         </button>
@@ -183,25 +183,25 @@ exports[`Table Snapshots > matches snapshot for all sortable header states 1`] =
       data-slot="table-row"
     >
       <td
-        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-t [tfoot_&]:border-b-0 h-ws-16 px-ws-9 py-ws-3 text-left typography-label-sm"
+        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-b-0 [tfoot>tr:first-child>&]:border-t h-ws-16 px-ws-9 py-ws-3 text-left typography-label-sm"
         data-slot="table-cell"
       >
         A
       </td>
       <td
-        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-t [tfoot_&]:border-b-0 h-ws-16 px-ws-9 py-ws-3 text-left typography-label-sm"
+        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-b-0 [tfoot>tr:first-child>&]:border-t h-ws-16 px-ws-9 py-ws-3 text-left typography-label-sm"
         data-slot="table-cell"
       >
         B
       </td>
       <td
-        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-t [tfoot_&]:border-b-0 h-ws-16 px-ws-9 py-ws-3 text-left typography-label-sm"
+        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-b-0 [tfoot>tr:first-child>&]:border-t h-ws-16 px-ws-9 py-ws-3 text-left typography-label-sm"
         data-slot="table-cell"
       >
         C
       </td>
       <td
-        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-t [tfoot_&]:border-b-0 h-ws-16 px-ws-9 py-ws-3 text-left typography-label-sm"
+        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-b-0 [tfoot>tr:first-child>&]:border-t h-ws-16 px-ws-9 py-ws-3 text-left typography-label-sm"
         data-slot="table-cell"
       >
         D
@@ -226,13 +226,13 @@ exports[`Table Snapshots > matches snapshot for default table 1`] = `
       data-slot="table-row"
     >
       <th
-        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-t [tfoot_&]:border-b-0 h-ws-16 px-ws-9 py-ws-3 text-left typography-label-strong-sm [thead_&]:border-b-2"
+        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-b-0 [tfoot>tr:first-child>&]:border-t h-ws-16 px-ws-9 py-ws-3 text-left typography-label-strong-sm [thead_&]:border-b-2"
         data-slot="table-header"
       >
         Name
       </th>
       <th
-        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-t [tfoot_&]:border-b-0 h-ws-16 px-ws-9 py-ws-3 text-left typography-label-strong-sm [thead_&]:border-b-2"
+        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-b-0 [tfoot>tr:first-child>&]:border-t h-ws-16 px-ws-9 py-ws-3 text-left typography-label-strong-sm [thead_&]:border-b-2"
         data-slot="table-header"
       >
         Status
@@ -248,13 +248,13 @@ exports[`Table Snapshots > matches snapshot for default table 1`] = `
       data-slot="table-row"
     >
       <td
-        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-t [tfoot_&]:border-b-0 h-ws-16 px-ws-9 py-ws-3 text-left typography-label-sm"
+        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-b-0 [tfoot>tr:first-child>&]:border-t h-ws-16 px-ws-9 py-ws-3 text-left typography-label-sm"
         data-slot="table-cell"
       >
         Row 1
       </td>
       <td
-        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-t [tfoot_&]:border-b-0 h-ws-16 px-ws-9 py-ws-3 text-left typography-label-sm"
+        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-b-0 [tfoot>tr:first-child>&]:border-t h-ws-16 px-ws-9 py-ws-3 text-left typography-label-sm"
         data-slot="table-cell"
       >
         Active
@@ -269,13 +269,13 @@ exports[`Table Snapshots > matches snapshot for default table 1`] = `
       data-slot="table-row"
     >
       <td
-        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-t [tfoot_&]:border-b-0 h-ws-16 px-ws-9 py-ws-3 text-left typography-label-sm"
+        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-b-0 [tfoot>tr:first-child>&]:border-t h-ws-16 px-ws-9 py-ws-3 text-left typography-label-sm"
         data-slot="table-cell"
       >
         Summary
       </td>
       <td
-        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-t [tfoot_&]:border-b-0 h-ws-16 px-ws-9 py-ws-3 text-left typography-label-sm"
+        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-b-0 [tfoot>tr:first-child>&]:border-t h-ws-16 px-ws-9 py-ws-3 text-left typography-label-sm"
         data-slot="table-cell"
       />
     </tr>
@@ -298,7 +298,7 @@ exports[`Table Snapshots > matches snapshot for flushMargin table 1`] = `
       data-slot="table-row"
     >
       <th
-        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-t [tfoot_&]:border-b-0 h-ws-16 py-ws-3 text-left px-0 typography-label-strong-sm [thead_&]:border-b-2"
+        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-b-0 [tfoot>tr:first-child>&]:border-t h-ws-16 py-ws-3 text-left px-0 typography-label-strong-sm [thead_&]:border-b-2"
         data-slot="table-header"
       >
         Name
@@ -314,7 +314,7 @@ exports[`Table Snapshots > matches snapshot for flushMargin table 1`] = `
       data-slot="table-row"
     >
       <td
-        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-t [tfoot_&]:border-b-0 h-ws-16 py-ws-3 text-left px-0 typography-label-sm"
+        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-b-0 [tfoot>tr:first-child>&]:border-t h-ws-16 py-ws-3 text-left px-0 typography-label-sm"
         data-slot="table-cell"
       >
         Row
@@ -339,7 +339,7 @@ exports[`Table Snapshots > matches snapshot for interactive table 1`] = `
       data-slot="table-row"
     >
       <th
-        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-t [tfoot_&]:border-b-0 h-ws-16 px-ws-9 py-ws-3 text-left typography-label-strong-sm [thead_&]:border-b-2"
+        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-b-0 [tfoot>tr:first-child>&]:border-t h-ws-16 px-ws-9 py-ws-3 text-left typography-label-strong-sm [thead_&]:border-b-2"
         data-slot="table-header"
       >
         Name
@@ -355,7 +355,7 @@ exports[`Table Snapshots > matches snapshot for interactive table 1`] = `
       data-slot="table-row"
     >
       <td
-        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-t [tfoot_&]:border-b-0 h-ws-16 px-ws-9 py-ws-3 text-left group-hover/row:bg-ws-dynamic-secondary-alpha-hover group-active/row:bg-ws-dynamic-secondary-alpha-pressed typography-label-sm"
+        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-b-0 [tfoot>tr:first-child>&]:border-t h-ws-16 px-ws-9 py-ws-3 text-left group-hover/row:bg-ws-dynamic-secondary-alpha-hover group-active/row:bg-ws-dynamic-secondary-alpha-pressed typography-label-sm"
         data-slot="table-cell"
       >
         Row
@@ -380,7 +380,7 @@ exports[`Table Snapshots > matches snapshot for placement middle table 1`] = `
       data-slot="table-row"
     >
       <th
-        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-t [tfoot_&]:border-b-0 h-ws-16 px-ws-9 py-ws-3 text-left typography-label-strong-sm [thead_&]:border-b-2"
+        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-b-0 [tfoot>tr:first-child>&]:border-t h-ws-16 px-ws-9 py-ws-3 text-left typography-label-strong-sm [thead_&]:border-b-2"
         data-slot="table-header"
       >
         Name
@@ -396,7 +396,7 @@ exports[`Table Snapshots > matches snapshot for placement middle table 1`] = `
       data-slot="table-row"
     >
       <td
-        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-t [tfoot_&]:border-b-0 h-ws-16 px-ws-9 py-ws-3 text-left align-middle typography-label-sm"
+        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-b-0 [tfoot>tr:first-child>&]:border-t h-ws-16 px-ws-9 py-ws-3 text-left align-middle typography-label-sm"
         data-slot="table-cell"
       >
         Row
@@ -423,7 +423,7 @@ exports[`Table Snapshots > matches snapshot for selectionMode multiple 1`] = `
       data-slot="table-row"
     >
       <th
-        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-t [tfoot_&]:border-b-0 h-ws-16 px-ws-9 py-ws-3 text-left typography-label-strong-sm [thead_&]:border-b-2"
+        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-b-0 [tfoot>tr:first-child>&]:border-t h-ws-16 px-ws-9 py-ws-3 text-left typography-label-strong-sm [thead_&]:border-b-2"
         data-slot="table-header"
       >
         Name
@@ -440,7 +440,7 @@ exports[`Table Snapshots > matches snapshot for selectionMode multiple 1`] = `
       data-slot="table-row"
     >
       <td
-        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-t [tfoot_&]:border-b-0 h-ws-16 px-ws-9 py-ws-3 text-left typography-label-sm bg-ws-dynamic-primary-alpha-strong-default group-hover/row:bg-ws-dynamic-primary-alpha-strong-hover group-active/row:bg-ws-dynamic-primary-alpha-strong-pressed"
+        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-b-0 [tfoot>tr:first-child>&]:border-t h-ws-16 px-ws-9 py-ws-3 text-left typography-label-sm bg-ws-dynamic-primary-alpha-strong-default group-hover/row:bg-ws-dynamic-primary-alpha-strong-hover group-active/row:bg-ws-dynamic-primary-alpha-strong-pressed"
         data-slot="table-cell"
       >
         Row 1
@@ -451,7 +451,7 @@ exports[`Table Snapshots > matches snapshot for selectionMode multiple 1`] = `
       data-slot="table-row"
     >
       <td
-        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-t [tfoot_&]:border-b-0 h-ws-16 px-ws-9 py-ws-3 text-left group-hover/row:bg-ws-dynamic-secondary-alpha-hover group-active/row:bg-ws-dynamic-secondary-alpha-pressed typography-label-sm"
+        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-b-0 [tfoot>tr:first-child>&]:border-t h-ws-16 px-ws-9 py-ws-3 text-left group-hover/row:bg-ws-dynamic-secondary-alpha-hover group-active/row:bg-ws-dynamic-secondary-alpha-pressed typography-label-sm"
         data-slot="table-cell"
       >
         Row 2
@@ -463,7 +463,7 @@ exports[`Table Snapshots > matches snapshot for selectionMode multiple 1`] = `
       data-slot="table-row"
     >
       <td
-        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-t [tfoot_&]:border-b-0 h-ws-16 px-ws-9 py-ws-3 text-left typography-label-sm bg-ws-dynamic-primary-alpha-strong-default group-hover/row:bg-ws-dynamic-primary-alpha-strong-hover group-active/row:bg-ws-dynamic-primary-alpha-strong-pressed"
+        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-b-0 [tfoot>tr:first-child>&]:border-t h-ws-16 px-ws-9 py-ws-3 text-left typography-label-sm bg-ws-dynamic-primary-alpha-strong-default group-hover/row:bg-ws-dynamic-primary-alpha-strong-hover group-active/row:bg-ws-dynamic-primary-alpha-strong-pressed"
         data-slot="table-cell"
       >
         Row 3
@@ -489,7 +489,7 @@ exports[`Table Snapshots > matches snapshot for selectionMode single 1`] = `
       data-slot="table-row"
     >
       <th
-        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-t [tfoot_&]:border-b-0 h-ws-16 px-ws-9 py-ws-3 text-left typography-label-strong-sm [thead_&]:border-b-2"
+        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-b-0 [tfoot>tr:first-child>&]:border-t h-ws-16 px-ws-9 py-ws-3 text-left typography-label-strong-sm [thead_&]:border-b-2"
         data-slot="table-header"
       >
         Name
@@ -505,7 +505,7 @@ exports[`Table Snapshots > matches snapshot for selectionMode single 1`] = `
       data-slot="table-row"
     >
       <td
-        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-t [tfoot_&]:border-b-0 h-ws-16 px-ws-9 py-ws-3 text-left group-hover/row:bg-ws-dynamic-secondary-alpha-hover group-active/row:bg-ws-dynamic-secondary-alpha-pressed typography-label-sm"
+        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-b-0 [tfoot>tr:first-child>&]:border-t h-ws-16 px-ws-9 py-ws-3 text-left group-hover/row:bg-ws-dynamic-secondary-alpha-hover group-active/row:bg-ws-dynamic-secondary-alpha-pressed typography-label-sm"
         data-slot="table-cell"
       >
         Row
@@ -517,7 +517,7 @@ exports[`Table Snapshots > matches snapshot for selectionMode single 1`] = `
       data-slot="table-row"
     >
       <td
-        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-t [tfoot_&]:border-b-0 h-ws-16 px-ws-9 py-ws-3 text-left typography-label-sm bg-ws-dynamic-primary-alpha-strong-default group-hover/row:bg-ws-dynamic-primary-alpha-strong-hover group-active/row:bg-ws-dynamic-primary-alpha-strong-pressed"
+        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-b-0 [tfoot>tr:first-child>&]:border-t h-ws-16 px-ws-9 py-ws-3 text-left typography-label-sm bg-ws-dynamic-primary-alpha-strong-default group-hover/row:bg-ws-dynamic-primary-alpha-strong-hover group-active/row:bg-ws-dynamic-primary-alpha-strong-pressed"
         data-slot="table-cell"
       >
         Selected row
@@ -542,7 +542,7 @@ exports[`Table Snapshots > matches snapshot for separated table 1`] = `
       data-slot="table-row"
     >
       <th
-        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-t [tfoot_&]:border-b-0 h-ws-16 px-ws-9 py-ws-3 text-left border-r last:border-r-0 typography-label-strong-sm [thead_&]:border-b-2"
+        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-b-0 [tfoot>tr:first-child>&]:border-t h-ws-16 px-ws-9 py-ws-3 text-left border-r last:border-r-0 typography-label-strong-sm [thead_&]:border-b-2"
         data-slot="table-header"
       >
         Name
@@ -558,7 +558,7 @@ exports[`Table Snapshots > matches snapshot for separated table 1`] = `
       data-slot="table-row"
     >
       <td
-        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-t [tfoot_&]:border-b-0 h-ws-16 px-ws-9 py-ws-3 text-left border-r last:border-r-0 typography-label-sm"
+        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-b-0 [tfoot>tr:first-child>&]:border-t h-ws-16 px-ws-9 py-ws-3 text-left border-r last:border-r-0 typography-label-sm"
         data-slot="table-cell"
       >
         Row
@@ -583,7 +583,7 @@ exports[`Table Snapshots > matches snapshot for size lg 1`] = `
       data-slot="table-row"
     >
       <th
-        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-t [tfoot_&]:border-b-0 h-ws-20 px-ws-9 py-ws-7 text-left typography-label-strong-md [thead_&]:border-b-2"
+        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-b-0 [tfoot>tr:first-child>&]:border-t h-ws-20 px-ws-9 py-ws-7 text-left typography-label-strong-md [thead_&]:border-b-2"
         data-slot="table-header"
       >
         Name
@@ -599,7 +599,7 @@ exports[`Table Snapshots > matches snapshot for size lg 1`] = `
       data-slot="table-row"
     >
       <td
-        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-t [tfoot_&]:border-b-0 h-ws-20 px-ws-9 py-ws-7 text-left typography-label-md"
+        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-b-0 [tfoot>tr:first-child>&]:border-t h-ws-20 px-ws-9 py-ws-7 text-left typography-label-md"
         data-slot="table-cell"
       >
         Row
@@ -624,7 +624,7 @@ exports[`Table Snapshots > matches snapshot for size md 1`] = `
       data-slot="table-row"
     >
       <th
-        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-t [tfoot_&]:border-b-0 h-ws-18 px-ws-9 py-ws-5 text-left typography-label-strong-sm [thead_&]:border-b-2"
+        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-b-0 [tfoot>tr:first-child>&]:border-t h-ws-18 px-ws-9 py-ws-5 text-left typography-label-strong-sm [thead_&]:border-b-2"
         data-slot="table-header"
       >
         Name
@@ -640,7 +640,7 @@ exports[`Table Snapshots > matches snapshot for size md 1`] = `
       data-slot="table-row"
     >
       <td
-        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-t [tfoot_&]:border-b-0 h-ws-18 px-ws-9 py-ws-5 text-left typography-label-sm"
+        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-b-0 [tfoot>tr:first-child>&]:border-t h-ws-18 px-ws-9 py-ws-5 text-left typography-label-sm"
         data-slot="table-cell"
       >
         Row
@@ -665,7 +665,7 @@ exports[`Table Snapshots > matches snapshot for size sm 1`] = `
       data-slot="table-row"
     >
       <th
-        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-t [tfoot_&]:border-b-0 h-ws-16 px-ws-9 py-ws-3 text-left typography-label-strong-sm [thead_&]:border-b-2"
+        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-b-0 [tfoot>tr:first-child>&]:border-t h-ws-16 px-ws-9 py-ws-3 text-left typography-label-strong-sm [thead_&]:border-b-2"
         data-slot="table-header"
       >
         Name
@@ -681,7 +681,7 @@ exports[`Table Snapshots > matches snapshot for size sm 1`] = `
       data-slot="table-row"
     >
       <td
-        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-t [tfoot_&]:border-b-0 h-ws-16 px-ws-9 py-ws-3 text-left typography-label-sm"
+        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-b-0 [tfoot>tr:first-child>&]:border-t h-ws-16 px-ws-9 py-ws-3 text-left typography-label-sm"
         data-slot="table-cell"
       >
         Row
@@ -706,13 +706,13 @@ exports[`Table Snapshots > matches snapshot for stickyColumn table 1`] = `
       data-slot="table-row"
     >
       <th
-        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-t [tfoot_&]:border-b-0 h-ws-16 px-ws-9 py-ws-3 text-left bg-ws-static-container first-of-type:shadow-ws-table-freeze first-of-type:z-ws-mask [thead_&]:first-of-type:z-ws-sticky first-of-type:sticky first-of-type:left-0 first-of-type:border-r typography-label-strong-sm [thead_&]:border-b-2"
+        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-b-0 [tfoot>tr:first-child>&]:border-t h-ws-16 px-ws-9 py-ws-3 text-left bg-ws-static-container first-of-type:shadow-ws-table-freeze first-of-type:z-ws-mask [thead_&]:first-of-type:z-ws-sticky first-of-type:sticky first-of-type:left-0 first-of-type:border-r typography-label-strong-sm [thead_&]:border-b-2"
         data-slot="table-header"
       >
         Name
       </th>
       <th
-        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-t [tfoot_&]:border-b-0 h-ws-16 px-ws-9 py-ws-3 text-left bg-ws-static-container first-of-type:shadow-ws-table-freeze first-of-type:z-ws-mask [thead_&]:first-of-type:z-ws-sticky first-of-type:sticky first-of-type:left-0 first-of-type:border-r typography-label-strong-sm [thead_&]:border-b-2"
+        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-b-0 [tfoot>tr:first-child>&]:border-t h-ws-16 px-ws-9 py-ws-3 text-left bg-ws-static-container first-of-type:shadow-ws-table-freeze first-of-type:z-ws-mask [thead_&]:first-of-type:z-ws-sticky first-of-type:sticky first-of-type:left-0 first-of-type:border-r typography-label-strong-sm [thead_&]:border-b-2"
         data-slot="table-header"
       >
         Status
@@ -728,13 +728,13 @@ exports[`Table Snapshots > matches snapshot for stickyColumn table 1`] = `
       data-slot="table-row"
     >
       <td
-        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-t [tfoot_&]:border-b-0 h-ws-16 px-ws-9 py-ws-3 text-left bg-ws-static-container first-of-type:shadow-ws-table-freeze first-of-type:z-ws-mask [thead_&]:first-of-type:z-ws-sticky first-of-type:sticky first-of-type:left-0 first-of-type:border-r typography-label-sm"
+        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-b-0 [tfoot>tr:first-child>&]:border-t h-ws-16 px-ws-9 py-ws-3 text-left bg-ws-static-container first-of-type:shadow-ws-table-freeze first-of-type:z-ws-mask [thead_&]:first-of-type:z-ws-sticky first-of-type:sticky first-of-type:left-0 first-of-type:border-r typography-label-sm"
         data-slot="table-cell"
       >
         Row
       </td>
       <td
-        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-t [tfoot_&]:border-b-0 h-ws-16 px-ws-9 py-ws-3 text-left bg-ws-static-container first-of-type:shadow-ws-table-freeze first-of-type:z-ws-mask [thead_&]:first-of-type:z-ws-sticky first-of-type:sticky first-of-type:left-0 first-of-type:border-r typography-label-sm"
+        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-b-0 [tfoot>tr:first-child>&]:border-t h-ws-16 px-ws-9 py-ws-3 text-left bg-ws-static-container first-of-type:shadow-ws-table-freeze first-of-type:z-ws-mask [thead_&]:first-of-type:z-ws-sticky first-of-type:sticky first-of-type:left-0 first-of-type:border-r typography-label-sm"
         data-slot="table-cell"
       >
         Active
@@ -759,7 +759,7 @@ exports[`Table Snapshots > matches snapshot for stickyHeader table 1`] = `
       data-slot="table-row"
     >
       <th
-        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-t [tfoot_&]:border-b-0 h-ws-16 px-ws-9 py-ws-3 text-left bg-ws-static-container typography-label-strong-sm [thead_&]:border-b-2"
+        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-b-0 [tfoot>tr:first-child>&]:border-t h-ws-16 px-ws-9 py-ws-3 text-left bg-ws-static-container typography-label-strong-sm [thead_&]:border-b-2"
         data-slot="table-header"
       >
         Name
@@ -775,7 +775,7 @@ exports[`Table Snapshots > matches snapshot for stickyHeader table 1`] = `
       data-slot="table-row"
     >
       <td
-        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-t [tfoot_&]:border-b-0 h-ws-16 px-ws-9 py-ws-3 text-left bg-ws-static-container typography-label-sm"
+        class="border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-b-0 [tfoot>tr:first-child>&]:border-t h-ws-16 px-ws-9 py-ws-3 text-left bg-ws-static-container typography-label-sm"
         data-slot="table-cell"
       >
         Row
