@@ -83,7 +83,13 @@ const searchItems: SearchItem[] = [
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title} — Wideset</title>
     <meta name="description" content={description} />
-    <meta name="robots" content="noindex" />
+    {/* Builds for workers.dev (develop, previews) stay out of search results. */}
+    {Astro.site?.hostname.endsWith('.workers.dev') && <meta name="robots" content="noindex" />}
+    {/* The production origin is reachable on workers.dev too; wideset.co is the address to index. */}
+    <link
+      rel="canonical"
+      href={new URL(Astro.url.pathname.replace(/\/$/, '') || '/', Astro.site)}
+    />
     <link rel="icon" href="/_docs/favicon.png" />
     <slot name="head" />
     <script is:inline define:vars={{ THEME_KEY }}>
@@ -109,6 +115,7 @@ const searchItems: SearchItem[] = [
       <TopNav area={area} items={searchItems} github={GITHUB_URL} client:load />
     </header>
     <div
+      id="docs-page"
       class:list={[
         'px-ws-9 sm:px-ws-14',
         !full && 'mx-auto max-w-[95rem]',

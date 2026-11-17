@@ -220,7 +220,12 @@ const RUNNERS = [
 
 const PILL =
   'h-ws-12 rounded-ws-control-md px-ws-5 typography-caption-md outline-ws-dynamic-primary-strong-default transition-colors focus-visible:wds-focus-visible';
-/** A row of small pills that picks one value, in a card's header. */
+const ARROWS: Record<string, number> = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 };
+
+/**
+ * A row of small pills that picks one value, in a card's header. A radio group: one tab stop
+ * (the chosen pill), the arrow keys choose the next or the previous one.
+ */
 const Pills = ({
   label,
   options,
@@ -237,13 +242,28 @@ const Pills = ({
   // ds-exempt: small pills in a code block's header; SegmentedControl's items are a 14px
   // control, too loud for this row, and a second row of Tabs would compete with the page's.
   <div role="radiogroup" aria-label={label} className="flex shrink-0 gap-ws-2">
-    {options.map((item) => (
+    {options.map((item, index) => (
       <button
         key={item.value}
         type="button"
         role="radio"
         aria-checked={value === item.value}
+        tabIndex={value === item.value ? 0 : -1}
         onClick={() => onChange(item.value)}
+        onKeyDown={(event) => {
+          const step = ARROWS[event.key];
+          if (!step) return;
+          event.preventDefault();
+          onChange(options[(index + step + options.length) % options.length].value);
+          // The chosen pill takes the focus once drawn (Install draws the row anew for Manual).
+          requestAnimationFrame(() =>
+            document
+              .querySelector<HTMLElement>(
+                `[role="radiogroup"][aria-label="${label}"] [aria-checked="true"]`,
+              )
+              ?.focus(),
+          );
+        }}
         className={cn(
           PILL,
           mono && 'font-mono',
@@ -432,10 +452,15 @@ export const SideNav = ({
   const [active, setActive] = useState(current);
   useEffect(() => {
     if (soft) {
+      // Both sidebars (the column and the narrow menu) follow a switch made in either.
       const sync = () => setActive(`${location.pathname}${location.search.split('&')[0]}`);
       if (location.search) sync();
       addEventListener('popstate', sync);
-      return () => removeEventListener('popstate', sync);
+      addEventListener(SOFT_NAVIGATE, sync);
+      return () => {
+        removeEventListener('popstate', sync);
+        removeEventListener(SOFT_NAVIGATE, sync);
+      };
     }
     // The list scrolls on its own; bring the current row to its middle.
     const row = document.querySelector<HTMLElement>('#docs-nav [aria-current="page"]');
@@ -713,19 +738,44 @@ export const TopNav = ({
       >
         Get started
       </a>
-      <IconButton
-        icon={RiMenuLine}
-        size="sm"
-        preset="ghost"
-        variant="secondary"
-        aria-label="Menu"
-        aria-controls="docs-menu"
-        className="lg:hidden"
-        onClick={() => document.documentElement.toggleAttribute('data-docs-menu')}
-      />
+      <MenuButton />
     </div>
   </>
 );
+
+/**
+ * The narrow window's menu button. Open, the menu takes the focus and the page behind it is
+ * hidden from focus (docs.css); Escape closes it and gives the focus back to the button.
+ */
+const MenuButton = () => {
+  const button = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    const onKey = (event: KeyboardEvent) => {
+      const root = document.documentElement;
+      if (event.key !== 'Escape' || !root.hasAttribute('data-docs-menu')) return;
+      root.removeAttribute('data-docs-menu');
+      button.current?.focus();
+    };
+    addEventListener('keydown', onKey);
+    return () => removeEventListener('keydown', onKey);
+  }, []);
+  return (
+    <IconButton
+      ref={button}
+      icon={RiMenuLine}
+      size="sm"
+      preset="ghost"
+      variant="secondary"
+      aria-label="Menu"
+      aria-controls="docs-menu"
+      className="lg:hidden"
+      onClick={() => {
+        if (document.documentElement.toggleAttribute('data-docs-menu'))
+          document.querySelector<HTMLElement>('#docs-menu a')?.focus();
+      }}
+    />
+  );
+};
 
 /**
  * A component page's tabs, under its head: Overview, then Anatomy and Relationships when the

@@ -520,6 +520,8 @@ const AnatomyDiagram = ({
       {view?.marks.map(({ n, label, side, x, y }) => (
         <span
           key={n}
+          // What the anatomy audit counts as a name (the popup's anchor is a span here too).
+          data-anatomy-name
           role="button"
           tabIndex={0}
           aria-label={`${parts.find((part) => part.n === n)?.part ?? label}: tokens`}

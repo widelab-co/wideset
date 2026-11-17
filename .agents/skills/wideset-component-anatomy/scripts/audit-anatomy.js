@@ -61,7 +61,7 @@ async function auditPage(id, width) {
         continue;
       }
       const now =
-        [...picture.querySelectorAll(':scope > span')]
+        [...picture.querySelectorAll(':scope > [data-anatomy-name]')]
           .map((s) => s.style.top + s.style.left)
           .join() +
         picture.style.height +
@@ -75,7 +75,7 @@ async function auditPage(id, width) {
 
     const box = picture.getBoundingClientRect();
     const art = drawing.getBoundingClientRect();
-    const names = [...picture.querySelectorAll(':scope > span')].map((span) => ({
+    const names = [...picture.querySelectorAll(':scope > [data-anatomy-name]')].map((span) => ({
       name: span.textContent,
       rect: span.getBoundingClientRect(),
     }));

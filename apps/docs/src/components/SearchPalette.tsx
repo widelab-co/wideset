@@ -1,12 +1,14 @@
-import { Modal, Search } from '@wideset/react';
+import { RiSearchLine } from '@remixicon/react';
+import { IconButton, Modal, Search } from '@wideset/react';
 import { useEffect, useState } from 'react';
 
 export type SearchItem = { title: string; href: string; group: string };
 
 /**
- * Search across the docs: a dialog listing every page and component, opened with ⌘K / Ctrl+K
- * from anywhere (the bar has no field of its own; each sidebar filters its own list). Type to
- * narrow, click to go; the results are plain links.
+ * Search across the docs: a dialog listing every page, component and block, opened with ⌘K /
+ * Ctrl+K from anywhere, or on a narrow window (a phone, no keyboard) with the bar's search button
+ * (the bar has no field of its own; each sidebar filters its own list). Type to narrow, click to
+ * go; the results are plain links.
  */
 const SearchPalette = ({ items }: { items: SearchItem[] }) => {
   const [open, setOpen] = useState(false);
@@ -30,6 +32,15 @@ const SearchPalette = ({ items }: { items: SearchItem[] }) => {
 
   return (
     <>
+      <IconButton
+        icon={RiSearchLine}
+        size="sm"
+        preset="ghost"
+        variant="secondary"
+        aria-label="Search"
+        className="lg:hidden"
+        onClick={() => setOpen(true)}
+      />
       <Modal open={open} onOpenChange={setOpen}>
         <Modal.Content>
           <Modal.Header>
@@ -39,7 +50,7 @@ const SearchPalette = ({ items }: { items: SearchItem[] }) => {
             <Search
               value={query}
               onChange={(event) => setQuery(event.target.value)}
-              placeholder="Search components and pages…"
+              placeholder="Search pages, components and blocks…"
             />
             <ul className="mt-ws-6 flex flex-col gap-ws-2">
               {matches.map((item) => (

@@ -72,10 +72,15 @@ const PlaygroundPage = ({
     const asked = new URLSearchParams(location.search).get('c');
     return items.some((item) => item.id === asked) ? asked! : 'button';
   };
-  const [initial] = useState(() => new URLSearchParams(location.search));
+  // The address as of the last navigation (the load, a sidebar switch, Back or Forward): its
+  // values go on the bench, not the ones the page opened with.
+  const [query, setQuery] = useState(() => new URLSearchParams(location.search));
   const [component, setComponent] = useState(read);
   useEffect(() => {
-    const sync = () => setComponent(read());
+    const sync = () => {
+      setQuery(new URLSearchParams(location.search));
+      setComponent(read());
+    };
     addEventListener(SOFT_NAVIGATE, sync);
     addEventListener('popstate', sync);
     return () => {
@@ -89,7 +94,7 @@ const PlaygroundPage = ({
     <Workbench
       key={component}
       component={component}
-      initial={component === initial.get('c') ? initial : null}
+      initial={component === query.get('c') ? query : null}
       paths={paths}
     />
   );

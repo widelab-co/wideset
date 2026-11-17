@@ -574,9 +574,15 @@ html body.docs[data-scroll-locked] {
   margin-right: 0 !important;
   padding-right: 0 !important;
 }
-/* On a narrow window the bar's menu button opens the pages and the page's list. */
+/* On a narrow window the bar's menu button opens the pages and the page's list. The page under
+   it is hidden while it is open, so Tab stays in the menu (the menu shows below 64rem only). */
 html[data-docs-menu] #docs-menu {
   display: flex;
+}
+@media (width < 64rem) {
+  html[data-docs-menu] #docs-page {
+    visibility: hidden;
+  }
 }
 /* Switched to the other theme than the page's, the stage takes that theme's own ground. */
 html:not(.dark) body.docs.docs .docs-frame[data-playground-stage].dark,

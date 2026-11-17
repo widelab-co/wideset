@@ -52,6 +52,15 @@ const KEYWORD =
   /-(none|transparent|current|inherit|full|fit|auto|lh|px|0|\d+\/\d+)$|^outline-offset-\d+$/;
 const BORDER_WIDTH = /^border(-[xytrbl])?(-\d+)?$/;
 const SIDES: Record<string, string> = { t: 'top', r: 'right', b: 'bottom', l: 'left' };
+/** An arbitrary value that is a length, not a colour: `[0.75rem]`, `[2px]`, `[length:…]`. */
+const LENGTH = String.raw`\[(length:[^\]]+|-?[\d.]+[a-z%]*)\]$`;
+/** Tailwind's palette (`bg-red-500`, `text-gray-900/50`, `border-black`): never a token. */
+const PALETTE = /^(bg|text|border)-([a-z]+-\d{2,3}|black|white)(\/\d+)?$/;
+const PALETTE_PROPERTY: Record<string, string> = {
+  bg: 'Background',
+  text: 'Text',
+  border: 'Border colour',
+};
 /** Property by utility prefix, most specific first. Layout classes match nothing and drop out. */
 const PROPERTIES: [RegExp, string | ((utility: string) => string)][] = [
   [/^typography-/, 'Type style'],
@@ -60,12 +69,20 @@ const PROPERTIES: [RegExp, string | ((utility: string) => string)][] = [
   [/^outline-(ws-|\[)/, 'Focus ring colour'],
   [/^(drop-)?shadow-/, 'Shadow'],
   [/^bg-(ws-|\[|\(|none|transparent)/, 'Background'],
+  [new RegExp(`^text-${LENGTH}`), 'Font size'],
+  [new RegExp(`^border(-[xytrbl])?-${LENGTH}`), 'Border width'],
   [/^text-ws-\d+$/, 'Font size'],
   [/^text-(ws-|\[|\()/, 'Text'],
   [/^font-ws-/, 'Font weight'],
   [/^leading-ws-/, 'Line height'],
   [/^tracking-ws-/, 'Letter spacing'],
   [/^border-(ws-|\[|transparent)/, 'Border colour'],
+  // Tailwind's own palette and type scale: no token, listed so the popup can say so.
+  [PALETTE, (utility) => PALETTE_PROPERTY[utility.split('-')[0]]],
+  [/^text-(xs|sm|base|lg|\d?xl)$/, 'Font size'],
+  [/^font-(thin|extralight|light|normal|medium|semibold|bold|extrabold|black)$/, 'Font weight'],
+  [/^leading-(none|tight|snug|normal|relaxed|loose|\d+)$/, 'Line height'],
+  [/^tracking-(tighter|tight|normal|wide|wider|widest)$/, 'Letter spacing'],
   [BORDER_WIDTH, 'Border width'],
   [/^rounded(-[a-z]{1,2})?-/, 'Radius'],
   [/^min-h-/, 'Min height'],
@@ -95,7 +112,7 @@ export const classify = (cls: string): TokenClass | null => {
   const arbitrary = /\[[^\]]+\]|\(--/.test(utility);
   // A plain class that is not a keyword is Tailwind's own scale (`h-10`), which component code
   // must not use: no token, like an arbitrary value.
-  const plain = !KEYWORD.test(utility) && !BORDER_WIDTH.test(utility);
+  const plain = PALETTE.test(utility) || (!KEYWORD.test(utility) && !BORDER_WIDTH.test(utility));
   return {
     state: stateOf(parts),
     property,

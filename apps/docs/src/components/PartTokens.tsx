@@ -38,12 +38,17 @@ const rank = (row: TokenClass) =>
 /** How many rows show before "+N more". */
 const SHOWN = 8;
 
-/** How a property reads off the part's own computed style. */
-const READ: Record<string, (style: CSSStyleDeclaration) => string> = {
+/** The side a border utility sets (`border-b` → bottom); `x` reads its left, `y` and all their top. */
+const SIDE: Record<string, string> = { r: 'right', b: 'bottom', l: 'left', x: 'left' };
+const borderSide = (utility: string) =>
+  SIDE[utility.match(/^border-([xytrbl])\b/)?.[1] ?? ''] ?? 'top';
+
+/** How a property reads off the part's own computed style (and, for a border, its utility). */
+const READ: Record<string, (style: CSSStyleDeclaration, utility: string) => string> = {
   Background: (s) => (s.backgroundImage !== 'none' ? s.backgroundImage : s.backgroundColor),
   Text: (s) => s.color,
   'Border colour': (s) => s.borderTopColor,
-  'Border width': (s) => s.borderTopWidth,
+  'Border width': (s, utility) => s.getPropertyValue(`border-${borderSide(utility)}-width`),
   Shadow: (s) => shadow(s.boxShadow),
   Radius: (s) => s.borderTopLeftRadius,
   Height: (s) => s.height,
@@ -155,7 +160,7 @@ const PartTokens = ({ part, element, el }: { part: string; element?: string; el:
     const style = getComputedStyle(source.el);
     const next: Record<string, Value> = {};
     for (const { property, utility } of rows) {
-      const raw = READ[property]?.(style);
+      const raw = READ[property]?.(style, utility);
       if (raw === undefined) continue;
       next[utility] = COLOURS.has(property)
         ? { text: hex(raw), colour: raw }

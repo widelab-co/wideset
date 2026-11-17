@@ -154,6 +154,21 @@ const ON_PRIMARY = ['default', 'hover', 'pressed'].map(
   (state) => `--ws-dynamic-text-on-primary-${state}`,
 );
 
+/**
+ * The brand's translucent steps (the primary's ghost and alpha fills), which the library writes as
+ * hex: a theme mixes its own from its ramp, or they stay Wideset's purple.
+ */
+const OPACITY: Record<Mode, [number, number[]][]> = {
+  light: [
+    [400, [0, 4, 8, 12, 16, 24]],
+    [600, [0, 4, 8, 12, 16]],
+  ],
+  dark: [
+    [400, [0, 4, 8, 12, 16, 24]],
+    [500, [0, 4, 8, 12, 16, 24, 32, 40, 48]],
+  ],
+};
+
 /** The primitive overrides a theme makes: the brand ramp (both modes) and the corner ladders. */
 const overrides = ({ brand, radius }: Theme, preset: Preset | undefined, shift: number) => {
   const vars: Record<string, string> = {};
@@ -165,6 +180,10 @@ const overrides = ({ brand, radius }: Theme, preset: Preset | undefined, shift: 
         const named = (base === brand ? preset?.ramp : preset?.darkRamp)?.[step];
         vars[`--ws-colors-${mode}-brand-${step}`] = named ?? rampOf(base, mode, from);
       });
+      for (const [step, alphas] of OPACITY[mode])
+        for (const alpha of alphas)
+          vars[`--ws-colors-${mode}-brand-opacity-${step}-${alpha}`] =
+            `color-mix(in srgb, var(--ws-colors-${mode}-brand-${step}) ${alpha}%, transparent)`;
     }
   if (radius !== 'default')
     STEPS.forEach((step, index) => {
@@ -654,8 +673,10 @@ const Themes = () => {
 
   const preset = PRESETS.find((item) => item.id === theme.preset);
   const vars = overrides(theme, preset, shiftOf(theme.brand, resolved));
-  const onPrimary = preset?.onPrimary?.[theme.mode];
   const custom = theme.brand.startsWith('#') && !preset;
+  // A custom colour too light for white text takes black text, in the cards and the export.
+  const customOn = custom && contrastWithWhite(theme.brand) < 4.5 ? '#000000' : undefined;
+  const onPrimary = preset?.onPrimary?.[theme.mode] ?? customOn;
 
   // The semantic corners read the primitives at the root; restate them in each scope so its own
   // overrides reach them. Text on the primary is this mode's.
@@ -680,13 +701,18 @@ const Themes = () => {
   });
   if (preset?.stack) lines.push(`  --font-ws-sans: ${preset.stack};`);
   const text = (colour: string) => ON_PRIMARY.map((name) => `  ${name}: ${colour};`);
-  if (preset?.onPrimary?.light) lines.push(...text(preset.onPrimary.light));
+  const lightOn = preset?.onPrimary?.light ?? customOn;
+  if (lightOn) lines.push(...text(lightOn));
   const dark =
     preset?.onPrimary?.dark && preset.onPrimary.dark !== preset.onPrimary.light
       ? `\n.dark {\n${text(preset.onPrimary.dark).join('\n')}\n}`
       : '';
+  // The stack names the brand's font; the app loads it (Wideset loads none).
+  const fontNote = preset?.stack
+    ? `/* Load ${preset.font} in your app first (400, 500 and 600), e.g. from Google Fonts. */\n`
+    : '';
   const css = lines.length
-    ? `:root {\n${lines.join('\n')}\n}${dark}`
+    ? `${fontNote}:root {\n${lines.join('\n')}\n}${dark}`
     : '/* Wideset as it ships: nothing to override. */';
 
   const pick = (item: Preset) =>
