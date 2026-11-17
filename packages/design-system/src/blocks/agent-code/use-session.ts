@@ -81,18 +81,40 @@ export function useSession({
   );
   const [draft, setDraft] = useState({ text: opening ?? '', id: 0 });
   const [attachments, setAttachments] = useState<string[]>([]);
+  /**
+   * The tray as it is now, ahead of the next render: a handler that attaches, sends or edits more
+   * than once sees what its own earlier calls did.
+   */
+  const tray = useRef<string[]>([]);
+  const changeTray = (change: (files: string[]) => string[]) => {
+    tray.current = change(tray.current);
+    setAttachments(tray.current);
+  };
   const { playback, at, start: play, stop: end } = useRun(turns, playing);
   const running = playback !== null;
+  /**
+   * Whether a turn is playing, as of now: set the moment one starts or stops, so a second send in
+   * the same handler waits in the queue instead of cutting the first reply short.
+   */
+  const busy = useRef(running);
+  useEffect(() => {
+    busy.current = running;
+  });
   const whole = reducedMotion();
   /** The turn last set playing: the one Continue goes on with once stopped, wherever it stands. */
   const [played, setPlayed] = useState(playing?.id);
   const start = useCallback(
     (id: string, from?: number) => {
+      busy.current = true;
       setPlayed(id);
       play(id, from);
     },
     [play],
   );
+  const halt = () => {
+    busy.current = false;
+    end();
+  };
 
   const shown = turns.map((turn) =>
     turn.role !== 'agent'
@@ -149,13 +171,14 @@ export function useSession({
 
   /** Sends a message; it answers the questions named, the ones open on the page when it is sent. */
   const post = (text: string, answering: string[]) => {
-    const sentWith = attachments.length > 0 ? attachments : undefined;
-    setAttachments([]);
+    // The files go with this message only: the tray is emptied before another send can read it.
+    const sentWith = tray.current.length > 0 ? tray.current : undefined;
+    changeTray(() => []);
     // While the agent works the files wait with the message, not on the tray for the next one.
     const message = { id: (queued.current += 1), text, sentWith };
     // The queue is changed from what it holds now, so two sends in one handler both stay.
     const behind = () => setQueue((current) => [...current, message]);
-    if (running) return behind();
+    if (busy.current) return behind();
     // Stopped with messages waiting: sending goes on in order, the first that waited goes now.
     // A turn that waits for you is answered by what you send now; the queue goes after it.
     if (queue.length > 0 && !awaiting) {
@@ -216,43 +239,58 @@ export function useSession({
     send,
 
     leave() {
-      end();
+      halt();
       setPlayed(undefined);
       setQueue([]);
-      setAttachments([]);
-      setDraft({ text: '', id: draft.id + 1 });
+      changeTray(() => []);
+      setDraft((current) => ({ text: '', id: current.id + 1 }));
     },
 
+    /** Puts a file on the tray, once. */
     attach(name: string) {
-      // From the tray as it is now: a second file attached in the same handler stays too.
-      setAttachments((tray) => (tray.includes(name) ? tray : [...tray, name]));
+      changeTray((files) => (files.includes(name) ? files : [...files, name]));
     },
 
+    /** Puts the first of these files not on the tray yet there; none when all are. */
+    attachNext(names: string[]) {
+      changeTray((files) => {
+        const next = names.find((name) => !files.includes(name));
+        return next ? [...files, next] : files;
+      });
+    },
+
+    /** Takes the file at this place on the tray, as it shows, off it. */
     detach(index: number) {
-      setAttachments((tray) => tray.filter((_, at) => at !== index));
+      const name = attachments[index];
+      changeTray((files) => files.filter((item) => item !== name));
     },
 
     write(text: string) {
-      setDraft({ text, id: draft.id + 1 });
+      setDraft((current) => ({ text, id: current.id + 1 }));
     },
 
+    /** Takes the message at this place in the queue, as it shows, back into the composer. */
     edit(index: number) {
-      const { id, text, sentWith = [] } = queue[index];
-      setDraft({ text, id: draft.id + 1 });
+      const message = queue[index];
+      if (!message) return;
+      const { id, text, sentWith = [] } = message;
+      setDraft((current) => ({ text, id: current.id + 1 }));
       // Its files go back on the tray with it.
-      setAttachments((tray) => [...tray, ...sentWith.filter((name) => !tray.includes(name))]);
+      changeTray((files) => [...files, ...sentWith.filter((name) => !files.includes(name))]);
       setQueue((current) => current.filter((item) => item.id !== id));
     },
 
+    /** Drops the message at this place in the queue, as it shows. */
     unqueue(index: number) {
-      const { id } = queue[index];
-      setQueue((current) => current.filter((item) => item.id !== id));
+      const message = queue[index];
+      if (!message) return;
+      setQueue((current) => current.filter((item) => item.id !== message.id));
     },
 
     stop() {
       if (!playback) return;
       changeTurn(playback.turn.id, (turn) => ({ ...turn, stoppedAt: at }));
-      end();
+      halt();
     },
 
     resume() {

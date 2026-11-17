@@ -99,7 +99,7 @@ export function useShell({
     // The thread is open already: nothing to leave, so the draft and the queue stay.
     if (id === openId) return;
     session.leave();
-    setOpenIds({ ...openIds, [mode]: id });
+    setOpenIds((current) => ({ ...current, [mode]: id }));
     const target = groups[mode].flatMap((item) => item.threads).find((item) => item.id === id);
     if (target?.state === 'unread' || target?.state === 'working') {
       changeThread(id, (item) => ({ ...item, state: undefined }));
@@ -111,7 +111,7 @@ export function useShell({
   const startNew = (groupId?: string) => {
     session.leave();
     setNewIn(groupId);
-    setOpenIds({ ...openIds, [mode]: null });
+    setOpenIds((current) => ({ ...current, [mode]: null }));
   };
 
   return {
@@ -147,8 +147,8 @@ export function useShell({
 
     /** Attaches the next file of the workspace that is not on the tray yet. */
     attach() {
-      const next = files?.find((name) => !session.attachments.includes(name));
-      if (next) session.attach(next);
+      // From the tray as it is now, so Add files twice in a row adds two.
+      session.attachNext(files ?? []);
     },
 
     /** The first message of a new thread, with the files attached on the new-thread screen. */
@@ -168,7 +168,7 @@ export function useShell({
             : item,
         ),
       }));
-      setOpenIds({ ...openIds, [mode]: id });
+      setOpenIds((current) => ({ ...current, [mode]: id }));
       session.start(answer.id);
     },
   };

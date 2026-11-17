@@ -273,23 +273,68 @@ describe('Agent session', () => {
     expect(new Set(ids).size).toBe(ids.length);
   });
 
+  const long = (id: string): AgentTurn => ({
+    id,
+    role: 'agent',
+    blocks: [
+      {
+        kind: 'text',
+        id: `${id}-answer`,
+        prose: [
+          { kind: 'paragraph', text: 'A long answer that is still being written. '.repeat(20) },
+        ],
+      },
+    ],
+  });
+
+  // Sent at rest, the first message starts a reply; the second waits for it instead of cutting it.
+  it('queues a second message sent in the same handler at rest', () => {
+    const { result } = renderHook(() => {
+      const [turns, setTurns] = useState<Turn[]>([reply('done')]);
+      return { turns, session: useSession({ turns, onChange: setTurns, reply: long }) };
+    });
+    act(() => {
+      result.current.session.send('First');
+      result.current.session.send('Second');
+    });
+    expect(sent(result.current.turns)).toEqual(['First']);
+    expect(result.current.session.queue.map((item) => item.text)).toEqual(['Second']);
+  });
+
+  // The files on the tray go with the next message only, even when two go in one handler.
+  it('sends the tray with one message only', () => {
+    const { result } = renderHook(() => {
+      const [turns, setTurns] = useState<Turn[]>([long('long')]);
+      return {
+        turns,
+        session: useSession({ turns, onChange: setTurns, reply, playing: { id: 'long', at: 0 } }),
+      };
+    });
+    act(() => {
+      result.current.session.attach('notes.txt');
+      result.current.session.send('First');
+      result.current.session.send('Second');
+    });
+    expect(result.current.session.queue.map((item) => item.sentWith)).toEqual([
+      ['notes.txt'],
+      undefined,
+    ]);
+  });
+
+  // Add files twice in one handler puts two files on the tray.
+  it('attaches the next file each time', () => {
+    const result = session(reply('done'));
+    act(() => {
+      result.current.session.attachNext(['a.txt', 'b.txt']);
+      result.current.session.attachNext(['a.txt', 'b.txt']);
+    });
+    expect(result.current.session.attachments).toEqual(['a.txt', 'b.txt']);
+  });
+
   // While the agent works, two messages sent in one handler both wait their turn.
   it('queues every message sent in one handler during a run', () => {
-    const long: AgentTurn = {
-      id: 'long',
-      role: 'agent',
-      blocks: [
-        {
-          kind: 'text',
-          id: 'answer',
-          prose: [
-            { kind: 'paragraph', text: 'A long answer that is still being written. '.repeat(20) },
-          ],
-        },
-      ],
-    };
     const { result } = renderHook(() => {
-      const [turns, setTurns] = useState<Turn[]>([long]);
+      const [turns, setTurns] = useState<Turn[]>([long('long')]);
       return {
         turns,
         session: useSession({ turns, onChange: setTurns, reply, playing: { id: 'long', at: 0 } }),
