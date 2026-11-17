@@ -34,6 +34,8 @@ export function TasksBackground({ runs, elapsed }: TasksBackgroundProps) {
           Background
         </h3>
       </Card.Header>
+      {/* Straight in the card, not in Card.Content: its scroll area reserves a scrollbar gutter
+          and wraps what it holds in display: table (a library bug). */}
       <ul>
         {runs.map((run) => {
           const state = stopped.includes(run.id) ? 'stopped' : run.state;

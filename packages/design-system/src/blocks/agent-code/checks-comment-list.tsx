@@ -24,6 +24,8 @@ export function CommentList({ threads }: { threads: Thread[] }) {
           Unresolved comments
         </h3>
       </Card.Header>
+      {/* Straight in the card, not in Card.Content: its scroll area reserves a scrollbar gutter
+          and wraps what it holds in display: table (a library bug). */}
       <ul>
         {unresolved.map(({ id, path, anchor, comments: [comment] }) => (
           <li

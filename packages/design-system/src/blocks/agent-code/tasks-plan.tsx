@@ -122,6 +122,8 @@ export function TasksPlan({ tasks, elapsed }: TasksPlanProps) {
           </p>
         </div>
       </Card.Header>
+      {/* Straight in the card, not in Card.Content: its scroll area reserves a scrollbar gutter
+          and wraps what it holds in display: table (a library bug). */}
       <ol>
         {tasks.map((task) => (
           <TaskRow
