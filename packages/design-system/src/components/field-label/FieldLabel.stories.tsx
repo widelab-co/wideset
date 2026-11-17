@@ -8,16 +8,16 @@ const meta = {
   tags: ['autodocs'],
   component: FieldLabel,
   subcomponents: {
+    'FieldLabel.RequiredIndicator': FieldLabel.RequiredIndicator,
     'FieldLabel.Suffix': FieldLabel.Suffix,
     'FieldLabel.Tooltip': FieldLabel.Tooltip,
     'FieldLabel.Aside': FieldLabel.Aside,
-    'FieldLabel.Description': FieldLabel.Description,
   },
   parameters: {
     docs: {
       description: {
         component:
-          'FieldLabel is the `<label>` of a form control, the building block FormField renders above the control. Suffix text goes inside it (`FieldLabel.Suffix`); the info button, aside and description are siblings (`FieldLabel.Tooltip`, `FieldLabel.Aside`, `FieldLabel.Description`) laid out by the parent, since a label must not contain a button. Internal: not exported from the package.',
+          'FieldLabel is the `<label>` of a form control, the building block FormField renders above the control. The asterisk and suffix text go inside it (`FieldLabel.RequiredIndicator`, which shows only when the label is `required`, and `FieldLabel.Suffix`); the info button and aside are siblings (`FieldLabel.Tooltip`, `FieldLabel.Aside`) laid out by the parent, since a label must not contain a button. Internal: not exported from the package.',
       },
     },
   },
@@ -54,7 +54,13 @@ export const Default: Story = {
 };
 
 export const Required: Story = {
-  args: { required: true, children: 'Required Field' },
+  args: { required: true },
+  render: (args) => (
+    <FieldLabel {...args}>
+      Required Field
+      <FieldLabel.RequiredIndicator />
+    </FieldLabel>
+  ),
 };
 
 export const WithSuffix: Story = {
@@ -65,18 +71,13 @@ export const WithSuffix: Story = {
   ),
 };
 
-export const WithTooltipAndDescription: Story = {
+export const WithTooltip: Story = {
   render: () => (
-    <div className="gap-ws-3 flex w-[20rem] flex-col">
-      <div className="gap-ws-3 flex items-start">
-        <FieldLabel>Field Label</FieldLabel>
-        <FieldLabel.Tooltip>
-          This is a helpful tooltip that provides additional information about the field.
-        </FieldLabel.Tooltip>
-      </div>
-      <FieldLabel.Description>
-        This is a description that appears below the label to provide more context.
-      </FieldLabel.Description>
+    <div className="gap-ws-3 flex items-start">
+      <FieldLabel>Field Label</FieldLabel>
+      <FieldLabel.Tooltip>
+        This is a helpful tooltip that provides additional information about the field.
+      </FieldLabel.Tooltip>
     </div>
   ),
 };

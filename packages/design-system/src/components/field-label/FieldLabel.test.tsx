@@ -41,12 +41,17 @@ describe('FieldLabel', () => {
     });
   });
 
-  describe('required', () => {
-    it('draws a decorative asterisk', () => {
-      render(<FieldLabel required>Email</FieldLabel>);
+  describe('FieldLabel.RequiredIndicator', () => {
+    it('draws a decorative asterisk when the label is required', () => {
+      render(
+        <FieldLabel required>
+          Email
+          <FieldLabel.RequiredIndicator />
+        </FieldLabel>,
+      );
       const asterisk = screen.getByText('*');
       expect(asterisk).toHaveAttribute('aria-hidden', 'true');
-      expect(asterisk).toHaveAttribute('data-slot', 'field-label-required');
+      expect(asterisk).toHaveAttribute('data-slot', 'field-label-required-indicator');
     });
 
     it('keeps the asterisk out of the accessible name', () => {
@@ -54,6 +59,7 @@ describe('FieldLabel', () => {
         <>
           <FieldLabel htmlFor="email" required>
             Email
+            <FieldLabel.RequiredIndicator />
           </FieldLabel>
           <input id="email" />
         </>,
@@ -61,9 +67,48 @@ describe('FieldLabel', () => {
       expect(screen.getByRole('textbox', { name: 'Email' })).toBeInTheDocument();
     });
 
-    it('draws no asterisk when not required', () => {
-      render(<FieldLabel>Email</FieldLabel>);
+    it('draws nothing when the label is not required', () => {
+      render(
+        <FieldLabel>
+          Email
+          <FieldLabel.RequiredIndicator />
+        </FieldLabel>,
+      );
       expect(screen.queryByText('*')).not.toBeInTheDocument();
+    });
+
+    it('draws no asterisk unless placed', () => {
+      render(<FieldLabel required>Email</FieldLabel>);
+      expect(screen.queryByText('*')).not.toBeInTheDocument();
+    });
+
+    it('renders where the caller places it', () => {
+      render(
+        <FieldLabel required>
+          Amount <FieldLabel.RequiredIndicator /> <FieldLabel.Suffix>(EUR)</FieldLabel.Suffix>
+        </FieldLabel>,
+      );
+      const asterisk = screen.getByText('*');
+      const suffix = screen.getByText('(EUR)');
+      expect(asterisk.compareDocumentPosition(suffix)).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+    });
+
+    it('forwards the ref and rest props', () => {
+      const ref = createRef<HTMLSpanElement>();
+      render(
+        <FieldLabel required>
+          Email
+          <FieldLabel.RequiredIndicator ref={ref} className="custom-class" data-testid="mark" />
+        </FieldLabel>,
+      );
+      expect(ref.current).toBeInstanceOf(HTMLSpanElement);
+      expect(screen.getByTestId('mark')).toHaveClass('custom-class');
+    });
+
+    it('throws outside a FieldLabel', () => {
+      expect(() => render(<FieldLabel.RequiredIndicator />)).toThrow(
+        'useFieldLabelContext must be used within a <FieldLabel>',
+      );
     });
   });
 
@@ -89,30 +134,6 @@ describe('FieldLabel', () => {
         </>,
       );
       expect(screen.getByRole('textbox', { name: 'Email (optional)' })).toBeInTheDocument();
-    });
-
-    it('renders after the required asterisk', () => {
-      render(
-        <FieldLabel required>
-          Amount <FieldLabel.Suffix>(EUR)</FieldLabel.Suffix>
-        </FieldLabel>,
-      );
-      const asterisk = screen.getByText('*');
-      const suffix = screen.getByText('(EUR)');
-      expect(asterisk.compareDocumentPosition(suffix)).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
-    });
-
-    it('renders after the required asterisk when wrapped in a fragment', () => {
-      render(
-        <FieldLabel required>
-          <>
-            Amount <FieldLabel.Suffix>(EUR)</FieldLabel.Suffix>
-          </>
-        </FieldLabel>,
-      );
-      const asterisk = screen.getByText('*');
-      const suffix = screen.getByText('(EUR)');
-      expect(asterisk.compareDocumentPosition(suffix)).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
     });
   });
 
@@ -198,28 +219,6 @@ describe('FieldLabel', () => {
     });
   });
 
-  describe('FieldLabel.Description', () => {
-    it('renders its content with data-slot', () => {
-      render(<FieldLabel.Description>This is a description</FieldLabel.Description>);
-      expect(screen.getByText('This is a description')).toHaveAttribute(
-        'data-slot',
-        'field-label-description',
-      );
-    });
-
-    it('forwards the ref and rest props', () => {
-      const ref = createRef<HTMLDivElement>();
-      render(
-        <FieldLabel.Description ref={ref} id="desc" className="custom-class">
-          This is a description
-        </FieldLabel.Description>,
-      );
-      expect(ref.current).toBeInstanceOf(HTMLDivElement);
-      expect(screen.getByText('This is a description')).toHaveAttribute('id', 'desc');
-      expect(screen.getByText('This is a description')).toHaveClass('custom-class');
-    });
-  });
-
   describe('Snapshots', () => {
     it('matches snapshot for basic label', () => {
       const { container } = render(<FieldLabel>Test Label</FieldLabel>);
@@ -227,7 +226,12 @@ describe('FieldLabel', () => {
     });
 
     it('matches snapshot for required label', () => {
-      const { container } = render(<FieldLabel required>Test Label</FieldLabel>);
+      const { container } = render(
+        <FieldLabel required>
+          Test Label
+          <FieldLabel.RequiredIndicator />
+        </FieldLabel>,
+      );
       expect(container.firstChild).toMatchSnapshot();
     });
 
@@ -253,13 +257,13 @@ describe('FieldLabel', () => {
       const { container } = render(
         <div>
           <FieldLabel required>
-            Test Label <FieldLabel.Suffix>(optional)</FieldLabel.Suffix>
+            Test Label <FieldLabel.RequiredIndicator />{' '}
+            <FieldLabel.Suffix>(optional)</FieldLabel.Suffix>
           </FieldLabel>
           <FieldLabel.Tooltip>
             <Tooltip.Label>Help text</Tooltip.Label>
           </FieldLabel.Tooltip>
           <FieldLabel.Aside>0/100</FieldLabel.Aside>
-          <FieldLabel.Description>This is a description</FieldLabel.Description>
         </div>,
       );
       expect(container.firstChild).toMatchSnapshot();
@@ -270,37 +274,6 @@ describe('FieldLabel', () => {
         'This is a very long label text that should wrap properly when it exceeds the available width';
       const { container } = render(<FieldLabel>{longText}</FieldLabel>);
       expect(container.firstChild).toMatchSnapshot();
-    });
-  });
-
-  describe('deprecated props', () => {
-    it('renders the parts from the old props, with the button outside the label', () => {
-      const { container } = render(
-        <FieldLabel
-          htmlFor="email"
-          suffix="(optional)"
-          tooltip="Help"
-          tooltipAriaLabel="About email"
-          aside="0/100"
-          description="Hint"
-        >
-          Email
-        </FieldLabel>,
-      );
-
-      const label = container.querySelector('[data-slot="field-label"]');
-      expect(label).toContainElement(screen.getByText('(optional)'));
-      expect(screen.getByRole('button', { name: 'About email' }).closest('label')).toBeNull();
-      expect(container.querySelector('[data-slot="field-label-aside"]')).toHaveTextContent('0/100');
-      expect(container.querySelector('[data-slot="field-label-description"]')).toHaveTextContent(
-        'Hint',
-      );
-    });
-
-    it('does not pass the old props to the label as attributes', () => {
-      render(<FieldLabel tooltip="Help">Email</FieldLabel>);
-
-      expect(screen.getByText('Email').closest('label')).not.toHaveAttribute('tooltip');
     });
   });
 });

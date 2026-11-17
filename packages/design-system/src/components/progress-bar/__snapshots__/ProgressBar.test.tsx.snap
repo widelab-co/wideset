@@ -139,15 +139,11 @@ exports[`ProgressBar Snapshots > matches snapshot for complete progress bar 1`] 
     class="gap-ws-3 flex items-center justify-between"
   >
     <label
-      class="text-ws-static-strong typography-label-strong-sm gap-ws-3 inline-flex min-w-0 flex-wrap items-center"
+      class="text-ws-static-strong typography-label-strong-sm gap-ws-3 inline-flex min-w-0 flex-wrap items-center wrap-anywhere"
       data-slot="field-label"
       id="_r_r_"
     >
-      <span
-        class="min-w-0 break-words"
-      >
-        File Upload
-      </span>
+      File Upload
     </label>
     <span
       class="typography-label-sm text-ws-static-subtle"
@@ -269,15 +265,11 @@ exports[`ProgressBar Snapshots > matches snapshot for progress bar with label 1`
     class="gap-ws-3 flex items-center justify-between"
   >
     <label
-      class="text-ws-static-strong typography-label-strong-sm gap-ws-3 inline-flex min-w-0 flex-wrap items-center"
+      class="text-ws-static-strong typography-label-strong-sm gap-ws-3 inline-flex min-w-0 flex-wrap items-center wrap-anywhere"
       data-slot="field-label"
       id="_r_p_"
     >
-      <span
-        class="min-w-0 break-words"
-      >
-        Progress
-      </span>
+      Progress
     </label>
     <span
       class="typography-label-sm text-ws-static-subtle"

@@ -3,18 +3,14 @@
 exports[`FieldLabel > Snapshots > matches snapshot for a composed label row 1`] = `
 <div>
   <label
-    class="text-ws-static-strong typography-label-strong-sm gap-ws-3 inline-flex min-w-0 flex-wrap items-center"
+    class="text-ws-static-strong typography-label-strong-sm gap-ws-3 inline-flex min-w-0 flex-wrap items-center wrap-anywhere"
     data-slot="field-label"
   >
-    <span
-      class="min-w-0 break-words"
-    >
-      Test Label 
-    </span>
+    Test Label 
     <span
       aria-hidden="true"
       class="text-ws-semantic-negative typography-label-sm shrink-0"
-      data-slot="field-label-required"
+      data-slot="field-label-required-indicator"
     >
       *
     </span>
@@ -54,52 +50,33 @@ exports[`FieldLabel > Snapshots > matches snapshot for a composed label row 1`] 
   >
     0/100
   </div>
-  <div
-    class="text-ws-static-subtle typography-body-md basis-full"
-    data-slot="field-label-description"
-  >
-    This is a description
-  </div>
 </div>
 `;
 
 exports[`FieldLabel > Snapshots > matches snapshot for basic label 1`] = `
 <label
-  class="text-ws-static-strong typography-label-strong-sm gap-ws-3 inline-flex min-w-0 flex-wrap items-center"
+  class="text-ws-static-strong typography-label-strong-sm gap-ws-3 inline-flex min-w-0 flex-wrap items-center wrap-anywhere"
   data-slot="field-label"
 >
-  <span
-    class="min-w-0 break-words"
-  >
-    Test Label
-  </span>
+  Test Label
 </label>
 `;
 
 exports[`FieldLabel > Snapshots > matches snapshot for label with long text 1`] = `
 <label
-  class="text-ws-static-strong typography-label-strong-sm gap-ws-3 inline-flex min-w-0 flex-wrap items-center"
+  class="text-ws-static-strong typography-label-strong-sm gap-ws-3 inline-flex min-w-0 flex-wrap items-center wrap-anywhere"
   data-slot="field-label"
 >
-  <span
-    class="min-w-0 break-words"
-  >
-    This is a very long label text that should wrap properly when it exceeds the available width
-  </span>
+  This is a very long label text that should wrap properly when it exceeds the available width
 </label>
 `;
 
 exports[`FieldLabel > Snapshots > matches snapshot for label with suffix 1`] = `
 <label
-  class="text-ws-static-strong typography-label-strong-sm gap-ws-3 inline-flex min-w-0 flex-wrap items-center"
+  class="text-ws-static-strong typography-label-strong-sm gap-ws-3 inline-flex min-w-0 flex-wrap items-center wrap-anywhere"
   data-slot="field-label"
 >
-  <span
-    class="min-w-0 break-words"
-  >
-    Test Label 
-  </span>
-   
+  Test Label 
   <span
     class="text-ws-static-subtle typography-label-sm shrink-0"
     data-slot="field-label-suffix"
@@ -111,18 +88,14 @@ exports[`FieldLabel > Snapshots > matches snapshot for label with suffix 1`] = `
 
 exports[`FieldLabel > Snapshots > matches snapshot for required label 1`] = `
 <label
-  class="text-ws-static-strong typography-label-strong-sm gap-ws-3 inline-flex min-w-0 flex-wrap items-center"
+  class="text-ws-static-strong typography-label-strong-sm gap-ws-3 inline-flex min-w-0 flex-wrap items-center wrap-anywhere"
   data-slot="field-label"
 >
-  <span
-    class="min-w-0 break-words"
-  >
-    Test Label
-  </span>
+  Test Label
   <span
     aria-hidden="true"
     class="text-ws-semantic-negative typography-label-sm shrink-0"
-    data-slot="field-label-required"
+    data-slot="field-label-required-indicator"
   >
     *
   </span>

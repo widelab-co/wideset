@@ -1,74 +1,40 @@
 import * as React from 'react';
 import { cn } from 'src/lib/utils';
 
-import { flattenChildren, hasContent } from './FieldLabel.logic';
+import { FieldLabelContext } from './FieldLabel.context';
 import type { FieldLabelProps, FieldLabelWithSubComponents } from './FieldLabel.types';
 import { FieldLabelAside } from './FieldLabelAside';
-import { FieldLabelDescription } from './FieldLabelDescription';
+import { FieldLabelRequiredIndicator } from './FieldLabelRequiredIndicator';
 import { FieldLabelSuffix } from './FieldLabelSuffix';
 import { FieldLabelTooltip } from './FieldLabelTooltip';
 
 export const FieldLabel = React.forwardRef<HTMLLabelElement, FieldLabelProps>(
-  (
-    {
-      children,
-      required,
-      className,
-      suffix,
-      tooltip,
-      tooltipAriaLabel,
-      aside,
-      description,
-      ...props
-    },
-    ref,
-  ) => {
-    const parts = flattenChildren(children);
-    const isSuffix = (child: React.ReactNode) =>
-      React.isValidElement(child) && child.type === FieldLabelSuffix;
-    const suffixParts = parts.filter(isSuffix);
-    const textParts = parts.filter((child) => !isSuffix(child));
+  ({ children, required = false, className, ...props }, ref) => {
+    const context = React.useMemo(() => ({ required }), [required]);
 
     return (
-      <>
+      <FieldLabelContext.Provider value={context}>
         <label
           ref={ref}
           data-slot="field-label"
           className={cn(
-            'text-ws-static-strong typography-label-strong-sm gap-ws-3 inline-flex min-w-0 flex-wrap items-center',
+            'text-ws-static-strong typography-label-strong-sm gap-ws-3 inline-flex min-w-0 flex-wrap items-center wrap-anywhere',
             className,
           )}
           {...props}
         >
-          <span className="min-w-0 break-words">{textParts}</span>
-          {required && (
-            <span
-              aria-hidden="true"
-              data-slot="field-label-required"
-              className="text-ws-semantic-negative typography-label-sm shrink-0"
-            >
-              *
-            </span>
-          )}
-          {(suffixParts.length > 0 || hasContent(suffix)) && ' '}
-          {suffixParts}
-          {hasContent(suffix) && <FieldLabelSuffix>{suffix}</FieldLabelSuffix>}
+          {children}
         </label>
-        {hasContent(tooltip) && (
-          <FieldLabelTooltip aria-label={tooltipAriaLabel}>{tooltip}</FieldLabelTooltip>
-        )}
-        {hasContent(aside) && <FieldLabelAside>{aside}</FieldLabelAside>}
-        {hasContent(description) && <FieldLabelDescription>{description}</FieldLabelDescription>}
-      </>
+      </FieldLabelContext.Provider>
     );
   },
 ) as FieldLabelWithSubComponents;
 
 FieldLabel.displayName = 'FieldLabel';
 
+FieldLabel.RequiredIndicator = FieldLabelRequiredIndicator;
 FieldLabel.Suffix = FieldLabelSuffix;
 FieldLabel.Tooltip = FieldLabelTooltip;
 FieldLabel.Aside = FieldLabelAside;
-FieldLabel.Description = FieldLabelDescription;
 
-export { FieldLabelAside, FieldLabelDescription, FieldLabelSuffix, FieldLabelTooltip };
+export { FieldLabelAside, FieldLabelRequiredIndicator, FieldLabelSuffix, FieldLabelTooltip };

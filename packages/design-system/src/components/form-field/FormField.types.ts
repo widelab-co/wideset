@@ -28,7 +28,4 @@ export type FormFieldProps = VariantProps<typeof formFieldVariants> & {
   tooltipAriaLabel?: string;
   /** Quiet content at the far end of the label row, such as a counter or a link. */
   aside?: ReactNode;
-} & Omit<
-    FieldLabelProps,
-    'children' | 'className' | 'suffix' | 'tooltip' | 'tooltipAriaLabel' | 'aside' | 'description'
-  >;
+} & Omit<FieldLabelProps, 'children' | 'className'>;
