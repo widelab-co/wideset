@@ -156,6 +156,40 @@ describe('Rendering', () => {
   });
 });
 
+describe('Agent context', () => {
+  // Reconnected, the focus goes to the badge once; a later render (the popover makes the rows
+  // anew each time) does not take it back from wherever it went.
+  it('moves the focus to a reconnected connector once', async () => {
+    const { ConnectorList } = await import('../blocks/agent-context/connector-list');
+    const { connectors } = await import('../blocks/agent-context/data');
+    function Popover() {
+      const [back, setBack] = useState<string[]>([]);
+      const [renders, setRenders] = useState(0);
+      return (
+        <>
+          <ConnectorList
+            connectors={connectors.map((item) =>
+              back.includes(item.id) ? { ...item, state: 'connected' } : { ...item },
+            )}
+            onReconnect={(id) => setBack([...back, id])}
+          />
+          <button type="button" onClick={() => setRenders(renders + 1)}>
+            Something else
+          </button>
+        </>
+      );
+    }
+    const user = userEvent.setup();
+    const { getByRole } = render(<Popover />);
+    await user.click(getByRole('button', { name: 'Reconnect Team chat' }));
+    expect(document.activeElement).toHaveTextContent('Connected');
+    expect(getByRole('status')).toHaveTextContent('Team chat is connected');
+    const other = getByRole('button', { name: 'Something else' });
+    await user.click(other);
+    expect(other).toHaveFocus();
+  });
+});
+
 describe('Agent code', () => {
   // The pane's six tabs each control a panel, mounted or not yet opened.
   it('gives every pane tab its panel', async () => {

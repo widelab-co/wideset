@@ -22,9 +22,11 @@ export function ConnectorList({ connectors, onReconnect }: ConnectorListProps) {
   const badges = useRef(new Map<string, HTMLSpanElement>());
   const back = connectors.find((item) => item.id === reconnected && item.state === 'connected');
 
+  // Once, when the connector is back: the rows are new objects on every render of the popover.
+  const backId = back?.id;
   useEffect(() => {
-    if (back) badges.current.get(back.id)?.focus();
-  }, [back]);
+    if (backId) badges.current.get(backId)?.focus();
+  }, [backId]);
 
   return (
     <>
