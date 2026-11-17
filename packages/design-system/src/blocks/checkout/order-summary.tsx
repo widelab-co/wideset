@@ -161,7 +161,8 @@ export function OrderSummary({
           </InlineAlert>
         ) : (
           <div className="gap-ws-7 flex w-full flex-col">
-            <Button size="sm" className="w-full" disabled={payment === 'paying'} onClick={onPay}>
+            {/* The point of the screen: the default height, a step above the page's 32px controls. */}
+            <Button className="w-full" disabled={payment === 'paying'} onClick={onPay}>
               {payment === 'paying' ? 'Paying…' : `Pay ${total}`}
             </Button>
             <p className="typography-caption-md text-ws-static-subtle text-center">

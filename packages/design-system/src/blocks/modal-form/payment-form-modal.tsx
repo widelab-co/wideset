@@ -62,7 +62,7 @@ export function PaymentFormModal({ open, onOpenChange }: PaymentFormModalProps) 
             </Button>
           </Modal.Close>
           <Button type="submit" form={id}>
-            Save card
+            Add card
           </Button>
         </Modal.Footer>
         <Modal.Footer variant="extension" className="items-center">

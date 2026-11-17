@@ -1,7 +1,14 @@
-import { StatusBadge, Table } from '@wideset/react';
+import { StatusBadge, type StatusBadgeProps, Table } from '@wideset/react';
 
 import type { Ticket } from './data';
 import { formatDate } from './format';
+
+/** A ticket's colour by meaning: being worked on, waiting for an answer, done. */
+const STATUS_COLOR: Record<Ticket['status'], StatusBadgeProps['color']> = {
+  Open: 'info',
+  Pending: 'notice',
+  Solved: 'positive',
+};
 
 /**
  * What the failed module holds once Retry gets through: the customer's tickets, in the same four
@@ -15,7 +22,7 @@ export function TicketsTable({ tickets }: { tickets: Ticket[] }) {
           <Table.Header>Ticket</Table.Header>
           <Table.Header className="w-[7rem]">Status</Table.Header>
           <Table.Header className="w-[7.75rem]">Opened</Table.Header>
-          <Table.Header align="right" className="w-[6.25rem]">
+          <Table.Header align="right" className="w-[6.5rem]">
             Replies
           </Table.Header>
         </Table.Row>
@@ -27,7 +34,9 @@ export function TicketsTable({ tickets }: { tickets: Ticket[] }) {
               {ticket.subject}
             </Table.Cell>
             <Table.Cell>
-              <StatusBadge size="sm">{ticket.status}</StatusBadge>
+              <StatusBadge size="sm" color={STATUS_COLOR[ticket.status]}>
+                {ticket.status}
+              </StatusBadge>
             </Table.Cell>
             <Table.Cell className="tabular-nums">{formatDate(ticket.opened)}</Table.Cell>
             <Table.Cell align="right" className="tabular-nums">

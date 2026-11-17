@@ -14,7 +14,7 @@ const COLUMN = 'px-ws-14 mx-auto w-full max-w-[80rem]';
 
 const isPinned = (post: Post) => post.kind === 'announcement';
 
-/** The page: the composer and the posts in a reading column, people and threads beside it. */
+/** The page: the composer and the posts in the wide column, people and threads beside it. */
 function Feed() {
   const sidebarId = useId();
   const { showToast } = useToast();
@@ -108,8 +108,9 @@ function Feed() {
               </p>
             </header>
 
-            {/* A reading column, not the page's width: a post is read, line after line. */}
-            <div className="gap-x-ws-20 gap-y-ws-16 grid grid-cols-1 items-start lg:grid-cols-[minmax(0,40rem)_18rem]">
+            {/* The feed takes the width the side column leaves, so the row ends on the page's
+                right edge. */}
+            <div className="gap-x-ws-18 gap-y-ws-16 grid grid-cols-1 items-start lg:grid-cols-[minmax(0,1fr)_20rem]">
               <div className="gap-ws-9 flex min-w-0 flex-col">
                 <Composer onPost={publish} />
                 <section aria-label="Updates" className="gap-ws-9 flex flex-col">
@@ -138,7 +139,7 @@ function Feed() {
               {/* It stays in view while the feed scrolls past. */}
               <aside
                 aria-label="People and threads"
-                className="gap-ws-9 lg:top-ws-14 flex flex-col lg:sticky"
+                className="gap-ws-14 lg:top-ws-14 flex flex-col lg:sticky"
               >
                 <WhoToFollow
                   people={suggestions}
@@ -161,9 +162,9 @@ function Feed() {
 
 /**
  * Activity feed (Inset direction): what the team posts and what happened to deals, on the raised
- * page beside the workspace sidebar. The feed is a reading column and leads: the composer, then
- * the posts, each in its own bordered card. Who to follow and the followed threads sit in a
- * narrow column beside it, in cards of their own, so the whole row is drawn one way.
+ * page beside the workspace sidebar. The feed leads and takes the width: the composer straight on
+ * the page, then the posts, each in its own bordered card. Who to follow and the followed threads
+ * are quiet lists in a narrow column beside it, with no boxes: only what was posted is boxed.
  */
 export default function ActivityFeed() {
   return (
