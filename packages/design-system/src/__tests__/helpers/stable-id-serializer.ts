@@ -19,6 +19,8 @@ const idAttributes = new Set([
   'headers',
   'list',
   'form',
+  // Spreadsheet stores its generated cell identity in this custom attribute.
+  'data-spreadsheet-cell',
 ]);
 
 function elements(node: Element | DocumentFragment): Element[] {
@@ -27,20 +29,32 @@ function elements(node: Element | DocumentFragment): Element[] {
     : [...node.querySelectorAll('*')];
 }
 
+function idValue(attribute: Attr): string | null {
+  if (idAttributes.has(attribute.name)) return attribute.value;
+  // A local fragment refers to one ID. Exclude the # from normalization and
+  // restore it below; links to other pages must remain untouched.
+  if (attribute.name === 'href' && attribute.value.startsWith('#')) {
+    return attribute.value.slice(1);
+  }
+  return null;
+}
+
 export function normalizeSnapshotIds<T extends Element | DocumentFragment>(node: T): T {
   const clone = node.cloneNode(true) as T;
   const ids = new Map<string, string>();
 
   for (const element of elements(clone)) {
     for (const attribute of element.attributes) {
-      if (!idAttributes.has(attribute.name)) continue;
-      attribute.value = attribute.value.replace(
+      const value = idValue(attribute);
+      if (value === null) continue;
+      const normalized = value.replace(
         generatedId,
         (_match, separator: string, prefix: string | undefined, id: string) => {
           if (!ids.has(id)) ids.set(id, `:id-${ids.size + 1}:`);
           return `${separator}${prefix ?? ''}${ids.get(id)!}`;
         },
       );
+      attribute.value = attribute.name === 'href' ? `#${normalized}` : normalized;
     }
   }
 
@@ -52,9 +66,7 @@ export const stableIdSerializer = {
     return (
       (value instanceof Element || value instanceof DocumentFragment) &&
       elements(value).some((element) =>
-        [...element.attributes].some(
-          (attribute) => idAttributes.has(attribute.name) && attribute.value.match(generatedId),
-        ),
+        [...element.attributes].some((attribute) => idValue(attribute)?.match(generatedId)),
       )
     );
   },

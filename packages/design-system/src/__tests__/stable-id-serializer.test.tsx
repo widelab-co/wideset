@@ -46,6 +46,59 @@ describe('Stable snapshot IDs', () => {
     expect(element.innerHTML).toBe(original);
   });
 
+  it('normalizes Spreadsheet cell identities while preserving other data attributes', () => {
+    const element = document.createElement('div');
+    element.innerHTML = `
+      <div data-spreadsheet-cell="_r_1g_" data-example="_r_1g_"></div>
+      <div data-spreadsheet-cell="_r_1h_"></div>`;
+
+    expect(stableIdSerializer.test(element)).toBe(true);
+    const normalized = normalizeSnapshotIds(element);
+    const cells = normalized.querySelectorAll('[data-spreadsheet-cell]');
+    expect(cells[0]).toHaveAttribute('data-spreadsheet-cell', ':id-1:');
+    expect(cells[1]).toHaveAttribute('data-spreadsheet-cell', ':id-2:');
+    expect(cells[0]).toHaveAttribute('data-example', '_r_1g_');
+    expect(element.firstElementChild).toHaveAttribute('data-spreadsheet-cell', '_r_1g_');
+  });
+
+  it.each(['_r_1_', 'radix-_r_2_-details'])(
+    'keeps a local fragment reference connected to its generated target %s',
+    (id) => {
+      const element = document.createElement('div');
+      const link = document.createElement('a');
+      const target = document.createElement('section');
+      link.setAttribute('href', `#${id}`);
+      target.id = id;
+      element.append(link, target);
+
+      const normalized = normalizeSnapshotIds(element);
+      const normalizedId = normalized.querySelector('section')!.id;
+      expect(normalizedId).not.toBe(id);
+      expect(normalized.querySelector('a')).toHaveAttribute('href', `#${normalizedId}`);
+      expect(link).toHaveAttribute('href', `#${id}`);
+      expect(target.id).toBe(id);
+    },
+  );
+
+  it('recognizes a generated fragment reference without its target in the snapshot', () => {
+    const link = document.createElement('a');
+    link.setAttribute('href', '#radix-_r_9_-details');
+
+    expect(stableIdSerializer.test(link)).toBe(true);
+    expect(normalizeSnapshotIds(link)).toHaveAttribute('href', '#radix-:id-1:-details');
+  });
+
+  it.each(['#details', '#', '#report_r_1_details', 'https://example.com/#_r_1_', '/other#_r_1_'])(
+    'preserves the explicit or nonlocal link %s',
+    (href) => {
+      const link = document.createElement('a');
+      link.setAttribute('href', href);
+
+      expect(stableIdSerializer.test(link)).toBe(false);
+      expect(normalizeSnapshotIds(link)).toHaveAttribute('href', href);
+    },
+  );
+
   it('preserves generated-looking text inside explicit IDs and normalizes separate reference tokens', () => {
     const element = document.createElement('div');
     element.id = 'report_r_1_details';
