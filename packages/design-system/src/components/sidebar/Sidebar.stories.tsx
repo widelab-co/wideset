@@ -22,6 +22,8 @@ import GroupsExample from './examples/sidebar/groups';
 import groupsSource from './examples/sidebar/groups?raw';
 import StatesExample from './examples/sidebar/states';
 import statesSource from './examples/sidebar/states?raw';
+import SuffixesExample from './examples/sidebar/suffixes';
+import suffixesSource from './examples/sidebar/suffixes?raw';
 import { Sidebar } from './Sidebar';
 import { SidebarItem } from './SidebarItem';
 import { SidebarSection } from './SidebarSection';
@@ -79,7 +81,7 @@ Use Tabs to switch sections within a page and Breadcrumbs to show hierarchy.
   </Sidebar.Header>
   <Sidebar.Section>                — layout wrapper for a section (root owns the 12px gap)
   <Sidebar.Section scrollable>     — fills remaining height, scrolls overflow in a ScrollArea
-    <Sidebar.SectionHeader>        — title of a group of items; a spacer when collapsed
+    <Sidebar.SectionHeader>        — title of a group of items; cut short ("P…") when collapsed
     <Sidebar.Item href="/" icon={Icon} label="Label" active />
   </Sidebar.Section>
   <Sidebar.Collapsed>              — what exists only when collapsed
@@ -106,6 +108,15 @@ Use Tabs to switch sections within a page and Breadcrumbs to show hierarchy.
       table: {
         category: 'Behavior',
         type: { summary: 'boolean' },
+      },
+    },
+    surface: {
+      control: 'radio',
+      options: ['page', 'tinted', 'frame'],
+      table: {
+        category: 'Appearance',
+        type: { summary: "'page' | 'tinted' | 'frame'" },
+        defaultValue: { summary: "the AppShell direction's surface, 'page' outside one" },
       },
     },
     onCollapsedChange: {
@@ -190,6 +201,8 @@ export const Collapsed: Story = exampleStory(CollapsedExample, collapsedSource);
 export const Groups: Story = exampleStory(GroupsExample, groupsSource);
 
 export const States: Story = exampleStory(StatesExample, statesSource);
+
+export const Suffixes: Story = exampleStory(SuffixesExample, suffixesSource);
 
 export const Composition: Story = {
   parameters: {

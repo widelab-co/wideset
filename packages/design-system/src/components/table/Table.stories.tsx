@@ -12,6 +12,8 @@ import { Switch } from '../switch/Switch';
 import { Tag } from '../tag/Tag';
 import { TextInput } from '../text-input/TextInput';
 import { Thumbnail } from '../thumbnail/Thumbnail';
+import DescriptionsExample from './examples/table/descriptions';
+import descriptionsSource from './examples/table/descriptions?raw';
 import SeparatedExample from './examples/table/separated';
 import separatedSource from './examples/table/separated?raw';
 import SizesExample from './examples/table/sizes';
@@ -1131,6 +1133,8 @@ export const Sorting: Story = {
 };
 
 export const States: Story = exampleStory(StatesExample, statesSource);
+
+export const Descriptions: Story = exampleStory(DescriptionsExample, descriptionsSource);
 
 export const Composition: Story = {
   parameters: {

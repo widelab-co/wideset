@@ -1,5 +1,5 @@
 import { RiCheckboxBlankCircleLine } from '@remixicon/react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
@@ -577,40 +577,45 @@ describe('Tabs', () => {
       expect(middleTab).toHaveAttribute('aria-selected', 'false');
     });
 
-    it.todo(
-      'moves focus directly to the first focusable content element when leaving the tab list',
-      async () => {
-        const user = userEvent.setup();
+    it('enables the indicator transition when arrow navigation changes the active tab', async () => {
+      const user = userEvent.setup();
 
-        render(
-          <Tabs defaultValue="tab2">
-            <Tabs.List>
-              <Tabs.Item value="tab1">
-                <Tabs.Label>Tab 1</Tabs.Label>
-              </Tabs.Item>
-              <Tabs.Item value="tab2">
-                <Tabs.Label>Tab 2</Tabs.Label>
-              </Tabs.Item>
-            </Tabs.List>
-            <Tabs.Content value="tab1">Content 1</Tabs.Content>
-            <Tabs.Content value="tab2">
-              <button type="button">Save changes</button>
-            </Tabs.Content>
-          </Tabs>,
+      render(
+        <Tabs defaultValue="tab1" defaultMotion>
+          <Tabs.List>
+            <Tabs.Item value="tab1">
+              <Tabs.Label>Tab 1</Tabs.Label>
+            </Tabs.Item>
+            <Tabs.Item value="tab2">
+              <Tabs.Label>Tab 2</Tabs.Label>
+            </Tabs.Item>
+          </Tabs.List>
+        </Tabs>,
+      );
+
+      const tab2 = screen.getByRole('tab', { name: 'Tab 2' });
+      // JSDOM has no layout; give the destination a distinct position and size.
+      Object.defineProperties(tab2, {
+        offsetLeft: { value: 100 },
+        offsetWidth: { value: 120 },
+      });
+      const indicator = screen.getByRole('tablist').querySelector(':scope > span[aria-hidden]');
+      expect(indicator).toBeInTheDocument();
+      expect(indicator).not.toHaveClass('transition-[transform,width,opacity]');
+
+      await user.tab();
+      await user.keyboard('[ArrowRight>]');
+      await waitFor(() => {
+        expect(tab2).toHaveFocus();
+        expect(tab2).toHaveAttribute('aria-selected', 'true');
+        expect(indicator).toHaveStyle({ transform: 'translateX(100px)', width: '120px' });
+        expect(indicator).toHaveClass(
+          'transition-[transform,width,opacity]',
+          'duration-(--ws-motion-duration-fast)',
         );
-
-        const activeTab = screen.getByRole('tab', { name: 'Tab 2' });
-        const contentButton = screen.getByRole('button', { name: 'Save changes' });
-
-        await user.tab();
-        expect(activeTab).toHaveFocus();
-        await user.tab();
-        expect(contentButton).toHaveFocus();
-
-        await user.tab({ shift: true });
-        expect(activeTab).toHaveFocus();
-      },
-    );
+      });
+      await user.keyboard('[/ArrowRight]');
+    });
   });
 });
 

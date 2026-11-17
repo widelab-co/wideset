@@ -1,5 +1,6 @@
 import { getCollection } from 'astro:content';
 
+import { blocksByDirection, PANELS } from './blocks';
 import { type NavItem, navSections as componentSections } from './catalog';
 
 /**
@@ -12,11 +13,12 @@ import { type NavItem, navSections as componentSections } from './catalog';
 export type { NavItem };
 /** A section without a label is a run of top rows, with no heading and no indent. */
 export type NavSection = { label?: string; items: NavItem[] };
-export type Area = 'docs' | 'components';
+export type Area = 'docs' | 'components' | 'blocks';
 
 export const AREAS: { id: Area; label: string; href: string }[] = [
   { id: 'docs', label: 'Docs', href: '/docs/introduction' },
   { id: 'components', label: 'Components', href: '/components' },
+  { id: 'blocks', label: 'Starting points', href: '/blocks' },
 ];
 
 export const GITHUB_URL = 'https://github.com/widelab-co/wideset';
@@ -46,6 +48,21 @@ export const docsNav = async (): Promise<NavSection[]> => {
 };
 
 export const componentsNav = (): NavSection[] => componentSections;
+
+/** Starting points, grouped by visual direction, after the overview; then the panels. */
+export const blocksNav = (): NavSection[] => [
+  { items: [{ title: 'Overview', href: '/blocks' }] },
+  ...blocksByDirection()
+    .filter((group) => group.blocks.length > 0)
+    .map((group) => ({
+      label: group.title,
+      items: group.blocks.map((block) => ({ title: block.title, href: `/blocks/${block.id}` })),
+    })),
+  {
+    label: 'Panels',
+    items: PANELS.map((panel) => ({ title: panel.title, href: `/blocks/${panel.id}` })),
+  },
+];
 
 /** Which area a path belongs to; decides the active tab and the left column. */
 export const areaOf = (pathname: string): Area => {

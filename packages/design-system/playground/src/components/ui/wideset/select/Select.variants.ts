@@ -5,7 +5,8 @@ import { hoverTintMotion, pressMotion } from '@/lib/wideset/motion/recipes';
 
 export const selectTriggerVariants = cva(
   cn(
-    'text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden outline-hidden',
+    // A <button> centres and wraps its text by default; a field reads from its start on one line.
+    'group/select-trigger text-ws-static-strong relative flex w-[16rem] cursor-pointer items-center justify-between overflow-hidden text-start whitespace-nowrap outline-hidden',
     'data-[placeholder]:text-ws-static-subtle',
     'data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default',
     'data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle',
@@ -75,9 +76,22 @@ export const selectTriggerIconVariants = cva(
         md: '-mr-ws-4 ml-ws-6',
         lg: '-mr-ws-3 ml-ws-7',
       },
+      // Ghost reads as a value, not a control: its arrow shows only while the trigger is hovered,
+      // focused or open, and always on touch screens, which have no hover. It keeps its space, so
+      // the value never shifts.
+      preset: {
+        border: '',
+        ghost: cn(
+          'opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)',
+          'group-hover/select-trigger:not-data-[disabled=true]:opacity-100',
+          'group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100',
+          'pointer-coarse:opacity-100',
+        ),
+      },
     },
     defaultVariants: {
       size: 'md',
+      preset: 'border',
     },
   },
 );
@@ -260,9 +274,16 @@ export const selectValuePrefixVariants = cva(
         md: 'mr-ws-7 -ml-ws-8 px-ws-5',
         lg: 'mr-ws-7 -ml-ws-8 px-ws-7',
       },
+      // The divider separates the prefix inside a bordered field; a ghost field has no box to
+      // divide, so the prefix sits beside the value like an icon.
+      preset: {
+        border: '',
+        ghost: 'mr-ws-0 border-r-0',
+      },
     },
     defaultVariants: {
       size: 'md',
+      preset: 'border',
     },
   },
 );

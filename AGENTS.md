@@ -68,6 +68,7 @@ src/styles/tokens/README.md    Figma export, token generation and manual shadow 
 src/lib/utils.ts               cn() + tailwind-merge config for custom size tokens
 specs/                         agent-facing usage specs: components by group, foundations, tokens, patterns (specs/README.md)
 src/__tests__/                 active gates: named exports, built client boundary, examples
+src/blocks/<id>/               starting points: whole screens as consumer code, listed in src/blocks/index.ts (src/blocks/README.md)
 src/app/                       local Vite demo (pnpm --filter @wideset/react dev), not the library entry
 scripts/build-registry.mjs     shadcn registry build (registry.json lists the entry files); playground/ is the demo consumer app
 .storybook/                    Storybook config; preview.tsx auto-wires on* props as actions
@@ -148,6 +149,13 @@ The full checklist is the `wideset-component-convention` skill. The rules that m
 - **Accessibility.** Native elements first; correct `role` otherwise; keyboard support; visible
   focus; `aria-label` on icon-only controls; `useId` for aria relationships; `disabled` vs
   `aria-disabled` chosen deliberately.
+- **Blocks (starting points).** `src/blocks/<id>/` is a whole screen a consumer copies: consumer
+  code like an example, so it imports `@wideset/react` and its own files, never a library file or
+  another block (ESLint enforces it), and uses `ws` tokens only. A file standing in for a component
+  Wideset lacks starts with `// TODO(custom): <what it is, what Wideset lacks>`; files that only
+  compose Wideset or the block's own parts need no marker. Blocks ship in neither the npm package
+  nor the registry (the docs site and Storybook read them), so a change to one alone takes
+  `pnpm changeset --empty`. Rules for building one: `src/blocks/README.md`.
 
 ## Storybook and tests
 
