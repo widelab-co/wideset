@@ -248,6 +248,21 @@ describe('Agent session', () => {
     expect(sent(result.current.turns)[0]).toBe('Typed answer');
   });
 
+  // A thread kept by the app and opened again already holds turns the hook made last time.
+  it('gives a new turn an id no turn in the thread has', () => {
+    const kept: Turn[] = [
+      { id: 'sent-1', role: 'user', text: 'Earlier message' },
+      { id: 'sent-2', role: 'agent', blocks: [] },
+    ];
+    const { result } = renderHook(() => {
+      const [turns, setTurns] = useState<Turn[]>(kept);
+      return { turns, session: useSession({ turns, onChange: setTurns, reply }) };
+    });
+    act(() => result.current.session.send('Later message'));
+    const ids = result.current.turns.map((turn) => turn.id);
+    expect(new Set(ids).size).toBe(ids.length);
+  });
+
   // StrictMode sets effects up twice in development: a waiting message still goes out once.
   it('sends a queued message once under StrictMode', () => {
     const done: AgentTurn = { id: 'asking', role: 'agent', blocks: [] };
