@@ -1,6 +1,6 @@
 import { act, cleanup, render, renderHook } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { type ComponentType, useState } from 'react';
+import { type ComponentType, StrictMode, useState } from 'react';
 import { afterEach, describe, expect, it } from 'vitest';
 
 import { BLOCKS, PANELS } from '../blocks';
@@ -246,6 +246,22 @@ describe('Agent session', () => {
     act(() => result.current.session.send('Typed answer'));
     expect(answerOf(result.current.turns, 'only')).toBe('Typed answer');
     expect(sent(result.current.turns)[0]).toBe('Typed answer');
+  });
+
+  // StrictMode sets effects up twice in development: a waiting message still goes out once.
+  it('sends a queued message once under StrictMode', () => {
+    const done: AgentTurn = { id: 'asking', role: 'agent', blocks: [] };
+    const { result } = renderHook(
+      () => {
+        const [turns, setTurns] = useState<Turn[]>([done]);
+        return {
+          turns,
+          session: useSession({ turns, onChange: setTurns, reply, queue: ['Export a PDF'] }),
+        };
+      },
+      { wrapper: StrictMode },
+    );
+    expect(sent(result.current.turns)).toEqual(['Export a PDF']);
   });
 
   it('sends a chosen answer before a message queued earlier', () => {
