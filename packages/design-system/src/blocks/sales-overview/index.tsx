@@ -33,7 +33,7 @@ export default function SalesOverview() {
     <AppShell direction="canvas">
       <AppShell.Main className="flex flex-col">
         <TopBar />
-        <div className="px-ws-12 pb-ws-12 pt-ws-13 flex-1">
+        <div className="px-ws-12 pb-ws-9 pt-ws-13 flex-1">
           <div className="gap-ws-12 mx-auto flex w-full max-w-[80rem] flex-col">
             <PageHeader />
             <div className="gap-ws-9 flex flex-col">
