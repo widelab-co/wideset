@@ -35,7 +35,8 @@ export function TopBar() {
         </DropdownMenu>
       </div>
 
-      <nav aria-label="Main" className="gap-ws-3 flex items-center">
+      {/* Below md the bar keeps the brand, the model and the invite; the links do not fit. */}
+      <nav aria-label="Main" className="gap-ws-3 hidden items-center md:flex">
         {NAV.map((item) => (
           <NavItem
             key={item.href}
@@ -48,7 +49,12 @@ export function TopBar() {
         ))}
       </nav>
 
-      <Button variant="secondary" preset="border" size="sm" className="justify-self-end">
+      <Button
+        variant="secondary"
+        preset="border"
+        size="sm"
+        className="col-start-3 justify-self-end"
+      >
         Invite
       </Button>
     </header>
