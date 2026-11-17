@@ -58,6 +58,8 @@ export function SessionsTable({
 
   return (
     <Card role="region" aria-label="Sessions">
+      {/* Straight in the card, not in Card.Content: its scroll area reserves a scrollbar gutter
+          and wraps what it holds in display: table (a library bug). */}
       <Table
         size="md"
         placement="top"

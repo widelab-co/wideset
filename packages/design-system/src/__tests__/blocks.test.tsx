@@ -45,7 +45,7 @@ const AGENT_KIT = [
   'transcript.tsx',
   'agent-turn.tsx',
   'user-message.tsx',
-  'divider.tsx',
+  'transcript-break.tsx',
   'reasoning.tsx',
   'step-row.tsx',
   'step-group.tsx',
@@ -150,5 +150,21 @@ describe('Rendering', () => {
     expect(typeof Block).toBe('function');
     const { container } = render(<Block />);
     expect(container.firstElementChild).not.toBeNull();
+  });
+});
+
+describe('Agent code', () => {
+  // The pane's six tabs each control a panel, mounted or not yet opened.
+  it('gives every pane tab its panel', async () => {
+    const { default: AgentCode } = await import('../blocks/agent-code');
+    const { getAllByRole, getByRole } = render(<AgentCode />);
+    const tabs = getAllByRole('tab');
+    expect(tabs.length).toBeGreaterThan(0);
+    for (const tab of tabs) {
+      const panel = document.getElementById(tab.getAttribute('aria-controls')!);
+      expect(panel, tab.textContent!).not.toBeNull();
+      expect(panel).toHaveAttribute('role', 'tabpanel');
+    }
+    expect(getByRole('tabpanel', { name: 'Changes' })).toBeVisible();
   });
 });

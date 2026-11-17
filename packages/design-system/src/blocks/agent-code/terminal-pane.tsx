@@ -1,15 +1,15 @@
-import { RiAddLine, RiCheckLine, RiEraserLine, RiFileCopyLine, RiStopLine } from '@remixicon/react';
+import { RiAddLine, RiEraserLine, RiStopLine } from '@remixicon/react';
 import { Tabs, TextInput } from '@wideset/react';
 import { type FormEvent, useEffect, useRef, useState } from 'react';
 
 import { BarAction } from './bar-action';
+import { CopyButton } from './copy-button';
 import { PASSING_TESTS, type Run, SHELLS, stateOf, textOf } from './terminal-data';
 import { TerminalOutput } from './terminal-output';
 import { TerminalStateMark } from './terminal-state-mark';
 
-/** How long the tests take to answer at the prompt, and how long Copy shows its check. */
+/** How long the tests take to answer at the prompt. */
 const TEST_RUN = 1200;
-const COPIED = 1600;
 
 /**
  * The Terminal pane: the session's shells as quiet tabs, each with the state of its last command
@@ -23,18 +23,12 @@ export function TerminalPane() {
   const [shells, setShells] = useState(SHELLS);
   const [active, setActive] = useState(SHELLS[0].id);
   const [draft, setDraft] = useState('');
-  const [copied, setCopied] = useState(false);
   // Numbers the shells and commands added here; the timers are the test runs still going.
   const added = useRef(0);
   const timers = useRef<number[]>([]);
   const prompt = useRef<HTMLInputElement>(null);
 
   useEffect(() => () => timers.current.forEach((id) => window.clearTimeout(id)), []);
-  useEffect(() => {
-    if (!copied) return;
-    const id = window.setTimeout(() => setCopied(false), COPIED);
-    return () => window.clearTimeout(id);
-  }, [copied]);
 
   const shell = shells.find(({ id }) => id === active) ?? shells[0];
   const running = shell.runs.find(({ state }) => state === 'running');
@@ -98,14 +92,6 @@ export function TerminalPane() {
     prompt.current?.focus();
   };
 
-  const copy = () => {
-    // "Copied" only once the output is there; with no clipboard nothing changes.
-    navigator.clipboard?.writeText(textOf(shell)).then(
-      () => setCopied(true),
-      () => undefined,
-    );
-  };
-
   return (
     <Tabs
       type="ghost"
@@ -141,20 +127,7 @@ export function TerminalPane() {
             disabled={shell.runs.length === 0}
             onClick={clear}
           />
-          <BarAction
-            icon={copied ? RiCheckLine : RiFileCopyLine}
-            label="Copy output"
-            // The check arrives with a short fade, growing the last step into place.
-            iconClassName={
-              copied
-                ? 'animate-in fade-in-0 zoom-in-[0.8] duration-(--ws-motion-duration-fast) ease-(--ws-motion-ease-smooth-out)'
-                : undefined
-            }
-            onClick={copy}
-          />
-          <span role="status" className="sr-only">
-            {copied ? 'Output copied' : ''}
-          </span>
+          <CopyButton label="Copy output" side="bottom" text={() => textOf(shell)} />
         </div>
       </div>
 

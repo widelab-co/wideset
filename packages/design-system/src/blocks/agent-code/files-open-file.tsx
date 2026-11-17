@@ -1,8 +1,8 @@
 import { RiChatCheckLine, RiChatNewLine } from '@remixicon/react';
 import { Breadcrumbs, IconButton, Tooltip } from '@wideset/react';
 
+import { CopyButton } from './copy-button';
 import { FilesCode } from './files-code';
-import { FilesCopyPath } from './files-copy-path';
 import { type Change, type RepoFile, splitPath } from './files-data';
 
 /** What the session did to the file, for those who cannot see the gutter. */
@@ -63,7 +63,7 @@ export function FilesOpenFile({
         </div>
         <p className="sr-only">{summaryOf(file)}</p>
         <div className="gap-ws-2 flex shrink-0 items-center">
-          <FilesCopyPath key={file.path} path={file.path} />
+          <CopyButton key={file.path} label="Copy path" side="bottom" text={() => file.path} />
           <Tooltip size="sm">
             <Tooltip.Trigger asChild>
               <IconButton

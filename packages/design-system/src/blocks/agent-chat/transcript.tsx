@@ -1,8 +1,8 @@
 // TODO(custom): the transcript of a thread (your messages, the agent's turns and the dividers between them, in one of three views); Wideset has no message or transcript component.
 import { AgentTurn } from './agent-turn';
-import { Divider } from './divider';
 import type { ApprovalAnswer, TranscriptView, Turn } from './model';
 import type { CardRender } from './step-row';
+import { TranscriptBreak } from './transcript-break';
 import { UserMessage } from './user-message';
 
 type TranscriptProps = {
@@ -43,7 +43,7 @@ export function Transcript({
         turn.role === 'user' ? (
           <UserMessage key={turn.id} turn={turn} />
         ) : turn.role === 'divider' ? (
-          <Divider key={turn.id} turn={turn} />
+          <TranscriptBreak key={turn.id} turn={turn} />
         ) : (
           <AgentTurn
             key={turn.id}

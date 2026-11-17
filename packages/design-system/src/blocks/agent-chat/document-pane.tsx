@@ -118,7 +118,7 @@ export function DocumentPane({
       </header>
       <div className="min-h-0 flex-1 overflow-y-auto">
         <article className="px-ws-14 pt-ws-14 pb-ws-16">
-          <Prose blocks={prose} size="lg" />
+          <Prose blocks={prose} size="lg" level={3} />
         </article>
       </div>
     </aside>

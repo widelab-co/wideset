@@ -145,6 +145,8 @@ export function CheckList({ onFix }: { onFix?: (text: string) => void }) {
           Checks
         </h3>
       </Card.Header>
+      {/* Straight in the card, not in Card.Content: its scroll area reserves a scrollbar gutter
+          and wraps what it holds in display: table (a library bug). */}
       <ul>
         {CHECKS.map((check) => (
           <CheckRow key={check.id} check={check} onFix={onFix} />

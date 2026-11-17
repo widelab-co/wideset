@@ -8,8 +8,8 @@ import {
 } from '@remixicon/react';
 import { cn } from '@wideset/react';
 
+import { Inline } from './inline';
 import type { StepKind, Task, TouchedFile } from './tasks-data';
-import { InlineCode } from './tasks-inline-code';
 
 const ICON: Record<StepKind, typeof RiFileTextLine> = {
   read: RiFileTextLine,
@@ -45,7 +45,7 @@ export function TasksTaskDetail({ id, task }: { id: string; task: Task }) {
             <li key={index} className="gap-ws-5 typography-label-sm flex items-center">
               <Icon aria-hidden="true" className="size-ws-9 text-ws-static-subtle shrink-0" />
               <span className="text-ws-static-base min-w-0 flex-1 truncate">
-                <InlineCode text={step.label} />
+                <Inline plain text={step.label} />
               </span>
               {step.result && (
                 <span
