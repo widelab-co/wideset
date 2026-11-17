@@ -41,7 +41,7 @@ The shared rules behind every screen. Token lists and scales are on the docs sit
 - An `IconButton` label names the action and its object ("Delete invoice"), and repeated rows need distinct names, as do selection checkboxes ("Select invoice 1042"). An action-only table column still has a heading, and sortable headers take `sortAriaLabel`.
 - A `Tooltip` trigger is focusable (not a `span` or a disabled `Button`), and what it says is not essential. A dialog opened without a trigger needs somewhere for focus to return.
 - Do not add key handlers or live regions around Wideset's overlays, `Toast` and alerts. After a client-side route change, move focus to the page's `h1` or `main`. No `tabIndex` above 0, and no `aria-hidden` on anything focusable.
-- `ProgressBar` needs a `label`; the circle type has none, so name the task in text.
+- `ProgressBar` needs a name: `ProgressBar.Label` on a bar, `aria-label` on a circle.
 
 ## Responsive
 

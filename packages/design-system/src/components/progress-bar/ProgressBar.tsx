@@ -5,6 +5,7 @@ import { clamp, isFiniteNumber } from 'src/logic/helpers';
 
 import { useDefaultMotion } from '../../motion/MotionProvider';
 import { ProgressBarContext } from './ProgressBar.context';
+import { hasContent } from './ProgressBar.logic';
 import type {
   ProgressBarContextValue,
   ProgressBarProps,
@@ -79,26 +80,37 @@ const ProgressBar = React.forwardRef<
     const value = validateValue(valueProp, max);
     const percent = Math.round((value / max) * 100);
 
-    const fields: ProgressBarContextValue = {
-      value,
-      max,
-      percent,
-      status,
-      type,
-      motion,
-      registerLabel,
-      registerDescription,
-    };
+    const context = React.useMemo<ProgressBarContextValue>(
+      () => ({ value, max, percent, status, type, motion, registerLabel, registerDescription }),
+      [value, max, percent, status, type, motion, registerLabel, registerDescription],
+    );
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    const context = React.useMemo(() => fields, Object.values(fields));
+    const hasOwnName = Boolean(props['aria-label'] || props['aria-labelledby']);
+    const fallbackName = hasOwnName || labelId ? undefined : 'Progress';
+    // A caller's `aria-describedby` adds to the composed Description instead of replacing it.
+    const describedBy =
+      [props['aria-describedby'], descriptionId].filter(Boolean).join(' ') || undefined;
+
+    // The computed role and values must win. Radix spreads caller props over its own ARIA, so they
+    // are set after `{...props}`; with `asChild`, Slot gives the child's props priority, so the
+    // child carries them as well.
+    const semantics = {
+      role: 'progressbar',
+      'aria-valuenow': value,
+      'aria-valuemin': 0,
+      'aria-valuemax': max,
+    } as const;
 
     // `asChild` puts the root on the caller's single element, which then holds the parts (as in
     // Tile). Without such an element the root stays a <div> instead of slotting onto a part.
     const isSlotted = Boolean(asChild) && React.isValidElement(children);
-
-    const hasOwnName = Boolean(props['aria-label'] || props['aria-labelledby']);
-    const fallbackName = hasOwnName || labelId ? undefined : 'Progress';
+    const content = isSlotted ? (
+      React.cloneElement(children as React.ReactElement<Record<string, unknown>>, semantics)
+    ) : hasContent(children) ? (
+      children
+    ) : (
+      <ProgressBarTrack />
+    );
 
     return (
       <ProgressBarContext.Provider value={context}>
@@ -113,16 +125,12 @@ const ProgressBar = React.forwardRef<
           data-status={status}
           aria-label={fallbackName}
           aria-labelledby={labelId}
-          aria-describedby={descriptionId}
           {...props}
-          // Radix spreads caller props over its own ARIA; the computed role and values must win.
-          role="progressbar"
-          aria-valuenow={value}
-          aria-valuemin={0}
-          aria-valuemax={max}
+          aria-describedby={describedBy}
+          {...semantics}
           className={cn(progressBarRootVariants({ type }), className)}
         >
-          {children ?? <ProgressBarTrack />}
+          {content}
         </ProgressPrimitive.Root>
       </ProgressBarContext.Provider>
     );

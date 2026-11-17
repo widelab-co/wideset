@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { FieldLabel } from '../field-label/FieldLabel';
 import { useProgressBarContext } from './ProgressBar.context';
+import { hasContent } from './ProgressBar.logic';
 import type { ProgressBarLabelProps } from './ProgressBar.types';
 
 const ProgressBarLabel = React.forwardRef<HTMLLabelElement, ProgressBarLabelProps>(
@@ -9,8 +10,13 @@ const ProgressBarLabel = React.forwardRef<HTMLLabelElement, ProgressBarLabelProp
     const { registerLabel } = useProgressBarContext();
     const generatedId = React.useId();
     const labelId = id ?? generatedId;
+    // An empty Label must not replace the root's "Progress" fallback with a name that reads nothing.
+    const isNamed = hasContent(children);
 
-    React.useLayoutEffect(() => registerLabel(labelId), [labelId, registerLabel]);
+    React.useLayoutEffect(
+      () => (isNamed ? registerLabel(labelId) : undefined),
+      [isNamed, labelId, registerLabel],
+    );
 
     return (
       <FieldLabel ref={ref} data-slot="progress-bar-label" {...props} id={labelId}>

@@ -523,6 +523,18 @@ describe('Composition', () => {
     expect(root.firstElementChild).toHaveAttribute('data-slot', 'progress-bar-track');
     expect(root).not.toHaveTextContent('60%');
   });
+
+  it.each([
+    ['false', false],
+    ['an empty string', ''],
+    ['an array of empty nodes', [null, false]],
+  ])('renders the track when the children are %s', (_name, children) => {
+    render(<ProgressBar value={60}>{children}</ProgressBar>);
+
+    const root = screen.getByRole('progressbar');
+    expect(root.children).toHaveLength(1);
+    expect(root.firstElementChild).toHaveAttribute('data-slot', 'progress-bar-track');
+  });
 });
 
 describe('Invalid numbers', () => {
@@ -589,6 +601,22 @@ describe('asChild', () => {
     expect(root.tagName).toBe('DIV');
     expect(root.firstElementChild).toHaveAttribute('data-slot', 'progress-bar-track');
   });
+
+  it('keeps the progressbar role and values over the child props', () => {
+    render(
+      <ProgressBar asChild value={40} aria-label="Upload">
+        <div role="meter" aria-valuenow={100} aria-valuemin={10} aria-valuemax={200}>
+          <ProgressBar.Track />
+        </div>
+      </ProgressBar>,
+    );
+
+    const root = screen.getByRole('progressbar', { name: 'Upload' });
+    expect(screen.queryByRole('meter')).not.toBeInTheDocument();
+    expect(root).toHaveAttribute('aria-valuenow', '40');
+    expect(root).toHaveAttribute('aria-valuemin', '0');
+    expect(root).toHaveAttribute('aria-valuemax', '100');
+  });
 });
 
 describe('Part ids', () => {
@@ -635,6 +663,57 @@ describe('Part ids', () => {
     );
 
     expect(screen.getByRole('progressbar')).not.toHaveAttribute('aria-describedby');
+  });
+
+  it('adds a caller aria-describedby to the Description instead of replacing it', () => {
+    render(
+      <>
+        <span id="external">Paused by the admin</span>
+        <ProgressBar value={40} aria-label="Upload" aria-describedby="external">
+          <ProgressBar.Track />
+          <ProgressBar.Description id="caller-description">
+            8 files remaining
+          </ProgressBar.Description>
+        </ProgressBar>
+      </>,
+    );
+
+    const bar = screen.getByRole('progressbar');
+    expect(bar).toHaveAttribute('aria-describedby', 'external caller-description');
+    expect(bar).toHaveAccessibleDescription('Paused by the admin 8 files remaining');
+  });
+
+  it('keeps a caller aria-describedby without a Description', () => {
+    render(<ProgressBar value={40} aria-label="Upload" aria-describedby="external" />);
+
+    expect(screen.getByRole('progressbar')).toHaveAttribute('aria-describedby', 'external');
+  });
+
+  it.each([
+    ['no children', undefined],
+    ['false', false],
+    ['an empty string', ''],
+  ])('keeps the "Progress" fallback for a Label with %s', (_name, children) => {
+    render(
+      <ProgressBar value={40}>
+        <ProgressBar.Label>{children}</ProgressBar.Label>
+        <ProgressBar.Track />
+      </ProgressBar>,
+    );
+
+    const bar = screen.getByRole('progressbar', { name: 'Progress' });
+    expect(bar).not.toHaveAttribute('aria-labelledby');
+  });
+
+  it('names the bar with a Label whose content is a number', () => {
+    render(
+      <ProgressBar value={40}>
+        <ProgressBar.Label>{0}</ProgressBar.Label>
+        <ProgressBar.Track />
+      </ProgressBar>,
+    );
+
+    expect(screen.getByRole('progressbar', { name: '0' })).toBeInTheDocument();
   });
 
   it('drops the references when the Label and Description unmount', () => {

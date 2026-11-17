@@ -118,7 +118,7 @@ onClick={undo}>Undo</Toast.Action> })`. Use for reversible actions instead of a 
   payment); keep it rare.
 - **Compact progress.** `ProgressBar type="circle"` in a table row or file list; name the task
   in the text beside it and in `aria-label`. On completion switch `status` to `success` or `error` and say what
-  happened in `description`.
+  happened in the text beside it.
 - **Failure that needs a decision.** `StatusModal status="error"` with a Retry button.
 
 ## Accessibility

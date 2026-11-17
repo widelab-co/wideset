@@ -5,7 +5,7 @@ import { useProgressBarContext } from './ProgressBar.context';
 import type { ProgressBarDescriptionProps } from './ProgressBar.types';
 
 const ProgressBarDescription = React.forwardRef<HTMLSpanElement, ProgressBarDescriptionProps>(
-  ({ id, className, children, ...props }, ref) => {
+  ({ id, children, ...props }, ref) => {
     const { status, registerDescription } = useProgressBarContext();
     const generatedId = React.useId();
     const descriptionId = id ?? generatedId;
@@ -27,8 +27,6 @@ const ProgressBarDescription = React.forwardRef<HTMLSpanElement, ProgressBarDesc
         {...props}
         state={status}
         showIcon={showIcon}
-        // HelperText carries Figma's Gap/3 padding; with the root's Gap/5 that is 12px from the bar.
-        className={className}
         id={descriptionId}
       >
         {children}

@@ -10,7 +10,6 @@ import TypesExample from './examples/progress-bar/types';
 import typesSource from './examples/progress-bar/types?raw';
 import { ProgressBar } from './ProgressBar';
 import type { ProgressBarStatus, ProgressBarType } from './ProgressBar.types';
-import { ProgressBarValue } from './ProgressBarValue';
 
 const statuses: ProgressBarStatus[] = ['default', 'success', 'error'];
 const types: ProgressBarType[] = ['bar', 'circle'];
@@ -34,7 +33,13 @@ const meta = {
   title: 'Components/ProgressBar',
   tags: ['autodocs'],
   component: ProgressBar,
-  subcomponents: { 'ProgressBar.Value': ProgressBarValue },
+  subcomponents: {
+    'ProgressBar.Header': ProgressBar.Header,
+    'ProgressBar.Label': ProgressBar.Label,
+    'ProgressBar.Value': ProgressBar.Value,
+    'ProgressBar.Track': ProgressBar.Track,
+    'ProgressBar.Description': ProgressBar.Description,
+  },
   parameters: {
     docs: {
       description: {
