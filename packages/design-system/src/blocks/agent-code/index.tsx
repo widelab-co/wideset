@@ -260,14 +260,19 @@ export default function AgentCode({ pane: initial = 'changes' }: { pane?: Pane }
           )}
         </div>
 
-        {paneShown && (
+        {/* Closed, the pane stays mounted and hidden: what was done in it is there on reopening. */}
+        {here && (
           <CodePane
             id={paneId}
-            pane={paneShown}
+            pane={pane}
+            hidden={!paneOpen}
             onPaneChange={setPane}
             reveal={reveal}
             // A request from a pane goes into the composer, for Ines to send as it is or change.
             onAsk={session.write}
+            attachments={session.attachments}
+            onAttach={session.attach}
+            onDetach={(path) => session.detach(session.attachments.indexOf(path))}
           />
         )}
       </AppShell.Main>

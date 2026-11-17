@@ -52,7 +52,7 @@ export function FilesOpenFile({
             <Breadcrumbs separator="slash" aria-label="Path" className="shrink-0">
               {folders.map((folder, index) => (
                 <Breadcrumbs.Item
-                  key={folder}
+                  key={folders.slice(0, index + 1).join('/')}
                   onClick={() => onReveal(folders.slice(0, index + 1).join('/'))}
                 >
                   {folder}

@@ -178,11 +178,13 @@ describe('Agent session', () => {
     blocks: ids.map((id) => ({ kind: 'question', id, title: `Question ${id}`, options: [] })),
   });
   const reply = (id: string): AgentTurn => ({ id, role: 'agent', blocks: [] });
-  const session = (first: AgentTurn) =>
+  const session = (first: AgentTurn, queue?: string[]) =>
     renderHook(() => {
       const [turns, setTurns] = useState<Turn[]>([first]);
-      return { turns, session: useSession({ turns, onChange: setTurns, reply }) };
+      return { turns, session: useSession({ turns, onChange: setTurns, reply, queue }) };
     }).result;
+  const sent = (turns: Turn[]) =>
+    turns.flatMap((turn) => (turn.role === 'user' ? [turn.text] : []));
   const answerOf = (turns: Turn[], id: string) => {
     const turn = turns.find((item) => item.id === 'asking') as AgentTurn;
     const block = turn.blocks.find((item) => item.id === id);
@@ -202,5 +204,20 @@ describe('Agent session', () => {
     const result = session(asking('only'));
     act(() => result.current.session.send('Typed answer'));
     expect(answerOf(result.current.turns, 'only')).toBe('Typed answer');
+  });
+
+  // A message queued while the agent worked is not what answers the question it then asked.
+  it('answers a waiting question with the message sent, not one queued before it', () => {
+    const result = session(asking('only'), ['Queued earlier']);
+    act(() => result.current.session.send('Typed answer'));
+    expect(answerOf(result.current.turns, 'only')).toBe('Typed answer');
+    expect(sent(result.current.turns)[0]).toBe('Typed answer');
+  });
+
+  it('sends a chosen answer before a message queued earlier', () => {
+    const result = session(asking('only'), ['Queued earlier']);
+    act(() => result.current.session.choose('asking', 'only', 'Chosen answer'));
+    expect(answerOf(result.current.turns, 'only')).toBe('Chosen answer');
+    expect(sent(result.current.turns)[0]).toBe('Chosen answer');
   });
 });

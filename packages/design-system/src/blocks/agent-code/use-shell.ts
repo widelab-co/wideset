@@ -82,6 +82,17 @@ export function useShell({
     }));
   }, [waited, openId, mode]);
 
+  // Something in the open thread waits for you (a replayed approval too): the thread says so, and
+  // keeps saying so when you open another one.
+  const waits = thread !== undefined && thread.state !== 'needs-you' && session.awaiting;
+  useEffect(() => {
+    if (!waits || !openId) return;
+    setGroups((current) => ({
+      ...current,
+      [mode]: mapThread(current[mode], openId, (item) => ({ ...item, state: 'needs-you' })),
+    }));
+  }, [waits, openId, mode]);
+
   const nextId = () => `new-${(ids.current += 1)}`;
 
   const open = (id: string) => {
@@ -127,10 +138,7 @@ export function useShell({
         setNewIn(undefined);
         setMode(next);
       },
-      // The open thread says it needs you for as long as something in it waits.
-      groups: session.awaiting
-        ? mapThread(groups[mode], openId ?? '', (item) => ({ ...item, state: 'needs-you' }))
-        : groups[mode],
+      groups: groups[mode],
       openId,
       workingId: session.running ? (openId ?? undefined) : undefined,
       onOpen: open,

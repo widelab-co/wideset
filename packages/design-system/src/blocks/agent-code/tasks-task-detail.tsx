@@ -38,29 +38,31 @@ export function TasksTaskDetail({ id, task }: { id: string; task: Task }) {
       id={id}
       className="gap-ws-7 pt-ws-3 pb-ws-9 pl-ws-18 pr-ws-11 animate-in fade-in-0 ws-slide-in-from-top-3 flex flex-col duration-(--ws-motion-duration-fast) ease-(--ws-motion-ease-smooth-out)"
     >
-      <ul aria-label="Steps" className="gap-ws-3 flex flex-col">
-        {task.steps.map((step, index) => {
-          const Icon = ICON[step.kind];
-          return (
-            <li key={index} className="gap-ws-5 typography-label-sm flex items-center">
-              <Icon aria-hidden="true" className="size-ws-9 text-ws-static-subtle shrink-0" />
-              <span className="text-ws-static-base min-w-0 flex-1 truncate">
-                <Inline plain text={step.label} />
-              </span>
-              {step.result && (
-                <span
-                  className={cn(
-                    'shrink-0 tabular-nums',
-                    step.failed ? 'text-ws-semantic-negative' : 'text-ws-static-subtle',
-                  )}
-                >
-                  {step.result}
+      {task.steps.length > 0 && (
+        <ul aria-label="Steps" className="gap-ws-3 flex flex-col">
+          {task.steps.map((step, index) => {
+            const Icon = ICON[step.kind];
+            return (
+              <li key={index} className="gap-ws-5 typography-label-sm flex items-center">
+                <Icon aria-hidden="true" className="size-ws-9 text-ws-static-subtle shrink-0" />
+                <span className="text-ws-static-base min-w-0 flex-1 truncate">
+                  <Inline plain text={step.label} />
                 </span>
-              )}
-            </li>
-          );
-        })}
-      </ul>
+                {step.result && (
+                  <span
+                    className={cn(
+                      'shrink-0 tabular-nums',
+                      step.failed ? 'text-ws-semantic-negative' : 'text-ws-static-subtle',
+                    )}
+                  >
+                    {step.result}
+                  </span>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+      )}
 
       {task.files.length > 0 && (
         <div className="gap-ws-3 flex flex-col">

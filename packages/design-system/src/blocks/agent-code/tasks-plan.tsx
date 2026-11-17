@@ -26,7 +26,7 @@ type TaskRowProps = {
  */
 function TaskRow({ task, elapsed, open, onOpenChange }: TaskRowProps) {
   const detailId = useId();
-  const opens = task.steps.length > 0;
+  const opens = task.steps.length > 0 || task.files.length > 0;
   const title =
     task.state === 'running'
       ? 'typography-label-strong-sm text-ws-static-strong'

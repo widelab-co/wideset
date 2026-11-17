@@ -28,6 +28,8 @@ export function CommentComposer({ label, action, onSubmit, onCancel }: CommentCo
   };
 
   const onKeyDown = (event: KeyboardEvent<HTMLTextAreaElement>) => {
+    // Escape and Enter that finish an input method's composition are the composition's own.
+    if (event.nativeEvent.isComposing) return;
     if (event.key === 'Escape') {
       // Only this composer closes, not whatever holds the pane.
       event.stopPropagation();

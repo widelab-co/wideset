@@ -44,7 +44,7 @@ type SessionOptions = {
  * - `send`: answered at once. While the agent works the message joins `queue` (over the
  *   composer, not in the transcript: it has not been said yet) and goes out when the run ends;
  *   `edit` takes one back into the composer, `unqueue` drops it. A message sent while a turn
- *   waits for you answers its question, or leaves the turn where it stands.
+ *   waits for you answers its question, or leaves the turn where it stands, ahead of the queue.
  * - `stop` keeps what is there and marks the turn stopped; `resume` goes on from there. `replay`
  *   plays the newest turn (or a named one) again from its start, as before anyone answered it.
  * - What a turn waits for: `answer` (an approval), `choose` (a question: the answer becomes your
@@ -107,6 +107,8 @@ export function useSession({
         ),
   );
 
+  const awaiting = shown.some((turn) => turn.role === 'agent' && turn.held);
+
   const changeTurn = (id: string, change: (turn: AgentTurn) => AgentTurn) =>
     onChange((all) =>
       all.map((turn) => (turn.id === id && turn.role === 'agent' ? change(turn) : turn)),
@@ -135,7 +137,8 @@ export function useSession({
     const message = { id: (queued.current += 1), text, sentWith };
     if (running) return setQueue([...queue, message]);
     // Stopped with messages waiting: sending goes on in order, the first that waited goes now.
-    if (queue.length > 0) {
+    // A turn that waits for you is answered by what you send now; the queue goes after it.
+    if (queue.length > 0 && !awaiting) {
       setQueue([...queue.slice(1), message]);
       return deliver(queue[0].text, queue[0].sentWith, answering);
     }
@@ -151,8 +154,6 @@ export function useSession({
     const turn = turns.find((item) => item.id === id);
     return turn?.role === 'agent' ? turn : undefined;
   };
-
-  const awaiting = shown.some((turn) => turn.role === 'agent' && turn.held);
 
   // When a run ends, the first message that waited goes out; not while the turn waits for you,
   // and not after you stopped it: the queue waits for Continue, or for what you send next.
