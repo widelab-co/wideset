@@ -29,7 +29,7 @@ export default playground({
   // The stage's invoice table cut to two columns and two rows, so it draws 1:1 beside its names.
   anatomy: () => (
     <div className="w-[20rem] max-w-full">
-      <Table>
+      <Table size="md">
         <Table.Head>
           <Table.Row>
             <Table.Header>Customer</Table.Header>
@@ -38,7 +38,10 @@ export default playground({
         </Table.Head>
         <Table.Body>
           <Table.Row>
-            <Table.Cell>Acme Corp</Table.Cell>
+            <Table.Cell>
+              Acme Corp
+              <Table.CellDescription>Annual plan</Table.CellDescription>
+            </Table.Cell>
             <Table.Cell align="right">$1,200.00</Table.Cell>
           </Table.Row>
           <Table.Row>

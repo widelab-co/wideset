@@ -8,18 +8,15 @@ const SAMPLE = 'The quick brown fox jumps over the lazy dog';
 const GROUPS: { title: string; description: string; sample?: string; variants: string[] }[] = [
   {
     title: 'Title',
-    description: 'Display headings for hero and page-level moments.',
+    description:
+      'The page heading and key figures: lg the figure a page is about, md the page heading and KPI figures, sm a large part of a page or a tight bar.',
     variants: ['typography-title-lg', 'typography-title-md', 'typography-title-sm'],
   },
   {
     title: 'Subtitle',
-    description: 'Section and card titles.',
-    variants: [
-      'typography-subtitle-lg',
-      'typography-subtitle-md',
-      'typography-subtitle-sm',
-      'typography-subtitle-xs',
-    ],
+    description:
+      'Titles close to their content, sized by the container: side panel, modal, card and section.',
+    variants: ['typography-subtitle-md', 'typography-subtitle-sm', 'typography-subtitle-xs'],
   },
   {
     title: 'Label',
@@ -199,7 +196,7 @@ export const FontVariables: Story = {
         style={{ fontSize: 13, color: 'var(--ws-static-text-subtle)', margin: 0, lineHeight: 1.5 }}
       >
         Components inherit the page font, so <code style={{ fontSize: 12 }}>body</code> decides the
-        typeface. These three custom properties back the{' '}
+        typeface. These four custom properties back the{' '}
         <code style={{ fontSize: 12 }}>font-ws-*</code> classes, for text that should keep
         Wideset&rsquo;s own stack; override them at <code style={{ fontSize: 12 }}>:root</code>{' '}
         after importing the design system.
@@ -220,6 +217,11 @@ export const FontVariables: Story = {
             token: '--font-ws-body',
             default: 'var(--font-ws-sans)',
             applies: 'The font-ws-body class',
+          },
+          {
+            token: '--font-ws-mono',
+            default: "'IBM Plex Mono', ui-monospace, SFMono-Regular, …",
+            applies: 'The font-ws-mono class, for code',
           },
         ].map(({ token, default: def, applies }) => (
           <div
@@ -263,7 +265,7 @@ export const FontVariables: Story = {
 body { font-family: 'Brand Font', sans-serif; }
 
 /* Keep Wideset's own stack on some elements: use the classes */
-<h1 className="typography-title-lg font-ws-heading">…</h1>
+<h1 className="typography-title-md font-ws-heading">…</h1>
 
 /* Repoint the stack those classes use */
 :root { --font-ws-sans: 'Brand Font', sans-serif; }

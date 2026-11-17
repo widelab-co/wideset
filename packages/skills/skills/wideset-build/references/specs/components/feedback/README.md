@@ -12,6 +12,8 @@ spec before setting `status`.
 - [SystemAlert](../../../good-practices/system-alert.md) — full-width, product-wide banner at the top of the page.
 - [Toast](../../../good-practices/toast.md) — brief, floating, auto-dismissing reaction to an action; shown with
   `useToast()`.
+- [Illustration](../../../good-practices/illustration.md) — a line drawing for an empty state, a first run or an
+  announcement; decorative beside its text.
 - [ProgressBar](../../../good-practices/progress-bar.md) — percentage progress of one task, as a bar or a compact
   ring.
 - [ProgressTracker](../../../good-practices/progress-tracker.md) — compact row of step segments for a short ordered

@@ -5,6 +5,7 @@ import { TableContext } from './Table.context';
 import type { TableProps } from './Table.types';
 import { TableBody } from './TableBody';
 import { TableCell } from './TableCell';
+import { TableCellDescription } from './TableCellDescription';
 import { TableFoot } from './TableFoot';
 import { TableHead } from './TableHead';
 import { TableHeader } from './TableHeader';
@@ -67,6 +68,7 @@ const TableRoot = ({
 const Table = TableRoot as typeof TableRoot & {
   Body: typeof TableBody;
   Cell: typeof TableCell;
+  CellDescription: typeof TableCellDescription;
   Foot: typeof TableFoot;
   Head: typeof TableHead;
   Header: typeof TableHeader;
@@ -74,6 +76,7 @@ const Table = TableRoot as typeof TableRoot & {
 };
 
 Table.Cell = TableCell;
+Table.CellDescription = TableCellDescription;
 Table.Row = TableRow;
 Table.Header = TableHeader;
 Table.Head = TableHead;

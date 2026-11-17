@@ -126,11 +126,11 @@ After this, `develop` and `main` are aligned. Nothing to back‑merge.
 
 The `deploy` job in `.github/workflows/build.yaml` publishes to Cloudflare Workers:
 
-| Trigger   | Docs and registry                                                              | Storybook                                     |
-| --------- | ------------------------------------------------------------------------------ | --------------------------------------------- |
-| `main`    | `wideset-docs` on `wideset.co` (`/docs`, `/components`, `/r`, `/llms*.txt`, …) | `wideset-storybook` on `storybook.wideset.co` |
-| `develop` | `wideset-docs-develop` on workers.dev                                          | `wideset-storybook-develop` on workers.dev    |
-| PR        | alias `pr-<number>` on the `-develop` Workers                                  | same                                          |
+| Trigger   | Docs and registry                                                                         | Storybook                                     |
+| --------- | ----------------------------------------------------------------------------------------- | --------------------------------------------- |
+| `main`    | `wideset-docs` on `wideset.co` (`/docs`, `/components`, `/blocks`, `/r`, `/llms*.txt`, …) | `wideset-storybook` on `storybook.wideset.co` |
+| `develop` | `wideset-docs-develop` on workers.dev                                                     | `wideset-storybook-develop` on workers.dev    |
+| PR        | alias `pr-<number>` on the `-develop` Workers                                             | same                                          |
 
 Repository settings: secrets `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`, `NPM_TOKEN`; variable
 `CF_WORKERS_SUBDOMAIN`; environments `production` (branch `main`) and `develop` (branch `develop`);
@@ -149,11 +149,13 @@ Production on `wideset.co`:
   hostnames; DNS-only, the deploy succeeds and the post-deploy check fails.
 - A Redirect Rule on the zone (Rules → Redirect Rules, dashboard only) sends every other path on
   `wideset.co` to `www.wideset.co`, the landing page. It runs before the Worker routes, so it must
-  exclude exactly the routes in `apps/docs/wrangler.jsonc`: **change both together**. Landing
-  pages must not use paths starting with `/docs` or `/components`. Expression:
+  exclude exactly the routes in `apps/docs/wrangler.jsonc`: **change both together**, and change
+  the rule **before** merging the `develop → main` PR that adds a route: the deploy checks every
+  route on `wideset.co`, so a route the rule still redirects fails the release before npm. Landing
+  pages must not use paths starting with `/docs`, `/components` or `/blocks`. Expression:
 
   ```text
-  (http.host eq "wideset.co" and not starts_with(http.request.uri.path, "/docs") and not starts_with(http.request.uri.path, "/components") and not starts_with(http.request.uri.path, "/r/") and not starts_with(http.request.uri.path, "/_docs/") and not starts_with(http.request.uri.path, "/.well-known/agent-skills/") and http.request.uri.path ne "/llms.txt" and http.request.uri.path ne "/llms-full.txt")
+  (http.host eq "wideset.co" and not starts_with(http.request.uri.path, "/docs") and not starts_with(http.request.uri.path, "/components") and not starts_with(http.request.uri.path, "/blocks") and not starts_with(http.request.uri.path, "/r/") and not starts_with(http.request.uri.path, "/_docs/") and not starts_with(http.request.uri.path, "/.well-known/agent-skills/") and http.request.uri.path ne "/llms.txt" and http.request.uri.path ne "/llms-full.txt")
   ```
 
   Action: dynamic redirect to `concat("https://www.wideset.co", http.request.uri.path)`, 301,
@@ -167,7 +169,7 @@ Production on `wideset.co`:
 
 ## Caveats
 
-- **Freeze window.** If a new changeset lands on `develop` _between_ the version step and the promotion, `main` arrives with an unconsumed changeset and the Action opens a Version PR instead of publishing. Rare at our cadence; just keep version → promote tight.
+- **Freeze window.** If a new changeset lands on `develop` _between_ the version step and the promotion, `main` arrives with an unconsumed changeset and the `release` job stops before npm, naming it. Merge the Version PR that `develop` opens for it and promote again; it bumps past the unpublished version. Keep version → promote tight.
 - **Empty changesets.** `changesets/action` neither versions nor publishes while only empty changesets are pending, so the `release` job deletes them from its checkout (nothing is committed) and the action publishes.
 - **Merge method matters.** Always promote `develop → main` with a merge commit. Squash/Rebase destroys the per‑component history.
 

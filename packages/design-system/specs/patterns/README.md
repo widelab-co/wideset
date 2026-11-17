@@ -3,18 +3,21 @@
 Recurring screens and flows built from Wideset components. Wideset has no page, template,
 grid or stack components: beyond `Sidebar` (navigation), `Sidepanel` (overlay panel) and `Card`
 (bounded surface), structure is plain HTML elements with Tailwind layout classes and `ws`
-tokens (`flex`, `grid`, `gap-ws-*`, `p-ws-*`, `bg-ws-static-background`, `typography-*`).
+tokens (`flex`, `grid`, `gap-ws-*`, `p-ws-*`, `bg-ws-static-foreground`, `typography-*`).
 Every example here uses only real exports and props; copy the structure, not the copy.
 
 | Pattern                                                | Use it for                                                                              |
 | ------------------------------------------------------ | --------------------------------------------------------------------------------------- |
-| [App shell](app-shell.md)                              | The frame: `Sidebar` beside a scrolling `main`, one `ToastProvider`.                    |
+| [Visual directions](directions.md)                     | Flat, Frame, Inset or Canvas: the surround, set once per app on `AppShell`.             |
+| [App shell](app-shell.md)                              | The frame: `AppShell` with `Sidebar` and `AppShell.Main`, one `ToastProvider`.          |
 | [Form page](form-page.md)                              | `FormField`s around inputs, field errors, save failure, submit and cancel.              |
 | [List with search and filters](list-and-filters.md)    | `Table` + search `TextInput` + `FilterButton` + `Pagination`, empty and loading states. |
+| [Dense data](dense-data.md)                            | Spreadsheet-like screens: `Spreadsheet` vs `Table` vs `ListItem`, density, numbers.     |
 | [Detail in a side panel](detail-in-sidepanel.md)       | Open one row's detail in `Sidepanel`, act, return focus to the row.                     |
 | [Confirm a destructive action](confirm-destructive.md) | `Modal` / `StatusModal` with a `danger` button, async-safe.                             |
 | [Page feedback](page-feedback.md)                      | Choosing and placing `InlineAlert`, `SystemAlert`, `Toast`, `ProgressBar`.              |
 | [Composition laws](composition.md)                     | Rules between components: state ownership, overlays, row actions, loading.              |
+| [Sign in and sign up](auth.md)                         | The screens before the app: the card, field rules, errors that name no half, keyboard.  |
 
 Shared rules:
 
