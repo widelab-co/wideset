@@ -36,7 +36,7 @@ export function Reasoning({ block, defaultOpen, live }: ReasoningProps) {
       <Row
         mark={<RiBrainLine aria-hidden className="size-ws-9 text-ws-static-subtle shrink-0" />}
         open={open}
-        onToggle={() => setOpen(!open)}
+        onToggle={() => setOpen((value) => !value)}
       >
         {running ? (
           <span className="gap-ws-3 flex items-baseline">
