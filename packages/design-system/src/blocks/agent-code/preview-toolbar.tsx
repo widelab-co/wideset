@@ -8,7 +8,7 @@ import {
   RiTabletLine,
   RiTerminalBoxLine,
 } from '@remixicon/react';
-import { Button, IconButton, SegmentedControl, TextInput, Tooltip } from '@wideset/react';
+import { Button, SegmentedControl, TextInput, Tooltip } from '@wideset/react';
 
 import { BarAction } from './bar-action';
 import type { Viewport } from './preview-data';
@@ -115,24 +115,10 @@ export function PreviewToolbar({
             <Tooltip.Label>{drawer.open ? 'Close console' : 'Open console'}</Tooltip.Label>
           </Tooltip.Content>
         </Tooltip>
-        <Tooltip size="sm">
-          <Tooltip.Trigger asChild>
-            <IconButton
-              icon={RiExternalLinkLine}
-              size="xs"
-              variant="secondary"
-              preset="ghost"
-              asChild
-            >
-              <a href={`http://${current}`} target="_blank" rel="noreferrer">
-                <span className="sr-only">Open in a new window</span>
-              </a>
-            </IconButton>
-          </Tooltip.Trigger>
-          <Tooltip.Content side="bottom">
-            <Tooltip.Label>Open in a new window</Tooltip.Label>
-          </Tooltip.Content>
-        </Tooltip>
+        <BarAction asChild icon={RiExternalLinkLine} label="Open in a new window">
+          {/* eslint-disable-next-line jsx-a11y/anchor-has-content -- IconButton slots its icon into the anchor, which BarAction names by its label */}
+          <a href={`http://${current}`} target="_blank" rel="noreferrer" />
+        </BarAction>
       </div>
     </div>
   );
