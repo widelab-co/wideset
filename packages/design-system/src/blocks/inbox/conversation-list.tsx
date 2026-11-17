@@ -3,32 +3,14 @@ import { SegmentedControl, TextInput } from '@wideset/react';
 import type { Ref } from 'react';
 
 import { ConversationRow } from './conversation-row';
-import type { Conversation } from './data';
+import { type Conversation, EMPTY, type Filter } from './data';
 import { EmptyState } from './empty-state';
-
-export type Filter = 'all' | 'unread' | 'starred';
 
 const FILTERS: { value: Filter; label: string }[] = [
   { value: 'all', label: 'All' },
   { value: 'unread', label: 'Unread' },
   { value: 'starred', label: 'Starred' },
 ];
-
-/** What the list says when the filter leaves nothing. */
-const EMPTY: Record<Filter, { title: string; description: string }> = {
-  all: {
-    title: 'Your inbox is empty',
-    description: 'New mail from your customers shows up here.',
-  },
-  unread: {
-    title: 'No unread conversations',
-    description: 'You have read everything in your inbox.',
-  },
-  starred: {
-    title: 'No starred conversations',
-    description: 'Star a conversation to find it here.',
-  },
-};
 
 type ConversationListProps = {
   /** The conversations the search and the filter leave, newest first. */

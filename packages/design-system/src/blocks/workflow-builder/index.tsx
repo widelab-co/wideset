@@ -1,6 +1,6 @@
 import { RiSideBarLine } from '@remixicon/react';
 import { AppShell, Breadcrumbs, IconButton, Toast, ToastProvider, useToast } from '@wideset/react';
-import { type ReactNode, useEffect, useId, useState } from 'react';
+import { type ReactNode, useEffect, useId, useRef, useState } from 'react';
 
 import {
   initialFlow,
@@ -42,6 +42,7 @@ function WorkflowEditor({ sidebarToggle }: { sidebarToggle: ReactNode }) {
   const [flow, setFlow] = useState(initialFlow);
   const [selectedId, setSelectedId] = useState('notify-manager');
   const [confirming, setConfirming] = useState(false);
+  const switchRef = useRef<HTMLButtonElement>(null);
   // A step to move the focus to once it is on screen (after a delete or its undo).
   const [focusId, setFocusId] = useState<string>();
 
@@ -153,6 +154,7 @@ function WorkflowEditor({ sidebarToggle }: { sidebarToggle: ReactNode }) {
         state={state}
         unfinished={unfinished.length}
         onSwitch={switchTo}
+        switchRef={switchRef}
         onTestRun={testRun}
       />
 
@@ -180,6 +182,7 @@ function WorkflowEditor({ sidebarToggle }: { sidebarToggle: ReactNode }) {
         stage={stage}
         open={confirming}
         onOpenChange={setConfirming}
+        returnFocusRef={switchRef}
         onConfirm={() => {
           setState('on');
           showToast({

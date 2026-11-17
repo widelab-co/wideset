@@ -1,10 +1,20 @@
+// TODO(custom): page header (title, a line of description, the primary action); no PageHeader in Wideset.
 import { RiUserAddLine } from '@remixicon/react';
 import { Button } from '@wideset/react';
+import type { Ref } from 'react';
 
 import { workspace } from './data';
 
 /** The page's title, how many seats the plan has left, and the one primary action. */
-export function PageHeader({ seatsUsed, onInvite }: { seatsUsed: number; onInvite: () => void }) {
+export function PageHeader({
+  seatsUsed,
+  onInvite,
+  inviteRef,
+}: {
+  seatsUsed: number;
+  onInvite: () => void;
+  inviteRef?: Ref<HTMLButtonElement>;
+}) {
   return (
     <header className="gap-ws-9 flex items-center justify-between">
       <div className="gap-ws-3 flex min-w-0 flex-col">
@@ -16,7 +26,7 @@ export function PageHeader({ seatsUsed, onInvite }: { seatsUsed: number; onInvit
           seats used on the {workspace.plan} plan
         </p>
       </div>
-      <Button size="sm" onClick={onInvite}>
+      <Button ref={inviteRef} size="sm" onClick={onInvite}>
         <Button.Icon icon={RiUserAddLine} />
         Invite people
       </Button>

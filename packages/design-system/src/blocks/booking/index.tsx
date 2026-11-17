@@ -199,29 +199,31 @@ export default function Booking() {
             ) : null}
 
             {step === 'booked' && slot ? (
-              <Card className="p-ws-14">
-                <div className="max-w-[36rem]">
-                  <BookingConfirmation
-                    title={`${type.name} booked`}
-                    sentence={`Orbit sent the invitation to ${listOf(invited)}.`}
-                    facts={[
-                      { label: 'Meeting', value: `${type.name}, ${type.minutes} min` },
-                      { label: 'When', value: when },
-                      { label: 'Where', value: `${where.label}. ${where.detail}` },
-                    ]}
-                    entry={{
-                      title: `${type.name}: ${customer.name} and Lumen Studio`,
-                      start: slot,
-                      end,
-                      location: where.label,
-                      details: details?.agenda ?? '',
-                    }}
-                    onBookAnother={() => {
-                      setSlot(undefined);
-                      setDetails(undefined);
-                      setStep('pick');
-                    }}
-                  />
+              <Card>
+                <div className="p-ws-14">
+                  <div className="max-w-[36rem]">
+                    <BookingConfirmation
+                      title={`${type.name} booked`}
+                      sentence={`Orbit sent the invitation to ${listOf(invited)}.`}
+                      facts={[
+                        { label: 'Meeting', value: `${type.name}, ${type.minutes} min` },
+                        { label: 'When', value: when },
+                        { label: 'Where', value: `${where.label}. ${where.detail}` },
+                      ]}
+                      entry={{
+                        title: `${type.name}: ${customer.name} and Lumen Studio`,
+                        start: slot,
+                        end,
+                        location: where.label,
+                        details: details?.agenda ?? '',
+                      }}
+                      onBookAnother={() => {
+                        setSlot(undefined);
+                        setDetails(undefined);
+                        setStep('pick');
+                      }}
+                    />
+                  </div>
                 </div>
               </Card>
             ) : null}

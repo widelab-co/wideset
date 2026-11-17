@@ -40,6 +40,9 @@ function FilesScreen() {
   const sidebarId = useId();
   const { showToast, dismissToast } = useToast();
   const made = useRef(0);
+  // The latest move of each file: an older toast's Undo must not undo a newer one.
+  const moves = useRef(new Map<string, number>());
+  const moveCount = useRef(0);
   const [collapsed, setCollapsed] = useState(false);
   const [folders, setFolders] = useState(FOLDERS);
   const [files, setFiles] = useState(FILES);
@@ -77,6 +80,8 @@ function FilesScreen() {
     const from = new Map(
       files.filter((file) => ids.includes(file.id)).map((f) => [f.id, f.folder]),
     );
+    const token = ++moveCount.current;
+    ids.forEach((file) => moves.current.set(file, token));
     setFiles((all) =>
       all.map((file) => (ids.includes(file.id) ? { ...file, folder: destination } : file)),
     );
@@ -95,7 +100,7 @@ function FilesScreen() {
           onUndo={() => {
             setFiles((all) =>
               all.map((file) =>
-                from.has(file.id) && file.folder === destination
+                from.has(file.id) && moves.current.get(file.id) === token
                   ? { ...file, folder: from.get(file.id)! }
                   : file,
               ),
