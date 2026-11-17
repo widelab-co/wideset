@@ -25,6 +25,7 @@ export function ToolsMenu({ onAttach }: { onAttach?: () => void }) {
             </ListItem.Content>
           </DropdownMenu.Item>
         )}
+        {/* A placeholder: wire it to your app's connector settings; the sample has none. */}
         <DropdownMenu.Item>
           <ListItem.Prefix className="size-ws-11 justify-center">
             <RiPlugLine aria-hidden className="size-ws-9 text-ws-static-subtle" />
