@@ -1987,7 +1987,7 @@ exports[`MultiSelect Snapshots > Sub-components snapshots > matches snapshot wit
   class="cursor-pointer"
   data-slot="multi-select-trigger"
   data-state="closed"
-  id="radix-_r_6u_"
+  id="radix-:id-1:"
   type="button"
 >
   Select countries
@@ -2001,7 +2001,7 @@ exports[`MultiSelect Snapshots > Sub-components snapshots > matches snapshot wit
   class="cursor-pointer"
   data-slot="multi-select-trigger"
   data-state="closed"
-  id="radix-_r_6s_"
+  id="radix-:id-1:"
   type="button"
 >
   Select countries
@@ -2015,7 +2015,7 @@ exports[`MultiSelect Snapshots > Sub-components snapshots > matches snapshot wit
   class="cursor-pointer"
   data-slot="multi-select-trigger"
   data-state="closed"
-  id="radix-_r_70_"
+  id="radix-:id-1:"
   type="button"
 >
   Select countries

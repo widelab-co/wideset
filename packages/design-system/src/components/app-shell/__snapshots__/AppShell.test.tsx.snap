@@ -13,7 +13,7 @@ exports[`AppShell > Rendering > should match snapshot for direction="canvas" 1`]
       data-slot="sidebar"
       data-state="expanded"
       data-testid="sidebar"
-      id="_r_3_"
+      id=":id-1:"
     >
       <div
         class="w-full min-w-0"
@@ -62,7 +62,7 @@ exports[`AppShell > Rendering > should match snapshot for direction="flat" 1`] =
       data-slot="sidebar"
       data-state="expanded"
       data-testid="sidebar"
-      id="_r_1_"
+      id=":id-1:"
     >
       <div
         class="w-full min-w-0"
@@ -111,7 +111,7 @@ exports[`AppShell > Rendering > should match snapshot for direction="frame" 1`] 
       data-slot="sidebar"
       data-state="expanded"
       data-testid="sidebar"
-      id="_r_2_"
+      id=":id-1:"
     >
       <div
         class="w-full min-w-0"
@@ -160,7 +160,7 @@ exports[`AppShell > Rendering > should match snapshot for direction="inset" 1`] 
       data-slot="sidebar"
       data-state="expanded"
       data-testid="sidebar"
-      id="_r_0_"
+      id=":id-1:"
     >
       <div
         class="w-full min-w-0"

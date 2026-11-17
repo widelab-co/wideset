@@ -9,7 +9,7 @@ exports[`DateRangePicker > Presets panel > should match snapshot when opened wit
   />
   <div>
     <button
-      aria-controls="radix-_r_1e_"
+      aria-controls="radix-:id-1:"
       aria-expanded="true"
       aria-haspopup="dialog"
       class="group wds-focus-visible rounded-ws-control-lg cursor-pointer outline-hidden disabled:cursor-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small) w-72"
@@ -38,7 +38,7 @@ exports[`DateRangePicker > Presets panel > should match snapshot when opened wit
         />
         <span
           class="sr-only"
-          id="_r_1f_"
+          id=":id-2:"
         >
           Select range
         </span>
@@ -77,7 +77,7 @@ exports[`DateRangePicker > Presets panel > should match snapshot when opened wit
       data-side="bottom"
       data-slot="popup-container"
       data-state="open"
-      id="radix-_r_1e_"
+      id="radix-:id-1:"
       role="dialog"
       style="--radix-popover-content-transform-origin: var(--radix-popper-transform-origin); --radix-popover-content-available-width: var(--radix-popper-available-width); --radix-popover-content-available-height: var(--radix-popper-available-height); --radix-popover-trigger-width: var(--radix-popper-anchor-width); --radix-popover-trigger-height: var(--radix-popper-anchor-height);"
       tabindex="-1"
@@ -901,7 +901,7 @@ exports[`DateRangePicker > Rendering > should match snapshot 1`] = `
       />
       <span
         class="sr-only"
-        id="_r_7_"
+        id=":id-1:"
       >
         Select range
       </span>
@@ -961,7 +961,7 @@ exports[`DateRangePicker > Rendering > should match snapshot with default preset
       />
       <span
         class="sr-only"
-        id="_r_9_"
+        id=":id-1:"
       >
         This Week
       </span>

@@ -31,14 +31,14 @@ exports[`FormField Snapshots > matches snapshot for default form field 1`] = `
     class="gap-ws-4 flex flex-col"
   >
     <div
-      aria-describedby="_r_i_"
+      aria-describedby=":id-1:"
     >
       Child
     </div>
     <span
       class="typography-body-sm gap-ws-3 py-ws-3 flex items-center text-ws-static-subtle"
       data-slot="helper-text"
-      id="_r_i_"
+      id=":id-1:"
     >
       Help
     </span>
@@ -75,7 +75,7 @@ exports[`FormField Snapshots > matches snapshot for horizontal variant 1`] = `
     <span
       class="typography-body-sm gap-ws-3 py-ws-3 flex items-center text-ws-static-subtle"
       data-slot="helper-text"
-      id="_r_j_"
+      id=":id-1:"
     >
       Description
     </span>
@@ -84,7 +84,7 @@ exports[`FormField Snapshots > matches snapshot for horizontal variant 1`] = `
     class="gap-ws-4 flex flex-col min-w-0 flex-1"
   >
     <div
-      aria-describedby="_r_j_"
+      aria-describedby=":id-1:"
     >
       Child
     </div>
@@ -123,7 +123,7 @@ exports[`FormField Snapshots > matches snapshot with error and icon 1`] = `
     class="gap-ws-4 flex flex-col"
   >
     <div
-      aria-describedby="_r_l_"
+      aria-describedby=":id-1:"
       aria-invalid="true"
     >
       Child
@@ -131,7 +131,7 @@ exports[`FormField Snapshots > matches snapshot with error and icon 1`] = `
     <span
       class="typography-body-sm gap-ws-3 py-ws-3 flex items-center text-ws-semantic-negative"
       data-slot="helper-text"
-      id="_r_l_"
+      id=":id-1:"
       role="alert"
     >
       <svg
