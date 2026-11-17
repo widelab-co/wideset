@@ -1,5 +1,5 @@
-// TODO(custom): a labelled line across the transcript, with one row under it that opens to a summary of what is no longer there; Wideset's Divider carries no label.
 import { RiFileList2Line } from '@remixicon/react';
+import { Divider } from '@wideset/react';
 import { useState } from 'react';
 
 import { Fold } from './fold';
@@ -12,16 +12,12 @@ import { Row } from './row';
  * what came before is no longer here word for word, and, when there is a summary, one row that
  * opens to what the agent works from instead. The turns under it are the ones kept in full.
  */
-export function Divider({ turn }: { turn: DividerTurn }) {
+export function TranscriptBreak({ turn }: { turn: DividerTurn }) {
   const [open, setOpen] = useState(false);
 
   return (
     <div className="gap-ws-5 flex flex-col">
-      <p className="gap-ws-7 typography-label-sm text-ws-static-subtle flex items-center">
-        <span aria-hidden className="border-ws-static-base flex-1 border-t" />
-        {turn.label}
-        <span aria-hidden className="border-ws-static-base flex-1 border-t" />
-      </p>
+      <Divider text={turn.label} aria-label={turn.label} weight="thin" />
       {turn.summary && (
         <div>
           <Row

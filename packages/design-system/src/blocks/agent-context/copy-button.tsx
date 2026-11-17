@@ -16,13 +16,22 @@ type CopyButtonProps = {
   size?: IconButtonProps['size'];
   /** Under an answer or in a code block: the icon in the subtle colour. */
   quiet?: boolean;
+  /** Where the tooltip opens: under the button in a pane's bar. */
+  side?: 'top' | 'bottom';
 };
 
 /**
  * Copy, answered by the button itself: the icon grows into a check and the name reads "Copied"
- * for a moment, then both go back. No toast: the result shows where the hand already is.
+ * for a moment, then both go back, with the same said aloud. No toast: the result shows where
+ * the hand already is.
  */
-export function CopyButton({ text, label = 'Copy', size = 'xs', quiet = false }: CopyButtonProps) {
+export function CopyButton({
+  text,
+  label = 'Copy',
+  size = 'xs',
+  quiet = false,
+  side = 'top',
+}: CopyButtonProps) {
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
@@ -32,19 +41,25 @@ export function CopyButton({ text, label = 'Copy', size = 'xs', quiet = false }:
   }, [copied]);
 
   return (
-    <IconAction
-      label={copied ? 'Copied' : label}
-      icon={copied ? RiCheckLine : RiFileCopyLine}
-      iconClassName={cn(quiet && 'text-ws-static-subtle', copied && SWAP)}
-      size={size}
-      onClick={() => {
-        // "Copied" only once the text is there: an insecure page, a denied permission or a test
-        // has no clipboard to write to, and the button then stays as it was.
-        navigator.clipboard?.writeText(text()).then(
-          () => setCopied(true),
-          () => undefined,
-        );
-      }}
-    />
+    <>
+      <IconAction
+        label={copied ? 'Copied' : label}
+        icon={copied ? RiCheckLine : RiFileCopyLine}
+        iconClassName={cn(quiet && 'text-ws-static-subtle', copied && SWAP)}
+        size={size}
+        side={side}
+        onClick={() => {
+          // "Copied" only once the text is there: an insecure page, a denied permission or a test
+          // has no clipboard to write to, and the button then stays as it was.
+          navigator.clipboard?.writeText(text()).then(
+            () => setCopied(true),
+            () => undefined,
+          );
+        }}
+      />
+      <span role="status" className="sr-only">
+        {copied ? 'Copied' : ''}
+      </span>
+    </>
   );
 }
