@@ -480,9 +480,11 @@ describe('RadioButtonGroup', () => {
 
     it.each([
       { orientation: 'vertical', prevKey: 'ArrowUp', nextKey: 'ArrowDown' },
+      { orientation: 'vertical', prevKey: 'ArrowLeft', nextKey: 'ArrowRight' },
       { orientation: 'horizontal', prevKey: 'ArrowLeft', nextKey: 'ArrowRight' },
+      { orientation: 'horizontal', prevKey: 'ArrowUp', nextKey: 'ArrowDown' },
     ] as const)(
-      'should support arrow key navigation ($orientation)',
+      'should support $prevKey/$nextKey navigation ($orientation)',
       async ({ orientation, prevKey, nextKey }) => {
         const user = userEvent.setup();
 
@@ -521,10 +523,6 @@ describe('RadioButtonGroup', () => {
         }
       },
     );
-
-    it.todo('should support left and right arrow navigation in vertical orientation');
-
-    it.todo('should support up and down arrow navigation in horizontal orientation');
   });
 });
 
