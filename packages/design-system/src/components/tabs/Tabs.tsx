@@ -4,7 +4,7 @@ import { cn } from 'src/lib/utils';
 
 import { useDefaultMotion } from '../../motion/MotionProvider';
 import { TabsContext } from './Tabs.context';
-import type { TabsProps } from './Tabs.types';
+import type { TabsProps, TabsWithSubComponents } from './Tabs.types';
 import { tabsVariants } from './Tabs.variants';
 import { TabsContent } from './TabsContent';
 import { TabsCount } from './TabsCount';
@@ -13,7 +13,7 @@ import { TabsItem } from './TabsItem';
 import { TabsLabel } from './TabsLabel';
 import { TabsList } from './TabsList';
 
-const TabsRoot = forwardRef<HTMLDivElement, TabsProps>(
+const Tabs = forwardRef<HTMLDivElement, TabsProps>(
   ({ children, size, type, divider = true, className, disabled, defaultMotion, ...props }, ref) => {
     const motion = useDefaultMotion(defaultMotion);
 
@@ -30,17 +30,14 @@ const TabsRoot = forwardRef<HTMLDivElement, TabsProps>(
       </TabsContext.Provider>
     );
   },
-);
+) as TabsWithSubComponents;
 
-TabsRoot.displayName = 'Tabs';
-
-const Tabs = Object.assign(TabsRoot, {
-  Icon: TabsIcon,
-  Label: TabsLabel,
-  Count: TabsCount,
-  List: TabsList,
-  Item: TabsItem,
-  Content: TabsContent,
-});
+Tabs.displayName = 'Tabs';
+Tabs.Icon = TabsIcon;
+Tabs.Label = TabsLabel;
+Tabs.Count = TabsCount;
+Tabs.List = TabsList;
+Tabs.Item = TabsItem;
+Tabs.Content = TabsContent;
 
 export { Tabs };

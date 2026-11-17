@@ -17,10 +17,13 @@ storybook: components-tabs--default
 
 - Content splits cleanly into peer groups (Overview / Members / Comments) and the user moves
   between them on the same page.
-- A row of route-level sections inside a page, with the root `value` derived from the URL and `onValueChange` handling navigation.
+- The same in-page panels with the open tab kept in the URL for deep linking: derive the root
+  `value` from the URL and update it through `onValueChange`.
 
 ## When not to use
 
+- Moving between separate pages or routes, where users need real links with middle-click and
+  "open in new tab" support: use links inside a `<nav>` with `aria-current="page"`, not Tabs.
 - Picking one value or view mode that changes the current content in place (list vs grid,
   a filter) → `SegmentedControl`.
 - App-level navigation between areas of the product → `Sidebar`.

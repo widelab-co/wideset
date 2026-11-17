@@ -6,6 +6,12 @@ import type { ComponentProps } from 'react';
 import type { MotionProps } from '../../motion/Motion.types';
 import type { RemixiconProps } from '../../types/icon.types';
 import type { tabsVariants } from './Tabs.variants';
+import type { TabsContent } from './TabsContent';
+import type { TabsCount } from './TabsCount';
+import type { TabsIcon } from './TabsIcon';
+import type { TabsItem } from './TabsItem';
+import type { TabsLabel } from './TabsLabel';
+import type { TabsList } from './TabsList';
 
 export type TabsSize = VariantProps<typeof tabsVariants>['size'];
 export type TabsType = VariantProps<typeof tabsVariants>['type'];
@@ -78,4 +84,15 @@ export type TabsIconProps = RemixiconProps & {
   icon: RemixiconComponentType;
   /** Renders the icon in a muted colour to signal the disabled state. */
   disabled?: boolean;
+};
+
+export type TabsWithSubComponents = React.ForwardRefExoticComponent<
+  React.PropsWithoutRef<TabsProps> & React.RefAttributes<HTMLDivElement>
+> & {
+  Icon: typeof TabsIcon;
+  Label: typeof TabsLabel;
+  Count: typeof TabsCount;
+  List: typeof TabsList;
+  Item: typeof TabsItem;
+  Content: typeof TabsContent;
 };
