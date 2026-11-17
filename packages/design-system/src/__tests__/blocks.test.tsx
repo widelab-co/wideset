@@ -1,8 +1,10 @@
-import { cleanup, render } from '@testing-library/react';
-import type { ComponentType } from 'react';
+import { act, cleanup, render, renderHook } from '@testing-library/react';
+import { type ComponentType, useState } from 'react';
 import { afterEach, describe, expect, it } from 'vitest';
 
 import { BLOCKS, PANELS } from '../blocks';
+import type { AgentTurn, Turn } from '../blocks/agent-chat/model';
+import { useSession } from '../blocks/agent-chat/use-session';
 import ganttPanelSource from '../blocks/gantt/task-sidepanel.tsx?raw';
 import panelSource from '../blocks/task-sidepanel/task-sidepanel.tsx?raw';
 
@@ -166,5 +168,39 @@ describe('Agent code', () => {
       expect(panel).toHaveAttribute('role', 'tabpanel');
     }
     expect(getByRole('tabpanel', { name: 'Changes' })).toBeVisible();
+  });
+});
+
+describe('Agent session', () => {
+  const asking = (...ids: string[]): AgentTurn => ({
+    id: 'asking',
+    role: 'agent',
+    blocks: ids.map((id) => ({ kind: 'question', id, title: `Question ${id}`, options: [] })),
+  });
+  const reply = (id: string): AgentTurn => ({ id, role: 'agent', blocks: [] });
+  const session = (first: AgentTurn) =>
+    renderHook(() => {
+      const [turns, setTurns] = useState<Turn[]>([first]);
+      return { turns, session: useSession({ turns, onChange: setTurns, reply }) };
+    }).result;
+  const answerOf = (turns: Turn[], id: string) => {
+    const turn = turns.find((item) => item.id === 'asking') as AgentTurn;
+    const block = turn.blocks.find((item) => item.id === id);
+    return block?.kind === 'question' ? block.answer : undefined;
+  };
+
+  // Choosing the first of two questions leaves the turn stopped, so the second shows no card.
+  it('does not answer a question its stopped turn hides with the next message', () => {
+    const result = session(asking('first', 'second'));
+    act(() => result.current.session.choose('asking', 'first', 'Chosen answer'));
+    act(() => result.current.session.send('Unrelated later message'));
+    expect(answerOf(result.current.turns, 'first')).toBe('Chosen answer');
+    expect(answerOf(result.current.turns, 'second')).toBeUndefined();
+  });
+
+  it('answers the question on the page with the next message', () => {
+    const result = session(asking('only'));
+    act(() => result.current.session.send('Typed answer'));
+    expect(answerOf(result.current.turns, 'only')).toBe('Typed answer');
   });
 });
