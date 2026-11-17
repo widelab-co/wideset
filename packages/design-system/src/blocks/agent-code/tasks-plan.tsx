@@ -3,9 +3,9 @@ import { RiArrowRightSLine } from '@remixicon/react';
 import { Card, cn } from '@wideset/react';
 import { useId, useState } from 'react';
 
+import { Inline } from './inline';
 import type { Task } from './tasks-data';
 import { formatElapsed } from './tasks-format';
-import { InlineCode } from './tasks-inline-code';
 import { TasksStateMark } from './tasks-state-mark';
 import { TasksTaskDetail } from './tasks-task-detail';
 
@@ -53,16 +53,16 @@ function TaskRow({ task, elapsed, open, onOpenChange }: TaskRowProps) {
                 'focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default after:inset-ws-0 w-fit cursor-pointer text-left after:absolute',
               )}
             >
-              <InlineCode text={task.title} />
+              <Inline plain text={task.title} />
             </button>
           ) : (
             <span className={title}>
-              <InlineCode text={task.title} />
+              <Inline plain text={task.title} />
             </span>
           )}
           {task.now && (
             <span className="typography-caption-md text-ws-static-subtle text-pretty">
-              <InlineCode text={task.now} />
+              <Inline plain text={task.now} />
             </span>
           )}
         </div>

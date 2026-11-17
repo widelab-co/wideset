@@ -2,9 +2,9 @@
 import { Button, Card } from '@wideset/react';
 import { useId, useState } from 'react';
 
+import { Inline } from './inline';
 import type { BackgroundRun } from './tasks-data';
 import { formatElapsed } from './tasks-format';
-import { InlineCode } from './tasks-inline-code';
 import { TasksStateMark } from './tasks-state-mark';
 
 type TasksBackgroundProps = {
@@ -51,10 +51,10 @@ export function TasksBackground({ runs, elapsed }: TasksBackgroundProps) {
                       : 'typography-label-sm text-ws-static-base'
                   }
                 >
-                  <InlineCode text={run.title} />
+                  <Inline plain text={run.title} />
                 </span>
                 <span className="typography-caption-md text-ws-static-subtle text-pretty">
-                  <InlineCode text={run.detail} />
+                  <Inline plain text={run.detail} />
                 </span>
               </div>
               <span className="typography-label-sm text-ws-static-subtle shrink-0 tabular-nums">
