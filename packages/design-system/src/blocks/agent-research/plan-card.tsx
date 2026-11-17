@@ -33,6 +33,9 @@ export function PlanCard({ steps, live, defaultOpen, locked, onChange }: PlanCar
   const [open, setOpen] = useState(live || defaultOpen);
   const [draft, setDraft] = useState<string | null>(null);
   const field = useRef<HTMLTextAreaElement>(null);
+  const editButton = useRef<HTMLButtonElement>(null);
+  /** The edit was ended from the card (Cancel, Esc, Run again): the cursor goes back to Edit. */
+  const back = useRef(false);
   const editing = draft !== null;
 
   // Open for as long as the run follows it; folded once the run is over.
@@ -45,10 +48,19 @@ export function PlanCard({ steps, live, defaultOpen, locked, onChange }: PlanCar
     if (locked) setDraft(null);
   }, [locked]);
 
-  // Edit was pressed to write: the cursor is in the field.
+  // Edit was pressed to write: the cursor is in the field. The edit ended: back to Edit.
   useEffect(() => {
     if (editing) field.current?.focus();
+    else if (back.current) {
+      back.current = false;
+      editButton.current?.focus();
+    }
   }, [editing]);
+
+  const endEdit = () => {
+    back.current = true;
+    setDraft(null);
+  };
 
   const save = (event: FormEvent) => {
     event.preventDefault();
@@ -56,7 +68,7 @@ export function PlanCard({ steps, live, defaultOpen, locked, onChange }: PlanCar
       .split('\n')
       .map((line) => line.trim())
       .filter(Boolean);
-    setDraft(null);
+    endEdit();
     if (locked) return;
     if (next.length > 0 && next.join('\n') !== steps.join('\n')) onChange(next);
   };
@@ -65,7 +77,7 @@ export function PlanCard({ steps, live, defaultOpen, locked, onChange }: PlanCar
     if (event.key !== 'Escape') return;
     // Only the edit ends, not the run or whatever else listens for Esc.
     event.stopPropagation();
-    setDraft(null);
+    endEdit();
   };
 
   return (
@@ -87,11 +99,13 @@ export function PlanCard({ steps, live, defaultOpen, locked, onChange }: PlanCar
           {!editing ? (
             <div className="gap-ws-5 flex items-start">
               <ol className="typography-body-md text-ws-static-base marker:text-ws-static-subtle gap-ws-2 py-ws-2 pl-ws-10 flex min-w-0 flex-1 list-decimal flex-col marker:tabular-nums">
-                {steps.map((step) => (
-                  <li key={step}>{step}</li>
+                {steps.map((step, index) => (
+                  // A plan may say the same thing twice: its place keeps each line apart.
+                  <li key={`${index}-${step}`}>{step}</li>
                 ))}
               </ol>
               <IconAction
+                ref={editButton}
                 label="Edit plan"
                 icon={RiPencilLine}
                 iconClassName="text-ws-static-subtle"
@@ -116,7 +130,7 @@ export function PlanCard({ steps, live, defaultOpen, locked, onChange }: PlanCar
                 <p className="typography-caption-md text-ws-static-subtle mr-auto">
                   One step to a line. Saving runs the research again.
                 </p>
-                <Button variant="secondary" preset="ghost" size="sm" onClick={() => setDraft(null)}>
+                <Button variant="secondary" preset="ghost" size="sm" onClick={endEdit}>
                   Cancel
                 </Button>
                 <Button type="submit" variant="secondary" preset="border" size="sm">

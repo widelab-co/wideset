@@ -156,6 +156,31 @@ describe('Rendering', () => {
   });
 });
 
+describe('Agent research', () => {
+  // Cancel, Esc or Run again ends the edit: the cursor goes back to Edit plan, not to the page.
+  it('returns the focus to Edit plan when an edit ends', async () => {
+    const { PlanCard } = await import('../blocks/agent-research/plan-card');
+    const user = userEvent.setup();
+    const { getByRole } = render(
+      <PlanCard
+        steps={['Prices', 'Reviews']}
+        live={false}
+        defaultOpen
+        locked={false}
+        onChange={() => {}}
+      />,
+    );
+    const edit = getByRole('button', { name: 'Edit plan' });
+    await user.click(edit);
+    expect(getByRole('textbox', { name: /^Plan/ })).toHaveFocus();
+    await user.keyboard('{Escape}');
+    expect(getByRole('button', { name: 'Edit plan' })).toHaveFocus();
+    await user.click(getByRole('button', { name: 'Edit plan' }));
+    await user.click(getByRole('button', { name: 'Cancel' }));
+    expect(getByRole('button', { name: 'Edit plan' })).toHaveFocus();
+  });
+});
+
 describe('Agent context', () => {
   // Reconnected, the focus goes to the badge once; a later render (the popover makes the rows
   // anew each time) does not take it back from wherever it went.
