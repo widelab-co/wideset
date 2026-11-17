@@ -120,6 +120,397 @@ export const BLOCKS: BlockMeta[] = [
     description:
       'A wallet on a grey canvas: a swap form, the balance with a chart, transactions and a distribution.',
   },
+  {
+    id: 'analytics',
+    title: 'Analytics',
+    direction: 'flat',
+    navigation: 'sidebar',
+    description:
+      'A product analytics overview: a period switch, four key figures with their change, a trend chart and the top pages.',
+  },
+  {
+    id: 'sales-overview',
+    title: 'Sales overview',
+    direction: 'canvas',
+    navigation: 'top-bar',
+    description:
+      'Sales against target on a grey canvas: key figures with their progress to target, the pipeline by stage and the deals closing this month.',
+  },
+  {
+    id: 'customers',
+    title: 'Customers',
+    direction: 'flat',
+    navigation: 'sidebar',
+    description:
+      'A list of customers to work through: segment tabs, search and filters, a table with selection and actions on the selected rows.',
+  },
+  {
+    id: 'customer-detail',
+    title: 'Customer detail',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'One customer’s record on a raised page: a header with actions, key facts, tabs over open deals and an activity timeline.',
+  },
+  {
+    id: 'billing',
+    title: 'Billing',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'A workspace’s plan and usage on a raised page: usage against limits, the payment method, a failed payment to retry and the invoices.',
+  },
+  {
+    id: 'invoice',
+    title: 'Invoice',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'One invoice as a document on a raised page: who bills whom, the lines and totals, how it was paid, and downloading or sending it.',
+  },
+  {
+    id: 'settings',
+    title: 'Settings',
+    direction: 'frame',
+    navigation: 'sidebar',
+    description:
+      'Workspace settings: a list of sections beside forms for the profile, the workspace and notifications, and a danger zone.',
+  },
+  {
+    id: 'team',
+    title: 'Team',
+    direction: 'frame',
+    navigation: 'sidebar',
+    description:
+      'The people in a workspace: members with their roles, pending invitations and inviting someone new.',
+  },
+  {
+    id: 'onboarding',
+    title: 'Onboarding',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'A first run on a raised page: a welcome, a setup checklist with progress, and the next best actions.',
+  },
+  {
+    id: 'empty-list',
+    title: 'Empty list',
+    direction: 'flat',
+    navigation: 'sidebar',
+    description:
+      'A list before its first record: an empty state that explains what will appear and how to add or import the first one, and the same list with no search results.',
+  },
+  {
+    id: 'no-access',
+    title: 'No access',
+    direction: 'frame',
+    navigation: 'sidebar',
+    description:
+      'A page the viewer may not open: who owns it, why it is closed and a way to request access.',
+  },
+  {
+    id: 'not-found',
+    title: 'Not found',
+    direction: 'inset',
+    navigation: 'none',
+    description: 'A missing page before or outside the app: what happened and the ways back.',
+  },
+  {
+    id: 'integrations',
+    title: 'Integrations',
+    direction: 'flat',
+    navigation: 'sidebar',
+    description:
+      'A workspace’s integrations as a settings page: search and categories, the connected apps in a table with their status, the ones to add as tiles, and connecting one in a side panel.',
+  },
+  {
+    id: 'plans',
+    title: 'Plans',
+    direction: 'flat',
+    navigation: 'takeover',
+    description:
+      'Choosing a plan over the app: monthly or yearly, three plans as cards side by side, and a feature comparison under them.',
+  },
+  {
+    id: 'notifications',
+    title: 'Notifications',
+    direction: 'frame',
+    navigation: 'sidebar',
+    description:
+      'An inbox of notifications: unread first, grouped by day, filters, and acting on one without leaving.',
+  },
+  {
+    id: 'report',
+    title: 'Report',
+    direction: 'canvas',
+    navigation: 'sidebar',
+    description:
+      'A report on a grey canvas: a date range and an export above key figures, charts and a breakdown table, each in its own white section.',
+  },
+  {
+    id: 'home',
+    title: 'Home',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'A workspace home on a raised page: today’s tasks to tick off with their progress, the deals to move this week, the next meetings and recently opened records.',
+  },
+  {
+    id: 'dashboard',
+    title: 'Dashboard',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'A revenue dashboard on a raised page: a period control over four key figures with their change, a trend against the period before, revenue by owner and progress to the quarter’s goal, split by lines instead of cards.',
+  },
+  {
+    id: 'page-states',
+    title: 'Page states',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'A customer overview with its four modules in the four states a module can be in: loaded, loading, empty and failed with a working Retry, under one page-wide notice.',
+  },
+  {
+    id: 'order-confirmation',
+    title: 'Order confirmation',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'The page after a plan upgrade on a raised page: a centred confirmation with the next charge, the receipt, two next steps and the way back to the workspace.',
+  },
+  {
+    id: 'checkout',
+    title: 'Checkout',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'Paying for a plan change on a raised page: the plan with seats and add-ons, the billing period, payment method and billing details as tiles, beside a summary with a promo code that reprices as the order changes.',
+  },
+  {
+    id: 'send-payment',
+    title: 'Send payment',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'Sending a payment on a raised page: one narrow card that is the form, then the review before anything moves, then the receipt, with recent transfers beside it and a confirmation only above a stated limit.',
+  },
+  {
+    id: 'orders',
+    title: 'Orders',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'The order history on a raised page: search, a status filter, a date range and a sort over a table that pages, each row opening its order, with a refund dialog from the row’s menu that changes its status.',
+  },
+  {
+    id: 'order-detail',
+    title: 'Order detail',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'One order on a raised page: its items and totals and the delivery timeline, each in a bordered card, the customer and addresses beside them, and refunding it from the header.',
+  },
+  {
+    id: 'referrals',
+    title: 'Referrals',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'A referral programme on a raised page: the deal in one line, the link to copy and an invite by e-mail, the credit earned and available beside progress to the next reward, the people invited with their status, and redeeming credit against the next invoice in a confirm dialog.',
+  },
+  {
+    id: 'cancel-subscription',
+    title: 'Cancel subscription',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'Cancelling a plan on a raised page, in one narrow column: what happens and what is lost, an optional reason, one alternative that fits it, and the only red button; then the result in place, with the way to undo it.',
+  },
+  {
+    id: 'inbox',
+    title: 'Inbox',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'Mail with customers on a raised page: a searchable list of conversations beside the open one, its earlier messages folded to a line, with archive, star and a reply in place.',
+  },
+  {
+    id: 'chat',
+    title: 'Chat',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'Team chat on a raised page: channels and people in a narrow column, then the open thread grouped by day and sender, with a shared file, a quoted reply, reactions and the composer.',
+  },
+  {
+    id: 'activity-feed',
+    title: 'Activity feed',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'A workspace feed on a raised page: a composer, the posts with their likes and comments split by lines, and who to follow beside them.',
+  },
+  {
+    id: 'reviews',
+    title: 'Reviews',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'Customer reviews on a raised page: the average and its spread, the reviews to filter, sort and answer, and a dialog to request one.',
+  },
+  {
+    id: 'goals',
+    title: 'Goals',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'Team goals on a raised page: each goal’s figure against its target with one bar, a judged state and key results to tick off, then the quarter’s leaderboard with your row selected and the milestones reached, and a dialog to add a goal.',
+  },
+  {
+    id: 'profile',
+    title: 'Profile',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'A teammate’s profile on a raised page: who they are and their local time, Follow as the one filled button, followers and following that open a list, their open deals and recent activity beside how to reach them and what they reached this year.',
+  },
+  {
+    id: 'access-requests',
+    title: 'Access requests',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'Who gets into a workspace, on a raised page: requests to approve with a role or decline, one by one or in an action bar, invitations to resend or revoke, and the people blocked, each answer undoable from its toast.',
+  },
+  {
+    id: 'account-settings',
+    title: 'Account settings',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'A person’s own settings on a raised page, each section’s title beside its controls: profile and a verified e-mail, language and region, a theme that switches, notifications, sign-in and sessions, and deleting the account behind a typed confirmation.',
+  },
+  {
+    id: 'help-center',
+    title: 'Help center',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'Help inside the product on a raised page: a search that turns the page into its matches, the topics as tiles, popular articles and the ways to reach support.',
+  },
+  {
+    id: 'article',
+    title: 'Article',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'A help article on a raised page: the text in a reading column with steps, a note, a table and code, the contents following the scroll, whether it helped and what to read next.',
+  },
+  {
+    id: 'lesson',
+    title: 'Lesson',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'A course lesson on a raised page: the video with its chapters, the course outline with progress, and a short quiz at the end that completes the lesson.',
+  },
+  {
+    id: 'recording',
+    title: 'Recording',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'A call recording on a raised page: who spoke when, the transcript that follows the player, highlights and comments at a moment, and a voice note.',
+  },
+  {
+    id: 'files',
+    title: 'Files',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'A workspace’s shared files on a raised page: places and collections in a narrow column, files as a list or a grid with drawn previews, uploading in place, an action bar to move, copy, collect, archive or delete, and a trash to restore from.',
+  },
+  {
+    id: 'gallery',
+    title: 'Gallery',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'A template library on a raised page: categories as tabs beside the sort, featured collections, templates as cards with a drawn preview and a save toggle, and a side panel to add one to the workspace.',
+  },
+  {
+    id: 'product-form',
+    title: 'Product form',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'Adding a product to the catalogue on a raised page: details, photos with a cover, pricing with a live margin, options that make variants and inventory as cards, either beside its status, sales channels and a live preview (split) or alone in a centred column with the actions in a bar at the foot (centered).',
+  },
+  {
+    id: 'import',
+    title: 'Import',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'Importing customers from a CSV file in steps on a raised page: the file, matching its columns to fields, a review of what will change with a choice for duplicates, then the result in place, with exporting from the header.',
+  },
+  {
+    id: 'event-detail',
+    title: 'Event detail',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'One customer event on a raised page: the date beside the name, its facts in a quiet row, the answer to the invitation as the one filled control with a follow-up in place, the agenda as a timeline, and who is going beside it.',
+  },
+  {
+    id: 'booking',
+    title: 'Booking',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'Booking a customer meeting on a raised page from the time they shared: the meeting, a month of open days and the free times in your time zone side by side, the details with a way back to each choice, then the confirmation in both time zones.',
+  },
+  {
+    id: 'call',
+    title: 'Call',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'A video call inside the app on a raised page: the people as tiles on a dark stage with the speaker outlined, a control bar to mute, share and record, and notes, chat and people in a panel beside it.',
+  },
+  {
+    id: 'assistant',
+    title: 'Assistant',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'An assistant beside a record on a raised page: the deal on the left, and a conversation on the right that cites its sources and proposes a change to apply, which lands in the record and its activity.',
+  },
+  {
+    id: 'workflow-builder',
+    title: 'Workflow builder',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'Building an automation on a raised page: steps on a canvas joined by lines with a + to insert one, a condition that splits the flow, the selected step’s settings in a panel beside it, and a switch that turns the workflow on once every step is complete.',
+  },
+  {
+    id: 'pipeline',
+    title: 'Pipeline',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'A deal pipeline on a raised page: stages as columns of deal cards with each stage’s total, dragged between and within stages or moved from the keyboard, filtered by owner, close date and search.',
+  },
+  {
+    id: 'code-editor',
+    title: 'Code editor',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'Editing a script on a raised page: files beside the editor with line numbers and colouring, a test run with its output and problems, and saving or restoring a version.',
+  },
 ];
 
 /** A part that opens over a screen. It belongs to no direction: it keeps its own look over any. */
@@ -137,6 +528,12 @@ export const PANELS: PanelMeta[] = [
     title: 'Task side panel',
     description:
       'A record’s detail beside the page: its properties, subtasks, tabs over an activity timeline, and keyboard hints.',
+  },
+  {
+    id: 'media-viewer',
+    title: 'Media viewer',
+    description:
+      'A file opened full screen over the app: the file large in the middle with zoom, moving to the previous or next, its details and comments beside it, and closing back to its row.',
   },
 ];
 
