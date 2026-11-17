@@ -64,6 +64,11 @@ export function useSession({
   playing,
 }: SessionOptions) {
   const ids = useRef(0);
+  /** The thread's turns as last shown, for the ids already taken in it. */
+  const latest = useRef(turns);
+  useEffect(() => {
+    latest.current = turns;
+  });
   const queued = useRef(waiting?.length ?? 0);
   const [queue, setQueue] = useState<QueuedMessage[]>(() =>
     (waiting ?? []).map((text, index) => ({ id: index + 1, text })),
@@ -116,12 +121,19 @@ export function useSession({
 
   const deliver = useCallback(
     (text: string, sentWith?: string[], answering: string[] = []) => {
-      const answer = reply(`sent-${(ids.current += 1)}`, text);
+      // An id no turn in the thread has: a thread kept and opened again holds those made before.
+      const newId = () => {
+        let id: string;
+        do id = `sent-${(ids.current += 1)}`;
+        while (latest.current.some((turn) => turn.id === id));
+        return id;
+      };
+      const answer = reply(newId(), text);
       const answered = (turn: AgentTurn) =>
         answering.reduce((item, id) => answerQuestion(item, text, id), turn);
       onChange((all) => [
         ...all.map((turn) => (turn.role === 'agent' ? abandon(answered(turn)) : turn)),
-        { id: `sent-${(ids.current += 1)}`, role: 'user', text, sentWith },
+        { id: newId(), role: 'user', text, sentWith },
         answer,
       ]);
       start(answer.id);
