@@ -36,7 +36,8 @@ const clock = (seconds: number) =>
  * as six boxes that check themselves the moment the sixth digit is in (typed, pasted or filled by
  * the phone), and a new code once a cooldown has run out. A wrong code is said under the boxes,
  * which empty and take focus from the first, so the next try is a whole new code and never five
- * old digits with one new; the button stays for a short code and shows the check is running. Nothing here talks to a server: the demo accepts only the code in `data.ts`.
+ * old digits with one new; the button stays for a short code and shows the check is running.
+ * Nothing here talks to a server: the demo accepts only the code in `data.ts`.
  */
 export function VerifyForm({ onVerified }: { onVerified: () => void }) {
   const id = useId();
@@ -47,6 +48,8 @@ export function VerifyForm({ onVerified }: { onVerified: () => void }) {
   const [attempt, setAttempt] = useState(0);
   const [left, restart] = useCooldown(RESEND_COOLDOWN);
   const timer = useRef<number>(undefined);
+  // The digits in the boxes now, which may change while a code is being checked.
+  const latest = useRef('');
   useEffect(() => () => window.clearTimeout(timer.current), []);
 
   const focusCode = () => document.getElementById(`${id}-code`)?.focus();
@@ -66,7 +69,13 @@ export function VerifyForm({ onVerified }: { onVerified: () => void }) {
         onVerified();
         return;
       }
+      // Corrected during the check: check the new code instead of emptying the boxes under it.
+      if (latest.current !== code) {
+        if (latest.current.length === CODE_LENGTH) check(latest.current);
+        return;
+      }
       setError('That code didn’t work. Check the latest e-mail, or send a new code.');
+      latest.current = '';
       setAttempt((count) => count + 1);
     }, 700);
   };
@@ -114,6 +123,7 @@ export function VerifyForm({ onVerified }: { onVerified: () => void }) {
           length={CODE_LENGTH}
           invalid={Boolean(error)}
           onChange={(code) => {
+            latest.current = code;
             setError(undefined);
             if (code.length === CODE_LENGTH) check(code);
           }}

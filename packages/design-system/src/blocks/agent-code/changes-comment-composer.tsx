@@ -1,4 +1,3 @@
-// TODO(custom): a small composer for a comment on a line (a text area with Cancel and the send action under it); Wideset has no comment or composer part.
 import { Button, Textarea } from '@wideset/react';
 import { type FormEvent, type KeyboardEvent, useEffect, useRef, useState } from 'react';
 

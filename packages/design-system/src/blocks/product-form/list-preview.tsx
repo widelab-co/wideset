@@ -1,7 +1,7 @@
-import { RiImageAddLine, RiImageLine } from '@remixicon/react';
 import { Card } from '@wideset/react';
 import { useId } from 'react';
 
+import { CoverPlaceholder } from './cover-placeholder';
 import { type ProductDraft, variantFields, variantsOf } from './data';
 import { formatUsd, parseAmount } from './format';
 
@@ -45,22 +45,8 @@ export function ListPreview({ draft }: { draft: ProductDraft }) {
         <p className="typography-body-md text-ws-static-subtle">How it shows in the catalogue.</p>
       </div>
       <Card>
-        <Card.Media
-          ratio="16/9"
-          className="bg-ws-static-alpha-subtle gap-ws-3 flex flex-col items-center justify-center"
-        >
-          {cover ? (
-            <RiImageLine
-              role="img"
-              aria-label={`Cover: ${cover.name}`}
-              className="size-ws-12 text-ws-static-subtle"
-            />
-          ) : (
-            <>
-              <RiImageAddLine aria-hidden="true" className="size-ws-12 text-ws-static-subtle" />
-              <span className="typography-caption-md text-ws-static-subtle">No cover yet</span>
-            </>
-          )}
+        <Card.Media ratio="16/9">
+          <CoverPlaceholder cover={cover} />
         </Card.Media>
         <Card.Content contentClassName="pr-ws-6">
           <div className="gap-ws-5 flex flex-col">

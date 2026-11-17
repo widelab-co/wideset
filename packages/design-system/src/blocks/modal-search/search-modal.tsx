@@ -79,6 +79,9 @@ export function SearchModal({
     } else if (
       event.key === 'ArrowLeft' &&
       !event.shiftKey &&
+      !event.altKey &&
+      !event.ctrlKey &&
+      !event.metaKey &&
       event.target === input.current &&
       caretAtStart()
     ) {

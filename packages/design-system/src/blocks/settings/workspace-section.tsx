@@ -1,6 +1,6 @@
 // TODO(custom): avatar upload (Change, Remove) composed by hand.
 import { Avatar, Button, FormField, Select, TextInput } from '@wideset/react';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 import { currencies, type FieldErrors, type GeneralValues, timeZones, workspace } from './data';
 import { SectionHeader } from './section-header';
@@ -16,6 +16,12 @@ export function WorkspaceSection({
   onChange: (patch: Partial<GeneralValues>) => void;
 }) {
   const fileInput = useRef<HTMLInputElement>(null);
+  // Object URLs made for picked files, released when the section goes.
+  const objectUrls = useRef<string[]>([]);
+  useEffect(() => {
+    const urls = objectUrls.current;
+    return () => urls.forEach((url) => URL.revokeObjectURL(url));
+  }, []);
 
   return (
     <section aria-labelledby="settings-workspace-title" className="gap-ws-12 flex flex-col">
@@ -76,7 +82,10 @@ export function WorkspaceSection({
               hidden
               onChange={(event) => {
                 const file = event.target.files?.[0];
-                if (file) onChange({ logo: URL.createObjectURL(file) });
+                if (!file) return;
+                const url = URL.createObjectURL(file);
+                objectUrls.current.push(url);
+                onChange({ logo: url });
                 event.target.value = '';
               }}
             />

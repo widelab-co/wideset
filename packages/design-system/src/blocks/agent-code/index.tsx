@@ -88,9 +88,9 @@ export default function AgentCode({ pane: initial = 'changes' }: { pane?: Pane }
   const here = thread?.id === OPEN_SESSION;
   const paneShown = here && paneOpen ? pane : null;
 
-  // A link to a changed file (`#changes/<path>`, as the context popover's list has) or to one of
-  // its lines (`#changes/<path>:<line>`, as a comment in Checks has) brings up Changes there. The address then goes back to the page's own, so the same
-  // link works a second time.
+  // A link to a changed file (`#changes/<path>`) or to one of its lines (`#changes/<path>:<line>`,
+  // as a comment in Checks has) brings up Changes there. The address then goes back to the page's
+  // own, so the same link works a second time.
   useEffect(() => {
     const route = () => {
       const [, path, line] = /^#changes\/(.+?)(?::(\d+))?$/.exec(window.location.hash) ?? [];
@@ -198,7 +198,7 @@ export default function AgentCode({ pane: initial = 'changes' }: { pane?: Pane }
                 variant="secondary"
                 preset="ghost"
                 size="sm"
-                aria-label={`${PULL_REQUEST.state} pull request #${PULL_REQUEST.number}: open its checks`}
+                aria-label={`#${PULL_REQUEST.number} ${PULL_REQUEST.state} pull request: open its checks`}
                 aria-expanded={paneShown === 'checks'}
                 aria-controls={paneId}
                 onClick={() => togglePane('checks')}

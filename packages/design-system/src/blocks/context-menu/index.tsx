@@ -39,6 +39,8 @@ function CustomersPage() {
   const { showToast, dismissToast } = useToast();
   const page = useRef<HTMLDivElement>(null);
   const copies = useRef(0);
+  // The latest assignment of each customer: an older toast's Undo must not undo a newer one.
+  const assignments = useRef(new Map<string, number>());
   const [rows, setRows] = useState(CUSTOMERS);
   const [query, setQuery] = useState('');
   const [menu, setMenu] = useState<MenuState>();
@@ -131,9 +133,14 @@ function CustomersPage() {
   const assign = (customer: Customer, owner: PersonId) => {
     if (owner === customer.owner) return;
     change(customer.id, { owner });
+    const token = (assignments.current.get(customer.id) ?? 0) + 1;
+    assignments.current.set(customer.id, token);
     toastWithUndo(
       `${customer.name} assigned to ${owner === 'maya' ? 'you' : PEOPLE[owner].name}`,
-      () => change(customer.id, { owner: customer.owner }),
+      () => {
+        if (assignments.current.get(customer.id) === token)
+          change(customer.id, { owner: customer.owner });
+      },
     );
   };
 

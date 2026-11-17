@@ -319,3 +319,10 @@ export const CHARTS: Record<string, Chart> = {
     ],
   },
 };
+
+/** The proposal's price lines, on its first page. */
+export const PRICING = [
+  { item: 'Discovery, two weeks', amount: '$18,000.00' },
+  { item: 'Design and delivery, six months', amount: '$96,000.00' },
+  { item: 'Support after launch, six months', amount: '$24,000.00' },
+];

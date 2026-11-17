@@ -4,8 +4,9 @@ import {
   RiGitPullRequestLine,
   RiSearchLine,
 } from '@remixicon/react';
-import { Button, IconButton, TextInput, Tooltip } from '@wideset/react';
+import { Button, TextInput } from '@wideset/react';
 
+import { BarAction } from './bar-action';
 import { ChangeCounts } from './changes-counts';
 import { PULL_REQUEST } from './checks-data';
 
@@ -66,21 +67,11 @@ export function ChangesToolbar({
           </TextInput.Suffix>
         </TextInput>
 
-        <Tooltip size="sm">
-          <Tooltip.Trigger asChild>
-            <IconButton
-              icon={anyOpen ? RiCollapseVerticalLine : RiExpandVerticalLine}
-              aria-label={toggleLabel}
-              size="xs"
-              variant="secondary"
-              preset="ghost"
-              onClick={onToggleAll}
-            />
-          </Tooltip.Trigger>
-          <Tooltip.Content side="bottom">
-            <Tooltip.Label>{toggleLabel}</Tooltip.Label>
-          </Tooltip.Content>
-        </Tooltip>
+        <BarAction
+          icon={anyOpen ? RiCollapseVerticalLine : RiExpandVerticalLine}
+          label={toggleLabel}
+          onClick={onToggleAll}
+        />
 
         <Button asChild variant="secondary" preset="ghost" size="xs">
           <a

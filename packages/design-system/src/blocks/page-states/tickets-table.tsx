@@ -23,8 +23,8 @@ export function TicketsTable({ tickets }: { tickets: Ticket[] }) {
       <Table.Body>
         {tickets.map((ticket) => (
           <Table.Row key={ticket.id}>
-            <Table.Cell truncate className="text-ws-static-strong">
-              {ticket.subject}
+            <Table.Cell truncate>
+              <span className="text-ws-static-strong">{ticket.subject}</span>
             </Table.Cell>
             <Table.Cell>
               <StatusBadge size="sm">{ticket.status}</StatusBadge>

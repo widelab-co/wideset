@@ -1,7 +1,8 @@
 // TODO(custom): a pull request's heading (title and number, state, the branches it joins); Wideset has no heading for a record with its state and facts.
 import { RiArrowRightLine, RiExternalLinkLine, RiGitBranchLine } from '@remixicon/react';
-import { IconButton, StatusBadge, Tooltip } from '@wideset/react';
+import { StatusBadge } from '@wideset/react';
 
+import { BarAction } from './bar-action';
 import { PULL_REQUEST } from './checks-data';
 
 /**
@@ -19,28 +20,10 @@ export function PullRequestHeader() {
         <h2 className="typography-subtitle-xs text-ws-static-strong min-w-0 flex-1 text-pretty">
           {title} <span className="text-ws-static-subtle tabular-nums">#{number}</span>
         </h2>
-        <Tooltip size="sm">
-          <Tooltip.Trigger asChild>
-            <IconButton
-              asChild
-              icon={RiExternalLinkLine}
-              variant="secondary"
-              preset="ghost"
-              size="xs"
-            >
-              {/* eslint-disable-next-line jsx-a11y/anchor-has-content -- IconButton slots its icon into the anchor, which is named by its label */}
-              <a
-                href={href}
-                target="_blank"
-                rel="noreferrer"
-                aria-label={`Open pull request #${number} on the git host`}
-              />
-            </IconButton>
-          </Tooltip.Trigger>
-          <Tooltip.Content side="bottom">
-            <Tooltip.Label>Open on the git host</Tooltip.Label>
-          </Tooltip.Content>
-        </Tooltip>
+        <BarAction asChild icon={RiExternalLinkLine} label="Open on the git host">
+          {/* eslint-disable-next-line jsx-a11y/anchor-has-content -- IconButton slots its icon into the anchor, which BarAction names by its label */}
+          <a href={href} target="_blank" rel="noreferrer" />
+        </BarAction>
       </div>
 
       <div className="gap-x-ws-7 gap-y-ws-3 flex flex-wrap items-center">

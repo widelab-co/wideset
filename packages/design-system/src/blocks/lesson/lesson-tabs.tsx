@@ -30,7 +30,7 @@ export function LessonTabs({ outcomes, transcript, resources, onSeek }: LessonTa
         </Tabs.Item>
       </Tabs.List>
 
-      <Tabs.Content value="overview" className="gap-ws-7 pt-ws-12 flex max-w-[40rem] flex-col">
+      <Tabs.Content value="overview" className="gap-ws-7 mt-ws-12 flex max-w-[40rem] flex-col">
         <h2 className="typography-label-strong-md text-ws-static-strong">What you will learn</h2>
         <p className="typography-body-md text-ws-static-base">
           A good discovery call is mostly prepared before it starts. This lesson walks through the
@@ -44,11 +44,11 @@ export function LessonTabs({ outcomes, transcript, resources, onSeek }: LessonTa
         </ul>
       </Tabs.Content>
 
-      <Tabs.Content value="transcript" className="pt-ws-9 max-w-[48rem]">
+      <Tabs.Content value="transcript" className="mt-ws-9 max-w-[48rem]">
         <LessonTranscript lines={transcript} onSeek={onSeek} />
       </Tabs.Content>
 
-      <Tabs.Content value="resources" className="gap-ws-7 pt-ws-12 grid sm:grid-cols-2">
+      <Tabs.Content value="resources" className="gap-ws-7 mt-ws-12 grid sm:grid-cols-2">
         {resources.map((file) => (
           <ResourceFile key={file.id} file={file} />
         ))}

@@ -280,7 +280,7 @@ const BOOKINGS_TOOLBAR = String.raw`
 ~  exportDisabled,
 ~}: Props) {
    return (
-     <div className="flex items-center gap-3">
+     <div className="flex items-center gap-ws-3">
        <SearchField
          value={filters.query}
          placeholder="Search bookings"

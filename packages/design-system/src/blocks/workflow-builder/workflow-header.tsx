@@ -1,7 +1,7 @@
 // TODO(custom): page header (an editable title with its state, a line of description, the actions on the right); no PageHeader in Wideset.
 import { RiPlayLine } from '@remixicon/react';
 import { Button, StatusBadge, Switch } from '@wideset/react';
-import { useId } from 'react';
+import { type Ref, useId } from 'react';
 
 import { WorkflowName } from './workflow-name';
 
@@ -25,6 +25,7 @@ export function WorkflowHeader({
   state,
   unfinished,
   onSwitch,
+  switchRef,
   onTestRun,
 }: {
   name: string;
@@ -35,6 +36,8 @@ export function WorkflowHeader({
   /** Steps that cannot run yet. */
   unfinished: number;
   onSwitch: (on: boolean) => void;
+  /** The switch, for focus to return to after the confirmation it opens. */
+  switchRef?: Ref<HTMLButtonElement>;
   onTestRun: () => void;
 }) {
   const reasonId = useId();
@@ -64,6 +67,7 @@ export function WorkflowHeader({
           </p>
         )}
         <Switch
+          ref={switchRef}
           label="Workflow on"
           labelPosition="left"
           checked={state === 'on'}

@@ -59,7 +59,7 @@ export function CodePane({ id, pane, onPaneChange, reveal, onAsk }: CodePaneProp
         <div className="h-ws-18 border-ws-static-base px-ws-11 flex shrink-0 items-end border-b">
           <Tabs.List aria-label="Panes" className="-mb-px">
             {PANES.map(({ id: value, label }) => (
-              <Tabs.Item key={value} value={value} className="h-ws-18 py-ws-0">
+              <Tabs.Item key={value} value={value}>
                 <Tabs.Label>{label}</Tabs.Label>
               </Tabs.Item>
             ))}

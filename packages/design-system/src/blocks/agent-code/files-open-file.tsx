@@ -1,6 +1,7 @@
 import { RiChatCheckLine, RiChatNewLine } from '@remixicon/react';
-import { Breadcrumbs, IconButton, Tooltip } from '@wideset/react';
+import { Breadcrumbs } from '@wideset/react';
 
+import { BarAction } from './bar-action';
 import { CopyButton } from './copy-button';
 import { FilesCode } from './files-code';
 import { type Change, type RepoFile, splitPath } from './files-data';
@@ -64,21 +65,11 @@ export function FilesOpenFile({
         <p className="sr-only">{summaryOf(file)}</p>
         <div className="gap-ws-2 flex shrink-0 items-center">
           <CopyButton key={file.path} label="Copy path" side="bottom" text={() => file.path} />
-          <Tooltip size="sm">
-            <Tooltip.Trigger asChild>
-              <IconButton
-                icon={inConversation ? RiChatCheckLine : RiChatNewLine}
-                variant="secondary"
-                preset="ghost"
-                size="xs"
-                aria-label={conversationLabel}
-                onClick={() => onConversationChange(!inConversation)}
-              />
-            </Tooltip.Trigger>
-            <Tooltip.Content side="bottom">
-              <Tooltip.Label>{conversationLabel}</Tooltip.Label>
-            </Tooltip.Content>
-          </Tooltip>
+          <BarAction
+            icon={inConversation ? RiChatCheckLine : RiChatNewLine}
+            label={conversationLabel}
+            onClick={() => onConversationChange(!inConversation)}
+          />
           <span role="status" className="sr-only">
             {inConversation ? `${name} is in the conversation` : ''}
           </span>

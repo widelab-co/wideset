@@ -3,9 +3,9 @@ import { RiArrowRightSLine } from '@remixicon/react';
 import { Card, cn } from '@wideset/react';
 import { useId, useState } from 'react';
 
+import { formatDuration } from './format';
 import { Inline } from './inline';
 import type { Task } from './tasks-data';
-import { formatElapsed } from './tasks-format';
 import { TasksStateMark } from './tasks-state-mark';
 import { TasksTaskDetail } from './tasks-task-detail';
 
@@ -69,7 +69,7 @@ function TaskRow({ task, elapsed, open, onOpenChange }: TaskRowProps) {
         {task.seconds !== undefined && (
           <span className="typography-label-sm text-ws-static-subtle shrink-0 tabular-nums">
             <span className="sr-only">Running for </span>
-            {formatElapsed(task.seconds + elapsed)}
+            {formatDuration(task.seconds + elapsed)}
           </span>
         )}
         {/* Rows that do not open keep the chevron's room, so the times stand in one column. */}

@@ -95,9 +95,12 @@ export function useSession({
   const target = played ? turns.find((turn) => turn.id === played) : turns.at(-1);
   const cut =
     !running && target?.role === 'agent' && target.stoppedAt !== undefined ? target : null;
-  /** The questions on the page still open: a message sent answers these, never one not shown yet. */
+  /**
+   * The questions on the page still open: a message sent answers these, never one not shown yet,
+   * nor one a stopped turn no longer shows.
+   */
   const open = shown.flatMap((turn) =>
-    turn.role !== 'agent'
+    turn.role !== 'agent' || turn.stopped
       ? []
       : turn.blocks.flatMap((block) =>
           block.kind === 'question' && block.answer === undefined ? [block.id] : [],
