@@ -1,7 +1,7 @@
 import { cva } from 'class-variance-authority';
 import { cn } from '@/lib/wideset/utils';
 
-import { hoverTintMotion, pressMotion } from '@/lib/wideset/motion/recipes';
+import { hoverTintMotion } from '@/lib/wideset/motion/recipes';
 
 export const selectTriggerVariants = cva(
   cn(
@@ -62,7 +62,7 @@ export const selectTriggerVariants = cva(
 
 export const selectTriggerMotionVariants = cva('', {
   variants: {
-    enabled: { true: cn(hoverTintMotion, pressMotion), false: '' },
+    enabled: { true: hoverTintMotion, false: '' },
   },
   defaultVariants: { enabled: true },
 });
