@@ -74,7 +74,7 @@ export function PlanCard({ steps, live, defaultOpen, locked, onChange }: PlanCar
       <Row
         mark={<RiListCheck3 aria-hidden className="size-ws-9 text-ws-static-subtle shrink-0" />}
         open={open}
-        onToggle={() => setOpen(!open)}
+        onToggle={() => setOpen((value) => !value)}
       >
         <span className="text-ws-static-base">Research plan</span>
         <span className="text-ws-static-subtle shrink-0 tabular-nums">{steps.length} steps</span>

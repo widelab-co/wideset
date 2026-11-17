@@ -71,7 +71,7 @@ export default function AgentStates({ state = 'limit' }: { state?: SceneId }) {
             label="Reset this state"
             icon={RiRestartLine}
             side="bottom"
-            onClick={() => setRound(round + 1)}
+            onClick={() => setRound((count) => count + 1)}
           />
           <ThreadMenu view={view} onViewChange={setView} />
         </TopBar>

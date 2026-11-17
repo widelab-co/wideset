@@ -98,7 +98,7 @@ export default function AgentResearch() {
     onPeek: setPeeked,
     pinned,
     onPin: (source) => {
-      setPinned(pinned === source ? null : source);
+      setPinned((current) => (current === source ? null : source));
       setPaneOpen(true);
     },
   };
@@ -164,7 +164,7 @@ export default function AgentResearch() {
                     side="bottom"
                     aria-expanded={paneOpen}
                     aria-controls={paneId}
-                    onClick={() => setPaneOpen(!paneOpen)}
+                    onClick={() => setPaneOpen((value) => !value)}
                   />
                 )}
                 <ThreadMenu view={view} onViewChange={setView} />

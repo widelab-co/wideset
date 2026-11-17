@@ -64,7 +64,7 @@ export function ContextPopover() {
                   ? { ...connector, state: 'connected' }
                   : connector,
               )}
-              onReconnect={(id) => setReconnected([...reconnected, id])}
+              onReconnect={(id) => setReconnected((current) => [...current, id])}
             />
           </ContextSection>
           <ContextSection title="Produced">
