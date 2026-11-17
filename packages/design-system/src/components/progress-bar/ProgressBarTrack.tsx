@@ -38,7 +38,7 @@ const ProgressBarRing = ({ percent, motion }: { percent: number; motion: boolean
       cy={RING_SIZE / 2}
       r={RING_RADIUS}
       className={cn(
-        // The bar's fill colour (`bg-ws-dynamic-primary-default`); `stroke-ws-*` classes map to text tokens.
+        // `stroke-ws-*` maps to text tokens, so the bar's fill colour is read from its variable.
         'fill-none stroke-(--background-color-ws-dynamic-primary-default)',
         progressBarCircleMotionVariants({ enabled: motion }),
       )}
@@ -51,7 +51,6 @@ const ProgressBarRing = ({ percent, motion }: { percent: number; motion: boolean
   </svg>
 );
 
-/** Visual only: the root carries the progressbar role and the value. */
 const ProgressBarTrack = React.forwardRef<HTMLDivElement, ProgressBarTrackProps>(
   ({ className, ...props }, ref) => {
     const { type, status, percent, motion } = useProgressBarContext();

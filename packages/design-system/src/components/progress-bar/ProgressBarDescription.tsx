@@ -10,7 +10,6 @@ const ProgressBarDescription = React.forwardRef<HTMLSpanElement, ProgressBarDesc
     const generatedId = React.useId();
     const descriptionId = id ?? generatedId;
     const showIcon = status === 'success' || status === 'error';
-    // HelperText renders nothing without text or an icon; the root must not point at a missing id.
     const isRendered = Boolean(children) || showIcon;
 
     React.useLayoutEffect(
@@ -20,7 +19,7 @@ const ProgressBarDescription = React.forwardRef<HTMLSpanElement, ProgressBarDesc
 
     return (
       <HelperText
-        // A new element per status: an error then mounts as a fresh alert and is announced.
+        // Remount per status so an error is announced as a fresh alert.
         key={status}
         ref={ref}
         data-slot="progress-bar-description"

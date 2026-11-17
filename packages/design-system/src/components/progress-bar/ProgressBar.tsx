@@ -51,13 +51,10 @@ const ProgressBar = React.forwardRef<
 
     const hasOwnName = Boolean(props['aria-label'] || props['aria-labelledby']);
     const fallbackName = hasOwnName || labelId ? undefined : 'Progress';
-    // A caller's `aria-describedby` adds to the composed Description instead of replacing it.
     const describedBy =
       [props['aria-describedby'], descriptionId].filter(Boolean).join(' ') || undefined;
 
-    // The computed role and values must win. Radix spreads caller props over its own ARIA, so they
-    // are set after `{...props}`; with `asChild`, Slot gives the child's props priority, so the
-    // child carries them as well.
+    // Applied after `{...props}` and on the slotted child, so caller ARIA cannot override them.
     const semantics = {
       role: 'progressbar',
       'aria-valuenow': value,
@@ -65,8 +62,6 @@ const ProgressBar = React.forwardRef<
       'aria-valuemax': max,
     } as const;
 
-    // `asChild` puts the root on the caller's single element, which then holds the parts (as in
-    // Tile). Without such an element the root stays a <div> instead of slotting onto a part.
     const isSlotted = Boolean(asChild) && React.isValidElement(children);
     const content = isSlotted ? (
       React.cloneElement(children as React.ReactElement<Record<string, unknown>>, semantics)

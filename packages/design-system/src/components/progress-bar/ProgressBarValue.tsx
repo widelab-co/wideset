@@ -15,8 +15,7 @@ const ProgressBarValue = React.forwardRef<HTMLSpanElement, ProgressBarValueProps
         data-slot="progress-bar-value"
         className={cn(
           'typography-label-sm text-ws-static-subtle tabular-nums',
-          // The default percentage reserves room for "100%", so rings in a list line up and the
-          // ring does not move while the value animates. Custom content is sized by the caller.
+          // Reserve room for "100%" so the ring does not shift as the value changes.
           type === 'circle' && isDefault && 'min-w-ws-14 text-end',
           className,
         )}

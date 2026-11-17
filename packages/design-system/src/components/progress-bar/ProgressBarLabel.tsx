@@ -10,7 +10,6 @@ const ProgressBarLabel = React.forwardRef<HTMLLabelElement, ProgressBarLabelProp
     const { registerLabel } = useProgressBarContext();
     const generatedId = React.useId();
     const labelId = id ?? generatedId;
-    // An empty Label must not replace the root's "Progress" fallback with a name that reads nothing.
     const isNamed = hasContent(children);
 
     React.useLayoutEffect(
