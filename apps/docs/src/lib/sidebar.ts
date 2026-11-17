@@ -1,4 +1,5 @@
 import type { NavGroup } from '../components/parts';
+import { blockCategories } from './blocks';
 import { entries } from './catalog';
 import { newIds } from './gitInfo';
 import { docsNav } from './nav';
@@ -53,4 +54,13 @@ export const playgroundSidebar = (): NavGroup[] => [
       href: `/docs/playground?c=${item.id}`,
     })),
   },
+];
+
+/** Blocks: Overview, then each category with its blocks. */
+export const blocksSidebar = (): NavGroup[] => [
+  { items: [{ title: 'Overview', href: '/blocks' }] },
+  ...blockCategories.map((category) => ({
+    label: category.label,
+    items: category.blocks.map((block) => ({ title: block.title, href: `/blocks/${block.id}` })),
+  })),
 ];

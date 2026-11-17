@@ -1,90 +1,41 @@
 import assert from 'node:assert/strict';
-import { existsSync, readdirSync, readFileSync } from 'node:fs';
+import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, it } from 'node:test';
 
-import { CATEGORY_ORDER, mergeBlocks, UNSORTED } from '../src/lib/blockList.mjs';
-import { docs } from './paths.mjs';
+import { docs, library } from './paths.mjs';
 
-const committed = JSON.parse(readFileSync(join(docs, 'src/data/blocks.json'), 'utf8'));
+/** The manifest's ids (BLOCKS and PANELS), read as text: these checks run without TypeScript. */
+const manifest = readFileSync(join(library, 'src/blocks/index.ts'), 'utf8');
+const ids = new Set([...manifest.matchAll(/^ {4}id: '([^']+)',$/gm)].map(([, id]) => id));
+const categories = JSON.parse(readFileSync(join(docs, 'src/data/block-categories.json'), 'utf8'));
 
-describe('blocks: the committed list', () => {
-  it('gives every block a title, a description and a known category', () => {
-    for (const block of committed) {
-      assert.ok(block.title && block.description, block.id);
-      assert.ok(CATEGORY_ORDER.includes(block.category), `${block.id}: ${block.category}`);
-    }
-    assert.equal(new Set(committed.map((block) => block.id)).size, committed.length);
+describe('blocks: what the docs add to the manifest', () => {
+  it('reads the manifest', () => {
+    assert.ok(ids.size > 0);
   });
 
-  it('has the screenshots it names, and no others', () => {
-    const folder = join(docs, 'public/_docs/blocks');
-    const expected = committed.flatMap((block) => [
-      `${block.id}-light.webp`,
-      ...(block.dark ? [`${block.id}-dark.webp`] : []),
-    ]);
+  it('puts only listed blocks in a category, each in one', () => {
+    const named = Object.values(categories).flat();
     assert.deepEqual(
-      expected.filter((file) => !existsSync(join(folder, file))),
+      named.filter((id) => !ids.has(id)),
       [],
     );
-    assert.deepEqual(readdirSync(folder).sort(), [...expected].sort());
-  });
-});
-
-describe('blocks: the list the pages show', () => {
-  it('falls back to the committed list while the library has no blocks', () => {
-    const blocks = mergeBlocks(committed, [], []);
-    assert.equal(blocks.length, committed.length);
-    assert.ok(blocks.every((block) => !block.live && block.shot));
-    const billing = blocks.find((block) => block.id === 'billing');
-    assert.equal(billing.title, committed.find((block) => block.id === 'billing').title);
+    assert.equal(new Set(named).size, named.length);
   });
 
-  it('keeps the category order, then A–Z', () => {
-    const blocks = mergeBlocks(committed, [], []);
-    const order = blocks.map((block) => CATEGORY_ORDER.indexOf(block.category));
+  it('has screenshots only of listed blocks, light and dark', () => {
+    const files = readdirSync(join(docs, 'public/_docs/blocks'));
+    const shot = /^(.+)-(light|dark)\.webp$/;
     assert.deepEqual(
-      order,
-      [...order].sort((a, b) => a - b),
+      files.filter((file) => !ids.has(file.match(shot)?.[1])),
+      [],
     );
-  });
-
-  it('turns a block live when the library has its folder, with the library’s words', () => {
-    const blocks = mergeBlocks(
-      committed,
-      [{ id: 'billing', title: 'Billing, renamed', description: 'From the library.' }],
-      ['billing'],
-    );
-    const billing = blocks.find((block) => block.id === 'billing');
-    assert.equal(billing.live, true);
-    assert.equal(billing.title, 'Billing, renamed');
-    assert.equal(billing.description, 'From the library.');
-    assert.equal(billing.category, 'Finance & billing');
-    assert.equal(blocks.filter((block) => block.live).length, 1);
-  });
-
-  it('lists a block only the library knows, last and without a screenshot', () => {
-    const blocks = mergeBlocks(committed, [], ['brand-new-screen']);
-    const added = blocks.at(-1);
+    const pair = (file) =>
+      file.replace(shot, (_, id, theme) => `${id}-${theme === 'light' ? 'dark' : 'light'}.webp`);
     assert.deepEqual(
-      { ...added },
-      {
-        id: 'brand-new-screen',
-        title: 'Brand new screen',
-        description: '',
-        category: UNSORTED,
-        dark: false,
-        shot: false,
-        live: true,
-      },
-    );
-  });
-
-  it('ignores a block the library lists but has no folder for', () => {
-    const blocks = mergeBlocks(committed, [{ id: 'ghost', title: 'Ghost', description: '' }], []);
-    assert.equal(
-      blocks.find((block) => block.id === 'ghost'),
-      undefined,
+      files.filter((file) => !files.includes(pair(file))),
+      [],
     );
   });
 });

@@ -19,6 +19,7 @@ const block = blockById(Astro.params.id!)!;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex" />
     <title>{block.title} preview — Wideset</title>
+    <link rel="icon" href="/_docs/favicon.png" />
     <script is:inline define:vars={{ THEME_KEY }}>
       try {
         var forced = new URLSearchParams(location.search).get('theme');
@@ -34,8 +35,10 @@ const block = blockById(Astro.params.id!)!;
   <body class="bg-ws-static-foreground">
     <script is:inline>
       // Framed by a docs page (BlockPreviewFrame), the preview is a picture: nothing in it takes
-      // focus, so a block that focuses its first field on load cannot pull the page to it.
-      if (window.top !== window.self) document.body.inert = true;
+      // focus, so a block that focuses its first field on load cannot pull the page to it. The
+      // block's own page frames it live (`?live`, BlockLiveFrame): clickable.
+      if (window.top !== window.self && !new URLSearchParams(location.search).has('live'))
+        document.body.inert = true;
     </script>
     <BlockFrame id={block.id} client:only="react" />
   </body>

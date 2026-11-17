@@ -20,21 +20,21 @@ Vitest and tsc. Only the stylesheets come from the built package (`@wideset/reac
 
 ## The pages
 
-| Address                  | What it is                                                                |
-| ------------------------ | ------------------------------------------------------------------------- |
-| `/docs/<name>`           | A guide page (`src/content/docs/<name>.mdx`), with its headings in a rail |
-| `/components`            | Every component as a thumbnail                                            |
-| `/components/<id>`       | A component page (below), plus `/components/<id>.md` for models           |
-| `/docs/blocks`           | Whole screens to start a product from, by business domain                 |
-| `/docs/blocks/<id>`      | One block: live when the library has it, its screenshot otherwise         |
-| `/docs/blocks/<id>/full` | The live block alone, at the window's size (only for a live block)        |
-| `/docs/playground`       | Every component's props, set live; the address keeps the configuration    |
-| `/docs/themes`           | Brand presets (colour, corners, font) on live components, and the CSS     |
-| `/llms.txt`, `/r/*`      | The docs for models; the shadcn registry                                  |
+| Address                | What it is                                                                   |
+| ---------------------- | ---------------------------------------------------------------------------- |
+| `/docs/<name>`         | A guide page (`src/content/docs/<name>.mdx`), with its headings in a rail    |
+| `/components`          | Every component as a thumbnail                                               |
+| `/components/<id>`     | A component page (below), plus `/components/<id>.md` for models              |
+| `/blocks`              | Whole screens to start a product from, by business domain                    |
+| `/blocks/<id>`         | One block, live, and its code; `/blocks/<id>.md` and `/blocks.md` for models |
+| `/blocks/<id>/preview` | The block alone at the window's size (`?theme=light\|dark`)                  |
+| `/docs/playground`     | Every component's props, set live; the address keeps the configuration       |
+| `/docs/themes`         | Brand presets (colour, corners, font) on live components, and the CSS        |
+| `/llms.txt`, `/r/*`    | The docs for models; the shadcn registry                                     |
 
-Blocks, Playground and Themes sit under `/docs` because wideset.co is shared with the landing
-page and the docs Worker owns only the paths in `wrangler.jsonc` (`/docs*`, `/components*`, …). A
-new top-level path needs a route there, a line in the "Check the deployed host" step of
+wideset.co is shared with the landing page: the docs Worker owns only the paths in
+`wrangler.jsonc` (`/docs*`, `/components*`, `/blocks*`, …), so Playground and Themes sit under
+`/docs`. A new top-level path needs a route there, a line in the "Check the deployed host" step of
 `.github/workflows/build.yaml` and an exclusion in the zone's Redirect Rule.
 
 **A component page** opens with the title and description and "Copy page" (the page as
@@ -73,13 +73,13 @@ scripts/generate.mjs           runs before dev, build, typecheck and test → sr
   gen-tokens.mjs, gen-token-scales.mjs   the foundation pages' token tables
   generate.test.mjs            node:test checks on what the generators wrote
 src/lib/catalog.ts             the generated data as the pages read it
-src/lib/sidebar.ts             each page's own sidebar rows (docs, components, playground)
+src/lib/sidebar.ts             each page's own sidebar rows (docs, components, playground, blocks)
 src/pages/components/[id].astro   one page per catalogue entry
 src/lib/examples.ts            a page's examples: the library's examples/<id>/ files, in index.ts order
 src/lib/playground.tsx         the playgrounds: the library's examples/<id>/default.tsx + src/playgrounds/<id>.tsx
 src/playgrounds/<id>.tsx       optional tuning of a playground (labels, hidden props, dark stage, …)
 src/content/docs/*.mdx         guide pages; the file name is the URL (/docs/<name>)
-src/lib/blocks.ts              the blocks: the library's src/blocks/ when it is there, else src/data/blocks.json
+src/lib/blocks.ts              the blocks: the library's manifest (src/blocks/index.ts), their files, the categories
 ```
 
 A component has a page when `src/index.ts` exports it and it has a stories file. Everything a
@@ -140,22 +140,28 @@ stage out of line; both make the stage blink.
 
 ## Blocks
 
-A block is a whole screen in the library, `packages/design-system/src/blocks/<id>/index.tsx`,
-listed with its title and description in `blocks/index.ts`. The docs find both with
-`import.meta.glob` (`src/lib/blocks.ts`, `src/lib/blockLoader.ts`), never with an import by name:
+A block is a whole screen (or a panel that opens over one) in the library,
+`packages/design-system/src/blocks/<id>/`, listed in the manifest beside them (`blocks/index.ts`:
+`BLOCKS`, `PANELS`, the directions and navigations). `src/lib/blocks.ts` reads the manifest and
+every block's files as text, for the code and the Markdown; the browser loads only the block a
+page shows. Only blocks in the manifest are listed: one in an open pull request appears once it
+is merged.
 
-- **The library has the block:** its page frames `/docs/blocks/<id>/full`, which renders the
-  component itself at the window's size with the library's styles only (`src/styles/block.css`),
-  in the docs' theme; the block's entry file is printed under it.
-- **The library does not have it yet** (the folder is missing, so the globs are empty): the page
-  shows the committed screenshot, light or dark with the page, and says where the source is.
+- `/blocks/<id>/preview` renders the block alone at the window's size (`BlockFrame`, with an error
+  and a retry when its code fails to load), in `?theme=light|dark` or the saved theme. Framed, it
+  is inert, a picture, unless the frame asks for `?live`.
+- `/blocks/<id>` frames that route live (`BlockLiveFrame` in `BlockPreviewFrame.tsx`): clickable,
+  in the page's theme, loaded again when the theme changes. Then the block's direction and
+  navigation in one line and every file of its folder; "Open full screen" opens the route.
+- `/blocks` lists the manifest by business domain, from `src/data/block-categories.json` (kept by
+  hand). A block the list does not name lands under "Other" and a panel under "Panels", so a newly
+  merged block shows up without a docs change; give it its category when it lands.
+- A card's thumbnail is the block's committed screenshot, `public/_docs/blocks/<id>-light.webp`
+  and `-dark.webp`, swapped with the page's theme. A block without one yet frames its preview route
+  instead, scaled (`BlockPreviewFrame`).
 
-The committed fallback is `src/data/blocks.json` (id, title, description, category, whether a
-dark screenshot exists) and `public/_docs/blocks/<id>-light.webp` / `-dark.webp`. The categories
-always come from that file; a block the library has and the file does not lands under "More".
-`scripts/sync-blocks.mjs` rewrites both by hand, from the refs that hold the blocks and a folder
-of screenshots (see its head); `scripts/blocks.test.mjs` checks the list, the screenshots and the
-fallback.
+`scripts/blocks.test.mjs` checks that the categories and the screenshots name only blocks in the
+manifest.
 
 ## Themes
 
@@ -189,7 +195,8 @@ font's name shows and Inter stands in).
   actions), `parts.tsx` (the bar, the sidebar, the rail, the page tabs, the code block, the
   example card, Installation, "Copy page", breadcrumbs), `SearchPalette` (⌘K, on the system's `Modal` +
   `Search`), `Thumbnail`, `Playground` + `PlaygroundPage` + `PropertiesPanel` (one shared store),
-  `PropsTables`, `AnatomyDiagram`, `RelationshipGraph`, `Themes`, `blocks.tsx`.
+  `PropsTables`, `AnatomyDiagram`, `RelationshipGraph`, `Themes`, `BlockFrame` (a block on its
+  preview route) and `BlockPreviewFrame` (that route in a frame).
 - `src/styles/docs.css` — Tailwind plus `@import '@wideset/react/theme'`, so the chrome is
   written in `ws` classes (`bg-ws-static-container`, `text-ws-static-subtle`, …) and follows
   light and dark with the system. Inter from `@fontsource-variable/inter`.

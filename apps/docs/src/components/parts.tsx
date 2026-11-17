@@ -84,12 +84,14 @@ const CopyIcon = ({ text, label = 'Copy code' }: { text: () => string; label?: s
 
 /**
  * The code block: the page's ground with a hairline and 12px corners; a header with the language
- * (or a choice, `header`) and copy; the code under it. `peek` shows the first lines fading out
- * with "View code" over the fade; `flush` drops the frame inside a preview card.
+ * (or a file name, `label`, or a choice, `header`) and copy; the code under it. `peek` shows the
+ * first lines fading out with "View code" over the fade; `flush` drops the frame inside a preview
+ * card.
  */
 export const Code = ({
   code,
   lang = 'tsx',
+  label = lang,
   header,
   peek = false,
   flush = false,
@@ -97,6 +99,7 @@ export const Code = ({
 }: {
   code: string;
   lang?: CodeLang;
+  label?: string;
   header?: ReactNode;
   peek?: boolean;
   flush?: boolean;
@@ -128,7 +131,7 @@ export const Code = ({
         )}
       >
         {header ?? (
-          <span className="font-mono typography-caption-md text-ws-static-subtle">{lang}</span>
+          <span className="font-mono typography-caption-md text-ws-static-subtle">{label}</span>
         )}
         <CopyIcon text={() => code} />
       </div>
@@ -310,9 +313,19 @@ export const Install = ({ id, files }: { id: string; files: ManualFiles }) => {
 };
 
 /** A secondary bordered link button (asChild needs a React child, so it is built here). */
-export const ButtonLink = ({ href, children }: { href: string; children: ReactNode }) => (
+export const ButtonLink = ({
+  href,
+  newTab = false,
+  children,
+}: {
+  href: string;
+  newTab?: boolean;
+  children: ReactNode;
+}) => (
   <Button asChild size="sm" variant="secondary" preset="border">
-    <a href={href}>{children}</a>
+    <a href={href} {...(newTab && { target: '_blank', rel: 'noreferrer' })}>
+      {children}
+    </a>
   </Button>
 );
 
@@ -665,7 +678,7 @@ export const TopNav = ({
       <DocsMenu active={area === 'docs'} />
       {[
         { id: 'components', label: 'Components', href: '/components' },
-        { id: 'blocks', label: 'Blocks', href: '/docs/blocks' },
+        { id: 'blocks', label: 'Blocks', href: '/blocks' },
         { id: 'playground', label: 'Playground', href: '/docs/playground' },
         { id: 'themes', label: 'Themes', href: '/docs/themes' },
       ].map((page) => (

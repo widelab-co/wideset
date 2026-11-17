@@ -1,3 +1,5 @@
+import { existsSync } from 'node:fs';
+
 import {
   type BlockMeta,
   BLOCKS,
@@ -6,6 +8,7 @@ import {
   type PanelMeta,
   PANELS,
 } from '../../../../packages/design-system/src/blocks/index';
+import categories from '../data/block-categories.json';
 
 /**
  * The starting points: whole screens and the panels that open over them, in
@@ -49,6 +52,38 @@ export const blocksByDirection = () =>
     title: DIRECTION_TITLE[direction],
     blocks: BLOCKS.filter((block) => block.direction === direction),
   }));
+
+/**
+ * The gallery's sections, by business domain (src/data/block-categories.json, kept by hand), each
+ * A–Z. A block the list does not name yet lands in Other, a panel in Panels, both last, so a block
+ * merged into the library shows up without a docs change; an id the manifest lacks is ignored.
+ */
+const CATEGORY_IDS: Record<string, string[]> = categories;
+const categoryOf = (entry: Entry) =>
+  Object.keys(CATEGORY_IDS).find((label) => CATEGORY_IDS[label].includes(entry.id)) ??
+  (isScreen(entry) ? 'Other' : 'Panels');
+export const blockCategories = [...Object.keys(CATEGORY_IDS), 'Other', 'Panels']
+  .map((label) => ({
+    label,
+    slug: label
+      .toLowerCase()
+      .replace(/[^a-z]+/g, '-')
+      .replace(/^-|-$/g, ''),
+    blocks: ENTRIES.filter((entry) => categoryOf(entry) === label).sort((a, b) =>
+      a.title.localeCompare(b.title),
+    ),
+  }))
+  .filter((category) => category.blocks.length > 0);
+
+/**
+ * A block's committed screenshots, light and dark (public/_docs/blocks, taken from the preview
+ * route by scripts/sync-blocks.mjs), or none for a block that came after the last sync: its card
+ * then frames the preview live. Read at build time, which runs in apps/docs.
+ */
+export const shotsOf = (id: string) => {
+  const shots = { light: `/_docs/blocks/${id}-light.webp`, dark: `/_docs/blocks/${id}-dark.webp` };
+  return Object.values(shots).every((url) => existsSync(`public${url}`)) ? shots : undefined;
+};
 
 const fence = (lang: string, code: string) => ['```' + lang, code.trimEnd(), '```'].join('\n');
 

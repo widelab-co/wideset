@@ -6,6 +6,7 @@ import '../generated/light-scope.css';
 
 import type { SearchItem } from '../components/SearchPalette';
 import { type NavGroup, ProseCopy, SideNav, TopNav } from '../components/parts';
+import { ENTRIES } from '../lib/blocks';
 import { entries } from '../lib/catalog';
 import { docsNav, GITHUB_URL } from '../lib/nav';
 import { THEME_KEY } from '../lib/theme';
@@ -52,7 +53,7 @@ const hasRail = Astro.slots.has('rail');
 const PAGES: { id: Area; label: string; href: string }[] = [
   { id: 'docs', label: 'Docs', href: '/docs/introduction' },
   { id: 'components', label: 'Components', href: '/components' },
-  { id: 'blocks', label: 'Blocks', href: '/docs/blocks' },
+  { id: 'blocks', label: 'Blocks', href: '/blocks' },
   { id: 'playground', label: 'Playground', href: '/docs/playground' },
   { id: 'themes', label: 'Themes', href: '/docs/themes' },
 ];
@@ -72,6 +73,7 @@ const searchItems: SearchItem[] = [
     href: `/components/${entry.id}`,
     group: 'Components',
   })),
+  ...ENTRIES.map((block) => ({ title: block.title, href: `/blocks/${block.id}`, group: 'Blocks' })),
 ];
 ---
 

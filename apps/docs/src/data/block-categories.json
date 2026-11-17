@@ -1,0 +1,53 @@
+{
+  "AI & agents": ["ai-chat", "assistant", "chat", "code-editor"],
+  "Finance & billing": [
+    "billing",
+    "cancel-subscription",
+    "checkout",
+    "crypto",
+    "finance-dashboard",
+    "invoice",
+    "plans",
+    "referrals",
+    "send-payment"
+  ],
+  "Commerce": [
+    "gallery",
+    "order-confirmation",
+    "order-detail",
+    "orders",
+    "product-form",
+    "reviews"
+  ],
+  "CRM & sales": ["customer-detail", "customers", "pipeline", "sales-overview"],
+  "Analytics & reporting": ["analytics", "dashboard", "goals", "home", "report", "spreadsheet"],
+  "Productivity & collaboration": [
+    "activity-feed",
+    "booking",
+    "calendar",
+    "call",
+    "communication",
+    "event-detail",
+    "files",
+    "gantt",
+    "import",
+    "inbox",
+    "kanban",
+    "notifications",
+    "process",
+    "profile",
+    "task-sidepanel",
+    "team",
+    "workflow-builder"
+  ],
+  "Content & learning": ["article", "help-center", "lesson", "media-viewer", "recording"],
+  "Auth & onboarding": ["onboarding", "sign-in", "sign-in-card", "sign-up"],
+  "Settings & admin": [
+    "access-requests",
+    "account-settings",
+    "integrations",
+    "no-access",
+    "settings"
+  ],
+  "Dialogs & states": ["empty-list", "not-found", "page-states"]
+}
