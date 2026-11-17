@@ -282,6 +282,16 @@ describe('Agent session', () => {
     expect(sent(result.current.turns)[0]).toBe('Typed answer');
   });
 
+  // Two files attached in one handler both stay on the tray.
+  it('keeps every file attached before the next render', () => {
+    const result = session(reply('done'));
+    act(() => {
+      result.current.session.attach('a.txt');
+      result.current.session.attach('b.txt');
+    });
+    expect(result.current.session.attachments).toEqual(['a.txt', 'b.txt']);
+  });
+
   // A thread kept by the app and opened again already holds turns the hook made last time.
   it('gives a new turn an id no turn in the thread has', () => {
     const kept: Turn[] = [
