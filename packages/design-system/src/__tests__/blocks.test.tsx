@@ -273,6 +273,49 @@ describe('Agent session', () => {
     expect(new Set(ids).size).toBe(ids.length);
   });
 
+  // While the agent works, two messages sent in one handler both wait their turn.
+  it('queues every message sent in one handler during a run', () => {
+    const long: AgentTurn = {
+      id: 'long',
+      role: 'agent',
+      blocks: [
+        {
+          kind: 'text',
+          id: 'answer',
+          prose: [
+            { kind: 'paragraph', text: 'A long answer that is still being written. '.repeat(20) },
+          ],
+        },
+      ],
+    };
+    const { result } = renderHook(() => {
+      const [turns, setTurns] = useState<Turn[]>([long]);
+      return {
+        turns,
+        session: useSession({ turns, onChange: setTurns, reply, playing: { id: 'long', at: 0 } }),
+      };
+    });
+    expect(result.current.session.running).toBe(true);
+    act(() => {
+      result.current.session.send('First');
+      result.current.session.send('Second');
+    });
+    expect(result.current.session.queue.map((item) => item.text)).toEqual(['First', 'Second']);
+  });
+
+  // Stopped with a message waiting, a send lets it go first; a second send before the next
+  // render must not send it again, and both new messages follow it.
+  it('sends a waiting message once when two sends follow a stop', () => {
+    const stopped: AgentTurn = { id: 'stopped', role: 'agent', blocks: [], stoppedAt: 0 };
+    const result = session(stopped, ['Queued earlier']);
+    act(() => {
+      result.current.session.send('First');
+      result.current.session.send('Second');
+    });
+    // The replies here end at once, so the two new messages follow in order.
+    expect(sent(result.current.turns)).toEqual(['Queued earlier', 'First', 'Second']);
+  });
+
   // StrictMode sets effects up twice in development: a waiting message still goes out once.
   it('sends a queued message once under StrictMode', () => {
     const done: AgentTurn = { id: 'asking', role: 'agent', blocks: [] };
