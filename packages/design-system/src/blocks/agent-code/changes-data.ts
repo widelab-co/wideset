@@ -90,7 +90,7 @@ const BOOKINGS_TOOLBAR = String.raw`
 +  exportDisabled,
 +}: Props) {
    return (
-     <div className="flex items-center gap-3">
+     <div className="flex items-center gap-ws-3">
        <SearchField
 @@ -24,6 +32,9 @@ export function BookingsToolbar({ filters, onChange }: Props) {
        <Button variant="ghost" onClick={() => onChange(NO_FILTERS)}>
