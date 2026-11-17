@@ -215,11 +215,12 @@ export function useSession({
     },
 
     attach(name: string) {
-      if (!attachments.includes(name)) setAttachments([...attachments, name]);
+      // From the tray as it is now: a second file attached in the same handler stays too.
+      setAttachments((tray) => (tray.includes(name) ? tray : [...tray, name]));
     },
 
     detach(index: number) {
-      setAttachments(attachments.filter((_, at) => at !== index));
+      setAttachments((tray) => tray.filter((_, at) => at !== index));
     },
 
     write(text: string) {
@@ -230,7 +231,7 @@ export function useSession({
       const { text, sentWith = [] } = queue[index];
       setDraft({ text, id: draft.id + 1 });
       // Its files go back on the tray with it.
-      setAttachments([...attachments, ...sentWith.filter((name) => !attachments.includes(name))]);
+      setAttachments((tray) => [...tray, ...sentWith.filter((name) => !tray.includes(name))]);
       setQueue(queue.filter((_, at) => at !== index));
     },
 
