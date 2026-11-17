@@ -13,13 +13,19 @@ describe('blocks: what the docs add to the manifest', () => {
     assert.ok(ids.size > 0);
   });
 
-  it('puts only listed blocks in a category, each in one', () => {
+  // The list also names blocks still on their way into the library (open pull requests), so they
+  // land in their section the moment they merge; the gallery skips an id the manifest lacks.
+  it('puts every block in one category at most', () => {
     const named = Object.values(categories).flat();
+    assert.equal(new Set(named).size, named.length);
+  });
+
+  it('names every block the manifest has', () => {
+    const named = new Set(Object.values(categories).flat());
     assert.deepEqual(
-      named.filter((id) => !ids.has(id)),
+      [...ids].filter((id) => !named.has(id)),
       [],
     );
-    assert.equal(new Set(named).size, named.length);
   });
 
   it('has screenshots only of listed blocks, light and dark', () => {

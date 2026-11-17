@@ -55,8 +55,9 @@ export const blocksByDirection = () =>
 
 /**
  * The gallery's sections, by business domain (src/data/block-categories.json, kept by hand), each
- * A–Z. A block the list does not name yet lands in Other, a panel in Panels, both last, so a block
- * merged into the library shows up without a docs change; an id the manifest lacks is ignored.
+ * A–Z. The list also names the blocks still in open pull requests, so they land in their section
+ * when they merge; a block it does not name lands in Other (a panel in Panels), and an id the
+ * manifest lacks is ignored.
  */
 const CATEGORY_IDS: Record<string, string[]> = categories;
 const categoryOf = (entry: Entry) =>

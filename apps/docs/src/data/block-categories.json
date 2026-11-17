@@ -1,5 +1,16 @@
 {
-  "AI & agents": ["ai-chat", "assistant", "chat", "code-editor"],
+  "AI & agents": [
+    "agent-chat",
+    "agent-code",
+    "agent-context",
+    "agent-research",
+    "agent-sessions",
+    "agent-states",
+    "ai-chat",
+    "assistant",
+    "chat",
+    "code-editor"
+  ],
   "Finance & billing": [
     "billing",
     "cancel-subscription",
@@ -26,28 +37,70 @@
     "booking",
     "calendar",
     "call",
+    "command-palette",
     "communication",
+    "context-menu",
     "event-detail",
     "files",
+    "filter-popover",
     "gantt",
     "import",
     "inbox",
     "kanban",
     "notifications",
+    "notifications-popover",
     "process",
     "profile",
     "task-sidepanel",
     "team",
     "workflow-builder"
   ],
-  "Content & learning": ["article", "help-center", "lesson", "media-viewer", "recording"],
-  "Auth & onboarding": ["onboarding", "sign-in", "sign-in-card", "sign-up"],
+  "Content & learning": [
+    "article",
+    "help-center",
+    "lesson",
+    "media-viewer",
+    "recording",
+    "whats-new"
+  ],
+  "Auth & onboarding": [
+    "accept-invite",
+    "check-email",
+    "choose-workspace",
+    "coach-marks",
+    "forgot-password",
+    "new-password",
+    "onboarding",
+    "sign-in",
+    "sign-in-card",
+    "sign-up",
+    "signed-out",
+    "sso-sign-in",
+    "two-factor",
+    "verify-email"
+  ],
   "Settings & admin": [
     "access-requests",
+    "account-menu",
     "account-settings",
     "integrations",
     "no-access",
     "settings"
   ],
-  "Dialogs & states": ["empty-list", "not-found", "page-states"]
+  "Dialogs & states": [
+    "confirm-delete",
+    "empty-list",
+    "export-dialog",
+    "feedback-dialog",
+    "modal-access",
+    "modal-details",
+    "modal-form",
+    "modal-search",
+    "modal-stepper",
+    "modal-task",
+    "move-dialog",
+    "not-found",
+    "page-states",
+    "report-dialog"
+  ]
 }
