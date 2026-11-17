@@ -1,4 +1,4 @@
-import { Tabs } from '@wideset/react';
+import { cn, Tabs } from '@wideset/react';
 import { useState } from 'react';
 
 import { THREADS } from './changes-data';
@@ -28,6 +28,12 @@ type CodePaneProps = {
   reveal?: Reveal;
   /** Puts a request (Fix with Tandem, Ask Tandem to fix) in the session's composer. */
   onAsk: (text: string) => void;
+  /** The files on the composer's tray, by path: Files adds and removes its open file there. */
+  attachments: string[];
+  onAttach: (path: string) => void;
+  onDetach: (path: string) => void;
+  /** Closed from the bar: kept, hidden, so a comment or a shell's history is there on reopening. */
+  hidden?: boolean;
 };
 
 /**
@@ -38,7 +44,17 @@ type CodePaneProps = {
  * tabs are left to the Terminal's shells one level down. The bar draws the one line; the tabs
  * sit on it with the open tab's mark over it.
  */
-export function CodePane({ id, pane, onPaneChange, reveal, onAsk }: CodePaneProps) {
+export function CodePane({
+  id,
+  pane,
+  onPaneChange,
+  reveal,
+  onAsk,
+  attachments,
+  onAttach,
+  onDetach,
+  hidden = false,
+}: CodePaneProps) {
   const [visited, setVisited] = useState<Pane[]>([pane]);
   if (!visited.includes(pane)) setVisited([...visited, pane]);
   // The review threads live here: answered in Changes, counted in Checks.
@@ -48,7 +64,11 @@ export function CodePane({ id, pane, onPaneChange, reveal, onAsk }: CodePaneProp
     <aside
       id={id}
       aria-label="Pane"
-      className="border-ws-static-base flex w-[32rem] shrink-0 flex-col border-l"
+      hidden={hidden}
+      className={cn(
+        'border-ws-static-base flex w-[32rem] shrink-0 flex-col border-l',
+        hidden && 'hidden',
+      )}
     >
       <Tabs
         value={pane}
@@ -88,7 +108,9 @@ export function CodePane({ id, pane, onPaneChange, reveal, onAsk }: CodePaneProp
                 )}
                 {value === 'terminal' && <TerminalPane />}
                 {value === 'preview' && <PreviewPane />}
-                {value === 'files' && <FilesPane />}
+                {value === 'files' && (
+                  <FilesPane attachments={attachments} onAttach={onAttach} onDetach={onDetach} />
+                )}
                 {value === 'tasks' && <TasksPane />}
                 {value === 'checks' && <ChecksPane threads={threads} onFix={onAsk} />}
               </>
