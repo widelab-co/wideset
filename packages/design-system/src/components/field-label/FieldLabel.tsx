@@ -22,36 +22,46 @@ export const FieldLabel = React.forwardRef<HTMLLabelElement, FieldLabelProps>(
       ...props
     },
     ref,
-  ) => (
-    <>
-      <label
-        ref={ref}
-        data-slot="field-label"
-        className={cn(
-          'text-ws-static-strong typography-label-strong-sm gap-ws-3 inline-flex min-w-0 flex-wrap items-center',
-          className,
+  ) => {
+    const parts = React.Children.toArray(children);
+    const isSuffix = (child: React.ReactNode) =>
+      React.isValidElement(child) && child.type === FieldLabelSuffix;
+    const suffixParts = parts.filter(isSuffix);
+    const textParts = parts.filter((child) => !isSuffix(child));
+
+    return (
+      <>
+        <label
+          ref={ref}
+          data-slot="field-label"
+          className={cn(
+            'text-ws-static-strong typography-label-strong-sm gap-ws-3 inline-flex min-w-0 flex-wrap items-center',
+            className,
+          )}
+          {...props}
+        >
+          <span className="min-w-0 break-words">{textParts}</span>
+          {required && (
+            <span
+              aria-hidden="true"
+              data-slot="field-label-required"
+              className="text-ws-semantic-negative typography-label-sm shrink-0"
+            >
+              *
+            </span>
+          )}
+          {(suffixParts.length > 0 || hasContent(suffix)) && ' '}
+          {suffixParts}
+          {hasContent(suffix) && <FieldLabelSuffix>{suffix}</FieldLabelSuffix>}
+        </label>
+        {hasContent(tooltip) && (
+          <FieldLabelTooltip aria-label={tooltipAriaLabel}>{tooltip}</FieldLabelTooltip>
         )}
-        {...props}
-      >
-        <span className="min-w-0 break-words">{children}</span>
-        {required && (
-          <span
-            aria-hidden="true"
-            data-slot="field-label-required"
-            className="text-ws-semantic-negative typography-label-sm shrink-0"
-          >
-            *
-          </span>
-        )}
-        {hasContent(suffix) && <FieldLabelSuffix>{suffix}</FieldLabelSuffix>}
-      </label>
-      {hasContent(tooltip) && (
-        <FieldLabelTooltip aria-label={tooltipAriaLabel}>{tooltip}</FieldLabelTooltip>
-      )}
-      {hasContent(aside) && <FieldLabelAside>{aside}</FieldLabelAside>}
-      {hasContent(description) && <FieldLabelDescription>{description}</FieldLabelDescription>}
-    </>
-  ),
+        {hasContent(aside) && <FieldLabelAside>{aside}</FieldLabelAside>}
+        {hasContent(description) && <FieldLabelDescription>{description}</FieldLabelDescription>}
+      </>
+    );
+  },
 ) as FieldLabelWithSubComponents;
 
 FieldLabel.displayName = 'FieldLabel';

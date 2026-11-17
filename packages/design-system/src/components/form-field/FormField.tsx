@@ -68,12 +68,7 @@ export const FormField = React.forwardRef<HTMLDivElement | HTMLFieldSetElement, 
           <div data-slot="form-field-label-row" className={formFieldLabelRowVariants()}>
             <FieldLabel {...props}>
               {label}
-              {hasContent(suffix) && (
-                <>
-                  {' '}
-                  <FieldLabel.Suffix>{suffix}</FieldLabel.Suffix>
-                </>
-              )}
+              {hasContent(suffix) && <FieldLabel.Suffix>{suffix}</FieldLabel.Suffix>}
             </FieldLabel>
             {hasContent(tooltip) && (
               <FieldLabel.Tooltip aria-label={tooltipAriaLabel}>{tooltip}</FieldLabel.Tooltip>

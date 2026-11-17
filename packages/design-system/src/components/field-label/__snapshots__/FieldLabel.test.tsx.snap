@@ -10,12 +10,6 @@ exports[`FieldLabel > Snapshots > matches snapshot for a composed label row 1`] 
       class="min-w-0 break-words"
     >
       Test Label 
-      <span
-        class="text-ws-static-subtle typography-label-sm shrink-0"
-        data-slot="field-label-suffix"
-      >
-        (optional)
-      </span>
     </span>
     <span
       aria-hidden="true"
@@ -23,6 +17,13 @@ exports[`FieldLabel > Snapshots > matches snapshot for a composed label row 1`] 
       data-slot="field-label-required"
     >
       *
+    </span>
+     
+    <span
+      class="text-ws-static-subtle typography-label-sm shrink-0"
+      data-slot="field-label-suffix"
+    >
+      (optional)
     </span>
   </label>
   <button
@@ -97,12 +98,13 @@ exports[`FieldLabel > Snapshots > matches snapshot for label with suffix 1`] = `
     class="min-w-0 break-words"
   >
     Test Label 
-    <span
-      class="text-ws-static-subtle typography-label-sm shrink-0"
-      data-slot="field-label-suffix"
-    >
-      (optional)
-    </span>
+  </span>
+   
+  <span
+    class="text-ws-static-subtle typography-label-sm shrink-0"
+    data-slot="field-label-suffix"
+  >
+    (optional)
   </span>
 </label>
 `;
