@@ -22,8 +22,8 @@ type CopyButtonProps = {
 
 /**
  * Copy, answered by the button itself: the icon grows into a check and the name reads "Copied"
- * for a moment, then both go back, with the same said aloud. No toast: the result shows where
- * the hand already is.
+ * for a moment, then both go back, with the same said aloud. A copy that did not happen says
+ * "Copy failed" the same way. No toast: the result shows where the hand already is.
  */
 export function CopyButton({
   text,
@@ -32,33 +32,36 @@ export function CopyButton({
   quiet = false,
   side = 'top',
 }: CopyButtonProps) {
-  const [copied, setCopied] = useState(false);
+  const [result, setResult] = useState<'copied' | 'failed'>();
+  const copied = result === 'copied';
+  const said = copied ? 'Copied' : result === 'failed' ? 'Copy failed' : undefined;
 
   useEffect(() => {
-    if (!copied) return;
-    const id = window.setTimeout(() => setCopied(false), SHOWN);
+    if (!result) return;
+    const id = window.setTimeout(() => setResult(undefined), SHOWN);
     return () => window.clearTimeout(id);
-  }, [copied]);
+  }, [result]);
 
   return (
     <>
       <IconAction
-        label={copied ? 'Copied' : label}
+        label={said ?? label}
         icon={copied ? RiCheckLine : RiFileCopyLine}
         iconClassName={cn(quiet && 'text-ws-static-subtle', copied && SWAP)}
         size={size}
         side={side}
         onClick={() => {
           // "Copied" only once the text is there: an insecure page, a denied permission or a test
-          // has no clipboard to write to, and the button then stays as it was.
-          navigator.clipboard?.writeText(text()).then(
-            () => setCopied(true),
-            () => undefined,
+          // has no clipboard to write to, and the button then says the copy failed.
+          if (!navigator.clipboard) return setResult('failed');
+          navigator.clipboard.writeText(text()).then(
+            () => setResult('copied'),
+            () => setResult('failed'),
           );
         }}
       />
       <span role="status" className="sr-only">
-        {copied ? 'Copied' : ''}
+        {said ?? ''}
       </span>
     </>
   );
