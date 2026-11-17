@@ -30,7 +30,7 @@ export function FilesPane({ attachments, onAttach, onDetach }: FilesPaneProps) {
         // In the conversation: on the tray, sent with the next message.
         inConversation={attachments.includes(file.path)}
         onConversationChange={(added) => (added ? onAttach(file.path) : onDetach(file.path))}
-        onReveal={(path) => setReveal({ path, key: (reveal?.key ?? 0) + 1 })}
+        onReveal={(path) => setReveal((current) => ({ path, key: (current?.key ?? 0) + 1 }))}
       />
     </div>
   );

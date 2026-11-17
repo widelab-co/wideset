@@ -56,7 +56,7 @@ export function CodePane({
   hidden = false,
 }: CodePaneProps) {
   const [visited, setVisited] = useState<Pane[]>([pane]);
-  if (!visited.includes(pane)) setVisited([...visited, pane]);
+  if (!visited.includes(pane)) setVisited((current) => [...current, pane]);
   // The review threads live here: answered in Changes, counted in Checks.
   const [threads, setThreads] = useState(THREADS);
 

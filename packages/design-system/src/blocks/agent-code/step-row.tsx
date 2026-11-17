@@ -77,7 +77,7 @@ export function StepRow({ step, defaultOpen, live, nested = false, card, onAnswe
       <Row
         mark={<StepMark status={step.status} live={live} />}
         open={open}
-        onToggle={detail || aside ? () => setOpen(!open) : undefined}
+        onToggle={detail || aside ? () => setOpen((value) => !value) : undefined}
       >
         <span
           className={cn(

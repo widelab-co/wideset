@@ -54,7 +54,7 @@ export function PreviewPane() {
   const load = (to: string[], at: number) => {
     setHistory({ entries: to, index: at });
     setAddress(to[at]);
-    setLoads(loads + 1);
+    setLoads((count) => count + 1);
     setMessages(to[at] === HOME ? [ZONE_WARNING] : [notFoundError(to[at])]);
   };
 
@@ -81,7 +81,7 @@ export function PreviewPane() {
           id: consoleId,
           open: consoleOpen,
           count: messages.length,
-          onToggle: () => setConsoleOpen(!consoleOpen),
+          onToggle: () => setConsoleOpen((value) => !value),
         }}
       />
 

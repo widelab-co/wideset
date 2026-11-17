@@ -132,7 +132,9 @@ export function TasksPlan({ tasks, elapsed }: TasksPlanProps) {
             elapsed={elapsed}
             open={open.includes(task.id)}
             onOpenChange={(next) =>
-              setOpen(next ? [...open, task.id] : open.filter((id) => id !== task.id))
+              setOpen((current) =>
+                next ? [...current, task.id] : current.filter((id) => id !== task.id),
+              )
             }
           />
         ))}

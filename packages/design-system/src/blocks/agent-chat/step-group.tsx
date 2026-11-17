@@ -66,7 +66,7 @@ export function StepGroup({ block, defaultOpen, live, card, onAnswer }: StepGrou
       <Row
         mark={<StepMark status={status} live={live} />}
         open={open}
-        onToggle={() => setOpen(!open)}
+        onToggle={() => setOpen((value) => !value)}
       >
         <span className="text-ws-static-base min-w-0 truncate">
           <Inline text={label} />
