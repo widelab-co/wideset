@@ -29,6 +29,10 @@ import {
 } from './data';
 import { PersonAvatar } from './person-avatar';
 
+/** ⌘ on Apple keyboards, Ctrl elsewhere; both open the palette everywhere. */
+const MODIFIER =
+  typeof navigator !== 'undefined' && /Mac|iPhone|iPad/.test(navigator.userAgent) ? '⌘' : 'Ctrl';
+
 /**
  * The workspace sidebar: switcher, search, the app's pages, settings and the signed-in account.
  * Its toggle sits in the page bar, so the screen holds `collapsed` and passes it down; collapsed,
@@ -38,7 +42,8 @@ export function WorkspaceSidebar({
   onSearch,
   ...props
 }: Pick<SidebarProps, 'id' | 'collapsed' | 'onCollapsedChange'> & {
-  /** The search field opens the command palette: a click, or Enter. */
+  /** The search field opens the command palette: a click, or Enter. It is the palette's one door
+   *  on the screen, so it carries the shortcut; collapsed, it is the search icon. */
   onSearch: () => void;
 }) {
   const [active, setActive] = useState('home');
@@ -119,16 +124,32 @@ export function WorkspaceSidebar({
                 placeholder="Search"
                 aria-label="Search"
                 aria-haspopup="dialog"
+                aria-keyshortcuts="Control+K Meta+K"
                 readOnly
                 onClick={onSearch}
                 onKeyDown={(event) => event.key === 'Enter' && onSearch()}
               />
+              <TextInput.Suffix inner>
+                <span aria-hidden="true" className="typography-caption-md text-ws-static-subtle">
+                  {`${MODIFIER} K`}
+                </span>
+              </TextInput.Suffix>
             </TextInput>
           </div>
         </Sidebar.Expanded>
         <Sidebar.Collapsed>
-          <div className="pt-ws-3 pb-ws-7 flex justify-center">
+          <div className="gap-ws-9 pt-ws-3 flex flex-col items-center">
             <BrandMark className="size-ws-15" />
+            <IconButton
+              icon={RiSearchLine}
+              variant="secondary"
+              preset="ghost"
+              size="sm"
+              aria-label="Search"
+              aria-haspopup="dialog"
+              aria-keyshortcuts="Control+K Meta+K"
+              onClick={onSearch}
+            />
           </div>
         </Sidebar.Collapsed>
       </Sidebar.Header>

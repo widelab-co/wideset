@@ -1,14 +1,21 @@
 // TODO(custom): whole-row link done with a stretched <a>; Table has no row link.
-import { StatusBadge, Table } from '@wideset/react';
+import { StatusBadge, type StatusBadgeProps, Table } from '@wideset/react';
 import { useId } from 'react';
 
 import type { Deal } from './data';
 import { formatUsd } from './format';
 
+/** A stage in the colour of what it says about the deal, the same in every block. */
+const STAGE_COLOR: Record<Deal['stage'], StatusBadgeProps['color']> = {
+  Discovery: 'neutral',
+  Proposal: 'info',
+  Negotiation: 'notice',
+  Commit: 'positive',
+};
+
 /**
  * The deals whose next step falls this week, soonest first: who, where the deal stands, what to
- * do next, and what it is worth. A row opens its deal from anywhere on it. Stages are lifecycle
- * states, so the badges stay neutral.
+ * do next, and what it is worth. A row opens its deal from anywhere on it.
  */
 export function DealsTable({ deals }: { deals: Deal[] }) {
   const titleId = useId();
@@ -43,7 +50,7 @@ export function DealsTable({ deals }: { deals: Deal[] }) {
                 </a>
               </Table.Cell>
               <Table.Cell>
-                <StatusBadge>{deal.stage}</StatusBadge>
+                <StatusBadge color={STAGE_COLOR[deal.stage]}>{deal.stage}</StatusBadge>
               </Table.Cell>
               <Table.Cell>{deal.nextStep}</Table.Cell>
               <Table.Cell align="right">

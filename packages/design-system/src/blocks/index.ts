@@ -405,7 +405,7 @@ export const BLOCKS: BlockMeta[] = [
     direction: 'inset',
     navigation: 'sidebar',
     description:
-      'Team goals on a raised page: each goal’s figure against its target with one bar, a judged state and key results to tick off, then the quarter’s leaderboard with your row selected and the milestones reached, and a dialog to add a goal.',
+      'Team goals on a raised page: each goal’s figure against its target with one bar, a judged state and key results to tick off, then the quarter’s leaderboard with your row marked “(you)” and the milestones reached, and a dialog to add a goal.',
   },
   {
     id: 'profile',
@@ -485,7 +485,7 @@ export const BLOCKS: BlockMeta[] = [
     direction: 'inset',
     navigation: 'sidebar',
     description:
-      'Adding a product to the catalogue on a raised page: details, photos with a cover, pricing with a live margin, options that make variants and inventory as cards, either beside its status, sales channels and a live preview (split) or alone in a centred column with the actions in a bar at the foot (centered).',
+      'Adding a product to the catalogue on a raised page: details, photos with a cover, pricing with a live margin, options that make variants and inventory as cards, either beside its sales channels and a live preview (split) or alone in a centred column with the actions in a bar at the foot (centered).',
   },
   {
     id: 'import',
