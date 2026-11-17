@@ -45,7 +45,7 @@ const AGENT_KIT = [
   'transcript.tsx',
   'agent-turn.tsx',
   'user-message.tsx',
-  'divider.tsx',
+  'transcript-break.tsx',
   'reasoning.tsx',
   'step-row.tsx',
   'step-group.tsx',
