@@ -92,7 +92,7 @@
       // The library never imports itself by its package name: that name resolves to src/index.ts
       // only for the examples, and from a component it would be a cycle that ships.
       "files": ["packages/design-system/src/**/*.{ts,tsx}"],
-      "excludedFiles": ["**/examples/**"],
+      "excludedFiles": ["**/examples/**", "packages/design-system/src/blocks/**"],
       "rules": {
         "no-restricted-imports": [
           "error",
@@ -100,7 +100,7 @@
             "paths": [
               {
                 "name": "@wideset/react",
-                "message": "Only examples (src/components/*/examples/) import the package by name; use a relative import."
+                "message": "Only examples (src/components/*/examples/) and blocks (src/blocks/) import the package by name; use a relative import."
               }
             ]
           }
@@ -118,6 +118,24 @@
               {
                 "group": ["../*", "./*"],
                 "message": "Import from '@wideset/react', as a consumer does."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      // Blocks (starting points) are copied whole: the package by name, their own files by a
+      // relative path inside the block (./), never a library file or another block (../).
+      "files": ["packages/design-system/src/blocks/**/*.{ts,tsx}"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": ["../*", "src/*"],
+                "message": "Import the library from '@wideset/react' and only the block's own files (./), as a consumer does."
               }
             ]
           }

@@ -6,7 +6,7 @@ import { hoverTintMotion } from '../../motion/recipes';
 export const sidebarItemVariants = cva(
   cn(
     // text-left: with asChild on a <button> (a collapsible group) the label would centre.
-    'rounded-ws-control-lg gap-ws-5 px-ws-5 py-ws-3 flex w-full cursor-pointer items-center text-left no-underline',
+    'group/sidebar-item rounded-ws-control-lg gap-ws-5 px-ws-5 py-ws-3 flex w-full cursor-pointer items-center text-left no-underline',
     // The ring is drawn inset: sidebar items sit flush against the ScrollArea
     // viewport (collapsed rail) or under its scrollbar strip (expanded), so an
     // outer ring would be clipped or covered on the right.
@@ -50,6 +50,19 @@ export const sidebarItemMotionVariants = cva('', {
 /** The row's trailing count or badge: on the item's right padding, never placed by hand. */
 export const sidebarItemSuffixVariants = cva(
   'typography-label-sm text-ws-static-subtle flex shrink-0 items-center tabular-nums',
+  {
+    variants: {
+      // A shortcut hint fades in with the row's hover or keyboard focus and keeps its space.
+      onHover: {
+        true: cn(
+          'opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) motion-reduce:transition-none',
+          'group-hover/sidebar-item:opacity-100 group-focus-visible/sidebar-item:opacity-100',
+        ),
+        false: '',
+      },
+    },
+    defaultVariants: { onHover: false },
+  },
 );
 
 export const sidebarItemIconVariants = cva('size-ws-10 shrink-0', {

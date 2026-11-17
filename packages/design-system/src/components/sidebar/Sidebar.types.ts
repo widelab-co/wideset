@@ -64,6 +64,12 @@ type SidebarItemBaseProps = Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 
    */
   suffix?: React.ReactNode;
   /**
+   * Shows the `suffix` only while the row is hovered or has keyboard focus, as for a keyboard
+   * shortcut (`⌘1`): a hint, not content. It keeps its space, so the label never shifts. Leave it
+   * off for counts and badges, which are content.
+   */
+  suffixOnHover?: boolean;
+  /**
    * A child of the item above it (Figma `Nesting=Level 1`), e.g. a page inside "Pages": indented
    * so its icon starts under the parent's label. One level only; the indent is the whole cue, so
    * draw no guide line. Collapsed, nested items line up like the rest.

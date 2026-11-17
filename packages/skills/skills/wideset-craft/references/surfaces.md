@@ -107,6 +107,9 @@ Pick **one surface language per screen**:
 - **Flat**: one surface (`bg-ws-static-container`) and separation by space and section titles
   only. Good for forms, settings, reading pages and anything inside a Modal or Sidepanel.
 
+The page is grey only in `<AppShell direction="canvas">`, where the content goes in white
+sections with no border; in `inset` the grey is the frame around the white page, never the page.
+
 ### Why
 
 Mixing the two — some content in cards, some floating on the canvas, a card inside a card — gives

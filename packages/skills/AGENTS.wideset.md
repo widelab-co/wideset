@@ -56,6 +56,7 @@ Font: the page font is variable Inter, set through `--font-ws-sans`; `wideset in
 - DateRangePicker: a date span with optional presets.
 - TimePicker: times at a fixed interval, value `HH:mm`.
 - Calendar: an always-visible grid; in a form use DatePicker.
+- Illustration: a drawing for an empty state, a first run or an announcement; not an icon.
 - InlineAlert: persistent feedback attached to one section.
 - SystemAlert: a product-wide banner at the top of the page.
 - Toast: brief floating feedback through `useToast`.

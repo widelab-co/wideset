@@ -45,6 +45,7 @@ One file per component: when to use it, when not, do and don't, and gotchas. Rea
 
 ## [Feedback](specs/components/feedback/README.md)
 
+- [Illustration](good-practices/illustration.md): a drawing for an empty state, a first run or an announcement; not an icon.
 - [InlineAlert](good-practices/inline-alert.md): persistent feedback attached to one section.
 - [SystemAlert](good-practices/system-alert.md): a product-wide banner at the top of the page.
 - [Toast](good-practices/toast.md): brief floating feedback through `useToast`.

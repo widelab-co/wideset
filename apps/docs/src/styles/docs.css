@@ -14,6 +14,8 @@
    components are scanned as well: this sheet loads after the library's, so a utility both use
    (`px-ws-9`) would otherwise land here after a library override of it (`pl-0`) and undo it. */
 @source '../../../../packages/design-system/src/components';
+/* The starting points (src/blocks) render on /blocks/<id>/preview with the same sheets. */
+@source '../../../../packages/design-system/src/blocks';
 
 /* The page's own rules are scoped to `.docs` (the body's class): a rule under `.docs` or
    `body.docs` outranks the base rules above it in this file, and one under `body.docs.docs`
