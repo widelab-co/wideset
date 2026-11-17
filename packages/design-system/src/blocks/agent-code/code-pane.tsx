@@ -50,41 +50,52 @@ export function CodePane({ id, pane, onPaneChange, reveal, onAsk }: CodePaneProp
       aria-label="Pane"
       className="border-ws-static-base flex w-[32rem] shrink-0 flex-col border-l"
     >
-      <div className="h-ws-18 border-ws-static-base px-ws-11 flex shrink-0 items-end border-b">
-        <Tabs
-          value={pane}
-          onValueChange={(value) => onPaneChange(value as Pane)}
-          divider={false}
-          className="-mb-px"
-        >
-          <Tabs.List aria-label="Panes">
+      <Tabs
+        value={pane}
+        onValueChange={(value) => onPaneChange(value as Pane)}
+        divider={false}
+        className="min-h-0 flex-1"
+      >
+        <div className="h-ws-18 border-ws-static-base px-ws-11 flex shrink-0 items-end border-b">
+          <Tabs.List aria-label="Panes" className="-mb-px">
             {PANES.map(({ id: value, label }) => (
               <Tabs.Item key={value} value={value} className="h-ws-18 py-ws-0">
                 <Tabs.Label>{label}</Tabs.Label>
               </Tabs.Item>
             ))}
           </Tabs.List>
-        </Tabs>
-      </div>
-      {/* A pane opened once stays mounted, hidden when another is shown, so what was done in it
-          (a reply, a Viewed tick, a stopped server, a shell's history) is there on return. */}
-      {PANES.filter(({ id: value }) => visited.includes(value)).map(({ id: value }) => (
-        <div key={value} hidden={value !== pane} className="flex min-h-0 flex-1 flex-col">
-          {value === 'changes' && (
-            <ChangesPane
-              reveal={reveal}
-              threads={threads}
-              onThreadsChange={setThreads}
-              onAsk={onAsk}
-            />
-          )}
-          {value === 'terminal' && <TerminalPane />}
-          {value === 'preview' && <PreviewPane />}
-          {value === 'files' && <FilesPane />}
-          {value === 'tasks' && <TasksPane />}
-          {value === 'checks' && <ChecksPane threads={threads} onFix={onAsk} />}
         </div>
-      ))}
+        {/* Every tab has its panel. A pane opened once stays mounted, hidden when another is
+            shown, so what was done in it (a reply, a Viewed tick, a stopped server, a shell's
+            history) is there on return. */}
+        {PANES.map(({ id: value }) => (
+          <Tabs.Content
+            key={value}
+            value={value}
+            forceMount
+            hidden={value !== pane}
+            className="flex min-h-0 flex-1 flex-col"
+          >
+            {visited.includes(value) && (
+              <>
+                {value === 'changes' && (
+                  <ChangesPane
+                    reveal={reveal}
+                    threads={threads}
+                    onThreadsChange={setThreads}
+                    onAsk={onAsk}
+                  />
+                )}
+                {value === 'terminal' && <TerminalPane />}
+                {value === 'preview' && <PreviewPane />}
+                {value === 'files' && <FilesPane />}
+                {value === 'tasks' && <TasksPane />}
+                {value === 'checks' && <ChecksPane threads={threads} onFix={onAsk} />}
+              </>
+            )}
+          </Tabs.Content>
+        ))}
+      </Tabs>
     </aside>
   );
 }
