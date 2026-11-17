@@ -1,11 +1,11 @@
 import * as ProgressPrimitive from '@radix-ui/react-progress';
 import * as React from 'react';
 import { cn } from 'src/lib/utils';
-import { clamp, isFiniteNumber } from 'src/logic/helpers';
 
 import { useDefaultMotion } from '../../motion/MotionProvider';
 import { ProgressBarContext } from './ProgressBar.context';
-import { hasContent } from './ProgressBar.logic';
+import { usePartId } from './ProgressBar.hooks';
+import { hasContent, omitValueText, validateMax, validateValue } from './ProgressBar.logic';
 import type {
   ProgressBarContextValue,
   ProgressBarProps,
@@ -17,42 +17,6 @@ import { ProgressBarHeader } from './ProgressBarHeader';
 import { ProgressBarLabel } from './ProgressBarLabel';
 import { ProgressBarTrack } from './ProgressBarTrack';
 import { ProgressBarValue } from './ProgressBarValue';
-
-// Radix fills `aria-valuetext` with the rounded percentage by default. Screen readers derive the
-// same percentage from `aria-valuenow` and `aria-valuemax`, so VoiceOver announced it twice (as
-// found on #5). Omit the attribute; a caller's own `aria-valuetext` still reaches the root.
-const omitValueText = (() => undefined) as unknown as (value: number, max: number) => string;
-
-const DEFAULT_MAX = 100;
-
-/** `max` when it is a number greater than 0, otherwise 100 (with a warning if one was given). */
-const validateMax = (max?: number) => {
-  if (max === undefined) return DEFAULT_MAX;
-  if (isFiniteNumber(max) && max > 0) return max;
-  console.warn(`ProgressBar \`max\` must be a number greater than 0. Received ${max}.`);
-  return DEFAULT_MAX;
-};
-
-/** `value` kept within `0…max`; a missing or non-finite value is 0 (with a warning if one was given). */
-const validateValue = (value: number | undefined, max: number) => {
-  if (value === undefined) return 0;
-  if (isFiniteNumber(value)) return clamp(value, 0, max);
-  console.warn(`ProgressBar \`value\` must be a finite number. Received ${value}.`);
-  return 0;
-};
-
-/**
- * Holds the id of a mounted part (its own `id` or a generated one), so the root only points ARIA
- * at an element that exists and keeps pointing at it when a caller sets the part's `id`.
- */
-const usePartId = () => {
-  const [id, setId] = React.useState<string>();
-  const register = React.useCallback((partId: string) => {
-    setId(partId);
-    return () => setId((current) => (current === partId ? undefined : current));
-  }, []);
-  return [id, register] as const;
-};
 
 const ProgressBar = React.forwardRef<
   React.ComponentRef<typeof ProgressPrimitive.Root>,
