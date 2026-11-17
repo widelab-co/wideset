@@ -1,4 +1,5 @@
 import { act, cleanup, render, renderHook } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { type ComponentType, useState } from 'react';
 import { afterEach, describe, expect, it } from 'vitest';
 
@@ -168,6 +169,21 @@ describe('Agent code', () => {
       expect(panel).toHaveAttribute('role', 'tabpanel');
     }
     expect(getByRole('tabpanel', { name: 'Changes' })).toBeVisible();
+  });
+
+  // Closing the pane hides it: a review comment written in it is there when it opens again.
+  it('keeps a review comment through closing and reopening the pane', async () => {
+    const { default: AgentCode } = await import('../blocks/agent-code');
+    const user = userEvent.setup();
+    const { getAllByRole, getByRole, getByText } = render(<AgentCode />);
+    await user.click(getAllByRole('button', { name: /^Comment on / })[0]);
+    await user.type(getAllByRole('textbox', { name: /^Comment on line/ })[0], 'Kept on reopening');
+    await user.click(getAllByRole('button', { name: /^Comment$/ })[0]);
+    expect(getByText('Kept on reopening')).toBeInTheDocument();
+    await user.click(getByRole('button', { name: 'Close pane' }));
+    expect(getByText('Kept on reopening')).not.toBeVisible();
+    await user.click(getByRole('button', { name: 'Open pane' }));
+    expect(getByText('Kept on reopening')).toBeVisible();
   });
 });
 
