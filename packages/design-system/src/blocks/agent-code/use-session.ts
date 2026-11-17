@@ -173,7 +173,7 @@ export function useSession({
     running,
     /** Something on the page waits for you: its way out is the filled button, so Send steps back. */
     awaiting,
-    /** The newest turn was stopped: what it was in the middle of. */
+    /** The turn last played (an earlier one too) was stopped: what it was in the middle of. */
     stopped: cut && { activity: playTurn(cut, cut.stoppedAt ?? 0).activity },
     /** The messages waiting their turn, in the order they go out. */
     queue,
