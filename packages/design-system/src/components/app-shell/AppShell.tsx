@@ -2,13 +2,26 @@ import * as React from 'react';
 import { cn } from 'src/lib/utils';
 
 import { AppShellContext } from './AppShell.context';
-import type { AppShellProps, AppShellWithSubComponents } from './AppShell.types';
+import type {
+  AppShellProps,
+  AppShellSidebarState,
+  AppShellWithSubComponents,
+} from './AppShell.types';
 import { appShellVariants } from './AppShell.variants';
 import { AppShellMain } from './AppShellMain';
+import { AppShellPageBar } from './AppShellPageBar';
+import { AppShellPageBarActions } from './AppShellPageBarActions';
+import { AppShellSidebarTrigger } from './AppShellSidebarTrigger';
 
 const AppShell = React.forwardRef<HTMLDivElement, AppShellProps>(
   ({ direction = 'inset', className, children, ...props }, ref) => {
-    const contextValue = React.useMemo(() => ({ direction }), [direction]);
+    // The `Sidebar` inside owns its collapsed state and reports it here, so a trigger in the page
+    // (`AppShell.SidebarTrigger`) can toggle it from outside the sidebar.
+    const [sidebar, registerSidebar] = React.useState<AppShellSidebarState | null>(null);
+    const contextValue = React.useMemo(
+      () => ({ direction, sidebar, registerSidebar }),
+      [direction, sidebar],
+    );
 
     return (
       <AppShellContext.Provider value={contextValue}>
@@ -28,5 +41,8 @@ const AppShell = React.forwardRef<HTMLDivElement, AppShellProps>(
 
 AppShell.displayName = 'AppShell';
 AppShell.Main = AppShellMain;
+AppShell.PageBar = AppShellPageBar;
+AppShell.PageBarActions = AppShellPageBarActions;
+AppShell.SidebarTrigger = AppShellSidebarTrigger;
 
 export { AppShell };

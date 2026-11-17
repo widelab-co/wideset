@@ -38,7 +38,12 @@
 
 - `AppShell` fills the window (`h-dvh`). Inside a bounded preview, pass a height through
   `className` (`h-[24rem]`).
-- `AppShell.Main` throws outside an `AppShell`.
+- `AppShell.Main`, `AppShell.PageBar` and `AppShell.SidebarTrigger` throw outside an `AppShell`.
+- `AppShell.SidebarTrigger` needs a `Sidebar` in the same `AppShell`; without one it does nothing.
+- `AppShell.PageBar` sticks to the top of `AppShell.Main`. When the content under it scrolls by
+  itself (`min-h-0 flex-1` with its own overflow), the bar simply stays above it.
+- On narrow screens the trigger still collapses the `Sidebar` to its rail; `Sidebar` has no drawer
+  mode (see `foundations/responsive.md`).
 - In `inset` the page scrolls inside the card, so its corners stay put; a calendar or board that
   manages its own scroll fills it with `min-h-0 flex-1`.
 - `canvas` leaves the page grey. Put the content in white sections; a bordered `Card` on the grey
