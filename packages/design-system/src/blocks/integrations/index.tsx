@@ -138,7 +138,7 @@ export default function Integrations({ direction = 'flat' }: { direction?: Direc
             <Tabs
               value={category}
               onValueChange={(value) => setCategory(value as Filter)}
-              className="overflow-x-auto"
+              className="[scrollbar-width:none] overflow-x-auto"
             >
               <Tabs.List aria-label="Categories" className="min-w-full">
                 {CATEGORIES.map((entry) => (
