@@ -62,11 +62,15 @@ export function SessionsTable({
         size="md"
         placement="top"
         selectionMode={ids.length > 0 ? 'multiple' : undefined}
-        className={cn('table-fixed', IN_CARD)}
+        // TODO(library): Table puts tabIndex={-1} on its <table>, so a click on a row focuses the
+        // table, and the next key press draws the browser's focus ring around the whole list. The
+        // table is never reached with the keyboard, so it takes no outline.
+        className={cn('table-fixed outline-none', IN_CARD)}
       >
         <Table.Head>
           <Table.Row>
-            <Table.Header className="w-[3.25rem]">
+            {/* The card's inset, the box and the cell's own padding: 20 + 20 + 16. */}
+            <Table.Header className="w-[3.5rem]">
               <Checkbox
                 aria-label="Select all sessions"
                 disabled={ids.length === 0}
