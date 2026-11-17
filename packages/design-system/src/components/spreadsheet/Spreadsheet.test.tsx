@@ -877,6 +877,59 @@ describe('Spreadsheet', () => {
       expect(screen.getByRole('button', { name: 'After' })).toHaveFocus();
     });
 
+    it('moves with Shift+Tab from a control that is not a tab stop to the one before it', async () => {
+      const user = userEvent.setup();
+      render(
+        <Spreadsheet aria-label="Clients">
+          <Spreadsheet.Body>
+            <Spreadsheet.Row>
+              <Spreadsheet.Cell>
+                <input aria-label="Search" />
+                <button type="button" tabIndex={-1}>
+                  Clear
+                </button>
+              </Spreadsheet.Cell>
+            </Spreadsheet.Row>
+          </Spreadsheet.Body>
+        </Spreadsheet>,
+      );
+      await user.click(screen.getByRole('button', { name: 'Clear' }));
+      await user.tab({ shift: true });
+      expect(screen.getByRole('textbox', { name: 'Search' })).toHaveFocus();
+    });
+
+    it('moves with Tab from a control that is not a tab stop to the ones after it', async () => {
+      const user = userEvent.setup();
+      render(
+        <>
+          <Spreadsheet aria-label="Contacts">
+            <Spreadsheet.Body>
+              <Spreadsheet.Row>
+                <Spreadsheet.Cell>
+                  <button type="button" tabIndex={-1}>
+                    Pin
+                  </button>
+                  <input aria-label="First name" />
+                  <input aria-label="Last name" />
+                </Spreadsheet.Cell>
+              </Spreadsheet.Row>
+            </Spreadsheet.Body>
+          </Spreadsheet>
+          <button type="button">After</button>
+        </>,
+      );
+      await user.click(screen.getByRole('gridcell'));
+      // Enter reaches the first control that takes focus, a tab stop or not.
+      await user.keyboard('{Enter}');
+      expect(screen.getByRole('button', { name: 'Pin' })).toHaveFocus();
+      await user.tab();
+      expect(screen.getByRole('textbox', { name: 'First name' })).toHaveFocus();
+      await user.tab();
+      expect(screen.getByRole('textbox', { name: 'Last name' })).toHaveFocus();
+      await user.tab();
+      expect(screen.getByRole('button', { name: 'After' })).toHaveFocus();
+    });
+
     it('skips a control in the cell that does not take focus when tabbing within it', () => {
       render(
         <Spreadsheet aria-label="Contacts">

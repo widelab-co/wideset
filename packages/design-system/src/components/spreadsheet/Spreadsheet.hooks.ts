@@ -323,19 +323,20 @@ export const useSpreadsheetKeyboard = (
       // From the cell the browser's Tab leaves the grid: nothing else in it is a tab stop.
       if (target === cell) return;
       // From a control, Tab and Shift+Tab first move between the controls of the same cell,
-      // skipping those that do not take focus (hidden ones).
-      const controls = tabbables(cell);
-      const index = controls.indexOf(target);
+      // skipping those that do not take focus (hidden ones). The next one is found by document
+      // position, so a focused control that is not a tab stop itself (Enter reaches it, or a
+      // click) still moves to its neighbours.
+      const controls = tabbables(cell).filter((control) => control !== target);
+      const before = (control: HTMLElement) =>
+        Boolean(control.compareDocumentPosition(target) & Node.DOCUMENT_POSITION_FOLLOWING);
       const after = event.shiftKey
-        ? controls.slice(0, Math.max(index, 0)).reverse()
-        : controls.slice(index + 1);
-      if (index !== -1) {
-        for (const control of after) {
-          control.focus();
-          if (table.ownerDocument.activeElement === control) {
-            event.preventDefault();
-            return;
-          }
+        ? controls.filter(before).reverse()
+        : controls.filter((control) => !before(control));
+      for (const control of after) {
+        control.focus();
+        if (table.ownerDocument.activeElement === control) {
+          event.preventDefault();
+          return;
         }
       }
       // Past the first control Shift+Tab would stop on the cell, which comes before its
