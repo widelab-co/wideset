@@ -1,5 +1,5 @@
 import { useComposedRefs } from '@radix-ui/react-compose-refs';
-import * as ToggleGroup from '@radix-ui/react-toggle-group';
+import * as RadioGroup from '@radix-ui/react-radio-group';
 import React, { Children, Fragment, isValidElement, useEffect, useRef } from 'react';
 import { cn } from 'src/lib/utils';
 
@@ -98,7 +98,7 @@ const SegmentedControlItem = React.forwardRef<HTMLButtonElement, SegmentedContro
     });
 
     return (
-      <ToggleGroup.Item
+      <RadioGroup.Item
         ref={composedRef}
         className={cn(
           segmentedControlItemVariants({ size, variant, iconOnly }),
@@ -117,7 +117,7 @@ const SegmentedControlItem = React.forwardRef<HTMLButtonElement, SegmentedContro
           />
         )}
         {children}
-      </ToggleGroup.Item>
+      </RadioGroup.Item>
     );
   },
 );
