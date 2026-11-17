@@ -11,27 +11,38 @@ const SIZE = {
   lg: { root: 'gap-ws-9', text: 'typography-body-lg', heading: 'typography-subtitle-xs mt-ws-7' },
 };
 
+/** The elements of a title and of a heading, which sits one level under it. */
+const LEVEL = { 2: ['h2', 'h3'], 3: ['h3', 'h4'] } as const;
+
+type ProseProps = {
+  blocks: ProseBlock[];
+  size?: 'md' | 'lg';
+  /** The level of a title: 2 in the transcript, 3 in a pane under the pane's own heading. */
+  level?: keyof typeof LEVEL;
+};
+
 /**
  * Written text as its blocks, in order. A partly streamed text is the same blocks cut short, so
  * it grows in place: a paragraph by its words, a list by its items, code by its lines.
  */
-export function Prose({ blocks, size = 'md' }: { blocks: ProseBlock[]; size?: 'md' | 'lg' }) {
+export function Prose({ blocks, size = 'md', level = 2 }: ProseProps) {
   const { root, text, heading } = SIZE[size];
+  const [Title, Heading] = LEVEL[level];
   return (
     <div className={cn('text-ws-static-base flex flex-col', root)}>
       {blocks.map((block, index) => {
         switch (block.kind) {
           case 'title':
             return (
-              <h1 key={index} className="typography-title-sm text-ws-static-strong">
+              <Title key={index} className="typography-title-sm text-ws-static-strong">
                 {block.text}
-              </h1>
+              </Title>
             );
           case 'heading':
             return (
-              <h2 key={index} className={cn(heading, 'text-ws-static-strong')}>
+              <Heading key={index} className={cn(heading, 'text-ws-static-strong')}>
                 {block.text}
-              </h2>
+              </Heading>
             );
           case 'paragraph':
             return (
