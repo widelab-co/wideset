@@ -311,3 +311,21 @@ export const conversations: Conversation[] = [
     ],
   ),
 ];
+
+export type Filter = 'all' | 'unread' | 'starred';
+
+/** What the list says when the filter leaves nothing. */
+export const EMPTY: Record<Filter, { title: string; description: string }> = {
+  all: {
+    title: 'Your inbox is empty',
+    description: 'New mail from your customers shows up here.',
+  },
+  unread: {
+    title: 'No unread conversations',
+    description: 'You have read everything in your inbox.',
+  },
+  starred: {
+    title: 'No starred conversations',
+    description: 'Star a conversation to find it here.',
+  },
+};

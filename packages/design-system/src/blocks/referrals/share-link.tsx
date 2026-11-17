@@ -33,8 +33,10 @@ export function ShareLink({
 
   const copy = () => {
     // The clipboard is missing on an insecure origin: the link can still be selected by hand.
-    void navigator.clipboard?.writeText(link).catch(() => {});
-    setCopied(true);
+    navigator.clipboard
+      ?.writeText(link)
+      .then(() => setCopied(true))
+      .catch(() => {});
   };
 
   return (

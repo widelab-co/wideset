@@ -73,15 +73,54 @@ export function locate(
   return undefined;
 }
 
+/** The steps of one sequence, if it still exists. */
+function sequenceOf(flow: Step[], key: SequenceKey, own: SequenceKey = 'root'): Step[] | undefined {
+  if (own === key) return flow;
+  for (const step of flow) {
+    if (step.kind !== 'condition') continue;
+    const found =
+      sequenceOf(step.yes ?? [], key, `${step.id}:yes`) ??
+      sequenceOf(step.no ?? [], key, `${step.id}:no`);
+    if (found) return found;
+  }
+  return undefined;
+}
+
+const endsInCondition = (sequence: Step[]) => sequence.at(-1)?.kind === 'condition';
+
 /**
- * Puts a removed step back as it was, branches and all, at `index` of its sequence; at the end of
- * the main line when that sequence is gone (its condition was deleted since).
+ * Where `step` can go back into `sequence`, near `index`, keeping a condition last: a step lands
+ * before a condition that now ends the sequence; a condition lands at the end, or nowhere when
+ * another condition ends it.
+ */
+function slotIn(sequence: Step[], index: number, step: Step): number | undefined {
+  if (step.kind === 'condition') return endsInCondition(sequence) ? undefined : sequence.length;
+  const at = Math.min(index, sequence.length);
+  return endsInCondition(sequence) ? Math.min(at, sequence.length - 1) : at;
+}
+
+/**
+ * Puts a removed step back as it was, branches and all, near `index` of its sequence, against the
+ * tree as it is now. When that sequence is gone (its condition was deleted since) or cannot take
+ * it, the step goes to the end of the main line; a condition follows the Yes branches down to the
+ * first line that does not already end in one.
  */
 export function restoreStep(flow: Step[], key: SequenceKey, index: number, step: Step): Step[] {
   const put = (into: SequenceKey, at: number) =>
     editSequence(flow, into, (sequence) => [...sequence.slice(0, at), step, ...sequence.slice(at)]);
-  const back = put(key, index);
-  return allSteps(back).some((item) => item.id === step.id) ? back : put('root', flow.length);
+
+  const own = sequenceOf(flow, key);
+  const there = own && slotIn(own, index, step);
+  if (there !== undefined) return put(key, there);
+
+  let line: SequenceKey = 'root';
+  let sequence = flow;
+  while (step.kind === 'condition' && endsInCondition(sequence)) {
+    const last = sequence[sequence.length - 1];
+    line = `${last.id}:yes`;
+    sequence = last.yes ?? [];
+  }
+  return put(line, slotIn(sequence, sequence.length, step) ?? sequence.length);
 }
 
 /** Takes a step out, with everything on its branches when it is a condition. */

@@ -1,7 +1,7 @@
 // TODO(custom): photo upload (Change, Remove) composed by hand, and a helper line holding an action (HelperText is not exported and takes text only).
 import { RiCheckboxCircleFill } from '@remixicon/react';
 import { Avatar, Button, FormField, TextInput } from '@wideset/react';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 import { account, type AccountValues, type FieldErrors } from './data';
 import { SettingsSection } from './settings-section';
@@ -31,6 +31,12 @@ export function ProfileSection({
   onResend: () => void;
 }) {
   const fileInput = useRef<HTMLInputElement>(null);
+  // Object URLs made for picked files, released when the section goes.
+  const objectUrls = useRef<string[]>([]);
+  useEffect(() => {
+    const urls = objectUrls.current;
+    return () => urls.forEach((url) => URL.revokeObjectURL(url));
+  }, []);
   const editing = values.email !== confirmedEmail;
   const waiting = pendingEmail !== null && !editing && !errors.email;
 
@@ -76,7 +82,10 @@ export function ProfileSection({
               hidden
               onChange={(event) => {
                 const file = event.target.files?.[0];
-                if (file) onChange({ photo: URL.createObjectURL(file) });
+                if (!file) return;
+                const url = URL.createObjectURL(file);
+                objectUrls.current.push(url);
+                onChange({ photo: url });
                 event.target.value = '';
               }}
             />
