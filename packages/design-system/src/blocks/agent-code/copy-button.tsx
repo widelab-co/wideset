@@ -50,14 +50,15 @@ export function CopyButton({
         iconClassName={cn(quiet && 'text-ws-static-subtle', copied && SWAP)}
         size={size}
         side={side}
-        onClick={() => {
-          // "Copied" only once the text is there: an insecure page, a denied permission or a test
-          // has no clipboard to write to, and the button then says the copy failed.
-          if (!navigator.clipboard) return setResult('failed');
-          navigator.clipboard.writeText(text()).then(
-            () => setResult('copied'),
-            () => setResult('failed'),
-          );
+        onClick={async () => {
+          // "Copied" only once the text is there: an insecure page, a denied permission, a test
+          // with no clipboard or a text that cannot be worked out says the copy failed instead.
+          try {
+            await navigator.clipboard.writeText(text());
+            setResult('copied');
+          } catch {
+            setResult('failed');
+          }
         }}
       />
       <span role="status" className="sr-only">

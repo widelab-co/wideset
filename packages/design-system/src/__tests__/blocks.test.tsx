@@ -221,6 +221,24 @@ describe('Agent code', () => {
   });
 });
 
+describe('Agent copy button', () => {
+  // A copy that cannot happen says so, whether the clipboard is missing or the text throws.
+  it('says the copy failed when the text cannot be worked out', async () => {
+    const { CopyButton } = await import('../blocks/agent-chat/copy-button');
+    const user = userEvent.setup();
+    const { getByRole } = render(
+      <CopyButton
+        label="Copy path"
+        text={() => {
+          throw new Error('No text');
+        }}
+      />,
+    );
+    await user.click(getByRole('button', { name: 'Copy path' }));
+    expect(getByRole('status')).toHaveTextContent('Copy failed');
+  });
+});
+
 describe('Agent session', () => {
   const asking = (...ids: string[]): AgentTurn => ({
     id: 'asking',
