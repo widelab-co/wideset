@@ -25,7 +25,7 @@ export function PageHeader({ title, status, description, children }: PageHeaderP
         <div className="gap-ws-5 flex min-w-0 items-center">
           <h1 className="typography-title-md text-ws-static-strong truncate">{title}</h1>
           {status && (
-            <StatusBadge color={status === 'active' ? 'positive' : 'neutral'}>
+            <StatusBadge size="lg" color={status === 'active' ? 'positive' : 'neutral'}>
               {status === 'active' ? 'Active' : 'Draft'}
             </StatusBadge>
           )}

@@ -23,17 +23,16 @@ type OrderHeaderProps = {
   status: string;
   /** Opens the refund dialog; left out once nothing is left to refund, which disables the button. */
   onRefund?: () => void;
-  /** While a dialog holds the filled button: Download invoice steps back to a bordered one. */
-  quiet?: boolean;
 };
 
 /**
- * The order's header: its number and status, who placed it and when, then what to do with it,
- * primary last. The badge carries the status's meaning: Shipped went out as it should (positive);
- * a refund is how the order ended, with nothing to signal (neutral). Refund is a secondary button: it takes money back, so it must not be the
- * loudest thing on the page. Once an order has shipped it can be refunded, not cancelled.
+ * The order's header: its number and status, who placed it and when, then what to do with it.
+ * The badge carries the status's meaning: Shipped went out as it should (positive); a refund is
+ * how the order ended, with nothing to signal (neutral). An order is a record to look up, with no
+ * main flow, so no button is filled: Download invoice and Refund are both bordered. Once an order
+ * has shipped it can be refunded, not cancelled.
  */
-export function OrderHeader({ status, onRefund, quiet }: OrderHeaderProps) {
+export function OrderHeader({ status, onRefund }: OrderHeaderProps) {
   return (
     <header className="gap-ws-12 flex flex-wrap items-center justify-between">
       <div className="gap-ws-2 flex min-w-0 flex-col">
@@ -84,11 +83,7 @@ export function OrderHeader({ status, onRefund, quiet }: OrderHeaderProps) {
           <Button.Icon icon={RiRefund2Line} />
           Refund
         </Button>
-        <Button
-          size="sm"
-          variant={quiet ? 'secondary' : 'primary'}
-          preset={quiet ? 'border' : 'filled'}
-        >
+        <Button variant="secondary" preset="border" size="sm">
           <Button.Icon icon={RiDownload2Line} />
           Download invoice
         </Button>

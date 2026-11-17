@@ -18,12 +18,13 @@ type TemplateCardProps = {
 /**
  * One template in the library: its drawn shape, its name and one line, who made it and how many
  * teams use it, in plain text. The name is the button that opens the detail, stretched over the
- * card so the whole card answers; on hover the card lifts a little. The bookmark sits above that
- * layer and saves without opening. A template already in the workspace carries a neutral Added.
+ * card so the whole card answers; on hover its border darkens (no shadow inside the page's
+ * card). The bookmark sits above that layer and saves without opening. A template already in the
+ * workspace carries a neutral Added.
  */
 export function TemplateCard({ template, saved, added, onOpen, onSaveChange }: TemplateCardProps) {
   return (
-    <article className="rounded-ws-container-md border-ws-static-base hover:border-ws-static-strong hover:shadow-ws-low relative flex w-full flex-col overflow-hidden border transition-shadow">
+    <article className="rounded-ws-container-md border-ws-static-base hover:border-ws-static-strong relative flex w-full flex-col overflow-hidden border transition-colors">
       <TemplatePreview kind={template.kind} className="border-ws-static-subtle border-b" />
       {added && (
         <StatusBadge size="sm" className="top-ws-5 left-ws-5 absolute">
