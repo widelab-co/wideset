@@ -101,6 +101,19 @@ describe('FieldLabel', () => {
       const suffix = screen.getByText('(EUR)');
       expect(asterisk.compareDocumentPosition(suffix)).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
     });
+
+    it('renders after the required asterisk when wrapped in a fragment', () => {
+      render(
+        <FieldLabel required>
+          <>
+            Amount <FieldLabel.Suffix>(EUR)</FieldLabel.Suffix>
+          </>
+        </FieldLabel>,
+      );
+      const asterisk = screen.getByText('*');
+      const suffix = screen.getByText('(EUR)');
+      expect(asterisk.compareDocumentPosition(suffix)).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+    });
   });
 
   describe('FieldLabel.Tooltip', () => {

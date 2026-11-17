@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { cn } from 'src/lib/utils';
 
-import { hasContent } from './FieldLabel.logic';
+import { flattenChildren, hasContent } from './FieldLabel.logic';
 import type { FieldLabelProps, FieldLabelWithSubComponents } from './FieldLabel.types';
 import { FieldLabelAside } from './FieldLabelAside';
 import { FieldLabelDescription } from './FieldLabelDescription';
@@ -23,7 +23,7 @@ export const FieldLabel = React.forwardRef<HTMLLabelElement, FieldLabelProps>(
     },
     ref,
   ) => {
-    const parts = React.Children.toArray(children);
+    const parts = flattenChildren(children);
     const isSuffix = (child: React.ReactNode) =>
       React.isValidElement(child) && child.type === FieldLabelSuffix;
     const suffixParts = parts.filter(isSuffix);
