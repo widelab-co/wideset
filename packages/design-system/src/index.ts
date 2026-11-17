@@ -29,6 +29,13 @@ export { ActionTileDescription } from './components/action-tile/ActionTileDescri
 export { ActionTileEntity } from './components/action-tile/ActionTileEntity';
 export { ActionTileIcon } from './components/action-tile/ActionTileIcon';
 export { ActionTileTitle } from './components/action-tile/ActionTileTitle';
+export { AppShell } from './components/app-shell/AppShell';
+export type {
+  AppShellDirection,
+  AppShellMainProps,
+  AppShellProps,
+} from './components/app-shell/AppShell.types';
+export { AppShellMain } from './components/app-shell/AppShellMain';
 export { Avatar } from './components/avatar/Avatar';
 export type { AvatarColor } from './components/avatar/Avatar.colors';
 export type {
@@ -198,6 +205,12 @@ export { FilterButton } from './components/filter-button/FilterButton';
 export type { FilterButtonProps } from './components/filter-button/FilterButton.types';
 export { FormField } from './components/form-field/FormField';
 export type { FormFieldProps } from './components/form-field/FormField.types';
+export { Illustration } from './components/illustration/Illustration';
+export type {
+  IllustrationName,
+  IllustrationProps,
+  IllustrationSize,
+} from './components/illustration/Illustration.types';
 export { InlineAlert } from './components/inline-alert/InlineAlert';
 export { useInlineAlert } from './components/inline-alert/InlineAlert.hooks';
 export type {
@@ -418,6 +431,28 @@ export { SidepanelTitle } from './components/sidepanel/SidepanelTitle';
 export { Slider } from './components/slider/Slider';
 export type { SliderLabelProps, SliderProps } from './components/slider/Slider.types';
 export { SliderLabel } from './components/slider/SliderLabel';
+export { Spreadsheet } from './components/spreadsheet/Spreadsheet';
+export type {
+  SpreadsheetAlign,
+  SpreadsheetBodyProps,
+  SpreadsheetCellProps,
+  SpreadsheetColumnHeaderIconProps,
+  SpreadsheetColumnHeaderProps,
+  SpreadsheetColumnHeaderTriggerProps,
+  SpreadsheetHeadProps,
+  SpreadsheetProps,
+  SpreadsheetRowHeaderProps,
+  SpreadsheetRowProps,
+  SpreadsheetSize,
+} from './components/spreadsheet/Spreadsheet.types';
+export { SpreadsheetBody } from './components/spreadsheet/SpreadsheetBody';
+export { SpreadsheetCell } from './components/spreadsheet/SpreadsheetCell';
+export { SpreadsheetColumnHeader } from './components/spreadsheet/SpreadsheetColumnHeader';
+export { SpreadsheetColumnHeaderIcon } from './components/spreadsheet/SpreadsheetColumnHeaderIcon';
+export { SpreadsheetColumnHeaderTrigger } from './components/spreadsheet/SpreadsheetColumnHeaderTrigger';
+export { SpreadsheetHead } from './components/spreadsheet/SpreadsheetHead';
+export { SpreadsheetRow } from './components/spreadsheet/SpreadsheetRow';
+export { SpreadsheetRowHeader } from './components/spreadsheet/SpreadsheetRowHeader';
 export { StatusBadge } from './components/status-badge/StatusBadge';
 export type {
   StatusBadgeIconProps,

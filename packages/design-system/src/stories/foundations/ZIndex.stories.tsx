@@ -176,7 +176,7 @@ function ZIndexPage() {
   return (
     <div className="gap-ws-9 flex max-w-[60rem] flex-col">
       <section>
-        <h2 className="typography-subtitle-lg text-ws-static-strong">Bands</h2>
+        <h2 className="typography-subtitle-xs text-ws-static-strong">Bands</h2>
         <p className="typography-body-sm text-ws-static-subtle">
           Each token is a range, not an exact step. A one-off element can sit inside a band with an
           arbitrary value (<Code>z-[calc(var(--ws-z-index-sticky)+1)]</Code>) as long as it stays
@@ -187,7 +187,7 @@ function ZIndexPage() {
       </section>
       <BandsTable />
       <section>
-        <h2 className="typography-subtitle-lg text-ws-static-strong">Stacking order</h2>
+        <h2 className="typography-subtitle-xs text-ws-static-strong">Stacking order</h2>
         <p className="typography-body-sm text-ws-static-subtle mb-ws-6">
           Later bands paint over earlier ones regardless of DOM order. Override a band for a whole
           app in <Code>:root</Code> (<Code>{'--ws-z-index-sticky: 400;'}</Code>), and keep it below

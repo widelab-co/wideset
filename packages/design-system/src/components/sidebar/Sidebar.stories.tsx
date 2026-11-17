@@ -22,6 +22,8 @@ import GroupsExample from './examples/sidebar/groups';
 import groupsSource from './examples/sidebar/groups?raw';
 import StatesExample from './examples/sidebar/states';
 import statesSource from './examples/sidebar/states?raw';
+import SuffixesExample from './examples/sidebar/suffixes';
+import suffixesSource from './examples/sidebar/suffixes?raw';
 import { Sidebar } from './Sidebar';
 import { SidebarItem } from './SidebarItem';
 import { SidebarSection } from './SidebarSection';
@@ -108,6 +110,15 @@ Use Tabs to switch sections within a page and Breadcrumbs to show hierarchy.
         type: { summary: 'boolean' },
       },
     },
+    surface: {
+      control: 'radio',
+      options: ['page', 'tinted', 'frame'],
+      table: {
+        category: 'Appearance',
+        type: { summary: "'page' | 'tinted' | 'frame'" },
+        defaultValue: { summary: "the AppShell direction's surface, 'page' outside one" },
+      },
+    },
     onCollapsedChange: {
       control: false,
       table: {
@@ -190,6 +201,8 @@ export const Collapsed: Story = exampleStory(CollapsedExample, collapsedSource);
 export const Groups: Story = exampleStory(GroupsExample, groupsSource);
 
 export const States: Story = exampleStory(StatesExample, statesSource);
+
+export const Suffixes: Story = exampleStory(SuffixesExample, suffixesSource);
 
 export const Composition: Story = {
   parameters: {

@@ -39,8 +39,9 @@ const [preset, setPreset] = useState<keyof typeof dateRangePresetLabels>('thisMo
 - `onSelect` fires once the range is complete (the second click) or when a preset is picked, not on
   the first click.
 - A preset closes the popup; a hand-picked range leaves it open so the user can adjust it.
-- Preset ranges are worked out from today. Week presets start on Monday unless `weekStartsOn` is
-  set, while the calendar grid follows its own default; pass `weekStartsOn` so both agree.
+- Preset ranges are worked out from `today` (the current date unless the prop is set). Week
+  presets start on Monday unless `weekStartsOn` is set, while the calendar grid follows its own
+  default; pass `weekStartsOn` so both agree.
 - A controlled `activeDatePreset` other than `custom` wins over `selected` in the field's text.
 - Default display format differs from `DatePicker` (`MM/dd/yy` vs `MM.dd.yyyy`); set `dateFormat`
   on both when they appear together.

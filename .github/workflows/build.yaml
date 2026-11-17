@@ -244,7 +244,8 @@ jobs:
           if [ "$APP" = docs ]; then
             [ "$MODE" = production ] && URL=https://wideset.co
             checks="$URL/r/registry.json|application/json $URL/docs/introduction|text/html
-              $URL/components/button.md|text/markdown $URL/_docs/favicon.png|image/png
+              $URL/components/button.md|text/markdown $URL/blocks.md|text/markdown
+              $URL/_docs/favicon.png|image/png
               $URL/llms.txt|text/plain $URL/llms-full.txt|text/plain
               $URL/.well-known/agent-skills/index.json|application/json"
           else

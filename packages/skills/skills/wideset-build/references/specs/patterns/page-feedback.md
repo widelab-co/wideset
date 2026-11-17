@@ -69,7 +69,7 @@ export function ImportPage({
       </SystemAlert>
 
       <section className="gap-ws-9 flex flex-col">
-        <h2 className="typography-subtitle-sm text-ws-static-strong">Import contacts</h2>
+        <h2 className="typography-subtitle-xs text-ws-static-strong">Import contacts</h2>
         {failedRows > 0 && (
           <InlineAlert
             status="warning"

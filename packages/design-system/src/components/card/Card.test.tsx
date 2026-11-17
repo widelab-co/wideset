@@ -252,7 +252,7 @@ describe('Card.Title', () => {
     );
     const heading = screen.getByRole('heading', { name: 'Weekly report', level: 2 });
     expect(heading).toHaveAttribute('data-slot', 'card-title');
-    expect(heading).toHaveClass('typography-subtitle-sm', 'custom');
+    expect(heading).toHaveClass('typography-subtitle-xs', 'custom');
   });
 });
 

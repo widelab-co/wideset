@@ -72,7 +72,8 @@ only data that needs the width gets it.
 | Detail page (record view)        | main column `max-w-[48rem]`, optional side column 20rem |
 | Dashboard, overview              | `max-w-[80rem] mx-auto w-full`                          |
 | List, table, board               | full width of the main area                             |
-| Sign-in, empty first-run, result | centred card or column, `max-w-[28rem]`                 |
+| Sign-in, sign-up                 | centred card `max-w-[38.75rem]` (the auth pattern)      |
+| Empty first-run, result          | centred column, `max-w-[28rem]`                         |
 | Reading (docs, terms)            | `max-w-[40rem]`                                         |
 | Side rail or aside beside a page | `w-[20rem]` (never under 18rem), padded `p-ws-12`       |
 

@@ -15,7 +15,7 @@ parts:
     SidebarItem,
     SidebarTrigger,
   ]
-related: [Tabs, Breadcrumbs, Sidepanel]
+related: [AppShell, Tabs, Breadcrumbs, Sidepanel]
 docs: https://wideset.co/components/sidebar
 storybook: components-sidebar--default
 ---
@@ -26,7 +26,9 @@ storybook: components-sidebar--default
 
 ## When to use
 
-- The persistent left-hand navigation of an application shell, between product areas.
+- The persistent left-hand navigation of an application shell, between product areas. Put it in
+  an `AppShell`: the sidebar then takes the surface of the app's direction (white with a line,
+  grey tint, or the bare grey frame) without any prop. `surface` overrides it.
 - When the layout needs both a labelled view and a compact icon-only view.
 
 ## When not to use
@@ -67,15 +69,17 @@ The root fills its parent's height; place it in a full-height flex row next to t
 
 ## Choosing props
 
-| Prop               | Value                         | Use for                                                         |
-| ------------------ | ----------------------------- | --------------------------------------------------------------- |
-| `defaultCollapsed` | boolean                       | Start collapsed, sidebar owns the state.                        |
-| `collapsed`        | boolean + `onCollapsedChange` | You own the state (persisted preference, responsive rules).     |
-| `scrollable`       | on `Sidebar.Section`          | The one section that takes the remaining height and scrolls.    |
-| `icon` / `label`   | on `Sidebar.Item`             | Remix icon component and visible label; both, always.           |
-| `active`           | on `Sidebar.Item`             | The current page; one per sidebar.                              |
-| `disabled`         | on `Sidebar.Item`             | A page the user's plan or role does not include yet.            |
-| `asChild`          | on `Sidebar.Item`             | Render as a router `Link`; icon and label are injected into it. |
+| Prop               | Value                         | Use for                                                                                  |
+| ------------------ | ----------------------------- | ---------------------------------------------------------------------------------------- |
+| `defaultCollapsed` | boolean                       | Start collapsed, sidebar owns the state.                                                 |
+| `collapsed`        | boolean + `onCollapsedChange` | You own the state (persisted preference, responsive rules).                              |
+| `surface`          | `page`, `tinted`, `frame`     | Only outside an `AppShell`, or to override its direction.                                |
+| `suffixOnHover`    | on `Sidebar.Item`             | A keyboard shortcut in `suffix`: shown on hover and keyboard focus only, its space kept. |
+| `scrollable`       | on `Sidebar.Section`          | The one section that takes the remaining height and scrolls.                             |
+| `icon` / `label`   | on `Sidebar.Item`             | Remix icon component and visible label; both, always.                                    |
+| `active`           | on `Sidebar.Item`             | The current page; one per sidebar.                                                       |
+| `disabled`         | on `Sidebar.Item`             | A page the user's plan or role does not include yet.                                     |
+| `asChild`          | on `Sidebar.Item`             | Render as a router `Link`; icon and label are injected into it.                          |
 
 ## States
 
@@ -98,6 +102,16 @@ The root fills its parent's height; place it in a full-height flex row next to t
   guide line or add margins to build a tree.
 - Section headers are one or two words; collapsed, the rail cuts them to their first letters
   ("P…"), so put the distinguishing word first.
+- Everything on the right of the sidebar ends on one edge: suffixes, a section's "+", the
+  arrows in the header and the footer. An absolutely placed button misses the edge.
+- Every icon button in the sidebar is the same `IconButton size="xs"` (secondary, ghost), on the
+  right edge above: the header's switcher arrow and a section's "+" then read as one family, with
+  the same hover box. A bigger arrow beside a smaller "+" looks like two different controls.
+- A keyboard shortcut (`⌘1`) is a hint: put it in `suffix` with `suffixOnHover`, so it shows on
+  hover and keyboard focus and the column stays quiet. Counts and badges stay visible.
+- A line across the sidebar (above the account, between groups): on `page` it may run edge to
+  edge, where it meets the sidebar's own right line; on `frame` it keeps the nav's inset, because
+  edge to edge it stops short of the page and reads as broken.
 - Prefer hiding a page the user will never reach over showing it disabled.
 
 ## Accessibility
@@ -152,6 +166,18 @@ The root fills its parent's height; place it in a full-height flex row next to t
 
 // Do: one tree
 <Sidebar.Section>{nav}</Sidebar.Section>
+
+// Do: a section's one "+" ends the header row, a shortcut shows on hover
+<div className="flex items-end">
+  <Sidebar.SectionHeader id="shared" className="flex-1">Shared</Sidebar.SectionHeader>
+  <IconButton size="xs" preset="ghost" variant="secondary" icon={RiAddLine} aria-label="Add a shared page" className="mr-ws-3" />
+</div>
+<div role="group" aria-labelledby="shared" className="gap-ws-2 flex flex-col">
+  <Sidebar.Item href="/inbox" icon={RiInboxLine} label="Inbox" suffix="⌘1" suffixOnHover />
+</div>
+
+// Don't: a "+" laid over the header by hand; it lands off the suffixes' edge
+<div className="relative">…<IconButton className="absolute right-ws-0 top-ws-0" … /></div>
 ```
 
 ## Gotchas
@@ -166,6 +192,8 @@ The root fills its parent's height; place it in a full-height flex row next to t
 - `onCollapsedChange` fires in both modes; with `collapsed` set, nothing changes until you update it.
 - `Sidebar.Trigger` with `asChild` merges the toggle onto your own button.
 - Every part except `Sidebar.Header` throws outside `<Sidebar>`.
+- Restyling the sidebar's fill or line through `className` fights the surface classes; set
+  `AppShell direction` (or `surface`) instead.
 
 ## API
 
