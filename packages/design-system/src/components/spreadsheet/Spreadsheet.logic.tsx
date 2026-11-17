@@ -9,7 +9,16 @@ export const CELL_SELECTOR = `[${CELL_ATTRIBUTE}]`;
 
 /** What a click or `focus()` can reach: the cells, and the links and controls inside them. */
 const FOCUSABLE =
-  'a[href], button:not(:disabled), input:not(:disabled):not([type="hidden"]), select:not(:disabled), textarea:not(:disabled), [contenteditable="true"], [tabindex]';
+  'a[href], button:not(:disabled), input:not(:disabled):not([type="hidden"]), select:not(:disabled), textarea:not(:disabled), [contenteditable]:not([contenteditable="false"]), summary, iframe, audio[controls], video[controls], [tabindex]';
+
+/**
+ * What can be a tab stop, disabled or not, so that a control enabled later is already out of the
+ * tab order.
+ */
+const NATIVE_TAB_STOP =
+  'a[href], button, input:not([type="hidden"]), select, textarea, summary, iframe, audio[controls], video[controls]';
+const EDITABLE = '[contenteditable]:not([contenteditable="false"])';
+const TAB_STOP = `${NATIVE_TAB_STOP}, ${EDITABLE}, [tabindex]`;
 
 /**
  * Controls that do not use the arrow keys themselves: with focus on one, the arrows still move
@@ -36,8 +45,54 @@ export const focusFirstControl = (cell: HTMLElement) => {
   return null;
 };
 
-/** What Tab would stop on inside `root`, in document order. */
-export const tabbables = (root: HTMLElement) => focusables(root).filter((el) => el.tabIndex >= 0);
+/** The authored attribute, including its absence, before the grid writes its own -1. */
+const ownTabIndex = new WeakMap<HTMLElement, string | null>();
+
+const controlTabIndex = (element: HTMLElement) => {
+  const attribute = ownTabIndex.has(element)
+    ? ownTabIndex.get(element)!
+    : element.getAttribute('tabindex');
+  const explicit = attribute === null ? NaN : parseInt(attribute, 10);
+  if (!Number.isNaN(explicit)) return explicit;
+  if (element.matches(NATIVE_TAB_STOP)) return 0;
+  // An editable host participates in Tab even though its tabIndex getter can return -1.
+  // Nested editable elements need an explicit tabindex to participate.
+  const editableParent = element.parentElement?.closest('[contenteditable]');
+  return element.matches(EDITABLE) &&
+    (!editableParent || editableParent.getAttribute('contenteditable') === 'false')
+    ? 0
+    : -1;
+};
+
+/**
+ * Takes `element` out of the tab order when it is a tab stop inside a cell (the APG grid pattern).
+ * The active cell is then the grid's one tab stop: the browser's Tab leaves the grid without
+ * stopping on a control, and the controls are reached with Enter or F2. The element's own tab
+ * index is kept for Tab between the controls of one cell.
+ */
+export const removeFromTabOrder = (element: Element, tabIndexChanged = false) => {
+  if (
+    !(element instanceof HTMLElement) ||
+    element.hasAttribute(CELL_ATTRIBUTE) ||
+    !element.matches(TAB_STOP) ||
+    !element.parentElement?.closest(CELL_SELECTOR)
+  )
+    return;
+  if (tabIndexChanged || !ownTabIndex.has(element))
+    ownTabIndex.set(element, element.getAttribute('tabindex'));
+  if (controlTabIndex(element) >= 0 && element.getAttribute('tabindex') !== '-1')
+    element.tabIndex = -1;
+};
+
+/** Takes every tab stop in the cells under `root` (and `root` itself) out of the tab order. */
+export const removeAllFromTabOrder = (root: Element) => {
+  removeFromTabOrder(root);
+  root.querySelectorAll(TAB_STOP).forEach((element) => removeFromTabOrder(element));
+};
+
+/** What Tab stops on inside a cell, by the controls' own tab index, in document order. */
+export const tabbables = (cell: HTMLElement) =>
+  focusables(cell).filter((el) => controlTabIndex(el) >= 0);
 
 export const usesArrowKeys = (element: HTMLElement) => !element.matches(ARROW_FREE);
 

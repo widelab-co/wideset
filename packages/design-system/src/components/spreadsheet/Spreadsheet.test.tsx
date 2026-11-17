@@ -1,10 +1,11 @@
 import { RiHashtag } from '@remixicon/react';
-import { act, fireEvent, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { createRef } from 'react';
+import { createRef, type ReactNode } from 'react';
 import { describe, expect, it, vi } from 'vitest';
 
 import { Checkbox } from '../checkbox/Checkbox';
+import { SegmentedControl } from '../segmented-control/SegmentedControl';
 import { Spreadsheet } from './Spreadsheet';
 import type { SpreadsheetProps } from './Spreadsheet.types';
 
@@ -474,6 +475,176 @@ describe('Spreadsheet', () => {
   });
 
   describe('Controls in cells', () => {
+    const OneCell = ({ children }: { children: ReactNode }) => (
+      <>
+        <button type="button">Before</button>
+        <Spreadsheet aria-label="Contacts">
+          <Spreadsheet.Body>
+            <Spreadsheet.Row>
+              <Spreadsheet.Cell>{children}</Spreadsheet.Cell>
+            </Spreadsheet.Row>
+          </Spreadsheet.Body>
+        </Spreadsheet>
+        <button type="button">After</button>
+      </>
+    );
+
+    it('leaves an editable host out of the native tab order', async () => {
+      const user = userEvent.setup();
+      render(
+        <OneCell>
+          <div contentEditable suppressContentEditableWarning role="textbox" aria-label="Notes">
+            Text
+          </div>
+        </OneCell>,
+      );
+      await user.click(screen.getByRole('gridcell'));
+      await user.tab();
+      expect(screen.getByRole('button', { name: 'After' })).toHaveFocus();
+    });
+
+    it.each(['{Enter}', '{F2}'])(
+      'enters an editable host with %s and tabs between its peers',
+      async (key) => {
+        const user = userEvent.setup();
+        render(
+          <OneCell>
+            <div contentEditable suppressContentEditableWarning role="textbox" aria-label="Notes">
+              Text
+            </div>
+            <input aria-label="Last" />
+          </OneCell>,
+        );
+        await user.click(screen.getByRole('gridcell'));
+        await user.keyboard(key);
+        expect(screen.getByRole('textbox', { name: 'Notes' })).toHaveFocus();
+        await user.tab();
+        expect(screen.getByRole('textbox', { name: 'Last' })).toHaveFocus();
+        await user.tab({ shift: true });
+        expect(screen.getByRole('textbox', { name: 'Notes' })).toHaveFocus();
+        await user.tab();
+        await user.tab();
+        expect(screen.getByRole('button', { name: 'After' })).toHaveFocus();
+      },
+    );
+
+    it('preserves an explicitly excluded editable host during navigation within a cell', async () => {
+      const user = userEvent.setup();
+      render(
+        <OneCell>
+          <input aria-label="First" />
+          <div
+            contentEditable
+            tabIndex={-1}
+            suppressContentEditableWarning
+            role="textbox"
+            aria-label="Notes"
+          >
+            Text
+          </div>
+        </OneCell>,
+      );
+      await user.click(screen.getByRole('textbox', { name: 'First' }));
+      await user.tab();
+      expect(screen.getByRole('button', { name: 'After' })).toHaveFocus();
+    });
+
+    it('takes an existing hidden input out of the tab order when its type becomes text', async () => {
+      const user = userEvent.setup();
+      const notes = (hidden: boolean) => (
+        <OneCell>
+          <input aria-label="Notes" type={hidden ? 'hidden' : 'text'} />
+        </OneCell>
+      );
+      const { rerender } = render(notes(true));
+      const input = screen.getByLabelText('Notes');
+      rerender(notes(false));
+      await act(async () => {});
+      expect(screen.getByRole('textbox', { name: 'Notes' })).toBe(input);
+      await user.click(screen.getByRole('gridcell'));
+      await user.tab();
+      expect(screen.getByRole('button', { name: 'After' })).toHaveFocus();
+    });
+
+    it.each(['audio', 'video'] as const)(
+      'takes %s out of the tab order when controls are enabled',
+      async (tag) => {
+        const Media = tag;
+        const notes = (controls: boolean) => (
+          <OneCell>
+            <Media controls={controls} aria-label="Recording" />
+          </OneCell>
+        );
+        const { rerender } = render(notes(false));
+        rerender(notes(true));
+        await act(async () => {});
+        expect(screen.getByLabelText('Recording')).toHaveAttribute('tabindex', '-1');
+      },
+    );
+
+    it.each([
+      [0, -1, 'After'],
+      [-1, 0, 'Second'],
+    ] as const)(
+      'respects a control changing its own tabindex from %s to %s',
+      async (initial, next, destination) => {
+        const user = userEvent.setup();
+        const notes = (tabIndex: number) => (
+          <OneCell>
+            <input aria-label="First" />
+            <input aria-label="Second" tabIndex={tabIndex} />
+          </OneCell>
+        );
+        const { rerender } = render(notes(initial));
+        rerender(notes(next));
+        await act(async () => {});
+        await user.click(screen.getByRole('textbox', { name: 'First' }));
+        await user.tab();
+        expect(
+          screen.getByRole(destination === 'After' ? 'button' : 'textbox', { name: destination }),
+        ).toHaveFocus();
+      },
+    );
+
+    it('respects the last authored tabindex when mutations arrive in one batch', async () => {
+      const user = userEvent.setup();
+      render(
+        <OneCell>
+          <input aria-label="First" />
+          <input aria-label="Second" />
+        </OneCell>,
+      );
+      const second = screen.getByRole('textbox', { name: 'Second' });
+      await act(async () => {
+        second.tabIndex = 0;
+        second.tabIndex = -1;
+      });
+      await user.click(screen.getByRole('textbox', { name: 'First' }));
+      await user.tab();
+      expect(screen.getByRole('button', { name: 'After' })).toHaveFocus();
+    });
+
+    it('follows roving tabindex changes in a segmented control', async () => {
+      const user = userEvent.setup();
+      render(
+        <OneCell>
+          <input aria-label="First" />
+          <SegmentedControl defaultValue="list" aria-label="View">
+            <SegmentedControl.Item value="list">List</SegmentedControl.Item>
+            <SegmentedControl.Item value="board">Board</SegmentedControl.Item>
+          </SegmentedControl>
+          <input aria-label="Last" />
+        </OneCell>,
+      );
+      await user.click(screen.getByRole('radio', { name: 'List' }));
+      await user.keyboard('{ArrowRight}');
+      await waitFor(() => expect(screen.getByRole('radio', { name: 'Board' })).toHaveFocus());
+      await user.tab();
+      expect(screen.getByRole('textbox', { name: 'Last' })).toHaveFocus();
+      await user.tab({ shift: true });
+      expect(screen.getByRole('radio', { name: 'Board' })).toHaveFocus();
+    });
+
     const WithControls = () => (
       <>
         <button type="button">Before</button>
@@ -550,64 +721,160 @@ describe('Spreadsheet', () => {
       expect(input).toHaveFocus();
     });
 
-    it('is one tab stop: Tab from the grid hands focus to its last control', async () => {
-      // The browser's own Tab then continues from there, out of the grid; jsdom does not move
-      // focus on Tab, so this checks the hand-off (the real move is checked in a browser).
+    /** Every element in the grid that takes focus from now on. */
+    const recordFocus = () => {
+      const focused: Element[] = [];
+      screen
+        .getByRole('grid')
+        .addEventListener('focusin', (event) => focused.push(event.target as Element));
+      return focused;
+    };
+    const controls = () => [
+      screen.getByRole('checkbox', { name: 'Verified: Tech Nova' }),
+      screen.getByRole('textbox', { name: 'Notes: Tech Nova' }),
+      screen.getByRole('link', { name: 'ecosolutions.com' }),
+    ];
+
+    it('takes the controls in cells out of the tab order', () => {
+      render(<WithControls />);
+      controls().forEach((control) => expect(control).toHaveAttribute('tabindex', '-1'));
+      expect(screen.getByRole('grid').querySelectorAll('[tabindex="0"]')).toHaveLength(1);
+    });
+
+    it('is one tab stop: Tab leaves the grid without focusing a control', async () => {
       const user = userEvent.setup();
       render(<WithControls />);
       await user.click(screen.getByRole('button', { name: 'Before' }));
+      const focused = recordFocus();
       await user.tab();
       expect(cell('Tech Nova')).toHaveFocus();
-      fireEvent.keyDown(cell('Tech Nova'), { key: 'Tab' });
-      expect(screen.getByRole('link', { name: 'ecosolutions.com' })).toHaveFocus();
+      await user.tab();
+      expect(screen.getByRole('button', { name: 'After' })).toHaveFocus();
+      expect(focused).toEqual([cell('Tech Nova')]);
       expect(cell('Tech Nova')).toHaveAttribute('aria-selected', 'true');
+    });
+
+    it('leaves the grid with Shift+Tab without focusing a control', async () => {
+      const user = userEvent.setup();
+      render(<WithControls />);
+      await user.click(cell('Paid'));
+      const focused = recordFocus();
+      await user.tab({ shift: true });
+      expect(screen.getByRole('button', { name: 'Before' })).toHaveFocus();
+      expect(focused).toEqual([]);
     });
 
     it('returns to the cell the user left when tabbing back', async () => {
       const user = userEvent.setup();
       render(<WithControls />);
-      await user.click(cell('Paid'));
+      await user.click(cell('Tech Nova'));
       await user.tab();
       expect(screen.getByRole('button', { name: 'After' })).toHaveFocus();
+      const focused = recordFocus();
       await user.tab({ shift: true });
-      expect(cell('Paid')).toHaveFocus();
+      expect(cell('Tech Nova')).toHaveFocus();
+      expect(focused).toEqual([cell('Tech Nova')]);
     });
 
-    it('hands Shift+Tab to the first control in the grid', async () => {
+    it('leaves the grid from the last control in a cell with Tab', async () => {
       const user = userEvent.setup();
       render(<WithControls />);
-      await user.click(cell('Paid'));
-      fireEvent.keyDown(cell('Paid'), { key: 'Tab', shiftKey: true });
-      expect(screen.getByRole('checkbox', { name: 'Verified: Tech Nova' })).toHaveFocus();
-      expect(cell('Paid')).toHaveAttribute('aria-selected', 'true');
+      await user.click(screen.getByRole('textbox', { name: 'Notes: Tech Nova' }));
+      const focused = recordFocus();
+      await user.tab();
+      expect(screen.getByRole('button', { name: 'After' })).toHaveFocus();
+      expect(focused).toEqual([]);
     });
 
-    it('moves between the controls of one cell with Tab before leaving the grid', () => {
-      render(
-        <Spreadsheet aria-label="Contacts">
+    it('leaves the grid from the first control in a cell with Shift+Tab, not stopping on the cell', async () => {
+      const user = userEvent.setup();
+      render(<WithControls />);
+      const checkbox = screen.getByRole('checkbox', { name: 'Verified: Tech Nova' });
+      await user.click(checkbox);
+      const focused = recordFocus();
+      await user.tab({ shift: true });
+      expect(screen.getByRole('button', { name: 'Before' })).toHaveFocus();
+      expect(focused).toEqual([]);
+      // The cell is the tab stop again once focus has left, and the scroll container (out of the
+      // tab order meanwhile, as Chrome would stop on it) is as it was.
+      await act(() => new Promise((resolve) => setTimeout(resolve)));
+      expect(checkbox.closest('td')).toHaveAttribute('tabindex', '0');
+      expect(screen.getByRole('grid').parentElement).not.toHaveAttribute('tabindex');
+    });
+
+    it('keeps a control rendered later out of the tab order', async () => {
+      const Notes = ({ editing }: { editing: boolean }) => (
+        <Spreadsheet aria-label="Clients">
           <Spreadsheet.Body>
             <Spreadsheet.Row>
               <Spreadsheet.Cell>
-                <input aria-label="First name" />
-                <input aria-label="Last name" />
+                {editing ? <input aria-label="Notes" /> : 'Call back'}
               </Spreadsheet.Cell>
               <Spreadsheet.Cell>
-                <input aria-label="Email" />
+                <button type="button" disabled={!editing}>
+                  Save
+                </button>
               </Spreadsheet.Cell>
             </Spreadsheet.Row>
           </Spreadsheet.Body>
-        </Spreadsheet>,
+        </Spreadsheet>
       );
-      act(() => screen.getByRole('textbox', { name: 'First name' }).focus());
-      fireEvent.keyDown(screen.getByRole('textbox', { name: 'First name' }), { key: 'Tab' });
+      const { rerender } = render(<Notes editing={false} />);
+      rerender(<Notes editing />);
+      await act(async () => {});
+      expect(screen.getByRole('textbox', { name: 'Notes' })).toHaveAttribute('tabindex', '-1');
+      // A control enabled after the grid rendered stays out too.
+      expect(screen.getByRole('button', { name: 'Save' })).toHaveAttribute('tabindex', '-1');
+    });
+
+    it('takes a control out of the tab order again when a re-render puts it back', async () => {
+      const Action = ({ tabIndex }: { tabIndex: number }) => (
+        <Spreadsheet aria-label="Clients">
+          <Spreadsheet.Body>
+            <Spreadsheet.Row>
+              <Spreadsheet.Cell>
+                <span role="button" tabIndex={tabIndex}>
+                  Archive
+                </span>
+              </Spreadsheet.Cell>
+            </Spreadsheet.Row>
+          </Spreadsheet.Body>
+        </Spreadsheet>
+      );
+      const { rerender } = render(<Action tabIndex={-1} />);
+      rerender(<Action tabIndex={0} />);
+      await act(async () => {});
+      expect(screen.getByRole('button', { name: 'Archive' })).toHaveAttribute('tabindex', '-1');
+    });
+
+    it('moves between the controls of one cell with Tab before leaving the grid', async () => {
+      const user = userEvent.setup();
+      render(
+        <>
+          <Spreadsheet aria-label="Contacts">
+            <Spreadsheet.Body>
+              <Spreadsheet.Row>
+                <Spreadsheet.Cell>
+                  <input aria-label="First name" />
+                  <input aria-label="Last name" />
+                </Spreadsheet.Cell>
+                <Spreadsheet.Cell>
+                  <input aria-label="Email" />
+                </Spreadsheet.Cell>
+              </Spreadsheet.Row>
+            </Spreadsheet.Body>
+          </Spreadsheet>
+          <button type="button">After</button>
+        </>,
+      );
+      await user.click(screen.getByRole('textbox', { name: 'First name' }));
+      await user.tab();
       expect(screen.getByRole('textbox', { name: 'Last name' })).toHaveFocus();
-      fireEvent.keyDown(screen.getByRole('textbox', { name: 'Last name' }), {
-        key: 'Tab',
-        shiftKey: true,
-      });
+      await user.tab({ shift: true });
       expect(screen.getByRole('textbox', { name: 'First name' })).toHaveFocus();
-      fireEvent.keyDown(screen.getByRole('textbox', { name: 'Last name' }), { key: 'Tab' });
-      expect(screen.getByRole('textbox', { name: 'Email' })).toHaveFocus();
+      await user.tab();
+      await user.tab();
+      expect(screen.getByRole('button', { name: 'After' })).toHaveFocus();
     });
 
     it('skips a control in the cell that does not take focus when tabbing within it', () => {
@@ -659,17 +926,6 @@ describe('Spreadsheet', () => {
       await user.click(screen.getByRole('gridcell'));
       await user.keyboard('{Enter}');
       expect(screen.getByRole('textbox', { name: 'Note' })).toHaveFocus();
-    });
-
-    it('skips a last control that does not take focus when Tab leaves the grid', async () => {
-      // A hidden control (display: none, inert) ignores focus(); the hand-off goes to the one before.
-      const user = userEvent.setup();
-      render(<WithControls />);
-      const link = screen.getByRole('link', { name: 'ecosolutions.com' });
-      vi.spyOn(link, 'focus').mockImplementation(() => {});
-      await user.click(cell('Tech Nova'));
-      fireEvent.keyDown(cell('Tech Nova'), { key: 'Tab' });
-      expect(screen.getByRole('textbox', { name: 'Notes: Tech Nova' })).toHaveFocus();
     });
   });
 
