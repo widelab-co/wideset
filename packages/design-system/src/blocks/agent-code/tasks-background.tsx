@@ -2,9 +2,9 @@
 import { Button, Card } from '@wideset/react';
 import { useId, useState } from 'react';
 
+import { formatDuration } from './format';
 import { Inline } from './inline';
 import type { BackgroundRun } from './tasks-data';
-import { formatElapsed } from './tasks-format';
 import { TasksStateMark } from './tasks-state-mark';
 
 type TasksBackgroundProps = {
@@ -67,7 +67,7 @@ export function TasksBackground({ runs, elapsed }: TasksBackgroundProps) {
                     <span className="sr-only">
                       {state === 'running' ? 'Running for ' : 'Took '}
                     </span>
-                    {formatElapsed(run.seconds + (state === 'running' ? elapsed : 0))}
+                    {formatDuration(run.seconds + (state === 'running' ? elapsed : 0))}
                   </>
                 )}
               </span>

@@ -10,8 +10,8 @@ import { Button, Card, cn } from '@wideset/react';
 import { useId, useRef, useState } from 'react';
 
 import { type Check, CHECKS, type CheckState } from './checks-data';
-import { formatDuration } from './checks-format';
 import { LogExcerpt } from './checks-log-excerpt';
+import { formatDuration } from './format';
 
 /** A state is a judgement, so its mark takes the colour of its meaning; the shape says it too. */
 const STATE: Record<CheckState, { icon: RemixiconComponentType; colour: string; spoken: string }> =
