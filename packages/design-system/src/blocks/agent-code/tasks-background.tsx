@@ -77,7 +77,7 @@ export function TasksBackground({ runs, elapsed }: TasksBackgroundProps) {
                   preset="border"
                   size="sm"
                   aria-label={`Stop: ${nameOf(run)}`}
-                  onClick={() => setStopped([...stopped, run.id])}
+                  onClick={() => setStopped((current) => [...current, run.id])}
                   className="-my-ws-4 ml-ws-3 shrink-0"
                 >
                   Stop

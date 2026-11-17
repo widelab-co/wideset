@@ -25,7 +25,7 @@ export function TranscriptBreak({ turn }: { turn: DividerTurn }) {
               <RiFileList2Line aria-hidden className="size-ws-9 text-ws-static-subtle shrink-0" />
             }
             open={open}
-            onToggle={() => setOpen(!open)}
+            onToggle={() => setOpen((value) => !value)}
           >
             <span className="text-ws-static-subtle">{turn.summary.label}</span>
           </Row>

@@ -227,7 +227,7 @@ export default function AgentCode({ pane: initial = 'changes' }: { pane?: Pane }
                 side="bottom"
                 aria-expanded={paneOpen}
                 aria-controls={paneId}
-                onClick={() => setPaneOpen(!paneOpen)}
+                onClick={() => setPaneOpen((value) => !value)}
               />
             )}
           </TopBar>

@@ -66,7 +66,7 @@ function CheckRow({ check, onFix }: { check: Check; onFix?: (text: string) => vo
               type="button"
               aria-expanded={open}
               aria-controls={detailId}
-              onClick={() => setOpen(!open)}
+              onClick={() => setOpen((value) => !value)}
               className="typography-label-strong-sm text-ws-static-strong focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default after:inset-ws-0 w-fit cursor-pointer text-left after:absolute"
             >
               {check.name}

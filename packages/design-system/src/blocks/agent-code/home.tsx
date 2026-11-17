@@ -40,10 +40,12 @@ export function Home({ mode, onSend }: HomeProps) {
   const [branch, setBranch] = useState(branches[0]);
   const code = mode === 'code';
 
-  const attach = () => {
-    const next = files.find((name) => !attached.includes(name));
-    if (next) setAttached([...attached, next]);
-  };
+  // From the tray as it is now, so Add files twice in a row adds two.
+  const attach = () =>
+    setAttached((current) => {
+      const next = files.find((name) => !current.includes(name));
+      return next ? [...current, next] : current;
+    });
 
   return (
     <div className="min-h-0 flex-1 overflow-y-auto">
@@ -96,7 +98,10 @@ export function Home({ mode, onSend }: HomeProps) {
             placeholder={code ? 'Describe the change' : `How can ${product} help?`}
             draft={starter}
             attachments={attached}
-            onDetach={(index) => setAttached(attached.filter((_, at) => at !== index))}
+            onDetach={(index) => {
+              const name = attached[index];
+              setAttached((current) => current.filter((item) => item !== name));
+            }}
             tools={
               code ? (
                 <CodeTools permissions={permissions} onAttach={attach} />
@@ -114,7 +119,7 @@ export function Home({ mode, onSend }: HomeProps) {
                 key={label}
                 variant="secondary"
                 style="border"
-                onClick={() => setStarter({ text: prompt, id: starter.id + 1 })}
+                onClick={() => setStarter((current) => ({ text: prompt, id: current.id + 1 }))}
               >
                 <Chip.Icon icon={icon} />
                 {label}

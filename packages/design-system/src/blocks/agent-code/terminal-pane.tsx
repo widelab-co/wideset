@@ -86,7 +86,7 @@ export function TerminalPane() {
 
   const open = () => {
     const id = `shell-${(added.current += 1)}`;
-    setShells([...shells, { id, name: 'zsh', runs: [] }]);
+    setShells((current) => [...current, { id, name: 'zsh', runs: [] }]);
     setActive(id);
     // A new shell is opened to type in.
     prompt.current?.focus();
