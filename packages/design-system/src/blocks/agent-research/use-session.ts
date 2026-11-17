@@ -18,6 +18,9 @@ const abandon = (turn: AgentTurn): AgentTurn => {
   return rest.done || turn.stoppedAt !== undefined ? turn : { ...turn, stoppedAt: rest.clock };
 };
 
+/** A question on the page still open: the turn that asks it, and its id in that turn. */
+type OpenQuestion = { turn: string; id: string };
+
 /** A message waiting its turn: an id that stays with it while others go, its words, its files. */
 export type QueuedMessage = { id: number; text: string; sentWith?: string[] };
 
@@ -132,11 +135,13 @@ export function useSession({
    * The questions on the page still open: a message sent answers these, never one not shown yet,
    * nor one a stopped turn no longer shows.
    */
-  const open = shown.flatMap((turn) =>
+  const open: OpenQuestion[] = shown.flatMap((turn) =>
     turn.role !== 'agent' || turn.stopped
       ? []
       : turn.blocks.flatMap((block) =>
-          block.kind === 'question' && block.answer === undefined ? [block.id] : [],
+          block.kind === 'question' && block.answer === undefined
+            ? [{ turn: turn.id, id: block.id }]
+            : [],
         ),
   );
 
@@ -148,7 +153,7 @@ export function useSession({
     );
 
   const deliver = useCallback(
-    (text: string, sentWith?: string[], answering: string[] = []) => {
+    (text: string, sentWith?: string[], answering: OpenQuestion[] = []) => {
       // An id no turn in the thread has: a thread kept and opened again holds those made before.
       const newId = () => {
         let id: string;
@@ -158,7 +163,10 @@ export function useSession({
       };
       const answer = reply(newId(), text);
       const answered = (turn: AgentTurn) =>
-        answering.reduce((item, id) => answerQuestion(item, text, id), turn);
+        // Each answer goes to the turn whose question it is: two turns may use the same id.
+        answering
+          .filter((question) => question.turn === turn.id)
+          .reduce((item, question) => answerQuestion(item, text, question.id), turn);
       onChange((all) => [
         ...all.map((turn) => (turn.role === 'agent' ? abandon(answered(turn)) : turn)),
         { id: newId(), role: 'user', text, sentWith },
@@ -170,7 +178,7 @@ export function useSession({
   );
 
   /** Sends a message; it answers the questions named, the ones open on the page when it is sent. */
-  const post = (text: string, answering: string[]) => {
+  const post = (text: string, answering: OpenQuestion[]) => {
     // The files go with this message only: the tray is emptied before another send can read it.
     const sentWith = tray.current.length > 0 ? tray.current : undefined;
     changeTray(() => []);
@@ -205,13 +213,14 @@ export function useSession({
   // When a run ends, the first message that waited goes out; not while the turn waits for you,
   // and not after you stopped it: the queue waits for Continue, or for what you send next.
   const stopped = cut !== null;
-  const answering = open.join(' ');
+  // As text, so the effect below runs again only when the open questions change.
+  const answering = JSON.stringify(open);
   useEffect(() => {
     if (running || awaiting || stopped || queue.length === 0) return;
     const [next] = queue;
     if (claimed.current.has(next.id)) return;
     claimed.current.add(next.id);
-    deliver(next.text, next.sentWith, answering ? answering.split(' ') : []);
+    deliver(next.text, next.sentWith, JSON.parse(answering) as OpenQuestion[]);
     setQueue((current) => current.filter((item) => item.id !== next.id));
   }, [running, awaiting, stopped, queue, deliver, answering]);
 
