@@ -5,7 +5,7 @@
  * shows a wrong rail, a missing default or a component that should not be there.
  */
 import assert from 'node:assert/strict';
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, it } from 'node:test';
 
@@ -149,6 +149,21 @@ describe('gen-guidance', () => {
     const notes = readFileSync(join(generatedDir, 'guidance-a11y', 'button.md'), 'utf8');
     assert.ok(notes.trim().length > 0);
     assert.doesNotMatch(notes, /^#+ Accessibility/m);
+  });
+
+  it('keeps a placeholder in the Accessibility notes as text, not a tag', () => {
+    // File Item's spec names the button "Remove <title>": as HTML it swallowed the page's tabs.
+    const dir = join(generatedDir, 'guidance-a11y');
+    const prose = (file) =>
+      readFileSync(join(dir, file), 'utf8')
+        .split(/(`+[^`]*`+)/)
+        .filter((_, index) => index % 2 === 0)
+        .join('');
+    assert.deepEqual(
+      readdirSync(dir).filter((file) => /<[a-z]/i.test(prose(file))),
+      [],
+    );
+    assert.match(prose('file-item.md'), /Remove &lt;title>/);
   });
 
   it('points links only at pages the site has', () => {

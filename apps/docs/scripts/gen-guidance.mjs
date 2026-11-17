@@ -82,6 +82,16 @@ export function buildGuidance({ specsDir, catalog, sections: wanted = SECTIONS, 
   );
 }
 
+/**
+ * Prose the page renders as HTML: a placeholder in angle brackets ("Remove <title>") is text, not
+ * a tag; an open `<title>` would swallow the rest of the page. Code spans and fences keep theirs.
+ */
+const asText = (markdown) =>
+  markdown
+    .split(/(`+[^`]*`+)/)
+    .map((part, index) => (index % 2 ? part : part.replace(/</g, '&lt;')))
+    .join('');
+
 const catalog = JSON.parse(readFileSync(join(generatedDir, 'catalog.json'), 'utf8'));
 const specsDir = join(library, 'specs/components');
 const guidance = buildGuidance({ specsDir, catalog });
@@ -90,9 +100,9 @@ const outputs = {
   // The spec's own Accessibility notes, for the page's Accessibility section (no heading: the
   // page has its own). Only components whose spec has the section get a file.
   'guidance-a11y': new Map(
-    [...buildGuidance({ specsDir, catalog, sections: ['Accessibility'], headings: false })].filter(
-      ([, markdown]) => markdown.trim(),
-    ),
+    [...buildGuidance({ specsDir, catalog, sections: ['Accessibility'], headings: false })]
+      .filter(([, markdown]) => markdown.trim())
+      .map(([id, markdown]) => [id, asText(markdown)]),
   ),
 };
 for (const [dir, pages] of Object.entries(outputs)) {
