@@ -15,6 +15,8 @@ type SourcesPaneProps = {
   sources: Source[];
   /** The one being read right now, if the run is at one. */
   readingId?: number;
+  /** Begun, then cut short by Stop: in the list, but not counted as read. */
+  unfinishedIds?: number[];
   /** The report's text as far as it is written: a source says where it is cited once it is. */
   written: Prose[];
   /** The source in focus, from either side: a citation in the report or a row here. */
@@ -39,6 +41,7 @@ export function SourcesPane({
   id,
   sources,
   readingId,
+  unfinishedIds = [],
   written,
   active,
   pinned,
@@ -49,7 +52,8 @@ export function SourcesPane({
   const [vendor, setVendor] = useState(ALL);
   const list = useRef<HTMLDivElement>(null);
 
-  const read = sources.filter((source) => source.id !== readingId).length;
+  const counts = (source: Source) => source.id !== readingId && !unfinishedIds.includes(source.id);
+  const read = sources.filter(counts).length;
   const shown = sources.filter(
     (source) =>
       vendor === ALL || source.id === pinned || source.vendors.some((name) => name === vendor),
@@ -70,11 +74,9 @@ export function SourcesPane({
       <header className="h-ws-18 border-ws-static-base gap-ws-5 pl-ws-11 pr-ws-7 flex shrink-0 items-center border-b">
         <h2 className="typography-label-strong-md text-ws-static-strong">Sources</h2>
         <p aria-live="polite" className="typography-label-sm text-ws-static-subtle tabular-nums">
-          {/* Both counts leave out the source still being read; its row still shows. */}
+          {/* Both counts leave out a source still being read or cut short; its row still shows. */}
           {read > 0 &&
-            (vendor === ALL
-              ? `${read} read`
-              : `${shown.filter((source) => source.id !== readingId).length} of ${read}`)}
+            (vendor === ALL ? `${read} read` : `${shown.filter(counts).length} of ${read}`)}
         </p>
         <Select
           size="sm"
@@ -100,6 +102,7 @@ export function SourcesPane({
                 key={source.id}
                 source={source}
                 reading={source.id === readingId}
+                unfinished={unfinishedIds.includes(source.id)}
                 cited={citedIn(source.id, written)}
                 active={source.id === active}
                 pinned={source.id === pinned}

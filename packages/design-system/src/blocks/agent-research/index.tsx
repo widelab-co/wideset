@@ -86,12 +86,18 @@ export default function AgentResearch() {
       : undefined;
   const written = report?.kind === 'card' ? (report.prose ?? []) : [];
 
-  /* A source is in the pane once the step that reads it has begun. */
+  /* A source is in the pane once the step that reads it has begun; one a Stop cut short stays,
+     marked unfinished, since Stop keeps what is already there. */
   const statusOf = (id: string) => session.steps.find((step) => step.id === id)?.status;
   const read = research
-    ? sources.filter((source) => ['running', 'done'].includes(statusOf(readStep(source)) ?? ''))
+    ? sources.filter((source) =>
+        ['running', 'done', 'skipped'].includes(statusOf(readStep(source)) ?? ''),
+      )
     : [];
   const reading = read.find((source) => statusOf(readStep(source)) === 'running');
+  const unfinished = read
+    .filter((source) => statusOf(readStep(source)) === 'skipped')
+    .map((source) => source.id);
 
   const citing: Citing = {
     active: peeked ?? pinned,
@@ -204,6 +210,7 @@ export default function AgentResearch() {
             id={paneId}
             sources={read}
             readingId={reading?.id}
+            unfinishedIds={unfinished}
             written={written}
             active={citing.active}
             pinned={pinned}

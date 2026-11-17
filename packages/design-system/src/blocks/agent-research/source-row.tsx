@@ -13,6 +13,8 @@ type SourceRowProps = {
   source: Source;
   /** It is being read right now: a spinner stands where its number will be, and it says no more yet. */
   reading: boolean;
+  /** Begun, then cut short by Stop: its mark says so, and nothing was taken from it. */
+  unfinished?: boolean;
   /** Where the report cites it, in words; empty until it does. */
   cited: string;
   /** It is the source in focus: one of its citations, or the row itself, is pointed at. */
@@ -34,6 +36,7 @@ type SourceRowProps = {
 export function SourceRow({
   source,
   reading,
+  unfinished = false,
   cited,
   active,
   pinned,
@@ -65,8 +68,8 @@ export function SourceRow({
         )}
       >
         <span className="h-ws-11 w-ws-11 flex shrink-0 items-center justify-center">
-          {reading ? (
-            <StepMark status="running" />
+          {reading || unfinished ? (
+            <StepMark status={reading ? 'running' : 'skipped'} />
           ) : (
             <Citation source={source.id} active={active} />
           )}
@@ -76,8 +79,12 @@ export function SourceRow({
           <span className="typography-caption-md text-ws-static-subtle">
             {source.site} · {formatDate(source.published)}
           </span>
-          {!reading && (
-            <span className="typography-body-md text-ws-static-base mt-ws-2">{source.taken}</span>
+          {unfinished ? (
+            <span className="typography-caption-md text-ws-static-subtle">Not finished</span>
+          ) : (
+            !reading && (
+              <span className="typography-body-md text-ws-static-base mt-ws-2">{source.taken}</span>
+            )
           )}
           {cited && (
             <span className="typography-caption-md text-ws-static-subtle">Cited in {cited}</span>

@@ -157,6 +157,28 @@ describe('Rendering', () => {
 });
 
 describe('Agent research', () => {
+  // Stop keeps what is there: a source cut short stays in the list, unfinished and not counted.
+  it('keeps a source cut short by Stop, not counted as read', async () => {
+    const { SourcesPane } = await import('../blocks/agent-research/sources-pane');
+    const { sources } = await import('../blocks/agent-research/research-data');
+    const [first, second] = sources;
+    const { getByRole, getByText } = render(
+      <SourcesPane
+        id="sources"
+        sources={[first, second]}
+        unfinishedIds={[second.id]}
+        written={[]}
+        active={null}
+        pinned={null}
+        live={false}
+        onPeek={() => {}}
+        onClose={() => {}}
+      />,
+    );
+    expect(getByRole('link', { name: new RegExp(second.title) })).toHaveTextContent('Not finished');
+    expect(getByText('1 read')).toBeInTheDocument();
+  });
+
   // Cancel, Esc or Run again ends the edit: the cursor goes back to Edit plan, not to the page.
   it('returns the focus to Edit plan when an edit ends', async () => {
     const { PlanCard } = await import('../blocks/agent-research/plan-card');
