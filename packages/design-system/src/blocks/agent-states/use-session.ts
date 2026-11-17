@@ -159,10 +159,16 @@ export function useSession({
   // and not after you stopped it: the queue waits for Continue, or for what you send next.
   const stopped = cut !== null;
   const answering = open.join(' ');
+  // Each message is claimed by its id before it goes: StrictMode sets an effect up twice in
+  // development, and the second setup must not send the same message again.
+  const claimed = useRef(new Set<number>());
   useEffect(() => {
     if (running || awaiting || stopped || queue.length === 0) return;
-    deliver(queue[0].text, queue[0].sentWith, answering ? answering.split(' ') : []);
-    setQueue(queue.slice(1));
+    const [next, ...rest] = queue;
+    if (claimed.current.has(next.id)) return;
+    claimed.current.add(next.id);
+    deliver(next.text, next.sentWith, answering ? answering.split(' ') : []);
+    setQueue(rest);
   }, [running, awaiting, stopped, queue, deliver, answering]);
 
   return {
