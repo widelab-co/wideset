@@ -216,6 +216,46 @@ export const BLOCKS: BlockMeta[] = [
     description: 'A missing page before or outside the app: what happened and the ways back.',
   },
   {
+    id: 'forgot-password',
+    title: 'Forgot password',
+    direction: 'inset',
+    navigation: 'none',
+    description:
+      'Resetting a password in the sign-in card: the e-mail field, then a confirmation that the link is on its way.',
+  },
+  {
+    id: 'check-email',
+    title: 'Check your e-mail',
+    direction: 'inset',
+    navigation: 'none',
+    description:
+      'The sign-in card after a magic link was sent: where it went, how long it works, and resending it.',
+  },
+  {
+    id: 'two-factor',
+    title: 'Two-factor code',
+    direction: 'inset',
+    navigation: 'none',
+    description:
+      'The second sign-in step in the sign-in card: a six-digit code, a trusted-device option and backup ways in.',
+  },
+  {
+    id: 'sso-sign-in',
+    title: 'Single sign-on',
+    direction: 'inset',
+    navigation: 'none',
+    description:
+      'Signing in through an identity provider in the sign-in card: Google, Microsoft and a work e-mail for SAML.',
+  },
+  {
+    id: 'accept-invite',
+    title: 'Accept invitation',
+    direction: 'inset',
+    navigation: 'none',
+    description:
+      'Joining a workspace from an invitation in the sign-in card: who invited you, the workspace and creating your account.',
+  },
+  {
     id: 'integrations',
     title: 'Integrations',
     direction: 'flat',
@@ -511,6 +551,38 @@ export const BLOCKS: BlockMeta[] = [
     description:
       'Editing a script on a raised page: files beside the editor with line numbers and colouring, a test run with its output and problems, and saving or restoring a version.',
   },
+  {
+    id: 'new-password',
+    title: 'New password',
+    direction: 'inset',
+    navigation: 'none',
+    description:
+      'Choosing a new password in the sign-in card after a reset link: rules that tick as you type, a confirmation, and an expired link that sends a new one.',
+  },
+  {
+    id: 'verify-email',
+    title: 'Verify e-mail',
+    direction: 'inset',
+    navigation: 'none',
+    description:
+      'Verifying the address after sign-up in the sign-in card: a six-digit code that checks itself, resending it after a cooldown, and changing the address.',
+  },
+  {
+    id: 'signed-out',
+    title: 'Signed out',
+    direction: 'inset',
+    navigation: 'none',
+    description:
+      'The sign-in card after signing out: the accounts still signed in on this device to continue as, and signing in with another.',
+  },
+  {
+    id: 'choose-workspace',
+    title: 'Choose workspace',
+    direction: 'inset',
+    navigation: 'none',
+    description:
+      'Choosing a workspace in the sign-in card after signing in: the workspaces with the last used marked, invitations to accept or decline, and creating a new one.',
+  },
 ];
 
 /** A part that opens over a screen. It belongs to no direction: it keeps its own look over any. */
@@ -530,10 +602,118 @@ export const PANELS: PanelMeta[] = [
       'A record’s detail beside the page: its properties, subtasks, tabs over an activity timeline, and keyboard hints.',
   },
   {
+    id: 'modal-form',
+    title: 'Form modal',
+    description:
+      'A short form in a modal: its fields, a consent to tick, the actions in the footer and keyboard hints under them.',
+  },
+  {
+    id: 'modal-stepper',
+    title: 'Stepper modal',
+    description:
+      'A setup in steps in a modal: the steps down the left with their state, the current step’s form beside them.',
+  },
+  {
+    id: 'modal-details',
+    title: 'Details modal',
+    description:
+      'A record read in a modal: its key facts and actions, tabs over its history, and moving to the previous or next record.',
+  },
+  {
+    id: 'modal-task',
+    title: 'Task modal',
+    description:
+      'A task opened in a modal: its properties and progress, subtasks to tick off, and tabs over the activity log.',
+  },
+  {
+    id: 'modal-search',
+    title: 'Search modal',
+    description:
+      'Search across the workspace in a modal: the query, result tabs, and results to move through by keyboard.',
+  },
+  {
+    id: 'modal-access',
+    title: 'Access modal',
+    description:
+      'Sharing in a modal: inviting by e-mail with a role, who has access and their roles, a private switch and the link.',
+  },
+  {
     id: 'media-viewer',
     title: 'Media viewer',
     description:
       'A file opened full screen over the app: the file large in the middle with zoom, moving to the previous or next, its details and comments beside it, and closing back to its row.',
+  },
+  {
+    id: 'command-palette',
+    title: 'Command palette',
+    description:
+      'A command palette over the app: one field that finds pages, customers and deals and runs actions, grouped with their shortcuts, opened with Ctrl K.',
+  },
+  {
+    id: 'account-menu',
+    title: 'Account menu',
+    description:
+      'The account menu opened from the sidebar: who is signed in, the workspaces, settings, a theme submenu, switching account and logging out.',
+  },
+  {
+    id: 'notifications-popover',
+    title: 'Notifications popover',
+    description:
+      'Notifications in a popover from the bell: the latest grouped by day with unread dots, an access request answered in place, and the way to the full inbox.',
+  },
+  {
+    id: 'coach-marks',
+    title: 'Coach marks',
+    description:
+      'A short guided tour over a real page: one mark at a time under the control it explains, that control ringed, with a step count, back, next and skipping, started again from the help menu.',
+  },
+  {
+    id: 'whats-new',
+    title: 'What’s new',
+    description:
+      'What’s new in a dialog over Home: the latest update with a drawn sketch, what it does and why, trying it, and earlier updates that open in place.',
+  },
+  {
+    id: 'filter-popover',
+    title: 'Filter popover',
+    description:
+      'Building a filter in a popover over a list: conditions of field, test and value joined by and or or, applied together and shown as removable chips, with the sort in a popover beside it.',
+  },
+  {
+    id: 'confirm-delete',
+    title: 'Confirm delete',
+    description:
+      'Two weights of deleting on a list of reports: one report goes at once with Undo in a toast, a shared folder asks first in a dialog that says what goes with it and who loses access, and waits for its name.',
+  },
+  {
+    id: 'report-dialog',
+    title: 'Report dialog',
+    description:
+      'Reporting a comment from the feed in a dialog: the comment quoted, a reason, optional details, blocking its author, then thanks and what happens next in place, and the comment hidden with Show anyway.',
+  },
+  {
+    id: 'feedback-dialog',
+    title: 'Feedback dialog',
+    description:
+      'Feedback from the sidebar in a dialog: a five-step worded scale, a topic, a few words, a screenshot of the page shown as a thumbnail and consent to follow up, then thanks in place.',
+  },
+  {
+    id: 'context-menu',
+    title: 'Context menu',
+    description:
+      'A context menu on a customer row, opened by a right-click, its ⋯ button or Shift F10: open, copy and duplicate, assign and tag in submenus, archive with Undo, and delete last.',
+  },
+  {
+    id: 'move-dialog',
+    title: 'Move dialog',
+    description:
+      'Moving files in a dialog: a searchable folder tree with the current folder marked, the chosen path under it, a new folder named in place, and moving or archiving, with Open folder and Undo after.',
+  },
+  {
+    id: 'export-dialog',
+    title: 'Export dialog',
+    description:
+      'Exporting customers in a dialog: all, the filtered or the selected ones with their counts, the date added, the columns and the format, then the file prepared in place and downloaded, or e-mailed when it is large.',
   },
 ];
 
