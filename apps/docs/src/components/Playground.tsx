@@ -1,3 +1,4 @@
+import { cn } from '@wideset/react';
 import { useEffect, useState } from 'react';
 
 import { PLAYGROUNDS, useValues, withPlayground } from '../lib/playground';
@@ -11,7 +12,7 @@ import FrameThemeButton from './FrameThemeButton';
  * browser instead. Like an example, the stage follows the page theme until its own sun/moon
  * button switches it.
  */
-const Playground = ({ component }: { component: string }) => {
+const Playground = ({ component, className }: { component: string; className?: string }) => {
   const definition = PLAYGROUNDS[component];
   const values = useValues(component);
   const [mounted, setMounted] = useState(false);
@@ -22,7 +23,10 @@ const Playground = ({ component }: { component: string }) => {
   return (
     <div
       data-playground-stage
-      className={`docs-frame relative grid min-h-[20rem] place-items-center overflow-hidden rounded-ws-container-lg border border-ws-static-base px-ws-14 py-ws-14 text-ws-static-base ${theme.frameClass} ${stage ?? ''}`}
+      className={cn(
+        `docs-frame relative grid min-h-[20rem] place-items-center overflow-hidden rounded-ws-container-lg border border-ws-static-base px-ws-14 py-ws-14 text-ws-static-base ${theme.frameClass} ${stage ?? ''}`,
+        className,
+      )}
     >
       <FrameThemeButton dark={theme.dark} onToggle={theme.toggle} />
       {(mounted || !definition.clientOnly) && definition.render(values)}

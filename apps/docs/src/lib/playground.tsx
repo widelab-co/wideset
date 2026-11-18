@@ -50,7 +50,7 @@ for (const [id, page] of Object.entries(PAGES)) {
 export const PLAYGROUNDS: Record<string, PlaygroundDefinition> = {};
 
 const loading = new Map<string, Promise<PlaygroundDefinition>>();
-export const loadPlayground = (id: string) => {
+const loadPlayground = (id: string) => {
   if (!loading.has(id)) {
     loading.set(
       id,

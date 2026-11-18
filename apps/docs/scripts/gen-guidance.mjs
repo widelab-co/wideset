@@ -5,8 +5,8 @@
  * which read the same files. Parts, props and examples stay generated from the library.
  *
  * Output, one file per component with a spec:
- *   src/generated/guidance/<id>.md      the page's Usage section (PAGE_SECTIONS)
  *   src/generated/guidance-md/<id>.md   the Usage section of /components/<id>.md (SECTIONS)
+ *   src/generated/guidance-a11y/<id>.md the spec's Accessibility notes (v2 pages)
  */
 import { mkdirSync, readdirSync, readFileSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { dirname, join, relative, resolve, sep } from 'node:path';
@@ -21,8 +21,6 @@ export const SECTIONS = [
   "Do / Don't",
   'Gotchas',
 ];
-/** What the page itself shows. */
-export const PAGE_SECTIONS = ['When to use', 'When not to use'];
 
 const walk = (dir) =>
   readdirSync(dir).flatMap((name) => {
@@ -46,7 +44,7 @@ export function sectionsOf(text) {
   return new Map([...sections].map(([name, lines]) => [name, lines.join('\n').trim()]));
 }
 
-export function buildGuidance({ specsDir, catalog, sections: wanted = SECTIONS }) {
+export function buildGuidance({ specsDir, catalog, sections: wanted = SECTIONS, headings = true }) {
   const files = walk(specsDir).filter(
     (file) => file.endsWith('.md') && !file.endsWith('README.md'),
   );
@@ -73,19 +71,39 @@ export function buildGuidance({ specsDir, catalog, sections: wanted = SECTIONS }
       const sections = sectionsOf(text);
       const body = wanted
         .filter((name) => sections.get(name))
-        .map((name) => `### ${name}\n\n${relink(sections.get(name), file)}`)
+        .map((name) =>
+          headings
+            ? `### ${name}\n\n${relink(sections.get(name), file)}`
+            : relink(sections.get(name), file),
+        )
         .join('\n\n');
       return [id, `${body}\n`];
     }),
   );
 }
 
+/**
+ * Prose the page renders as HTML: a placeholder in angle brackets ("Remove <title>") is text, not
+ * a tag; an open `<title>` would swallow the rest of the page. Code spans and fences keep theirs.
+ */
+const asText = (markdown) =>
+  markdown
+    .split(/(`+[^`]*`+)/)
+    .map((part, index) => (index % 2 ? part : part.replace(/</g, '&lt;')))
+    .join('');
+
 const catalog = JSON.parse(readFileSync(join(generatedDir, 'catalog.json'), 'utf8'));
 const specsDir = join(library, 'specs/components');
 const guidance = buildGuidance({ specsDir, catalog });
 const outputs = {
-  guidance: buildGuidance({ specsDir, catalog, sections: PAGE_SECTIONS }),
   'guidance-md': guidance,
+  // The spec's own Accessibility notes, for the page's Accessibility section (no heading: the
+  // page has its own). Only components whose spec has the section get a file.
+  'guidance-a11y': new Map(
+    [...buildGuidance({ specsDir, catalog, sections: ['Accessibility'], headings: false })]
+      .filter(([, markdown]) => markdown.trim())
+      .map(([id, markdown]) => [id, asText(markdown)]),
+  ),
 };
 for (const [dir, pages] of Object.entries(outputs)) {
   const out = join(generatedDir, dir);

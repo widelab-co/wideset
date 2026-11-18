@@ -1,85 +1,77 @@
 ---
 import BlockPreviewFrame from '../../components/BlockPreviewFrame';
+import PageHead from '../../components/PageHead.astro';
 import DocsLayout from '../../layouts/DocsLayout.astro';
-import {
-  blocksByDirection,
-  DIRECTION_SUMMARY,
-  type Entry,
-  inlineCode,
-  isScreen,
-  NAVIGATION_TITLE,
-  PANEL_SUMMARY,
-  PANELS,
-} from '../../lib/blocks';
+import { blockCategories, ENTRIES, shotsOf } from '../../lib/blocks';
+import { blocksSidebar } from '../../lib/sidebar';
 
 /**
- * Starting points: the four visual directions, each with the whole screens rebuilt from the
- * Wideset Core Figma file, then the panels that open over any of them. Every card frames the
- * block's preview page.
+ * Blocks: whole screens to start a product from, by business domain, two across. A thumbnail is
+ * the top left of the block at a readable size on the soft stage (cropped, not shrunk): its
+ * screenshot, light or dark with the page, or, for a block without one yet, its preview page
+ * live in a frame. On hover only the title underlines.
  */
-const groups: { id: string; title: string; summary: string; blocks: Entry[] }[] = [
-  ...blocksByDirection()
-    .filter((group) => group.blocks.length > 0)
-    .map((group) => ({
-      id: `direction-${group.direction}`,
-      title: group.title,
-      summary: DIRECTION_SUMMARY[group.direction],
-      blocks: group.blocks,
-    })),
-  { id: 'panels', title: 'Panels', summary: PANEL_SUMMARY, blocks: PANELS },
-];
 ---
 
 <DocsLayout
-  title="Starting points"
-  description="Whole Wideset screens to start a new app from, in four visual directions."
-  frame
-  full
+  title="Blocks"
+  description="Whole screens to start a product from."
+  area="blocks"
+  nav={blocksSidebar()}
+  current="/blocks"
+  search="Search blocks…"
+  broad
 >
-  <div class="docs-prose">
-    <h1>Starting points</h1>
-    <p class="text-ws-static-subtle">
-      Whole screens built from Wideset, rebuilt one to one from the Wideset Core Figma file. Pick
-      the visual direction first, once per app: it decides only what surrounds the content. Then
-      start from the screen closest to what you build, keep its surround and replace its content.
-      Each page has the code, and a Markdown version for agents at{' '}
-      <code>/blocks/&lt;id&gt;.md</code>.
-    </p>
+  <PageHead
+    title="Blocks"
+    description={`${ENTRIES.length} whole screens built from Wideset components, to start a product from: copy the one closest to yours and change the content.`}
+  />
+  <div class="flex flex-col gap-ws-21">
+    {blockCategories.map((category) => (
+      <section id={category.slug} class="scroll-mt-ws-21">
+        <h2 class="text-ws-static-strong typography-subtitle-sm">{category.label}</h2>
+        <ul class="mt-ws-9 grid grid-cols-1 gap-x-ws-11 gap-y-ws-14 md:grid-cols-2">
+          {category.blocks.map((block) => {
+            const shots = shotsOf(block.id);
+            return (
+              <li>
+                <a href={`/blocks/${block.id}`} class="group flex flex-col gap-ws-6 no-underline">
+                  <div class="bg-ws-static-alpha-subtle aspect-[16/10] overflow-hidden rounded-ws-container-md pt-ws-14 pl-ws-14">
+                    <div class="border-ws-static-subtle bg-ws-static-foreground h-full w-[150%] overflow-hidden rounded-tl-ws-control-lg border-t border-l">
+                      {shots ? (
+                        <>
+                          <img
+                            src={shots.light}
+                            alt=""
+                            loading="lazy"
+                            class="docs-shot-light block w-full"
+                          />
+                          <img
+                            src={shots.dark}
+                            alt=""
+                            loading="lazy"
+                            class="docs-shot-dark block w-full"
+                          />
+                        </>
+                      ) : (
+                        <BlockPreviewFrame id={block.id} title={block.title} client:visible />
+                      )}
+                    </div>
+                  </div>
+                  <div class="flex flex-col gap-ws-2">
+                    <span class="text-ws-static-strong typography-label-strong-sm group-hover:underline">
+                      {block.title}
+                    </span>
+                    <span class="text-ws-static-subtle line-clamp-1 typography-body-sm">
+                      {block.description}
+                    </span>
+                  </div>
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
+    ))}
   </div>
-  {groups.map((group) => (
-    <section class="@container mt-ws-18" aria-labelledby={group.id}>
-      <div class="docs-prose">
-        <h2 id={group.id}>{group.title}</h2>
-        <p class="text-ws-static-subtle">
-          {inlineCode(group.summary).map((part) =>
-            part.code ? <code>{part.text}</code> : part.text,
-          )}
-        </p>
-      </div>
-      <ul class="mt-ws-9 grid grid-cols-1 gap-ws-9 @[40rem]:grid-cols-2">
-        {group.blocks.map((block) => (
-          <li>
-            <a
-              href={`/blocks/${block.id}`}
-              class="docs-pane docs-card border-ws-static-subtle hover:border-ws-static-base flex h-full flex-col gap-ws-3 rounded-ws-container-xl border p-ws-4 pb-ws-8 transition-colors"
-            >
-              <BlockPreviewFrame id={block.id} title={block.title} client:visible />
-              <span class="text-ws-static-strong mt-ws-7 px-ws-6 typography-label-strong-sm">
-                {block.title}
-                {isScreen(block) && (
-                  <span class="text-ws-static-subtle typography-label-sm">
-                    {' '}
-                    · {NAVIGATION_TITLE[block.navigation]}
-                  </span>
-                )}
-              </span>
-              <span class="text-ws-static-subtle line-clamp-2 px-ws-6 typography-body-md">
-                {block.description}
-              </span>
-            </a>
-          </li>
-        ))}
-      </ul>
-    </section>
-  ))}
 </DocsLayout>
