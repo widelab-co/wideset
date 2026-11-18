@@ -38,9 +38,10 @@
 
 ## Gotchas
 
-- Props other than `className`, `variant`, `WrapperComponent`, the texts and `helperTextId` go to
-  the label part, and HTML attributes among them (`htmlFor`, `id`, `data-*`) land on the
-  `<label>`. Only `className` and the `ref` reach the root.
+- Props other than `className`, `variant`, `WrapperComponent`, the texts, `helperTextId`,
+  `suffix`, `tooltip`, `tooltipAriaLabel` and `aside` go to the label part, and HTML attributes
+  among them (`htmlFor`, `id`, `data-*`) land on the `<label>`. Only `className` and the `ref`
+  reach the root.
 - The control is wired only when `children` is one element (not a Fragment). Wrap several
   controls and wire `aria-describedby` yourself with `helperTextId`.
 - Composed `Select` (with `Select.Trigger`) drops the cloned `aria-describedby`; set it on

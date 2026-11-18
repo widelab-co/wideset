@@ -159,26 +159,13 @@ exports[`ProgressBar Snapshots > matches snapshot for complete progress bar 1`] 
     class="gap-ws-3 flex items-center justify-between"
     data-slot="progress-bar-header"
   >
-    <div
-      class="gap-ws-3 flex flex-wrap items-start w-fit"
-      data-slot="field-label"
+    <label
+      class="text-ws-static-strong typography-label-strong-sm gap-ws-3 inline-flex min-w-0 flex-wrap items-center wrap-anywhere"
+      data-slot="progress-bar-label"
+      id="_r_h_"
     >
-      <div
-        class="gap-ws-3 flex min-w-0 flex-1 items-center"
-      >
-        <label
-          class="text-ws-static-strong typography-label-strong-sm gap-ws-3 flex min-w-0 flex-wrap items-center"
-          data-slot="progress-bar-label"
-          id="_r_h_"
-        >
-          <span
-            class="min-w-0 break-words"
-          >
-            File Upload
-          </span>
-        </label>
-      </div>
-    </div>
+      File Upload
+    </label>
     <span
       class="typography-label-sm text-ws-static-subtle tabular-nums"
       data-slot="progress-bar-value"
@@ -272,26 +259,13 @@ exports[`ProgressBar Snapshots > matches snapshot for progress bar with descript
     class="gap-ws-3 flex items-center justify-between"
     data-slot="progress-bar-header"
   >
-    <div
-      class="gap-ws-3 flex flex-wrap items-start w-fit"
-      data-slot="field-label"
+    <label
+      class="text-ws-static-strong typography-label-strong-sm gap-ws-3 inline-flex min-w-0 flex-wrap items-center wrap-anywhere"
+      data-slot="progress-bar-label"
+      id="_r_f_"
     >
-      <div
-        class="gap-ws-3 flex min-w-0 flex-1 items-center"
-      >
-        <label
-          class="text-ws-static-strong typography-label-strong-sm gap-ws-3 flex min-w-0 flex-wrap items-center"
-          data-slot="progress-bar-label"
-          id="_r_f_"
-        >
-          <span
-            class="min-w-0 break-words"
-          >
-            Upload
-          </span>
-        </label>
-      </div>
-    </div>
+      Upload
+    </label>
     <span
       class="typography-label-sm text-ws-static-subtle tabular-nums"
       data-slot="progress-bar-value"
@@ -340,26 +314,13 @@ exports[`ProgressBar Snapshots > matches snapshot for progress bar with label 1`
     class="gap-ws-3 flex items-center justify-between"
     data-slot="progress-bar-header"
   >
-    <div
-      class="gap-ws-3 flex flex-wrap items-start w-fit"
-      data-slot="field-label"
+    <label
+      class="text-ws-static-strong typography-label-strong-sm gap-ws-3 inline-flex min-w-0 flex-wrap items-center wrap-anywhere"
+      data-slot="progress-bar-label"
+      id="_r_e_"
     >
-      <div
-        class="gap-ws-3 flex min-w-0 flex-1 items-center"
-      >
-        <label
-          class="text-ws-static-strong typography-label-strong-sm gap-ws-3 flex min-w-0 flex-wrap items-center"
-          data-slot="progress-bar-label"
-          id="_r_e_"
-        >
-          <span
-            class="min-w-0 break-words"
-          >
-            Progress
-          </span>
-        </label>
-      </div>
-    </div>
+      Progress
+    </label>
     <span
       class="typography-label-sm text-ws-static-subtle tabular-nums"
       data-slot="progress-bar-value"
