@@ -210,6 +210,9 @@ design can bind it.
 ## Pull requests and releases
 
 - Branch from `develop`, name it `<type>/<description>` (`feature/…`, `fix/…`, `chore/…`).
+- Designers work on `design/<topic>` branches with the `wideset-design-contribution` skill: the
+  pre-push changeset check skips them, they push and open a draft PR as part of that workflow, and
+  the developer who merges adds the changeset and refreshes the playground.
 - Commits: conventional style, e.g. `feat(button): …`, `fix(modal): …`, `docs: …`, `chore(ci): …`.
 - A change to a file that ships (`src/` or `packages/cli/src/`, minus stories, tests, snapshots, Figma specs
   (`*.figma-spec.json`) and `.mdx`/`.md`; plus `packages/cli/package.json`, which pins shadcn) needs a changeset (`pnpm changeset`, one consumer-facing
