@@ -154,82 +154,68 @@ personal preferences, so they go to the agent's memory, not the repository.
 
 ## Addendum 2026-11-18: seven review rounds on #81 and #93
 
-#81 and #93 (the agent interface, stacked on #91) needed seven CodeRabbit rounds on 17.11. Most
-findings were one defect class, found one instance per round: a handler reading state from the
-last render. Items 10–14 are what let that through.
+#81 and #93 (the agent interface) needed seven CodeRabbit rounds on 17.11. Most findings were the
+same kind of bug, found one at a time: a state change computed from an outdated value. Items
+10–12 are what let that through.
 
-## 10. Review fixes stop at the reported line
+## 10. A review finding is fixed only where it was reported
 
-**Problem.** CodeRabbit reviews only the files changed since its last pass. Each fix to
-`agent-chat/use-session.ts` sent it back into that file, where it found the next instance of the
-same class (`attach`, then `send`, then the tray, then `running`): five rounds for one class.
-Classes fixed only at the named line on 16.11 (IME in a composer, "Copied" before the clipboard
-write, pane state lost on unmount) came back on 17.11 in other places.
+**Problem.** When CodeRabbit reported a bug, we fixed the line it named. The same kind of bug sat
+in other places of the same file. CodeRabbit re-reads only the files changed since its last
+review, so each fix sent it back into that file, where it found the next case: five rounds for
+one kind of bug in `agent-chat/use-session.ts`. Bugs fixed the same way on 16.11 (IME in a
+composer, "Copied" shown before the copy) came back on 17.11 in other files.
 
-**Fix.** In `.agents/skills/wideset-pr-review-resolve/SKILL.md`, step 3: for every Apply, name
-the defect class and search the whole pull request, kit copies included, for its other
-instances before validating; the reply says how many places changed. Locally, the CodeRabbit
-CLI (`coderabbit review --agent`, which the bot suggests) runs the same review before a push; it
-is a personal tool, not a repository change.
+**Fix.** In `.agents/skills/wideset-pr-review-resolve/SKILL.md`, step 3: for every accepted
+finding, name the kind of bug ("reads state from the last render"), search the whole pull
+request for it, copies of shared files included, and fix every case at once. The reply says how
+many places changed. Optionally, the CodeRabbit CLI (`coderabbit review --agent`) runs the same
+review locally before a push; it is a personal tool, not a repository change.
 
-**Done when** a report entry lists the class, the search and every instance, not only the
-reported line.
+**Done when** a review report lists, for each accepted finding, the kind of bug, the search and
+every place fixed, not only the reported line.
 
-## 11. Stacked pull requests run without CI
+## 11. Pull requests based on another pull request get no CI
 
-**Problem.** `.github/workflows/build.yaml` runs on pull requests into `develop` and `main` only,
-and `.coderabbit.yaml` reviews automatically only on those bases. #81 (based on #91's branch) and
-#93 (based on #81's) had no CI through their whole review, and CodeRabbit ran only on a manual
-`@coderabbitai review`. Retargeting to `develop` starts nothing either: `edited` is not a trigger.
+**Problem.** A pull request can be based on another one's branch instead of `develop`: #81 was
+based on #91's branch (`feature/blocks/auth-panels`), #93 on #81's (`feature/blocks/agent-ui`).
+`.github/workflows/build.yaml` only runs for pull requests into `develop` or `main`, and
+`.coderabbit.yaml` only reviews those automatically. So #81 and #93 had no lint, typecheck, tests
+or build on GitHub during their whole review; every check ran only locally, and CodeRabbit had
+to be started by hand each time. Changing the base to `develop` later does not start CI either.
 
-**Fix.** Run the build job for pull requests into `feature/**` too (`pull_request.branches`), and
-add `feature/**` to `auto_review.base_branches`. Both files belong to `wideset-core`.
+**Fix.** Add `feature/**` to `pull_request.branches` in `build.yaml` and to
+`auto_review.base_branches` in `.coderabbit.yaml`. Both lists name the branch a pull request
+merges into, not the one it comes from, so CI then runs for every pull request whose base is a
+`feature/…` branch. Both files belong to `wideset-core`.
 
 **Done when** a pull request based on a `feature/…` branch shows `Build & validate`.
 
-## 12. Tests do not run in StrictMode
+## 12. State changes are not atomic
 
-**Problem.** A queued agent message went out twice in development, because StrictMode sets
-effects up twice; no test could see it, since `src/test-setup.ts` renders without StrictMode.
-`useSession`, the agent kit's state machine (queue, questions, stop, attachments), had no test
-before 17.11, so CodeRabbit acted as its test suite.
+**Problem.** A hook that holds the state of a flow (a session with a queue, a multi-step form, a
+list being edited) exposes actions that read the state from the last render and set a new value
+from it. When two changes land before React renders again (two calls in one handler, an effect
+and an event at once, StrictMode setting effects up twice in development), the second works from
+an outdated value and undoes or repeats the first. Tests render once, outside StrictMode, and
+call one action at a time, so they never see it; neither does lint.
 
-**Fix.** `configure({ reactStrictMode: true })` from `@testing-library/react` in
-`src/test-setup.ts`, then fix what fails. For the kit, one test per session method called twice
-in one handler. Longer term, `useSession` as a `useReducer` makes every transition atomic; the
-refs added on 17.11 (`busy`, `tray`) are a patch.
+Example: the agent kit's `useSession` (17.11) sent a queued message twice under StrictMode,
+dropped the first of two messages sent in one handler, and attached the same files to both; each
+was a separate review round.
 
-**Done when** every test renders in StrictMode and `pnpm test` passes.
+**Fix.**
 
-## 13. Kit copies are reviewed as separate code
+- Make every change atomic: computed from the current state in one place, with `useReducer` for
+  a hook with several actions, or the updater form (`setOpen((value) => !value)`), never from the
+  value the render captured (`setOpen(!open)`).
+- Mechanical: `configure({ reactStrictMode: true })` from `@testing-library/react` in
+  `src/test-setup.ts`; a `no-restricted-syntax` rule in `.eslintrc.json` that flags a `set…` call
+  whose argument is `!x`, an array spreading `x`, or `x ± 1`, asking for the updater form.
+- Tests: for a hook with actions, call each action twice in one `act`.
 
-**Problem.** The agent kit lives in `agent-chat/` and is copied byte for byte into up to four
-other blocks; the AGENT_KIT test in `src/__tests__/blocks.test.tsx` keeps the copies identical.
-CodeRabbit reviews each copy as its own file: the late findings came on #93's copies of
-`use-session.ts` while #81, which holds the source, was already approved. Every kit fix took two
-pushes and two reviews.
-
-**Fix.** A `path_instructions` entry in `.coderabbit.yaml` for
-`packages/design-system/src/blocks/**` (there is none for blocks today): blocks are copied
-consumer code; files on the AGENT_KIT list outside `agent-chat/` are copies the test keeps
-identical, so findings go on the `agent-chat/` file.
-
-**Done when** a review of a change to a kit copy files its findings against `agent-chat/`.
-
-## 14. Stale state updates pass lint
-
-**Problem.** `setOpen(!open)`, `setItems([...items, item])` and `setCount(count + 1)` in a handler
-read the value of the last render, so a second call in the same handler loses the first. On
-17.11 every agent block had to be swept by hand; `react-hooks/exhaustive-deps` does not look at
-this.
-
-**Fix.** A `no-restricted-syntax` rule in `.eslintrc.json`, first for
-`packages/design-system/src/blocks/**`: a call to `set[A-Z]…` whose argument is `!x`, an array
-spreading an identifier, or `x ± 1`, with the message "use the updater form". IME handling
-(Enter and Escape ignore `isComposing`) is a judgement call: it belongs in the review rules
-(`wideset-code-review`, or the blocks entry of item 13).
-
-**Done when** reintroducing `setOpen(!open)` in a block fails `pnpm lint`.
+**Done when** every test renders in StrictMode and passes, and reintroducing `setOpen(!open)` in
+a block fails `pnpm lint`.
 
 ## Suggested skills
 
