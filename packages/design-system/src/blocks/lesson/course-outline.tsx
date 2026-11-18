@@ -118,7 +118,7 @@ export function CourseOutline({ title, modules, openId, openDone }: CourseOutlin
           value={done}
           max={lessons.length}
           aria-label="Course progress"
-          getValueLabel={(value, max) => `${value} of ${max} lessons done`}
+          aria-valuetext={`${done} of ${lessons.length} lessons done`}
         />
       </div>
 

@@ -167,11 +167,7 @@ const Toast = forwardRef<HTMLDivElement, ToastProps>(
               )}
 
               {typeof progress === 'number' && (
-                <ProgressBar
-                  className="bg-(--ws-dynamic-stroke-secondary-default)"
-                  value={progress}
-                  aria-label={progressAriaLabel}
-                />
+                <ProgressBar value={progress} aria-label={progressAriaLabel} />
               )}
             </div>
           ) : (
