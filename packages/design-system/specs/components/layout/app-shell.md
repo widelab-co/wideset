@@ -53,7 +53,7 @@ scroll container. Put your padding on a wrapper inside it. The full composition,
 
 | Prop        | Value    | Use for                                                                                            |
 | ----------- | -------- | -------------------------------------------------------------------------------------------------- |
-| `direction` | `inset`  | Default. Apps with navigation and several regions (a calendar, a document): the page a raised card |
+| `direction` | `inset`  | Apps with navigation and several regions (a calendar, a document): the page a raised card          |
 | `direction` | `flat`   | Simple, dense tools (tables, boards, editors): one white surface, a line splits sidebar and page   |
 | `direction` | `frame`  | Apps with side-by-side panels (messages, mail): the sidebar on a grey tint, the page full-bleed    |
 | `direction` | `canvas` | Pages made of separate modules (an overview, a wallet): a grey page, the content in white sections |

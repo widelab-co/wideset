@@ -6,8 +6,8 @@
 
 An app needs persistent navigation, a scrolling content area, one place for page-level alerts
 and one place where toasts appear. [`AppShell`](../components/layout/app-shell.md) is that frame:
-a full-height row holding `Sidebar` and `AppShell.Main`. Its `direction` (`inset`, the default,
-`flat`, `frame` or `canvas`) sets the window background, the sidebar's surface and the page's look
+a full-height row holding `Sidebar` and `AppShell.Main`. Its `direction` (`inset`, `flat`,
+`frame` or `canvas`) sets the window background, the sidebar's surface and the page's look
 together, so pick it once for the whole app and do not restyle them by hand. [Visual directions](directions.md)
 says which to pick and which starting screens go with each.
 
@@ -85,11 +85,12 @@ export function Shell({ current, children }: { current: string; children: ReactN
 
 ## Variants
 
-- **Direction.** `inset` (the default) for apps with navigation and several regions (a calendar,
+- **Direction.** `inset` for apps with navigation and several regions (a calendar,
   a document), `frame` for side-by-side panels (messages, mail), `flat` for simple, dense tools,
   `canvas` for pages made of separate modules (an overview, a wallet). One direction per app, on
   every screen, settings and empty states included. Ask the user before the first screen unless the
-  prompt already says; without a way to ask, take `inset`.
+  prompt already says; without a way to ask, take the default [Visual directions](directions.md)
+  names.
 
 - **Router links.** Wrap your router's link: `<Sidebar.Item asChild icon={…} label="Projects"
 active={…}><Link to="/projects" /></Sidebar.Item>`. Icon and label are injected into the link.

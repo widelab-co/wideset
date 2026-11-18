@@ -253,7 +253,7 @@ async function init(ctx, { nested = false } = {}) {
         log(`! font: could not add ${NAMESPACE}/font (${error.message})`);
         manual.push(
           'Load a variable font yourself:\n' +
-            'https://wideset-docs.widelab.workers.dev/docs/installation#3-load-the-font',
+            'https://wideset.co/docs/installation#3-load-the-font',
         );
       }
     }
