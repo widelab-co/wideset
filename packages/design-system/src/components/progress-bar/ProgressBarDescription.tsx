@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { hasContent } from 'src/logic/helpers';
 
 import { HelperText } from '../helper-text/HelperText';
 import { useProgressBarContext } from './ProgressBar.context';
@@ -10,7 +11,7 @@ const ProgressBarDescription = React.forwardRef<HTMLSpanElement, ProgressBarDesc
     const generatedId = React.useId();
     const descriptionId = id ?? generatedId;
     const showIcon = status === 'success' || status === 'error';
-    const hasText = Boolean(children);
+    const hasText = hasContent(children);
 
     React.useLayoutEffect(
       () => (hasText ? registerDescription(descriptionId) : undefined),

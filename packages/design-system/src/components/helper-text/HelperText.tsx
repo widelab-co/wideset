@@ -1,6 +1,7 @@
 import { RiAlertFill, RiCheckboxCircleFill, RiErrorWarningFill } from '@remixicon/react';
 import * as React from 'react';
 import { cn } from 'src/lib/utils';
+import { hasContent } from 'src/logic/helpers';
 
 import type { HelperTextProps } from './HelperText.types';
 import { helperTextIconVariants, helperTextVariants } from './HelperText.variants';
@@ -13,7 +14,7 @@ const iconsByState = {
 
 export const HelperText = React.forwardRef<HTMLSpanElement, HelperTextProps>(
   ({ children, state, showIcon, className, ...props }, ref) => {
-    if (!children && !showIcon) return null;
+    if (!hasContent(children) && !showIcon) return null;
 
     const Icon = iconsByState[state as keyof typeof iconsByState];
 

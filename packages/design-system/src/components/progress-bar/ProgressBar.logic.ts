@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { clamp, isFiniteNumber } from 'src/logic/helpers';
 
 // Radix's default `aria-valuetext` repeats the percentage, which screen readers then announce twice.
@@ -24,7 +23,3 @@ export const warnInvalidValue = (value?: number) => {
     console.warn(`ProgressBar \`value\` must be a finite number. Received ${value}.`);
   }
 };
-
-/** False for `null`, `undefined`, booleans and `''`; `0` counts as content. */
-export const hasContent = (node: React.ReactNode) =>
-  React.Children.toArray(node).some((child) => child !== '');

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { clamp, isFiniteNumber } from './helpers';
+import { clamp, hasContent, isFiniteNumber } from './helpers';
 
 describe('isFiniteNumber', () => {
   it.each([0, -1, 1.5, Number.MAX_SAFE_INTEGER])('accepts %s', (value) => {
@@ -23,5 +23,15 @@ describe('clamp', () => {
 
   it('lowers a value above max to max', () => {
     expect(clamp(15, 0, 10)).toBe(10);
+  });
+});
+
+describe('hasContent', () => {
+  it.each([0, 'text', ['', 'a']])('treats %s as content', (node) => {
+    expect(hasContent(node)).toBe(true);
+  });
+
+  it.each([null, undefined, true, false, '', ['', false]])('treats %s as empty', (node) => {
+    expect(hasContent(node)).toBe(false);
   });
 });

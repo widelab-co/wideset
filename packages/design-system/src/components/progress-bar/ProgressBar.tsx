@@ -1,11 +1,12 @@
 import * as ProgressPrimitive from '@radix-ui/react-progress';
 import * as React from 'react';
 import { cn } from 'src/lib/utils';
+import { hasContent } from 'src/logic/helpers';
 
 import { useDefaultMotion } from '../../motion/MotionProvider';
 import { ProgressBarContext } from './ProgressBar.context';
 import { useInvalidPropWarnings, usePartId } from './ProgressBar.hooks';
-import { hasContent, omitValueText, validateMax, validateValue } from './ProgressBar.logic';
+import { omitValueText, validateMax, validateValue } from './ProgressBar.logic';
 import type {
   ProgressBarContextValue,
   ProgressBarProps,

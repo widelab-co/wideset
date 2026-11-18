@@ -677,7 +677,6 @@ describe('Part ids', () => {
     ['no children', undefined],
     ['false', false],
     ['an empty string', ''],
-    ['0', 0],
   ])('does not point aria-describedby at a Description with %s', (_name, children) => {
     render(
       <ProgressBar value={40} aria-label="Upload">
@@ -688,6 +687,20 @@ describe('Part ids', () => {
 
     expect(screen.getByRole('progressbar')).not.toHaveAttribute('aria-describedby');
   });
+
+  it.each(['default', 'success'] as const)(
+    'points aria-describedby at a Description whose content is 0 (%s)',
+    (status) => {
+      render(
+        <ProgressBar value={40} status={status} aria-label="Upload">
+          <ProgressBar.Track />
+          <ProgressBar.Description>{0}</ProgressBar.Description>
+        </ProgressBar>,
+      );
+
+      expect(screen.getByRole('progressbar')).toHaveAccessibleDescription('0');
+    },
+  );
 
   it('adds a caller aria-describedby to the Description instead of replacing it', () => {
     render(

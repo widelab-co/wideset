@@ -1,8 +1,8 @@
 import * as React from 'react';
+import { hasContent } from 'src/logic/helpers';
 
 import { FieldLabel } from '../field-label/FieldLabel';
 import { useProgressBarContext } from './ProgressBar.context';
-import { hasContent } from './ProgressBar.logic';
 import type { ProgressBarLabelProps } from './ProgressBar.types';
 
 const ProgressBarLabel = React.forwardRef<HTMLLabelElement, ProgressBarLabelProps>(
