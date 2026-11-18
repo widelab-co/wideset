@@ -570,6 +570,16 @@ describe('Invalid numbers', () => {
     expect(warn).not.toHaveBeenCalled();
     warn.mockRestore();
   });
+
+  it('warns once per invalid value, not on every render', () => {
+    const warn = warnSpy();
+    const { rerender } = render(<ProgressBar value={NaN} max={0} aria-label="Upload" />);
+    rerender(<ProgressBar value={NaN} max={0} aria-label="Upload" className="a" />);
+    rerender(<ProgressBar value={NaN} max={0} aria-label="Upload" className="b" />);
+
+    expect(warn).toHaveBeenCalledTimes(2);
+    warn.mockRestore();
+  });
 });
 
 describe('asChild', () => {
@@ -600,6 +610,20 @@ describe('asChild', () => {
     const root = screen.getByRole('progressbar', { name: 'Upload' });
     expect(root.tagName).toBe('DIV');
     expect(root.firstElementChild).toHaveAttribute('data-slot', 'progress-bar-track');
+  });
+
+  it('keeps a <div> root when the child is a Fragment', () => {
+    render(
+      <ProgressBar asChild value={40} aria-label="Upload">
+        <>
+          <ProgressBar.Track />
+        </>
+      </ProgressBar>,
+    );
+
+    const root = screen.getByRole('progressbar', { name: 'Upload' });
+    expect(root.tagName).toBe('DIV');
+    expect(root).toHaveAttribute('aria-valuenow', '40');
   });
 
   it('keeps the progressbar role and values over the child props', () => {
@@ -714,6 +738,54 @@ describe('Part ids', () => {
     );
 
     expect(screen.getByRole('progressbar', { name: '0' })).toBeInTheDocument();
+  });
+
+  it.each([
+    ['success', 'success'],
+    ['error', 'error'],
+  ] as const)(
+    'does not point aria-describedby at an icon-only Description (%s)',
+    (_name, status) => {
+      render(
+        <ProgressBar value={40} status={status} aria-label="Upload">
+          <ProgressBar.Track />
+          <ProgressBar.Description />
+        </ProgressBar>,
+      );
+
+      expect(screen.getByRole('progressbar')).not.toHaveAttribute('aria-describedby');
+    },
+  );
+
+  it('keeps the Label name when aria-labelledby is passed as undefined', () => {
+    render(
+      <ProgressBar value={40} aria-labelledby={undefined}>
+        <ProgressBar.Label>Upload</ProgressBar.Label>
+        <ProgressBar.Track />
+      </ProgressBar>,
+    );
+
+    expect(screen.getByRole('progressbar', { name: 'Upload' })).toBeInTheDocument();
+  });
+
+  it('keeps the "Progress" fallback when aria-label is passed as undefined', () => {
+    render(<ProgressBar value={40} aria-label={undefined} />);
+
+    expect(screen.getByRole('progressbar', { name: 'Progress' })).toBeInTheDocument();
+  });
+
+  it('keeps the remaining Label when another Label unmounts', () => {
+    const Bar = ({ second }: { second: boolean }) => (
+      <ProgressBar value={40}>
+        <ProgressBar.Label>Upload</ProgressBar.Label>
+        {second && <ProgressBar.Label>Sync</ProgressBar.Label>}
+        <ProgressBar.Track />
+      </ProgressBar>
+    );
+    const { rerender } = render(<Bar second />);
+    rerender(<Bar second={false} />);
+
+    expect(screen.getByRole('progressbar', { name: 'Upload' })).toBeInTheDocument();
   });
 
   it('drops the references when the Label and Description unmount', () => {

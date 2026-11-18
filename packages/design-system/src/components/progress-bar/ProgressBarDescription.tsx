@@ -10,11 +10,11 @@ const ProgressBarDescription = React.forwardRef<HTMLSpanElement, ProgressBarDesc
     const generatedId = React.useId();
     const descriptionId = id ?? generatedId;
     const showIcon = status === 'success' || status === 'error';
-    const isRendered = Boolean(children) || showIcon;
+    const hasText = Boolean(children);
 
     React.useLayoutEffect(
-      () => (isRendered ? registerDescription(descriptionId) : undefined),
-      [isRendered, descriptionId, registerDescription],
+      () => (hasText ? registerDescription(descriptionId) : undefined),
+      [hasText, descriptionId, registerDescription],
     );
 
     return (

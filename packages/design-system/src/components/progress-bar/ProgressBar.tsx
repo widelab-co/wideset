@@ -4,7 +4,7 @@ import { cn } from 'src/lib/utils';
 
 import { useDefaultMotion } from '../../motion/MotionProvider';
 import { ProgressBarContext } from './ProgressBar.context';
-import { usePartId } from './ProgressBar.hooks';
+import { useInvalidPropWarnings, usePartId } from './ProgressBar.hooks';
 import { hasContent, omitValueText, validateMax, validateValue } from './ProgressBar.logic';
 import type {
   ProgressBarContextValue,
@@ -40,6 +40,7 @@ const ProgressBar = React.forwardRef<
     const [labelId, registerLabel] = usePartId();
     const [descriptionId, registerDescription] = usePartId();
 
+    useInvalidPropWarnings(valueProp, maxProp);
     const max = validateMax(maxProp);
     const value = validateValue(valueProp, max);
     const percent = Math.round((value / max) * 100);
@@ -49,8 +50,8 @@ const ProgressBar = React.forwardRef<
       [value, max, percent, status, type, motion, registerLabel, registerDescription],
     );
 
-    const hasOwnName = Boolean(props['aria-label'] || props['aria-labelledby']);
-    const fallbackName = hasOwnName || labelId ? undefined : 'Progress';
+    const labelledBy = props['aria-labelledby'] || labelId;
+    const label = props['aria-label'] || (labelledBy ? undefined : 'Progress');
     const describedBy =
       [props['aria-describedby'], descriptionId].filter(Boolean).join(' ') || undefined;
 
@@ -62,7 +63,8 @@ const ProgressBar = React.forwardRef<
       'aria-valuemax': max,
     } as const;
 
-    const isSlotted = Boolean(asChild) && React.isValidElement(children);
+    const isSlotted =
+      Boolean(asChild) && React.isValidElement(children) && children.type !== React.Fragment;
     const content = isSlotted ? (
       React.cloneElement(children as React.ReactElement<Record<string, unknown>>, semantics)
     ) : hasContent(children) ? (
@@ -82,9 +84,9 @@ const ProgressBar = React.forwardRef<
           data-slot="progress-bar"
           data-type={type}
           data-status={status}
-          aria-label={fallbackName}
-          aria-labelledby={labelId}
           {...props}
+          aria-label={label}
+          aria-labelledby={labelledBy}
           aria-describedby={describedBy}
           {...semantics}
           className={cn(progressBarRootVariants({ type }), className)}
