@@ -35,8 +35,9 @@ share their card and the two sign-in screens their form (`SHARED` in `src/__test
 The agent screens (`agent-*`) are one app shown screen by screen: its kit (the transcript, the
 composer, the shell) is edited in `agent-chat/` and then copied over every agent block that carries
 the file. A new kit file goes on the `AGENT_KIT` list in the same test, which fails when a copy
-drifts; a Code-mode part edited in `agent-code/` goes on `AGENT_CODE_KIT`. A part a kit file already does is reused, not rewritten under another name: the test only
-compares files with the same name.
+drifts; a Code-mode part edited in `agent-code/` goes on `AGENT_CODE_KIT`. A part a kit file
+already does is reused, not rewritten under another name: the test only compares files with the
+same name.
 
 ## The four directions
 

@@ -19,9 +19,8 @@ type LimitNoticeProps = {
  * long and at what time), that nothing is lost, and the two ways on. Both are the alert's own
  * actions, in the alert's colour: going on now with the other model is the bordered one, waiting
  * the ghost one (an action in an alert is never filled: it takes the alert's text colour). It is
- * persistent: it leaves when the
- * limit does. Once waiting is chosen it turns into a plain note that says what will happen, with
- * the way to take that back.
+ * persistent: it leaves when the limit does. Once waiting is chosen it turns into a plain note that
+ * says what will happen, with the way to take that back.
  */
 export function LimitNotice({ waiting, onWait, onCancel, onSwitch }: LimitNoticeProps) {
   const now = `Continue now with ${limit.fallback.name}`;

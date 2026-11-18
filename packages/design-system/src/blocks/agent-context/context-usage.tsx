@@ -1,4 +1,4 @@
-// TODO(custom): usage of a window as one meter with what fills it listed under it; ProgressBar's neutral variant arrives with #58, and Wideset has no usage meter.
+// TODO(custom): usage of a window as one meter with what fills it listed under it; ProgressBar has no neutral variant yet (#58), and Wideset has no usage meter.
 import { Button, ProgressBar } from '@wideset/react';
 
 import { formatShare, formatTokens } from './context-format';

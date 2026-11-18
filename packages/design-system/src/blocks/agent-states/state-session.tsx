@@ -30,7 +30,8 @@ type StateSessionProps = {
  * notice over the composer when the state is about what you can send next, and the alert under
  * the bar when it is about the whole app. Every way out lets the turn go on from where it
  * stood, except waiting for the usage limit: the sample stops at the note that says so, and the
- * reset that resumes the turn is the app's (a timer or a message from the server). A new scene is a new instance, so nothing of the last one lingers.
+ * reset that resumes the turn is the app's (a timer or a message from the server).
+ * A new scene is a new instance, so nothing of the last one lingers.
  */
 export function StateSession({ scene, view, onMarkChange }: StateSessionProps) {
   const [turns, setTurns] = useState(scene.turns);
