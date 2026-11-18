@@ -284,11 +284,16 @@ export function ExportDialog({
         {stage.step === 'preparing' && (
           <>
             <Modal.Body>
-              <ProgressBar
-                value={stage.progress}
-                label={`Preparing ${fileName}…`}
-                description={`${formatCount(Math.round((rows.length * stage.progress) / 100))} of ${formatCustomers(rows.length)}`}
-              />
+              <ProgressBar value={stage.progress}>
+                <ProgressBar.Header>
+                  <ProgressBar.Label>{`Preparing ${fileName}…`}</ProgressBar.Label>
+                  <ProgressBar.Value />
+                </ProgressBar.Header>
+                <ProgressBar.Track />
+                <ProgressBar.Description>
+                  {`${formatCount(Math.round((rows.length * stage.progress) / 100))} of ${formatCustomers(rows.length)}`}
+                </ProgressBar.Description>
+              </ProgressBar>
             </Modal.Body>
             <Modal.Footer>
               <Button
