@@ -87,6 +87,8 @@ const AGENT_KIT = [
   'menu-sub.tsx',
   'menu-choice.tsx',
 ];
+// Code-mode parts edited in agent-code and copied into the agent blocks that show them.
+const AGENT_CODE_KIT = ['changes-counts.tsx'];
 
 const SHARED = {
   'app-icon.tsx': AUTH_BLOCKS,
@@ -136,15 +138,15 @@ describe('Shared copies', () => {
     },
   );
 
-  it.each(AGENT_KIT)(
-    'keeps the agent kit’s %s identical in every agent block that carries it',
-    (file) => {
-      const source = agentSources[`../blocks/agent-chat/${file}`];
-      expect(typeof source).toBe('string');
-      const copies = Object.entries(agentSources).filter(([path]) => path.endsWith(`/${file}`));
-      for (const [path, copy] of copies) expect(copy, path).toBe(source);
-    },
-  );
+  it.each([
+    ...AGENT_KIT.map((file) => [file, 'agent-chat']),
+    ...AGENT_CODE_KIT.map((file) => [file, 'agent-code']),
+  ])('keeps the agent kit’s %s identical in every agent block that carries it', (file, home) => {
+    const source = agentSources[`../blocks/${home}/${file}`];
+    expect(typeof source).toBe('string');
+    const copies = Object.entries(agentSources).filter(([path]) => path.endsWith(`/${file}`));
+    for (const [path, copy] of copies) expect(copy, path).toBe(source);
+  });
 });
 
 describe('Rendering', () => {
@@ -153,6 +155,87 @@ describe('Rendering', () => {
     expect(typeof Block).toBe('function');
     const { container } = render(<Block />);
     expect(container.firstElementChild).not.toBeNull();
+  });
+});
+
+describe('Agent research', () => {
+  // Stop keeps what is there: a source cut short stays in the list, unfinished and not counted.
+  it('keeps a source cut short by Stop, not counted as read', async () => {
+    const { SourcesPane } = await import('../blocks/agent-research/sources-pane');
+    const { sources } = await import('../blocks/agent-research/research-data');
+    const [first, second] = sources;
+    const { getByRole, getByText } = render(
+      <SourcesPane
+        id="sources"
+        sources={[first, second]}
+        unfinishedIds={[second.id]}
+        written={[]}
+        active={null}
+        pinned={null}
+        live={false}
+        onPeek={() => {}}
+        onClose={() => {}}
+      />,
+    );
+    expect(getByRole('link', { name: new RegExp(second.title) })).toHaveTextContent('Not finished');
+    expect(getByText('1 read')).toBeInTheDocument();
+  });
+
+  // Cancel, Esc or Run again ends the edit: the cursor goes back to Edit plan, not to the page.
+  it('returns the focus to Edit plan when an edit ends', async () => {
+    const { PlanCard } = await import('../blocks/agent-research/research-plan-card');
+    const user = userEvent.setup();
+    const { getByRole } = render(
+      <PlanCard
+        steps={['Prices', 'Reviews']}
+        live={false}
+        defaultOpen
+        locked={false}
+        onChange={() => {}}
+      />,
+    );
+    const edit = getByRole('button', { name: 'Edit plan' });
+    await user.click(edit);
+    expect(getByRole('textbox', { name: /^Plan/ })).toHaveFocus();
+    await user.keyboard('{Escape}');
+    expect(getByRole('button', { name: 'Edit plan' })).toHaveFocus();
+    await user.click(getByRole('button', { name: 'Edit plan' }));
+    await user.click(getByRole('button', { name: 'Cancel' }));
+    expect(getByRole('button', { name: 'Edit plan' })).toHaveFocus();
+  });
+});
+
+describe('Agent context', () => {
+  // Reconnected, the focus goes to the badge once; a later render (the popover makes the rows
+  // anew each time) does not take it back from wherever it went.
+  it('moves the focus to a reconnected connector once', async () => {
+    const { ConnectorList } = await import('../blocks/agent-context/connector-list');
+    const { connectors } = await import('../blocks/agent-context/data');
+    function Popover() {
+      const [back, setBack] = useState<string[]>([]);
+      const [renders, setRenders] = useState(0);
+      return (
+        <>
+          <ConnectorList
+            connectors={connectors.map((item) =>
+              back.includes(item.id) ? { ...item, state: 'connected' } : { ...item },
+            )}
+            onReconnect={(id) => setBack([...back, id])}
+          />
+          <button type="button" onClick={() => setRenders(renders + 1)}>
+            Something else
+          </button>
+        </>
+      );
+    }
+    const user = userEvent.setup();
+    const { getByRole } = render(<Popover />);
+    await user.click(getByRole('button', { name: 'Reconnect Team chat' }));
+    expect(document.activeElement).toHaveTextContent('Connected');
+    expect(getByRole('status')).toHaveTextContent('Team chat is connected');
+    const other = getByRole('button', { name: 'Something else' });
+    await user.click(other);
+    expect(other).toHaveFocus();
   });
 });
 
