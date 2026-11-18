@@ -37,9 +37,11 @@ read in one sitting and either merge as is or adapt onto a feature branch, not a
 4. **Never rewrite history.** No `git rebase`, `git reset --hard`, `git push --force`,
    `git commit --amend` on pushed commits. The reviewer pulls your branch.
 5. **Stay in the visual layer.** Allowed, all under `packages/design-system/`: component styles
-   and CVA variants (`Component.variants.ts`, `className`s in `Component.tsx`), motion and
-   transitions, Storybook stories, `examples/` files and `.mdx` docs, prop descriptions (JSDoc
-   text), story descriptions, copy, and snapshot updates caused by your visual change. Not allowed
+   and CVA variants (`Component.variants.ts`; in `Component.tsx` only the classes already inline
+   in a component with no variant axis, and a new visual axis goes to `.variants.ts`, never a
+   class-picking ternary in the `.tsx`), motion and transitions, Storybook stories, `examples/`
+   files and `.mdx` docs, prop descriptions (the JSDoc text in `*.types.ts`, no type changes),
+   story descriptions, copy, and snapshot updates caused by your visual change. Not allowed
    without a developer: public props and types, `src/index.ts`, `src/lib/`, `src/styles/` (tokens,
    theme entry points and the hand-maintained utilities), usage specs in `specs/`, `package.json`
    and dependencies, CI and config files, other tests, `registry.json` and the registry copies in
