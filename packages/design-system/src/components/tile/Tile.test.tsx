@@ -120,6 +120,17 @@ describe('Tile', () => {
       expect(screen.getByRole('radiogroup', { name: 'Plan' })).toBeInTheDocument();
     });
 
+    it('should draw a decorative asterisk on the label when required', () => {
+      render(
+        <Tile.RadioGroup label="Plan" value="pro" required>
+          <Tile.Radio title="Pro" value="pro" />
+        </Tile.RadioGroup>,
+      );
+
+      expect(screen.getByText('*')).toHaveAttribute('aria-hidden', 'true');
+      expect(screen.getByRole('radiogroup', { name: 'Plan' })).toBeInTheDocument();
+    });
+
     it('should let an explicit aria-label win over label', () => {
       render(
         <Tile.RadioGroup aria-label="Billing plan" label="Plan" value="pro">

@@ -81,8 +81,9 @@ Match `size` to the controls beside it.
 
 - Each icon-only item needs `aria-label` or `aria-labelledby`; the item warns in the console
   without one.
-- The control is one tab stop; the arrow keys move between segments. Segments are announced as
-  radio options.
+- The control is one tab stop. Arrow keys move focus and select a segment; Space selects the
+  focused segment. Enter does not select. Segments are announced as radio options.
+- Home and End move focus to the first or last enabled segment without changing selection.
 - Name the control (`aria-label`) when no visible heading says what it switches.
 
 ## Do / Don't
@@ -103,6 +104,11 @@ const [view, setView] = useState('board');
 
 ## Gotchas
 
+- Set `name` and `required` on the root, not on items. Inside a form, each item renders a hidden
+  radio input; the selected value is submitted under the group's `name`.
+- Arrow navigation selects the focused segment and calls `onValueChange` when selection changes.
+  It also invokes the destination item's `onClick`; track selection with the group's
+  `onValueChange` rather than item click handlers.
 - The `icon` prop takes a component, not an element.
 - `icon` on the item makes an icon-only segment; for icon + label put `SegmentedControl.Icon` inside
   the item's children instead.
