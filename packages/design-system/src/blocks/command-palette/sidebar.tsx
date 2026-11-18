@@ -15,7 +15,7 @@ import {
   type SidebarProps,
   TextInput,
 } from '@wideset/react';
-import { useState } from 'react';
+import { useState, useSyncExternalStore } from 'react';
 
 import { BrandMark } from './brand-mark';
 import {
@@ -29,9 +29,15 @@ import {
 } from './data';
 import { PersonAvatar } from './person-avatar';
 
-/** ⌘ on Apple keyboards, Ctrl elsewhere; both open the palette everywhere. */
-const MODIFIER =
-  typeof navigator !== 'undefined' && /Mac|iPhone|iPad/.test(navigator.userAgent) ? '⌘' : 'Ctrl';
+const never = () => () => {};
+const apple = () => (/Mac|iPhone|iPad/.test(navigator.userAgent) ? '⌘' : 'Ctrl');
+
+/**
+ * ⌘ on Apple keyboards, Ctrl elsewhere; both open the palette everywhere. The server, which has
+ * no keyboard, renders Ctrl and the browser corrects it after hydration, so a server-rendered
+ * page does not mismatch.
+ */
+const useModifier = () => useSyncExternalStore(never, apple, () => 'Ctrl');
 
 /**
  * The workspace sidebar: switcher, search, the app's pages, settings and the signed-in account.
@@ -47,6 +53,7 @@ export function WorkspaceSidebar({
   onSearch: () => void;
 }) {
   const [active, setActive] = useState('home');
+  const modifier = useModifier();
 
   const link = ({ id, label, icon, activeIcon }: NavLink) => (
     <Sidebar.Item
@@ -131,7 +138,7 @@ export function WorkspaceSidebar({
               />
               <TextInput.Suffix inner>
                 <span aria-hidden="true" className="typography-caption-md text-ws-static-subtle">
-                  {`${MODIFIER} K`}
+                  {`${modifier} K`}
                 </span>
               </TextInput.Suffix>
             </TextInput>
