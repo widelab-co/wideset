@@ -69,34 +69,45 @@ git branch --list 'design/*'         # topics already started locally
 git branch -r --list 'origin/design/*'
 ```
 
+Name the topic once and reuse the variables in every command below. `topic` is the kebab-case
+slug and names the handoff file; `branch` is the full branch name: `design/$topic`, or
+`design/<task-id>/$topic` when the designer has a ClickUp task. The handoff is
+`docs/design-contributions/$topic.md` (at the repository root) in both cases.
+
+```bash
+topic=tabs-motion
+branch="design/$topic"          # or: branch="design/123abc/$topic" with a ClickUp task id
+```
+
 Continuing a topic:
 
 ```bash
-git checkout design/<topic>
+git checkout "$branch"
 git merge origin/develop --no-edit
 ```
 
-Starting a topic (kebab-case, same name as the handoff file; `design/<task-id>/<topic>` if the
-designer has a ClickUp task):
+Starting a topic:
 
 ```bash
-git checkout -b design/<topic> origin/develop
+git checkout -b "$branch" origin/develop
 ```
 
 Then verify before touching any file:
 
 ```bash
-git branch --show-current              # must start with design/
+git branch --show-current              # must equal $branch
 git log --oneline HEAD..origin/develop # must print nothing
 ```
 
 If the branch name is wrong, switch; if `develop` has commits you do not have, merge again. If
-the merge reports conflicts, run `git merge --abort`, add
-`OPEN: branch needs a developer sync (conflicts with develop)` to the handoff, and continue on
-the current state. Never resolve conflicts by picking sides in files you did not change.
+the merge reports conflicts, run `git merge --abort` and stop the visual work: the branch is
+behind `develop`, and changes made on it would target components that no longer look that way. Add
+`OPEN: branch needs a developer sync (conflicts with develop)` to the handoff, commit and push
+it, and tell the designer to ask a developer to sync the branch. Continue only once the check
+above prints nothing. Never resolve conflicts by picking sides in files you did not change.
 
-For a new topic, create `docs/design-contributions/<topic>.md` (at the repository root) from the
-template in step 6 before the first commit, so the branch explains itself from the first push.
+For a new topic, create `docs/design-contributions/$topic.md` from the template in step 6 before
+the first commit, so the branch explains itself from the first push.
 
 ### 2. Work in Storybook
 
@@ -124,8 +135,8 @@ pnpm test
 
 `pnpm test` needs a library build; if it complains that `dist/` is missing, run `pnpm build:lib`
 once and test again. If a snapshot test fails only because of your intended visual change, update
-it with `pnpm --filter @wideset/react exec vitest run -u <path to the test file>` (path relative to
-`packages/design-system/`) and mention it in the commit and the handoff. If anything else fails
+it with the test file's path relative to `packages/design-system/`, for example
+`pnpm --filter @wideset/react exec vitest run -u src/components/tabs/Tabs.test.tsx`, and mention it in the commit and the handoff. If anything else fails
 and you cannot fix it inside the visual layer, revert that part and note it in the handoff.
 
 ### 4. Commit and push
@@ -142,7 +153,7 @@ feat(modal): overlay fade-in on the motion tokens
 The pre-commit hook formats staged files. Then:
 
 ```bash
-git push -u origin design/<topic>
+git push -u origin "$branch"
 ```
 
 If the push is refused for lack of access, stop and ask the designer to get write access from a
@@ -153,8 +164,18 @@ maintainer. Do not fork or push anywhere else on your own.
 Nothing opens it automatically. Check whether one exists, and open it as a draft if not:
 
 ```bash
-gh pr list --head design/<topic> --state open
-gh pr create --draft --base develop --title "[design] <Topic>" --body "<body>"
+gh pr list --head "$branch" --state open
+gh pr create --draft --base develop --title "[design] Tabs motion" --body-file - <<'EOF'
+## Why
+
+The active tab now slides instead of switching instantly, as in Figma.
+
+@coderabbitai summary
+
+## Checklist
+
+(the checklist from .github/pull_request_template.md)
+EOF
 ```
 
 The body follows `.github/pull_request_template.md`: a `## Why` with one or two sentences in the
@@ -168,7 +189,7 @@ the developer who merges adds the changeset. Do not add one to make it green.
 
 ### 6. Keep the handoff current
 
-`docs/design-contributions/<topic>.md` is what the reviewer reads first; a change without a line
+`docs/design-contributions/$topic.md` is what the reviewer reads first; a change without a line
 there is invisible to them. Update it in the same commit as the change. The developer deletes the
 file before the branch merges (the PR keeps it), so write it for them, not for posterity. Template:
 
@@ -203,11 +224,11 @@ the branch, not the sessions.
 When the branch does what the designer wanted (or has gone as far as the visual layer allows):
 
 1. Set `Status: ready for review` in the handoff, commit, push.
-2. Mark the PR ready for review (`gh pr ready`, or the GitHub "Ready for review" button).
-   CodeRabbit skips drafts, so it reviews now, within minutes.
+2. Mark the PR ready for review (`gh pr ready`, or the GitHub "Ready for review" button). That
+   requests a maintainer's review from `.github/CODEOWNERS` and starts CodeRabbit, which skips
+   drafts and reviews within minutes. Tell a developer the branch is ready.
 3. Go through CodeRabbit's comments: fix what stays inside the visual layer, and answer the rest
-   in its thread (usually "needs a developer, listed as OPEN in the handoff"). GitHub then assigns
-   a maintainer from `.github/CODEOWNERS`; tell a developer the branch is ready.
+   in its thread (usually "needs a developer, listed as OPEN in the handoff").
 4. Start the next topic on a new branch from step 1. Do not reuse this branch.
 
 The developer answers with one of three verdicts: merge as is (after adding the changeset,
