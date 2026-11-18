@@ -1,7 +1,7 @@
 // TODO(custom): what a session produced as rows that open it (a changed file with its diff stat, a document); FileItem is an upload row with a thumbnail and a remove action.
 import { RiFileCodeLine, RiFileTextLine } from '@remixicon/react';
 
-import { ChangeCounts } from './change-counts';
+import { ChangeCounts } from './changes-counts';
 import type { ChangedFile } from './data';
 
 const ROW =

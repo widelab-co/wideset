@@ -87,6 +87,8 @@ const AGENT_KIT = [
   'menu-sub.tsx',
   'menu-choice.tsx',
 ];
+// Code-mode parts edited in agent-code and copied into the agent blocks that show them.
+const AGENT_CODE_KIT = ['changes-counts.tsx'];
 
 const SHARED = {
   'app-icon.tsx': AUTH_BLOCKS,
@@ -136,15 +138,15 @@ describe('Shared copies', () => {
     },
   );
 
-  it.each(AGENT_KIT)(
-    'keeps the agent kit’s %s identical in every agent block that carries it',
-    (file) => {
-      const source = agentSources[`../blocks/agent-chat/${file}`];
-      expect(typeof source).toBe('string');
-      const copies = Object.entries(agentSources).filter(([path]) => path.endsWith(`/${file}`));
-      for (const [path, copy] of copies) expect(copy, path).toBe(source);
-    },
-  );
+  it.each([
+    ...AGENT_KIT.map((file) => [file, 'agent-chat']),
+    ...AGENT_CODE_KIT.map((file) => [file, 'agent-code']),
+  ])('keeps the agent kit’s %s identical in every agent block that carries it', (file, home) => {
+    const source = agentSources[`../blocks/${home}/${file}`];
+    expect(typeof source).toBe('string');
+    const copies = Object.entries(agentSources).filter(([path]) => path.endsWith(`/${file}`));
+    for (const [path, copy] of copies) expect(copy, path).toBe(source);
+  });
 });
 
 describe('Rendering', () => {
@@ -181,7 +183,7 @@ describe('Agent research', () => {
 
   // Cancel, Esc or Run again ends the edit: the cursor goes back to Edit plan, not to the page.
   it('returns the focus to Edit plan when an edit ends', async () => {
-    const { PlanCard } = await import('../blocks/agent-research/plan-card');
+    const { PlanCard } = await import('../blocks/agent-research/research-plan-card');
     const user = userEvent.setup();
     const { getByRole } = render(
       <PlanCard
