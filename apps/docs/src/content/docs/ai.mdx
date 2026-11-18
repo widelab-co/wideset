@@ -36,23 +36,21 @@ copy-the-source route described in [CLI](/docs/cli), not through the npm package
 
 ### 1. Register the namespace
 
-The server reads registries from `components.json` in your project. Set it up as in
-[CLI, step 1](/docs/cli#1-create-componentsjson), or, in a project that already uses shadcn,
-add only the namespace:
+The server reads registries only from `components.json` in your project. Set it up as in
+[CLI, step 1](/docs/cli#1-create-componentsjson), or keep the one a shadcn project already has,
+and add the namespace:
 
 ```bash
 npx shadcn@latest registry add @wideset=https://wideset.co/r/{name}.json
 ```
 
-Either way `components.json` ends up with:
+`components.json` then has:
 
 ```json
 {
   "registries": { "@wideset": "https://wideset.co/r/{name}.json" }
 }
 ```
-
-The registry is public: no token, no headers.
 
 ### 2. Configure your client
 
