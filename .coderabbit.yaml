@@ -37,7 +37,9 @@ reviews:
   auto_review:
     enabled: true
     drafts: false
-    base_branches: ['develop', 'main']
+    # Regular expressions on the branch a PR merges into; ^feature/ covers PRs stacked on another
+    # PR's branch.
+    base_branches: ['develop', 'main', '^feature/']
 
   path_filters:
     - '!**/__snapshots__/**'

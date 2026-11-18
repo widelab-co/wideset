@@ -10,9 +10,12 @@ concurrency:
 on:
   pull_request:
     types: [opened, synchronize, reopened]
+    # The branch a PR merges into. feature/**: a PR stacked on another PR's branch gets the same
+    # checks and a preview; "Changeset present" still runs only for PRs into develop.
     branches:
       - main
       - develop
+      - 'feature/**'
   # Weekly: the registry smoke against shadcn@latest, so a CLI release that changes what consumers
   # receive shows up here first (the docs recommend `npx shadcn@latest`).
   schedule:
@@ -89,7 +92,7 @@ jobs:
   # until the deployed hosts answer. Setup: RELEASING.md.
   #   push to main    → production Workers wideset-storybook, wideset-docs (environment production)
   #   push to develop → wideset-storybook-develop, wideset-docs-develop (environment develop)
-  #   pull request    → a preview version of each develop Worker (PRs target develop), alias
+  #   pull request    → a preview version of each develop Worker (whatever the base), alias
   #                     pr-<number>, URLs commented on the PR (environment preview)
   # Every build bakes in the addresses it is served from: the registry its own URL
   # (REGISTRY_URL), the docs their site and Storybook links. The environments' variables
