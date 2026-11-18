@@ -77,6 +77,7 @@ slug and names the handoff file; `branch` is the full branch name: `design/$topi
 ```bash
 topic=tabs-motion
 branch="design/$topic"          # or: branch="design/123abc/$topic" with a ClickUp task id
+title="Tabs motion"             # the topic in words, for the PR title and the handoff heading
 ```
 
 Continuing a topic:
@@ -165,7 +166,7 @@ Nothing opens it automatically. Check whether one exists, and open it as a draft
 
 ```bash
 gh pr list --head "$branch" --state open
-gh pr create --draft --base develop --title "[design] Tabs motion" --body-file - <<'EOF'
+gh pr create --draft --base develop --title "[design] $title" --body-file - <<'EOF'
 ## Why
 
 The active tab now slides instead of switching instantly, as in Figma.
@@ -174,11 +175,15 @@ The active tab now slides instead of switching instantly, as in Figma.
 
 ## Checklist
 
-(the checklist from .github/pull_request_template.md)
+- [ ] Matches Figma (link the node), or no visual change
+- [ ] ~~Keyboard and focus checked in Storybook, or no interactive change~~ motion only, no interaction changed
+- [ ] A story or example shows the change
+- [ ] ~~The component spec in `packages/design-system/specs/` is updated, or the API did not change~~ the API did not change
 EOF
 ```
 
-The body follows `.github/pull_request_template.md`: a `## Why` with one or two sentences in the
+The example body is for the tabs topic; write this topic's own `## Why` and tick or strike
+each checklist item for it. The body follows `.github/pull_request_template.md`: a `## Why` with one or two sentences in the
 designer's words, the `@coderabbitai summary` line kept as is (CodeRabbit writes the description
 there), and the checklist, with items that do not apply struck through and a reason. Without
 `gh`, open it on GitHub ("Compare & pull request", base `develop`, "Create draft pull request").
