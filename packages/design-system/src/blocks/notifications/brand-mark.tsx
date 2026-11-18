@@ -18,7 +18,7 @@ export function BrandMark({ className, label }: { className?: string; label?: st
       className={cn('size-ws-14 shrink-0', className)}
     >
       <path d={TILE} className="fill-(--ws-static-fill-inverse-background)" />
-      <g className="fill-(--ws-static-text-inverse-strong) stroke-(--ws-static-text-inverse-strong)">
+      <g className="fill-ws-static-inverse-strong stroke-ws-static-inverse-strong">
         <circle cx="16" cy="16" r="3" stroke="none" />
         <circle cx="16" cy="16" r="8" fill="none" strokeWidth="1.75" />
         {/* The moon cuts the orbit: its outline is the tile's colour. */}
