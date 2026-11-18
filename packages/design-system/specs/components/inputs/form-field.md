@@ -43,7 +43,7 @@ storybook: form-formfield--default
 
 FormField renders the label row (the label, its info button, the aside), then the control you
 pass, then the helper or error text. The label and the text are internal parts (`FieldLabel` with
-its `Suffix`, `Tooltip` and `Aside`, `HelperText`); they are not exported, so reach them only
+its `RequiredIndicator`, `Suffix`, `Tooltip` and `Aside`, `HelperText`); they are not exported, so reach them only
 through FormField's props.
 
 ## Choosing props
