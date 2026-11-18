@@ -46,7 +46,7 @@ export function RewardProgress({
         value={Math.min(value, target)}
         max={target}
         aria-labelledby={labelId}
-        getValueLabel={() => `${value} of ${target} ${unit}`}
+        aria-valuetext={`${value} of ${target} ${unit}`}
       />
       <p className="typography-label-sm text-ws-static-subtle tabular-nums">{note}</p>
     </div>

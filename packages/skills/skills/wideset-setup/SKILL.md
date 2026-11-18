@@ -55,7 +55,7 @@ The `theme` entry ships tokens and utilities only. To use `radix-*` or `animate-
 
 Use the Wideset CLI. `npx wideset init` writes `components.json` (or registers `@wideset` in an existing one), adds the `@/*` alias and imports the stylesheet; `npx wideset add button select` copies components with what they depend on, and runs `init` first if needed. `npx wideset list` shows every component.
 
-Without the Wideset CLI, the shadcn CLI does the copying; you do not need shadcn's components or theme, or `shadcn init`. Add this `components.json` to the project root (Vite shown; for Next.js use `"rsc": true`, `"css": "app/globals.css"` and `@/` at the project root). The `@/*` alias must exist in `tsconfig.json`, and in `vite.config.ts` for Vite.
+Without the Wideset CLI, the shadcn CLI does the copying; you do not need shadcn's components or theme, or `shadcn init`. Add this `components.json` to the project root (Vite shown; for Next.js use `"rsc": true`, `"css": "app/globals.css"` and `@/` at the project root). The `@/*` alias must exist in `tsconfig.json`, and in `vite.config.ts` for Vite. This needs shadcn 3.2 or later (`npx shadcn@latest`). With shadcn 3.0 or 3.1, add `"registries": { "@wideset": "https://wideset.co/r/{name}.json" }` to `components.json`; shadcn 2.x cannot install `@wideset` items, so upgrade it.
 
 ```json
 {
@@ -75,12 +75,11 @@ Without the Wideset CLI, the shadcn CLI does the copying; you do not need shadcn
     "lib": "@/lib",
     "hooks": "@/hooks",
     "utils": "@/lib/utils"
-  },
-  "registries": { "@wideset": "https://wideset.co/r/{name}.json" }
+  }
 }
 ```
 
-A project already using shadcn keeps its file and runs `npx shadcn@latest registry add @wideset=https://wideset.co/r/{name}.json`.
+A project already using shadcn keeps its `components.json` as it is.
 
 Every component brings `styles/wideset.css`. Import it once in the app entry:
 

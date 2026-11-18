@@ -93,6 +93,22 @@ describe('HelperText', () => {
     expect(element).toHaveAttribute('data-custom', 'value');
   });
 
+  describe('Content', () => {
+    it('renders 0 as content', () => {
+      render(<HelperText>{0}</HelperText>);
+      expect(screen.getByText('0')).toHaveAttribute('data-slot', 'helper-text');
+    });
+
+    it.each([
+      ['no children', undefined],
+      ['false', false],
+      ['an empty string', ''],
+    ])('renders nothing with %s', (_name, children) => {
+      const { container } = render(<HelperText>{children}</HelperText>);
+      expect(container).toBeEmptyDOMElement();
+    });
+  });
+
   describe('Icon display', () => {
     it('does not show icon when showIcon is false', () => {
       const { container } = render(

@@ -262,11 +262,10 @@ function MemberCells({
         </span>
       </div>
       <div className="w-ws-21 pr-ws-9 pointer-events-none flex shrink-0 justify-end">
-        <ProgressBar
-          type="circle"
-          value={member.progress}
-          aria-label={`${member.name}, work done`}
-        />
+        <ProgressBar type="circle" value={member.progress} aria-label={`${member.name}, work done`}>
+          <ProgressBar.Value />
+          <ProgressBar.Track />
+        </ProgressBar>
       </div>
     </div>
   );

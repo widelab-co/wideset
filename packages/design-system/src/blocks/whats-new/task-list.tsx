@@ -133,9 +133,9 @@ export function TaskList({ tasks, done, today, onDoneChange, onAdd }: TaskListPr
             <ProgressBar
               value={finished.length}
               max={tasks.length}
-              variant={open.length ? 'default' : 'success'}
+              status={open.length ? 'default' : 'success'}
               aria-label="Tasks done today"
-              getValueLabel={(value, max) => `${value} of ${max} tasks done`}
+              aria-valuetext={`${finished.length} of ${tasks.length} tasks done`}
             />
           </div>
         </div>

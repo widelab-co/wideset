@@ -200,7 +200,10 @@ export function TaskSidepanel({
                           type="circle"
                           value={subtask.progress}
                           aria-label={`${subtask.title} progress`}
-                        />
+                        >
+                          <ProgressBar.Value />
+                          <ProgressBar.Track />
+                        </ProgressBar>
                       )}
                     </li>
                   ))}

@@ -34,7 +34,7 @@ export function KpiCard({ label, value, progress, target, remaining, className }
       <div className="gap-ws-5 flex flex-col">
         <ProgressBar
           value={Math.min(progress, 1) * 100}
-          variant={progress >= 1 ? 'success' : 'default'}
+          status={progress >= 1 ? 'success' : 'default'}
           aria-label={`${label}: ${target}`}
         />
         <div className="typography-caption-md gap-ws-5 flex justify-between tabular-nums">

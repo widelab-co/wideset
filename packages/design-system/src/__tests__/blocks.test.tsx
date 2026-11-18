@@ -265,6 +265,7 @@ describe('Agent code', () => {
   });
 
   // Closing the pane hides it: a review comment written in it is there when it opens again.
+  // It renders the whole screen, slower than the 5 s default on CI, hence its own timeout.
   it('keeps a review comment through closing and reopening the pane', async () => {
     const { default: AgentCode } = await import('../blocks/agent-code');
     const user = userEvent.setup();
@@ -277,7 +278,7 @@ describe('Agent code', () => {
     expect(getByText('Kept on reopening')).not.toBeVisible();
     await user.click(getByRole('button', { name: 'Open pane' }));
     expect(getByText('Kept on reopening')).toBeVisible();
-  });
+  }, 20_000);
 });
 
 describe('Agent copy button', () => {
