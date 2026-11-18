@@ -111,15 +111,14 @@ function AccessPage() {
 
   const block = (person: AccessRequest, reason: string) => {
     const { restore } = remove([person.id]);
-    const before = blocked;
     const { id, name, initials, email } = person;
-    setBlocked([
+    setBlocked((current) => [
       { id, name, initials, email, reason, blockedBy: account.name, blocked: NOW.toISOString() },
-      ...before,
+      ...current,
     ]);
     toastWithUndo(`${name} declined and blocked`, () => {
       restore();
-      setBlocked(before);
+      setBlocked((current) => current.filter((entry) => entry.id !== id));
     });
   };
 
@@ -201,7 +200,7 @@ function AccessPage() {
         invited={invitations.map((i) => i.email)}
         blocked={blocked.map((p) => p.email)}
         onInvite={(email, role) => {
-          setInvitations([
+          setInvitations((invitations) => [
             { id: email, email, role, invitedBy: account.name, sent: NOW.toISOString() },
             ...invitations,
           ]);
@@ -250,7 +249,7 @@ export default function AccessRequests() {
                 aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
                 aria-expanded={!collapsed}
                 aria-controls={sidebarId}
-                onClick={() => setCollapsed(!collapsed)}
+                onClick={() => setCollapsed((collapsed) => !collapsed)}
                 className="-ml-ws-5"
               />
               <Breadcrumbs separator="arrow">

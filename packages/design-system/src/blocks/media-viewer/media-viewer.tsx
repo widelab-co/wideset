@@ -156,7 +156,7 @@ export function MediaViewer({
             size="sm"
             aria-label="Details"
             aria-pressed={details}
-            onClick={() => setDetails(!details)}
+            onClick={() => setDetails((details) => !details)}
           />
           <Button size="sm" onClick={() => onShare(file)} className="mx-ws-3">
             <Button.Icon icon={RiShareLine} />

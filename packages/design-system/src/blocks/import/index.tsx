@@ -87,7 +87,7 @@ function ImportPage({ collapsed, onToggleSidebar, sidebarId }: PageProps) {
     setImporting(true);
     timer.current = window.setTimeout(() => {
       setImporting(false);
-      setImports([
+      setImports((imports) => [
         { id: `q4-${imports.length}`, file: file.name, date: TODAY, by: account.name, ...result },
         ...imports,
       ]);
@@ -219,7 +219,7 @@ function ImportPage({ collapsed, onToggleSidebar, sidebarId }: PageProps) {
                         variant="secondary"
                         preset="border"
                         disabled={importing}
-                        onClick={() => setStep(step - 1)}
+                        onClick={() => setStep((step) => step - 1)}
                       >
                         Back
                       </Button>
@@ -282,7 +282,7 @@ export default function Import() {
         <ImportSidebar id={sidebarId} collapsed={collapsed} onCollapsedChange={setCollapsed} />
         <ImportPage
           collapsed={collapsed}
-          onToggleSidebar={() => setCollapsed(!collapsed)}
+          onToggleSidebar={() => setCollapsed((collapsed) => !collapsed)}
           sidebarId={sidebarId}
         />
       </AppShell>

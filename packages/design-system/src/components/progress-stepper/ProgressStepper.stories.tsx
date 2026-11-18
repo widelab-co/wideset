@@ -192,19 +192,20 @@ export const Controlled: Story = {
   render: function Render(args: ProgressStepperProps) {
     const [{ activeStep = 1 }, updateArgs] = useArgs<ProgressStepperProps>();
     const step = activeStep;
-    const setStep = (nextStep: number) => {
+    // Storybook args hold the step, so this takes a value, not an updater.
+    const goToStep = (nextStep: number) => {
       updateArgs({ activeStep: nextStep });
       args.onStepChange?.(nextStep);
     };
 
     return (
       <div>
-        <ProgressStepper {...args} activeStep={step} onStepChange={setStep} />
+        <ProgressStepper {...args} activeStep={step} onStepChange={goToStep} />
         <div className="mt-ws-10 flex justify-between">
-          <Button disabled={step === 0} onClick={() => setStep(step - 1)}>
+          <Button disabled={step === 0} onClick={() => goToStep(step - 1)}>
             Prev step
           </Button>
-          <Button disabled={step === baseSteps.length} onClick={() => setStep(step + 1)}>
+          <Button disabled={step === baseSteps.length} onClick={() => goToStep(step + 1)}>
             Next step
           </Button>
         </div>

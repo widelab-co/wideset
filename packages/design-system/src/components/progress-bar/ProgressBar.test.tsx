@@ -574,10 +574,13 @@ describe('Invalid numbers', () => {
   it('warns once per invalid value, not on every render', () => {
     const warn = warnSpy();
     const { rerender } = render(<ProgressBar value={NaN} max={0} aria-label="Upload" />);
+    // StrictMode sets the effects up twice on mount, so the mount may warn twice per value.
+    const onMount = warn.mock.calls.length;
     rerender(<ProgressBar value={NaN} max={0} aria-label="Upload" className="a" />);
     rerender(<ProgressBar value={NaN} max={0} aria-label="Upload" className="b" />);
 
-    expect(warn).toHaveBeenCalledTimes(2);
+    expect(warn).toHaveBeenCalledTimes(onMount);
+    expect(new Set(warn.mock.calls.map(([message]) => message)).size).toBe(2);
     warn.mockRestore();
   });
 });

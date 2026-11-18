@@ -193,7 +193,7 @@ export default function Inbox() {
         <Page
           sidebarId={sidebarId}
           collapsed={collapsed}
-          onToggleSidebar={() => setCollapsed(!collapsed)}
+          onToggleSidebar={() => setCollapsed((collapsed) => !collapsed)}
         />
       </AppShell>
     </ToastProvider>

@@ -25,7 +25,7 @@ export default function ModalAccessBlock() {
         onPrivateChange={setPrivate}
         link={link}
         onInvite={(emails, role) =>
-          setPeople([...people, ...emails.map((email) => ({ id: email, email, role }))])
+          setPeople((people) => [...people, ...emails.map((email) => ({ id: email, email, role }))])
         }
         onRoleChange={(person, role) =>
           setPeople(people.map((p) => (p.id === person.id ? { ...p, role } : p)))

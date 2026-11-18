@@ -23,6 +23,10 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     setupFiles: ['./src/test-setup.ts'],
+    // StrictMode (test-setup.ts) renders twice: the suite takes about half as long again, and
+    // the heaviest renders (TimePicker's option lists) passed 5s on a busy machine. The timeout
+    // is there to catch a hang, not to measure speed.
+    testTimeout: 15_000,
     exclude: [...configDefaults.exclude, '**/.claude/**'],
   },
 });

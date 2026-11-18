@@ -287,7 +287,7 @@ export default function ProductForm({ layout = 'split' }: { layout?: ProductForm
         <ProductFormPage
           layout={layout}
           collapsed={collapsed}
-          onToggleSidebar={() => setCollapsed(!collapsed)}
+          onToggleSidebar={() => setCollapsed((collapsed) => !collapsed)}
           sidebarId={sidebarId}
         />
       </AppShell>

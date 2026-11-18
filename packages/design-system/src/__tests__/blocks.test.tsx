@@ -213,16 +213,16 @@ describe('Agent context', () => {
     const { connectors } = await import('../blocks/agent-context/data');
     function Popover() {
       const [back, setBack] = useState<string[]>([]);
-      const [renders, setRenders] = useState(0);
+      const [, setRenders] = useState(0);
       return (
         <>
           <ConnectorList
             connectors={connectors.map((item) =>
               back.includes(item.id) ? { ...item, state: 'connected' } : { ...item },
             )}
-            onReconnect={(id) => setBack([...back, id])}
+            onReconnect={(id) => setBack((back) => [...back, id])}
           />
-          <button type="button" onClick={() => setRenders(renders + 1)}>
+          <button type="button" onClick={() => setRenders((renders) => renders + 1)}>
             Something else
           </button>
         </>

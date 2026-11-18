@@ -68,7 +68,7 @@ function OrdersPage() {
   };
   const clearFilters = () => {
     filter(NO_FILTERS);
-    setCleared(cleared + 1);
+    setCleared((cleared) => cleared + 1);
   };
   const sortBy = (next: Sort) => {
     setSort(next);
@@ -169,7 +169,7 @@ export default function Orders() {
                 aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
                 aria-expanded={!collapsed}
                 aria-controls={sidebarId}
-                onClick={() => setCollapsed(!collapsed)}
+                onClick={() => setCollapsed((collapsed) => !collapsed)}
                 className="-ml-ws-5"
               />
               <Breadcrumbs separator="arrow">

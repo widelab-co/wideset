@@ -137,7 +137,7 @@ export function LessonQuiz({
       return;
     }
     setChecked(false);
-    setStep(step + 1);
+    setStep((step) => step + 1);
   };
 
   return (

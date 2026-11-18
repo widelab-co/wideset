@@ -58,7 +58,7 @@ function AudioMessage({ duration, progress }: { duration: string; progress: numb
         icon={playing ? RiPauseMiniFill : RiPlayMiniFill}
         size="xs"
         aria-label={playing ? 'Pause' : 'Play'}
-        onClick={() => setPlaying(!playing)}
+        onClick={() => setPlaying((playing) => !playing)}
       />
       <Slider defaultValue={[progress]} aria-label="Playback position" className="min-w-0 flex-1" />
       <span className="typography-body-sm text-ws-static-subtle tabular-nums">{duration}</span>
@@ -178,7 +178,10 @@ export function Conversation({
     event.preventDefault();
     const text = draft.trim();
     if (!text) return;
-    setThread([...thread, { id: String(Date.now()), kind: 'text', time: 'Just now', text }]);
+    setThread((thread) => [
+      ...thread,
+      { id: String(Date.now()), kind: 'text', time: 'Just now', text },
+    ]);
     setDraft('');
   };
 

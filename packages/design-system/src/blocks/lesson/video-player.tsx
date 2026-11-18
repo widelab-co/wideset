@@ -123,7 +123,7 @@ export function VideoPlayer({ title, playback, chapters, captions }: VideoPlayer
               size="sm"
               aria-label="Captions"
               aria-pressed={captionsOn}
-              onClick={() => setCaptionsOn(!captionsOn)}
+              onClick={() => setCaptionsOn((captionsOn) => !captionsOn)}
             />
             <IconButton
               icon={fullscreen ? RiFullscreenExitLine : RiFullscreenLine}

@@ -1,6 +1,12 @@
 import '@testing-library/jest-dom';
 
+import { configure } from '@testing-library/react';
 import { vi } from 'vitest';
+
+// Every render runs in StrictMode, as an app in development does: effects are set up, torn down
+// and set up again, and state updaters run twice. A change computed from an outdated value, or an
+// effect that is not undone by its cleanup, shows up here instead of in review.
+configure({ reactStrictMode: true });
 
 // Mock scrollIntoView for jsdom (used by Radix primitives)
 Element.prototype.scrollIntoView = vi.fn();

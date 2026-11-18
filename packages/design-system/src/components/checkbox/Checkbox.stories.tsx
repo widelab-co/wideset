@@ -226,7 +226,7 @@ const [checked, setChecked] = useState<boolean | 'indeterminate'>(false);
             args.onCheckedChange?.(nextValue);
           }}
         />
-        <Button onClick={() => setChecked(!checked)}>Toggle</Button>
+        <Button onClick={() => setChecked((checked) => !checked)}>Toggle</Button>
       </div>
     );
   },

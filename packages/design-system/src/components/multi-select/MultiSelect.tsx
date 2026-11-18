@@ -139,6 +139,9 @@ export const MultiSelect = ({
       return;
     }
 
+    // setSelected also reports the new list through onValueChange, so it takes a value, not a
+    // function; selectedValues is the controlled value when there is one.
+    // eslint-disable-next-line no-restricted-syntax
     setSelected([...selectedValues, optionValue]);
   };
 

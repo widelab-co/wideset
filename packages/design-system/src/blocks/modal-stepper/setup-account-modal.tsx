@@ -21,7 +21,7 @@ type SetupAccountModalProps = {
 export function SetupAccountModal({ open, onOpenChange }: SetupAccountModalProps) {
   const id = useId();
   const [step, setStep] = useState(PAYMENT_STEP);
-  const next = () => (step < STEPS.length - 1 ? setStep(step + 1) : onOpenChange(false));
+  const next = () => (step < STEPS.length - 1 ? setStep((step) => step + 1) : onOpenChange(false));
 
   return (
     <Modal open={open} onOpenChange={onOpenChange}>
@@ -34,7 +34,7 @@ export function SetupAccountModal({ open, onOpenChange }: SetupAccountModalProps
           event.preventDefault();
           field.focus();
         }}
-        onKeyDown={modalKeys(() => (step > 0 ? setStep(step - 1) : onOpenChange(false)))}
+        onKeyDown={modalKeys(() => (step > 0 ? setStep((step) => step - 1) : onOpenChange(false)))}
       >
         <div className="flex min-h-0 flex-1">
           <nav

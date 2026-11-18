@@ -124,13 +124,13 @@ export default function Calendar() {
                     {...ghost}
                     icon={RiArrowLeftSLine}
                     aria-label="Previous month"
-                    onClick={() => setMonth(month - 1)}
+                    onClick={() => setMonth((month) => month - 1)}
                   />
                   <IconButton
                     {...ghost}
                     icon={RiArrowRightSLine}
                     aria-label="Next month"
-                    onClick={() => setMonth(month + 1)}
+                    onClick={() => setMonth((month) => month + 1)}
                   />
                 </div>
                 <h2 className="typography-subtitle-xs text-ws-dynamic-secondary-default">

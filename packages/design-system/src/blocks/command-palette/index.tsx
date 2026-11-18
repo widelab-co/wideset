@@ -63,7 +63,7 @@ export default function CommandPaletteBlock() {
               aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
               aria-expanded={!collapsed}
               aria-controls={sidebarId}
-              onClick={() => setCollapsed(!collapsed)}
+              onClick={() => setCollapsed((collapsed) => !collapsed)}
               className="-ml-ws-5"
             />
             <Breadcrumbs separator="arrow">

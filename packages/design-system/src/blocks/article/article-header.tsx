@@ -45,7 +45,7 @@ export function ArticleHeader() {
           preset="border"
           size="sm"
           aria-pressed={saved}
-          onClick={() => setSaved(!saved)}
+          onClick={() => setSaved((saved) => !saved)}
         >
           <Button.Icon icon={saved ? RiBookmarkFill : RiBookmarkLine} />
           {saved ? 'Saved' : 'Save'}
