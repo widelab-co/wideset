@@ -57,12 +57,15 @@ describe('registry worker', () => {
   });
 
   it('still answers when the count fails', async () => {
+    let calls = 0;
     const { answer, env } = setup({
       write: () => {
+        calls += 1;
         throw new Error('analytics down');
       },
     });
     assert.equal(await worker.fetch(get('/r/button.json'), env), answer);
+    assert.equal(calls, 1);
   });
 
   it('works without the binding (staging, previews)', async () => {
