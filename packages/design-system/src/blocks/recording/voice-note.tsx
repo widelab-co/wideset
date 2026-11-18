@@ -11,6 +11,7 @@ import { usePlayback } from './use-playback';
  */
 export function VoiceNote({ duration }: { duration: number }) {
   const { time, playing, toggle } = usePlayback(duration);
+  const elapsed = Math.min(time, duration);
 
   return (
     <div className="gap-ws-5 flex items-center">
@@ -23,13 +24,13 @@ export function VoiceNote({ duration }: { duration: number }) {
         onClick={toggle}
       />
       <ProgressBar
-        value={time}
+        value={elapsed}
         max={duration}
         aria-label="Voice note"
-        aria-valuetext={`${formatClock(time)} of ${formatClock(duration)}`}
+        aria-valuetext={`${formatClock(elapsed)} of ${formatClock(duration)}`}
       />
       <span className="typography-label-sm text-ws-static-subtle shrink-0 tabular-nums">
-        {formatClock(playing ? time : duration)}
+        {formatClock(playing ? elapsed : duration)}
       </span>
     </div>
   );
