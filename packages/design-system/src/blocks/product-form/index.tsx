@@ -25,7 +25,7 @@ import { SaveBar } from './save-bar';
 import { ProductFormSidebar } from './sidebar';
 import { type ErrorField, MISSING, validate } from './validate';
 
-/** The two ways to lay the form out: beside where it sells and its preview, or alone in the middle. */
+/** The two ways to lay the form out: beside where it sells and its preview, or alone, centred. */
 export type ProductFormLayout = 'split' | 'centered';
 
 /**

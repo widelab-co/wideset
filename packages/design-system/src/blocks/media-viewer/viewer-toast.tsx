@@ -1,4 +1,4 @@
-// TODO(custom): a toast drawn inside the viewer; ToastProvider portals its stack to the body and takes no class or container, so a toast over an always-dark surface cannot take that surface's theme (and lands outside the dialog's focus trap).
+// TODO(custom): a toast drawn inside the viewer; ToastProvider portals its stack to the body and takes no container, so it cannot sit in the viewer's dark scope.
 import { Toast } from '@wideset/react';
 import { useEffect } from 'react';
 

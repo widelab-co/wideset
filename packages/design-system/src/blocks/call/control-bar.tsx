@@ -79,8 +79,9 @@ type ControlBarProps = {
  * The call's controls under the stage: what Maya sends (microphone, camera, screen, recording)
  * on the left; the panels and the way out on the right. Each is an icon button named by its
  * label and a tooltip, its state in `aria-pressed`. The bar is what the hand goes to during a
- * call, so its controls keep the default 40px height, a step above the page's 32px controls. Recording asks first, since everyone on the
- * call will be told; stopping it does not. Leave is the one coloured control.
+ * call, so its controls keep the default 40px height, a step above the page's 32px controls.
+ * Recording asks first, since everyone on the call will be told; stopping it does not. Leave is
+ * the one coloured control.
  */
 export function ControlBar({
   muted,
