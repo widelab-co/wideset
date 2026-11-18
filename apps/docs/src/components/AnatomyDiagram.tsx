@@ -73,7 +73,7 @@ const kebab = (name: string) => name.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLo
 
 /**
  * The slots a part can be found by: its own, then the slot of any other export that is the
- * very same component (`IconButtonIcon` is `ButtonIcon`, so it renders `button-icon`). Read
+ * very same component. Read
  * from the package's exports, never from React's internals.
  */
 const slotsOf = ({ slot, exportName }: AnatomyPart) => {

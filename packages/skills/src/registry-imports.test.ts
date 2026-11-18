@@ -125,7 +125,8 @@ describe('registry imports', () => {
     const pathsOf = (name: string) =>
       entries.filter(({ exported }) => exported === name).map(({ path }) => path);
     expect(pathsOf('IconButton')).toEqual(['@/components/ui/wideset/button/IconButton']);
-    expect(pathsOf('IconButtonIcon')).toEqual(['@/components/ui/wideset/button/IconButton']);
+    expect(pathsOf('IconButtonIcon')).toEqual([]);
+    expect(pathsOf('IconButtonIconProps')).toEqual([]);
     expect(pathsOf('IconButtonProps')).toEqual(['@/components/ui/wideset/button/IconButton.types']);
     expect(pathsOf('Button')).toEqual(['@/components/ui/wideset/button/Button']);
   });
