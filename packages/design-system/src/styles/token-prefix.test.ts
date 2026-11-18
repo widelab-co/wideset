@@ -1,7 +1,8 @@
-import { execFileSync } from 'child_process';
 import fs from 'fs';
 import path from 'path';
 import { describe, expect, it } from 'vitest';
+
+import { compileCss } from '../__tests__/compile-css';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { prefixVariableName, styleForFile } = require('../../prefix-tokens.cjs');
@@ -57,40 +58,10 @@ describe('Wideset token prefix', () => {
     expect(unprefixed).toEqual([]);
   });
 
-  // Vite's CSS pipeline, as used by Storybook: it also drops @imports that follow other
-  // statements, which plain PostCSS would not catch. Runs in a child process because
-  // esbuild cannot load inside the jsdom test environment. `inline` adds classes that no
-  // component uses, so their compiled rules can be asserted.
-  const compile = (entry: string, inline = '') => {
-    const script = `
-      const { preprocessCSS, resolveConfig } = await import('vite');
-      const fs = await import('fs');
-      const [root, entry, inline] = process.argv.slice(1);
-      const from = root + '/src/styles/' + entry;
-      const config = await resolveConfig(
-        { root, logLevel: 'silent', css: { postcss: root + '/postcss.config.cjs' } },
-        'serve',
-      );
-      const source =
-        fs.readFileSync(from, 'utf-8') +
-        (inline ? '\\n@source inline("' + inline + '");\\n' : '');
-      const { code } = await preprocessCSS(source, from, config);
-      process.stdout.write(code);
-    `;
-    return execFileSync(
-      process.execPath,
-      ['--input-type=module', '-e', script, root, entry, inline],
-      {
-        cwd: root,
-        maxBuffer: 64 * 1024 * 1024,
-      },
-    ).toString();
-  };
-
   it('keeps Tailwind defaults working for unprefixed classes', () => {
     // The point of the prefix: a plain `p-4` means Tailwind's 1rem again, not Wideset's
     // 0.375rem, while the Wideset value lives on `p-ws-4`.
-    const css = compile('index.css', 'p-4 p-ws-4 gap-2 gap-ws-2 font-medium font-ws-medium');
+    const css = compileCss('index.css', 'p-4 p-ws-4 gap-2 gap-ws-2 font-medium font-ws-medium');
     const rule = (cls: string) =>
       css
         .match(new RegExp(`\\n\\s*\\.${cls}\\s*\\{([^}]*)\\}`))?.[1]
@@ -107,7 +78,7 @@ describe('Wideset token prefix', () => {
   }, 60_000);
 
   it('emits no Tailwind default variables in the compiled theme layer', () => {
-    const css = compile('index.css');
+    const css = compileCss('index.css');
 
     expect(css).toContain('.bg-ws-dynamic-primary-default');
     const themeLayer = css.match(/@layer theme \{([\s\S]*?)\n\}/)?.[1] ?? '';
@@ -131,7 +102,7 @@ describe('Wideset token prefix', () => {
    * variables.
    */
   it('keeps preflight and fonts out of styles.css', () => {
-    const css = compile('index.css');
+    const css = compileCss('index.css');
     expect(css).not.toContain('googleapis');
     expect(css).not.toMatch(/--font-(sans|serif|mono)\s*:/);
     expect(css).not.toContain(':-moz-ui-invalid'); // preflight marker
@@ -139,7 +110,7 @@ describe('Wideset token prefix', () => {
   }, 60_000);
 
   it('ships the reset in preflight.css without theme variables', () => {
-    const css = compile('preflight.css');
+    const css = compileCss('preflight.css');
     expect(css).toContain(':-moz-ui-invalid');
     expect(css).not.toContain('--theme(');
     expect(css).not.toMatch(/--[\w-]+\s*:/);
@@ -148,7 +119,7 @@ describe('Wideset token prefix', () => {
   // Components inherit the page font, so nothing in src/ uses these. Consumers do — README and
   // the Typography docs point at them — so they have to survive tree-shaking into styles.css.
   it('ships the opt-in font classes and their variables', () => {
-    const css = compile('index.css', 'font-ws-heading font-ws-body font-ws-sans font-ws-mono');
+    const css = compileCss('index.css', 'font-ws-heading font-ws-body font-ws-sans font-ws-mono');
     for (const name of ['sans', 'heading', 'body', 'mono']) {
       expect(css).toMatch(new RegExp(`\\.font-ws-${name}\\s*\\{[^}]*var\\(--font-ws-${name}\\)`));
       expect(css).toMatch(new RegExp(`--font-ws-${name}\\s*:`));
@@ -181,7 +152,7 @@ describe('Wideset token prefix', () => {
     );
     let css: string;
     try {
-      css = compile(entry, 'bg-ws-dynamic-primary-default p-ws-4 typography-body-md');
+      css = compileCss(entry, 'bg-ws-dynamic-primary-default p-ws-4 typography-body-md');
     } finally {
       fs.rmSync(path.resolve(stylesDir, entry));
     }
