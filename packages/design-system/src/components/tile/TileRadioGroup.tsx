@@ -45,6 +45,7 @@ const TileRadioGroup = React.forwardRef<
     <div className="gap-ws-5 flex flex-col">
       <FieldLabel id={labelId} required={required}>
         {label}
+        <FieldLabel.RequiredIndicator />
       </FieldLabel>
       {group}
     </div>
