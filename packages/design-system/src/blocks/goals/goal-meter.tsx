@@ -33,9 +33,9 @@ export function GoalMeter({ figure, target, value, max, label, className }: Goal
       <ProgressBar
         value={Math.min(value, max)}
         max={max}
-        variant={met ? 'success' : 'default'}
+        status={met ? 'success' : 'default'}
         aria-label={label}
-        getValueLabel={() => `${figure} of ${target}`}
+        aria-valuetext={`${figure} of ${target}`}
       />
     </div>
   );

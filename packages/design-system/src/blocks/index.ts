@@ -583,6 +583,30 @@ export const BLOCKS: BlockMeta[] = [
     description:
       'Choosing a workspace in the sign-in card after signing in: the workspaces with the last used marked, invitations to accept or decline, and creating a new one.',
   },
+  {
+    id: 'agent-chat',
+    title: 'Agent chat',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'An agent workspace in Chat mode: chats on the left in project groups with their state, and one raised card with the transcript where the agent thinks, takes steps and answers, the composer with its tools and the model, and, behind a line, the document it writes.',
+  },
+  {
+    id: 'agent-code',
+    title: 'Agent code',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'An agent workspace in Code mode: sessions by repository, a transcript of the plan, steps, test runs and an approval waiting for a command, beside a pane with the changes, a terminal, a preview, the files, the tasks or the pull request’s checks.',
+  },
+  {
+    id: 'agent-sessions',
+    title: 'Agent sessions',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'Every Code session in one list to work through: a search and a filter by state, the sessions under their repositories with the state, branch, pull request and its checks, the last step and the run time, the ones that need you first and answered from the row, and Stop and Archive for a selection.',
+  },
 ];
 
 /** A part that opens over a screen. It belongs to no direction: it keeps its own look over any. */

@@ -1,4 +1,4 @@
-// TODO(custom): a code editor (line numbers, colouring, current line, problem marks) as a textarea over a coloured copy; Wideset has no code editor and no monospace font token (Tailwind's font-mono stands in).
+// TODO(custom): a code editor (line numbers, colouring, current line, problem marks) as a textarea over a coloured copy; Wideset has no code editor.
 import { cn } from '@wideset/react';
 import { type KeyboardEvent, useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
 
@@ -9,7 +9,7 @@ import type { Problem } from './lint';
 const INDENT = '  ';
 
 /** The textarea and its coloured copy share every metric, so the caret sits on the letters. */
-const CODE = 'typography-body-md tracking-ws-normal whitespace-pre font-mono';
+const CODE = 'typography-body-md tracking-ws-normal whitespace-pre font-ws-mono';
 const PAD = 'py-ws-5 pl-ws-7 pr-ws-9';
 
 /**

@@ -30,6 +30,14 @@ Panels are blocks too, listed apart (`PANELS` in `index.ts`): they open over a s
 direction and keep their own look. The task side panel is one; Gantt shows the same panel open on a
 task, as a byte-identical copy that a test keeps in step.
 
+Blocks share parts the same way, by copy, since a block never imports another. The account screens
+share their card and the two sign-in screens their form (`SHARED` in `src/__tests__/blocks.test.tsx`).
+The agent screens (`agent-*`) are one app shown screen by screen: its kit (the transcript, the
+composer, the shell) is edited in `agent-chat/` and then copied over every agent block that carries
+the file. A new kit file goes on the `AGENT_KIT` list in the same test, which fails when a copy
+drifts. A part a kit file already does is reused, not rewritten under another name: the test only
+compares files with the same name.
+
 ## The four directions
 
 | Direction  | Looks like                                                    | Figma screens            |
