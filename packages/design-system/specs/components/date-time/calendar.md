@@ -5,7 +5,7 @@ group: date-time
 status: stable
 parts: [Calendar]
 related: [DatePicker, DateRangePicker, Popup]
-docs: https://wideset-docs.widelab.workers.dev/components/calendar
+docs: https://wideset.co/components/calendar
 storybook: components-calendar--default
 ---
 
@@ -101,6 +101,6 @@ const [range, setRange] = useState<Range | undefined>();
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/calendar.md` · Types:
+Full props: `https://wideset.co/components/calendar.md` · Types:
 `packages/design-system/src/components/calendar/Calendar.types.ts` (plus `DayPickerProps` from
 `react-day-picker`)

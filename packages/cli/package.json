@@ -1,0 +1,47 @@
+{
+  "name": "wideset",
+  "version": "1.0.0",
+  "type": "module",
+  "license": "Apache-2.0",
+  "description": "The Wideset CLI: copy Wideset components, and the agent skills and rules, into your React project",
+  "keywords": [
+    "wideset",
+    "cli",
+    "shadcn",
+    "react",
+    "design-system"
+  ],
+  "author": "Widelab",
+  "homepage": "https://wideset.co/docs/cli",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/widelab-co/wideset",
+    "directory": "packages/cli"
+  },
+  "bugs": "https://github.com/widelab-co/wideset/issues",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org",
+    "access": "public",
+    "provenance": true
+  },
+  "bin": {
+    "wideset": "./src/wideset.mjs"
+  },
+  "files": [
+    "src",
+    "!src/**/*.test.*",
+    "README.md",
+    "LICENSE",
+    "NOTICE"
+  ],
+  "scripts": {
+    "lint": "eslint . --ext .ts,.mjs",
+    "lint:fix": "pnpm lint --fix",
+    "test": "vitest run",
+    "test:cli": "node ../design-system/scripts/cli-smoke.mjs"
+  },
+  "devDependencies": {
+    "shadcn": "4.21.1",
+    "vitest": "^4.0.10"
+  }
+}

@@ -22,7 +22,6 @@ export const useTabsIndicator = (enabled: boolean) => {
     const controller = new AbortController();
     const { signal } = controller;
     let lastActive: HTMLElement | null = null;
-    let fromKeyboard = false;
 
     const resizeObserver = new ResizeObserver(() => measure());
 
@@ -44,7 +43,7 @@ export const useTabsIndicator = (enabled: boolean) => {
         x: active.offsetLeft,
         width: active.offsetWidth,
         visible: !active.hasAttribute('data-disabled'),
-        animate: moved && !fromKeyboard,
+        animate: moved,
       };
       setIndicator((previous) => (previous && isSameIndicator(previous, next) ? previous : next));
     };
@@ -59,8 +58,6 @@ export const useTabsIndicator = (enabled: boolean) => {
       attributes: true,
       attributeFilter: ['data-state', 'data-active', 'data-disabled'],
     });
-    node.addEventListener('keydown', () => (fromKeyboard = true), { signal });
-    node.addEventListener('pointerdown', () => (fromKeyboard = false), { signal });
     document.fonts?.ready.then(() => !signal.aborted && measure());
 
     return () => {

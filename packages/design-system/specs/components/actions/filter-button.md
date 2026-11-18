@@ -5,7 +5,7 @@ group: actions
 status: stable
 parts: [FilterButton]
 related: [MultiSelect, Search, ActionBar]
-docs: https://wideset-docs.widelab.workers.dev/components/filter-button
+docs: https://wideset.co/components/filter-button
 storybook: components-filterbutton--default
 ---
 
@@ -97,5 +97,5 @@ popup checklist.
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/filter-button.md` · Types:
+Full props: `https://wideset.co/components/filter-button.md` · Types:
 `packages/design-system/src/components/filter-button/FilterButton.types.ts`

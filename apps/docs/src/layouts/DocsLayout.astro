@@ -6,7 +6,7 @@ import '../generated/light-scope.css';
 
 import SideNav from '../components/SideNav.astro';
 import TopBar from '../components/TopBar.astro';
-import { areaOf, componentsNav, docsNav, type NavSection } from '../lib/nav';
+import { areaOf, blocksNav, componentsNav, docsNav, type NavSection } from '../lib/nav';
 import { RADIUS_KEY } from '../lib/radius';
 import { THEME_KEY } from '../lib/theme';
 
@@ -38,7 +38,13 @@ const { title, description, wide = false, full = false, frame = false } = Astro.
 const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
 const area = areaOf(pathname);
 const sections: NavSection[] =
-  area === 'docs' ? await docsNav() : area === 'components' ? componentsNav() : [];
+  area === 'docs'
+    ? await docsNav()
+    : area === 'components'
+      ? componentsNav()
+      : area === 'blocks'
+        ? blocksNav()
+        : [];
 const hasRail = Astro.slots.has('rail');
 /**
  * The reading column is centred in the space between the left column and the right one, so the
@@ -57,9 +63,11 @@ const analyticsToken = import.meta.env.PUBLIC_CF_ANALYTICS_TOKEN;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title} — Wideset</title>
     <meta name="description" content={description} />
-    {/* The workers.dev address is temporary; a custom domain (DOCS_URL) is indexed. */}
+    {/* Builds for workers.dev (develop, previews) stay out of search results. */}
     {Astro.site?.hostname.endsWith('.workers.dev') && <meta name="robots" content="noindex" />}
-    <link rel="icon" href="/favicon.png" />
+    {/* The production origin is reachable on workers.dev too; wideset.co is the address to index. */}
+    <link rel="canonical" href={new URL(pathname === '/' ? '/' : pathname, Astro.site)} />
+    <link rel="icon" href="/_docs/favicon.png" />
     <script is:inline define:vars={{ THEME_KEY, RADIUS_KEY }}>
       // Appearance before first paint. Same keys and rules as src/lib/theme.ts and radius.ts.
       try {

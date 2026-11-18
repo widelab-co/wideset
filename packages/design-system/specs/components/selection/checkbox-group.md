@@ -5,7 +5,7 @@ group: selection
 status: stable
 parts: [CheckboxGroup]
 related: [Checkbox, RadioButtonGroup, MultiSelect, FormField]
-docs: https://wideset-docs.widelab.workers.dev/components/checkbox-group
+docs: https://wideset.co/components/checkbox-group
 storybook: components-checkbox-checkboxgroup--default
 ---
 
@@ -92,5 +92,5 @@ const toggle = (value: string) => (checked: boolean | 'indeterminate') =>
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/checkbox-group.md` · Types:
+Full props: `https://wideset.co/components/checkbox-group.md` · Types:
 `packages/design-system/src/components/checkbox/Checkbox.types.ts`

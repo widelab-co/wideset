@@ -5,7 +5,7 @@ group: selection
 status: stable
 parts: [RadioButtonGroup]
 related: [RadioButton, CheckboxGroup, SegmentedControl, TileRadioGroup, Select]
-docs: https://wideset-docs.widelab.workers.dev/components/radio-button-group
+docs: https://wideset.co/components/radio-button-group
 storybook: form-radiobutton-radiobuttongroup--default
 ---
 
@@ -88,5 +88,5 @@ const [period, setPeriod] = useState('annual');
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/radio-button-group.md` · Types:
+Full props: `https://wideset.co/components/radio-button-group.md` · Types:
 `packages/design-system/src/components/radio-button/RadioButton.types.ts`

@@ -5,7 +5,7 @@ group: inputs
 status: stable
 parts: [FileUpload, FileUploadDropzone, FileUploadTrigger]
 related: [FileItem, FormField]
-docs: https://wideset-docs.widelab.workers.dev/components/file-upload
+docs: https://wideset.co/components/file-upload
 storybook: form-fileupload-fileupload--default
 ---
 
@@ -115,5 +115,5 @@ the hidden input lives elsewhere; normally set `type` on `FileUpload` instead.
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/file-upload.md` · Types:
+Full props: `https://wideset.co/components/file-upload.md` · Types:
 `packages/design-system/src/components/file-upload/FileUpload.types.ts`

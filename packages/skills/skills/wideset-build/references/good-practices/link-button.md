@@ -9,6 +9,9 @@
 
 - The control does something here (save, submit, open a dialog) → `Button`.
 - A filled call to action that navigates → `Button asChild` around an `<a>`.
+- Beside other buttons (a form or card footer, a header) → `Button preset="ghost"`, with
+  `asChild` around an `<a>` when it navigates. A row of buttons shares one height and a hover
+  fill; `LinkButton` has neither.
 - Icon-only navigation → `IconButton asChild` around an `<a>`.
 - A tile-shaped destination with title and description → `ActionTile` with `href`.
 

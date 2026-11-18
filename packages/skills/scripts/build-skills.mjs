@@ -2,7 +2,7 @@
   Generates every file in this package that comes from somewhere else, so the skills cannot drift.
   Usage guidance is written once, by hand, in packages/design-system/specs; the docs site renders
   the same files. Props and tokens are not copied: an agent reads them from the component source
-  or from https://wideset-docs.widelab.workers.dev/components/<id>.md. Per-component good practices are the one part
+  or from https://wideset.co/components/<id>.md. Per-component good practices are the one part
   of a component spec that ships: the sections source cannot state.
 
     pnpm build:skills                 # from the repository root
@@ -148,7 +148,7 @@ export function relinkSpec(file, text, goodPractices, output = `${SPECS_DIR}/${f
       if (goodPractices.has(path)) return `[${label}](${local(goodPractices.get(path))}${hash})`;
       if (isFoundationSpec(path))
         return FOUNDATION_DOCS[path]
-          ? `[${label}](https://wideset-docs.widelab.workers.dev/docs/${FOUNDATION_DOCS[path]}.md${hash})`
+          ? `[${label}](https://wideset.co/docs/${FOUNDATION_DOCS[path]}.md${hash})`
           : label;
       return isShippedSpec(path) ? `[${label}](${local(`${SPECS_DIR}/${path}`)}${hash})` : match;
     },

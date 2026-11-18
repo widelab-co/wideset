@@ -5,12 +5,12 @@ import type { CardFooterProps } from './Card.types';
 import { cardFooterVariants } from './Card.variants';
 
 const CardFooter = ({ className, ...props }: CardFooterProps) => {
-  const { variant } = useCardContext();
+  const { variant, divider } = useCardContext();
 
   return (
     <div
       data-slot="card-footer"
-      className={cn(cardFooterVariants({ variant }), className)}
+      className={cn(cardFooterVariants({ variant, divider }), className)}
       {...props}
     />
   );

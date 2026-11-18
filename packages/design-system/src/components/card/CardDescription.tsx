@@ -5,7 +5,7 @@ import type { CardDescriptionProps } from './Card.types';
 const CardDescription = ({ className, ...props }: CardDescriptionProps) => (
   <p
     data-slot="card-description"
-    className={cn('text-ws-static-subtle typography-body-md mt-ws-5 mb-ws-2', className)}
+    className={cn('text-ws-static-subtle typography-body-md mt-ws-2 mb-ws-2', className)}
     {...props}
   />
 );

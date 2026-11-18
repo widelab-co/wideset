@@ -5,7 +5,7 @@ group: navigation
 status: stable
 parts: [Tabs, TabsList, TabsItem, TabsIcon, TabsLabel, TabsCount, TabsContent]
 related: [SegmentedControl, Sidebar, Breadcrumbs]
-docs: https://wideset-docs.widelab.workers.dev/components/tabs
+docs: https://wideset.co/components/tabs
 storybook: components-tabs--default
 ---
 
@@ -102,6 +102,8 @@ State: `value` + `onValueChange` (controlled) or `defaultValue` (uncontrolled), 
 
 ## Gotchas
 
+- When a panel starts with a focusable element, pass `tabIndex={-1}` to `Tabs.Content` so Tab
+  reaches that element directly. Otherwise the panel itself is a tab stop by default.
 - `type` and `size` are set once on `Tabs`; items and list read them from context. There is no
   `type` on `Tabs.Item`.
 - `divider={false}` has no effect on `pills` and `ghost`; they never draw it.
@@ -110,5 +112,5 @@ State: `value` + `onValueChange` (controlled) or `defaultValue` (uncontrolled), 
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/tabs.md` · Types:
+Full props: `https://wideset.co/components/tabs.md` · Types:
 `packages/design-system/src/components/tabs/Tabs.types.ts`

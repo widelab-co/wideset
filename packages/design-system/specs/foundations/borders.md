@@ -78,4 +78,4 @@ brand ramp of each theme.
 
 ## Docs
 
-https://wideset-docs.widelab.workers.dev/docs/colors (Border) · Source: `packages/design-system/src/styles/utilities/wds.css`
+https://wideset.co/docs/colors (Border) · Source: `packages/design-system/src/styles/utilities/wds.css`

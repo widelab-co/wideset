@@ -5,7 +5,7 @@ group: selection
 status: stable
 parts: [Chip, ChipIcon]
 related: [Tag, StatusBadge, FilterButton, Button, SegmentedControl]
-docs: https://wideset-docs.widelab.workers.dev/components/chip
+docs: https://wideset.co/components/chip
 storybook: components-chip--default
 ---
 
@@ -103,5 +103,5 @@ on.
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/chip.md` · Types:
+Full props: `https://wideset.co/components/chip.md` · Types:
 `packages/design-system/src/components/chip/Chip.types.ts`

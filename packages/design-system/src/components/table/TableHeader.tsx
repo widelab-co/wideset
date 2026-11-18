@@ -1,4 +1,4 @@
-import { RiArrowLeftRightLine, RiSortAsc, RiSortDesc } from '@remixicon/react';
+import { RiArrowUpDownLine, RiSortAsc, RiSortDesc } from '@remixicon/react';
 import { cn } from 'src/lib/utils';
 
 import { IconButton } from '../button/IconButton';
@@ -40,7 +40,8 @@ export const TableHeader = ({
       ? RiSortAsc
       : sortDirection === 'desc'
         ? RiSortDesc
-        : RiArrowLeftRightLine;
+        : // Sortable but not sorted: arrows along the column, the axis a sort runs on.
+          RiArrowUpDownLine;
 
   const sortButton = sortable && (
     <IconButton
@@ -50,6 +51,7 @@ export const TableHeader = ({
       variant="secondary"
       preset="ghost"
       disabled={disabled}
+      iconClassName={sortDirection ? undefined : 'text-ws-static-subtle'}
       className="ml-ws-2 align-middle"
       aria-label={
         sortAriaLabel ?? `Sort by ${typeof children === 'string' ? children : 'this column'}`

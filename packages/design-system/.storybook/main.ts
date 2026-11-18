@@ -25,14 +25,18 @@ const config: StorybookConfig = {
   core: {
     builder: '@storybook/builder-vite',
   },
-  // Cloudflare Web Analytics, in the manager rather than preview-head.html: the preview is the
-  // story iframe, which reloads on its own. Only production builds get a token (build.yaml).
+  // The docs at wideset.co are the pages to find in search; Storybook is the workbench. Both the
+  // manager (index.html) and the story canvas (iframe.html) say so. Cloudflare Web Analytics goes in
+  // the manager only: the preview is the story iframe, which reloads on its own. Only production
+  // builds get a token (build.yaml).
   managerHead: (head) => {
+    const noindex = `${head}\n<meta name="robots" content="noindex" />`;
     const token = process.env.PUBLIC_CF_ANALYTICS_TOKEN;
-    if (!token) return head;
+    if (!token) return noindex;
     const beacon = JSON.stringify({ token }).replace(/"/g, '&quot;');
-    return `${head}<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="${beacon}"></script>`;
+    return `${noindex}\n<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="${beacon}"></script>`;
   },
+  previewHead: (head) => `${head}\n<meta name="robots" content="noindex" />`,
   async viteFinal(config) {
     return mergeConfig(config, {
       css: {

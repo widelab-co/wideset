@@ -18,7 +18,7 @@ export default playground({
   only: ['orientation', 'size'],
   content: [{ key: 'description', label: 'Descriptions', type: 'switch', default: true }],
   render: (v, { props }) => (
-    <CheckboxGroup {...props()}>
+    <CheckboxGroup aria-label="Notification channels" {...props()}>
       {CHANNELS.map((channel) => (
         <Checkbox
           key={channel.label}
@@ -32,7 +32,7 @@ export default playground({
   ),
   code: (v, { attrs }) =>
     [
-      `<CheckboxGroup${attrs()}>`,
+      `<CheckboxGroup aria-label="Notification channels"${attrs()}>`,
       ...CHANNELS.map(
         (channel) =>
           `  <Checkbox label="${channel.label}"${

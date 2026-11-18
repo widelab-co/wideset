@@ -5,7 +5,7 @@ first, then only the files the task needs: a component's group file to pick the 
 its spec (or, in the Wideset skills, its docs page) to use it, a foundation file to style around it, a pattern file to build a screen.
 
 Facts live in the code (types, CVA variants, JSDoc) and in the generated reference
-(`https://wideset-docs.widelab.workers.dev/components/<id>.md`). Specs add what the code cannot say: when to use
+(`https://wideset.co/components/<id>.md`). Specs add what the code cannot say: when to use
 a component and when not, which variant for which job, how its parts compose, what not to do.
 Sources of truth, in order: Figma → code → specs. Writing or changing a spec:
 [AUTHORING.md](AUTHORING.md).
@@ -92,6 +92,7 @@ in the snippet will point into `node_modules/@wideset/react/` then.
 
 ### [Feedback](components/feedback/README.md)
 
+- [Illustration](components/feedback/illustration.md): a drawing for an empty state, a first run or an announcement; not an icon.
 - [InlineAlert](components/feedback/inline-alert.md): persistent feedback attached to one section.
 - [SystemAlert](components/feedback/system-alert.md): a product-wide banner at the top of the page.
 - [Toast](components/feedback/toast.md): brief floating feedback through `useToast`.
@@ -124,6 +125,8 @@ in the snippet will point into `node_modules/@wideset/react/` then.
 
 - [Table](components/data-display/table.md): records compared across rows; sorting, selection and
   paging are your state.
+- [Spreadsheet](components/data-display/spreadsheet.md): a dense grid worked cell by cell, with a
+  pinned header and row numbers; not a list of rows to open, that is Table.
 - [ListItem](components/data-display/list-item.md): one compact row; the row inside menus and
   selects.
 - [Avatar](components/data-display/avatar.md): a person, team or the agent orb next to a name.
@@ -132,6 +135,8 @@ in the snippet will point into `node_modules/@wideset/react/` then.
 
 ### [Layout](components/layout/README.md)
 
+- [AppShell](components/layout/app-shell.md): the screen's frame; one `direction` (inset by
+  default, flat, frame, canvas) sets the window, sidebar and page.
 - [Card](components/layout/card.md): a bounded surface for one subject; not clickable, not a page
   wrapper.
 - [Accordion](components/layout/accordion.md): named sections opened in place.
@@ -165,10 +170,12 @@ in the snippet will point into `node_modules/@wideset/react/` then.
 Wideset has no page templates; patterns are compositions of real components with `ws` layout
 classes.
 
-- [App shell](patterns/app-shell.md): Sidebar next to the one scrolling main area.
+- [App shell](patterns/app-shell.md): `AppShell` with a Sidebar and the one scrolling main area.
 - [Form page](patterns/form-page.md): FormFields, validation, submit and cancel.
 - [List and filters](patterns/list-and-filters.md): search, filters, table, pagination, empty and
   loading.
+- [Dense data](patterns/dense-data.md): when a screen is spreadsheet-like; Spreadsheet vs Table vs
+  ListItem, density, numbers.
 - [Detail in a sidepanel](patterns/detail-in-sidepanel.md): row → Sidepanel with focus return.
 - [Confirm destructive](patterns/confirm-destructive.md): Modal or StatusModal + a danger Button.
 - [Page feedback](patterns/page-feedback.md): which feedback component for which message.

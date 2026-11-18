@@ -14,6 +14,7 @@ import {
 import { formatDateToISOString, formatISODateToAnotherFormat } from 'src/logic/date';
 
 import {
+  type DateRangePickerProps,
   type DateRangePreset,
   dateRangePresetLabels,
   type DateRangeValue,
@@ -44,18 +45,26 @@ const buildPresetResolvers = (
 export const getPresetRange = (
   preset: DateRangePreset,
   weekStartsOn: WeekStartsOn = 1,
+  today: Date = new Date(),
 ): DateRangeValue => {
   const resolvers = buildPresetResolvers(weekStartsOn);
-  const [from, to] = resolvers[preset](startOfDay(new Date()));
+  const [from, to] = resolvers[preset](startOfDay(today));
   return { from: formatDateToISOString(from), to: formatDateToISOString(to) };
 };
+
+/** A preset's label: the caller's `presetLabels` entry, or the built-in one when it has none. */
+export const getPresetLabel = (
+  preset: DateRangePreset,
+  presetLabels: DateRangePickerProps['presetLabels'],
+): string => presetLabels?.[preset] ?? dateRangePresetLabels[preset];
 
 export const formatRangeDisplay = (
   range: DateRangeValue | undefined,
   preset: DateRangePreset | undefined,
   dateFormat: string,
+  presetLabels?: DateRangePickerProps['presetLabels'],
 ): string => {
-  if (preset && preset !== 'custom') return dateRangePresetLabels[preset];
+  if (preset && preset !== 'custom') return getPresetLabel(preset, presetLabels);
   if (!range?.from) return '';
   const fromStr = formatISODateToAnotherFormat(range.from, dateFormat);
   if (!range.to || range.from === range.to) return fromStr ?? '';

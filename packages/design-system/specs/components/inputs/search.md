@@ -5,7 +5,7 @@ group: inputs
 status: deprecated
 parts: [Search]
 related: [TextInput]
-docs: https://wideset-docs.widelab.workers.dev/components/search
+docs: https://wideset.co/components/search
 storybook: components-search--default
 ---
 
@@ -60,5 +60,5 @@ Each Search prop and where it goes in the composition:
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/search.md` · Types:
+Full props: `https://wideset.co/components/search.md` · Types:
 `packages/design-system/src/components/search/Search.types.ts`

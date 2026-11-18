@@ -5,7 +5,7 @@ group: inputs
 status: stable
 parts: [FormField]
 related: [TextInput, Textarea, Select, MultiSelect, ComboBox, FileUpload]
-docs: https://wideset-docs.widelab.workers.dev/components/form-field
+docs: https://wideset.co/components/form-field
 storybook: form-formfield--default
 ---
 
@@ -70,7 +70,8 @@ only through FormField's props.
 
 Validation is yours; FormField shows the message. For a single child element it adds the helper
 or error id to the control's `aria-describedby` (keeping ids already there) and sets
-`aria-invalid` while `errorText` is set. The red look is not automatic: set `variant="danger"` on
+`aria-invalid` while `errorText` is set. The error text is a `role="alert"`, so a screen reader
+announces it when it appears. The red look is not automatic: set `variant="danger"` on
 the TextInput, Textarea, Select, MultiSelect or ComboBox. Show errors after blur or submit, not on
 the first keystroke; `useShake` on the control flags a rejected submit with motion.
 
@@ -126,5 +127,5 @@ the first keystroke; `useShake` on the control flags a rejected submit with moti
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/form-field.md` · Types:
+Full props: `https://wideset.co/components/form-field.md` · Types:
 `packages/design-system/src/components/form-field/FormField.types.ts`

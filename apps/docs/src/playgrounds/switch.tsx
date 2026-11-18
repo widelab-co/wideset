@@ -32,4 +32,10 @@ export default playground({
   <Switch.Label>Email notifications</Switch.Label>
 </Switch>`;
   },
+  anatomy: () => (
+    <Switch defaultChecked>
+      <Switch.Label>Email notifications</Switch.Label>
+      <Switch.Description>One summary a day, at 9:00.</Switch.Description>
+    </Switch>
+  ),
 });

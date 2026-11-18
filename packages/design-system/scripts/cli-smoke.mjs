@@ -1,5 +1,5 @@
 /*
-  End-to-end test of the `wideset` CLI (cli/, shipped in @wideset/react) the way a consumer meets
+  End-to-end test of the `wideset` CLI (packages/cli, the `wideset` package) the way a consumer meets
   it: a project from the official starter, then `npx wideset init`, `npx wideset add button`,
   `npx wideset skills`, and the project's own build. The CLI runs from the tarball `npm pack` produces, so the published file
   list, the bin and the pinned shadcn version are all part of what is tested.
@@ -33,7 +33,9 @@ const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const LATEST = process.env.STARTERS === 'latest';
 const CREATE_VITE = LATEST ? 'latest' : '9.2.1';
 const CREATE_NEXT_APP = LATEST ? 'latest' : '16.4.3';
-const PKG = JSON.parse(readFileSync(join(ROOT, 'package.json'), 'utf8'));
+// The library builds the registry; the CLI is its own package next to it.
+const CLI_ROOT = resolve(ROOT, '..', 'cli');
+const PKG = JSON.parse(readFileSync(join(CLI_ROOT, 'package.json'), 'utf8'));
 const SHADCN = PKG.devDependencies.shadcn;
 
 const args = process.argv.slice(2);
@@ -311,9 +313,13 @@ async function main() {
   const failures = [];
   try {
     mkdirSync(join(work, 'pack'));
-    // The whole library package: the CLI ships inside it, next to dist/.
-    await run('npm', ['pack', '--ignore-scripts', '--pack-destination', join(work, 'pack')], ROOT);
-    const tarball = join(work, 'pack', `wideset-react-${PKG.version}.tgz`);
+    // The `wideset` package as npm would publish it: its file list, bin and shadcn pin.
+    await run(
+      'npm',
+      ['pack', '--ignore-scripts', '--pack-destination', join(work, 'pack')],
+      CLI_ROOT,
+    );
+    const tarball = join(work, 'pack', `wideset-${PKG.version}.tgz`);
     log(`packed ${tarball}; create-vite@${CREATE_VITE}, create-next-app@${CREATE_NEXT_APP}`);
 
     for (const name of names) {
