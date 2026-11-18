@@ -4,8 +4,8 @@ Written 2026-11-14 after the session that merged `develop` into #80 (starting po
 blocks onto `AppShell` and migrated them to the new title scale. The work itself is in #80's
 commits; this file lists what in the repository's environment made that session slower or let
 mistakes through, and how to fix each. One small pull request per item, from `develop`, in the
-order below. Items 1–3 are mechanical and should land before #81 (stacked on #80), which repeats
-the same patterns.
+order below, except items 6 and 8, which are resolved outside the repository. Items 1–3 are
+mechanical and should land before #81 (stacked on #80), which repeats the same patterns.
 
 ## 1. Git hooks never run
 
@@ -98,20 +98,11 @@ Storybook's loading spinner, and dialogs were caught mid-animation. `.claude/lau
 `CLAUDE.md` point at preview tools that were not available in that session, so the instruction
 did nothing there.
 
-**Fix.** `packages/design-system/scripts/storybook-shots.mjs` plus a root script
-(`pnpm shots -- --ref <git ref> --stories <prefix>`):
-
-- start Storybook for the current tree and, for `--ref`, in a temporary `git worktree` with
-  `pnpm install --offline` on another port;
-- drive headless Chrome over the DevTools protocol (Node 22 has `fetch` and `WebSocket`; no new
-  dependency): per story open `iframe.html?id=…&viewMode=story`, wait until `body` has
-  `sb-show-main` and `#storybook-root` has children, then `document.fonts.ready` and about 2.5s;
-  emulate `prefers-color-scheme` and `prefers-reduced-motion: reduce`; 3 tabs in parallel;
-- write PNG pairs, a pixel-difference percentage per story, and a static `index.html` that shows
-  the pairs side by side, sorted by difference.
-
-Add one line to `CLAUDE.md`: without preview tools, run Storybook with
-`pnpm --filter @wideset/react exec storybook dev -p <port> --ci --no-open`.
+**Resolved outside the repository.** The tool is only needed while reviewing, so it is a
+personal, local skill (`storybook-shots`, in the reviewer's `~/.claude/skills/`), not a script
+in the repository: the working tree against `--ref` in a temporary worktree, headless Chrome over
+the DevTools protocol, a wait for the rendered story, transitions and animations at their end
+state, focus emulated per tab, and an `index.html` sorted by differing pixels. Nothing to do here.
 
 ## 7. Context cost of generated files
 
@@ -132,19 +123,9 @@ packages/skills/skills/wideset-build/references/registry-imports.md linguist-gen
 **Problem.** Fixing another contributor's pull request on their branch repeats the same steps
 every session, and today they live in local notes as an exception to `wideset-pr-queue`.
 
-**Fix.** A contributor skill `.agents/skills/wideset-pr-takeover/SKILL.md`
-(`metadata.internal: true`), written with the `writing-for-agents` guide:
-
-1. Read the PR, its threads (resolved or not) and whether it contains other PRs.
-2. `gh pr checkout`, `git merge origin/develop` (never rebase or force-push their branch).
-3. For each conflicted file that came from an already merged PR, take `develop`'s side: compare
-   the file with the merged PR's head (`refs/pull/<n>/head`) to confirm nothing else is in it;
-   re-apply only what has no PR of its own.
-4. Regenerate instead of resolving: `pnpm build:skills`, `pnpm playground --no-dev`, snapshots.
-5. Review with `wideset-code-review`; fix small technical findings in place, one commit each.
-6. Screenshots before/after (item 6) for anything visual.
-7. Full verification, show the diff and the comment text, push only after approval.
-8. Comment "What I changed", `gh pr ready`, CodeRabbit, record the result in the queue.
+**Resolved outside the repository.** Only the reviewer takes PRs over this way, so the steps
+are a personal, local skill (`wideset-pr-takeover`, in the reviewer's `~/.claude/skills/`) next to
+the local `wideset-pr-queue`, not a contributor skill. Nothing to do here.
 
 ## 9. Asking the user
 
@@ -219,8 +200,7 @@ a block fails `pnpm lint`.
 
 ## Suggested skills
 
-- `writing-for-agents`: before editing `CLAUDE.md`, `AGENTS.md`, `CONTRIBUTING.md`, writing the
-  skill in item 8 or editing the one in item 10.
-- `write-a-skill`: for item 8.
+- `writing-for-agents`: before editing `CLAUDE.md`, `AGENTS.md`, `CONTRIBUTING.md` or the skill
+  in item 10.
 - `wideset-code-review`: review each pull request before opening it.
 - `tdd`: items 2–4 and 12 are tests; write each one failing on a planted example first.
