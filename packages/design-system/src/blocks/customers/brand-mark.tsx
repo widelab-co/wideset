@@ -24,11 +24,11 @@ export function BrandMark({ className, label }: { className?: string; label?: st
         r="7"
         fill="none"
         strokeWidth="2"
-        className="stroke-(--ws-static-text-inverse-strong)"
+        className="stroke-ws-static-inverse-strong"
       />
       {/* The body cuts a gap in the ring with the tile's colour, then sits in it. */}
       <circle cx="21" cy="11" r="4" className="fill-(--ws-static-fill-inverse-background)" />
-      <circle cx="21" cy="11" r="2.5" className="fill-(--ws-static-text-inverse-strong)" />
+      <circle cx="21" cy="11" r="2.5" className="fill-ws-static-inverse-strong" />
     </svg>
   );
 }

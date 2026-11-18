@@ -18,7 +18,7 @@ export function BrandMark({ className, label }: { className?: string; label?: st
       className={cn('size-ws-14 shrink-0', className)}
     >
       <path d={TILE} className="fill-(--ws-static-fill-inverse-background)" />
-      <g transform="rotate(24 16 16)" className="fill-(--ws-static-text-inverse-strong)">
+      <g transform="rotate(24 16 16)" className="fill-ws-static-inverse-strong">
         <rect x="10.25" y="7" width="4.5" height="14" rx="2.25" />
         <rect x="17.25" y="11" width="4.5" height="14" rx="2.25" />
       </g>

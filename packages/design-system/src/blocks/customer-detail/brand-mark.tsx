@@ -24,7 +24,7 @@ export function BrandMark({ className, label }: { className?: string; label?: st
         r="6.5"
         fill="none"
         strokeWidth="2.25"
-        className="stroke-(--ws-static-text-inverse-strong)"
+        className="stroke-ws-static-inverse-strong"
       />
       {/* The satellite on the ring, cut out of it by a tile-coloured edge. */}
       <circle
@@ -32,7 +32,7 @@ export function BrandMark({ className, label }: { className?: string; label?: st
         cy="11.4"
         r="2.6"
         strokeWidth="1.75"
-        className="fill-(--ws-static-text-inverse-strong) stroke-(--ws-static-fill-inverse-background)"
+        className="fill-ws-static-inverse-strong stroke-(--ws-static-fill-inverse-background)"
       />
     </svg>
   );
