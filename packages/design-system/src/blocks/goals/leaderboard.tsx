@@ -98,7 +98,7 @@ export function Leaderboard({ standings }: { standings: Standing[] }) {
                   <ProgressBar
                     value={Math.min(revenue, quota)}
                     max={quota}
-                    variant={share >= 1 ? 'success' : 'default'}
+                    status={share >= 1 ? 'success' : 'default'}
                     aria-label={`${person.name}, share of quota`}
                   />
                   <span className="w-[2.5rem] shrink-0 text-right tabular-nums">
