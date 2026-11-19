@@ -1,6 +1,6 @@
 import { RiSearchLine } from '@remixicon/react';
 import { ListItem, Select, Sidebar, TextInput } from '@wideset/react';
-import { useEffect, useId, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 
 import type { BlockFile } from '../lib/blocks';
 import { Code } from './parts';
@@ -8,7 +8,8 @@ import { Code } from './parts';
 /** More files than this, and the list gets a filter. */
 const FILTER_FROM = 12;
 
-const isData = (name: string) => name === 'data.ts' || name.endsWith('.assets.ts');
+/** `data.ts`, `*-data.ts` (`session-data.ts`) and `*.assets.ts`. */
+const isData = (name: string) => /(^|-)data\.ts$/.test(name) || name.endsWith('.assets.ts');
 const groupsOf = (files: BlockFile[]) =>
   [
     { label: 'Entry', files: files.filter((file) => file.name === 'index.tsx') },
@@ -61,6 +62,28 @@ const BlockCode = ({ files }: { files: BlockFile[] }) => {
     addEventListener('popstate', sync);
     return () => removeEventListener('popstate', sync);
   }, [files]);
+  // The open file's row in view in the list (a deep link, Back, a file far down), scrolling the
+  // list alone: scrollIntoView would move the page too. Again when the list gets its size, as
+  // when the Code tab opens or the window widens to `lg`.
+  const listRef = useRef<HTMLElement>(null);
+  useEffect(() => {
+    const list = listRef.current;
+    const viewport = list?.closest<HTMLElement>('[data-slot="scroll-area-viewport"]');
+    if (!list || !viewport) return;
+    const reveal = () => {
+      const row = list.querySelector<HTMLElement>('[aria-current="page"]');
+      if (!row || viewport.clientHeight === 0) return;
+      const top =
+        row.getBoundingClientRect().top - viewport.getBoundingClientRect().top + viewport.scrollTop;
+      const bottom = top + row.offsetHeight;
+      if (top < viewport.scrollTop || bottom > viewport.scrollTop + viewport.clientHeight)
+        viewport.scrollTop = top - (viewport.clientHeight - row.offsetHeight) / 2;
+    };
+    reveal();
+    const observer = new ResizeObserver(reveal);
+    observer.observe(viewport);
+    return () => observer.disconnect();
+  }, [current]);
   const open = (name: string) => {
     if (name === current) return;
     history.pushState(null, '', addressOf(name, first));
@@ -118,7 +141,7 @@ const BlockCode = ({ files }: { files: BlockFile[] }) => {
           </Sidebar.Header>
         )}
         <Sidebar.Section scrollable>
-          <nav aria-label="Files" className="flex flex-col gap-ws-7">
+          <nav ref={listRef} aria-label="Files" className="flex flex-col gap-ws-7">
             {groups.map((group) => (
               <div
                 key={group.label}
