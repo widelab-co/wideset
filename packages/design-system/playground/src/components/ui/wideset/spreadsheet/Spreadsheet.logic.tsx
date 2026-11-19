@@ -11,7 +11,7 @@ export const CELL_SELECTOR = `[${CELL_ATTRIBUTE}]`;
 
 /** What a click or `focus()` can reach: the cells, and the links and controls inside them. */
 const FOCUSABLE =
-  'a[href], button:not(:disabled), input:not(:disabled):not([type="hidden"]), select:not(:disabled), textarea:not(:disabled), [contenteditable]:not([contenteditable="false"]), summary, iframe, audio[controls], video[controls], [tabindex]';
+  'a[href], button:not(:disabled), input:not(:disabled):not([type="hidden"]), select:not(:disabled), textarea:not(:disabled), summary, audio[controls], video[controls], [tabindex]';
 
 /**
  * What can be a tab stop, disabled or not, so that a control enabled later is already out of the
@@ -19,8 +19,15 @@ const FOCUSABLE =
  */
 const NATIVE_TAB_STOP =
   'a[href], button, input:not([type="hidden"]), select, textarea, summary, iframe, audio[controls], video[controls]';
-const EDITABLE = '[contenteditable]:not([contenteditable="false"])';
+const EDITABLE =
+  '[contenteditable=""], [contenteditable="true" i], [contenteditable="plaintext-only" i]';
+const EDITABILITY = `${EDITABLE}, [contenteditable="false" i]`;
 const TAB_STOP = `${NATIVE_TAB_STOP}, ${EDITABLE}, [tabindex]`;
+
+type FocusableElement = Element & Pick<HTMLElement, 'focus' | 'tabIndex'>;
+
+const isFocusableElement = (element: Element): element is FocusableElement =>
+  'tabIndex' in element && 'focus' in element && typeof element.focus === 'function';
 
 /**
  * Controls that do not use the arrow keys themselves: with focus on one, the arrows still move
@@ -31,9 +38,11 @@ const ARROW_FREE =
 
 /** What `root` holds that can take focus, in document order (some engines group a selector list). */
 const focusables = (root: HTMLElement) =>
-  Array.from(root.querySelectorAll<HTMLElement>(FOCUSABLE)).sort((a, b) =>
-    a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1,
-  );
+  Array.from(root.querySelectorAll(`${FOCUSABLE}, ${EDITABLE}`))
+    .filter(isFocusableElement)
+    // Keyboard events inside a frame never reach the grid to handle Escape or F2.
+    .filter((element) => element.localName !== 'iframe')
+    .sort((a, b) => (a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1));
 
 /**
  * Focuses the first control in `cell` that takes focus (a hidden one ignores `focus()`), and
@@ -48,9 +57,9 @@ export const focusFirstControl = (cell: HTMLElement) => {
 };
 
 /** The authored attribute, including its absence, before the grid writes its own -1. */
-const ownTabIndex = new WeakMap<HTMLElement, string | null>();
+const ownTabIndex = new WeakMap<FocusableElement, string | null>();
 
-const controlTabIndex = (element: HTMLElement) => {
+const controlTabIndex = (element: FocusableElement) => {
   const attribute = ownTabIndex.has(element)
     ? ownTabIndex.get(element)!
     : element.getAttribute('tabindex');
@@ -59,11 +68,8 @@ const controlTabIndex = (element: HTMLElement) => {
   if (element.matches(NATIVE_TAB_STOP)) return 0;
   // An editable host participates in Tab even though its tabIndex getter can return -1.
   // Nested editable elements need an explicit tabindex to participate.
-  const editableParent = element.parentElement?.closest('[contenteditable]');
-  return element.matches(EDITABLE) &&
-    (!editableParent || editableParent.getAttribute('contenteditable') === 'false')
-    ? 0
-    : -1;
+  const editableParent = element.parentElement?.closest(EDITABILITY);
+  return element.matches(EDITABLE) && !editableParent?.matches(EDITABLE) ? 0 : -1;
 };
 
 /**
@@ -74,7 +80,7 @@ const controlTabIndex = (element: HTMLElement) => {
  */
 export const removeFromTabOrder = (element: Element, tabIndexChanged = false) => {
   if (
-    !(element instanceof HTMLElement) ||
+    !isFocusableElement(element) ||
     element.hasAttribute(CELL_ATTRIBUTE) ||
     !element.matches(TAB_STOP) ||
     !element.parentElement?.closest(CELL_SELECTOR)
@@ -92,11 +98,24 @@ export const removeAllFromTabOrder = (root: Element) => {
   root.querySelectorAll(TAB_STOP).forEach((element) => removeFromTabOrder(element));
 };
 
-/** What Tab stops on inside a cell, by the controls' own tab index, in document order. */
-export const tabbables = (cell: HTMLElement) =>
-  focusables(cell).filter((el) => controlTabIndex(el) >= 0);
+/** Tab follows the authored order. An excluded control has only a position in the DOM. */
+export const controlsAfter = (cell: HTMLElement, target: Element, backwards: boolean) => {
+  const controls = focusables(cell)
+    .map((element) => ({ element, tabIndex: controlTabIndex(element) }))
+    .filter(({ tabIndex }) => tabIndex >= 0);
+  const ordered = controls.some(({ element }) => element === target)
+    ? controls.sort((a, b) => (a.tabIndex || Number.MAX_VALUE) - (b.tabIndex || Number.MAX_VALUE))
+    : controls.filter(
+        ({ element }) =>
+          target.compareDocumentPosition(element) &
+          (backwards ? Node.DOCUMENT_POSITION_PRECEDING : Node.DOCUMENT_POSITION_FOLLOWING),
+      );
+  if (backwards) ordered.reverse();
+  const index = ordered.findIndex(({ element }) => element === target);
+  return ordered.slice(index + 1).map(({ element }) => element);
+};
 
-export const usesArrowKeys = (element: HTMLElement) => !element.matches(ARROW_FREE);
+export const usesArrowKeys = (element: Element) => !element.matches(ARROW_FREE);
 
 /** The column a cell starts in, counting the spans before it. */
 export const columnOf = (cell: HTMLTableCellElement) => {

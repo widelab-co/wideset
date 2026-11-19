@@ -503,6 +503,84 @@ describe('Spreadsheet', () => {
       expect(screen.getByRole('button', { name: 'After' })).toHaveFocus();
     });
 
+    it('takes a nested editor out of the tab order when it becomes its own editing host', async () => {
+      const editors = (outerEditable: boolean) => (
+        <OneCell>
+          <div contentEditable={outerEditable} suppressContentEditableWarning>
+            <div contentEditable suppressContentEditableWarning role="textbox" aria-label="Notes">
+              Text
+            </div>
+          </div>
+        </OneCell>
+      );
+      const { rerender } = render(editors(true));
+      const editor = screen.getByRole('textbox', { name: 'Notes' });
+      expect(editor).not.toHaveAttribute('tabindex');
+      rerender(editors(false));
+      await waitFor(() => expect(editor).toHaveAttribute('tabindex', '-1'));
+    });
+
+    it('takes focusable SVGs out of the native tab order', () => {
+      render(
+        <OneCell>
+          <svg role="img" aria-label="Diagram" tabIndex={0}>
+            <a href="#details" aria-label="Details">
+              <title>Details</title>
+            </a>
+          </svg>
+        </OneCell>,
+      );
+      expect(screen.getByRole('img', { name: 'Diagram' })).toHaveAttribute('tabindex', '-1');
+      expect(screen.getByLabelText('Details')).toHaveAttribute('tabindex', '-1');
+    });
+
+    it('suppresses iframe tab stops and enters the next same-document control', async () => {
+      const user = userEvent.setup();
+      render(
+        <OneCell>
+          <iframe title="Preview" />
+          <input aria-label="Notes" />
+        </OneCell>,
+      );
+      expect(screen.getByTitle('Preview')).toHaveAttribute('tabindex', '-1');
+      await user.click(screen.getByRole('gridcell'));
+      await user.keyboard('{Enter}');
+      expect(screen.getByRole('textbox', { name: 'Notes' })).toHaveFocus();
+    });
+
+    it('uses authored tab order within a cell for both directions', async () => {
+      const user = userEvent.setup();
+      render(
+        <OneCell>
+          <input aria-label="Second" />
+          <input aria-label="First" />
+          <input aria-label="Third" />
+          <input aria-label="Last" />
+        </OneCell>,
+      );
+      const first = screen.getByRole('textbox', { name: 'First' });
+      const second = screen.getByRole('textbox', { name: 'Second' });
+      const third = screen.getByRole('textbox', { name: 'Third' });
+      await act(async () => {
+        second.tabIndex = 2;
+        first.tabIndex = 1;
+        third.tabIndex = 2;
+      });
+      await user.click(first);
+      await user.tab();
+      expect(second).toHaveFocus();
+      await user.tab();
+      expect(third).toHaveFocus();
+      await user.tab();
+      expect(screen.getByRole('textbox', { name: 'Last' })).toHaveFocus();
+      await user.tab({ shift: true });
+      expect(third).toHaveFocus();
+      await user.tab({ shift: true });
+      expect(second).toHaveFocus();
+      await user.tab({ shift: true });
+      expect(first).toHaveFocus();
+    });
+
     it.each(['{Enter}', '{F2}'])(
       'enters an editable host with %s and tabs between its peers',
       async (key) => {

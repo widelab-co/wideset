@@ -18,11 +18,11 @@ import {
   cellAt,
   cellFor,
   columnOf,
+  controlsAfter,
   focusFirstControl,
   removeAllFromTabOrder,
   removeFromTabOrder,
   rowsPerPage,
-  tabbables,
   usesArrowKeys,
 } from './Spreadsheet.logic';
 
@@ -244,14 +244,18 @@ export const useSpreadsheetControls = (tableRef: RefObject<HTMLTableElement | nu
       // Even an authored -1 replacing our identical -1 must update the remembered attribute.
       observer.disconnect();
       const changed = new Map<Element, boolean>();
+      const editableParents = new Set<Element>();
       for (const record of records) {
         if (record.type === 'attributes') {
           const element = record.target as Element;
           changed.set(element, changed.get(element) || record.attributeName === 'tabindex');
+          if (record.attributeName === 'contenteditable') editableParents.add(element);
         }
       }
       // Reconcile each target once, using its final authored value for a batch of mutations.
       changed.forEach((tabIndexChanged, element) => removeFromTabOrder(element, tabIndexChanged));
+      // Changing an ancestor can make a descendant an independent editing host.
+      editableParents.forEach(removeAllFromTabOrder);
       records.forEach((record) => {
         record.addedNodes.forEach((node) => {
           if (node instanceof Element) removeAllFromTabOrder(node);
@@ -316,7 +320,7 @@ export const useSpreadsheetKeyboard = (
 
   const onKeyDown = (event: KeyboardEvent<HTMLTableElement>) => {
     const table = event.currentTarget;
-    const target = event.target as HTMLElement;
+    const target = event.target as Element;
     if (event.defaultPrevented || !table.contains(target)) return;
     const cell = target.closest<HTMLTableCellElement>(CELL_SELECTOR);
     if (!cell) return;
@@ -324,17 +328,8 @@ export const useSpreadsheetKeyboard = (
     if (event.key === 'Tab') {
       // From the cell the browser's Tab leaves the grid: nothing else in it is a tab stop.
       if (target === cell) return;
-      // From a control, Tab and Shift+Tab first move between the controls of the same cell,
-      // skipping those that do not take focus (hidden ones). The next one is found by document
-      // position, so a focused control that is not a tab stop itself (Enter reaches it, or a
-      // click) still moves to its neighbours.
-      const controls = tabbables(cell).filter((control) => control !== target);
-      const before = (control: HTMLElement) =>
-        Boolean(control.compareDocumentPosition(target) & Node.DOCUMENT_POSITION_FOLLOWING);
-      const after = event.shiftKey
-        ? controls.filter(before).reverse()
-        : controls.filter((control) => !before(control));
-      for (const control of after) {
+      // Try the rest of the cell's controls, skipping any that do not take focus.
+      for (const control of controlsAfter(cell, target, event.shiftKey)) {
         control.focus();
         if (table.ownerDocument.activeElement === control) {
           event.preventDefault();
