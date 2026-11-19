@@ -179,6 +179,7 @@ describe('gen-guidance', () => {
     assert.equal(asText('\\`Remove <title>\\`'), '\\`Remove &lt;title>\\`');
     assert.equal(asText('\\\\`<b>`'), '\\\\`<b>`');
     assert.equal(asText('`a\\` <i>'), '`a\\` &lt;i>');
+    assert.equal(asText('\\``<title>` ``'), '\\``<title>` ``');
   });
 
   it('never lets a code span cross a blank line', () => {
