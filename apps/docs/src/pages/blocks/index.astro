@@ -2,14 +2,14 @@
 import BlockPreviewFrame from '../../components/BlockPreviewFrame';
 import PageHead from '../../components/PageHead.astro';
 import DocsLayout from '../../layouts/DocsLayout.astro';
-import { blockCategories, ENTRIES, shotsOf } from '../../lib/blocks';
+import { blockCategories, ENTRIES } from '../../lib/blocks';
 import { blocksSidebar } from '../../lib/sidebar';
 
 /**
  * Blocks: whole screens to start a product from, by business domain, two across. A thumbnail is
  * the top left of the block at a readable size on the soft stage (cropped, not shrunk): its
- * screenshot, light or dark with the page, or, for a block without one yet, its preview page
- * live in a frame. On hover only the title underlines.
+ * preview page live in a frame, in the page's theme, loaded only while the card is near the
+ * screen. On hover only the title underlines.
  */
 ---
 
@@ -31,45 +31,25 @@ import { blocksSidebar } from '../../lib/sidebar';
       <section id={category.slug} class="scroll-mt-ws-21">
         <h2 class="text-ws-static-strong typography-subtitle-sm">{category.label}</h2>
         <ul class="mt-ws-9 grid grid-cols-1 gap-x-ws-11 gap-y-ws-14 md:grid-cols-2">
-          {category.blocks.map((block) => {
-            const shots = shotsOf(block.id);
-            return (
-              <li>
-                <a href={`/blocks/${block.id}`} class="group flex flex-col gap-ws-6 no-underline">
-                  <div class="bg-ws-static-alpha-subtle aspect-[16/10] overflow-hidden rounded-ws-container-md pt-ws-14 pl-ws-14">
-                    <div class="border-ws-static-subtle bg-ws-static-foreground h-full w-[150%] overflow-hidden rounded-tl-ws-control-lg border-t border-l">
-                      {shots ? (
-                        <>
-                          <img
-                            src={shots.light}
-                            alt=""
-                            loading="lazy"
-                            class="docs-shot-light block w-full"
-                          />
-                          <img
-                            src={shots.dark}
-                            alt=""
-                            loading="lazy"
-                            class="docs-shot-dark block w-full"
-                          />
-                        </>
-                      ) : (
-                        <BlockPreviewFrame id={block.id} title={block.title} client:visible />
-                      )}
-                    </div>
+          {category.blocks.map((block) => (
+            <li>
+              <a href={`/blocks/${block.id}`} class="group flex flex-col gap-ws-6 no-underline">
+                <div class="bg-ws-static-alpha-subtle aspect-[16/10] overflow-hidden rounded-ws-container-md pt-ws-14 pl-ws-14">
+                  <div class="border-ws-static-subtle bg-ws-static-foreground h-full w-[150%] overflow-hidden rounded-tl-ws-control-lg border-t border-l">
+                    <BlockPreviewFrame id={block.id} title={block.title} client:visible />
                   </div>
-                  <div class="flex flex-col gap-ws-2">
-                    <span class="text-ws-static-strong typography-label-strong-sm group-hover:underline">
-                      {block.title}
-                    </span>
-                    <span class="text-ws-static-subtle line-clamp-1 typography-body-sm">
-                      {block.description}
-                    </span>
-                  </div>
-                </a>
-              </li>
-            );
-          })}
+                </div>
+                <div class="flex flex-col gap-ws-2">
+                  <span class="text-ws-static-strong typography-label-strong-sm group-hover:underline">
+                    {block.title}
+                  </span>
+                  <span class="text-ws-static-subtle line-clamp-1 typography-body-sm">
+                    {block.description}
+                  </span>
+                </div>
+              </a>
+            </li>
+          ))}
         </ul>
       </section>
     ))}

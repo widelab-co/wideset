@@ -1,5 +1,3 @@
-import { existsSync } from 'node:fs';
-
 import {
   type BlockMeta,
   BLOCKS,
@@ -75,16 +73,6 @@ export const blockCategories = [...Object.keys(CATEGORY_IDS), 'Other', 'Panels']
     ),
   }))
   .filter((category) => category.blocks.length > 0);
-
-/**
- * A block's committed screenshots, light and dark (public/_docs/blocks, taken from the preview
- * route by scripts/sync-blocks.mjs), or none for a block that came after the last sync: its card
- * then frames the preview live. Read at build time, which runs in apps/docs.
- */
-export const shotsOf = (id: string) => {
-  const shots = { light: `/_docs/blocks/${id}-light.webp`, dark: `/_docs/blocks/${id}-dark.webp` };
-  return Object.values(shots).every((url) => existsSync(`public${url}`)) ? shots : undefined;
-};
 
 const fence = (lang: string, code: string) => ['```' + lang, code.trimEnd(), '```'].join('\n');
 

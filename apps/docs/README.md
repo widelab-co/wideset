@@ -155,24 +155,10 @@ is merged.
 - `/blocks` lists the manifest by business domain, from `src/data/block-categories.json` (kept by
   hand). A block the list does not name lands under "Other" and a panel under "Panels", so a newly
   merged block shows up without a docs change; give it its category when it lands.
-- A card's thumbnail is the block's committed screenshot, `public/_docs/blocks/<id>-light.webp`
-  and `-dark.webp`, swapped with the page's theme. A block without one yet frames its preview route
-  instead, scaled (`BlockPreviewFrame`).
-
-The screenshots come from the docs' own preview route, so they match what the pages render.
-After blocks change, build and serve the site, then shoot them (by hand; Playwright is not a
-dependency of the repository, so point `PLAYWRIGHT` at any install of it):
-
-```bash
-pnpm --filter @wideset/docs build && pnpm --filter @wideset/docs preview   # http://localhost:4322
-PLAYWRIGHT=/path/to/node_modules/playwright/index.mjs node apps/docs/scripts/sync-blocks.mjs
-```
-
-It loads `/blocks/<id>/preview?theme=light|dark` at 1440 × 960 with reduced motion and writes
-WebP at quality 80; `BLOCKS_ONLY=<id>,…` shoots only those blocks, `BLOCKS_URL` points it at
-another server. Screenshots of blocks the manifest no longer lists are removed. Commit the result.
-`scripts/blocks.test.mjs` checks that the categories and the screenshots name only blocks in the
-manifest.
+- A card frames the preview route at 1440 × 960, scaled down and cropped to its top left
+  (`BlockPreviewFrame`), in the page's theme. The frame loads once the card has been near the
+  screen for 200 ms and is removed when it leaves, so scrolling the gallery keeps a handful of
+  blocks alive, not all of them; nothing to regenerate when a block changes.
 
 ## Adding things
 

@@ -521,14 +521,6 @@ body.docs main .docs-prose :is(p, li) {
   font-size: 15px;
   line-height: 24px;
 }
-/* A block's thumbnail follows the page's theme: the light shot, or the dark one in dark. */
-body.docs .docs-shot-dark,
-.dark body.docs .docs-shot-light {
-  display: none;
-}
-.dark body.docs .docs-shot-dark {
-  display: block;
-}
 /* A ruled code block (the install command): the body sits 12px 16px under the header's hairline. */
 body.docs.docs .docs-snippet-ruled pre {
   padding: 12px 16px;
