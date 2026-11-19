@@ -1,5 +1,7 @@
 import { cva } from 'class-variance-authority';
 
+export const DIVIDER_WEIGHT_PX = { thin: 1, default: 2, bold: 4 } as const;
+
 export const dividerLineVariants = cva('min-w-ws-14 flex-1 shrink-0 border-solid', {
   variants: {
     weight: {

@@ -35,6 +35,7 @@
 
 ## Gotchas
 
+- Children are unsupported and rejected by the props type; use `text` for the optional label.
 - Horizontal only; there is no `orientation` prop.
 - The prop is `lineStyle`, not `variant` or `style`; `weight` values are `thin` / `default` /
   `bold`, not sizes.
