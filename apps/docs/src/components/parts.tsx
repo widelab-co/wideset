@@ -33,7 +33,7 @@ import { type ReactNode, useEffect, useId, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 import { loadExample } from '../lib/exampleLoader';
-import { type CodeLang, highlight } from '../lib/highlight';
+import type { CodeLang } from '../lib/highlight';
 import type { ProjectPaths } from '../lib/importSource';
 import { PLAYGROUNDS, withPlayground } from '../lib/playground';
 import type { ManualFiles } from '../lib/registry';
@@ -42,7 +42,9 @@ import { useShownCode } from './ComponentCode';
 import { Fit } from './Example';
 import { ManualSteps } from './ManualSteps';
 import SearchPalette, { type SearchItem } from './SearchPalette';
+import TabRow from './TabRow';
 import ThemeToggle from './ThemeToggle';
+import { useHighlightedCode } from './useHighlightedCode';
 
 const useCopy = () => {
   const [copied, setCopied] = useState(false);
@@ -106,16 +108,9 @@ export const Code = ({
   /** A hairline under the header, edge to edge (a header that holds a choice). */
   rule?: boolean;
 }) => {
-  const [html, setHtml] = useState<string | null>(null);
+  const html = useHighlightedCode(code, lang);
   // A short snippet shows whole: the peek is for code longer than its four lines.
   const [open, setOpen] = useState(!peek || code.trimEnd().split('\n').length <= 4);
-  useEffect(() => {
-    let live = true;
-    highlight(code, lang).then((result) => live && setHtml(result));
-    return () => {
-      live = false;
-    };
-  }, [code, lang]);
   return (
     <div
       className={cn(
@@ -126,12 +121,14 @@ export const Code = ({
     >
       <div
         className={cn(
-          'flex h-ws-15 items-center justify-between gap-ws-5 pr-ws-4 pl-ws-9',
+          'flex min-h-ws-15 items-center justify-between gap-ws-5 py-ws-2 pr-ws-4 pl-ws-9',
           rule && 'border-b border-ws-static-subtle',
         )}
       >
         {header ?? (
-          <span className="font-mono typography-caption-md text-ws-static-subtle">{label}</span>
+          <span className="min-w-0 font-mono typography-caption-md wrap-anywhere text-ws-static-subtle">
+            {label}
+          </span>
         )}
         <CopyIcon text={() => code} />
       </div>
@@ -793,8 +790,7 @@ const MenuButton = () => {
 };
 
 /**
- * A page's tabs, under its head: a component's (Overview, then Anatomy and Relationships when it
- * has them) or a block's (Preview, Code). The panels are the page's own HTML (`data-tab-panel`),
+ * A component or block page's tabs. The panels are the page's own HTML (`data-tab-panel`),
  * shown by `html[data-tab]` (docs.css), which the page sets from the address before first paint;
  * this row keeps the two in step. The tab is in the address (`?tab=anatomy`; the first tab has
  * none), so Back and Forward move between tabs and a tab can be linked.
@@ -832,20 +828,21 @@ export const PageTabs = ({ tabs }: { tabs: { id: string; label: string }[] }) =>
   };
   return (
     <div className="docs-page-tabs mb-ws-14" data-ready={ready ? '' : undefined}>
-      <Tabs value={value} onValueChange={pick} size="sm">
-        {/* The list spans the column, so its own divider is the one line under the tabs. */}
-        <Tabs.List aria-label="Sections of this page" className="w-full">
-          {tabs.map((tab) => (
-            <Tabs.Item
-              key={tab.id}
-              value={tab.id}
-              id={`tab-${tab.id}`}
-              aria-controls={`panel-${tab.id}`}
-            >
-              <Tabs.Label>{tab.label}</Tabs.Label>
-            </Tabs.Item>
-          ))}
-        </Tabs.List>
+      <Tabs value={value} onValueChange={pick} size="sm" divider={false}>
+        <TabRow selected={value}>
+          <Tabs.List aria-label="Sections of this page" className="min-w-full">
+            {tabs.map((tab) => (
+              <Tabs.Item
+                key={tab.id}
+                value={tab.id}
+                id={`tab-${tab.id}`}
+                aria-controls={`panel-${tab.id}`}
+              >
+                <Tabs.Label>{tab.label}</Tabs.Label>
+              </Tabs.Item>
+            ))}
+          </Tabs.List>
+        </TabRow>
       </Tabs>
     </div>
   );
@@ -861,17 +858,34 @@ export const Rail = ({ items }: { items: { id: string; label: string; indent?: b
   const labelId = useId();
   useEffect(() => {
     const update = () => {
-      const shown = items.filter(({ id }) => document.getElementById(id)?.getClientRects().length);
-      const atEnd = scrollY + innerHeight >= document.documentElement.scrollHeight - 1;
+      const shown = items.flatMap(({ id }) => {
+        const heading = document.getElementById(id);
+        return heading?.getClientRects().length ? [heading] : [];
+      });
+      const maxScroll = document.documentElement.scrollHeight - innerHeight;
+      const anchor = shown.find((heading) => location.hash === `#${heading.id}`);
+      if (anchor) {
+        const offset = parseFloat(getComputedStyle(anchor).scrollMarginTop) || 0;
+        const top = scrollY + anchor.getBoundingClientRect().top - offset;
+        // A heading near the end may be unable to reach the usual offset.
+        if (Math.abs(scrollY - Math.max(0, Math.min(top, maxScroll))) <= 2) {
+          setCurrent(anchor.id);
+          return;
+        }
+      }
+      const atEnd = scrollY > 0 && scrollY >= maxScroll - 1;
       const passed = shown.filter(
-        ({ id }) =>
-          (document.getElementById(id)?.getBoundingClientRect().top ?? Infinity) <= innerHeight / 4,
+        (heading) => heading.getBoundingClientRect().top <= innerHeight / 4,
       );
-      setCurrent((atEnd && scrollY > 0 ? shown.at(-1) : passed.at(-1))?.id ?? shown[0]?.id);
+      setCurrent((atEnd ? shown.at(-1) : passed.at(-1))?.id ?? shown[0]?.id);
     };
     update();
     addEventListener('scroll', update, { passive: true });
-    return () => removeEventListener('scroll', update);
+    addEventListener('hashchange', update);
+    return () => {
+      removeEventListener('scroll', update);
+      removeEventListener('hashchange', update);
+    };
   }, [items]);
   return (
     <nav aria-labelledby={labelId} className="flex flex-col gap-ws-7">

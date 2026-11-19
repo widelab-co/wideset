@@ -20,7 +20,7 @@ type ScrubberProps = {
  */
 export function Scrubber({ time, duration, chapters, onSeek, onKeyDown }: ScrubberProps) {
   const at = (seconds: number) => `${(seconds / duration) * 100}%`;
-  const chapter = chapters.findLast((item) => item.start <= time);
+  const chapter = chapters.filter((item) => item.start <= time).at(-1);
 
   return (
     <div className="h-ws-12 relative flex items-center">

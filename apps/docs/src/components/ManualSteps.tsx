@@ -16,7 +16,9 @@ const FileCode = ({ file }: { file: ManualFile }) => {
   const long = file.content.split('\n').length > 18;
   return (
     <div>
-      <p className="mb-ws-5 font-mono typography-body-sm text-ws-static-subtle">{file.path}</p>
+      <p className="mb-ws-5 font-mono typography-body-sm wrap-anywhere text-ws-static-subtle">
+        {file.path}
+      </p>
       <div className={`relative ${long && !open ? 'max-h-[22rem] overflow-hidden' : ''}`}>
         <CodeBlock code={file.content} lang={langOf(file.path)} />
         {long && !open && (
@@ -111,7 +113,7 @@ export const ManualSteps = ({ files }: { files: ManualFiles }) => (
     <Step n={1} title="Copy component files">
       <Tabs defaultValue={files.own[0]?.path} size="sm" divider={false}>
         <TabRow>
-          <Tabs.List>
+          <Tabs.List aria-label="Component files">
             {files.own.map((file) => (
               <Tabs.Item key={file.path} value={file.path}>
                 <Tabs.Label>{nameOf(file.path)}</Tabs.Label>

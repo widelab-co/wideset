@@ -111,10 +111,11 @@ where to go instead. Never a sentence that repeats the title or describes what i
 A playground is the component's `examples/<id>/default.tsx` (one typical instance whose root
 takes `{...props}`) with controls: every string-literal union and boolean of the root props type
 in `src/generated/controls.json`, with the component's own default, so a new variant shows up
-without touching anything. It appears in three places: the stage at the top of the component's
-page and its thumbnail in the gallery (both at the defaults), and the Playground page
-(`/docs/playground?c=<id>`), where the Properties panel sets the props and the code under the
-stage prints the JSX `default.tsx` returns with them.
+without touching anything. The Overview stage and the gallery thumbnail show the defaults. The
+component's Playground tab (`?tab=playground`) and the standalone Playground
+(`/docs/playground?c=<id>`) share the workbench. The Properties panel sets the props, the code
+shows the resulting JSX, and the address saves changed values. The component's Code tab shows
+the registry files for that component.
 
 `src/playgrounds/<id>.tsx` is optional tuning: `playground({...})` from
 `src/lib/playground-kit.ts` with `hide`, `labels` (`preset` is already "Style"), `order`,
@@ -142,8 +143,8 @@ stage out of line; both make the stage blink.
 A block is a whole screen (or a panel that opens over one) in the library,
 `packages/design-system/src/blocks/<id>/`, listed in the manifest beside them (`blocks/index.ts`:
 `BLOCKS`, `PANELS`, the directions and navigations). `src/lib/blocks.ts` reads the manifest and
-every block's files as text, for the code and the Markdown; the browser loads only the block a
-page shows. Only blocks in the manifest are listed: one in an open pull request appears once it
+the package source excerpts for Markdown. `src/lib/registry.ts` reads the installable files,
+and the browser loads only the block a page shows. Only blocks in the manifest are listed: one in an open pull request appears once it
 is merged.
 
 - `/blocks/<id>/preview` renders the block alone at the window's size (`BlockFrame`, with an error
@@ -151,10 +152,10 @@ is merged.
   is inert, a picture, unless the frame asks for `?live`.
 - `/blocks/<id>` has two tabs. Preview frames that route live (`BlockLiveFrame` in
   `BlockPreviewFrame.tsx`): clickable, in the page's theme, loaded again when the theme changes,
-  with the block's direction and navigation in one line. Code (`?tab=code`, `BlockCode.tsx`) shows
-  the folder's files one at a time, listed beside the code as Entry, Parts and Data (a Select in a
-  narrow window); the file is in the address (`&file=Header.tsx`). "Open full screen" opens the
-  route.
+  with the block's direction and navigation in one line. Code (`?tab=code`, `RegistryCode.tsx`)
+  shows the install command and the installed files, grouped as Entry, Parts and Data. On narrow
+  screens use the file picker. The address keeps the selected file (`&file=Header.tsx`).
+  "Open full screen" opens the preview route.
 - `/blocks` lists the manifest by business domain, from `src/data/block-categories.json` (kept by
   hand). The list names every block the manifest has (`scripts/blocks.test.mjs` fails otherwise),
   so a pull request that adds a block gives it its category in the same change. A block the list

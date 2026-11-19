@@ -39,6 +39,17 @@ drifts; a Code-mode part edited in `agent-code/` goes on `AGENT_CODE_KIT`. A par
 already does is reused, not rewritten under another name: the test only compares files with the
 same name.
 
+## Registry installation
+
+`npx wideset add block-calendar` installs the calendar screen into `blocks/wideset/calendar/`
+under the project's source directory. Import the default export from `@/blocks/wideset/calendar`.
+Screens and panels use the same `block-<id>` naming scheme.
+
+The registry builder reads `BLOCKS` and `PANELS` from `index.ts`. Add the block there and keep
+its imports named so the builder can resolve Wideset exports to their registry items. The block
+entry imports the compiled layout stylesheet. The documentation's Code tab shows the files the
+installer writes, and Storybook reads the original source.
+
 ## The four directions
 
 | Direction  | Looks like                                                    | Figma screens            |

@@ -1,8 +1,8 @@
 /*
   Builds the shadcn registry: one JSON per item under <out>/ (latest only, like shadcn's own registry;
-  every item carries meta.version and meta.commit). Items and their entry files come from registry.json; every
-  other file is found by walking imports from those entries (stories, tests, snapshots and Figma
-  specs are never reached, and reaching one is an error).
+  every item carries meta.version and meta.commit). Component entries come from registry.json;
+  block folders come from src/blocks/index.ts. Imports determine the dependency graph. Stories,
+  tests, snapshots and Figma specs cannot ship.
 
     pnpm build:registry                      # dist/*.css must exist → pnpm build:lib runs first
     REGISTRY_URL=http://127.0.0.1:4873/r node scripts/build-registry.mjs --out /tmp/r
@@ -15,9 +15,8 @@
     shadcn's own item of that name);
   - every npm import must be in package.json dependencies (react/react-dom are peers);
   - only .ts/.tsx files ship: registry files are strings, so binaries go through data URLs;
-  - a `registry:file` entry whose path is a directory expands to every file under it, keeping
-    relative targets. Such files are never imported, so one source may appear in several items,
-    each with its own target (the skills install to .agents/skills and to .claude/skills).
+  - a `registry:file` directory expands to its files with relative targets. Skills can share a
+    directory across items. A block owns its files, which shadcn writes verbatim.
 
   Every component, context and hook file is emitted with a 'use client' directive (see
   needsClientDirective); lib items, variants and types are not.
@@ -28,6 +27,7 @@ import {
   mkdirSync,
   readdirSync,
   readFileSync,
+  realpathSync,
   rmSync,
   statSync,
   writeFileSync,
@@ -36,6 +36,14 @@ import { dirname, join, posix, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import ts from 'typescript';
+
+import {
+  blockEntries,
+  blockStyleImport,
+  blockStyles,
+  publicExports,
+  rewriteBlockImports,
+} from './registry-blocks.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 // The permanent registry address, a contract with every consumer's components.json (also
@@ -140,7 +148,7 @@ function imports(file) {
  * @param {string} [options.version] version stamp (default: package.json version)
  * @param {string} [options.commit]  commit stamp (default: git HEAD)
  */
-export function buildRegistry({ root = ROOT, out, base, version, commit } = {}) {
+export async function buildRegistry({ root = ROOT, out, base, version, commit } = {}) {
   const registry = JSON.parse(readFileSync(join(root, 'registry.json'), 'utf8'));
   const pkg = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8'));
   version ??= pkg.version;
@@ -148,12 +156,15 @@ export function buildRegistry({ root = ROOT, out, base, version, commit } = {}) 
   base ??= resolveBaseUrl();
   out ??= join(root, 'public', 'r');
 
-  const items = registry.items.map((item) => ({
+  const blockItems = blockEntries(root);
+  const exports = blockItems.length ? publicExports(root) : new Map();
+  const styles = blockItems.length ? await blockStyles(root) : null;
+  const items = [...registry.items, ...(styles ? [styles, ...blockItems] : [])].map((item) => ({
     ...item,
     files: item.files && expandFiles(root, item.files),
   }));
   const byName = new Map(items.map((item) => [item.name, item]));
-  if (byName.size !== items.length) fail('duplicate item names in registry.json');
+  if (byName.size !== items.length) fail('duplicate item names in the registry');
 
   // Declared files: absolute source path → { item, target }.
   const declared = new Map();
@@ -163,9 +174,13 @@ export function buildRegistry({ root = ROOT, out, base, version, commit } = {}) 
       if (!file.target) fail(`${item.name}: ${file.path} has no target`);
       const abs = resolve(root, file.path);
       const previous = declared.get(abs);
-      // Code belongs to exactly one item, because imports resolve through its owner. A registry:file
-      // is never imported, so several items may ship it; each takes its target from its own entry.
-      if (previous && !(previous.type === 'registry:file' && file.type === 'registry:file'))
+      // Blocks and components own their code. Raw assets such as the skills can have several
+      // destinations, one per item.
+      const sharesFile = previous?.type === 'registry:file' && file.type === 'registry:file';
+      if (
+        previous &&
+        (!sharesFile || item.type === 'registry:block' || previous.item.type === 'registry:block')
+      )
         fail(`${file.path} is declared by both ${previous.item.name} and ${item.name}`);
       if (!previous) declared.set(abs, { item, target: file.target, type: file.type });
     }
@@ -207,33 +222,44 @@ export function buildRegistry({ root = ROOT, out, base, version, commit } = {}) 
 
   const built = new Map();
   for (const item of items) {
+    const block = item.type === 'registry:block';
+    const directory = block ? `src/blocks/${item.name.slice('block-'.length)}` : '';
     const files = new Map(); // abs → { target, type, content }
     // A CSS-only item has no imports to read, so it names its packages itself.
     const deps = new Set(item.dependencies ?? []);
     // registry:component is an internal building block (FieldLabel, ScrollArea): installed with the
     // components that use it, never listed on its own; it needs the same styles and utils.
     const registryDeps = new Set(
-      item.type === 'registry:ui' || item.type === 'registry:component' ? IMPLICIT_UI_DEPS : [],
+      item.registryDependencies ??
+        (item.type === 'registry:ui' || item.type === 'registry:component' ? IMPLICIT_UI_DEPS : []),
     );
     const queue = item.files.map((f) => resolve(root, f.path));
-    const ownTargets = new Map(item.files.map((f) => [resolve(root, f.path), f.target]));
+    const ownFiles = new Map(item.files.map((file) => [resolve(root, file.path), file]));
+    const realRoot = block ? realpathSync(root) : '';
 
     while (queue.length) {
       const abs = queue.shift();
       if (files.has(abs)) continue;
-      const rel = relative(root, abs);
+      const rel = toPosix(relative(root, abs));
+      const entry = ownFiles.get(abs);
+      if (entry?.content !== undefined) {
+        files.set(abs, { target: entry.target, type: entry.type, content: entry.content });
+        continue;
+      }
       if (!existsSync(abs))
         fail(
           `${item.name}: ${rel} does not exist${
             rel.startsWith('dist/') ? ' — run pnpm build:lib first' : ''
           }`,
         );
+      if (block && realpathSync(abs) !== resolve(realRoot, rel))
+        fail(`${item.name}: ${rel} must be a regular file in the block directory`);
       const decl = declared.get(abs);
       const fileType = decl?.type ?? item.files[0].type;
-      const target = ownTargets.get(abs) ?? targetOf(abs);
+      const target = entry?.target ?? targetOf(abs);
 
       if (!SHIPPABLE.test(abs)) {
-        if (fileType === 'registry:file') {
+        if (fileType === 'registry:file' && !block) {
           // CSS built on a CRLF checkout (Windows) would otherwise ship CRLF; consumers get LF.
           files.set(abs, {
             target,
@@ -252,8 +278,33 @@ export function buildRegistry({ root = ROOT, out, base, version, commit } = {}) 
         );
 
       const { source, specs } = imports(abs);
-      const edits = [];
+      const failFile = (message) => fail(`${item.name}: ${rel} ${message}`);
+      const edits = block
+        ? rewriteBlockImports(
+            source,
+            rel,
+            (name) => {
+              const match = exports.get(name);
+              if (!match) failFile(`imports unknown @wideset/react export '${name}'`);
+              const local = resolveLocal(join(root, 'src/index.ts'), match.spec, root);
+              if (
+                !local ||
+                !SHIPPABLE.test(local) ||
+                FORBIDDEN.some((re) => re.test(relative(root, local)))
+              )
+                failFile(`cannot ship '${name}' from ${match.spec}`);
+              registryDeps.add((declared.get(local) ?? ownerOf(local)).item.name);
+              return { target: stripExt(targetOf(local)), exported: match.name };
+            },
+            failFile,
+          )
+        : [];
       for (const { spec, pos, end } of specs) {
+        if (block && spec === '@wideset/react') {
+          if (!edits.some((edit) => pos >= edit.pos && end <= edit.end))
+            failFile('imports @wideset/react outside a named import declaration');
+          continue;
+        }
         const local =
           spec.startsWith('.') || spec.startsWith('src/') ? resolveLocal(abs, spec, root) : null;
         if (!local) {
@@ -268,7 +319,12 @@ export function buildRegistry({ root = ROOT, out, base, version, commit } = {}) 
           deps.add(`${name}@${pkg.dependencies[name]}`);
           continue;
         }
-        const localRel = relative(root, local);
+        const localRel = toPosix(relative(root, local));
+        if (
+          block &&
+          (!spec.startsWith('.') || !localRel.startsWith(directory + '/') || !ownFiles.has(local))
+        )
+          failFile(`imports '${spec}' outside its block files`);
         if (FORBIDDEN.some((re) => re.test(localRel)))
           fail(`${item.name}: ${rel} imports ${localRel}, which must not ship`);
         if (!SHIPPABLE.test(local))
@@ -283,6 +339,7 @@ export function buildRegistry({ root = ROOT, out, base, version, commit } = {}) 
           queue.push(local);
         }
 
+        if (block) continue;
         const localTarget = targetOf(local);
         const relFromTarget = posix.relative(posix.dirname(target), stripExt(localTarget));
         const wanted =
@@ -303,7 +360,13 @@ export function buildRegistry({ root = ROOT, out, base, version, commit } = {}) 
       // `"use client"` without one, and its global regex is stateful, so it would remove the
       // directive from every second file. This form is never matched: every project gets the
       // same files, and bundlers without Server Components ignore the directive.
-      if (needsClientDirective(abs, source)) content = `'use client';\n\n${content}`;
+      const clientDirective = /^\s*(['"])use client\1[^\S\n]*;?/.exec(content);
+      if (block && rel === directory + '/index.tsx') {
+        const rest = content.slice(clientDirective?.[0].length ?? 0).trimStart();
+        content = "'use client';\n\n" + blockStyleImport + rest;
+      } else if (needsClientDirective(abs, source) && !clientDirective) {
+        content = "'use client';\n\n" + content;
+      }
       files.set(abs, { target, type: fileType, content });
     }
 
@@ -404,7 +467,7 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
     const i = args.indexOf(name);
     return i >= 0 ? args[i + 1] : undefined;
   };
-  const result = buildRegistry({
+  const result = await buildRegistry({
     out: flag('--out') && resolve(flag('--out')),
     base: flag('--base'),
   });

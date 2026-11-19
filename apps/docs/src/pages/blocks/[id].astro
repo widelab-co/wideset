@@ -1,5 +1,6 @@
 ---
-import BlockCode from '../../components/BlockCode';
+import RegistryCode from '../../components/RegistryCode';
+import { CodeBlock } from '../../components/CodeBlock';
 import { BlockLiveFrame } from '../../components/BlockPreviewFrame';
 import PageHead from '../../components/PageHead.astro';
 import { ButtonLink, CopyPage, Crumbs, PageTabs } from '../../components/parts';
@@ -11,12 +12,12 @@ import {
   DIRECTION_SUMMARY,
   DIRECTION_TITLE,
   ENTRIES,
-  filesOf,
   inlineCode,
   isScreen,
   NAVIGATION_TITLE,
   PANEL_SUMMARY,
 } from '../../lib/blocks';
+import { installedBlock } from '../../lib/registry';
 
 /**
  * A block, the window's full width (no sidebar, no rail): a breadcrumb with its category, the
@@ -31,11 +32,8 @@ export function getStaticPaths() {
 
 const block = blockById(Astro.params.id!)!;
 const category = blockCategories.find((item) => item.blocks.includes(block))!;
-const files = filesOf(block.id);
+const { directory, files, dependencies } = installedBlock(block.id);
 const summary = isScreen(block) ? DIRECTION_SUMMARY[block.direction] : PANEL_SUMMARY;
-const use = isScreen(block)
-  ? 'Copy the folder into your app, keep the surround (the root element, the navigation and `main`) and replace the content and `data.ts`.'
-  : 'Copy the folder into your app, render the panel from the screen that opens it and replace its content and `data.ts`.';
 const markdown = blockMarkdown(block, Astro.site ?? new URL('https://wideset.co'));
 const code = 'text-ws-static-base font-mono';
 const tabs = [
@@ -72,7 +70,7 @@ const tabs = [
       if (location.hash !== '#code') return false;
       var url = new URL(location.pathname, location.href);
       url.searchParams.set('tab', 'code');
-      history.replaceState(null, '', url);
+      history.replaceState(history.state, '', url);
       return true;
     };
     codeAnchor();
@@ -101,11 +99,23 @@ const tabs = [
   </div>
 
   <div data-tab-panel="code" id="panel-code" role="tabpanel" aria-labelledby="tab-code">
-    <p class="text-ws-static-subtle mb-ws-9 max-w-[65ch] typography-body-md">
-      {inlineCode(use).map((part) =>
-        part.code ? <code class={code}>{part.text}</code> : part.text,
-      )}
-    </p>
-    <BlockCode files={files} client:load />
+    <div class="mb-ws-14 flex max-w-[65ch] flex-col gap-ws-7">
+      <CodeBlock code={`npx wideset add block-${block.id}`} lang="bash" prompt client:visible />
+      <p class="text-ws-static-subtle typography-body-md">
+        Import the default export from <code class={code}>{`@/${directory}`}</code>. The files below
+        are relative to your project's source directory.
+      </p>
+      <details class="text-ws-static-subtle typography-body-sm">
+        <summary class="cursor-pointer">Installed with this block</summary>
+        <ul class="mt-ws-5 flex flex-wrap gap-ws-5" aria-label="Registry dependencies">
+          {dependencies.map((name) => (
+            <li>
+              <code class={code}>{name}</code>
+            </li>
+          ))}
+        </ul>
+      </details>
+    </div>
+    <RegistryCode files={files} directory={directory} entry="index.tsx" client:visible />
   </div>
 </DocsLayout>

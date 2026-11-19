@@ -27,7 +27,7 @@ export function Transcript({ lines, time, playing, onSeek }: TranscriptProps) {
   const [query, setQuery] = useState('');
   const needle = query.trim().toLowerCase();
 
-  const current = lines.findLast((line) => line.at <= time)?.at;
+  const current = lines.filter((line) => line.at <= time).at(-1)?.at;
   const shown = needle
     ? lines.filter(
         (line) =>
