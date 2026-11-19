@@ -705,7 +705,6 @@ export const TopNav = ({
         { id: 'components', label: 'Components', href: '/components' },
         { id: 'blocks', label: 'Blocks', href: '/blocks' },
         { id: 'playground', label: 'Playground', href: '/docs/playground' },
-        { id: 'themes', label: 'Themes', href: '/docs/themes' },
       ].map((page) => (
         <a
           key={page.id}
