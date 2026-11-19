@@ -1,7 +1,8 @@
 ---
+import BlockCode from '../../components/BlockCode';
 import { BlockLiveFrame } from '../../components/BlockPreviewFrame';
 import PageHead from '../../components/PageHead.astro';
-import { ButtonLink, Code, CopyPage, Crumbs } from '../../components/parts';
+import { ButtonLink, CopyPage, Crumbs, PageTabs } from '../../components/parts';
 import DocsLayout from '../../layouts/DocsLayout.astro';
 import {
   blockById,
@@ -19,8 +20,10 @@ import {
 
 /**
  * A block, the window's full width (no sidebar, no rail): a breadcrumb with its category, the
- * title and description, then the block live in one frame (its preview route, clickable, in the
- * page's theme), its direction and navigation in one line, and every file of its folder.
+ * title and description, then two tabs. Preview: the block live in one frame (its preview route,
+ * clickable, in the page's theme), its direction and navigation in one line. Code: how to use the
+ * folder, then its files one at a time (BlockCode). The tab is in the address (`?tab=code`;
+ * Preview has none), as on a component page.
  */
 export function getStaticPaths() {
   return ENTRIES.map((block) => ({ params: { id: block.id } }));
@@ -35,6 +38,10 @@ const use = isScreen(block)
   : 'Copy the folder into your app, render the panel from the screen that opens it and replace its content and `data.ts`.';
 const markdown = blockMarkdown(block, Astro.site ?? new URL('https://wideset.co'));
 const code = 'text-ws-static-base font-mono';
+const tabs = [
+  { id: 'preview', label: 'Preview' },
+  { id: 'code', label: `Code · ${files.length} ${files.length === 1 ? 'file' : 'files'}` },
+];
 ---
 
 <DocsLayout title={block.title} description={block.description} area="blocks" broad full>
@@ -54,39 +61,51 @@ const code = 'text-ws-static-base font-mono';
     <CopyPage slot="actions" markdown={markdown} client:idle />
   </PageHead>
 
-  <div class="border-ws-static-subtle bg-ws-static-foreground h-[max(45rem,calc(100dvh-16rem))] overflow-hidden rounded-ws-container-md border">
-    <BlockLiveFrame id={block.id} title={block.title} client:only="react" />
-  </div>
-  <p class="text-ws-static-subtle mt-ws-7 max-w-[60rem] typography-body-sm">
-    {isScreen(block) && (
-      <span class="text-ws-static-base">
-        {DIRECTION_TITLE[block.direction]} · {NAVIGATION_TITLE[block.navigation]}.{' '}
-      </span>
-    )}
-    {inlineCode(summary).map((part) =>
-      part.code ? <code class={code}>{part.text}</code> : part.text,
-    )}
-  </p>
+  <script
+    // Before first paint: the tab in the address picks the panel, so nothing flashes. The earlier
+    // page's `#code` anchor opens the Code tab, on load and when followed on the page (the tab
+    // row and the file list read the address on popstate).
+    is:inline
+    slot="head"
+  >
+    var codeAnchor = function () {
+      if (location.hash !== '#code') return false;
+      var url = new URL(location.pathname, location.href);
+      url.searchParams.set('tab', 'code');
+      history.replaceState(null, '', url);
+      return true;
+    };
+    codeAnchor();
+    addEventListener('hashchange', function () {
+      if (codeAnchor()) dispatchEvent(new PopStateEvent('popstate'));
+    });
+    if (new URLSearchParams(location.search).get('tab') === 'code')
+      document.documentElement.dataset.tab = 'code';
+  </script>
+  <PageTabs tabs={tabs} client:load />
 
-  <section class="mt-ws-21 max-w-[60rem]">
-    <h2 id="code" class="text-ws-static-strong scroll-mt-ws-21 typography-subtitle-sm">
-      Code
-    </h2>
-    <p class="text-ws-static-subtle mt-ws-4 mb-ws-9 max-w-[65ch] typography-body-md">
+  <div data-tab-panel="preview" id="panel-preview" role="tabpanel" aria-labelledby="tab-preview">
+    <div class="border-ws-static-subtle bg-ws-static-foreground h-[max(45rem,calc(100dvh-16rem))] overflow-hidden rounded-ws-container-md border">
+      <BlockLiveFrame id={block.id} title={block.title} client:only="react" />
+    </div>
+    <p class="text-ws-static-subtle mt-ws-7 max-w-[60rem] typography-body-sm">
+      {isScreen(block) && (
+        <span class="text-ws-static-base">
+          {DIRECTION_TITLE[block.direction]} · {NAVIGATION_TITLE[block.navigation]}.{' '}
+        </span>
+      )}
+      {inlineCode(summary).map((part) =>
+        part.code ? <code class={code}>{part.text}</code> : part.text,
+      )}
+    </p>
+  </div>
+
+  <div data-tab-panel="code" id="panel-code" role="tabpanel" aria-labelledby="tab-code">
+    <p class="text-ws-static-subtle mb-ws-9 max-w-[65ch] typography-body-md">
       {inlineCode(use).map((part) =>
         part.code ? <code class={code}>{part.text}</code> : part.text,
       )}
     </p>
-    <div class="flex flex-col gap-ws-9">
-      {files.map((file) => (
-        <Code
-          code={file.code}
-          lang={file.name.endsWith('.ts') ? 'ts' : 'tsx'}
-          label={file.name}
-          peek
-          client:visible
-        />
-      ))}
-    </div>
-  </section>
+    <BlockCode files={files} client:load />
+  </div>
 </DocsLayout>

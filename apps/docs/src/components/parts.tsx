@@ -793,11 +793,11 @@ const MenuButton = () => {
 };
 
 /**
- * A component page's tabs, under its head: Overview, then Anatomy and Relationships when the
- * component has them. The panels are the page's own HTML (`data-tab-panel`), shown by
- * `html[data-tab]` (docs.css), which the page sets from the address before first paint; this row
- * keeps the two in step. The tab is in the address (`?tab=anatomy`; Overview has none), so Back
- * and Forward move between tabs and a tab can be linked.
+ * A page's tabs, under its head: a component's (Overview, then Anatomy and Relationships when it
+ * has them) or a block's (Preview, Code). The panels are the page's own HTML (`data-tab-panel`),
+ * shown by `html[data-tab]` (docs.css), which the page sets from the address before first paint;
+ * this row keeps the two in step. The tab is in the address (`?tab=anatomy`; the first tab has
+ * none), so Back and Forward move between tabs and a tab can be linked.
  */
 export const PageTabs = ({ tabs }: { tabs: { id: string; label: string }[] }) => {
   const first = tabs[0].id;
@@ -824,10 +824,9 @@ export const PageTabs = ({ tabs }: { tabs: { id: string; label: string }[] }) =>
   }, []);
   const pick = (id: string) => {
     if (id === value) return;
-    const url = new URL(location.href);
-    if (id === first) url.searchParams.delete('tab');
-    else url.searchParams.set('tab', id);
-    url.hash = '';
+    // A tab's own address (a block's `?file=`) does not follow it to another tab.
+    const url = new URL(location.pathname, location.href);
+    if (id !== first) url.searchParams.set('tab', id);
     history.pushState(null, '', url);
     window.dispatchEvent(new PopStateEvent('popstate'));
   };

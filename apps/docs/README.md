@@ -149,9 +149,12 @@ is merged.
 - `/blocks/<id>/preview` renders the block alone at the window's size (`BlockFrame`, with an error
   and a retry when its code fails to load), in `?theme=light|dark` or the saved theme. Framed, it
   is inert, a picture, unless the frame asks for `?live`.
-- `/blocks/<id>` frames that route live (`BlockLiveFrame` in `BlockPreviewFrame.tsx`): clickable,
-  in the page's theme, loaded again when the theme changes. Then the block's direction and
-  navigation in one line and every file of its folder; "Open full screen" opens the route.
+- `/blocks/<id>` has two tabs. Preview frames that route live (`BlockLiveFrame` in
+  `BlockPreviewFrame.tsx`): clickable, in the page's theme, loaded again when the theme changes,
+  with the block's direction and navigation in one line. Code (`?tab=code`, `BlockCode.tsx`) shows
+  the folder's files one at a time, listed beside the code as Entry, Parts and Data (a Select in a
+  narrow window); the file is in the address (`&file=Header.tsx`). "Open full screen" opens the
+  route.
 - `/blocks` lists the manifest by business domain, from `src/data/block-categories.json` (kept by
   hand). The list names every block the manifest has (`scripts/blocks.test.mjs` fails otherwise),
   so a pull request that adds a block gives it its category in the same change. A block the list
