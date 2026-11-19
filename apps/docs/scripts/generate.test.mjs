@@ -175,6 +175,12 @@ describe('gen-guidance', () => {
     assert.equal(asText('Use ``a ` <b>`` and <i>.'), 'Use ``a ` <b>`` and &lt;i>.');
   });
 
+  it('opens no code span on a backslash-escaped backtick', () => {
+    assert.equal(asText('\\`Remove <title>\\`'), '\\`Remove &lt;title>\\`');
+    assert.equal(asText('\\\\`<b>`'), '\\\\`<b>`');
+    assert.equal(asText('`a\\` <i>'), '`a\\` &lt;i>');
+  });
+
   it('never lets a code span cross a blank line', () => {
     assert.equal(
       asText('`First paragraph.\n\nRemove <title>.\n\nLast paragraph.`'),

@@ -2,13 +2,15 @@
  * Prose the page renders as HTML: a placeholder in angle brackets ("Remove <title>") is text, not
  * a tag; an open `<title>` would swallow the rest of the page. Fenced code blocks and code spans
  * keep theirs. As in CommonMark, a fence (``` or ~~~) closes on a run of its own character at
- * least as long, a code span closes on a backtick run of its own length within its paragraph, and
- * an unmatched run is text.
+ * least as long, a code span closes on a backtick run of its own length within its paragraph, a
+ * backslash-escaped backtick opens nothing, and an unmatched run is text.
  */
 const inline = (paragraph) => {
   let out = '';
   let last = 0;
-  for (const span of paragraph.matchAll(/(?<!`)(`+)(?!`)[\s\S]*?(?<!`)\1(?!`)/g)) {
+  for (const span of paragraph.matchAll(
+    /(?<!`|(?<!\\)(?:\\\\)*\\)(`+)(?!`)[\s\S]*?(?<!`)\1(?!`)/g,
+  )) {
     out += paragraph.slice(last, span.index).replace(/</g, '&lt;') + span[0];
     last = span.index + span[0].length;
   }
