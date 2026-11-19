@@ -50,13 +50,17 @@ const BlockCode = ({ files }: { files: BlockFile[] }) => {
     const sync = () => {
       const name = fileFromAddress(files);
       const asked = new URLSearchParams(location.search).get('file');
-      if (asked !== null && asked !== name) history.replaceState(null, '', addressOf(name, first));
+      if (asked !== null && asked !== name) {
+        const url = new URL(location.href);
+        url.searchParams.delete('file');
+        history.replaceState(null, '', url);
+      }
       setCurrent(name);
     };
     sync();
     addEventListener('popstate', sync);
     return () => removeEventListener('popstate', sync);
-  }, [files, first]);
+  }, [files]);
   const open = (name: string) => {
     if (name === current) return;
     history.pushState(null, '', addressOf(name, first));

@@ -63,16 +63,22 @@ const tabs = [
 
   <script
     // Before first paint: the tab in the address picks the panel, so nothing flashes. The earlier
-    // page's `#code` anchor opens the Code tab.
+    // page's `#code` anchor opens the Code tab, on load and when followed on the page (the tab
+    // row and the file list read the address on popstate).
     is:inline
     slot="head"
   >
-    if (location.hash === '#code') {
-      var url = new URL(location.href);
-      url.hash = '';
+    var codeAnchor = function () {
+      if (location.hash !== '#code') return false;
+      var url = new URL(location.pathname, location.href);
       url.searchParams.set('tab', 'code');
       history.replaceState(null, '', url);
-    }
+      return true;
+    };
+    codeAnchor();
+    addEventListener('hashchange', function () {
+      if (codeAnchor()) dispatchEvent(new PopStateEvent('popstate'));
+    });
     if (new URLSearchParams(location.search).get('tab') === 'code')
       document.documentElement.dataset.tab = 'code';
   </script>
