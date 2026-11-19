@@ -236,7 +236,7 @@ const td = 'px-ws-9 py-ws-8 align-top';
           <tbody>
             {parts.map((part, index) => (
               <tr
-                class="border-ws-static-base border-b transition-colors duration-[80ms] ease-out last:border-b-0 data-[anatomy-active]:bg-ws-static-alpha-base"
+                class="border-ws-static-base border-b transition-colors duration-(--ws-motion-duration-micro) ease-out last:border-b-0 data-[anatomy-active]:bg-ws-static-alpha-base"
                 data-anatomy-row={picture ? kebab(part.exportName) : undefined}
               >
                 {/* With a picture the part column is a tree: AnatomyDiagram sets --anatomy-depth. */}

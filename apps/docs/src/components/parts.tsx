@@ -748,6 +748,13 @@ export const TopNav = ({
  */
 const MenuButton = () => {
   const button = useRef<HTMLButtonElement>(null);
+  const [open, setOpen] = useState(false);
+  useEffect(() => {
+    const root = document.documentElement;
+    const sync = new MutationObserver(() => setOpen(root.hasAttribute('data-docs-menu')));
+    sync.observe(root, { attributes: true, attributeFilter: ['data-docs-menu'] });
+    return () => sync.disconnect();
+  }, []);
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
       const root = document.documentElement;
@@ -767,6 +774,7 @@ const MenuButton = () => {
       variant="secondary"
       aria-label="Menu"
       aria-controls="docs-menu"
+      aria-expanded={open}
       className="lg:hidden"
       onClick={() => {
         if (document.documentElement.toggleAttribute('data-docs-menu'))
