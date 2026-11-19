@@ -1,4 +1,4 @@
-import { AppShell } from '@wideset/react';
+import {} from '@wideset/react';
 
 import { ClosingDealsTable } from './closing-deals-table';
 import { KEY_FIGURES } from './data';
@@ -30,8 +30,8 @@ const toKpi = ({ label, value, target, unit }: Figure) => {
  */
 export default function SalesOverview() {
   return (
-    <AppShell direction="canvas">
-      <AppShell.Main className="flex flex-col">
+    <div className="bg-ws-static-background flex h-dvh">
+      <main className="flex min-w-0 flex-1 flex-col overflow-y-auto">
         <TopBar />
         <div className="px-ws-12 pb-ws-9 pt-ws-13 flex-1">
           <div className="gap-ws-12 mx-auto flex w-full max-w-[80rem] flex-col">
@@ -52,7 +52,7 @@ export default function SalesOverview() {
             </div>
           </div>
         </div>
-      </AppShell.Main>
-    </AppShell>
+      </main>
+    </div>
   );
 }

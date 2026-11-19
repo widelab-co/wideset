@@ -8,8 +8,8 @@ Every example here uses only real exports and props; copy the structure, not the
 
 | Pattern                                                | Use it for                                                                              |
 | ------------------------------------------------------ | --------------------------------------------------------------------------------------- |
-| [Visual directions](directions.md)                     | Flat, Frame, Inset or Canvas: the surround, set once per app on `AppShell`.             |
-| [App shell](app-shell.md)                              | The frame: `AppShell` with `Sidebar` and `AppShell.Main`, one `ToastProvider`.          |
+| [Visual directions](directions.md)                     | Flat, Frame, Inset or Canvas: the surround's classes, one direction per app.            |
+| [App shell](app-shell.md)                              | The frame: a full-height row with `Sidebar` and one `main`, one `ToastProvider`.        |
 | [Form page](form-page.md)                              | `FormField`s around inputs, field errors, save failure, submit and cancel.              |
 | [List with search and filters](list-and-filters.md)    | `Table` + search `TextInput` + `FilterButton` + `Pagination`, empty and loading states. |
 | [Dense data](dense-data.md)                            | Spreadsheet-like screens: `Spreadsheet` vs `Table` vs `ListItem`, density, numbers.     |

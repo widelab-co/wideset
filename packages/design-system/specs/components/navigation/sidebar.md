@@ -26,9 +26,10 @@ storybook: components-sidebar--default
 
 ## When to use
 
-- The persistent left-hand navigation of an application shell, between product areas. Put it in
-  an `AppShell`: the sidebar then takes the surface of the app's direction (white with a line,
-  grey tint, or the bare grey frame) without any prop. `surface` overrides it.
+- The persistent left-hand navigation of an application shell, between product areas. Give it
+  the `surface` of the app's direction: `page` (white with a line, the default) in Flat, `tinted`
+  in Frame, `frame` (the bare grey frame) in Inset and Canvas. Inside an `AppShell` it takes that
+  surface without the prop.
 - When the layout needs both a labelled view and a compact icon-only view.
 
 ## When not to use
@@ -73,7 +74,7 @@ The root fills its parent's height; place it in a full-height flex row next to t
 | ------------------ | ----------------------------- | ---------------------------------------------------------------------------------------- |
 | `defaultCollapsed` | boolean                       | Start collapsed, sidebar owns the state.                                                 |
 | `collapsed`        | boolean + `onCollapsedChange` | You own the state (persisted preference, responsive rules).                              |
-| `surface`          | `page`, `tinted`, `frame`     | Only outside an `AppShell`, or to override its direction.                                |
+| `surface`          | `page`, `tinted`, `frame`     | The app's direction (Visual directions); inside an `AppShell` it comes from `direction`. |
 | `suffixOnHover`    | on `Sidebar.Item`             | A keyboard shortcut in `suffix`: shown on hover and keyboard focus only, its space kept. |
 | `scrollable`       | on `Sidebar.Section`          | The one section that takes the remaining height and scrolls.                             |
 | `icon` / `label`   | on `Sidebar.Item`             | Remix icon component and visible label; both, always.                                    |
@@ -193,7 +194,7 @@ The root fills its parent's height; place it in a full-height flex row next to t
 - `Sidebar.Trigger` with `asChild` merges the toggle onto your own button.
 - Every part except `Sidebar.Header` throws outside `<Sidebar>`.
 - Restyling the sidebar's fill or line through `className` fights the surface classes; set
-  `AppShell direction` (or `surface`) instead.
+  `surface` (or `AppShell direction`) instead.
 
 ## API
 

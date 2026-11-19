@@ -2,9 +2,11 @@
 
 ## When to use
 
-- The root of every screen in an app with persistent navigation: `Sidebar` beside the page.
-- To give the whole app one visual direction (`inset`, `flat`, `frame`, `canvas`) with one prop,
-  instead of hand-written backgrounds, margins and shadows.
+- Optional: the root of a screen with persistent navigation, when you want the app's visual
+  direction (`inset`, `flat`, `frame`, `canvas`) from one prop. It renders the same row and `main`
+  that [Visual directions](../specs/patterns/directions.md) gives as plain markup, and sets the
+  `Sidebar`'s surface. The blocks write that markup instead; either is right, as long as every
+  screen uses the same direction.
 
 ## When not to use
 
@@ -23,7 +25,7 @@
 ```
 
 ```tsx
-// Don't: a direction written by hand drifts from Figma and from the other screens
+// Don't: a surround in no direction's classes drifts from Figma and from the other screens
 <div className="bg-ws-static-background flex h-dvh">
   <Sidebar className="bg-transparent">…</Sidebar>
   <main className="rounded-ws-container-lg shadow-ws-low m-ws-7 flex-1">…</main>

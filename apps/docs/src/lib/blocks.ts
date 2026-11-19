@@ -87,17 +87,15 @@ const forMarkdown = (file: BlockFile) =>
     : file.code;
 
 /**
- * What a direction is, in one line each, in the words of `AppShell`'s `direction` JSDoc; the full
- * pattern ships in the wideset-build skill.
+ * What a direction is, in one line each; the full pattern ships in the wideset-build skill. A block
+ * writes its surround as plain markup (src/blocks/README.md), so the line names no component.
  */
 export const DIRECTION_SUMMARY: Record<BlockMeta['direction'], string> = {
   inset:
-    '`<AppShell direction="inset">`, the default: the navigation on the grey app frame, the page a raised white card inside it, scrolling within.',
-  flat: '`<AppShell direction="flat">`: one white surface; lines split the navigation, the page header and the content.',
-  frame:
-    '`<AppShell direction="frame">`: the navigation on a grey tint; the page white and full-bleed.',
-  canvas:
-    '`<AppShell direction="canvas">`: a grey page with the top bar on it; the content in white cards with no border.',
+    'The default: the navigation on the grey app frame, the page a raised white card inside it, scrolling within.',
+  flat: 'One white surface; lines split the navigation, the page header and the content.',
+  frame: 'The navigation on a grey tint; the page white and full-bleed.',
+  canvas: 'A grey page with the top bar on it; the content in white cards with no border.',
 };
 
 /** The index for a model: the four directions, then every starting point with its link. */

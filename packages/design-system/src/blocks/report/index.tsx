@@ -1,4 +1,4 @@
-import { AppShell, cn, type DateRangePreset, type DateRangeValue } from '@wideset/react';
+import { cn, type DateRangePreset, type DateRangeValue } from '@wideset/react';
 import { useState } from 'react';
 
 import {
@@ -121,9 +121,9 @@ export default function Report() {
   ];
 
   return (
-    <AppShell direction="canvas">
+    <div className="bg-ws-static-background flex h-dvh">
       <ReportSidebar />
-      <AppShell.Main className="flex flex-col">
+      <main className="flex min-w-0 flex-1 flex-col overflow-y-auto">
         <PageHeader
           range={picked.range}
           preset={picked.preset}
@@ -170,7 +170,7 @@ export default function Report() {
             <RegionTable current={current} previous={previous} className={SECTION} />
           </div>
         </div>
-      </AppShell.Main>
-    </AppShell>
+      </main>
+    </div>
   );
 }

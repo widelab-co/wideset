@@ -1,4 +1,4 @@
-import { AppShell, ToastProvider } from '@wideset/react';
+import { ToastProvider } from '@wideset/react';
 import { useState } from 'react';
 
 import { general, notifications, type SectionId, sectionRows, sections } from './data';
@@ -25,9 +25,9 @@ export default function Settings() {
 
   return (
     <ToastProvider position="bottom-center">
-      <AppShell direction="frame">
+      <div className="bg-ws-static-foreground flex h-dvh">
         <AppSidebar workspaceName={saved.name} email={saved.email} />
-        <AppShell.Main className="flex">
+        <main className="flex min-w-0 flex-1 overflow-y-auto">
           <SettingsNav active={open} onSelect={setOpen} />
           {sections.map(({ id, label, description }) =>
             id === 'general' ? (
@@ -53,8 +53,8 @@ export default function Settings() {
               />
             ),
           )}
-        </AppShell.Main>
-      </AppShell>
+        </main>
+      </div>
     </ToastProvider>
   );
 }

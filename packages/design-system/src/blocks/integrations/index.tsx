@@ -1,5 +1,5 @@
 import { RiSideBarLine } from '@remixicon/react';
-import { AppShell, Breadcrumbs, Button, cn, IconButton, Tabs } from '@wideset/react';
+import { Breadcrumbs, Button, cn, IconButton, Tabs } from '@wideset/react';
 import { useId, useState } from 'react';
 
 import { AppPanel } from './app-panel';
@@ -23,10 +23,11 @@ import { IntegrationsSidebar } from './sidebar';
 type Filter = Category | 'all';
 
 /**
- * The visual directions (specs/patterns/directions.md), each one `<AppShell direction>`. An app
- * picks one and keeps it on every screen; this screen takes three only to show that the page
- * inside stays the same. The top bar's line: the base line on Inset's raised card, as every Inset
- * screen has it, the subtle one on the page's white.
+ * The visual directions (specs/patterns/directions.md): the frame's ground, the page, the
+ * sidebar's surface and the top bar's line. An app picks one and keeps it on every screen; this
+ * screen takes three only to show that the page inside stays the same. The top bar's line: the
+ * base line on Inset's raised card, as every Inset screen has it, the subtle one on the page's
+ * white.
  */
 const BAR_LINE = {
   flat: 'border-ws-static-subtle',
@@ -34,6 +35,20 @@ const BAR_LINE = {
   inset: 'border-ws-static-base',
 } as const;
 export type Direction = keyof typeof BAR_LINE;
+const FRAME: Record<Direction, string> = {
+  flat: 'bg-ws-static-foreground',
+  frame: 'bg-ws-static-foreground',
+  inset: 'bg-ws-static-background',
+};
+/** Inset raises the page as a white card on the grey frame; the others lay it full-bleed. */
+const PAGE: Record<Direction, string> = {
+  flat: '',
+  frame: '',
+  inset:
+    'bg-ws-static-foreground rounded-ws-container-lg shadow-ws-low my-ws-7 mr-ws-7 ml-ws-5 relative',
+};
+/** The sidebar's surface in each direction: white with a line, a grey tint, or the grey frame. */
+const SURFACE = { flat: 'page', frame: 'tinted', inset: 'frame' } as const;
 
 const inView = (app: App, category: Filter, query: string) =>
   (category === 'all' || app.category === category) &&
@@ -102,9 +117,14 @@ export default function Integrations({ direction = 'flat' }: { direction?: Direc
   const categoryLabel = CATEGORIES.find((entry) => entry.value === category)!.label;
 
   return (
-    <AppShell direction={direction}>
-      <IntegrationsSidebar id={sidebarId} collapsed={collapsed} onCollapsedChange={setCollapsed} />
-      <AppShell.Main className="flex flex-col">
+    <div className={cn('flex h-dvh', FRAME[direction])}>
+      <IntegrationsSidebar
+        id={sidebarId}
+        collapsed={collapsed}
+        onCollapsedChange={setCollapsed}
+        surface={SURFACE[direction]}
+      />
+      <main className={cn('flex min-w-0 flex-1 flex-col overflow-y-auto', PAGE[direction])}>
         {/* The bar belongs to the surround: it runs edge to edge. The sidebar's toggle is pulled
             left so its glyph, not its box, sits 20px from the edge; the crumbs follow it. */}
         <div className={cn(BAR_LINE[direction], 'h-ws-18 flex shrink-0 items-center border-b')}>
@@ -200,7 +220,7 @@ export default function Integrations({ direction = 'flat' }: { direction?: Direc
             </div>
           </div>
         </div>
-      </AppShell.Main>
+      </main>
 
       {panel && panelApp && (
         <AppPanel
@@ -213,6 +233,6 @@ export default function Integrations({ direction = 'flat' }: { direction?: Direc
           onSyncChange={(syncing) => setSyncing(panelApp, syncing)}
         />
       )}
-    </AppShell>
+    </div>
   );
 }

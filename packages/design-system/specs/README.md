@@ -135,8 +135,8 @@ in the snippet will point into `node_modules/@wideset/react/` then.
 
 ### [Layout](components/layout/README.md)
 
-- [AppShell](components/layout/app-shell.md): the screen's frame; one `direction` (inset by
-  default, flat, frame, canvas) sets the window, sidebar and page.
+- [AppShell](components/layout/app-shell.md): optional; the screen's frame from one `direction`
+  (inset by default, flat, frame, canvas), the same frame the blocks write as plain markup.
 - [Card](components/layout/card.md): a bounded surface for one subject; not clickable, not a page
   wrapper.
 - [Accordion](components/layout/accordion.md): named sections opened in place.
@@ -170,7 +170,7 @@ in the snippet will point into `node_modules/@wideset/react/` then.
 Wideset has no page templates; patterns are compositions of real components with `ws` layout
 classes.
 
-- [App shell](patterns/app-shell.md): `AppShell` with a Sidebar and the one scrolling main area.
+- [App shell](patterns/app-shell.md): a full-height row with a Sidebar and the one scrolling main area.
 - [Form page](patterns/form-page.md): FormFields, validation, submit and cancel.
 - [List and filters](patterns/list-and-filters.md): search, filters, table, pagination, empty and
   loading.

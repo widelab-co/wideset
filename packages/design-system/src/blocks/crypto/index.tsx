@@ -1,4 +1,4 @@
-import { AppShell } from '@wideset/react';
+import {} from '@wideset/react';
 
 import { Balance } from './Balance';
 import { Distribution } from './Distribution';
@@ -9,8 +9,8 @@ import { Transactions } from './Transactions';
 /** Crypto wallet, Canvas direction: a grey page, the top bar on it, the content in white sections. */
 export default function Crypto() {
   return (
-    <AppShell direction="canvas">
-      <AppShell.Main className="flex flex-col">
+    <div className="bg-ws-static-background flex h-dvh">
+      <main className="flex min-w-0 flex-1 flex-col overflow-y-auto">
         <TopBar />
         {/* 6px under the cards, not Figma's 8: the 111px gap above "Transactions"' button rounds
           up to the 112px token, and 8 would push a 960px-tall window into a 1px scroll. */}
@@ -24,7 +24,7 @@ export default function Crypto() {
             </div>
           </div>
         </div>
-      </AppShell.Main>
-    </AppShell>
+      </main>
+    </div>
   );
 }

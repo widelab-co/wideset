@@ -1,5 +1,5 @@
 import { RiSideBarLine } from '@remixicon/react';
-import { AppShell, Breadcrumbs, IconButton, Toast, ToastProvider, useToast } from '@wideset/react';
+import { Breadcrumbs, IconButton, Toast, ToastProvider, useToast } from '@wideset/react';
 import { useEffect, useId, useRef, useState } from 'react';
 
 import { Conversation } from './conversation';
@@ -188,14 +188,14 @@ export default function Inbox() {
 
   return (
     <ToastProvider position="bottom-center">
-      <AppShell direction="inset">
+      <div className="bg-ws-static-background flex h-dvh">
         <InboxSidebar id={sidebarId} collapsed={collapsed} onCollapsedChange={setCollapsed} />
         <Page
           sidebarId={sidebarId}
           collapsed={collapsed}
           onToggleSidebar={() => setCollapsed(!collapsed)}
         />
-      </AppShell>
+      </div>
     </ToastProvider>
   );
 }

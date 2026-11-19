@@ -1,6 +1,5 @@
 import { RiSideBarLine } from '@remixicon/react';
 import {
-  AppShell,
   Breadcrumbs,
   Button,
   Card,
@@ -278,14 +277,14 @@ export default function Import() {
 
   return (
     <ToastProvider position="bottom-center">
-      <AppShell direction="inset">
+      <div className="bg-ws-static-background flex h-dvh">
         <ImportSidebar id={sidebarId} collapsed={collapsed} onCollapsedChange={setCollapsed} />
         <ImportPage
           collapsed={collapsed}
           onToggleSidebar={() => setCollapsed(!collapsed)}
           sidebarId={sidebarId}
         />
-      </AppShell>
+      </div>
     </ToastProvider>
   );
 }

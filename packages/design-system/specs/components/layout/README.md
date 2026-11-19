@@ -3,14 +3,14 @@
 The app frame and the components that group and separate content inside a page: a framed
 surface, collapsible sections, a separating line. Wideset has no page, grid, stack or container
 components: page structure is plain elements with Tailwind layout classes and `ws` tokens
-(`flex`, `grid`, `gap-ws-*`, `p-ws-*`). The app frame is `AppShell` around `Sidebar`
-(navigation) and the page; overlays are `Sidepanel` / `Modal`; see
+(`flex`, `grid`, `gap-ws-*`, `p-ws-*`). The app frame is a full-height row around `Sidebar`
+(navigation) and the page, in the app's direction, as plain markup or `AppShell`; overlays are `Sidepanel` / `Modal`; see
 [patterns](../../patterns/README.md) for how they fit together.
 
 ## Pick the right one
 
-- [AppShell](app-shell.md) — the full-height frame of every screen: `Sidebar` and the page in
-  the app's direction (`inset` by default, `flat`, `frame`, `canvas`).
+- [AppShell](app-shell.md) — optional: the full-height frame from one `direction` prop
+  (`inset` by default, `flat`, `frame`, `canvas`); the same frame can be written as plain markup.
 - [Card](card.md) — one subject's title, content, media and actions on a bounded surface.
 - [Accordion](accordion.md) — named sections the user opens in place, one or several at a time.
 - [Divider](divider.md) — a horizontal line between blocks, optionally labelled ("or",

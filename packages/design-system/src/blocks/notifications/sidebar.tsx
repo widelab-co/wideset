@@ -87,7 +87,7 @@ export function InboxSidebar({ unread }: { unread: number }) {
   );
 
   return (
-    <Sidebar>
+    <Sidebar surface="tinted">
       <Sidebar.Header>
         <Sidebar.Expanded>
           <div className="gap-ws-7 py-ws-3 pl-ws-5 flex items-center">

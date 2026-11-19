@@ -1,4 +1,4 @@
-import { AppShell, cn, Tabs } from '@wideset/react';
+import { cn, Tabs } from '@wideset/react';
 import { useState } from 'react';
 
 import { CustomersTable, type Sort } from './customers-table';
@@ -20,11 +20,27 @@ const FIRST_DIRECTION: Record<SortKey, Sort['direction']> = {
 const OPPOSITE = { asc: 'desc', desc: 'asc' } as const;
 
 /**
- * The visual directions (specs/patterns/directions.md), each one `<AppShell direction>`. An app
- * picks one and keeps it on every screen; this screen takes all four only to show that the page
- * inside stays the same.
+ * The visual directions (specs/patterns/directions.md): the frame's ground, the page and the
+ * sidebar's surface. An app picks one and keeps it on every screen; this screen takes all four
+ * only to show that the page inside stays the same.
  */
 export type Direction = 'flat' | 'frame' | 'inset' | 'canvas';
+const FRAME: Record<Direction, string> = {
+  flat: 'bg-ws-static-foreground',
+  frame: 'bg-ws-static-foreground',
+  inset: 'bg-ws-static-background',
+  canvas: 'bg-ws-static-background',
+};
+/** Inset raises the page as a white card on the grey frame; the others lay it full-bleed. */
+const PAGE: Record<Direction, string> = {
+  flat: '',
+  frame: '',
+  inset:
+    'bg-ws-static-foreground rounded-ws-container-lg shadow-ws-low my-ws-7 mr-ws-7 ml-ws-5 relative',
+  canvas: '',
+};
+/** The sidebar's surface in each direction: white with a line, a grey tint, or the grey frame. */
+const SURFACE = { flat: 'page', frame: 'tinted', inset: 'frame', canvas: 'frame' } as const;
 
 const compare =
   ({ key, direction }: Sort) =>
@@ -83,9 +99,9 @@ export default function Customers({ direction = 'flat' }: { direction?: Directio
     setCustomers((all) => all.map((c) => (ids.includes(c.id) ? { ...c, owner } : c)));
 
   return (
-    <AppShell direction={direction}>
-      <CustomersSidebar />
-      <AppShell.Main className="flex flex-col">
+    <div className={cn('flex h-dvh', FRAME[direction])}>
+      <CustomersSidebar surface={SURFACE[direction]} />
+      <main className={cn('flex min-w-0 flex-1 flex-col overflow-y-auto', PAGE[direction])}>
         <Tabs
           value={segment}
           onValueChange={showSegment}
@@ -130,7 +146,7 @@ export default function Customers({ direction = 'flat' }: { direction?: Directio
             </div>
           </Tabs.Content>
         </Tabs>
-      </AppShell.Main>
+      </main>
       <SelectionBar
         count={selected.length}
         onClear={() => setSelected([])}
@@ -139,6 +155,6 @@ export default function Customers({ direction = 'flat' }: { direction?: Directio
           setSelected([]);
         }}
       />
-    </AppShell>
+    </div>
   );
 }

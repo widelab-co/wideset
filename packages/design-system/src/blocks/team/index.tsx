@@ -1,5 +1,5 @@
 import { RiSearchLine } from '@remixicon/react';
-import { AppShell, Tabs, TextInput, Toast, ToastProvider, useToast } from '@wideset/react';
+import { Tabs, TextInput, Toast, ToastProvider, useToast } from '@wideset/react';
 import { useRef, useState } from 'react';
 
 import {
@@ -206,10 +206,10 @@ function TeamPage() {
 export default function Team() {
   return (
     <ToastProvider position="bottom-center">
-      <AppShell direction="frame">
+      <div className="bg-ws-static-foreground flex h-dvh">
         <TeamSidebar />
         <TeamPage />
-      </AppShell>
+      </div>
     </ToastProvider>
   );
 }

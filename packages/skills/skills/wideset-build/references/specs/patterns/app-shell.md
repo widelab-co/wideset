@@ -5,21 +5,22 @@
 ## Problem
 
 An app needs persistent navigation, a scrolling content area, one place for page-level alerts
-and one place where toasts appear. [`AppShell`](../../good-practices/app-shell.md) is that frame:
-a full-height row holding `Sidebar` and `AppShell.Main`. Its `direction` (`inset`, the default,
-`flat`, `frame` or `canvas`) sets the window background, the sidebar's surface and the page's look
-together, so pick it once for the whole app and do not restyle them by hand. [Visual directions](directions.md)
-says which to pick and which starting screens go with each.
+and one place where toasts appear. The frame is plain markup: a full-height row holding `Sidebar`
+and one `main`. The app's direction (`inset`, the default, `flat`, `frame` or `canvas`) gives the
+row's ground, the `main`'s look and the sidebar's `surface`, with the exact classes in
+[Visual directions](directions.md), which also says which to pick. Pick it once for the whole app.
+The blocks write the frame this way. [`AppShell`](../../good-practices/app-shell.md) renders the
+same row and `main` from one `direction` prop, if you prefer it.
 
 ## Structure
 
 ```
 ToastProvider                       — once, around the whole app
-└ AppShell direction="…"           — full-height row; the direction's background
-  ├ Sidebar                         — navigation; owns collapsed state; surface from AppShell
+└ div.flex.h-dvh                    — full-height row; the direction's ground
+  ├ Sidebar surface="…"             — navigation; owns collapsed state; the direction's surface
   │ ├ Sidebar.Header                — product name + Sidebar.Trigger
   │ └ Sidebar.Section scrollable    — nav > Sidebar.Item, one tree for both modes
-  └ AppShell.Main                   — <main>, the only scroll container for page content
+  └ main                            — the only scroll container for page content
     ├ SystemAlert                   — optional, page-level notice, first
     ├ header                        — Breadcrumbs (optional), h1, page actions
     └ page content                  — Cards, Table, forms …
@@ -29,7 +30,7 @@ ToastProvider                       — once, around the whole app
 
 ```tsx
 import { RiDashboardLine, RiFolder3Line, RiSettings3Line } from '@remixicon/react';
-import { AppShell, Button, Sidebar, ToastProvider } from '@wideset/react';
+import { Button, Sidebar, ToastProvider } from '@wideset/react';
 import type { ReactNode } from 'react';
 
 const NAV = [
@@ -51,8 +52,9 @@ function Nav({ current }: { current: string }) {
 export function Shell({ current, children }: { current: string; children: ReactNode }) {
   return (
     <ToastProvider>
-      <AppShell direction="inset">
-        <Sidebar>
+      {/* Inset: the grey frame, the page a raised white card (directions.md). */}
+      <div className="bg-ws-static-background flex h-dvh">
+        <Sidebar surface="frame">
           <Sidebar.Header>
             <div className="gap-ws-7 py-ws-3 flex items-center">
               <Sidebar.Expanded>
@@ -68,7 +70,7 @@ export function Shell({ current, children }: { current: string; children: ReactN
           </Sidebar.Section>
         </Sidebar>
 
-        <AppShell.Main>
+        <main className="bg-ws-static-foreground rounded-ws-container-lg shadow-ws-low my-ws-7 mr-ws-7 ml-ws-5 relative flex min-w-0 flex-1 flex-col overflow-y-auto">
           <div className="gap-ws-12 p-ws-12 flex flex-col">
             <header className="gap-ws-9 flex flex-wrap items-center justify-between">
               <h1 className="typography-title-md text-ws-static-strong">Projects</h1>
@@ -76,8 +78,8 @@ export function Shell({ current, children }: { current: string; children: ReactN
             </header>
             {children}
           </div>
-        </AppShell.Main>
-      </AppShell>
+        </main>
+      </div>
     </ToastProvider>
   );
 }
@@ -106,10 +108,12 @@ grid-cols-[repeat(auto-fit,minmax(16rem,1fr))] gap-ws-11`) or stack sections wit
 - Write the navigation and the trigger once: one tree serves both modes and keeps focus across a
   toggle. `Sidebar.Expanded` / `Sidebar.Collapsed` wrap only what exists in one mode, as the
   product name does in the example.
-- `AppShell.Main` is the only scroll container and already stops a wide table from pushing the
+- `main` is the only scroll container, and its `min-w-0` stops a wide table from pushing the
   layout out; do not add a second scrolling wrapper around the page.
-- The direction lives on `AppShell` alone. Do not pass the sidebar a fill or a border through
-  `className`, and do not give `AppShell.Main` its own background, radius or shadow.
+- The direction lives in the surround and nowhere else: the row's ground, the `main`'s classes and
+  the `Sidebar`'s `surface`, exactly as [Visual directions](directions.md) gives them. Do not pass
+  the sidebar a fill or a border through `className`, and do not give `main` a background,
+  radius or shadow its direction does not have.
 - The page is white (in `inset`, a white card) and cards on it stay `Card` bordered on that
   white. Only `canvas` leaves the page grey: its content goes in white sections with no border.
 - One active item, set by you from the current path.
@@ -144,12 +148,12 @@ changes shape: see responsive.
 ## Anti-patterns
 
 - Wrapping the page in a `Card`, or the sidebar and page in one bordered box.
-- Letting `body` scroll instead of `AppShell.Main`: the sidebar then scrolls away. Do not
-  replace `AppShell`'s full height (`h-dvh`) with `min-h-screen`.
-- Hand-writing a direction (`bg-ws-static-background` on a row, a rounded `main` with a shadow)
-  instead of `<AppShell direction="inset">`.
-- A grey page (`bg-ws-static-background`) on `AppShell.Main` beside the white sidebar: the work
-  then looks like the background.
+- Letting `body` scroll instead of `main`: the sidebar then scrolls away. Do not replace the
+  row's full height (`h-dvh`) with `min-h-screen`.
+- A surround that belongs to no direction: a `main` with its own radius or margin, a shadow on a
+  Flat page, a `Sidebar` whose `surface` does not match the row.
+- A grey page (`bg-ws-static-background`) on `main` beside the white sidebar: the work then looks
+  like the background.
 - A second `ToastProvider` per page: toasts then stack in two places.
 - Building navigation from `Button`s or `ListItem`s; use `Sidebar.Item` (it renders an `<a>`).
 - Plain Tailwind spacing (`p-6`, `gap-4`) or palette colours; use `p-ws-*`, `gap-ws-*`,

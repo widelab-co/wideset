@@ -1,5 +1,5 @@
 import { RiRestartLine } from '@remixicon/react';
-import { AppShell, Select } from '@wideset/react';
+import { Select } from '@wideset/react';
 import { useId, useState } from 'react';
 
 import { account, chatGroups, product, workspace } from './canon';
@@ -36,7 +36,7 @@ export default function AgentStates({ state = 'limit' }: { state?: SceneId }) {
   const scene = scenes.find((item) => item.id === id) ?? scenes[0];
 
   return (
-    <AppShell direction="inset">
+    <div className="bg-ws-static-background flex h-dvh">
       <AgentSidebar
         id={sidebarId}
         collapsed={collapsed}
@@ -52,7 +52,7 @@ export default function AgentStates({ state = 'limit' }: { state?: SceneId }) {
         onNew={() => undefined}
       />
 
-      <AppShell.Main className="overflow-hidden">
+      <main className="bg-ws-static-foreground rounded-ws-container-lg shadow-ws-low my-ws-7 mr-ws-7 ml-ws-5 relative flex min-w-0 flex-1 flex-col overflow-hidden">
         <TopBar
           sidebarId={sidebarId}
           collapsed={collapsed}
@@ -77,7 +77,7 @@ export default function AgentStates({ state = 'limit' }: { state?: SceneId }) {
         </TopBar>
 
         <StateSession key={`${id}-${round}`} scene={scene} view={view} onMarkChange={setMark} />
-      </AppShell.Main>
-    </AppShell>
+      </main>
+    </div>
   );
 }

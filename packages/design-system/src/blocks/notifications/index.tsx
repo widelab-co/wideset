@@ -1,5 +1,5 @@
 import { RiCheckDoubleLine } from '@remixicon/react';
-import { AppShell, Button, Toast, ToastProvider, useToast } from '@wideset/react';
+import { Button, Toast, ToastProvider, useToast } from '@wideset/react';
 import { useEffect, useRef, useState } from 'react';
 
 import {
@@ -128,9 +128,9 @@ function Inbox() {
   };
 
   return (
-    <AppShell direction="frame">
+    <div className="bg-ws-static-foreground flex h-dvh">
       <InboxSidebar unread={unread} />
-      <AppShell.Main className="flex">
+      <main className="flex min-w-0 flex-1 overflow-y-auto">
         <NotificationList
           notifications={items}
           tab={tab}
@@ -172,8 +172,8 @@ function Inbox() {
             />
           </div>
         )}
-      </AppShell.Main>
-    </AppShell>
+      </main>
+    </div>
   );
 }
 

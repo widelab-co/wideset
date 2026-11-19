@@ -1,5 +1,5 @@
 import { RiAddLine } from '@remixicon/react';
-import { AppShell, Button, FilterButton, Select, Tabs } from '@wideset/react';
+import { Button, FilterButton, Select, Tabs } from '@wideset/react';
 import { useState } from 'react';
 
 import { KanbanColumn } from './board';
@@ -29,9 +29,9 @@ export default function Kanban() {
   const [sort, setSort] = useState('newest');
 
   return (
-    <AppShell direction="flat">
+    <div className="bg-ws-static-foreground flex h-dvh">
       <KanbanSidebar />
-      <AppShell.Main className="flex flex-col">
+      <main className="flex min-w-0 flex-1 flex-col overflow-y-auto">
         <Tabs defaultValue="board" divider={false} className="min-h-0 flex-1">
           <PageHeader />
           <Tabs.Content value="board" className="gap-ws-9 py-ws-7 flex min-h-0 flex-1 flex-col">
@@ -71,7 +71,7 @@ export default function Kanban() {
             </div>
           </Tabs.Content>
         </Tabs>
-      </AppShell.Main>
-    </AppShell>
+      </main>
+    </div>
   );
 }

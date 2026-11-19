@@ -1,13 +1,5 @@
 import { RiSideBarLine } from '@remixicon/react';
-import {
-  AppShell,
-  Breadcrumbs,
-  cn,
-  IconButton,
-  Toast,
-  ToastProvider,
-  useToast,
-} from '@wideset/react';
+import { Breadcrumbs, cn, IconButton, Toast, ToastProvider, useToast } from '@wideset/react';
 import { useCallback, useEffect, useId, useRef, useState } from 'react';
 
 import { type FileItem, FILES, FOLDER, NOW, OPEN_ON_LOAD } from './data';
@@ -122,9 +114,9 @@ function Screen() {
 
   return (
     <>
-      <AppShell direction="inset" inert={open}>
+      <div className="bg-ws-static-background flex h-dvh" inert={open}>
         <MediaViewerSidebar id={sidebarId} collapsed={collapsed} onCollapsedChange={setCollapsed} />
-        <AppShell.Main>
+        <main className="bg-ws-static-foreground rounded-ws-container-lg shadow-ws-low my-ws-7 mr-ws-7 ml-ws-5 relative flex min-w-0 flex-1 flex-col overflow-y-auto">
           <div className="h-ws-18 border-ws-static-base flex shrink-0 items-center border-b">
             {/* The bar belongs to the surround: it runs edge to edge. The sidebar's toggle is
                 pulled left so its glyph, not its box, sits 20px from the edge; the crumbs follow
@@ -158,8 +150,8 @@ function Screen() {
               <FileList files={files} onOpen={setOpenId} />
             </div>
           </div>
-        </AppShell.Main>
-      </AppShell>
+        </main>
+      </div>
 
       {open && (
         <MediaViewer

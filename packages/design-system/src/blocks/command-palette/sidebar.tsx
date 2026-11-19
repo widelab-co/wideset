@@ -78,7 +78,7 @@ export function WorkspaceSidebar({
   );
 
   return (
-    <Sidebar {...props}>
+    <Sidebar surface="frame" {...props}>
       <Sidebar.Header>
         <Sidebar.Expanded>
           <div className="gap-ws-9 flex flex-col">

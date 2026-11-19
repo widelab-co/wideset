@@ -32,46 +32,49 @@ without a way to ask, take Inset, the default.
 
 ## Recipes
 
-The direction is one prop, `<AppShell direction>`; everything inside `AppShell.Main` is the
-screen's own content. A `Sidebar` inside takes the matching surface on its own; pass `surface`
-only to override it. Spacing and radii are Figma's.
+The surround is a full-height row and one scrolling `main`, written as plain markup with the
+classes below, as the blocks write it; everything inside `main` is the screen's own content. The
+`Sidebar` takes the direction's `surface`. Spacing and radii are Figma's. `<AppShell direction>`
+renders the same row and `main` (`AppShell.Main`) and sets the sidebar's surface for you; use it
+if you prefer one prop, but the markup is what a copied block contains.
 
 ### Inset
 
 ```tsx
-<AppShell direction="inset">
-  <Sidebar>…</Sidebar>
-  <AppShell.Main>…</AppShell.Main>
-</AppShell>
+<div className="bg-ws-static-background flex h-dvh">
+  <Sidebar surface="frame">…</Sidebar>
+  <main className="my-ws-7 mr-ws-7 ml-ws-5 rounded-ws-container-lg bg-ws-static-foreground shadow-ws-low relative flex min-w-0 flex-1 flex-col overflow-y-auto">
+    …
+  </main>
+</div>
 ```
 
-`AppShell` draws the page as a raised white card inside the grey frame (in dark the lighter
-surface carries the lift, with no shadow); do not add the card's margin, radius or shadow
-yourself. The page scrolls inside the card, so its corners stay put. The sidebar takes the frame
-surface on its own (`surface="frame"`) and centres its nav in its column. A line inside it (above
+The page is a raised white card inside the grey frame (in dark the lighter surface carries the
+lift: `shadow-ws-low` is none there). The page scrolls inside the card, so its corners stay put.
+The sidebar takes the frame surface (`surface="frame"`) and centres its nav in its column. A line inside it (above
 the account) keeps the sidebar's inset; run edge to edge it stops in the grey before the card and
 reads as broken.
 
 ### Flat
 
 ```tsx
-<AppShell direction="flat">
+<div className="bg-ws-static-foreground flex h-dvh">
   <Sidebar>…</Sidebar>
-  <AppShell.Main>…</AppShell.Main>
-</AppShell>
+  <main className="min-w-0 flex-1 overflow-y-auto">…</main>
+</div>
 ```
 
 The sidebar is white with a `border-ws-static-subtle` line on its right edge
-(`surface="page"`). Inside the page, regions are split by the same subtle line (a page header:
+(`surface="page"`, the default). Inside the page, regions are split by the same subtle line (a page header:
 `border-b border-ws-static-subtle`).
 
 ### Frame
 
 ```tsx
-<AppShell direction="frame">
-  <Sidebar>…</Sidebar>
-  <AppShell.Main>…</AppShell.Main>
-</AppShell>
+<div className="bg-ws-static-foreground flex h-dvh">
+  <Sidebar surface="tinted">…</Sidebar>
+  <main className="min-w-0 flex-1 overflow-y-auto">…</main>
+</div>
 ```
 
 The sidebar takes `surface="tinted"`: Figma's Static/Fill/Alpha/Subtle over the app's white, no
@@ -81,15 +84,15 @@ page are split by `border-ws-static-subtle` lines, never by gaps of grey.
 ### Canvas
 
 ```tsx
-<AppShell direction="canvas">
-  <AppShell.Main>
+<div className="bg-ws-static-background flex h-dvh">
+  <main className="min-w-0 flex-1 overflow-y-auto">
     <header className="…">…</header>
     <section className="bg-ws-static-foreground rounded-ws-container-md …">…</section>
-  </AppShell.Main>
-</AppShell>
+  </main>
+</div>
 ```
 
-The page is the grey itself. The top bar is the first child of `AppShell.Main`, with no fill: it
+The page is the grey itself. The top bar is the first child of `main`, with no fill: it
 sits on the grey and scrolls with the page. Content goes in white sections (`rounded-ws-container-md`), no
 border and no shadow; a field placed directly on the grey takes `bg-ws-static-highlight-base`.
 
@@ -132,8 +135,9 @@ detail from `task-sidepanel` (`https://wideset.co/blocks/task-sidepanel.md`).
 
 - One direction per app. Every screen, including settings and empty states, uses the same
   surround; a modal or side panel keeps its own look on top of any of them.
-- The direction lives on `AppShell`; `Sidebar`'s `surface` only overrides it. Never in a
-  component's `className`.
+- The direction lives in the surround: the row's ground, the `main` and the `Sidebar`'s
+  `surface` (or `<AppShell direction>`, which sets all three). Never in a component's
+  `className`.
 - Do not mix the surrounds: a grey page with a white sidebar, or an inset card beside a page-
   coloured sidebar, belongs to no direction.
 - Inside the page, separate with what the direction uses: lines in Flat and Frame, the card edge
@@ -148,8 +152,8 @@ detail from `task-sidepanel` (`https://wideset.co/blocks/task-sidepanel.md`).
 ## Anti-patterns
 
 - Choosing a direction per screen. Users notice before they can say why.
-- A direction written by hand (a grey row, a rounded `main` with a shadow) instead of
-  `<AppShell direction>`.
+- A surround with classes of its own instead of a direction's: a grey row with a white
+  `Sidebar`, a `main` with a different radius or margin, a shadow on a Flat page.
 - A `Sidebar` restyled through `className` (a fill, a border) instead of `surface`.
 - An Inset card that scrolls with the page: the corners then scroll away. Scroll inside it.
 - An Inset sidebar hugging the window edge, or a line in it running edge to edge.

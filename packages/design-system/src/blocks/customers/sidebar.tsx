@@ -1,6 +1,6 @@
 // TODO(custom): workspace switcher and account menu are composed by hand (copied from kanban).
 import { RiArrowDownSLine } from '@remixicon/react';
-import { Sidebar } from '@wideset/react';
+import { Sidebar, type SidebarProps } from '@wideset/react';
 import { useState } from 'react';
 
 import { BrandMark } from './brand-mark';
@@ -9,9 +9,9 @@ import { PersonAvatar } from './person-avatar';
 
 /**
  * The workspace sidebar: product, workspace switcher, pages, saved lists and the account. Its surface
- * comes from the screen's `AppShell direction`.
+ * comes from the screen's direction.
  */
-export function CustomersSidebar() {
+export function CustomersSidebar({ surface }: Pick<SidebarProps, 'surface'>) {
   const [active, setActive] = useState('customers');
 
   const links = (
@@ -45,7 +45,7 @@ export function CustomersSidebar() {
   );
 
   return (
-    <Sidebar>
+    <Sidebar surface={surface}>
       <Sidebar.Header>
         <Sidebar.Expanded>
           <div className="gap-ws-7 flex flex-col">

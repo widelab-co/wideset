@@ -1,4 +1,4 @@
-import { AppShell, ToastProvider, useToast } from '@wideset/react';
+import { ToastProvider, useToast } from '@wideset/react';
 import { useEffect, useRef, useState } from 'react';
 
 import { CancelPlanModal } from './cancel-plan-modal';
@@ -132,15 +132,15 @@ function BillingPage() {
 export default function Billing() {
   return (
     <ToastProvider>
-      <AppShell direction="inset">
+      <div className="bg-ws-static-background flex h-dvh">
         <BillingSidebar />
-        <AppShell.Main>
+        <main className="bg-ws-static-foreground rounded-ws-container-lg shadow-ws-low my-ws-7 mr-ws-7 ml-ws-5 relative flex min-w-0 flex-1 flex-col overflow-y-auto">
           {/* The page scrolls inside the card, so the card's corners stay put. */}
           <div className="min-h-0 flex-1 overflow-y-auto">
             <BillingPage />
           </div>
-        </AppShell.Main>
-      </AppShell>
+        </main>
+      </div>
     </ToastProvider>
   );
 }

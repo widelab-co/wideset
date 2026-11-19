@@ -1,5 +1,5 @@
 import { RiSideBarLine } from '@remixicon/react';
-import { AppShell, Breadcrumbs, IconButton } from '@wideset/react';
+import { Breadcrumbs, IconButton } from '@wideset/react';
 import { useId, useState } from 'react';
 
 import { type Notification, notifications as notificationsAtStart, TODAY } from './data';
@@ -23,9 +23,9 @@ export default function NotificationsPopoverBlock() {
     setNotifications((current) => current.map((n) => (n.id === id ? { ...n, ...change } : n)));
 
   return (
-    <AppShell direction="inset">
+    <div className="bg-ws-static-background flex h-dvh">
       <WorkspaceSidebar id={sidebarId} collapsed={collapsed} onCollapsedChange={setCollapsed} />
-      <AppShell.Main>
+      <main className="bg-ws-static-foreground rounded-ws-container-lg shadow-ws-low my-ws-7 mr-ws-7 ml-ws-5 relative flex min-w-0 flex-1 flex-col overflow-y-auto">
         <div className="h-ws-18 border-ws-static-base flex shrink-0 items-center border-b">
           {/* The bar belongs to the surround: it runs edge to edge. The sidebar's toggle is pulled
               left so its glyph, not its box, sits 20px from the edge; the crumbs follow it, the
@@ -71,7 +71,7 @@ export default function NotificationsPopoverBlock() {
         </div>
 
         <HomePage />
-      </AppShell.Main>
-    </AppShell>
+      </main>
+    </div>
   );
 }

@@ -146,7 +146,7 @@ export function AgentSidebar({
   };
 
   return (
-    <Sidebar {...props}>
+    <Sidebar surface="frame" {...props}>
       <Sidebar.Header>
         <div className="gap-ws-7 flex flex-col">
           <Sidebar.Expanded>

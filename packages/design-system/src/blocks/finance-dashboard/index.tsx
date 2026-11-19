@@ -1,5 +1,5 @@
 import { RiAddLine } from '@remixicon/react';
-import { AppShell, Button } from '@wideset/react';
+import { Button } from '@wideset/react';
 import { useState } from 'react';
 
 import { Change } from './Change';
@@ -15,8 +15,8 @@ export default function FinanceDashboard() {
   const [panelOpen, setPanelOpen] = useState(true);
 
   return (
-    <AppShell direction="flat">
-      <AppShell.Main>
+    <div className="bg-ws-static-foreground flex h-dvh">
+      <main className="min-w-0 flex-1 overflow-y-auto">
         <TopBar />
         <div className="px-ws-18">
           <div className="gap-ws-16 py-ws-16 mx-auto flex w-full max-w-[80rem] flex-col">
@@ -49,8 +49,8 @@ export default function FinanceDashboard() {
             <PaymentsTable />
           </div>
         </div>
-      </AppShell.Main>
+      </main>
       {panelOpen && <VolumePanel onClose={() => setPanelOpen(false)} />}
-    </AppShell>
+    </div>
   );
 }

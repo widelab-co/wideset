@@ -1,5 +1,5 @@
 import { RiSideBarLine } from '@remixicon/react';
-import { AppShell, Breadcrumbs, cn, IconButton } from '@wideset/react';
+import { Breadcrumbs, cn, IconButton } from '@wideset/react';
 import { useId, useState } from 'react';
 
 import { ActivityTimeline } from './activity-timeline';
@@ -22,9 +22,9 @@ export default function Invoice() {
   const [collapsed, setCollapsed] = useState(false);
 
   return (
-    <AppShell direction="inset">
+    <div className="bg-ws-static-background flex h-dvh">
       <InvoiceSidebar id={sidebarId} collapsed={collapsed} onCollapsedChange={setCollapsed} />
-      <AppShell.Main>
+      <main className="bg-ws-static-foreground rounded-ws-container-lg shadow-ws-low my-ws-7 mr-ws-7 ml-ws-5 relative flex min-w-0 flex-1 flex-col overflow-y-auto">
         <div className="h-ws-18 border-ws-static-base flex shrink-0 items-center border-b">
           {/* The bar belongs to the surround: it runs edge to edge. The sidebar's toggle is pulled
               left so its glyph, not its box, sits 20px from the edge; the crumbs follow it. */}
@@ -70,7 +70,7 @@ export default function Invoice() {
             </div>
           </div>
         </div>
-      </AppShell.Main>
-    </AppShell>
+      </main>
+    </div>
   );
 }

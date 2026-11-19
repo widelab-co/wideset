@@ -1,14 +1,5 @@
 import { RiSideBarLine } from '@remixicon/react';
-import {
-  AppShell,
-  Breadcrumbs,
-  cn,
-  IconButton,
-  Tabs,
-  Toast,
-  ToastProvider,
-  useToast,
-} from '@wideset/react';
+import { Breadcrumbs, cn, IconButton, Tabs, Toast, ToastProvider, useToast } from '@wideset/react';
 import { useId, useState } from 'react';
 
 import { BlockDialog } from './block-dialog';
@@ -233,9 +224,9 @@ export default function AccessRequests() {
 
   return (
     <ToastProvider>
-      <AppShell direction="inset">
+      <div className="bg-ws-static-background flex h-dvh">
         <AccessSidebar id={sidebarId} collapsed={collapsed} onCollapsedChange={setCollapsed} />
-        <AppShell.Main>
+        <main className="bg-ws-static-foreground rounded-ws-container-lg shadow-ws-low my-ws-7 mr-ws-7 ml-ws-5 relative flex min-w-0 flex-1 flex-col overflow-y-auto">
           <div className="h-ws-18 border-ws-static-base flex shrink-0 items-center border-b">
             {/* The bar belongs to the surround: it runs edge to edge. The sidebar's toggle is
                 pulled left so its glyph, not its box, sits 20px from the edge; the crumbs follow
@@ -269,8 +260,8 @@ export default function AccessRequests() {
           <div className="min-h-0 flex-1 overflow-y-auto">
             <AccessPage />
           </div>
-        </AppShell.Main>
-      </AppShell>
+        </main>
+      </div>
     </ToastProvider>
   );
 }

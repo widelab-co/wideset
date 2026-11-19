@@ -48,18 +48,26 @@ same name.
 | **Inset**  | Navigation on the grey frame; the page is a raised white card | Calendar, Sign In        |
 | **Canvas** | Grey page, top bar on it, content in white cards              | Crypto                   |
 
-Every app screen sets its direction with one prop, `<AppShell direction>` (`specs/patterns/directions.md`);
-the `Sidebar` inside takes the matching surface on its own. Never write the surround by hand. The
-screens before the app (sign in, sign up, not found) have no `AppShell`, and the panel stages
-centre their panel on a plain white screen.
+Blocks do not use `AppShell`: a screen writes its surround as plain markup, so a copied block shows
+its whole layout and needs nothing beyond the components it renders. The surround is a full-height
+row and one scrolling `main`, with the classes of its direction (`specs/patterns/directions.md`),
+and the `Sidebar` takes the direction's `surface`. The screens before the app (sign in, sign up,
+not found) have no surround, and the panel stages centre their panel on a plain white screen.
+
+| Direction | Row                                  | `main`                                                                                                                                        | `Sidebar` `surface` |
+| --------- | ------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------- | ------------------- |
+| Inset     | `flex h-dvh bg-ws-static-background` | `min-w-0 flex-1 overflow-y-auto flex flex-col relative bg-ws-static-foreground rounded-ws-container-lg shadow-ws-low my-ws-7 mr-ws-7 ml-ws-5` | `frame`             |
+| Flat      | `flex h-dvh bg-ws-static-foreground` | `min-w-0 flex-1 overflow-y-auto`                                                                                                              | none (`page`)       |
+| Frame     | `flex h-dvh bg-ws-static-foreground` | `min-w-0 flex-1 overflow-y-auto`                                                                                                              | `tinted`            |
+| Canvas    | `flex h-dvh bg-ws-static-background` | `min-w-0 flex-1 overflow-y-auto`                                                                                                              | `frame`             |
 
 ```tsx
-<AppShell direction="inset">
-  {' '}
-  {/* or flat, frame, canvas */}
-  <Sidebar>…</Sidebar>
-  <AppShell.Main>…</AppShell.Main>
-</AppShell>
+<div className="bg-ws-static-background flex h-dvh">
+  <Sidebar surface="frame">…</Sidebar>
+  <main className="rounded-ws-container-lg bg-ws-static-foreground shadow-ws-low my-ws-7 mr-ws-7 ml-ws-5 relative flex min-w-0 flex-1 flex-col overflow-y-auto">
+    …
+  </main>
+</div>
 ```
 
 - **Inset** (Figma Calendar): the page is a white card, 16px radius, Elevation/Low (none in dark,
@@ -74,7 +82,7 @@ centre their panel on a plain white screen.
 - **Canvas** (Figma Crypto): the page is the grey; content in white sections, 12px radius
   (`rounded-ws-container-md`), no shadow, no border; fields on the grey take
   `bg-ws-static-highlight-base`.
-- With a top bar instead of a sidebar, the bar is the first child of `AppShell.Main`. Figma's
+- With a top bar instead of a sidebar, the bar is the first child of `main`. Figma's
   Navigation Bar line (`border-b border-ws-static-base`) stays when content starts right under it
   and goes when the page opens with a large title (Finance). A board, grid or chart that scrolls on
   its own fills the page with `min-h-0 flex-1`.

@@ -1,5 +1,5 @@
 import { RiPieChart2Line } from '@remixicon/react';
-import { AppShell, Breadcrumbs } from '@wideset/react';
+import { Breadcrumbs } from '@wideset/react';
 
 import { report, ROUTES } from './data';
 import { RequestAccess } from './request-access';
@@ -12,9 +12,9 @@ import { AppSidebar } from './sidebar';
  */
 export default function NoAccess() {
   return (
-    <AppShell direction="frame">
+    <div className="bg-ws-static-foreground flex h-dvh">
       <AppSidebar />
-      <AppShell.Main className="flex flex-col">
+      <main className="flex min-w-0 flex-1 flex-col overflow-y-auto">
         {/* The bar belongs to the surround: it runs edge to edge, the crumbs 20px from its edge. */}
         <div className="h-ws-18 border-ws-static-subtle px-ws-11 flex shrink-0 items-center border-b">
           <Breadcrumbs separator="arrow">
@@ -33,7 +33,7 @@ export default function NoAccess() {
         <div className="px-ws-16 py-ws-28 flex min-h-0 flex-1 items-start justify-center overflow-y-auto">
           <RequestAccess />
         </div>
-      </AppShell.Main>
-    </AppShell>
+      </main>
+    </div>
   );
 }
