@@ -57,7 +57,7 @@ export function Home({ mode, repository: chosen, onSend }: HomeProps) {
         <div className="gap-ws-9 px-ws-5 flex flex-col items-start">
           <Avatar agent size="lg" alt="" />
           <div className="gap-ws-3 flex flex-col">
-            <h1 className="typography-title-sm text-ws-static-strong">
+            <h1 className="typography-title-md text-ws-static-strong">
               Good morning, {account.name.split(' ')[0]}
             </h1>
             <p className="typography-body-md text-ws-static-subtle">

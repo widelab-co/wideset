@@ -8,7 +8,7 @@ import {
   RiShareLine,
 } from '@remixicon/react';
 import { Button, cn, IconButton } from '@wideset/react';
-import { type KeyboardEvent, useEffect, useId, useRef, useState } from 'react';
+import { type KeyboardEvent, type ReactNode, useEffect, useId, useRef, useState } from 'react';
 
 import type { FileItem } from './data';
 import { FileDetails } from './file-details';
@@ -33,6 +33,8 @@ type MediaViewerProps = {
   onShare: (file: FileItem) => void;
   onMore: (file: FileItem, action: MoreAction) => void;
   onComment: (file: FileItem, text: string) => void;
+  /** What the viewer has to say about the last action: drawn inside it, in its dark scope. */
+  toast?: ReactNode;
 };
 
 /**
@@ -54,6 +56,7 @@ export function MediaViewer({
   onShare,
   onMore,
   onComment,
+  toast,
 }: MediaViewerProps) {
   const dialog = useRef<HTMLDivElement>(null);
   const titleId = useId();
@@ -216,6 +219,7 @@ export function MediaViewer({
 
         {details && <FileDetails file={file} onComment={(text) => onComment(file, text)} />}
       </div>
+      {toast}
     </div>
   );
 }

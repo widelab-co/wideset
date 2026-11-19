@@ -18,7 +18,7 @@ export function CollectionCard({
   onOpen: () => void;
 }) {
   return (
-    <article className="rounded-ws-container-md border-ws-static-base hover:border-ws-static-strong hover:shadow-ws-low relative flex w-full flex-col overflow-hidden border transition-shadow">
+    <article className="rounded-ws-container-md border-ws-static-base hover:border-ws-static-strong relative flex w-full flex-col overflow-hidden border transition-colors">
       <div className="gap-ws-5 p-ws-7 border-ws-static-subtle grid grid-cols-3 border-b">
         {templates.slice(0, 3).map((template) => (
           <TemplatePreview

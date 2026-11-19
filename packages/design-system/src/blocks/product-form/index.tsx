@@ -20,13 +20,12 @@ import { MediaSection } from './media-section';
 import { OptionsSection } from './options-section';
 import { PageHeader } from './page-header';
 import { PricingSection } from './pricing-section';
-import { ProductStatus } from './product-status';
 import { SalesChannels } from './sales-channels';
 import { SaveBar } from './save-bar';
 import { ProductFormSidebar } from './sidebar';
 import { type ErrorField, MISSING, validate } from './validate';
 
-/** The two ways to lay the form out: beside its status and preview, or alone in the middle. */
+/** The two ways to lay the form out: beside where it sells and its preview, or alone, centred. */
 export type ProductFormLayout = 'split' | 'centered';
 
 /**
@@ -52,11 +51,13 @@ function standing(saved: boolean, status: Status, channelIds: string[]) {
 }
 
 /**
- * The page inside the toast provider. Split: the form's sections down the left, its status, where
- * it sells and how it looks in a list beside it, the actions in the header. Centred: the same
- * sections and where it sells in one column, the actions in a bar at the card's foot. The screen
- * holds the draft, so the preview, the margin and the variants follow every keystroke; errors
- * wait for the first try at saving, then follow what is typed.
+ * The page inside the toast provider. Split: the form's sections down the left, where it sells and
+ * how it looks in a list beside it, the actions in the header. Centred: the same sections and
+ * where it sells in one column, the actions in a bar at the card's foot. Both have the same
+ * actions and no status control: a draft is saved or published, a product on sale is unpublished
+ * or saved, so each button says what it does and the badge by the title says where it stands. The
+ * screen holds the draft, so the preview, the margin and the variants follow every keystroke;
+ * errors wait for the first try at saving, then follow what is typed.
  */
 function ProductFormPage({ layout, collapsed, onToggleSidebar, sidebarId }: PageProps) {
   const { showToast } = useToast();
@@ -105,27 +106,33 @@ function ProductFormPage({ layout, collapsed, onToggleSidebar, sidebarId }: Page
     }, 700);
   }
 
-  function changeStatus(next: Status) {
-    if (next === 'active') return save(true);
+  function unpublish() {
     setStatus('draft');
-    if (savedName) showToast({ content: `${savedName} is a draft again` });
+    showToast({ content: `${savedName} is a draft again` });
   }
 
   const title = savedName ?? 'New product';
   const centered = layout === 'centered';
   const busy = pending !== null;
 
-  const saveDraft = status === 'draft' && (
-    <Button
-      size="sm"
-      variant="secondary"
-      preset="border"
-      disabled={busy}
-      onClick={() => save(false)}
-    >
-      {pending === 'draft' ? 'Saving…' : 'Save draft'}
-    </Button>
-  );
+  // The bordered button beside the filled one: a draft is saved as one, a product on sale is
+  // taken off sale. Unpublish applies at once and leaves the fields as they are.
+  const secondary =
+    status === 'draft' ? (
+      <Button
+        size="sm"
+        variant="secondary"
+        preset="border"
+        disabled={busy}
+        onClick={() => save(false)}
+      >
+        {pending === 'draft' ? 'Saving…' : 'Save draft'}
+      </Button>
+    ) : (
+      <Button size="sm" variant="secondary" preset="border" disabled={busy} onClick={unpublish}>
+        Unpublish
+      </Button>
+    );
   const publish = (
     <Button size="sm" type="submit" form={formId} disabled={busy}>
       {pending === 'publish'
@@ -213,7 +220,7 @@ function ProductFormPage({ layout, collapsed, onToggleSidebar, sidebarId }: Page
           >
             {!centered && (
               <>
-                {saveDraft}
+                {secondary}
                 {publish}
               </>
             )}
@@ -225,10 +232,9 @@ function ProductFormPage({ layout, collapsed, onToggleSidebar, sidebarId }: Page
             <div className="gap-ws-16 grid grid-cols-1 items-start lg:grid-cols-[minmax(0,44rem)_20rem] lg:justify-between">
               {form}
               <aside
-                aria-label="Status and preview"
+                aria-label="Sales channels and preview"
                 className="gap-ws-12 lg:top-ws-14 flex flex-col lg:sticky"
               >
-                <ProductStatus status={status} onStatusChange={changeStatus} />
                 {salesChannels}
                 <ListPreview draft={draft} />
               </aside>
@@ -238,23 +244,13 @@ function ProductFormPage({ layout, collapsed, onToggleSidebar, sidebarId }: Page
       </div>
 
       {/* Centred, the actions leave the header for a bar pinned to the card's foot, in view down
-          the whole form. With no status card here, a product on sale is unpublished from it. */}
+          the whole form. */}
       {centered && (
         <SaveBar column={COLUMN.centered}>
           <Button size="sm" variant="secondary" preset="ghost" asChild>
             <a href="#catalogue">Cancel</a>
           </Button>
-          {saveDraft || (
-            <Button
-              size="sm"
-              variant="secondary"
-              preset="border"
-              disabled={busy}
-              onClick={() => changeStatus('draft')}
-            >
-              Unpublish
-            </Button>
-          )}
+          {secondary}
           {publish}
         </SaveBar>
       )}
@@ -272,11 +268,11 @@ type PageProps = {
 /**
  * Product form (Inset direction): adding a product to the catalogue on the raised page beside the
  * workspace sidebar. The form is a stack of cards in the order it is filled (details, media,
- * pricing, options, inventory). `split` (the default) keeps its status, where it sells and a
- * preview of its catalogue card in view beside it, the actions in the header; `centered` puts the
- * form alone in the middle with where it sells last, the actions in a bar at the card's foot.
- * Save draft keeps it to the team; Publish, the page's one filled button, checks what a customer
- * needs and puts it on sale.
+ * pricing, options, inventory). `split` (the default) keeps where it sells and a preview of its
+ * catalogue card in view beside it, the actions in the header; `centered` puts the form alone in
+ * the middle with where it sells last, the actions in a bar at the card's foot. Save draft keeps
+ * it to the team; Publish, the page's one filled button, checks what a customer needs and puts it
+ * on sale. Once on sale the two buttons read Unpublish and Save changes.
  */
 export default function ProductForm({ layout = 'split' }: { layout?: ProductFormLayout }) {
   const sidebarId = useId();

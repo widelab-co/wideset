@@ -91,7 +91,8 @@ centre their panel on a plain white screen.
   and gets its own component pull request, Figma's component first; the block switches to the
   component once it lands. Such a part sits in a file of its own that starts with
   `// TODO(custom): <what it is, what Wideset lacks>`, so `git grep -l "TODO(custom)"` lists the
-  candidate components.
+  candidate components. A workaround for a library bug says
+  `// TODO(library): <the bug, what to drop once it is fixed>` beside the workaround.
 - People are `Avatar`, a mix as in a real product (and in the Figma screens): some with a photo,
   `src` from the block's `people.assets.ts` with the initials as its fallback, the rest initials and
   a colour. A block ships only `.ts` and `.tsx`, so a photo is a 96px JPEG data URL in that file,

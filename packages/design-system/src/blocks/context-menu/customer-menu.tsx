@@ -14,7 +14,7 @@ import { DropdownMenu, ListItem } from '@wideset/react';
 import { useRef } from 'react';
 
 import { type Customer, PEOPLE, type PersonId, type TagId, TAGS } from './data';
-import { MODIFIER, Shortcut } from './keyboard-key';
+import { Shortcut, useModifier } from './keyboard-key';
 import { MenuCheck } from './menu-check';
 import { MenuChoice } from './menu-choice';
 import { MenuSub } from './menu-sub';
@@ -35,15 +35,15 @@ export type MenuAnchor = {
   origin: HTMLElement | null;
 };
 
-/** The shortcuts the menu shows, which the rows also answer to. */
-export const SHORTCUTS: Partial<Record<MenuAction, string[]>> = {
+/** The shortcuts the menu shows, which the rows also answer to; `modifier` is ⌘ or Ctrl. */
+const shortcuts = (modifier: string): Partial<Record<MenuAction, string[]>> => ({
   open: ['Enter'],
-  'open-new-tab': [MODIFIER, 'Enter'],
-  'copy-link': [MODIFIER, 'C'],
-  duplicate: [MODIFIER, 'D'],
+  'open-new-tab': [modifier, 'Enter'],
+  'copy-link': [modifier, 'C'],
+  duplicate: [modifier, 'D'],
   archive: ['E'],
   delete: ['Del'],
-};
+});
 
 type CustomerMenuProps = {
   /** The customer the menu is for; kept while the menu closes, so its rows do not change. */
@@ -75,9 +75,10 @@ export function CustomerMenu({
   // Delete opens a dialog: it waits until the menu has closed and given the focus back, so the
   // dialog returns it to the row too.
   const afterClose = useRef<MenuAction>(undefined);
+  const keysFor = shortcuts(useModifier());
 
   const command = (action: MenuAction, Icon: RemixiconComponentType, label: string) => {
-    const keys = SHORTCUTS[action];
+    const keys = keysFor[action];
     return (
       <DropdownMenu.Item
         variant={action === 'delete' ? 'danger' : undefined}

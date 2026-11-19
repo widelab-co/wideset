@@ -173,13 +173,15 @@ function GalleryPage() {
     <div className={cn(COLUMN, 'gap-ws-12 pt-ws-14 pb-ws-16 flex flex-col')}>
       <PageHeader query={query} onQueryChange={setQuery} />
 
-      {/* The categories and the sort share one line; the tabs' indicator sits on it. */}
+      {/* The categories and the sort share one line; the tabs' indicator sits on it. In a narrow
+          window the tabs scroll sideways with no bar; the 1px of padding holds the indicator, which
+          hangs 1px under the list and would otherwise make the row scroll up and down. */}
       <div className="border-ws-static-subtle gap-ws-9 flex items-end justify-between border-b">
         <Tabs
           value={category}
           onValueChange={(value) => setCategory(value as Category)}
           divider={false}
-          className="min-w-0 overflow-x-auto"
+          className="-mb-px min-w-0 [scrollbar-width:none] overflow-x-auto pb-px"
         >
           <Tabs.List aria-label="Categories">
             {CATEGORIES.map((entry) => (
