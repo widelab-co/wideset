@@ -23,6 +23,23 @@ where generated UI most often goes wrong while still looking correct.
 Rule of thumb: if two components could work, pick the one whose reference names your
 case, and say why in your report.
 
+### One row of tabs in the page flow
+
+A page has at most one row of `Tabs` in its flow. Never stack a second row under it: two
+underlined rows look like a mistake and make the reader guess which one is in charge, even when
+each is right on its own. When a tabbed view needs a second switch:
+
+- **Put it inside a container.** `Tabs` inside a card or panel (an example's Description | Code)
+  read as part of that card, not as a second level of the page.
+- **Use a different control.** A `SegmentedControl` for a mode (Preview / Code, Grid / List),
+  aligned with the content it switches, not with the page tabs.
+- **Drop it.** Often the second switch only duplicates something reachable elsewhere (the code is
+  in the playground); remove it.
+
+The same goes for sub-navigation: Sidebar → page Tabs → Tabs inside a card is the deepest it goes.
+Review check: on the blurred screen, count the underlined tab rows outside cards. More than one is
+a defect.
+
 ## The right container
 
 | The task                                                    | Container                                                                                                          |

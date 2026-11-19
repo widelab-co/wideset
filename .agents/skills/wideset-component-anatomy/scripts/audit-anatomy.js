@@ -39,12 +39,12 @@ async function auditAnatomy(ids, width = 1280) {
 async function auditPage(id, width) {
   const frame = document.createElement('iframe');
   frame.style.cssText = `position:fixed;left:0;top:0;width:${width}px;height:900px;opacity:0.01;pointer-events:none;z-index:9999`;
-  frame.src = `/components/${id}`;
+  frame.src = `/components/${id}?tab=anatomy`;
   document.body.append(frame);
   try {
     await new Promise((resolve) => (frame.onload = resolve));
     const page = frame.contentDocument;
-    const section = page.getElementById('anatomy');
+    const section = page.getElementById('panel-anatomy');
     if (!section) return { id, error: 'no page' };
     section.scrollIntoView();
     // Wait until the picture is drawn and its names stop moving.
@@ -61,7 +61,7 @@ async function auditPage(id, width) {
         continue;
       }
       const now =
-        [...picture.querySelectorAll(':scope > span')]
+        [...picture.querySelectorAll(':scope > [data-anatomy-name]')]
           .map((s) => s.style.top + s.style.left)
           .join() +
         picture.style.height +
@@ -75,7 +75,7 @@ async function auditPage(id, width) {
 
     const box = picture.getBoundingClientRect();
     const art = drawing.getBoundingClientRect();
-    const names = [...picture.querySelectorAll(':scope > span')].map((span) => ({
+    const names = [...picture.querySelectorAll(':scope > [data-anatomy-name]')].map((span) => ({
       name: span.textContent,
       rect: span.getBoundingClientRect(),
     }));

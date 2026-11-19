@@ -1,19 +1,12 @@
 import { RiCornerDownRightLine } from '@remixicon/react';
-import { Tabs } from '@wideset/react';
 
 import type { PropRow } from '../lib/catalog';
 import { kebab } from '../lib/kebab';
-import DataAttributes from './DataAttributes';
-import TabRow from './TabRow';
 
-export type PropsPart = {
+type PropsPart = {
   part: string;
   element?: string;
   rows: PropRow[];
-  /** The part's `data-slot`, which its data attributes are read by. */
-  slot: string;
-  /** The component's own part: shows every attribute when the parts carry no `data-slot`. */
-  root: boolean;
 };
 
 const UNION = /^'[^']*'( \| '[^']*')+$/;
@@ -65,10 +58,12 @@ const referenceFor = (element: string) => {
   };
 };
 
-const PassThrough = ({ element }: { element: string }) => {
+const PassThrough = ({ element, plain = false }: { element: string; plain?: boolean }) => {
   const reference = referenceFor(element);
   return (
-    <div className="flex items-center gap-ws-5 bg-ws-static-alpha-subtle px-ws-9 py-ws-7 typography-body-sm leading-ws-500 text-ws-static-subtle">
+    <div
+      className={`flex items-center gap-ws-5 px-ws-9 py-ws-7 typography-body-sm leading-ws-500 text-ws-static-subtle ${plain ? '' : 'bg-ws-static-alpha-subtle'}`}
+    >
       <RiCornerDownRightLine className="size-ws-9 shrink-0" aria-hidden="true" />
       <span>
         Every other prop of <Chip>{element}</Chip> is passed through to it. See{' '}
@@ -86,7 +81,7 @@ const PassThrough = ({ element }: { element: string }) => {
   );
 };
 
-const PropsBox = ({ part }: { part: PropsPart }) => (
+const PropsBox = ({ part, plain = false }: { part: PropsPart; plain?: boolean }) => (
   <div className="docs-card overflow-hidden rounded-ws-container-lg border border-ws-static-base">
     {part.rows.length > 0 ? (
       <div className="overflow-x-auto">
@@ -143,46 +138,34 @@ const PropsBox = ({ part }: { part: PropsPart }) => (
     )}
     {part.element && (
       <div className="border-t border-ws-static-base">
-        <PassThrough element={part.element} />
+        <PassThrough element={part.element} plain={plain} />
       </div>
     )}
   </div>
 );
 
-/** One part: its props, then the data attributes it carries, both under the part's tab. */
-const Table = ({ part, live }: { part: PropsPart; live: boolean }) => (
-  <>
-    <PropsBox part={part} />
-    {live && <DataAttributes slot={part.slot} root={part.root} part={part.part} />}
-  </>
-);
-
 /**
  * The props, one table per part, as Storybook's ArgTypes reads them: the prop as written in
  * code, its description with the type underneath (a union as its literal values), and the
- * default. Several parts switch with the system's own Tabs.
+ * default. Every part at once, one after another under its name, so a reader scrolls and searches
+ * all the props; the page flow holds no row of tabs. `plain` drops the grey bands and makes the
+ * pass-through note a plain last row.
  */
-const PropsTabs = ({ parts, live = false }: { parts: PropsPart[]; live?: boolean }) => {
+const PropsTables = ({ parts }: { parts: PropsPart[] }) => {
   if (!parts.length) return null;
-  if (parts.length === 1) return <Table part={parts[0]} live={live} />;
+  if (parts.length === 1) return <PropsBox part={parts[0]} />;
   return (
-    <Tabs defaultValue={parts[0].part} divider={false}>
-      <TabRow>
-        <Tabs.List>
-          {parts.map((part) => (
-            <Tabs.Item key={part.part} value={part.part}>
-              <Tabs.Label>{part.part}</Tabs.Label>
-            </Tabs.Item>
-          ))}
-        </Tabs.List>
-      </TabRow>
+    <div className="flex flex-col gap-ws-18">
       {parts.map((part) => (
-        <Tabs.Content key={part.part} value={part.part} className="pt-ws-8">
-          <Table part={part} live={live} />
-        </Tabs.Content>
+        <section key={part.part} aria-label={part.part} className="flex flex-col gap-ws-7">
+          <h3 className="typography-label-strong-sm text-ws-static-strong">{part.part}</h3>
+          <div>
+            <PropsBox part={part} plain />
+          </div>
+        </section>
       ))}
-    </Tabs>
+    </div>
   );
 };
 
-export default PropsTabs;
+export default PropsTables;

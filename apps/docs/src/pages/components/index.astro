@@ -1,42 +1,39 @@
 ---
 import Thumbnail from '../../components/Thumbnail';
+import PageHead from '../../components/PageHead.astro';
 import DocsLayout from '../../layouts/DocsLayout.astro';
 import { entries } from '../../lib/catalog';
-import { GALLERY_SPAN, gallerySize } from '../../lib/gallery';
+import { componentsSidebar } from '../../lib/sidebar';
+
+/** All components: each component's thumbnail on the soft stage, three across. */
+const sorted = [...entries].sort((a, b) => a.title.localeCompare(b.title));
 ---
 
 <DocsLayout
   title="Components"
   description={`${entries.length} components, read from the package.`}
-  frame
-  full
+  area="components"
+  nav={componentsSidebar()}
+  current="/components"
+  search="Search components…"
+  broad
 >
-  <div class="docs-prose">
-    <h1>Components</h1>
-    <p class="text-ws-static-subtle">
-      {entries.length} components the package exports. Each card shows the component as its page's
-      playground opens; the page adds the examples, code, install line and props read from the
-      source.
-    </p>
-  </div>
-  <section class="@container mt-ws-18">
-    <ul class="mt-ws-9 grid grid-flow-dense auto-rows-[280px] grid-cols-2 gap-ws-9 @[36rem]:grid-cols-4">
-      {entries.map((entry) => (
-        <li class={GALLERY_SPAN[gallerySize(entry.id)]} data-playground={entry.id}>
-          <a
-            href={`/components/${entry.id}`}
-            class="docs-pane docs-card border-ws-static-subtle hover:border-ws-static-base flex h-full flex-col gap-ws-3 rounded-ws-container-xl border p-ws-4 pb-ws-8 transition-colors"
-          >
+  <PageHead
+    title="Components"
+    description={`${entries.length} components the package exports, each with its examples, props and install line.`}
+  />
+  <ul class="grid grid-cols-2 gap-x-ws-11 gap-y-ws-14 xl:grid-cols-3">
+    {sorted.map((entry) => (
+      <li data-playground={entry.id}>
+        <a href={`/components/${entry.id}`} class="group flex flex-col gap-ws-6 no-underline">
+          <div class="flex h-[12rem]">
             <Thumbnail component={entry.id} client:idle />
-            <span class="text-ws-static-strong mt-ws-7 px-ws-6 typography-label-strong-sm">
-              {entry.title}
-            </span>
-            <span class="text-ws-static-subtle line-clamp-2 px-ws-6 typography-body-md">
-              {entry.description ?? 'Description pending.'}
-            </span>
-          </a>
-        </li>
-      ))}
-    </ul>
-  </section>
+          </div>
+          <span class="text-ws-static-strong typography-label-strong-sm group-hover:underline">
+            {entry.title}
+          </span>
+        </a>
+      </li>
+    ))}
+  </ul>
 </DocsLayout>

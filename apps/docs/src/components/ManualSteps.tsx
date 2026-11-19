@@ -105,67 +105,44 @@ const Step = ({
   </li>
 );
 
-/**
- * Two ways in, as the CLI is the recommended one: the command, or every file it would write
- * to copy by hand — first the component's own, one tab each, then the shared helpers it
- * imports, which other components reuse.
- */
-const InstallTabs = ({ id, files }: { id: string; files: ManualFiles }) => (
-  <Tabs defaultValue="cli" divider={false}>
-    <TabRow>
-      <Tabs.List>
-        <Tabs.Item value="cli">
-          <Tabs.Label>CLI</Tabs.Label>
-        </Tabs.Item>
-        <Tabs.Item value="manual">
-          <Tabs.Label>Manual</Tabs.Label>
-        </Tabs.Item>
-      </Tabs.List>
-    </TabRow>
-    <Tabs.Content value="cli" className="pt-ws-8">
-      <CodeBlock code={`npx wideset add ${id}`} lang="bash" prompt />
-    </Tabs.Content>
-    <Tabs.Content value="manual" className="pt-ws-9">
-      <ol>
-        <Step n={1} title="Copy component files">
-          <Tabs defaultValue={files.own[0]?.path} size="sm" divider={false}>
-            <TabRow>
-              <Tabs.List>
-                {files.own.map((file) => (
-                  <Tabs.Item key={file.path} value={file.path}>
-                    <Tabs.Label>{nameOf(file.path)}</Tabs.Label>
-                  </Tabs.Item>
-                ))}
-              </Tabs.List>
-            </TabRow>
+/** The manual way: the component's files, the shared helpers, then the import paths. */
+export const ManualSteps = ({ files }: { files: ManualFiles }) => (
+  <ol>
+    <Step n={1} title="Copy component files">
+      <Tabs defaultValue={files.own[0]?.path} size="sm" divider={false}>
+        <TabRow>
+          <Tabs.List>
             {files.own.map((file) => (
-              <Tabs.Content key={file.path} value={file.path} className="pt-ws-7">
-                <FileCode file={file} />
-              </Tabs.Content>
+              <Tabs.Item key={file.path} value={file.path}>
+                <Tabs.Label>{nameOf(file.path)}</Tabs.Label>
+              </Tabs.Item>
             ))}
-          </Tabs>
-        </Step>
-        {files.shared.length > 0 && (
-          <Step n={2} title="Make sure you have the required dependencies">
-            <p className="mb-ws-7 typography-body-md leading-ws-600 text-ws-static-subtle">
-              Shared helpers the component imports. Copy any you do not have yet; other components
-              use them too.
-            </p>
-            <ul className="overflow-hidden rounded-ws-container-lg border border-ws-static-base">
-              {files.shared.map((file) => (
-                <FileRow key={file.path} file={file} />
-              ))}
-            </ul>
-          </Step>
-        )}
-        <Step
-          n={files.shared.length > 0 ? 3 : 2}
-          title="Make sure the import paths match your project setup, if they have been changed from default"
-          last
-        />
-      </ol>
-    </Tabs.Content>
-  </Tabs>
+          </Tabs.List>
+        </TabRow>
+        {files.own.map((file) => (
+          <Tabs.Content key={file.path} value={file.path} className="pt-ws-7">
+            <FileCode file={file} />
+          </Tabs.Content>
+        ))}
+      </Tabs>
+    </Step>
+    {files.shared.length > 0 && (
+      <Step n={2} title="Make sure you have the required dependencies">
+        <p className="mb-ws-7 typography-body-md leading-ws-600 text-ws-static-subtle">
+          Shared helpers the component imports. Copy any you do not have yet; other components use
+          them too.
+        </p>
+        <ul className="overflow-hidden rounded-ws-container-lg border border-ws-static-base">
+          {files.shared.map((file) => (
+            <FileRow key={file.path} file={file} />
+          ))}
+        </ul>
+      </Step>
+    )}
+    <Step
+      n={files.shared.length > 0 ? 3 : 2}
+      title="Make sure the import paths match your project setup, if they have been changed from default"
+      last
+    />
+  </ol>
 );
-
-export default InstallTabs;
