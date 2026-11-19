@@ -577,14 +577,17 @@ html:not(.dark) body.docs.docs .docs-frame[data-playground-stage].dark,
 html.dark body.docs.docs .docs-frame[data-playground-stage].docs-light {
   background: var(--background-color-ws-static-background);
 }
-/* A component page's tabs (Overview, Anatomy, Relationships). The page writes the tab in the
-   address onto `html[data-tab]` before first paint, so the right panel (and its rail) shows with
-   no flash; Overview is the page with no tab. Until the tab row has hydrated on a page opened on
-   another tab, it stays out of sight rather than show Overview as the chosen one. */
+/* A page's tabs: a component's (Overview, Anatomy, Relationships) and a block's (Preview, Code).
+   The page writes the tab in the address onto `html[data-tab]` before first paint, so the right
+   panel (and its rail) shows with no flash; the first tab is the page with no tab. Until the tab
+   row has hydrated on a page opened on another tab, it stays out of sight rather than show the
+   first tab as the chosen one. */
 [data-tab-panel] {
   display: none;
 }
 html:not([data-tab]) [data-tab-panel='overview'],
+html:not([data-tab]) [data-tab-panel='preview'],
+html[data-tab='code'] [data-tab-panel='code'],
 html[data-tab='anatomy'] [data-tab-panel='anatomy'],
 html[data-tab='relationships'] [data-tab-panel='relationships'] {
   display: block;

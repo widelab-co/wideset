@@ -81,16 +81,32 @@ export default function BlockPreviewFrame({ id, title }: { id: string; title: st
 /**
  * A block live on its page: the preview route at the frame's own size, so the block has a
  * viewport of its own (its `h-dvh`, its breakpoints), and clickable (`live`: the route stays
- * interactive in a frame). It takes the page's theme and loads again when that changes.
+ * interactive in a frame). It takes the page's theme and loads again when that changes. It loads
+ * once it is first on screen, so a page opened on another tab does not load it.
  */
 export const BlockLiveFrame = ({ id, title }: { id: string; title: string }) => {
   const theme = usePageTheme();
+  const box = useRef<HTMLDivElement>(null);
+  const [shown, setShown] = useState(false);
+  useEffect(() => {
+    const element = box.current;
+    if (!element || shown) return;
+    const observer = new IntersectionObserver((entries) => {
+      if (entries.some((entry) => entry.isIntersecting)) setShown(true);
+    });
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, [shown]);
   return (
-    <iframe
-      key={theme}
-      src={`/blocks/${id}/preview?theme=${theme}&live`}
-      title={`${title}, live`}
-      className="block size-full border-0"
-    />
+    <div ref={box} className="size-full">
+      {shown && (
+        <iframe
+          key={theme}
+          src={`/blocks/${id}/preview?theme=${theme}&live`}
+          title={`${title}, live`}
+          className="block size-full border-0"
+        />
+      )}
+    </div>
   );
 };
