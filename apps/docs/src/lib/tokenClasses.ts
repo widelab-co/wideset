@@ -9,6 +9,8 @@ export type TokenClass = {
   property: string;
   /** The class without its state prefixes: `bg-ws-dynamic-primary-default`. */
   utility: string;
+  /** The class as written, state prefixes included: `hover:bg-ws-dynamic-primary-hover`. */
+  className: string;
   /**
    * `token`: a `ws` class. `raw`: a value with no token (an arbitrary one like `w-[16rem]`, or
    * Tailwind's own scale). `keyword`: a plain value with nothing to bind (`border`, `w-fit`).
@@ -103,7 +105,8 @@ const PROPERTIES: [RegExp, string | ((utility: string) => string)][] = [
 
 /** One class, read; `null` for a class that sets nothing the list shows (layout, behaviour). */
 export const classify = (cls: string): TokenClass | null => {
-  const parts = segments(cls.trim());
+  const className = cls.trim();
+  const parts = segments(className);
   const utility = parts.pop()!.replace(/^!|!$/g, '');
   const match = PROPERTIES.find(([test]) => test.test(utility));
   if (!match) return null;
@@ -117,6 +120,7 @@ export const classify = (cls: string): TokenClass | null => {
     state: stateOf(parts),
     property,
     utility,
+    className,
     kind: token ? 'token' : arbitrary || plain ? 'raw' : 'keyword',
   };
 };

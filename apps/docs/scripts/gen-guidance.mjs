@@ -11,6 +11,7 @@
 import { mkdirSync, readdirSync, readFileSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { dirname, join, relative, resolve, sep } from 'node:path';
 
+import { asText } from './as-text.mjs';
 import { generatedDir, library } from './paths.mjs';
 
 /** What the .md takes from a spec, in reading order. Anatomy has its own section on the page. */
@@ -81,16 +82,6 @@ export function buildGuidance({ specsDir, catalog, sections: wanted = SECTIONS, 
     }),
   );
 }
-
-/**
- * Prose the page renders as HTML: a placeholder in angle brackets ("Remove <title>") is text, not
- * a tag; an open `<title>` would swallow the rest of the page. Code spans and fences keep theirs.
- */
-const asText = (markdown) =>
-  markdown
-    .split(/(`+[^`]*`+)/)
-    .map((part, index) => (index % 2 ? part : part.replace(/</g, '&lt;')))
-    .join('');
 
 const catalog = JSON.parse(readFileSync(join(generatedDir, 'catalog.json'), 'utf8'));
 const specsDir = join(library, 'specs/components');

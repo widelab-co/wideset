@@ -9,6 +9,7 @@ import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, it } from 'node:test';
 
+import { asText } from './as-text.mjs';
 import { generatedDir } from './paths.mjs';
 
 const read = (name) => JSON.parse(readFileSync(join(generatedDir, name), 'utf8'));
@@ -164,6 +165,14 @@ describe('gen-guidance', () => {
       [],
     );
     assert.match(prose('file-item.md'), /Remove &lt;title>/);
+  });
+
+  it('closes a code span only on a backtick run of its own length', () => {
+    assert.equal(
+      asText('Press `` to insert a backtick. Remove <title>. Use `disabled`.'),
+      'Press `` to insert a backtick. Remove &lt;title>. Use `disabled`.',
+    );
+    assert.equal(asText('Use ``a ` <b>`` and <i>.'), 'Use ``a ` <b>`` and &lt;i>.');
   });
 
   it('points links only at pages the site has', () => {

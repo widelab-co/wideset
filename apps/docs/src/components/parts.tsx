@@ -613,6 +613,7 @@ const DocsMenu = ({ active }: { active: boolean }) => {
   const [open, setOpen] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
   const panel = useRef<HTMLDivElement>(null);
+  const link = useRef<HTMLAnchorElement>(null);
   const show = (next: boolean) => {
     clearTimeout(timer.current);
     timer.current = setTimeout(() => setOpen(next), next ? 80 : 160);
@@ -623,6 +624,7 @@ const DocsMenu = ({ active }: { active: boolean }) => {
     <Popup open={open} onOpenChange={(next) => !next && setOpen(false)}>
       <Popup.Trigger asChild>
         <a
+          ref={link}
           href="/docs/introduction"
           aria-current={active ? 'page' : undefined}
           onPointerEnter={(event) => event.pointerType === 'mouse' && show(true)}
@@ -649,6 +651,12 @@ const DocsMenu = ({ active }: { active: boolean }) => {
         // Focus stays on the link: the menu is an extra, entered with ArrowDown.
         onOpenAutoFocus={(event) => event.preventDefault()}
         onCloseAutoFocus={(event) => event.preventDefault()}
+        // Escape from inside the menu gives the focus back to the link, which must not reopen it.
+        onEscapeKeyDown={() => {
+          if (!panel.current?.contains(document.activeElement)) return;
+          link.current?.focus();
+          clearTimeout(timer.current);
+        }}
         onPointerEnter={() => show(true)}
         onPointerLeave={() => show(false)}
         onFocus={() => show(true)}

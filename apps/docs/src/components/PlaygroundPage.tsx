@@ -26,18 +26,18 @@ const Workbench = withPlayground(
     const { defaults, groups, code } = PLAYGROUNDS[component];
     const values = useValues(component);
     useEffect(() => {
-      if (!initial) return;
+      // The bench shows the address: its values over the defaults, never a value left from before.
       const controls = groups.flatMap((group) => group.controls);
-      const patch: Values = {};
+      const patch: Values = { ...defaults };
       for (const [key, fallback] of Object.entries(defaults)) {
-        const raw = initial.get(key);
-        if (raw === null) continue;
+        const raw = initial?.get(key);
+        if (raw == null) continue;
         const control = controls.find((item) => item.key === key);
         if (typeof fallback === 'boolean') patch[key] = raw === 'true';
         else if (control?.type !== 'select' || control.options.some((o) => o.value === raw))
           patch[key] = raw;
       }
-      if (Object.keys(patch).length) setValues(component, patch);
+      setValues(component, patch);
     }, [initial, component, defaults, groups]);
     useEffect(() => {
       const query = new URLSearchParams({ c: component });

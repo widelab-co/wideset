@@ -43,6 +43,22 @@ const SIDE: Record<string, string> = { r: 'right', b: 'bottom', l: 'left', x: 'l
 const borderSide = (utility: string) =>
   SIDE[utility.match(/^border-([xytrbl])\b/)?.[1] ?? ''] ?? 'top';
 
+/** The corner a radius utility sets (`rounded-br-…` → bottom-right); a side reads its first corner. */
+const CORNER: Record<string, string> = {
+  tr: 'top-right',
+  br: 'bottom-right',
+  bl: 'bottom-left',
+  r: 'top-right',
+  b: 'bottom-right',
+  l: 'top-left',
+  e: 'top-right',
+  se: 'top-right',
+  es: 'bottom-left',
+  ee: 'bottom-right',
+};
+const radiusCorner = (utility: string) =>
+  CORNER[utility.match(/^rounded-([a-z]{1,2})-/)?.[1] ?? ''] ?? 'top-left';
+
 /** How a property reads off the part's own computed style (and, for a border, its utility). */
 const READ: Record<string, (style: CSSStyleDeclaration, utility: string) => string> = {
   Background: (s) => (s.backgroundImage !== 'none' ? s.backgroundImage : s.backgroundColor),
@@ -50,7 +66,7 @@ const READ: Record<string, (style: CSSStyleDeclaration, utility: string) => stri
   'Border colour': (s) => s.borderTopColor,
   'Border width': (s, utility) => s.getPropertyValue(`border-${borderSide(utility)}-width`),
   Shadow: (s) => shadow(s.boxShadow),
-  Radius: (s) => s.borderTopLeftRadius,
+  Radius: (s, utility) => s.getPropertyValue(`border-${radiusCorner(utility)}-radius`),
   Height: (s) => s.height,
   'Min height': (s) => s.minHeight,
   'Max height': (s) => s.maxHeight,
@@ -170,11 +186,11 @@ const PartTokens = ({ part, element, el }: { part: string; element?: string; el:
   }, [source, rows, theme]);
 
   const [copied, setCopied] = useState<string | null>(null);
-  const copy = async (utility: string) => {
+  const copy = async (className: string) => {
     try {
-      await navigator.clipboard.writeText(utility);
-      setCopied(utility);
-      setTimeout(() => setCopied((was) => (was === utility ? null : was)), 1200);
+      await navigator.clipboard.writeText(className);
+      setCopied(className);
+      setTimeout(() => setCopied((was) => (was === className ? null : was)), 1200);
     } catch {
       // clipboard unavailable
     }
@@ -199,14 +215,14 @@ const PartTokens = ({ part, element, el }: { part: string; element?: string; el:
               <button
                 key={`${row.state} ${row.utility}`}
                 type="button"
-                onClick={() => copy(row.utility)}
+                onClick={() => copy(row.className)}
                 title={state ? `${row.property}, ${row.state}: ${row.utility}` : row.utility}
                 className="-mx-ws-3 grid h-ws-12 w-[calc(100%+0.5rem)] grid-cols-[5rem_minmax(0,1fr)_auto] items-center gap-x-ws-5 rounded-ws-control-sm px-ws-3 text-left outline-ws-dynamic-primary-strong-default transition-colors hover:bg-ws-static-alpha-subtle focus-visible:wds-focus-visible"
               >
                 <span className={`truncate ${quiet}`}>{state ? row.state : row.property}</span>
                 <span className="flex min-w-0 items-center gap-ws-3">
                   <span className="truncate font-mono text-ws-300 leading-ws-400 text-ws-static-strong">
-                    {copied === row.utility ? 'Copied' : row.utility}
+                    {copied === row.className ? 'Copied' : row.utility}
                   </span>
                   {row.kind === 'raw' && (
                     <span

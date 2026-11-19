@@ -22,10 +22,12 @@ const useNearScreen = (node: React.RefObject<HTMLElement | null>) => {
     if (!element) return;
     let timer: ReturnType<typeof setTimeout> | undefined;
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        clearTimeout(timer);
-        if (entry.isIntersecting) timer = setTimeout(() => setNear(true), 200);
-        else setNear(false);
+      (entries) => {
+        for (const entry of entries) {
+          clearTimeout(timer);
+          if (entry.isIntersecting) timer = setTimeout(() => setNear(true), 200);
+          else setNear(false);
+        }
       },
       { rootMargin: '25% 0px' },
     );
