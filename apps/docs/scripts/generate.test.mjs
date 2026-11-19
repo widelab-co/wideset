@@ -175,6 +175,22 @@ describe('gen-guidance', () => {
     assert.equal(asText('Use ``a ` <b>`` and <i>.'), 'Use ``a ` <b>`` and &lt;i>.');
   });
 
+  it('never lets a code span cross a blank line', () => {
+    assert.equal(
+      asText('`First paragraph.\n\nRemove <title>.\n\nLast paragraph.`'),
+      '`First paragraph.\n\nRemove &lt;title>.\n\nLast paragraph.`',
+    );
+    assert.equal(asText('Use `<b>`\nacross lines.'), 'Use `<b>`\nacross lines.');
+  });
+
+  it('keeps fenced code as it is and escapes the prose after it', () => {
+    assert.equal(
+      asText('~~~html\n<title>\n~~~\nRemove <title>.'),
+      '~~~html\n<title>\n~~~\nRemove &lt;title>.',
+    );
+    assert.equal(asText('````\n<a>\n```\n<b>\n`````\n<i>'), '````\n<a>\n```\n<b>\n`````\n&lt;i>');
+  });
+
   it('points links only at pages the site has', () => {
     const links = catalog.flatMap((entry) =>
       [...page(entry.id).matchAll(/\]\(([^)]+)\)/g)].map((match) => match[1]),
