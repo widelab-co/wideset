@@ -81,7 +81,7 @@ type ControlBarProps = {
  * label and a tooltip, its state in `aria-pressed`. The bar is what the hand goes to during a
  * call, so its controls keep the default 40px height, a step above the page's 32px controls.
  * Recording asks first, since everyone on the call will be told; stopping it does not. Leave is
- * the one coloured control.
+ * the one coloured control. In a narrow column the two groups wrap onto two rows.
  */
 export function ControlBar({
   muted,
@@ -99,7 +99,11 @@ export function ControlBar({
   const [confirming, setConfirming] = useState(false);
 
   return (
-    <div role="toolbar" aria-label="Call controls" className="flex items-center justify-between">
+    <div
+      role="toolbar"
+      aria-label="Call controls"
+      className="gap-ws-3 flex flex-wrap items-center justify-between"
+    >
       <div className="gap-ws-3 flex items-center">
         <Hint label={muted ? 'Unmute' : 'Mute'}>
           <Toggle
