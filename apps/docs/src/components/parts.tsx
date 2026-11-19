@@ -512,7 +512,7 @@ export const SideNav = ({
                       <span className="inline-flex items-center gap-ws-4">
                         {item.title}
                         <span
-                          className="size-[0.375rem] shrink-0 rounded-ws-control-full bg-ws-dynamic-primary-default"
+                          className="size-ws-4 shrink-0 rounded-ws-control-full bg-ws-dynamic-primary-default"
                           title="New"
                         />
                       </span>
@@ -870,7 +870,7 @@ export const Rail = ({ items }: { items: { id: string; label: string; indent?: b
               href={`#${id}`}
               aria-current={id === current ? 'location' : undefined}
               className={cn(
-                'relative -ml-px block border-l-2 py-ws-3 text-[0.8125rem] leading-[1.25rem] outline-ws-dynamic-primary-strong-default transition-colors focus-visible:wds-focus-visible',
+                'relative -ml-px block border-l-2 py-ws-3 text-[0.8125rem] leading-ws-500 outline-ws-dynamic-primary-strong-default transition-colors focus-visible:wds-focus-visible',
                 indent ? 'pl-ws-11' : 'pl-ws-7',
                 id === current
                   ? 'border-ws-static-strong text-ws-static-strong'

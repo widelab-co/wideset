@@ -518,20 +518,23 @@ const AnatomyDiagram = ({
         </div>
       )}
       {view?.marks.map(({ n, label, side, x, y }) => (
-        <span
+        <button
           key={n}
-          // What the anatomy audit counts as a name (the popup's anchor is a span here too).
+          type="button"
+          // What the anatomy audit counts as a name.
           data-anatomy-name
-          role="button"
-          tabIndex={0}
           aria-label={`${parts.find((part) => part.n === n)?.part ?? label}: tokens`}
+          aria-expanded={active === n && Boolean(info)}
           onFocus={() => highlight(n)}
+          // Enter or Space opens the tokens again after Escape closed them. Only the keyboard's
+          // click (no pointer, `detail` 0): the pointer already opens them on hover or tap.
+          onClick={(event) => event.detail === 0 && highlight(n)}
           // Focus moving into the popup (a click on one of its rows) keeps it open.
           onBlur={(event) =>
             !event.relatedTarget?.closest('[data-anatomy-tokens]') && highlight(null)
           }
           {...hover(n)}
-          className={`${LABEL_BOX} absolute cursor-default outline-ws-dynamic-primary-strong-default transition-[color,background-color,opacity,font-weight] ease-out focus-visible:wds-focus-visible motion-reduce:transition-opacity ${active === n ? 'bg-ws-static-foreground text-ws-static-strong duration-[80ms]' : 'text-ws-static-subtle duration-[60ms]'}`}
+          className={`${LABEL_BOX} absolute cursor-default outline-ws-dynamic-primary-strong-default transition-[color,background-color,opacity,font-weight] ease-out focus-visible:wds-focus-visible motion-reduce:transition-opacity ${active === n ? 'bg-ws-static-foreground text-ws-static-strong duration-(--ws-motion-duration-micro)' : 'text-ws-static-subtle duration-[60ms]'}`}
           style={{
             left: x,
             top: y,
@@ -542,7 +545,7 @@ const AnatomyDiagram = ({
           }}
         >
           {label}
-        </span>
+        </button>
       ))}
       {/* Each part's own area answers the pointer too; a part inside another lies over it. */}
       {view &&

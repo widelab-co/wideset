@@ -153,8 +153,9 @@ is merged.
   in the page's theme, loaded again when the theme changes. Then the block's direction and
   navigation in one line and every file of its folder; "Open full screen" opens the route.
 - `/blocks` lists the manifest by business domain, from `src/data/block-categories.json` (kept by
-  hand). A block the list does not name lands under "Other" and a panel under "Panels", so a newly
-  merged block shows up without a docs change; give it its category when it lands.
+  hand). The list names every block the manifest has (`scripts/blocks.test.mjs` fails otherwise),
+  so a pull request that adds a block gives it its category in the same change. A block the list
+  does not name would land under "Other" and a panel under "Panels".
 - A card frames the preview route at 1440 × 960, scaled down and cropped to its top left
   (`BlockPreviewFrame`), in the page's theme. The frame loads once the card has been near the
   screen for 200 ms and is removed when it leaves, so scrolling the gallery keeps a handful of

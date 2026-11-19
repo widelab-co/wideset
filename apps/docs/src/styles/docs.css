@@ -416,9 +416,9 @@ html body.docs .docs-fade {
   );
 }
 /* The one code block (Code in parts.tsx), and the same look on the MDX pages' fences and the older
-   CodeBlock: the page's ground with a hairline, 12px corners, 14/20 mono at 16px. The
-   fences get the language at the top-left (their `data-language`) and a copy button
-   (ProseCopy). */
+   CodeBlock: the page's ground with a hairline, 12px corners, mono at 16px (its size is under
+   "Type" below). The fences get the language at the top-left (their `data-language`) and a copy
+   button (ProseCopy). */
 body.docs :is(.docs-code, .docs-prose pre:not(.docs-code pre)) {
   background: transparent !important;
   border: 1px solid var(--border-color-ws-static-subtle);
@@ -429,8 +429,6 @@ body.docs :is(.docs-snippet pre, .docs-code pre, .docs-code .docs-code-fallback)
   padding: 4px 16px 16px;
   overflow-x: auto;
   font-family: var(--font-mono);
-  font-size: 14px;
-  line-height: 20px;
   background: transparent !important;
   color: var(--text-color-ws-static-base);
 }
@@ -441,8 +439,6 @@ body.docs .docs-prose pre:not(.docs-code pre) {
   position: relative;
   margin: 0;
   padding: 40px 16px 16px;
-  font-size: 14px;
-  line-height: 20px;
 }
 body.docs .docs-prose pre[data-language]:not(.docs-code pre)::before {
   content: attr(data-language);

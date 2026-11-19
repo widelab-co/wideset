@@ -205,7 +205,7 @@ const PartTokens = ({ part, element, el }: { part: string; element?: string; el:
               >
                 <span className={`truncate ${quiet}`}>{state ? row.state : row.property}</span>
                 <span className="flex min-w-0 items-center gap-ws-3">
-                  <span className="truncate font-mono text-[0.75rem] leading-[1rem] text-ws-static-strong">
+                  <span className="truncate font-mono text-ws-300 leading-ws-400 text-ws-static-strong">
                     {copied === row.utility ? 'Copied' : row.utility}
                   </span>
                   {row.kind === 'raw' && (
@@ -217,12 +217,12 @@ const PartTokens = ({ part, element, el }: { part: string; element?: string; el:
                   )}
                 </span>
                 <span
-                  className={`flex max-w-[6rem] min-w-0 items-center justify-end gap-ws-3 tabular-nums ${quiet}`}
+                  className={`flex max-w-ws-24 min-w-0 items-center justify-end gap-ws-3 tabular-nums ${quiet}`}
                 >
                   {value?.colour && (
                     <span
                       aria-hidden="true"
-                      className="size-[0.625rem] shrink-0 rounded-[0.125rem] border border-ws-static-subtle"
+                      className="size-ws-6 shrink-0 rounded-[0.125rem] border border-ws-static-subtle"
                       style={{ background: value.colour }}
                     />
                   )}

@@ -22,9 +22,11 @@ describe('blocks: what the docs add to the manifest', () => {
 
   it('names every block the manifest has', () => {
     const named = new Set(Object.values(categories).flat());
+    const missing = [...ids].filter((id) => !named.has(id));
     assert.deepEqual(
-      [...ids].filter((id) => !named.has(id)),
+      missing,
       [],
+      `give these blocks a category in apps/docs/src/data/block-categories.json: ${missing.join(', ')}`,
     );
   });
 });

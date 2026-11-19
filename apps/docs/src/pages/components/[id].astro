@@ -108,14 +108,26 @@ const td = 'px-ws-9 py-ws-8 align-top';
   search="Search components…"
   sections={searchSections}
 >
-  {tabbed && <script // Before first paint: the tab in the address picks the panel, so nothing flashes.
+  <script
+    // Before first paint. An address of the earlier page (`#install`, `#props`, `#anatomy`, …)
+    // becomes the one that replaced it; then the tab in the address picks the panel, so nothing
+    // flashes.
     is:inline
     slot="head"
     define:vars={{ ids: tabs.slice(1).map((tab) => tab.id) }}
   >
+    var old = location.hash.slice(1);
+    var moved = { install: '#installation', props: '#api', usage: '', playground: '' };
+    var tabs = { anatomy: 'anatomy', related: 'relationships' };
+    if (moved.hasOwnProperty(old) || tabs.hasOwnProperty(old)) {
+      var url = new URL(location.href);
+      url.hash = moved[old] || '';
+      if (ids.indexOf(tabs[old]) > -1) url.searchParams.set('tab', tabs[old]);
+      history.replaceState(null, '', url);
+    }
     var tab = new URLSearchParams(location.search).get('tab');
     if (ids.indexOf(tab) > -1) document.documentElement.dataset.tab = tab;
-  </script>}
+  </script>
   <PageHead title={entry.title} description={entry.description ?? 'Description pending.'}>
     <CopyPage slot="actions" markdown={componentMarkdown(entry)} client:idle />
   </PageHead>
