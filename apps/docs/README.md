@@ -29,10 +29,11 @@ Vitest and tsc. Only the stylesheets come from the built package (`@wideset/reac
 | `/blocks/<id>`         | One block, live, and its code; `/blocks/<id>.md` and `/blocks.md` for models |
 | `/blocks/<id>/preview` | The block alone at the window's size (`?theme=light\|dark`)                  |
 | `/docs/playground`     | Every component's props, set live; the address keeps the configuration       |
+| `/docs/themes`         | Brand presets (colour, corners, font) on live components, and the CSS        |
 | `/llms.txt`, `/r/*`    | The docs for models; the shadcn registry                                     |
 
 wideset.co is shared with the landing page: the docs Worker owns only the paths in
-`wrangler.jsonc` (`/docs*`, `/components*`, `/blocks*`, …), so Playground sits under
+`wrangler.jsonc` (`/docs*`, `/components*`, `/blocks*`, …), so Playground and Themes sit under
 `/docs`. A new top-level path needs a route there, a line in the "Check the deployed host" step of
 `.github/workflows/build.yaml` and an exclusion in the zone's Redirect Rule.
 
@@ -164,6 +165,16 @@ is merged.
   screen for 200 ms and is removed when it leaves, so scrolling the gallery keeps a handful of
   blocks alive, not all of them; nothing to regenerate when a block changes.
 
+## Themes
+
+`/docs/themes` (`src/components/Themes.tsx`): a brand preset sets the primary colour ramp, the
+corner ladder and the font; a "Customize" row changes them by hand; the cards under it are live
+components in that theme, and the Export block prints the CSS to paste after the Wideset
+stylesheet. The theme is a scope on each card (the light or dark tokens re-declared under the
+primitive overrides), so nothing outside the cards changes. A third-party brand appears by name
+only: no logos and no proprietary fonts are in the repository (an open font loads; otherwise the
+font's name shows and Inter stands in).
+
 ## Adding things
 
 - **A guide page:** `src/content/docs/<name>.mdx` with `title`, `description`, `order` in the
@@ -186,7 +197,7 @@ is merged.
   actions), `parts.tsx` (the bar, the sidebar, the rail, the page tabs, the code block, the
   example card, Installation, "Copy page", breadcrumbs), `SearchPalette` (⌘K, on the system's `Modal` +
   `Search`), `Thumbnail`, `Playground` + `PlaygroundPage` + `PropertiesPanel` (one shared store),
-  `PropsTables`, `AnatomyDiagram`, `RelationshipGraph`, `BlockFrame` (a block on its
+  `PropsTables`, `AnatomyDiagram`, `RelationshipGraph`, `Themes`, `BlockFrame` (a block on its
   preview route) and `BlockPreviewFrame` (that route in a frame).
 - `src/styles/docs.css` — Tailwind plus `@import '@wideset/react/theme'`, so the chrome is
   written in `ws` classes (`bg-ws-static-container`, `text-ws-static-subtle`, …) and follows
