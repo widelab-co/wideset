@@ -104,7 +104,7 @@ export function useShell({
     if (target?.state === 'unread' || target?.state === 'working') {
       changeThread(id, (item) => ({ ...item, state: undefined }));
     }
-    const last = target?.turns.findLast((turn) => turn.role === 'agent');
+    const last = target?.turns.filter((turn) => turn.role === 'agent').at(-1);
     if (target?.state === 'working' && last) session.start(last.id, HEAD_START);
   };
 

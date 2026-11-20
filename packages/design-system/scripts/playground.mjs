@@ -22,6 +22,7 @@ import { dirname, extname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { buildRegistry } from './build-registry.mjs';
+import { BLOCK_STYLES, blockEntries } from './registry-blocks.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const APP = join(ROOT, 'playground');
@@ -50,11 +51,12 @@ const flag = (name) => {
 const has = (name) => args.includes(name);
 const log = (msg) => console.log(`[playground] ${msg}`);
 
-// Item names come from registry.json, so a bad --items fails before the library build starts.
+// Validate manual and generated item names before starting the library build.
 function selectedItems() {
-  const known = JSON.parse(readFileSync(join(ROOT, 'registry.json'), 'utf8')).items.map(
-    (item) => item.name,
-  );
+  const declared = JSON.parse(readFileSync(join(ROOT, 'registry.json'), 'utf8')).items;
+  const blocks = blockEntries(ROOT);
+  const known = [...declared, ...blocks].map((item) => item.name);
+  if (blocks.length) known.push(BLOCK_STYLES);
   if (!has('--items')) return has('--all') ? known : [];
   const raw = flag('--items');
   if (!raw || raw.startsWith('--')) {
@@ -71,7 +73,7 @@ function selectedItems() {
     throw new Error(
       `--items: ${
         unknown.length ? `unknown item(s) ${unknown.join(', ')}` : 'no item names given'
-      } — see registry.json for the list`,
+      } — see registry.json and src/blocks/index.ts`,
     );
   }
   return names;
@@ -127,7 +129,7 @@ async function main() {
     log('running pnpm build:lib');
     await run('pnpm', ['build:lib'], ROOT);
   }
-  const built = buildRegistry({ out: OUT, base: BASE });
+  const built = await buildRegistry({ out: OUT, base: BASE });
   log(`registry: ${built.items.length} items → public/r (base ${BASE})`);
 
   let server = null;

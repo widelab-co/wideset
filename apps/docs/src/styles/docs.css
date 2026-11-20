@@ -189,15 +189,6 @@
   background: none;
   font-size: inherit;
 }
-.docs-prose pre.astro-code,
-.docs-prose pre.astro-code span {
-  color: var(--shiki-light);
-}
-.dark .docs-prose pre.astro-code,
-.dark .docs-prose pre.astro-code span {
-  color: var(--shiki-dark);
-}
-
 .docs-prose table {
   display: block;
   overflow-x: auto;
@@ -246,8 +237,19 @@
   display: none;
 }
 
-/* Code blocks (CodeBlock island). shiki renders both themes as variables
-   (defaultColor: false); the page picks one by `.dark`. */
+.docs-tab-row {
+  container-type: inline-size;
+}
+.docs-tab-row [role='tab'] {
+  max-inline-size: 100cqi;
+}
+.docs-tab-row [data-slot='tabs-label'] {
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Code blocks (CodeBlock island). */
 .docs-code pre,
 .docs-code-fallback {
   margin: 0;
@@ -261,14 +263,6 @@
 }
 .docs-code code {
   font-family: inherit;
-}
-.docs-code .shiki,
-.docs-code .shiki span {
-  color: var(--shiki-light);
-}
-.dark .docs-code .shiki,
-.dark .docs-code .shiki span {
-  color: var(--shiki-dark);
 }
 .docs-code--prompt pre,
 .docs-code--prompt .docs-code-fallback {
@@ -452,34 +446,18 @@ body.docs .docs-prose pre[data-language]:not(.docs-code pre)::before {
 body.docs .docs-prose-pre {
   margin-top: var(--spacing-ws-9);
 }
-/* Calm syntax: identifiers in the base ink; keywords, tags, names and constants strong; strings
-   and attribute values in one muted accent; comments subtle. The github-light colours shiki
-   writes say which is which. */
-body.docs :is(.docs-snippet .shiki, .docs-code .shiki, .docs-prose pre.astro-code) span {
-  color: var(--text-color-ws-static-base);
-}
-body.docs
-  :is(.docs-snippet .shiki, .docs-code .shiki, .docs-prose pre.astro-code)
-  span:is(
-    [style*='--shiki-light:#d73a49' i],
-    [style*='--shiki-light:#6f42c1' i],
-    [style*='--shiki-light:#005cc5' i],
-    [style*='--shiki-light:#22863a' i],
-    [style*='--shiki-light:#e36209' i]
-  ) {
-  color: var(--text-color-ws-static-strong);
-}
-body.docs
-  :is(.docs-snippet .shiki, .docs-code .shiki, .docs-prose pre.astro-code)
-  span[style*='--shiki-light:#032f62' i] {
-  color: var(--text-color-ws-non-semantic-brand-on-subtle);
-}
-body.docs
-  :is(.docs-snippet .shiki, .docs-code .shiki, .docs-prose pre.astro-code)
-  span[style*='--shiki-light:#6a737d' i],
 body.docs .docs-code--prompt .line::before {
   color: var(--text-color-ws-static-subtle);
 }
+
+/* Shiki emits both GitHub themes for interactive snippets and Astro's Markdown fences. */
+body.docs :is(pre.shiki, pre.astro-code) span[style] {
+  color: var(--shiki-light);
+}
+.dark body.docs :is(pre.shiki, pre.astro-code) span[style] {
+  color: var(--shiki-dark);
+}
+
 .docs .docs-prose :is(h2, h3) {
   scroll-margin-top: var(--spacing-ws-21);
 }
@@ -577,7 +555,7 @@ html:not(.dark) body.docs.docs .docs-frame[data-playground-stage].dark,
 html.dark body.docs.docs .docs-frame[data-playground-stage].docs-light {
   background: var(--background-color-ws-static-background);
 }
-/* A page's tabs: a component's (Overview, Anatomy, Relationships) and a block's (Preview, Code).
+/* Component and block page tabs.
    The page writes the tab in the address onto `html[data-tab]` before first paint, so the right
    panel (and its rail) shows with no flash; the first tab is the page with no tab. Until the tab
    row has hydrated on a page opened on another tab, it stays out of sight rather than show the
@@ -588,10 +566,34 @@ html.dark body.docs.docs .docs-frame[data-playground-stage].docs-light {
 html:not([data-tab]) [data-tab-panel='overview'],
 html:not([data-tab]) [data-tab-panel='preview'],
 html[data-tab='code'] [data-tab-panel='code'],
+html[data-tab='playground'] [data-tab-panel='playground'],
 html[data-tab='anatomy'] [data-tab-panel='anatomy'],
 html[data-tab='relationships'] [data-tab-panel='relationships'] {
   display: block;
 }
 html[data-tab] .docs-page-tabs:not([data-ready]) {
   visibility: hidden;
+}
+
+.docs-section-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-ws-4);
+  text-decoration: none;
+}
+.docs-section-link svg {
+  opacity: 0;
+  color: var(--text-color-ws-static-subtle);
+}
+.docs-section-link:is(:hover, :focus-visible) svg {
+  opacity: 1;
+}
+.docs-section-link:focus-visible {
+  outline: 2px solid var(--outline-color-ws-dynamic-primary-strong-default);
+  outline-offset: 4px;
+}
+@media (hover: none) {
+  .docs-section-link svg {
+    opacity: 1;
+  }
 }

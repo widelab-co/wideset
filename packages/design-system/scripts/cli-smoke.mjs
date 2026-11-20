@@ -32,7 +32,7 @@ import { buildRegistry } from './build-registry.mjs';
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const LATEST = process.env.STARTERS === 'latest';
 const CREATE_VITE = LATEST ? 'latest' : '9.2.1';
-const CREATE_NEXT_APP = LATEST ? 'latest' : '16.4.3';
+const CREATE_NEXT_APP = LATEST ? 'latest' : '16.4.6';
 // The library builds the registry; the CLI is its own package next to it.
 const CLI_ROOT = resolve(ROOT, '..', 'cli');
 const PKG = JSON.parse(readFileSync(join(CLI_ROOT, 'package.json'), 'utf8'));
@@ -91,7 +91,7 @@ async function serveRegistry(work) {
   await new Promise((done) => server.listen(0, '127.0.0.1', done));
   const base = `http://127.0.0.1:${server.address().port}/r`;
   try {
-    buildRegistry({ out: dir, base });
+    await buildRegistry({ out: dir, base });
   } catch (err) {
     server.close();
     throw err;
@@ -101,20 +101,21 @@ async function serveRegistry(work) {
 
 // ---------------------------------------------------------------------------------------------
 
-const VITE_APP = `import { Button } from '@/components/ui/wideset/button/Button'
+const VITE_APP = `import Calendar from '@/blocks/wideset/calendar'
+import AgentCode from '@/blocks/wideset/agent-code'
 
 export default function App() {
-  return <Button>Wideset</Button>
+  return location.hash === '#agent' ? <AgentCode /> : <Calendar />
 }
 `;
 
-const NEXT_PAGE = `import { Button } from '@/components/ui/wideset/button/Button';
+const NEXT_PAGE = `import TaskSidepanel from '@/blocks/wideset/task-sidepanel';
 
 // A Server Component rendering a scaffolded client component.
 export default function Home() {
   return (
     <main>
-      <Button>Wideset button</Button>
+      <TaskSidepanel />
     </main>
   );
 }
@@ -146,6 +147,8 @@ const SCENARIOS = {
       return app;
     },
     page: ['src/App.tsx', VITE_APP],
+    blocks: ['block-calendar', 'block-agent-code'],
+    sourceDir: 'src',
     marker: null,
   },
   next: {
@@ -158,7 +161,9 @@ const SCENARIOS = {
       return join(work, name);
     },
     page: ['app/page.tsx', NEXT_PAGE],
-    marker: 'Wideset button',
+    blocks: ['block-task-sidepanel'],
+    sourceDir: '.',
+    marker: 'Open task',
   },
   'next-shadcn': {
     async create(work, name) {
@@ -222,7 +227,8 @@ async function scenario(name, { work, tarball, base }) {
     return;
   }
 
-  await wideset('init', '--registry', base);
+  if (spec.blocks) await wideset('add', ...spec.blocks, '--registry', base);
+  else await wideset('init', '--registry', base);
 
   const config = JSON.parse(read('components.json'));
   if (config.registries?.['@wideset'] !== `${base}/{name}.json`) {
@@ -253,6 +259,31 @@ async function scenario(name, { work, tarball, base }) {
   const listed = await wideset('list');
   if (!/^\s+button\s/m.test(listed)) throw new Error('wideset list does not show button');
 
+  if (spec.blocks) {
+    for (const name of spec.blocks) {
+      if (!new RegExp(`^\\s+${name}\\s`, 'm').test(listed))
+        throw new Error(`wideset list does not show ${name}`);
+      const response = await fetch(`${base}/${name}.json`);
+      if (!response.ok) throw new Error(`${name}.json returned ${response.status}`);
+      const item = await response.json();
+      // The same content is sent to the docs Code panel, including assets and types.
+      for (const file of item.files) {
+        const installed = join(spec.sourceDir, file.target);
+        if (!existsSync(join(app, installed)) || read(installed) !== file.content)
+          throw new Error(`${installed} differs from the registry item`);
+      }
+    }
+    const css = read(join(spec.sourceDir, 'styles/wideset-blocks.css'));
+    if (!css.includes('.h-dvh') || !css.includes('min-height: 12rem'))
+      throw new Error('block layout utilities did not install');
+    if (read('package.json').includes('"@wideset/react"'))
+      throw new Error('installing a block added @wideset/react');
+    const entry = join(spec.sourceDir, 'blocks/wideset', spec.blocks[0].slice(6), 'index.tsx');
+    const edited = read(entry) + '\n// Project edit\n';
+    writeFileSync(join(app, entry), edited);
+    await wideset('add', spec.blocks[0]);
+    if (read(entry) !== edited) throw new Error('a second add overwrote a project edit');
+  }
   await wideset('add', 'button');
   // Agent skills: at the project root in every layout, and running it twice changes nothing.
   const own = '# Team rules\n';
