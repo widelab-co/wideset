@@ -136,7 +136,7 @@ export default function Billing() {
         <BillingSidebar />
         <AppShell.Main>
           {/* The page scrolls inside the card, so the card's corners stay put. */}
-          <div className="min-h-0 flex-1 overflow-y-auto">
+          <div className="ws-scrollbar min-h-0 flex-1 overflow-y-auto">
             <BillingPage />
           </div>
         </AppShell.Main>

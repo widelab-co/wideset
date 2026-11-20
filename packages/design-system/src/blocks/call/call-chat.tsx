@@ -35,7 +35,7 @@ export function CallChat({ messages, people, onSend }: CallChatProps) {
 
   return (
     <div className="flex h-full min-h-0 flex-col">
-      <div ref={scroller} className="min-h-0 flex-1 overflow-y-auto">
+      <div ref={scroller} className="ws-scrollbar min-h-0 flex-1 overflow-y-auto">
         <ol
           aria-label="Messages"
           className="gap-ws-9 px-ws-9 py-ws-9 flex min-h-full flex-col justify-end"

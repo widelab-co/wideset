@@ -72,7 +72,7 @@ export function ConversationList({
         </SegmentedControl>
       </div>
 
-      <div ref={listRef} className="px-ws-5 pb-ws-5 min-h-0 flex-1 overflow-y-auto">
+      <div ref={listRef} className="px-ws-5 pb-ws-5 ws-scrollbar min-h-0 flex-1 overflow-y-auto">
         {conversations.length === 0 ? (
           <div className="px-ws-7 pt-ws-16">
             <EmptyState

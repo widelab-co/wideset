@@ -293,33 +293,6 @@ html .docs .docs-fade {
 .dark .docs :is(.docs-card, .docs-card-rule, .docs-frame, .docs-code):not(.docs-light) {
   border-color: var(--border-color-ws-static-base);
 }
-/* Scrollbars inside the page: a thin, quiet thumb with no track or arrows, a little stronger under the pointer.
-   Chromium and Safari draw it from the ::-webkit-scrollbar rules (setting scrollbar-color there
-   would switch those off); browsers without them, Firefox, get the standard thin bar. */
-@supports not selector(::-webkit-scrollbar) {
-  .docs * {
-    scrollbar-width: thin;
-    scrollbar-color: var(--background-color-ws-static-alpha-base) transparent;
-  }
-}
-.docs ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-.docs ::-webkit-scrollbar-track,
-.docs ::-webkit-scrollbar-corner {
-  background: transparent;
-}
-.docs ::-webkit-scrollbar-button {
-  display: none;
-}
-.docs ::-webkit-scrollbar-thumb {
-  background: var(--background-color-ws-static-alpha-base);
-  border-radius: 999px;
-}
-.docs ::-webkit-scrollbar-thumb:hover {
-  background: var(--background-color-ws-static-alpha-strong);
-}
 /* A jump to a heading lands clear of the bar. */
 .docs .docs-prose :is(h2, h3) {
   scroll-margin-top: var(--spacing-ws-14);

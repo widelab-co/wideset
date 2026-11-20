@@ -96,7 +96,7 @@ export function StepPanel({
       {/* Keyed by step, so a field never shows the last step's value while the panel swaps. */}
       <div
         key={step.id}
-        className="gap-ws-11 px-ws-11 pb-ws-11 pt-ws-5 flex min-h-0 flex-1 flex-col overflow-y-auto"
+        className="gap-ws-11 px-ws-11 pb-ws-11 pt-ws-5 ws-scrollbar flex min-h-0 flex-1 flex-col overflow-y-auto"
       >
         {fields.map((field) => (
           <StepField
