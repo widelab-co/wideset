@@ -148,25 +148,35 @@ export const Code = ({
 
 /**
  * The component page's thumbnail: the component as the gallery draws it, on the soft stage every
- * thumbnail sits on. No code under it.
+ * thumbnail sits on, and under it the code for the playground's defaults in the same peek as an
+ * example's. An overlay's stage draws it open (`preview`); its code is the trigger and the overlay,
+ * as the reader writes them.
  */
-export const Stage = withPlayground(({ component }: { component: string }) => {
-  const definition = PLAYGROUNDS[component];
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
-  return (
-    <div
-      data-stage
-      className="grid min-h-[20rem] place-items-center overflow-hidden rounded-ws-container-md bg-ws-static-alpha-subtle px-ws-14 py-ws-14 text-ws-static-base"
-    >
-      {(mounted || !definition.clientOnly) && (
-        <div className="w-max max-w-full">
-          {definition.preview ? definition.preview() : definition.render(definition.defaults)}
+export const Stage = withPlayground(
+  ({ component, paths }: { component: string; paths: ProjectPaths }) => {
+    const definition = PLAYGROUNDS[component];
+    const [mounted, setMounted] = useState(false);
+    useEffect(() => setMounted(true), []);
+    const shown = useShownCode(definition.code(definition.defaults), paths, true);
+    return (
+      <div className="overflow-hidden rounded-ws-container-md border border-ws-static-subtle">
+        <div
+          data-stage
+          className="grid min-h-[20rem] place-items-center overflow-hidden bg-ws-static-alpha-subtle px-ws-14 py-ws-14 text-ws-static-base"
+        >
+          {(mounted || !definition.clientOnly) && (
+            <div className="w-max max-w-full">
+              {definition.preview ? definition.preview() : definition.render(definition.defaults)}
+            </div>
+          )}
         </div>
-      )}
-    </div>
-  );
-});
+        <div className="border-t border-ws-static-subtle">
+          <Code code={shown} peek flush />
+        </div>
+      </div>
+    );
+  },
+);
 
 /** An example: one hairline card, the live file on its stage and its source in the peek under it. */
 export const ExampleCard = ({
