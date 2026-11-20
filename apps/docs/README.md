@@ -172,8 +172,9 @@ corner ladder and the font; a "Customize" row changes them by hand; the cards un
 components in that theme. "Get code", beside the presets, opens a dialog with the CSS to paste
 after the Wideset stylesheet. The theme is a scope on each card (the light or dark tokens re-declared under the
 primitive overrides), so nothing outside the cards changes. A third-party brand appears by name
-only: no logos and no proprietary fonts are in the repository (an open font loads; otherwise the
-font's name shows and Inter stands in).
+only: no logos and no proprietary fonts are in the repository. An open font loads (Poppins, from
+`@fontsource`); a licensed one (UberMove, Apercu) is named first in the preset's stack, so it
+draws where the viewer has it installed, and Inter stands in everywhere else.
 
 ## Adding things
 

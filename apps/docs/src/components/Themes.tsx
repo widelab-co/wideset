@@ -68,11 +68,18 @@ type Preset = {
   /** The brand's typeface as the design names it, and the family the page can load for it. */
   font: string;
   stack?: string;
+  /**
+   * The typeface is proprietary: the site ships no file for it. The stack names it first, so it
+   * draws where the viewer has it installed, and Inter stands in everywhere else.
+   */
+  licensed?: boolean;
 };
+/** The stack's tail for a licensed font: the docs' own Inter, as the page loads it. */
+const INTER = "'Inter Variable', ui-sans-serif, system-ui, sans-serif";
 /**
  * The presets, as the design draws them. Fonts: Inter and Poppins are open and load; UberMove
- * and Apercu are proprietary, so their names show in the specimen and Inter stands in (the design
- * itself draws their "Aa" in Inter).
+ * and Apercu are proprietary, so the page names them and draws them only where they are
+ * installed (the design itself draws their "Aa" in Inter).
  */
 const PRESETS: Preset[] = [
   { id: 'wideset', label: 'Wideset', brand: 'brand', radius: 'default', font: 'Inter' },
@@ -86,6 +93,8 @@ const PRESETS: Preset[] = [
     onPrimary: { dark: '#000000' },
     radius: 'default',
     font: 'UberMove',
+    stack: `'Uber Move', 'UberMove', ${INTER}`,
+    licensed: true,
   },
   {
     id: 'lime',
@@ -102,6 +111,8 @@ const PRESETS: Preset[] = [
     brand: '#0061ef',
     radius: 'round',
     font: 'Apercu',
+    stack: `'Apercu', 'Apercu Pro', ${INTER}`,
+    licensed: true,
   },
 ];
 
@@ -767,10 +778,13 @@ const Themes = () => {
   // Wideset re-declares the text on the primary under `.dark`, which wins over `:root` wherever
   // the class sits below the root: dark mode restates it, as the cards do.
   const dark = darkOn ? `\n.dark {\n${text(darkOn).join('\n')}\n}` : '';
-  // The stack names the brand's font; the app loads it (Wideset loads none).
-  const fontNote = preset?.stack
-    ? `/* Load ${preset.font} in your app first (400, 500 and 600), e.g. from Google Fonts. */\n`
-    : '';
+  // The stack names the brand's font; the app loads it (Wideset loads none). A licensed font comes
+  // from the brand's own licence, so the note says that instead of where to get it.
+  const fontNote = !preset?.stack
+    ? ''
+    : preset.licensed
+      ? `/* ${preset.font} is the brand's licensed font: serve it under your own licence (400, 500 and 600); without it, Inter stands in. */\n`
+      : `/* Load ${preset.font} in your app first (400, 500 and 600), e.g. from Google Fonts. */\n`;
   const css = lines.length
     ? `${fontNote}:root {\n${lines.join('\n')}\n}${dark}`
     : '/* Wideset as it ships: nothing to override. */';
