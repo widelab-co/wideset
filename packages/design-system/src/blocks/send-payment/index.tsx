@@ -3,22 +3,15 @@ import { AppShell, Breadcrumbs, cn, IconButton, StatusBadge } from '@wideset/rea
 import { useEffect, useId, useRef, useState } from 'react';
 
 import { ConfirmDialog } from './confirm-dialog';
-import {
-  CONFIRM_ABOVE,
-  nextTransferId,
-  recentTransfers,
-  recipientById,
-  type Transfer,
-  workspace,
-} from './data';
+import { nextTransferId, recentTransfers, recipientById, type Transfer, workspace } from './data';
 import { formatDate, formatUsd } from './format';
 import {
   draftPayment,
   emptyPayment,
   type PaymentErrors,
   type PaymentValues,
-  quotePayment,
-  validatePayment,
+  summarizePayment,
+  validatePaymentForm,
 } from './payment';
 import { PaymentForm } from './payment-form';
 import { PaymentReceipt } from './payment-receipt';
@@ -35,7 +28,7 @@ type Step = 'form' | 'review' | 'receipt';
  * Send payment (Inset direction): one payment on the raised page beside the workspace sidebar,
  * in three steps that share one narrow card: the form, the review before anything moves, and the
  * receipt the page becomes. The recent transfers stand beside it as text. The screen holds the
- * payment, so going back keeps what was typed; a payment over the limit is confirmed in a dialog.
+ * payment, so going back keeps what was typed. A dialog demonstrates the confirmation step.
  */
 export default function SendPayment() {
   const formId = useId();
@@ -48,9 +41,9 @@ export default function SendPayment() {
   const [confirming, setConfirming] = useState(false);
   const [sending, setSending] = useState(false);
 
-  const quote = quotePayment(values);
+  const summary = summarizePayment(values);
   const recipient = recipientById(values.recipientId)?.name ?? '';
-  const amount = formatUsd(quote.amount);
+  const amount = formatUsd(summary.amount);
 
   // Each step replaces the last one in place, so focus moves to the title that names it.
   const title = useRef<HTMLHeadingElement>(null);
@@ -70,7 +63,7 @@ export default function SendPayment() {
   };
 
   const review = () => {
-    const found = validatePayment(values);
+    const found = validatePaymentForm(values);
     setErrors(found);
     const [first] = Object.keys(found);
     if (first) document.getElementById(`${formId}-${first}`)?.focus();
@@ -92,7 +85,7 @@ export default function SendPayment() {
     }, 1200);
   };
 
-  const status = quote.scheduled ? 'Scheduled' : 'Processing';
+  const status = summary.scheduled ? 'Scheduled' : 'Processing';
   const header = {
     form: {
       title: 'Send payment',
@@ -102,22 +95,22 @@ export default function SendPayment() {
       title: 'Review payment',
       line: 'Check it over. Nothing moves until you send it.',
     },
-    receipt: quote.scheduled
+    receipt: summary.scheduled
       ? {
           title: 'Payment scheduled',
-          line: `${amount} goes to ${recipient} on ${formatDate(quote.sendDate)}.`,
+          line: `${amount} goes to ${recipient} on ${formatDate(summary.sendDate)}.`,
         }
       : {
           title: 'Payment sent',
-          line: `${amount} is on its way to ${recipient} and should arrive by ${formatDate(quote.arrival)}.`,
+          line: `${amount} is on its way to ${recipient}.`,
         },
   }[step];
 
   const sent: Transfer = {
     id: nextTransferId,
     recipient,
-    date: quote.sendDate,
-    amount: quote.amount,
+    date: summary.sendDate,
+    amount: summary.amount,
     status,
   };
 
@@ -181,16 +174,16 @@ export default function SendPayment() {
               {step === 'review' && (
                 <PaymentReview
                   values={values}
-                  quote={quote}
+                  summary={summary}
                   sending={sending}
                   onBack={() => setStep('form')}
-                  onSend={() => (quote.amount > CONFIRM_ABOVE ? setConfirming(true) : send())}
+                  onSend={() => setConfirming(true)}
                 />
               )}
               {step === 'receipt' && (
                 <PaymentReceipt
                   values={values}
-                  quote={quote}
+                  summary={summary}
                   transferId={nextTransferId}
                   onSendAnother={() => {
                     setValues(emptyPayment);
@@ -210,9 +203,9 @@ export default function SendPayment() {
       <ConfirmDialog
         open={confirming}
         onOpenChange={setConfirming}
-        amount={quote.amount}
+        amount={summary.amount}
         recipient={recipient}
-        scheduled={quote.scheduled}
+        scheduled={summary.scheduled}
         onConfirm={send}
       />
     </AppShell>
