@@ -317,6 +317,36 @@ describe('Table', () => {
     });
   });
 
+  describe('Focus', () => {
+    it('is not focusable by default', () => {
+      render(<BasicTable />);
+      expect(screen.getByRole('table')).not.toHaveAttribute('tabindex');
+    });
+
+    it.each(['stickyHeader', 'stickyColumn'] as const)(
+      'is a keyboard-scrollable region with the library focus ring when %s is set',
+      (prop) => {
+        render(<BasicTable {...{ [prop]: true }} />);
+        const table = screen.getByRole('table');
+        expect(table).toHaveAttribute('tabindex', '0');
+        expect(table).toHaveClass(
+          'focus-visible:outline-2',
+          'focus-visible:outline-ws-dynamic-primary-strong-default',
+        );
+      },
+    );
+
+    it('has no focus ring classes when it is not a scroll region', () => {
+      render(<BasicTable />);
+      expect(screen.getByRole('table')).not.toHaveClass('focus-visible:outline-2');
+    });
+
+    it("lets the consumer's tabIndex win", () => {
+      render(<BasicTable stickyHeader tabIndex={-1} />);
+      expect(screen.getByRole('table')).toHaveAttribute('tabindex', '-1');
+    });
+  });
+
   describe('Table.Row', () => {
     it('sets aria-selected="true" on a selected row when selectionMode is set', () => {
       render(

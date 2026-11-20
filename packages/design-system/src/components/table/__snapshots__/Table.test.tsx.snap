@@ -4,7 +4,6 @@ exports[`Table Snapshots > matches snapshot for align center table 1`] = `
 <table
   class="group w-full table-auto border-separate border-spacing-0"
   data-slot="table"
-  tabindex="-1"
 >
   <thead
     class=""
@@ -45,7 +44,6 @@ exports[`Table Snapshots > matches snapshot for all sortable header states 1`] =
 <table
   class="group w-full table-auto border-separate border-spacing-0"
   data-slot="table"
-  tabindex="-1"
 >
   <thead
     class=""
@@ -215,7 +213,6 @@ exports[`Table Snapshots > matches snapshot for default table 1`] = `
 <table
   class="group w-full table-auto border-separate border-spacing-0"
   data-slot="table"
-  tabindex="-1"
 >
   <thead
     class=""
@@ -287,7 +284,6 @@ exports[`Table Snapshots > matches snapshot for flushMargin table 1`] = `
 <table
   class="group w-full table-auto border-separate border-spacing-0"
   data-slot="table"
-  tabindex="-1"
 >
   <thead
     class=""
@@ -328,7 +324,6 @@ exports[`Table Snapshots > matches snapshot for interactive table 1`] = `
 <table
   class="group w-full table-auto border-separate border-spacing-0"
   data-slot="table"
-  tabindex="-1"
 >
   <thead
     class=""
@@ -369,7 +364,6 @@ exports[`Table Snapshots > matches snapshot for placement middle table 1`] = `
 <table
   class="group w-full table-auto border-separate border-spacing-0"
   data-slot="table"
-  tabindex="-1"
 >
   <thead
     class=""
@@ -412,7 +406,6 @@ exports[`Table Snapshots > matches snapshot for selectionMode multiple 1`] = `
   class="group w-full table-auto border-separate border-spacing-0"
   data-slot="table"
   role="grid"
-  tabindex="-1"
 >
   <thead
     class=""
@@ -478,7 +471,6 @@ exports[`Table Snapshots > matches snapshot for selectionMode single 1`] = `
   class="group w-full table-auto border-separate border-spacing-0"
   data-slot="table"
   role="grid"
-  tabindex="-1"
 >
   <thead
     class=""
@@ -531,7 +523,6 @@ exports[`Table Snapshots > matches snapshot for separated table 1`] = `
 <table
   class="is-separated group w-full table-auto border-separate border-spacing-0"
   data-slot="table"
-  tabindex="-1"
 >
   <thead
     class=""
@@ -572,7 +563,6 @@ exports[`Table Snapshots > matches snapshot for size lg 1`] = `
 <table
   class="group w-full table-auto border-separate border-spacing-0"
   data-slot="table"
-  tabindex="-1"
 >
   <thead
     class=""
@@ -613,7 +603,6 @@ exports[`Table Snapshots > matches snapshot for size md 1`] = `
 <table
   class="group w-full table-auto border-separate border-spacing-0"
   data-slot="table"
-  tabindex="-1"
 >
   <thead
     class=""
@@ -654,7 +643,6 @@ exports[`Table Snapshots > matches snapshot for size sm 1`] = `
 <table
   class="group w-full table-auto border-separate border-spacing-0"
   data-slot="table"
-  tabindex="-1"
 >
   <thead
     class=""
@@ -693,7 +681,7 @@ exports[`Table Snapshots > matches snapshot for size sm 1`] = `
 
 exports[`Table Snapshots > matches snapshot for stickyColumn table 1`] = `
 <table
-  class="group w-full table-auto border-separate border-spacing-0"
+  class="group w-full table-auto border-separate border-spacing-0 focus-visible:outline-ws-dynamic-primary-strong-default focus-visible:outline-2 focus-visible:-outline-offset-2"
   data-slot="table"
   tabindex="0"
 >
@@ -746,7 +734,7 @@ exports[`Table Snapshots > matches snapshot for stickyColumn table 1`] = `
 
 exports[`Table Snapshots > matches snapshot for stickyHeader table 1`] = `
 <table
-  class="group w-full table-auto border-separate border-spacing-0"
+  class="group w-full table-auto border-separate border-spacing-0 focus-visible:outline-ws-dynamic-primary-strong-default focus-visible:outline-2 focus-visible:-outline-offset-2"
   data-slot="table"
   tabindex="0"
 >

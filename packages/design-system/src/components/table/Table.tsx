@@ -28,7 +28,10 @@ const TableRoot = ({
   selectionMode,
   ...props
 }: TableProps) => {
-  const effectiveHasBackground = hasBackground ?? (stickyHeader || stickyColumn ? true : undefined);
+  // A sticky table sits in a scroll container the consumer renders. Focus on the table lets the
+  // keyboard scroll that container; any other table takes no focus at all.
+  const isScrollRegion = stickyHeader || stickyColumn;
+  const effectiveHasBackground = hasBackground ?? (isScrollRegion ? true : undefined);
 
   return (
     <TableContext.Provider
@@ -49,15 +52,19 @@ const TableRoot = ({
     >
       <table
         data-slot="table"
+        tabIndex={isScrollRegion ? 0 : undefined}
         {...props}
         role={selectionMode ? 'grid' : undefined}
         aria-multiselectable={selectionMode === 'multiple' ? true : undefined}
         className={cn(
           separated && 'is-separated',
           'group w-full table-auto border-separate border-spacing-0',
+          // The ring is inset: the scroll container clips anything outside the table. Not
+          // wds-focus-visible, whose select-none would drop a text selection in the table.
+          isScrollRegion &&
+            'focus-visible:outline-ws-dynamic-primary-strong-default focus-visible:outline-2 focus-visible:-outline-offset-2',
           className,
         )}
-        tabIndex={stickyColumn || stickyHeader ? 0 : -1}
       >
         {children}
       </table>
