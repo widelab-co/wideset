@@ -1,38 +1,8 @@
-/* Match ScrollArea's track and thumb on elements that need to own their scroll. */
+/* ScrollArea's colours; standard properties only, so the OS keeps hiding bars where it does. */
 @layer components {
-  @supports not selector(::-webkit-scrollbar) {
-    :where(.ws-scrollbar, .ws-scrollbars, .ws-scrollbars *) {
-      scrollbar-width: thin;
-      scrollbar-color: var(--background-color-ws-dynamic-secondary-alpha-strong-default)
-        var(--background-color-ws-static-alpha-subtle);
-    }
-  }
-
-  :where(.ws-scrollbar, .ws-scrollbars, .ws-scrollbars *)::-webkit-scrollbar {
-    width: var(--spacing-ws-5);
-    height: var(--spacing-ws-5);
-  }
-
-  :where(.ws-scrollbar, .ws-scrollbars, .ws-scrollbars *)::-webkit-scrollbar-track {
-    background: var(--background-color-ws-static-alpha-subtle);
-    border-radius: var(--spacing-ws-5);
-  }
-
-  :where(.ws-scrollbar, .ws-scrollbars, .ws-scrollbars *)::-webkit-scrollbar-track:hover {
-    background: var(--background-color-ws-static-alpha-base);
-  }
-
-  :where(.ws-scrollbar, .ws-scrollbars, .ws-scrollbars *)::-webkit-scrollbar-thumb {
-    background: var(--background-color-ws-dynamic-secondary-alpha-strong-default) padding-box;
-    border: var(--spacing-ws-1) solid transparent;
-    border-radius: var(--spacing-ws-5);
-  }
-
-  :where(.ws-scrollbar, .ws-scrollbars, .ws-scrollbars *)::-webkit-scrollbar-button {
-    display: none;
-  }
-
-  :where(.ws-scrollbar, .ws-scrollbars, .ws-scrollbars *)::-webkit-scrollbar-corner {
-    background: transparent;
+  :where(.ws-scrollbar, .ws-scrollbars, .ws-scrollbars *) {
+    scrollbar-width: thin;
+    scrollbar-color: var(--background-color-ws-dynamic-secondary-alpha-strong-default)
+      var(--background-color-ws-static-alpha-subtle);
   }
 }
