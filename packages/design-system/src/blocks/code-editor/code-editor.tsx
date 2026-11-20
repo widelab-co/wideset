@@ -153,7 +153,7 @@ export function CodeEditor({ file, value, onChange, problems, reveal }: CodeEdit
   };
 
   return (
-    <div className="ws-scrollbar min-h-0 flex-1 overflow-auto">
+    <div className="min-h-0 flex-1 overflow-auto">
       <div className="flex min-h-full w-max min-w-full">
         {/* Numbers stay put while long lines scroll sideways. */}
         <div

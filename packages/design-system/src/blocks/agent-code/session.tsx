@@ -108,7 +108,7 @@ export function Session({
     <>
       {/* `relative`: the transcript's screen-reader text is absolutely placed, and with no
           positioned parent it would fall outside the scroller and stretch the page. */}
-      <div ref={scroller} className="ws-scrollbar relative min-h-0 flex-1 overflow-y-auto">
+      <div ref={scroller} className="relative min-h-0 flex-1 overflow-y-auto">
         <div
           ref={log}
           className={cn(COLUMN, 'pt-ws-5 pb-ws-12 flex min-h-full flex-col justify-end')}

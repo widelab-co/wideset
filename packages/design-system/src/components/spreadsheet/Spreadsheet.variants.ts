@@ -7,7 +7,7 @@ import { cn } from 'src/lib/utils';
  * is the grid's surface: rows inherit it, and frozen cells repaint it so nothing shows through
  * them while the grid scrolls. `isolate` keeps the sticky layers' z-index inside the grid.
  */
-export const SPREADSHEET_CLASS = 'bg-ws-static-container isolate w-full ws-scrollbar overflow-auto';
+export const SPREADSHEET_CLASS = 'bg-ws-static-container isolate w-full overflow-auto';
 
 /**
  * `table-fixed` + `w-full`: columns keep the widths set on their column headers, a column

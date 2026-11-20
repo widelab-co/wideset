@@ -27,7 +27,7 @@ export function FileDetails({
   return (
     <aside
       aria-label="File details"
-      className="border-ws-static-subtle ws-scrollbar w-[20rem] shrink-0 overflow-y-auto border-l"
+      className="border-ws-static-subtle w-[20rem] shrink-0 overflow-y-auto border-l"
     >
       <div className="gap-ws-14 p-ws-11 flex flex-col">
         <section className="gap-ws-9 flex flex-col">

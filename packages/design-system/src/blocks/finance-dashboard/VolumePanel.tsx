@@ -20,7 +20,7 @@ export function VolumePanel({ onClose }: { onClose: () => void }) {
   return (
     <aside
       aria-labelledby="monthly-volume-title"
-      className="bg-ws-static-alpha-subtle border-ws-static-subtle rounded-ws-container-lg my-ws-9 mr-ws-9 ws-scrollbar relative flex w-[27.5rem] shrink-0 flex-col overflow-y-auto border"
+      className="bg-ws-static-alpha-subtle border-ws-static-subtle rounded-ws-container-lg my-ws-9 mr-ws-9 relative flex w-[27.5rem] shrink-0 flex-col overflow-y-auto border"
     >
       <IconButton
         variant="secondary"

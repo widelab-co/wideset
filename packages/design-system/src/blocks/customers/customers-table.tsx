@@ -45,7 +45,7 @@ export function CustomersTable({
 
   return (
     // Narrower than its columns, the table scrolls sideways inside its own area.
-    <div className="ws-scrollbar relative overflow-x-auto">
+    <div className="relative overflow-x-auto">
       <Table
         size="md"
         selectionMode={rows.length > 0 ? 'multiple' : undefined}

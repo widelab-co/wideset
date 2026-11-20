@@ -82,7 +82,7 @@ export default function Recording() {
         </div>
 
         {/* The page fills the card; on a short window it scrolls inside it instead. */}
-        <div className="ws-scrollbar min-h-0 flex-1 overflow-y-auto">
+        <div className="min-h-0 flex-1 overflow-y-auto">
           <div className={cn(COLUMN, 'gap-ws-14 pt-ws-14 flex h-full min-h-[42rem] flex-col')}>
             <RecordingHeader />
             <CallPlayer playback={playback} speakers={speakers} lines={transcript} />
@@ -97,7 +97,7 @@ export default function Recording() {
 
               <aside
                 aria-label="About the call"
-                className="gap-ws-16 -mx-ws-7 px-ws-7 pb-ws-12 ws-scrollbar flex min-h-0 flex-col overflow-y-auto"
+                className="gap-ws-16 -mx-ws-7 px-ws-7 pb-ws-12 flex min-h-0 flex-col overflow-y-auto"
               >
                 <Section title="Highlights">
                   <CallHighlights moments={highlights} onSeek={playback.seek} />

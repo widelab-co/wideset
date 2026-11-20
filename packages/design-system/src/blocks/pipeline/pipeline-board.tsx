@@ -196,7 +196,7 @@ export function PipelineBoard({
 
   return (
     // Padded like the columns, so a card's focus ring at the board's edge is not cut.
-    <div className="-mx-ws-3 px-ws-3 ws-scrollbar min-h-0 flex-1 overflow-x-auto">
+    <div className="-mx-ws-3 px-ws-3 min-h-0 flex-1 overflow-x-auto">
       <div className="gap-ws-7 grid h-full grid-cols-[repeat(5,15.5rem)] grid-rows-[minmax(0,1fr)]">
         {STAGES.map((stage) => (
           <StageColumn

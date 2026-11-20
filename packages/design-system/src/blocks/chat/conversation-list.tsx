@@ -50,7 +50,7 @@ export function ConversationList({ conversations, selectedId, onSelect }: Conver
   return (
     <nav
       aria-label="Conversations"
-      className="border-ws-static-subtle gap-ws-9 px-ws-5 py-ws-7 ws-scrollbar flex w-[15rem] shrink-0 flex-col overflow-y-auto border-r"
+      className="border-ws-static-subtle gap-ws-9 px-ws-5 py-ws-7 flex w-[15rem] shrink-0 flex-col overflow-y-auto border-r"
     >
       {GROUPS.map(({ kind, label }) => (
         <Group

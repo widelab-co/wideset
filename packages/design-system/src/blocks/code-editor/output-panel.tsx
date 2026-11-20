@@ -77,12 +77,12 @@ export function OutputPanel({
         </Tabs.List>
         <RunStatus run={run} running={running} />
       </div>
-      <Tabs.Content value="output" className="ws-scrollbar min-h-0 flex-1 overflow-y-auto">
+      <Tabs.Content value="output" className="min-h-0 flex-1 overflow-y-auto">
         <div className="px-ws-9 py-ws-7">
           <TestOutput run={run} running={running} />
         </div>
       </Tabs.Content>
-      <Tabs.Content value="problems" className="ws-scrollbar min-h-0 flex-1 overflow-y-auto">
+      <Tabs.Content value="problems" className="min-h-0 flex-1 overflow-y-auto">
         <div className="px-ws-9 py-ws-5">
           <ProblemList problems={problems} onReveal={onReveal} />
         </div>

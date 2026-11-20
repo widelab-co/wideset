@@ -93,10 +93,7 @@ export default function Customers({ direction = 'flat' }: { direction?: Directio
           className="min-h-0 flex-1"
         >
           <PageHeader line={!canvas} />
-          <Tabs.Content
-            value={segment}
-            className="px-ws-12 ws-scrollbar min-h-0 flex-1 overflow-y-auto"
-          >
+          <Tabs.Content value={segment} className="px-ws-12 min-h-0 flex-1 overflow-y-auto">
             {/* In Canvas the list is a white section on the grey: no border, no shadow. */}
             <div
               className={cn(

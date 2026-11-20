@@ -171,7 +171,7 @@ export function NotificationDetail({
         </div>
       </header>
 
-      <div className="ws-scrollbar min-h-0 flex-1 overflow-y-auto">
+      <div className="min-h-0 flex-1 overflow-y-auto">
         <div className="gap-ws-12 px-ws-12 py-ws-12 mx-auto flex w-full max-w-[48rem] flex-col">
           {/* The facts lead, under the title they describe: below a long thread they would
               slide out of sight. A line closes them off from what happened. */}

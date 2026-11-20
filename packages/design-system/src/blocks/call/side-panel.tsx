@@ -57,7 +57,7 @@ export function SidePanel({
           </Tabs.Item>
         </Tabs.List>
 
-        <Tabs.Content value="notes" className="ws-scrollbar min-h-0 flex-1 overflow-y-auto">
+        <Tabs.Content value="notes" className="min-h-0 flex-1 overflow-y-auto">
           <div className="gap-ws-7 p-ws-9 flex flex-col">
             {/* Pulled left by the link's own padding, so its icon starts on the notes' edge. */}
             <LinkButton
@@ -74,7 +74,7 @@ export function SidePanel({
         <Tabs.Content value="chat" className="min-h-0 flex-1">
           <CallChat messages={messages} people={people} onSend={onSend} />
         </Tabs.Content>
-        <Tabs.Content value="people" className="ws-scrollbar min-h-0 flex-1 overflow-y-auto">
+        <Tabs.Content value="people" className="min-h-0 flex-1 overflow-y-auto">
           <PeopleList people={people} onMute={onMute} onMuteAll={onMuteAll} />
         </Tabs.Content>
       </Tabs>

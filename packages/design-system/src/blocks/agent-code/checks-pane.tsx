@@ -21,7 +21,7 @@ export function ChecksPane({
 }) {
   return (
     <div className="flex min-h-0 flex-1 flex-col">
-      <div className="ws-scrollbar min-h-0 flex-1 overflow-y-auto">
+      <div className="min-h-0 flex-1 overflow-y-auto">
         <div className="gap-ws-9 p-ws-11 flex flex-col">
           <PullRequestHeader />
           <CheckList onFix={onFix} />

@@ -29,7 +29,7 @@ export default function EmptyList() {
           </div>
         </header>
 
-        <div className="px-ws-12 ws-scrollbar min-h-0 flex-1 overflow-y-auto">
+        <div className="px-ws-12 min-h-0 flex-1 overflow-y-auto">
           <div className="gap-ws-9 py-ws-9 mx-auto flex h-full w-full max-w-[80rem] flex-col">
             <TextInput
               size="sm"

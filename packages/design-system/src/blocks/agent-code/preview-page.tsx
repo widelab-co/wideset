@@ -22,7 +22,7 @@ type PreviewPageProps = {
 export function PreviewPage({ address, className, onExport, onHome }: PreviewPageProps) {
   return (
     <div className={cn('bg-ws-static-foreground shadow-ws-low @container relative', className)}>
-      <div className="ws-scrollbar flex h-full flex-col overflow-y-auto">
+      <div className="flex h-full flex-col overflow-y-auto">
         <div className="h-ws-18 border-ws-static-subtle px-ws-11 gap-ws-5 flex shrink-0 items-center border-b">
           <Avatar shape="square" size="sm" initials="L" color="yellow" aria-hidden="true" />
           <span className="typography-label-strong-md text-ws-static-strong">Lumen</span>

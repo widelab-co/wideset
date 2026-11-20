@@ -122,7 +122,7 @@ export function MoveDialog({
           </TextInput>
 
           {/* The tree scrolls inside its frame, so the dialog keeps its height while it opens. */}
-          <div className="border-ws-static-base rounded-ws-container-sm p-ws-3 ws-scrollbar h-[18.5rem] overflow-y-auto border">
+          <div className="border-ws-static-base rounded-ws-container-sm p-ws-3 h-[18.5rem] overflow-y-auto border">
             <FolderTree
               rows={rows}
               searching={searching}

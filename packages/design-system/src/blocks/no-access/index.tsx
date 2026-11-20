@@ -30,7 +30,7 @@ export default function NoAccess() {
 
         {/* The state hangs from a fixed height above the middle, so it stays put when the form
             gives way to the sent state. */}
-        <div className="px-ws-16 py-ws-28 ws-scrollbar flex min-h-0 flex-1 items-start justify-center overflow-y-auto">
+        <div className="px-ws-16 py-ws-28 flex min-h-0 flex-1 items-start justify-center overflow-y-auto">
           <RequestAccess />
         </div>
       </AppShell.Main>

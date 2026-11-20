@@ -94,7 +94,7 @@ export function SourcesPane({
       </header>
       {/* `relative`: the rows' screen-reader text is absolutely placed, and would otherwise stretch
           the page under the fold instead of scrolling with the list. */}
-      <div ref={list} className="ws-scrollbar relative min-h-0 flex-1 overflow-y-auto">
+      <div ref={list} className="relative min-h-0 flex-1 overflow-y-auto">
         {shown.length > 0 ? (
           <ol>
             {shown.map((source) => (

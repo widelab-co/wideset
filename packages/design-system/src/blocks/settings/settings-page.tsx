@@ -20,7 +20,7 @@ export function SettingsPage({
   const titleId = useId();
   return (
     <section aria-labelledby={titleId} hidden={hidden} className="flex min-w-0 flex-1 flex-col">
-      <div className="ws-scrollbar min-h-0 flex-1 overflow-y-auto">
+      <div className="min-h-0 flex-1 overflow-y-auto">
         <div className="gap-ws-14 px-ws-16 py-ws-12 flex max-w-[45rem] flex-col">
           <header className="gap-ws-3 flex flex-col">
             <h1 id={titleId} className="typography-title-md text-ws-static-strong">

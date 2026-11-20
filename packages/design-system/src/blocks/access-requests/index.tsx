@@ -266,7 +266,7 @@ export default function AccessRequests() {
           </div>
 
           {/* The page scrolls inside the card, so the card's corners stay put. */}
-          <div className="ws-scrollbar min-h-0 flex-1 overflow-y-auto">
+          <div className="min-h-0 flex-1 overflow-y-auto">
             <AccessPage />
           </div>
         </AppShell.Main>

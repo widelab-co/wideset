@@ -760,7 +760,7 @@ export const StickyHeader: Story = {
       },
       source: {
         code: `
-          <div className="h-44 ws-scrollbar overflow-y-scroll">
+          <div className="h-44 overflow-y-scroll">
             <Table stickyHeader>
               <Table.Head>
                 <Table.Row>
@@ -784,7 +784,7 @@ export const StickyHeader: Story = {
     },
   },
   render: () => (
-    <div className="ws-scrollbar h-44 overflow-y-scroll">
+    <div className="h-44 overflow-y-scroll">
       <Table stickyHeader>
         <Table.Head>
           <Table.Row>
@@ -844,7 +844,7 @@ export const StickyColumn: Story = {
       },
       source: {
         code: `
-          <div className="w-96 ws-scrollbar overflow-x-scroll">
+          <div className="w-96 overflow-x-scroll">
             <Table stickyColumn className="w-[600px]">
               <Table.Head>
                 <Table.Row>
@@ -872,7 +872,7 @@ export const StickyColumn: Story = {
     },
   },
   render: () => (
-    <div className="ws-scrollbar w-96 overflow-x-scroll">
+    <div className="w-96 overflow-x-scroll">
       <Table stickyColumn className="w-[600px]">
         <Table.Head>
           <Table.Row>

@@ -94,7 +94,7 @@ function TeamPage() {
   };
 
   return (
-    <main className="px-ws-16 ws-scrollbar min-w-0 flex-1 overflow-y-auto">
+    <main className="px-ws-16 min-w-0 flex-1 overflow-y-auto">
       <div className="gap-ws-14 py-ws-14 mx-auto flex w-full max-w-[80rem] flex-col">
         <PageHeader seatsUsed={members.length} onInvite={openInvite} inviteRef={headerInvite} />
 

@@ -58,7 +58,7 @@ export function FilesTable({
   );
 
   return (
-    <div className="ws-scrollbar overflow-x-auto">
+    <div className="overflow-x-auto">
       <Table size="md" selectionMode="multiple" className="min-w-[44rem] table-fixed">
         <Table.Head>
           <Table.Row>

@@ -75,7 +75,7 @@ export function NotificationList({
             <Tabs.Content
               key={value}
               value={value}
-              className="px-ws-5 pb-ws-7 ws-scrollbar min-h-0 flex-1 overflow-y-auto"
+              className="px-ws-5 pb-ws-7 min-h-0 flex-1 overflow-y-auto"
             >
               {shown.length === 0 ? (
                 <p role="status" className="sr-only">

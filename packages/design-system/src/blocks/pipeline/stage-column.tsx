@@ -97,7 +97,7 @@ export function StageColumn({
       <div
         ref={listRef}
         data-stage={stage.id}
-        className="-mx-ws-3 px-ws-3 ws-scrollbar relative flex min-h-0 flex-col overflow-y-auto"
+        className="-mx-ws-3 px-ws-3 relative flex min-h-0 flex-col overflow-y-auto"
       >
         {deals.map((deal) => {
           const line = lineAt(deal);

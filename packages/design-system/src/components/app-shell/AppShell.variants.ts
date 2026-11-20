@@ -24,7 +24,7 @@ export const appShellVariants = cva('flex h-dvh', {
  * scrolls inside it, so its corners stay put. Canvas: full-bleed on the grey, no fill of its own;
  * the screen's white sections are its content.
  */
-export const appShellMainVariants = cva('ws-scrollbar min-w-0 flex-1 overflow-y-auto', {
+export const appShellMainVariants = cva('min-w-0 flex-1 overflow-y-auto', {
   variants: {
     direction: {
       flat: '',

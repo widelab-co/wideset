@@ -33,7 +33,7 @@ export function ConnectedTable({ rows, onManage }: ConnectedTableProps) {
         Connected
       </h2>
       {/* On the page's white the table needs no box: its own lines carry it. */}
-      <div className="ws-scrollbar relative overflow-x-auto">
+      <div className="relative overflow-x-auto">
         <Table aria-labelledby={titleId} className="w-full min-w-[52rem] table-fixed">
           <Table.Head>
             <Table.Row>

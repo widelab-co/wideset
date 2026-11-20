@@ -20,7 +20,7 @@ type ReportsTableProps = {
  */
 export function ReportsTable({ entries, today, onDelete }: ReportsTableProps) {
   return (
-    <div className="ws-scrollbar overflow-x-auto">
+    <div className="overflow-x-auto">
       <Table size="md" aria-label="Reports and folders" className="min-w-[44rem] table-fixed">
         <Table.Head>
           <Table.Row>

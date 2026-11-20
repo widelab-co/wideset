@@ -116,7 +116,7 @@ export function DocumentPane({
           <IconAction label="Close document" icon={RiCloseLine} onClick={onClose} />
         </div>
       </header>
-      <div className="ws-scrollbar min-h-0 flex-1 overflow-y-auto">
+      <div className="min-h-0 flex-1 overflow-y-auto">
         <article className="px-ws-14 pt-ws-14 pb-ws-16">
           <Prose blocks={prose} size="lg" level={3} />
         </article>

@@ -22,7 +22,7 @@ export function RestoreTable({
   onRestore: (item: Item) => void;
 }) {
   return (
-    <div className="ws-scrollbar overflow-x-auto">
+    <div className="overflow-x-auto">
       <Table size="md" className="min-w-[44rem] table-fixed">
         <Table.Head>
           <Table.Row>

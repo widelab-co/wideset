@@ -133,7 +133,7 @@ export function ChangesPane({ reveal, threads, onThreadsChange, onAsk }: Changes
         }
       />
 
-      <div ref={scroller} className="ws-scrollbar min-h-0 flex-1 overflow-y-auto">
+      <div ref={scroller} className="min-h-0 flex-1 overflow-y-auto">
         {FILES.map((file) => (
           <FileSection
             key={file.path}

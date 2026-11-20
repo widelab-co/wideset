@@ -15,7 +15,7 @@ export const fileButtonId = (id: string) => `file-${id}`;
  */
 export function FileList({ files, onOpen }: { files: FileItem[]; onOpen: (id: string) => void }) {
   return (
-    <div className="ws-scrollbar overflow-x-auto">
+    <div className="overflow-x-auto">
       <Table size="md" interactive className="min-w-[40rem] table-fixed">
         <Table.Head>
           <Table.Row>

@@ -12,7 +12,7 @@ export function Code({ children }: { children: ReactNode }) {
  */
 export function CodeBlock({ lines }: { lines: string[] }) {
   return (
-    <pre className="border-ws-static-base rounded-ws-container-md px-ws-9 py-ws-7 typography-body-md text-ws-static-strong font-ws-mono ws-scrollbar overflow-x-auto border">
+    <pre className="border-ws-static-base rounded-ws-container-md px-ws-9 py-ws-7 typography-body-md text-ws-static-strong font-ws-mono overflow-x-auto border">
       <code>{lines.join('\n')}</code>
     </pre>
   );

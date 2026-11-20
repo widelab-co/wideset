@@ -64,7 +64,7 @@ export default function Kanban() {
                 Create
               </Button>
             </div>
-            <div className="gap-ws-9 px-ws-11 ws-scrollbar flex min-h-0 flex-1 overflow-x-auto">
+            <div className="gap-ws-9 px-ws-11 flex min-h-0 flex-1 overflow-x-auto">
               {visibleColumns.map((column) => (
                 <KanbanColumn key={column.id} column={column} />
               ))}

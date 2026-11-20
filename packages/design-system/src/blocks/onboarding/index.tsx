@@ -22,7 +22,7 @@ export default function Onboarding() {
       <OnboardingSidebar progress={`${done.length}/${steps.length}`} />
       <AppShell.Main>
         {/* The page scrolls inside the card, so the card's corners stay put. */}
-        <div className="ws-scrollbar min-h-0 flex-1 overflow-y-auto">
+        <div className="min-h-0 flex-1 overflow-y-auto">
           <div className="px-ws-16 gap-ws-16 py-ws-16 mx-auto flex w-full max-w-[52rem] flex-col">
             <header className="gap-ws-3 flex flex-col">
               <h1 className="typography-title-md text-ws-static-strong">

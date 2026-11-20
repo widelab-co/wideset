@@ -6,7 +6,7 @@ import { fieldFocusMotion, fieldShakeWithinMotion } from '../../motion/recipes';
 export const textareaVariants = cva(
   cn(
     'text-ws-static-strong relative flex items-center',
-    'ws-scrollbar box-border h-full min-h-lh resize-none overflow-auto overscroll-auto outline-hidden',
+    'box-border h-full min-h-lh resize-none overflow-auto overscroll-auto outline-hidden',
   ),
   {
     variants: {

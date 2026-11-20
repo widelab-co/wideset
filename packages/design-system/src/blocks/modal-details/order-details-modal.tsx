@@ -49,7 +49,7 @@ export function OrderDetailsModal({
           if (event.currentTarget instanceof HTMLElement) event.currentTarget.focus();
         }}
       >
-        <div className="ws-scrollbar flex min-h-0 flex-1 flex-col overflow-y-auto">
+        <div className="flex min-h-0 flex-1 flex-col overflow-y-auto">
           <div className="gap-ws-12 p-ws-11 relative flex flex-col items-start">
             <OrderThumbnail icon={order.icon} />
             <div className="flex w-full flex-col">

@@ -55,7 +55,7 @@ exports[`Modal Snapshots > matches snapshot for default modal 1`] = `
       </p>
     </div>
     <div
-      class="p-ws-11 ws-scrollbar grow overflow-y-auto"
+      class="p-ws-11 grow overflow-y-auto"
       data-slot="modal-body"
     >
       Snapshot Content
@@ -168,7 +168,7 @@ exports[`Modal Snapshots > matches snapshot for persistent modal 1`] = `
       </h2>
     </div>
     <div
-      class="p-ws-11 ws-scrollbar grow overflow-y-auto"
+      class="p-ws-11 grow overflow-y-auto"
       data-slot="modal-body"
     >
       Persistent content

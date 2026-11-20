@@ -28,7 +28,7 @@ export function CustomersTable({
   onAssignToMe: (id: string) => void;
 }) {
   return (
-    <div className="ws-scrollbar overflow-x-auto">
+    <div className="overflow-x-auto">
       <Table size="md" className="min-w-[60rem] table-fixed">
         <Table.Head>
           <Table.Row>
