@@ -16,6 +16,9 @@ export const modalContainerVariants = cva(
     'max-w-[600px]',
     VIEWPORT_INSET,
     'bg-ws-static-overlay border-ws-dynamic-secondary-default shadow-ws-high',
+    // The dialog itself can take focus (nothing focusable inside, or a consumer's
+    // onOpenAutoFocus); it needs no ring, and without this the browser draws its own.
+    'outline-hidden',
   ),
 );
 
