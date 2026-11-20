@@ -220,6 +220,8 @@ export const useSpreadsheetLayout = (
   }, [scrollerRef, tableRef, stickyColumns, store, focusWithin]);
 };
 
+const CONTROL_ATTRIBUTES = new Set(['tabindex', 'href', 'contenteditable', 'type', 'controls']);
+
 /**
  * Keeps the controls in the cells out of the tab order, those rendered later included, so that
  * the active cell is the grid's one tab stop (see `removeFromTabOrder`).
@@ -234,17 +236,22 @@ export const useSpreadsheetControls = (tableRef: RefObject<HTMLTableElement | nu
       childList: true,
       subtree: true,
       attributes: true,
-      attributeFilter: ['tabindex', 'href', 'contenteditable', 'type', 'controls'],
     };
     // New rows and content, and a control that becomes a tab stop again (a re-render setting
     // its tabIndex, a link gaining an href).
     const observer = new MutationObserver((records) => {
+      // An observer's attributeFilter omits namespaced attributes such as SVG xlink:href.
+      const relevant = records.filter(
+        ({ type, attributeName }) =>
+          type === 'childList' || (attributeName !== null && CONTROL_ATTRIBUTES.has(attributeName)),
+      );
+      if (!relevant.length) return;
       // Only authored mutations reach this observer: disconnect while writing the grid's -1.
       // Even an authored -1 replacing our identical -1 must update the remembered attribute.
       observer.disconnect();
       const changed = new Map<Element, boolean>();
       const editableParents = new Set<Element>();
-      for (const record of records) {
+      for (const record of relevant) {
         if (record.type === 'attributes') {
           const element = record.target as Element;
           changed.set(element, changed.get(element) || record.attributeName === 'tabindex');
@@ -255,7 +262,7 @@ export const useSpreadsheetControls = (tableRef: RefObject<HTMLTableElement | nu
       changed.forEach((tabIndexChanged, element) => removeFromTabOrder(element, tabIndexChanged));
       // Changing an ancestor can make a descendant an independent editing host.
       editableParents.forEach(removeAllFromTabOrder);
-      records.forEach((record) => {
+      relevant.forEach((record) => {
         record.addedNodes.forEach((node) => {
           if (node instanceof Element) removeAllFromTabOrder(node);
         });

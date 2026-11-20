@@ -544,9 +544,13 @@ describe('Spreadsheet', () => {
         </OneCell>,
       );
       const link = document.createElementNS('http://www.w3.org/2000/svg', 'a');
-      link.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', '#details');
       await act(async () => screen.getByRole('img', { name: 'Diagram' }).append(link));
+      expect(link).not.toHaveAttribute('tabindex');
+      const xlink = 'http://www.w3.org/1999/xlink';
+      await act(async () => link.setAttributeNS(xlink, 'xlink:href', '#details'));
       expect(link).toHaveAttribute('tabindex', '-1');
+      await act(async () => link.removeAttributeNS(xlink, 'href'));
+      expect(link).not.toHaveAttribute('tabindex');
       expect(screen.getByAltText('Location')).toHaveAttribute('tabindex', '-1');
     });
 
