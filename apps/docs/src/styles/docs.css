@@ -429,6 +429,9 @@ body.docs :is(.docs-snippet pre, .docs-code pre, .docs-code .docs-code-fallback)
 body.docs .docs-code pre {
   padding-top: 16px;
 }
+body.docs .docs-code--prompt :is(pre, .docs-code-fallback) {
+  padding: 16px 48px 16px 16px;
+}
 body.docs .docs-prose pre:not(.docs-code pre) {
   position: relative;
   margin: 0;
