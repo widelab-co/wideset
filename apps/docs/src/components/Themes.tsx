@@ -25,6 +25,7 @@ import {
 import {
   createContext,
   type CSSProperties,
+  type KeyboardEvent,
   type ReactNode,
   useContext,
   useEffect,
@@ -273,7 +274,16 @@ const Tile = ({
         'flex min-h-[8.5rem] flex-1 flex-col justify-between rounded-ws-container-md p-ws-9',
         className,
       )}
-      style={{ ...style, ...(className ? {} : { color: light ? '#0a0a0a' : '#ffffff' }) }}
+      style={{
+        ...style,
+        ...(className
+          ? {}
+          : {
+              color: light
+                ? 'var(--ws-colors-light-neutral-1100)'
+                : 'var(--ws-colors-light-neutral-0)',
+            }),
+      }}
     >
       <p className="typography-label-sm">
         {name}
@@ -294,7 +304,7 @@ const Foundation = () => {
     <div className="grid flex-1 gap-ws-9 lg:grid-cols-2">
       <div className="grid grid-cols-2 items-center gap-ws-11 rounded-ws-container-md border border-ws-static-subtle bg-ws-static-foreground p-ws-11">
         <div className="flex flex-col gap-ws-5">
-          <span className="text-[4.5rem] leading-none text-ws-static-strong">Aa</span>
+          <span className="text-ws-1800 leading-ws-1800 text-ws-static-strong">Aa</span>
           <span className="border-t border-ws-static-subtle pt-ws-5 typography-body-md text-ws-static-subtle">
             {preset?.font ?? 'Inter'}
           </span>
@@ -332,18 +342,18 @@ const Identity = () => {
   const hatch =
     'bg-[repeating-linear-gradient(135deg,transparent_0_6px,var(--border-color-ws-static-subtle)_6px_7px)]';
   return (
-    <div className="grid min-h-[10rem] flex-1 grid-cols-[2.5rem_minmax(0,1fr)_2.5rem] overflow-hidden rounded-ws-container-sm border border-dashed border-ws-static-base">
+    <div className="grid min-h-ws-28 flex-1 grid-cols-[var(--spacing-ws-16)_minmax(0,1fr)_var(--spacing-ws-16)] overflow-hidden rounded-ws-container-sm border border-dashed border-ws-static-base">
       <div className={hatch} />
       <div className="flex flex-col items-center justify-center gap-ws-7 border-x border-dashed border-ws-static-base text-ws-static-strong">
         {preset && preset.id !== 'wideset' ? (
           // A third-party brand shows as its name in the specimen font, not as its logo.
-          <span className="text-[2rem] leading-[2.5rem] font-ws-semibold tracking-ws-tight-100">
+          <span className="text-ws-800 leading-ws-1000 font-ws-semibold tracking-ws-tight-100">
             {preset.label}
           </span>
         ) : (
           <WidesetWordmark width={120} />
         )}
-        <span className="typography-caption-md tracking-widest text-ws-static-subtle uppercase">
+        <span className="typography-caption-md tracking-ws-wide-300 text-ws-static-subtle uppercase">
           Logo
         </span>
       </div>
@@ -411,7 +421,7 @@ const Assets = () => {
         </div>
         <div className="flex flex-1 flex-col gap-ws-9 rounded-ws-container-md border border-ws-static-subtle p-ws-9">
           {/* The design's illustration is a brand picture; a quiet tile stands in for it. */}
-          <div className="grid min-h-[7rem] flex-1 place-items-center rounded-ws-container-sm bg-ws-static-alpha-subtle text-ws-dynamic-primary-default">
+          <div className="grid min-h-ws-25 flex-1 place-items-center rounded-ws-container-sm bg-ws-static-alpha-subtle text-ws-dynamic-primary-default">
             <RiDashboardLine className="size-ws-14" aria-hidden="true" />
           </div>
           <div className="flex flex-col gap-ws-3 text-center">
@@ -601,36 +611,39 @@ const BillingScreen = () => {
             </Card.Action>
           </div>
         </Card.Header>
-        <Table className="w-full whitespace-nowrap">
-          <Table.Head>
-            <Table.Row>
-              <Table.Header className="pl-ws-11">Invoice</Table.Header>
-              <Table.Header>Date</Table.Header>
-              <Table.Header className="w-full">Description</Table.Header>
-              <Table.Header align="right">Amount</Table.Header>
-              <Table.Header className="pr-ws-11">Status</Table.Header>
-            </Table.Row>
-          </Table.Head>
-          <Table.Body className="[&>tr:last-child>td]:border-b-0">
-            {rows.map((invoice) => (
-              <Table.Row key={invoice.id}>
-                <Table.Cell className="pl-ws-11 text-ws-static-strong tabular-nums">
-                  {invoice.id}
-                </Table.Cell>
-                <Table.Cell className="tabular-nums">{invoice.date}</Table.Cell>
-                <Table.Cell>{invoice.what}</Table.Cell>
-                <Table.Cell align="right" className="tabular-nums">
-                  {invoice.amount}
-                </Table.Cell>
-                <Table.Cell className="pr-ws-11">
-                  <StatusBadge color={invoice.paid ? 'positive' : 'negative'} size="sm">
-                    {invoice.paid ? 'Paid' : 'Failed'}
-                  </StatusBadge>
-                </Table.Cell>
+        {/* A narrow window scrolls the table instead of the card clipping its last columns. */}
+        <div className="overflow-x-auto">
+          <Table className="w-full whitespace-nowrap">
+            <Table.Head>
+              <Table.Row>
+                <Table.Header className="pl-ws-11">Invoice</Table.Header>
+                <Table.Header>Date</Table.Header>
+                <Table.Header className="w-full">Description</Table.Header>
+                <Table.Header align="right">Amount</Table.Header>
+                <Table.Header className="pr-ws-11">Status</Table.Header>
               </Table.Row>
-            ))}
-          </Table.Body>
-        </Table>
+            </Table.Head>
+            <Table.Body className="[&>tr:last-child>td]:border-b-0">
+              {rows.map((invoice) => (
+                <Table.Row key={invoice.id}>
+                  <Table.Cell className="pl-ws-11 text-ws-static-strong tabular-nums">
+                    {invoice.id}
+                  </Table.Cell>
+                  <Table.Cell className="tabular-nums">{invoice.date}</Table.Cell>
+                  <Table.Cell>{invoice.what}</Table.Cell>
+                  <Table.Cell align="right" className="tabular-nums">
+                    {invoice.amount}
+                  </Table.Cell>
+                  <Table.Cell className="pr-ws-11">
+                    <StatusBadge color={invoice.paid ? 'positive' : 'negative'} size="sm">
+                      {invoice.paid ? 'Paid' : 'Failed'}
+                    </StatusBadge>
+                  </Table.Cell>
+                </Table.Row>
+              ))}
+            </Table.Body>
+          </Table>
+        </div>
       </Card>
     </div>
   );
@@ -640,6 +653,7 @@ const SWATCH =
   'size-ws-13 rounded-ws-control-full outline-offset-2 outline-ws-static-strong focus-visible:outline-2';
 const FIELD = 'flex items-center gap-ws-5';
 const FIELD_LABEL = 'typography-label-sm text-ws-static-subtle';
+const capitalize = (word: string) => word.charAt(0).toUpperCase() + word.slice(1);
 
 /** The Themes page under its head: presets, Customize, the cards, the export. */
 const Themes = () => {
@@ -702,11 +716,11 @@ const Themes = () => {
   if (preset?.stack) lines.push(`  --font-ws-sans: ${preset.stack};`);
   const text = (colour: string) => ON_PRIMARY.map((name) => `  ${name}: ${colour};`);
   const lightOn = preset?.onPrimary?.light ?? customOn;
+  const darkOn = preset?.onPrimary?.dark ?? customOn;
   if (lightOn) lines.push(...text(lightOn));
-  const dark =
-    preset?.onPrimary?.dark && preset.onPrimary.dark !== preset.onPrimary.light
-      ? `\n.dark {\n${text(preset.onPrimary.dark).join('\n')}\n}`
-      : '';
+  // Wideset re-declares the text on the primary under `.dark`, which wins over `:root` wherever
+  // the class sits below the root: dark mode restates it, as the cards do.
+  const dark = darkOn ? `\n.dark {\n${text(darkOn).join('\n')}\n}` : '';
   // The stack names the brand's font; the app loads it (Wideset loads none).
   const fontNote = preset?.stack
     ? `/* Load ${preset.font} in your app first (400, 500 and 600), e.g. from Google Fonts. */\n`
@@ -722,6 +736,20 @@ const Themes = () => {
       brand: item.brand,
       radius: item.radius,
     }));
+
+  const checkedSwatch = preset ? '' : theme.brand;
+  const pickSwatch = (name: string) =>
+    setTheme((current) => ({ ...current, preset: null, brand: name }));
+  /** The radio group's arrow keys: move to the next or previous swatch and pick it. */
+  const moveSwatch = (event: KeyboardEvent<HTMLDivElement>) => {
+    const step = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[event.key];
+    const from = (event.target as HTMLElement).dataset.swatch;
+    if (!step || !from) return;
+    event.preventDefault();
+    const next = SYSTEM[(SYSTEM.indexOf(from) + step + SYSTEM.length) % SYSTEM.length];
+    pickSwatch(next);
+    event.currentTarget.querySelector<HTMLElement>(`[data-swatch="${next}"]`)?.focus();
+  };
 
   return (
     <Scope.Provider
@@ -756,22 +784,34 @@ const Themes = () => {
               <span id="theme-brand" className={FIELD_LABEL}>
                 Brand colour
               </span>
-              <div role="radiogroup" aria-labelledby="theme-brand" className="flex gap-ws-4">
-                {SYSTEM.map((name) => (
-                  // ds-exempt: a colour swatch is its own colour; no library control draws one.
-                  <button
-                    key={name}
-                    type="button"
-                    role="radio"
-                    aria-checked={!preset && theme.brand === name}
-                    aria-label={name === 'brand' ? 'Wideset' : name}
-                    onClick={() =>
-                      setTheme((current) => ({ ...current, preset: null, brand: name }))
-                    }
-                    className={cn(SWATCH, !preset && theme.brand === name && 'outline-2')}
-                    style={{ background: `var(--ws-colors-light-${name}-600)` }}
-                  />
-                ))}
+              {/* eslint-disable-next-line jsx-a11y/interactive-supports-focus -- the focus is on the checked radio; the group only hears its arrow keys */}
+              <div
+                role="radiogroup"
+                aria-labelledby="theme-brand"
+                className="flex gap-ws-4"
+                onKeyDown={moveSwatch}
+              >
+                {SYSTEM.map((name) => {
+                  const checked = !preset && theme.brand === name;
+                  // One tab stop for the group: the checked swatch, or the first when none is.
+                  const tabbable =
+                    checked || (!SYSTEM.includes(checkedSwatch) && name === SYSTEM[0]);
+                  return (
+                    // ds-exempt: a colour swatch is its own colour; no library control draws one.
+                    <button
+                      key={name}
+                      type="button"
+                      role="radio"
+                      data-swatch={name}
+                      aria-checked={checked}
+                      aria-label={name === 'brand' ? 'Wideset' : capitalize(name)}
+                      tabIndex={tabbable ? 0 : -1}
+                      onClick={() => pickSwatch(name)}
+                      className={cn(SWATCH, checked && 'outline-2')}
+                      style={{ background: `var(--ws-colors-light-${name}-600)` }}
+                    />
+                  );
+                })}
                 <Tooltip>
                   <Tooltip.Trigger asChild>
                     {/* One more swatch: any colour, from the system's picker. */}
