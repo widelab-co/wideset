@@ -144,7 +144,7 @@ export default function AgentSessions() {
         />
 
         {/* The page scrolls inside the card, so the card's corners stay put. */}
-        <div className="min-h-0 flex-1 overflow-y-auto">
+        <div className="ws-scrollbar min-h-0 flex-1 overflow-y-auto">
           <div className={cn(COLUMN, 'gap-ws-12 pt-ws-14 pb-ws-16 flex flex-col')}>
             <PageHeader />
             <section aria-label="Sessions" className="gap-ws-9 flex flex-col">

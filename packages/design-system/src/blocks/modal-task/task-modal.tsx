@@ -61,7 +61,7 @@ export function TaskModal({ task, open, onOpenChange }: TaskModalProps) {
         </div>
 
         {/* The line over the footer is this region's, so it stays while the content scrolls. */}
-        <div className="border-ws-static-base flex min-h-0 flex-1 flex-col overflow-y-auto border-b">
+        <div className="border-ws-static-base ws-scrollbar flex min-h-0 flex-1 flex-col overflow-y-auto border-b">
           <div className="px-ws-11 pt-ws-11 pb-ws-9 flex flex-col">
             <Modal.Title className="-mt-ws-2">{task.title}</Modal.Title>
             <Modal.Description className="mt-ws-4 pb-ws-0">{task.due}</Modal.Description>

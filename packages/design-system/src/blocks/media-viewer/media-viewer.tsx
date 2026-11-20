@@ -186,7 +186,7 @@ export function MediaViewer({
               tabIndex={0}
               role="region"
               aria-label="File"
-              className="focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default h-full overflow-auto focus-visible:-outline-offset-4"
+              className="focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default ws-scrollbar h-full overflow-auto focus-visible:-outline-offset-4"
             >
               <div className="px-ws-20 py-ws-16 flex min-h-full w-max min-w-full items-center justify-center">
                 <FilePreview file={file} scale={scale} />

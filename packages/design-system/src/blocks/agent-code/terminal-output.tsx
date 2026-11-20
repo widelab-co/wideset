@@ -59,7 +59,7 @@ export function TerminalOutput({ runs }: { runs: Run[] }) {
   }, [runs]);
 
   return (
-    <div ref={scroller} className="h-full overflow-y-auto">
+    <div ref={scroller} className="ws-scrollbar h-full overflow-y-auto">
       <div
         role="log"
         aria-label="Output"

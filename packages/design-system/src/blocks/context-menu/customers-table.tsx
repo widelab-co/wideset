@@ -64,7 +64,7 @@ export function CustomersTable({ rows, menuFor, onOpen, onMenu, onAction }: Cust
 
   return (
     // Narrower than its columns, the table scrolls sideways inside its own area.
-    <div className="overflow-x-auto">
+    <div className="ws-scrollbar overflow-x-auto">
       <Table size="md" interactive className="min-w-[60rem] table-fixed">
         <Table.Head>
           <Table.Row>

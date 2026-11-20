@@ -69,7 +69,7 @@ export function PreviewConsole({ id, messages, onClear, onClose }: PreviewConsol
           ref={scroller}
           role="log"
           aria-label="Messages"
-          className="font-ws-mono typography-body-sm tracking-ws-normal text-ws-static-base pb-ws-5 min-h-0 overflow-y-auto"
+          className="font-ws-mono typography-body-sm tracking-ws-normal text-ws-static-base pb-ws-5 ws-scrollbar min-h-0 overflow-y-auto"
         >
           {messages.map(({ id: key, level, text, source }) => {
             const { Icon, className, name } = LEVEL[level];

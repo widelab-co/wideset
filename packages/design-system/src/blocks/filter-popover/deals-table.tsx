@@ -32,7 +32,7 @@ export function DealsTable({
   });
 
   return (
-    <div className="overflow-x-auto">
+    <div className="ws-scrollbar overflow-x-auto">
       <Table size="md" className="min-w-[56rem] table-fixed">
         <Table.Head>
           <Table.Row>

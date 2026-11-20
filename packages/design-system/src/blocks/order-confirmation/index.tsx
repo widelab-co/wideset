@@ -50,7 +50,7 @@ export default function OrderConfirmation() {
         </div>
 
         {/* The page scrolls inside the card, so the card's corners stay put. */}
-        <div className="min-h-0 flex-1 overflow-y-auto">
+        <div className="ws-scrollbar min-h-0 flex-1 overflow-y-auto">
           {/* A confirmation is read, not scanned: one column of 40rem, centred on the page. */}
           <div className="px-ws-14 gap-ws-14 pt-ws-14 pb-ws-16 mx-auto flex w-full max-w-[44rem] flex-col">
             <ConfirmationHeader />
