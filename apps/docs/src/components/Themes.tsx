@@ -37,9 +37,10 @@ import {
   useState,
 } from 'react';
 
+import { highlight } from '../lib/highlight';
 import { LADDERS, type Radius, STEPS } from '../lib/radius';
 import { isDark, loadAppearance, onAppearanceChange } from '../lib/theme';
-import { Code, useCopy } from './parts';
+import { useCopy } from './parts';
 import { WidesetWordmark } from './Wordmark';
 
 /**
@@ -673,10 +674,19 @@ const capitalize = (word: string) => word.charAt(0).toUpperCase() + word.slice(1
 
 /**
  * The theme's CSS, after the "Get code" dialog of shadcn/ui's theme builder: a button at the top of
- * the page opens it; the code keeps its own copy icon and the footer copies all of it.
+ * the page opens it; the code is the dialog's body itself, on a soft grey ground that scrolls both
+ * ways in one place, and the footer copies all of it.
  */
 const GetCode = ({ css }: { css: string }) => {
   const { copied, copy } = useCopy();
+  const [html, setHtml] = useState<string | null>(null);
+  useEffect(() => {
+    let live = true;
+    highlight(css, 'css').then((result) => live && setHtml(result));
+    return () => {
+      live = false;
+    };
+  }, [css]);
   return (
     <Modal>
       <Modal.Trigger asChild>
@@ -685,7 +695,8 @@ const GetCode = ({ css }: { css: string }) => {
           Get code
         </Button>
       </Modal.Trigger>
-      <Modal.Content className="max-w-[48rem]">
+      {/* At most 40rem tall (the code scrolls in the body), and the Modal's own inset below that. */}
+      <Modal.Content className="max-h-[min(40rem,calc(100%-2*var(--spacing-ws-5)))] max-w-[48rem]">
         <Modal.Header>
           <Modal.Title>Your theme</Modal.Title>
           <Modal.Description>
@@ -693,8 +704,10 @@ const GetCode = ({ css }: { css: string }) => {
             sets them, the font and the text on the primary.
           </Modal.Description>
         </Modal.Header>
-        <Modal.Body>
-          <Code code={css} lang="css" />
+        {/* `docs-snippet` for the site's code colours; its <pre> neither scrolls nor pads itself
+            here (the site's rule sets both), so the body is the one scroller. */}
+        <Modal.Body className="docs-snippet overflow-auto bg-ws-static-alpha-subtle p-0 [&_pre]:w-max [&_pre]:min-w-full [&_pre]:overflow-visible! [&_pre]:p-ws-11!">
+          {html ? <div dangerouslySetInnerHTML={{ __html: html }} /> : <pre>{css}</pre>}
         </Modal.Body>
         <Modal.Footer>
           <Modal.Close asChild>
