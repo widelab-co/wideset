@@ -158,6 +158,7 @@ export function markBlockBoundaries(source, path, isEntry) {
     ts.forEachChild(node, markPortals);
   };
   markPortals(tree);
+  if (!isEntry) return edits;
 
   // Root candidates come only from the JSX the default export returns, following components
   // declared in this file, so a helper the screen never renders cannot add a candidate.
@@ -166,19 +167,20 @@ export function markBlockBoundaries(source, path, isEntry) {
     (ts.isArrowFunction(node) || ts.isFunctionExpression(node) || ts.isFunctionDeclaration(node));
   const unwrap = (node) =>
     node && ts.isParenthesizedExpression(node) ? unwrap(node.expression) : node;
-  const components = new Map();
-  const collect = (node) => {
-    if (ts.isFunctionDeclaration(node) && node.name) components.set(node.name.text, node);
-    if (
-      ts.isVariableDeclaration(node) &&
-      ts.isIdentifier(node.name) &&
-      isFunction(unwrap(node.initializer))
-    ) {
-      components.set(node.name.text, unwrap(node.initializer));
-    }
-    ts.forEachChild(node, collect);
+  // Bind just this file. TypeScript resolves local JSX names in their lexical scope.
+  const options = { noLib: true, noResolve: true, types: [] };
+  const host = ts.createCompilerHost(options);
+  host.getSourceFile = (fileName) => (fileName === path ? tree : undefined);
+  const checker = ts.createProgram([path], options, host).getTypeChecker();
+  const resolveComponent = (identifier) => {
+    const binding = checker.resolveName(identifier.text, identifier, ts.SymbolFlags.Value, true);
+    const declaration = binding?.valueDeclaration;
+    if (!declaration) return undefined;
+    const fn = ts.isVariableDeclaration(declaration)
+      ? unwrap(declaration.initializer)
+      : declaration;
+    return isFunction(fn) ? fn : undefined;
   };
-  collect(tree);
   let entry;
   for (const statement of tree.statements) {
     if (ts.isFunctionDeclaration(statement)) {
@@ -189,7 +191,7 @@ export function markBlockBoundaries(source, path, isEntry) {
     } else if (ts.isExportAssignment(statement)) {
       const value = unwrap(statement.expression);
       entry = ts.isIdentifier(value)
-        ? components.get(value.text)
+        ? resolveComponent(value)
         : isFunction(value)
           ? value
           : undefined;
@@ -227,22 +229,22 @@ export function markBlockBoundaries(source, path, isEntry) {
           insideRoot = true;
         }
       }
-      const component = components.get(tag);
-      if (component) follow(component, insideRoot);
+      if (ts.isIdentifier(element.tagName)) {
+        const component = resolveComponent(element.tagName);
+        if (component) follow(component, insideRoot);
+      }
     }
     ts.forEachChild(node, (child) => visit(child, insideRoot));
   };
 
-  if (isEntry) {
-    if (!entry) throw new Error(`build-registry: no default export found in ${path}`);
-    follow(entry, false);
-    // Screen helpers may render their own native roots. Prefer the screen's
-    // AppShell, including when the entry delegates through a provider.
-    const roots = [...(shells.size ? shells : nativeRoots)];
-    if (roots.length !== 1)
-      throw new Error(`build-registry: expected one block root in ${path}, found ${roots.length}`);
-    mark(roots[0]);
-  }
+  if (!entry) throw new Error(`build-registry: no default export found in ${path}`);
+  follow(entry, false);
+  // Screen helpers may render their own native roots. Prefer the screen's
+  // AppShell, including when the entry delegates through a provider.
+  const roots = [...(shells.size ? shells : nativeRoots)];
+  if (roots.length !== 1)
+    throw new Error(`build-registry: expected one block root in ${path}, found ${roots.length}`);
+  mark(roots[0]);
   return edits;
 }
 

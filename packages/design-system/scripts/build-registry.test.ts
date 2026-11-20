@@ -208,6 +208,31 @@ describe('registry build', () => {
     const sharedBody = `function Body() {\n  return <section />;\n}\n\nexport default function Screen() {\n  return (\n    <>\n      <main>\n        <Body />\n      </main>\n      <Body />\n    </>\n  );\n}\n`;
     expect(() => apply(sharedBody)).toThrow(/found 2/);
 
+    const unrelatedBinding = `
+      function Content() {
+        return <main />;
+      }
+      function Unused() {
+        const Content = () => null;
+        return <Content />;
+      }
+      export default function Screen() {
+        return <Content />;
+      }
+    `;
+    expect(apply(unrelatedBinding)).toContain('<main className="ws-block-utility" />');
+
+    const localBinding = `
+      const Content = () => null;
+      function Screen() {
+        const Content = () => <main />;
+        const Wrapper = () => <Content />;
+        return <Wrapper />;
+      }
+      export default Screen;
+    `;
+    expect(apply(localBinding)).toContain('<main className="ws-block-utility" />');
+
     const nested = `export default function Screen() {\n  function Hint() {\n    return <span>hint</span>;\n  }\n  return (\n    <main>\n      <Hint />\n    </main>\n  );\n}\n`;
     expect(apply(nested)).toContain('<main className="ws-block-utility">');
     expect(apply(nested)).toContain('<span>hint</span>');
