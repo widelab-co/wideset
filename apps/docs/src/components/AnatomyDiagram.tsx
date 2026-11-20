@@ -315,10 +315,8 @@ const TRANSLATE: Record<Side, string> = {
 
 /**
  * The Anatomy picture: the component at its real size with each part named beside it, level
- * with it. Hovering a name, or its row in the table below, turns the name into a badge and
- * outlines the part and opens a popup with the tokens the part binds, read from its classes
- * (also on keyboard focus of a name, and on a tap). Parts are found by their `data-slot`, so the
- * picture follows the component's real DOM rather than a drawing of it.
+ * with it. Hovering a name or its table row highlights the part. Activating the name opens
+ * the tokens read from the part's classes. The picture finds each part by its `data-slot`.
  */
 const AnatomyDiagram = ({
   component,
@@ -337,9 +335,19 @@ const AnatomyDiagram = ({
   const [drawn, setDrawn] = useState<Drawing | null>(null);
   const [frameWidth, setFrameWidth] = useState(0);
   const [active, setActive] = useState<number | null>(null);
+  const [tokensPart, setTokensPart] = useState<number | null>(null);
+  const tokensTrigger = useRef<HTMLButtonElement>(null);
+  const hoveredName = useRef<number | null>(null);
   /** The part last highlighted: the scrim fades out around it instead of jumping away. */
   const [shown, setShown] = useState<number | null>(null);
   useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    const closeWhenLeaving = () => {
+      if (new URLSearchParams(location.search).get('tab') !== 'anatomy') setTokensPart(null);
+    };
+    window.addEventListener('popstate', closeWhenLeaving);
+    return () => window.removeEventListener('popstate', closeWhenLeaving);
+  }, []);
 
   // Measure the drawing when it renders or changes size (fonts, a narrower frame rewrapping
   // it); follow the frame's width. A transform changes neither, so this never loops.
@@ -374,7 +382,6 @@ const AnatomyDiagram = ({
   const highlight = (n: number | null) => {
     window.clearTimeout(leaving.current);
     if (n === null) {
-      // Long enough to cross from a part to its popup.
       leaving.current = window.setTimeout(() => setActive(null), 160);
       return;
     }
@@ -438,7 +445,8 @@ const AnatomyDiagram = ({
   // Mounted from the start (on the first part, unseen), so the first hover fades it in.
   const focus = drawn?.parts.find((part) => part.n === shown) ?? drawn?.parts[0];
   const on = active !== null;
-  const info = parts.find((part) => part.n === shown);
+  const info = parts.find((part) => part.n === tokensPart);
+  const tokenFocus = drawn?.parts.find((part) => part.n === tokensPart);
   /** The part in view holds every other drawn part (the root): then nothing fades. */
   const whole =
     !focus ||
@@ -458,12 +466,10 @@ const AnatomyDiagram = ({
     const right = left + drawn.width * view.zoom;
     return Math.max(left, document.documentElement.clientWidth - right) >= 316;
   })();
-  /** A mouse hovers; a finger taps to open and taps again to close. */
+  /** Pointer hover only highlights the part. */
   const hover = (n: number) => ({
     onPointerEnter: (event: React.PointerEvent) => event.pointerType === 'mouse' && highlight(n),
     onPointerLeave: (event: React.PointerEvent) => event.pointerType === 'mouse' && highlight(null),
-    onPointerDown: (event: React.PointerEvent) =>
-      event.pointerType !== 'mouse' && highlight(active === n ? null : n),
   });
   /** A part's box in the frame: the drawing's rect, moved and scaled as the drawing is. */
   const boxOf = (rect: Rect) =>
@@ -524,17 +530,28 @@ const AnatomyDiagram = ({
           // What the anatomy audit counts as a name.
           data-anatomy-name
           aria-label={`${parts.find((part) => part.n === n)?.part ?? label}: tokens`}
-          aria-expanded={active === n && Boolean(info)}
+          aria-expanded={tokensPart === n}
           onFocus={() => highlight(n)}
-          // Enter or Space opens the tokens again after Escape closed them. Only the keyboard's
-          // click (no pointer, `detail` 0): the pointer already opens them on hover or tap.
-          onClick={(event) => event.detail === 0 && highlight(n)}
-          // Focus moving into the popup (a click on one of its rows) keeps it open.
-          onBlur={(event) =>
-            !event.relatedTarget?.closest('[data-anatomy-tokens]') && highlight(null)
-          }
-          {...hover(n)}
-          className={`${LABEL_BOX} absolute cursor-default outline-ws-dynamic-primary-strong-default transition-[color,background-color,opacity,font-weight] ease-out focus-visible:wds-focus-visible motion-reduce:transition-opacity ${active === n ? 'bg-ws-static-foreground text-ws-static-strong duration-(--ws-motion-duration-micro)' : 'text-ws-static-subtle duration-[60ms]'}`}
+          onClick={(event) => {
+            tokensTrigger.current = event.currentTarget;
+            setTokensPart((part) => (part === n ? null : n));
+          }}
+          onBlur={(event) => {
+            if (hoveredName.current === n) return;
+            if (event.relatedTarget?.closest('[data-anatomy-tokens]')) return;
+            highlight(null);
+          }}
+          onPointerEnter={(event) => {
+            if (event.pointerType !== 'mouse') return;
+            hoveredName.current = n;
+            highlight(n);
+          }}
+          onPointerLeave={(event) => {
+            if (event.pointerType !== 'mouse') return;
+            hoveredName.current = null;
+            highlight(null);
+          }}
+          className={`${LABEL_BOX} absolute cursor-pointer outline-ws-dynamic-primary-strong-default transition-[color,background-color,opacity,font-weight] ease-out focus-visible:wds-focus-visible motion-reduce:transition-opacity ${active === n ? 'bg-ws-static-foreground text-ws-static-strong duration-(--ws-motion-duration-micro)' : 'text-ws-static-subtle duration-[60ms]'}`}
           style={{
             left: x,
             top: y,
@@ -559,11 +576,18 @@ const AnatomyDiagram = ({
               {...hover(part.n)}
             />
           ))}
-      {/* The tokens of the part under the pointer, beside the component: to its right, or its
+      {/* The tokens of the selected part, beside the component: to its right, or its
           left when the window has no room there, level with the part's top; under it only when
-          neither side has room. It stays open while the pointer is on it, so a class can be
-          copied; Escape or a click elsewhere closes it. */}
-      <Popup open={on && Boolean(info)} onOpenChange={(next) => !next && setActive(null)}>
+          neither side has room. Escape or a click elsewhere closes it. */}
+      <Popup
+        open={Boolean(info && tokenFocus)}
+        onOpenChange={(next) => {
+          if (next) return;
+          setTokensPart(null);
+          const onName = document.activeElement?.closest('[data-anatomy-name]');
+          if (hoveredName.current === null && !onName) highlight(null);
+        }}
+      >
         <Popup.Trigger asChild>
           <span
             aria-hidden="true"
@@ -571,11 +595,11 @@ const AnatomyDiagram = ({
             // As wide as the whole drawing, so the popup never lies on the component; as tall
             // as the part (beside it) or as the drawing (under it).
             style={
-              (focus &&
+              (tokenFocus &&
                 drawn &&
                 boxOf(
                   beside
-                    ? { ...focus.rect, left: 0, width: drawn.width }
+                    ? { ...tokenFocus.rect, left: 0, width: drawn.width }
                     : { left: 0, top: 0, width: drawn.width, height: drawn.height },
                 )) ??
               undefined
@@ -587,16 +611,20 @@ const AnatomyDiagram = ({
           align="start"
           sideOffset={8}
           aria-label={info ? `${info.part}: tokens` : undefined}
-          onOpenAutoFocus={(event) => event.preventDefault()}
           onCloseAutoFocus={(event) => event.preventDefault()}
-          onPointerEnter={() => window.clearTimeout(leaving.current)}
-          onPointerLeave={(event) => event.pointerType === 'mouse' && highlight(null)}
-          onBlur={(event) => !event.currentTarget.contains(event.relatedTarget) && highlight(null)}
+          onEscapeKeyDown={() => tokensTrigger.current?.focus()}
+          onInteractOutside={(event) => {
+            if (event.target instanceof Element && event.target.closest('[data-anatomy-name]')) {
+              event.preventDefault();
+            }
+          }}
           data-anatomy-tokens
           // The library's own surface; only its fixed width gives way to the content's.
           className="w-auto"
         >
-          {info && focus && <PartTokens part={info.part} element={info.element} el={focus.el} />}
+          {info && tokenFocus && (
+            <PartTokens part={info.part} element={info.element} el={tokenFocus.el} />
+          )}
         </Popup.Container>
       </Popup>
     </div>

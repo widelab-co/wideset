@@ -28,7 +28,7 @@ Vitest and tsc. Only the stylesheets come from the built package (`@wideset/reac
 | `/blocks`              | Whole screens to start a product from, by business domain                    |
 | `/blocks/<id>`         | One block, live, and its code; `/blocks/<id>.md` and `/blocks.md` for models |
 | `/blocks/<id>/preview` | The block alone at the window's size (`?theme=light\|dark`)                  |
-| `/docs/playground`     | Every component's props, set live; the address keeps the configuration       |
+| `/docs/playground`     | Redirects old Playground links to the component's Playground tab             |
 | `/llms.txt`, `/r/*`    | The docs for models; the shadcn registry                                     |
 
 wideset.co is shared with the landing page: the docs Worker owns only the paths in
@@ -42,15 +42,14 @@ Markdown, or handed to a model), then up to five tabs whose content switches in 
 - **Overview:** the component on its stage; Installation, one card whose header picks CLI or
   Manual and the package manager; Examples, each a card with the live example and its code; API
   reference, one props table per part; Accessibility, when the component's spec has the section.
+- **Code** shows the component's own files from its registry item.
 - **Anatomy:** the component drawn 1:1 with each part named beside it, then the parts as a table
-  (Part, Renders, Description). Hovering a part, its name or its row opens a popup with the
-  tokens the part binds, read from the classes of the part as rendered (`src/lib/tokenClasses.ts`)
-  with the values from its computed style, so they follow the theme. Only for a component with two or more parts whose playground
-  does not say `anatomy: false`.
+  (Part, Renders, Description). Hover highlights the part. Activating its name opens a popup
+  with the tokens read from the rendered classes (`src/lib/tokenClasses.ts`) and computed styles.
+  Only for a component with two or more parts whose playground does not say `anatomy: false`.
 - **Relationships:** the map of what the component is built with and appears beside
   (`gen-graph.mjs`), with a button that widens it to the whole system, then the same as lists:
   "Built with", "Uses <name>", "Appears with". Only for a component the graph links to another.
-- **Code** shows the component's own files from its registry item.
 - **Playground** shows the interactive stage, properties and generated JSX when the component has
   a default example.
 
@@ -75,7 +74,7 @@ scripts/generate.mjs           runs before dev, build, typecheck and test → sr
   gen-tokens.mjs, gen-token-scales.mjs   the foundation pages' token tables
   generate.test.mjs            node:test checks on what the generators wrote
 src/lib/catalog.ts             the generated data as the pages read it
-src/lib/sidebar.ts             each page's own sidebar rows (docs, components, playground, blocks)
+src/lib/sidebar.ts             each page's own sidebar rows (docs, components, blocks)
 src/pages/components/[id].astro   one page per catalogue entry
 src/lib/examples.ts            a page's examples: the library's examples/<id>/ files, in index.ts order
 src/lib/playground.tsx         the playgrounds: the library's examples/<id>/default.tsx + src/playgrounds/<id>.tsx
@@ -115,10 +114,8 @@ A playground is the component's `examples/<id>/default.tsx` (one typical instanc
 takes `{...props}`) with controls: every string-literal union and boolean of the root props type
 in `src/generated/controls.json`, with the component's own default, so a new variant shows up
 without touching anything. The Overview stage and the gallery thumbnail show the defaults. The
-component's Playground tab (`?tab=playground`) and the standalone Playground
-(`/docs/playground?c=<id>`) share the workbench. The Properties panel sets the props, the code
-shows the resulting JSX, and the address saves changed values. The component's Code tab shows
-the registry files for that component.
+component's Playground tab (`?tab=playground`) contains the workbench. The Properties panel sets
+the props, the code shows the resulting JSX, and the address saves changed values.
 
 `src/playgrounds/<id>.tsx` is optional tuning: `playground({...})` from
 `src/lib/playground-kit.ts` with `hide`, `labels` (`preset` is already "Style"), `order`,
@@ -189,7 +186,7 @@ is merged.
 - `src/components/` — islands and Astro parts: `PageHead` (every page's title, description and
   actions), `parts.tsx` (the bar, the sidebar, the rail, the page tabs, the code block, the
   example card, Installation, "Copy page", breadcrumbs), `SearchPalette` (⌘K, on the system's `Modal` +
-  `Search`), `Thumbnail`, `Playground` + `PlaygroundPage` + `PropertiesPanel` (one shared store),
+  `Search`), `Thumbnail`, `Playground` + `Workbench` + `PropertiesPanel` (one shared store),
   `PropsTables`, `AnatomyDiagram`, `RelationshipGraph`, `BlockFrame` (a block on its
   preview route) and `BlockPreviewFrame` (that route in a frame).
 - `src/styles/docs.css` — Tailwind plus `@import '@wideset/react/theme'`, so the chrome is

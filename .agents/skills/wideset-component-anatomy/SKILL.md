@@ -10,7 +10,7 @@ metadata:
 # Component anatomy
 
 The Anatomy tab of a component page (`?tab=anatomy`) shows a component's parts: the component drawn 1:1 with each part named
-beside it, and a table of the parts as a tree. Hovering a name or a row highlights it and opens the part's tokens.
+beside it, and a table of the parts as a tree. Hovering a name or a row highlights the part. Activating its name opens the part's tokens.
 Both halves are generated; a component contributes only its **composition** (what the picture
 draws) and its parts' **`data-slot`s**. Card is the pattern to copy.
 
@@ -61,7 +61,7 @@ there; fix its composition instead.
     stage itself does not change, and no outline is drawn. A part that holds all the others
     (the root) fades nothing, names included;
   - the fade runs on the motion tokens (quick, ease-out; none with reduced motion), and
-    leaving a name waits 160ms, long enough to move onto the next name or into the popup; badges
+    leaving a name waits 160ms, long enough to move onto the next name; badges
     80ms in, 60ms out; the row lights with the same tint.
 - **The table** follows the picture: rows in the order the component is built, indented 1.25rem
   per level of nesting, a root that draws nothing (a provider) first, parts the picture cannot
@@ -155,8 +155,7 @@ Each was built, looked at and removed. If a request seems to ask for one, say so
 
 ## Tokens of a part
 
-Hovering a part in the picture, its name or its table row (or focusing a name with the keyboard,
-or tapping it) opens a popup beside the component (to its right, or its left when the window has
+Activating a part name by click, tap, Enter or Space opens a popup beside the component (to its right, or its left when the window has
 no room there; under it only when neither side has room), level with the part's top and 8px
 clear, on the library's own Popup surface: the part's name and
 element, then one line per class that sets a visual property (property, class, value). A click
@@ -185,7 +184,7 @@ Open `/components/<page>?tab=anatomy` (`pnpm docs:dev`) at 1440px and 1280px wid
 - [ ] Hover every name and every row: the name becomes a badge, the row lights up, every other
       part and name fades, the stage keeps its fill and no outline is drawn; the root fades
       nothing.
-- [ ] Hover every part: its popup lists its tokens, or says none are recorded; Escape closes it.
+- [ ] Hovering a part highlights it. Activating its name opens the popup with its tokens or an empty state. Escape closes it.
 - [ ] At 1280px the drawing is not below about 0.6×; if it is, the composition is wider than it
       needs to be (writing rule 2).
 
