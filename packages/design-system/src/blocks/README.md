@@ -118,6 +118,8 @@ centre their panel on a plain white screen.
   36px in a larger switcher); other workspaces are `Avatar shape="square"` with initials. The
   sign-in screens show the app icon instead (`app-icon.tsx`, Figma's glass tile, the same in
   dark). Icons are Remix.
+- Every element that scrolls on its own (`overflow-*-auto`, `overflow-*-scroll`) takes
+  `ws-scrollbar`, unless its bar is hidden on purpose (`[scrollbar-width:none]`).
 - Past 1440px the frame keeps filling the window and the content stops growing
   (`mx-auto w-full max-w-[80rem]`; a thread reads at 48rem); boards, calendars and timelines may
   fill. Panels stack their sections from the top. At 1440×960 nothing scrolls.
