@@ -21,8 +21,7 @@ type BillingDetailsProps = {
 /**
  * Who the invoice is made out to: read back on one tile, with Edit opening the fields in its
  * place. The fields work on a copy, so Cancel leaves the saved details alone; Save checks the
- * required ones and moves focus to the first that is empty. The VAT number decides the VAT on the
- * order, which is why it is asked here and not in settings.
+ * required ones and moves focus to the first that is empty.
  */
 export function BillingDetails({ details, onChange }: BillingDetailsProps) {
   const id = useId();
@@ -97,12 +96,7 @@ export function BillingDetails({ details, onChange }: BillingDetailsProps) {
         <FormField label="Company" htmlFor={`${id}-company`} errorText={errors.company}>
           <TextInput {...text('company')} ref={firstField} autoComplete="organization" />
         </FormField>
-        <FormField
-          label="VAT number"
-          suffix="(optional)"
-          htmlFor={`${id}-vatNumber`}
-          helperText="With a VAT number, the VAT is reverse-charged."
-        >
+        <FormField label="VAT number" suffix="(optional)" htmlFor={`${id}-vatNumber`}>
           <TextInput {...text('vatNumber')} autoComplete="off" placeholder="GB 123 4567 89" />
         </FormField>
       </div>

@@ -5,15 +5,7 @@ import { useEffect, useId, useRef, useState } from 'react';
 import { BillingDetails } from './billing-details';
 import { BillingPeriod } from './billing-period';
 import { type CardErrors, emptyCard, validateCard } from './card';
-import {
-  billingDetails,
-  type Interval,
-  plan,
-  priceOrder,
-  type Promo,
-  subscription,
-  workspace,
-} from './data';
+import { billingDetails, demoSummary, type Interval, plan, subscription, workspace } from './data';
 import { OrderItems } from './order-items';
 import { OrderSummary, type PaymentState } from './order-summary';
 import { type Method, PaymentMethod } from './payment-method';
@@ -37,14 +29,14 @@ export default function Checkout() {
   const [seats, setSeats] = useState(subscription.seats);
   const [addOnIds, setAddOnIds] = useState<string[]>([]);
   const [interval, setInterval] = useState<Interval>('monthly');
-  const [promo, setPromo] = useState<Promo | null>(null);
+  const [showDiscount, setShowDiscount] = useState(false);
   const [details, setDetails] = useState(billingDetails);
   const [method, setMethod] = useState<Method>('saved');
   const [card, setCard] = useState(emptyCard);
   const [cardErrors, setCardErrors] = useState<CardErrors>({});
   const [payment, setPayment] = useState<PaymentState>('idle');
 
-  const totals = priceOrder({ seats, addOnIds, interval, promo, vatNumber: details.vatNumber });
+  const totals = demoSummary({ seats, addOnIds, interval, showDiscount });
 
   // Cleared on unmount, so the stand-in request never lands on a closed screen.
   const timer = useRef<number>(undefined);
@@ -144,8 +136,8 @@ export default function Checkout() {
                 <OrderSummary
                   totals={totals}
                   interval={interval}
-                  promo={promo}
-                  onPromoChange={setPromo}
+                  showDiscount={showDiscount}
+                  onDiscountChange={setShowDiscount}
                   payment={payment}
                   onPay={pay}
                 />

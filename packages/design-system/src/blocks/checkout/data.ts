@@ -18,11 +18,7 @@ import {
   RiTeamLine,
 } from '@remixicon/react';
 
-/*
-  Maya moves Lumen Studio from Growth to Scale on 10 November 2026. The new period starts that
-  day, so November's Growth seats are credited for the 21 days they will not be used. Money is
-  whole cents everywhere in this block: every sum is an integer, so the lines add up exactly.
-*/
+// Example checkout for Lumen Studio's plan change. Display amounts are in cents.
 
 /** The product is Orbit; the workspace paying for it is Lumen Studio. */
 export const product = { name: 'Orbit' };
@@ -64,14 +60,10 @@ export const helpLink: NavLink = { id: 'help', label: 'Help and support', icon: 
 
 export type Interval = 'monthly' | 'yearly';
 
-/** What the workspace pays for today: November's Growth seats, already charged. */
 export const subscription = {
   plan: 'Growth',
-  seatPrice: 39_00,
   seats: 40,
-  /** Seats with a member in them: the fewest the workspace can buy. */
   seatsInUse: 38,
-  periodStart: '2026-11-01',
   periodEnd: '2026-11-30',
 };
 
@@ -126,7 +118,6 @@ export type BillingDetails = {
   postalCode: string;
   /** A `countries` value. */
   country: string;
-  /** Empty when the company has none: VAT is then charged. */
   vatNumber: string;
 };
 
@@ -151,57 +142,27 @@ export const countries = [
 export const countryName = (value: string) =>
   countries.find((country) => country.value === value)?.label ?? value;
 
-/**
- * Orbit Inc. is a US company and Lumen Studio a UK business. With a VAT number the VAT is
- * reverse-charged (0% here, accounted for by the buyer); without one it is charged at this rate.
- */
-export const VAT_RATE = 0.2;
+/** Example invoice adjustments and dates supplied with the demo. */
+export const sampleInvoice = {
+  credit: 1_092_00,
+  tax: { label: 'VAT 0%, reverse charge', amount: 0 },
+  nextChargeDate: { monthly: '2026-12-10', yearly: '2027-11-10' },
+};
 
-export type Promo = { code: string; /** The share taken off the first period. */ rate: number };
+export const samplePromo = { code: 'ORBIT20', amount: { monthly: 552_00, yearly: 5_472_00 } };
 
-/** The codes that work. Anything else is rejected at the field. */
-export const promos: Promo[] = [{ code: 'ORBIT20', rate: 0.2 }];
-
-export const findPromo = (code: string) =>
-  promos.find((promo) => promo.code === code.trim().toUpperCase());
-
-/** What is being bought: everything the total depends on. */
-export type Order = {
+type OrderSelection = {
   seats: number;
   addOnIds: string[];
   interval: Interval;
-  promo: Promo | null;
-  vatNumber: string;
+  showDiscount: boolean;
 };
 
-export type OrderLine = { id: string; label: string; detail?: string; amount: number };
-
-const DAY = 86_400_000;
-/** Calendar days from one ISO date to another, both included. */
-const daysInclusive = (from: string, to: string) => (Date.parse(to) - Date.parse(from)) / DAY + 1;
-
-/** `2026-11-10` plus a number of months, as an ISO date. */
-const addMonths = (iso: string, months: number) => {
-  const date = new Date(iso);
-  date.setUTCMonth(date.getUTCMonth() + months);
-  return date.toISOString().slice(0, 10);
-};
-
-/** The part of this month's Growth charge that will not be used once the workspace moves today. */
-export const unusedCredit = Math.round(
-  (subscription.seats * subscription.seatPrice * daysInclusive(today, subscription.periodEnd)) /
-    daysInclusive(subscription.periodStart, subscription.periodEnd),
-);
-
-/**
- * Prices an order: the lines, what the promo code and the unused time take off, the VAT, what is
- * due today and what the next period costs. The promo code and the credit apply to the first
- * charge only. Everything is derived here, in cents, so no figure on the screen is typed twice.
- */
-export function priceOrder({ seats, addOnIds, interval, promo, vatNumber }: Order) {
+/** Assemble the display lines for the selected items using the sample invoice amounts. */
+export function demoSummary({ seats, addOnIds, interval, showDiscount }: OrderSelection) {
   const months = interval === 'yearly' ? 12 : 1;
   const seatPrice = plan.seatPrice[interval];
-  const lines: OrderLine[] = [
+  const lines = [
     {
       id: 'plan',
       label: `${plan.name} plan`,
@@ -213,14 +174,13 @@ export function priceOrder({ seats, addOnIds, interval, promo, vatNumber }: Orde
       .map((addOn) => ({
         id: addOn.id,
         label: addOn.name,
+        detail: undefined,
         amount: addOn.monthlyPrice * months,
       })),
   ];
   const subtotal = lines.reduce((sum, line) => sum + line.amount, 0);
-  const discount = promo ? Math.round(subtotal * promo.rate) : 0;
-  const vatRate = vatNumber.trim() ? 0 : VAT_RATE;
-  const net = subtotal - discount - unusedCredit;
-  const vat = Math.round(net * vatRate);
+  const discount = showDiscount ? samplePromo.amount[interval] : 0;
+  const { credit, tax, nextChargeDate } = sampleInvoice;
 
   return {
     months,
@@ -228,15 +188,11 @@ export function priceOrder({ seats, addOnIds, interval, promo, vatNumber }: Orde
     lines,
     subtotal,
     discount,
-    credit: unusedCredit,
-    vatRate,
-    vat,
-    total: net + vat,
-    nextCharge: {
-      date: addMonths(today, months),
-      amount: subtotal + Math.round(subtotal * vatRate),
-    },
+    credit,
+    tax,
+    total: subtotal - discount - credit + tax.amount,
+    nextCharge: { date: nextChargeDate[interval], amount: subtotal },
   };
 }
 
-export type OrderTotals = ReturnType<typeof priceOrder>;
+export type OrderTotals = ReturnType<typeof demoSummary>;

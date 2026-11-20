@@ -1,14 +1,13 @@
 import { FormField, TextInput } from '@wideset/react';
 import { type FormEvent, useId, useState } from 'react';
 
-import { findPromo, type Promo } from './data';
+import { samplePromo } from './data';
 
 /**
- * The promo code field. Apply sits in the field's suffix and submits it, so Enter applies too. A
- * code that does not exist is named in the error under the field and stays in it to be corrected;
- * one that does is handed to the summary, which shows it as a line in place of this field.
+ * The promo code field demonstrates an applied discount and a field error using one sample
+ * code. Apply sits in the field's suffix so Enter works too.
  */
-export function PromoCode({ onApply }: { onApply: (promo: Promo) => void }) {
+export function PromoCode({ onApply }: { onApply: () => void }) {
   const id = useId();
   const [code, setCode] = useState('');
   const [error, setError] = useState<string>();
@@ -16,19 +15,18 @@ export function PromoCode({ onApply }: { onApply: (promo: Promo) => void }) {
   const apply = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const typed = code.trim();
-    const promo = findPromo(typed);
-    if (promo) onApply(promo);
-    else
-      setError(
-        typed
-          ? `“${typed}” is not a valid code. Check it and try again.`
-          : 'Enter a promo code first.',
-      );
+    if (typed.toUpperCase() === samplePromo.code) onApply();
+    else setError(typed ? `Try the sample code ${samplePromo.code}.` : 'Enter a promo code first.');
   };
 
   return (
     <form noValidate onSubmit={apply}>
-      <FormField label="Promo code" htmlFor={id} errorText={error}>
+      <FormField
+        label="Promo code"
+        htmlFor={id}
+        helperText={`Sample code: ${samplePromo.code}`}
+        errorText={error}
+      >
         <TextInput
           id={id}
           name="promo"
