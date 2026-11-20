@@ -19,6 +19,9 @@ Sources of truth, in order: Figma → code → specs. Writing or changing a spec
   palette classes (`text-gray-900`) are wrong: see [tokens.md](tokens.md).
 - Icons are Remix components passed by reference through the `icon` prop: `icon={RiCheckLine}`
   ([iconography](foundations/iconography.md)).
+- An element of your own that scrolls (`overflow-auto`, `overflow-y-auto`) takes `ws-scrollbar`,
+  so its bar matches Wideset's; a whole app takes `ws-scrollbars` on `<html>`. Wideset's own scroll
+  containers already have it, and a bar hidden on purpose (`[scrollbar-width:none]`) stays hidden.
 - Deprecated components (`status: deprecated`) name their replacement on their first line; use
   the replacement even when older code uses the deprecated one.
 

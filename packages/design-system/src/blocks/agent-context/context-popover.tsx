@@ -48,7 +48,7 @@ export function ContextPopover() {
       >
         {/* The sections scroll in a plain box, not in Popup.Content: its scrollbar gutter would stop
             their lines short of the right edge. */}
-        <div className="min-h-0 overflow-y-auto">
+        <div className="ws-scrollbar min-h-0 overflow-y-auto">
           <ContextSection title="Context">
             <ContextUsage
               window={context.window}

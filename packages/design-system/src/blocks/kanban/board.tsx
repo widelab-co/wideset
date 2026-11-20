@@ -183,7 +183,7 @@ export function KanbanColumn({ column }: { column: Column }) {
   return (
     <section
       aria-label={column.title}
-      className="bg-ws-static-alpha-subtle rounded-ws-container-md p-ws-5 gap-ws-4 flex w-[22.125rem] shrink-0 flex-col overflow-y-auto"
+      className="bg-ws-static-alpha-subtle rounded-ws-container-md p-ws-5 gap-ws-4 ws-scrollbar flex w-[22.125rem] shrink-0 flex-col overflow-y-auto"
     >
       <div className="p-ws-3 flex items-center justify-between">
         <div className="gap-ws-4 flex items-center">

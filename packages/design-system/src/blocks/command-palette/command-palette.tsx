@@ -124,7 +124,7 @@ function PaletteBody({ commands, recent, suggested, onRun }: PaletteBodyProps) {
       </div>
 
       {/* At most nine rows tall; past that the list scrolls under the field. */}
-      <div className="px-ws-7 py-ws-5 max-h-[26rem] min-h-0 overflow-y-auto">
+      <div className="px-ws-7 py-ws-5 ws-scrollbar max-h-[26rem] min-h-0 overflow-y-auto">
         {shown.length === 0 ? (
           <p role="status" className="px-ws-7 py-ws-9 typography-body-md text-ws-static-subtle">
             No results for “{text}”.
