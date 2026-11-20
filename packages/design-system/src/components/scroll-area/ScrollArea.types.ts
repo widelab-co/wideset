@@ -9,4 +9,6 @@ export type ScrollAreaProps = Omit<
   /** Which edges scroll. `both` adds a horizontal scrollbar for content wider than the area. */
   orientation?: 'horizontal' | 'vertical' | 'both';
   indicatorHidden?: boolean;
+  /** Called when the viewport scrolls; `event.currentTarget` is the scrolling element. */
+  onScroll?: ComponentPropsWithoutRef<typeof RadixScrollArea.Viewport>['onScroll'];
 };

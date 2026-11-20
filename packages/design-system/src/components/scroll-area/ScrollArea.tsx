@@ -6,7 +6,7 @@ import type { ScrollAreaProps } from './ScrollArea.types';
 
 /** `ref` points at the viewport, the element that scrolls. */
 export const ScrollArea = forwardRef<HTMLDivElement, ScrollAreaProps>(
-  ({ orientation = 'vertical', indicatorHidden, children, className, ...props }, ref) => (
+  ({ orientation = 'vertical', indicatorHidden, children, className, onScroll, ...props }, ref) => (
     <RadixScrollArea.Root
       data-slot="scroll-area"
       className={cn('overflow-hidden', className)}
@@ -19,6 +19,7 @@ export const ScrollArea = forwardRef<HTMLDivElement, ScrollAreaProps>(
         bottom edge only while wide content overflows. */}
       <RadixScrollArea.Viewport
         ref={ref}
+        onScroll={onScroll}
         data-slot="scroll-area-viewport"
         className={cn(
           'h-full w-full max-w-full min-w-0',
