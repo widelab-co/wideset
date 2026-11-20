@@ -124,7 +124,8 @@ export function MediaViewer({
       aria-labelledby={titleId}
       tabIndex={-1}
       onKeyDown={onKeyDown}
-      className="dark bg-ws-static-background text-ws-static-strong z-ws-modal fixed inset-0 flex flex-col outline-hidden"
+      // The entry renders the viewer beside its AppShell, outside the block's layout root.
+      className="ws-block-utility dark bg-ws-static-background text-ws-static-strong z-ws-modal fixed inset-0 flex flex-col outline-hidden"
     >
       {/* A line under the bar, edge to edge: the details' line starts on it, so neither line
           ends in the air. */}

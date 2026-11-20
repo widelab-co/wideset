@@ -105,26 +105,146 @@ export function rewriteBlockImports(source, path, locate, fail) {
   return edits;
 }
 
-/** Mark the element that gets each block utility, including when a component portals it. */
-export function markBlockClasses(source, path) {
+// These public parts can render outside the block's DOM tree. Keep the scope on
+// the block's own instances so the fallback CSS cannot reach app-wide overlays.
+const portalParts = new Set([
+  'DropdownMenu.Content',
+  'DropdownMenu.SubContent',
+  'Modal.Content',
+  'Popup.Container',
+  'Select.Content',
+  'Sidepanel.Panel',
+  'StatusModal.Content',
+  'Tooltip.Content',
+]);
+
+export function markBlockBoundaries(source, path, isEntry) {
   const tree = ts.createSourceFile(path, source, ts.ScriptTarget.Latest, true);
   const edits = [];
+  const shells = new Set();
+  const nativeRoots = new Set();
   const insert = (pos, text) => edits.push({ pos, end: pos, text });
-  const visit = (node) => {
-    if (ts.isJsxAttribute(node) && /^(className|\w+ClassName)$/.test(node.name.getText(tree))) {
-      const initializer = node.initializer;
-      const value =
-        initializer && ts.isJsxExpression(initializer) ? initializer.expression : initializer;
-      if (value && (ts.isStringLiteralLike(value) || ts.isTemplateExpression(value))) {
-        insert(value.getStart(tree) + 1, `${BLOCK_CLASS} `);
-      } else if (value) {
-        insert(value.getStart(tree), `['${BLOCK_CLASS}', `);
-        insert(value.end, "].join(' ')");
+
+  const mark = (element) => {
+    const className = element.attributes.properties.find(
+      (prop) => ts.isJsxAttribute(prop) && prop.name.getText(tree) === 'className',
+    );
+    if (!className) {
+      insert(element.tagName.end, ` className="${BLOCK_CLASS}"`);
+      return;
+    }
+    const initializer = className.initializer;
+    const value =
+      initializer && ts.isJsxExpression(initializer) ? initializer.expression : initializer;
+    if (value && (ts.isStringLiteralLike(value) || ts.isTemplateExpression(value))) {
+      insert(value.getStart(tree) + 1, `${BLOCK_CLASS} `);
+    } else if (value) {
+      insert(value.getStart(tree), `['${BLOCK_CLASS}', (`);
+      insert(value.end, ")].filter(Boolean).join(' ')");
+    } else {
+      edits.push({
+        pos: className.getStart(tree),
+        end: className.end,
+        text: `className="${BLOCK_CLASS}"`,
+      });
+    }
+  };
+
+  const markPortals = (node) => {
+    if (ts.isJsxElement(node) || ts.isJsxSelfClosingElement(node)) {
+      const element = ts.isJsxElement(node) ? node.openingElement : node;
+      if (portalParts.has(element.tagName.getText(tree))) mark(element);
+    }
+    ts.forEachChild(node, markPortals);
+  };
+  markPortals(tree);
+  if (!isEntry) return edits;
+
+  // Root candidates come only from the JSX the default export returns, following components
+  // declared in this file, so a helper the screen never renders cannot add a candidate.
+  const isFunction = (node) =>
+    node &&
+    (ts.isArrowFunction(node) || ts.isFunctionExpression(node) || ts.isFunctionDeclaration(node));
+  const unwrap = (node) =>
+    node && ts.isParenthesizedExpression(node) ? unwrap(node.expression) : node;
+  // Bind just this file. TypeScript resolves local JSX names in their lexical scope.
+  const options = { noLib: true, noResolve: true, types: [] };
+  const host = ts.createCompilerHost(options);
+  host.getSourceFile = (fileName) => (fileName === path ? tree : undefined);
+  const checker = ts.createProgram([path], options, host).getTypeChecker();
+  const resolveComponent = (identifier) => {
+    const binding = checker.resolveName(identifier.text, identifier, ts.SymbolFlags.Value, true);
+    const declaration = binding?.valueDeclaration;
+    if (!declaration) return undefined;
+    const fn = ts.isVariableDeclaration(declaration)
+      ? unwrap(declaration.initializer)
+      : declaration;
+    return isFunction(fn) ? fn : undefined;
+  };
+  let entry;
+  for (const statement of tree.statements) {
+    if (ts.isFunctionDeclaration(statement)) {
+      const modifiers = ts.getModifiers(statement) ?? [];
+      if (modifiers.some((modifier) => modifier.kind === ts.SyntaxKind.DefaultKeyword)) {
+        entry = statement;
+      }
+    } else if (ts.isExportAssignment(statement)) {
+      const value = unwrap(statement.expression);
+      entry = ts.isIdentifier(value)
+        ? resolveComponent(value)
+        : isFunction(value)
+          ? value
+          : undefined;
+    }
+  }
+  // What a component renders: its returned expressions, not the bodies of functions it declares.
+  const rendered = (fn) => {
+    if (!fn.body) return [];
+    if (!ts.isBlock(fn.body)) return [fn.body];
+    const found = [];
+    const walk = (node) => {
+      if (ts.isReturnStatement(node) && node.expression) found.push(node.expression);
+      else if (!ts.isFunctionLike(node) && !ts.isClassLike(node)) ts.forEachChild(node, walk);
+    };
+    ts.forEachChild(fn.body, walk);
+    return found;
+  };
+  // A component can render both inside and outside the root, so each context is followed once.
+  const followed = { true: new Set(), false: new Set() };
+  const follow = (fn, insideRoot) => {
+    if (followed[insideRoot].has(fn)) return;
+    followed[insideRoot].add(fn);
+    for (const expression of rendered(fn)) visit(expression, insideRoot);
+  };
+  const visit = (node, insideRoot) => {
+    if (ts.isJsxElement(node) || ts.isJsxSelfClosingElement(node)) {
+      const element = ts.isJsxElement(node) ? node.openingElement : node;
+      const tag = element.tagName.getText(tree);
+      if (!insideRoot) {
+        if (tag === 'AppShell') {
+          shells.add(element);
+          insideRoot = true;
+        } else if (/^[a-z][a-z0-9-]*$/.test(tag)) {
+          nativeRoots.add(element);
+          insideRoot = true;
+        }
+      }
+      if (ts.isIdentifier(element.tagName)) {
+        const component = resolveComponent(element.tagName);
+        if (component) follow(component, insideRoot);
       }
     }
-    ts.forEachChild(node, visit);
+    ts.forEachChild(node, (child) => visit(child, insideRoot));
   };
-  visit(tree);
+
+  if (!entry) throw new Error(`build-registry: no default export found in ${path}`);
+  follow(entry, false);
+  // Screen helpers may render their own native roots. Prefer the screen's
+  // AppShell, including when the entry delegates through a provider.
+  const roots = [...(shells.size ? shells : nativeRoots)];
+  if (roots.length !== 1)
+    throw new Error(`build-registry: expected one block root in ${path}, found ${roots.length}`);
+  mark(roots[0]);
   return edits;
 }
 

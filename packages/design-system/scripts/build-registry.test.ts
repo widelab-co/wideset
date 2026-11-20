@@ -18,7 +18,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
 import { BLOCKS, PANELS } from '../src/blocks';
 import { buildRegistry } from './build-registry.mjs';
-import { rewriteBlockImports } from './registry-blocks.mjs';
+import { markBlockBoundaries, rewriteBlockImports } from './registry-blocks.mjs';
 
 const ROOT = resolve(__dirname, '..');
 const BASE = 'https://example.test/r';
@@ -161,16 +161,88 @@ describe('registry build', () => {
     expect(selectors).toContain(`.md\\:flex${scope}`);
     expect(selectors.every((selector) => selector.endsWith(scope))).toBe(true);
 
-    const calendars = byName
+    const calendar = byName
       .get('block-calendar')!
-      .files.map((file) => file.content)
-      .join('\n');
-    expect(calendars).toMatch(/className="ws-block-utility [^"]+/);
-    const agent = byName
-      .get('block-agent-code')!
-      .files.map((file) => file.content)
-      .join('\n');
-    expect(agent).toMatch(/className=\{\['ws-block-utility', /);
+      .files.find((file) => file.target.endsWith('/index.tsx'))!.content;
+    expect(calendar).toMatch(/<AppShell className="ws-block-utility"/);
+    expect(calendar.match(/ws-block-utility/g)).toHaveLength(1);
+
+    const dialog = byName
+      .get('block-modal-form')!
+      .files.find((file) => file.target.endsWith('/payment-form-modal.tsx'))!.content;
+    expect(dialog).toMatch(/<Modal\.Content className="ws-block-utility"/);
+    expect(dialog.match(/ws-block-utility/g)).toHaveLength(1);
+
+    const toast = byName
+      .get('block-move-dialog')!
+      .files.find((file) => file.target.endsWith('/move-toast.tsx'))!.content;
+    expect(toast).toContain('<span className="ws-block-utility ');
+    expect(toast.match(/ws-block-utility/g)).toHaveLength(1);
+
+    const viewer = byName
+      .get('block-media-viewer')!
+      .files.find((file) => file.target.endsWith('/media-viewer.tsx'))!.content;
+    expect(viewer.match(/ws-block-utility/g)).toHaveLength(1);
+  });
+
+  it('takes the block root only from what the entry renders', () => {
+    const apply = (source: string) => {
+      let out = source;
+      const edits = markBlockBoundaries(source, 'index.tsx', true);
+      for (const edit of edits.sort((a, b) => b.pos - a.pos)) {
+        out = out.slice(0, edit.pos) + edit.text + out.slice(edit.end);
+      }
+      return out;
+    };
+
+    const unused = `function Hint() {\n  return <span>hint</span>;\n}\n\nexport default function Screen() {\n  return <main className="flex">x</main>;\n}\n`;
+    expect(apply(unused)).toContain('<main className="ws-block-utility flex">');
+    expect(apply(unused)).toContain('<span>hint</span>');
+
+    const delegated = `function Page() {\n  return <main>x</main>;\n}\n\nexport default function Screen() {\n  return (\n    <Provider>\n      <Page />\n    </Provider>\n  );\n}\n`;
+    expect(apply(delegated)).toContain('<main className="ws-block-utility">');
+
+    const twoRoots = `export default function Screen() {\n  return (\n    <>\n      <main />\n      <aside />\n    </>\n  );\n}\n`;
+    expect(() => apply(twoRoots)).toThrow(/expected one block root/);
+
+    const sharedBody = `function Body() {\n  return <section />;\n}\n\nexport default function Screen() {\n  return (\n    <>\n      <main>\n        <Body />\n      </main>\n      <Body />\n    </>\n  );\n}\n`;
+    expect(() => apply(sharedBody)).toThrow(/found 2/);
+
+    const unrelatedBinding = `
+      function Content() {
+        return <main />;
+      }
+      function Unused() {
+        const Content = () => null;
+        return <Content />;
+      }
+      export default function Screen() {
+        return <Content />;
+      }
+    `;
+    expect(apply(unrelatedBinding)).toContain('<main className="ws-block-utility" />');
+
+    const localBinding = `
+      const Content = () => null;
+      function Screen() {
+        const Content = () => <main />;
+        const Wrapper = () => <Content />;
+        return <Wrapper />;
+      }
+      export default Screen;
+    `;
+    expect(apply(localBinding)).toContain('<main className="ws-block-utility" />');
+
+    const nested = `export default function Screen() {\n  function Hint() {\n    return <span>hint</span>;\n  }\n  return (\n    <main>\n      <Hint />\n    </main>\n  );\n}\n`;
+    expect(apply(nested)).toContain('<main className="ws-block-utility">');
+    expect(apply(nested)).toContain('<span>hint</span>');
+
+    expect(apply(`export default () => <main />;\n`)).toContain(
+      '<main className="ws-block-utility" />',
+    );
+    expect(apply(`export default function () {\n  return <main />;\n}\n`)).toContain(
+      '<main className="ws-block-utility" />',
+    );
   });
 
   it('validates against the shadcn schemas', () => {
