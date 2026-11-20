@@ -205,6 +205,9 @@ describe('registry build', () => {
     const twoRoots = `export default function Screen() {\n  return (\n    <>\n      <main />\n      <aside />\n    </>\n  );\n}\n`;
     expect(() => apply(twoRoots)).toThrow(/expected one block root/);
 
+    const sharedBody = `function Body() {\n  return <section />;\n}\n\nexport default function Screen() {\n  return (\n    <>\n      <main>\n        <Body />\n      </main>\n      <Body />\n    </>\n  );\n}\n`;
+    expect(() => apply(sharedBody)).toThrow(/found 2/);
+
     const nested = `export default function Screen() {\n  function Hint() {\n    return <span>hint</span>;\n  }\n  return (\n    <main>\n      <Hint />\n    </main>\n  );\n}\n`;
     expect(apply(nested)).toContain('<main className="ws-block-utility">');
     expect(apply(nested)).toContain('<span>hint</span>');

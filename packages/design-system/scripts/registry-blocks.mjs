@@ -121,8 +121,8 @@ const portalParts = new Set([
 export function markBlockBoundaries(source, path, isEntry) {
   const tree = ts.createSourceFile(path, source, ts.ScriptTarget.Latest, true);
   const edits = [];
-  const shells = [];
-  const nativeRoots = [];
+  const shells = new Set();
+  const nativeRoots = new Set();
   const insert = (pos, text) => edits.push({ pos, end: pos, text });
 
   const mark = (element) => {
@@ -207,10 +207,11 @@ export function markBlockBoundaries(source, path, isEntry) {
     ts.forEachChild(fn.body, walk);
     return found;
   };
-  const followed = new Set();
+  // A component can render both inside and outside the root, so each context is followed once.
+  const followed = { true: new Set(), false: new Set() };
   const follow = (fn, insideRoot) => {
-    if (followed.has(fn)) return;
-    followed.add(fn);
+    if (followed[insideRoot].has(fn)) return;
+    followed[insideRoot].add(fn);
     for (const expression of rendered(fn)) visit(expression, insideRoot);
   };
   const visit = (node, insideRoot) => {
@@ -219,10 +220,10 @@ export function markBlockBoundaries(source, path, isEntry) {
       const tag = element.tagName.getText(tree);
       if (!insideRoot) {
         if (tag === 'AppShell') {
-          shells.push(element);
+          shells.add(element);
           insideRoot = true;
         } else if (/^[a-z][a-z0-9-]*$/.test(tag)) {
-          nativeRoots.push(element);
+          nativeRoots.add(element);
           insideRoot = true;
         }
       }
@@ -237,7 +238,7 @@ export function markBlockBoundaries(source, path, isEntry) {
     follow(entry, false);
     // Screen helpers may render their own native roots. Prefer the screen's
     // AppShell, including when the entry delegates through a provider.
-    const roots = shells.length ? shells : nativeRoots;
+    const roots = [...(shells.size ? shells : nativeRoots)];
     if (roots.length !== 1)
       throw new Error(`build-registry: expected one block root in ${path}, found ${roots.length}`);
     mark(roots[0]);
