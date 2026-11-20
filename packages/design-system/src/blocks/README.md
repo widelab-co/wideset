@@ -50,8 +50,10 @@ its imports named so the builder can resolve Wideset exports to their registry i
 entry imports the compiled layout stylesheet. The documentation's Code tab shows the files the
 installer writes, and Storybook reads the original source.
 
-The registry adds `ws-block-utility` to class props on installed markup. The compiled block
-utilities apply within that scope, including when a marked element renders in a portal.
+The registry adds `ws-block-utility` to the installed entry’s layout root and to its portal parts.
+The layout root is the entry’s `AppShell` or its single outer HTML element. The compiled
+utilities apply to each marked element and its DOM descendants. For custom content rendered
+through a portal callback, such as a toast message, put the class on its styled DOM root.
 
 ## The four directions
 

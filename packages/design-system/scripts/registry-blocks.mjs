@@ -105,26 +105,78 @@ export function rewriteBlockImports(source, path, locate, fail) {
   return edits;
 }
 
-/** Mark the element that gets each block utility, including when a component portals it. */
-export function markBlockClasses(source, path) {
+// These public parts can render outside the block's DOM tree. Keep the scope on
+// the block's own instances so the fallback CSS cannot reach app-wide overlays.
+const portalParts = new Set([
+  'DropdownMenu.Content',
+  'DropdownMenu.SubContent',
+  'Modal.Content',
+  'Popup.Container',
+  'Select.Content',
+  'Sidepanel.Panel',
+  'StatusModal.Content',
+  'Tooltip.Content',
+]);
+
+export function markBlockBoundaries(source, path, isEntry) {
   const tree = ts.createSourceFile(path, source, ts.ScriptTarget.Latest, true);
   const edits = [];
+  const shells = [];
+  const nativeRoots = [];
   const insert = (pos, text) => edits.push({ pos, end: pos, text });
-  const visit = (node) => {
-    if (ts.isJsxAttribute(node) && /^(className|\w+ClassName)$/.test(node.name.getText(tree))) {
-      const initializer = node.initializer;
-      const value =
-        initializer && ts.isJsxExpression(initializer) ? initializer.expression : initializer;
-      if (value && (ts.isStringLiteralLike(value) || ts.isTemplateExpression(value))) {
-        insert(value.getStart(tree) + 1, `${BLOCK_CLASS} `);
-      } else if (value) {
-        insert(value.getStart(tree), `['${BLOCK_CLASS}', `);
-        insert(value.end, "].join(' ')");
+
+  const mark = (element) => {
+    const className = element.attributes.properties.find(
+      (prop) => ts.isJsxAttribute(prop) && prop.name.getText(tree) === 'className',
+    );
+    if (!className) {
+      insert(element.tagName.end, ` className="${BLOCK_CLASS}"`);
+      return;
+    }
+    const initializer = className.initializer;
+    const value =
+      initializer && ts.isJsxExpression(initializer) ? initializer.expression : initializer;
+    if (value && (ts.isStringLiteralLike(value) || ts.isTemplateExpression(value))) {
+      insert(value.getStart(tree) + 1, `${BLOCK_CLASS} `);
+    } else if (value) {
+      insert(value.getStart(tree), `['${BLOCK_CLASS}', (`);
+      insert(value.end, ")].filter(Boolean).join(' ')");
+    } else {
+      edits.push({
+        pos: className.getStart(tree),
+        end: className.end,
+        text: `className="${BLOCK_CLASS}"`,
+      });
+    }
+  };
+
+  const visit = (node, insideRoot = false) => {
+    if (ts.isJsxElement(node) || ts.isJsxSelfClosingElement(node)) {
+      const element = ts.isJsxElement(node) ? node.openingElement : node;
+      const tag = element.tagName.getText(tree);
+      if (portalParts.has(tag)) mark(element);
+      if (isEntry && !insideRoot) {
+        if (tag === 'AppShell') {
+          shells.push(element);
+          insideRoot = true;
+        } else if (/^[a-z][a-z0-9-]*$/.test(tag)) {
+          nativeRoots.push(element);
+          insideRoot = true;
+        }
       }
     }
-    ts.forEachChild(node, visit);
+    ts.forEachChild(node, (child) => visit(child, insideRoot));
   };
   visit(tree);
+
+  if (isEntry) {
+    // Screen helpers may render their own native roots. Prefer the screen's
+    // AppShell, including when the entry delegates through a provider.
+    const roots = shells.length ? shells : nativeRoots;
+    if (roots.length !== 1)
+      throw new Error(`build-registry: expected one block root in ${path}, found ${roots.length}`);
+    mark(roots[0]);
+  }
   return edits;
 }
 

@@ -161,16 +161,23 @@ describe('registry build', () => {
     expect(selectors).toContain(`.md\\:flex${scope}`);
     expect(selectors.every((selector) => selector.endsWith(scope))).toBe(true);
 
-    const calendars = byName
+    const calendar = byName
       .get('block-calendar')!
-      .files.map((file) => file.content)
-      .join('\n');
-    expect(calendars).toMatch(/className="ws-block-utility [^"]+/);
-    const agent = byName
-      .get('block-agent-code')!
-      .files.map((file) => file.content)
-      .join('\n');
-    expect(agent).toMatch(/className=\{\['ws-block-utility', /);
+      .files.find((file) => file.target.endsWith('/index.tsx'))!.content;
+    expect(calendar).toMatch(/<AppShell className="ws-block-utility"/);
+    expect(calendar.match(/ws-block-utility/g)).toHaveLength(1);
+
+    const dialog = byName
+      .get('block-modal-form')!
+      .files.find((file) => file.target.endsWith('/payment-form-modal.tsx'))!.content;
+    expect(dialog).toMatch(/<Modal\.Content className="ws-block-utility"/);
+    expect(dialog.match(/ws-block-utility/g)).toHaveLength(1);
+
+    const toast = byName
+      .get('block-move-dialog')!
+      .files.find((file) => file.target.endsWith('/move-toast.tsx'))!.content;
+    expect(toast).toContain('<span className="ws-block-utility ');
+    expect(toast.match(/ws-block-utility/g)).toHaveLength(1);
   });
 
   it('validates against the shadcn schemas', () => {
