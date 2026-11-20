@@ -3,7 +3,6 @@ import { blockCategories } from './blocks';
 import { entries } from './catalog';
 import { newIds } from './gitInfo';
 import { docsNav } from './nav';
-import { hasPlayground } from './playground';
 
 /** The sidebars: each page lists only its own rows, in the one sidebar component. */
 const WHATS_NEW = '/docs/whats-new';
@@ -42,19 +41,6 @@ export const componentsSidebar = (): NavGroup[] => {
     },
   ];
 };
-
-/** Playground: the components that have one; a row switches the page in place. */
-export const playgroundItems = sorted
-  .filter((entry) => hasPlayground(entry.id))
-  .map((entry) => ({ id: entry.id, title: entry.title }));
-export const playgroundSidebar = (): NavGroup[] => [
-  {
-    items: playgroundItems.map((item) => ({
-      title: item.title,
-      href: `/docs/playground?c=${item.id}`,
-    })),
-  },
-];
 
 /** Blocks: Overview, then each category with its blocks. */
 export const blocksSidebar = (): NavGroup[] => [

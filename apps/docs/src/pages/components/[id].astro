@@ -71,9 +71,9 @@ const hasRelations = relationLists.length > 0;
 
 const tabs = [
   { id: 'overview', label: 'Overview' },
+  files.own.length > 0 && { id: 'code', label: 'Code' },
   hasAnatomy && { id: 'anatomy', label: 'Anatomy' },
   hasRelations && { id: 'relationships', label: 'Relationships' },
-  files.own.length > 0 && { id: 'code', label: 'Code' },
   playground && { id: 'playground', label: 'Playground' },
 ].filter((tab): tab is { id: string; label: string } => Boolean(tab));
 const tabbed = tabs.length > 1;
@@ -332,7 +332,7 @@ const td = 'px-ws-9 py-ws-8 align-top';
       role="tabpanel"
       aria-labelledby="tab-playground"
     >
-      <Workbench component={entry.id} paths={allPaths} tabbed client:visible />
+      <Workbench component={entry.id} paths={allPaths} client:visible />
     </div>
   )}
 

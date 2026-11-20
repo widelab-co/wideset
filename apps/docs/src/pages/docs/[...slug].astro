@@ -1,4 +1,5 @@
 ---
+import { RiLink } from '@remixicon/react';
 import { getCollection, render } from 'astro:content';
 
 import PageHead from '../../components/PageHead.astro';
@@ -28,8 +29,30 @@ const toc = headings
   search="Search docs…"
 >
   <PageHead title={entry.data.title} description={entry.data.description} />
-  <div class="docs-prose !max-w-none">
+  <div class="docs-prose !max-w-none" data-docs-article>
     <Content />
   </div>
   {toc.length > 0 && <Rail slot="rail" items={toc} client:load />}
 </DocsLayout>
+
+<template id="docs-heading-icon">
+  <RiLink aria-hidden="true" className="size-ws-9 shrink-0" />
+</template>
+
+<script>
+  const icon = document.querySelector<HTMLTemplateElement>('#docs-heading-icon');
+  for (const heading of document.querySelectorAll('[data-docs-article] :is(h2, h3)[id]')) {
+    const link = document.createElement('a');
+    link.className = 'docs-section-link';
+    link.href = `#${encodeURIComponent(heading.id)}`;
+    if (heading.querySelector('a, button')) {
+      link.setAttribute('aria-label', `Link to ${heading.textContent?.trim()}`);
+    } else {
+      const label = document.createElement('span');
+      label.append(...heading.childNodes);
+      link.append(label);
+    }
+    if (icon) link.append(icon.content.cloneNode(true));
+    heading.append(link);
+  }
+</script>

@@ -10,20 +10,12 @@ import {
 } from '../lib/playground';
 import type { Values } from '../lib/playground-kit';
 import { useShownCode } from './ComponentCode';
-import { Code, SOFT_NAVIGATE } from './parts';
+import { Code } from './parts';
 import Playground from './Playground';
 import PropertiesPanel from './PropertiesPanel';
 
 const Workbench = withPlayground(
-  ({
-    component,
-    paths,
-    tabbed = false,
-  }: {
-    component: string;
-    paths: ProjectPaths;
-    tabbed?: boolean;
-  }) => {
+  ({ component, paths }: { component: string; paths: ProjectPaths }) => {
     const { defaults, groups, code } = PLAYGROUNDS[component];
     const values = useValues(component);
     const [visible, setVisible] = useState(true);
@@ -31,31 +23,27 @@ const Workbench = withPlayground(
     useEffect(() => {
       const controls = groups.flatMap((group) => group.controls);
       const keys = Object.entries(defaults);
-      const active = (query: URLSearchParams) =>
-        tabbed ? query.get('tab') === 'playground' : query.get('c') === component;
+      const active = (query: URLSearchParams) => query.get('tab') === 'playground';
 
       let restoring = false;
       const sync = () => {
         const query = new URLSearchParams(location.search);
-        if (tabbed) {
-          setVisible(active(query));
-          if (!active(query)) return;
-        }
+        const isActive = active(query);
+        setVisible(isActive);
+        if (!isActive) return;
 
         const next: Values = { ...defaults };
-        if (active(query)) {
-          for (const [key, fallback] of keys) {
-            const raw = query.get(key);
-            if (raw == null) continue;
-            const control = controls.find((item) => item.key === key);
-            if (typeof fallback === 'boolean') {
-              if (raw === 'true' || raw === 'false') next[key] = raw === 'true';
-            } else if (
-              control?.type !== 'select' ||
-              control.options.some((option) => option.value === raw)
-            ) {
-              next[key] = raw;
-            }
+        for (const [key, fallback] of keys) {
+          const raw = query.get(key);
+          if (raw == null) continue;
+          const control = controls.find((item) => item.key === key);
+          if (typeof fallback === 'boolean') {
+            if (raw === 'true' || raw === 'false') next[key] = raw === 'true';
+          } else if (
+            control?.type !== 'select' ||
+            control.options.some((option) => option.value === raw)
+          ) {
+            next[key] = raw;
           }
         }
 
@@ -75,14 +63,12 @@ const Workbench = withPlayground(
         if (url.href !== location.href) history.replaceState(history.state, '', url);
       });
       sync();
-      addEventListener(SOFT_NAVIGATE, sync);
       addEventListener('popstate', sync);
       return () => {
         unsubscribe();
-        removeEventListener(SOFT_NAVIGATE, sync);
         removeEventListener('popstate', sync);
       };
-    }, [component, defaults, groups, tabbed]);
+    }, [component, defaults, groups]);
 
     const shown = useShownCode(code(values), paths, true);
     if (!visible) return null;

@@ -6,7 +6,7 @@ export type SearchItem = { title: string; href: string; group: string };
 
 /**
  * Search across the docs: a dialog listing every page, component and block, opened with ⌘K /
- * Ctrl+K from anywhere, or on a narrow window (a phone, no keyboard) with the bar's search button
+ * Ctrl+K from anywhere, or with the header search button
  * (the bar has no field of its own; each sidebar filters its own list). Type to narrow, click to
  * go; the results are plain links.
  */
@@ -38,7 +38,6 @@ const SearchPalette = ({ items }: { items: SearchItem[] }) => {
         preset="ghost"
         variant="secondary"
         aria-label="Search"
-        className="lg:hidden"
         onClick={() => setOpen(true)}
       />
       <Modal open={open} onOpenChange={setOpen}>
