@@ -20,6 +20,7 @@ import {
   focusFirstControl,
   removeAllFromTabOrder,
   removeFromTabOrder,
+  restoreTabOrderOutsideCells,
   rowsPerPage,
   usesArrowKeys,
 } from './Spreadsheet.logic';
@@ -258,6 +259,9 @@ export const useSpreadsheetControls = (tableRef: RefObject<HTMLTableElement | nu
         record.addedNodes.forEach((node) => {
           if (node instanceof Element) removeAllFromTabOrder(node);
         });
+        record.removedNodes.forEach((node) => {
+          if (node instanceof Element) restoreTabOrderOutsideCells(node);
+        });
       });
       observer.observe(table, options);
     });
@@ -283,11 +287,13 @@ export const useSpreadsheetKeyboard = (
   const focusWithin = useRef(false);
   const blurTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
   const tabTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
+  const restoreTabOrder = useRef<(() => void) | undefined>(undefined);
 
   useEffect(
     () => () => {
       clearTimeout(blurTimer.current);
       clearTimeout(tabTimer.current);
+      restoreTabOrder.current?.();
     },
     [],
   );
@@ -339,15 +345,29 @@ export const useSpreadsheetKeyboard = (
       // So does the scroll container, which Chrome makes a tab stop once nothing in it is one.
       const scroller = scrollerRef.current;
       if (event.shiftKey && scroller) {
+        clearTimeout(tabTimer.current);
+        restoreTabOrder.current?.();
         const scrollerTabIndex = scroller.getAttribute('tabindex');
         cell.tabIndex = -1;
         scroller.tabIndex = -1;
-        clearTimeout(tabTimer.current);
-        tabTimer.current = setTimeout(() => {
-          if (store.get().id === cell.getAttribute(CELL_ATTRIBUTE)) cell.tabIndex = 0;
-          if (scrollerTabIndex === null) scroller.removeAttribute('tabindex');
-          else scroller.setAttribute('tabindex', scrollerTabIndex);
+        // A focus handler outside the grid can assign tabindex, even the same -1 we just wrote.
+        let scrollerTabIndexChanged = false;
+        const scrollerObserver = new MutationObserver(() => {
+          scrollerTabIndexChanged = true;
         });
+        scrollerObserver.observe(scroller, { attributeFilter: ['tabindex'] });
+        const restore = () => {
+          restoreTabOrder.current = undefined;
+          if (store.get().id === cell.getAttribute(CELL_ATTRIBUTE)) cell.tabIndex = 0;
+          const changed = scrollerTabIndexChanged || scrollerObserver.takeRecords().length > 0;
+          scrollerObserver.disconnect();
+          if (!changed) {
+            if (scrollerTabIndex === null) scroller.removeAttribute('tabindex');
+            else scroller.setAttribute('tabindex', scrollerTabIndex);
+          }
+        };
+        restoreTabOrder.current = restore;
+        tabTimer.current = setTimeout(restore);
       }
       return;
     }

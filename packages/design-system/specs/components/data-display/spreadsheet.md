@@ -116,8 +116,9 @@ A `<table role="grid">` inside a scroll container: `ColumnHeader` is a `th scope
   cell. Controls in cells are out of the tab order, so Tab leaves the grid without stopping on
   one, and returns to the same cell. Navigation between controls respects their `tabIndex`
   order, including changes to that attribute. An explicit negative value excludes a control
-  from Tab navigation within the cell. The grid skips embedded frames when entering a cell or
-  moving between its controls.
+  from Tab navigation within the cell. The grid skips embedded documents when entering a cell or
+  moving between its controls. Set `tabIndex={-1}` on custom scroll containers inside cells
+  to keep the browser from adding a tab stop for the scrolling region.
 - Controls in cells have no visible label: give each an `aria-label` naming column and row
   (`Verified: Tech Nova`). `ColumnHeaderTrigger` requires its own (`Customers options`).
 - An empty corner header still needs a name: `aria-label="Row"`.

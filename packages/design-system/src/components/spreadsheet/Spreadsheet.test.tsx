@@ -534,6 +534,92 @@ describe('Spreadsheet', () => {
       expect(screen.getByLabelText('Details')).toHaveAttribute('tabindex', '-1');
     });
 
+    it('takes legacy SVG links and image map areas out of the tab order', async () => {
+      render(
+        <OneCell>
+          <svg role="img" aria-label="Diagram" />
+          <map name="locations">
+            <area alt="Location" href="#location" />
+          </map>
+        </OneCell>,
+      );
+      const link = document.createElementNS('http://www.w3.org/2000/svg', 'a');
+      link.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', '#details');
+      await act(async () => screen.getByRole('img', { name: 'Diagram' }).append(link));
+      expect(link).toHaveAttribute('tabindex', '-1');
+      expect(screen.getByAltText('Location')).toHaveAttribute('tabindex', '-1');
+    });
+
+    it('restores implicit and explicit tab indices when controls leave a cell', async () => {
+      render(<OneCell>Notes</OneCell>);
+      const controls = document.createElement('div');
+      const implicit = document.createElement('button');
+      const explicit = document.createElement('button');
+      explicit.tabIndex = 2;
+      controls.append(implicit, explicit);
+      await act(async () => screen.getByRole('gridcell').append(controls));
+      expect(implicit).toHaveAttribute('tabindex', '-1');
+      expect(explicit).toHaveAttribute('tabindex', '-1');
+      await act(async () => screen.getByRole('grid').parentElement?.after(controls));
+      expect(implicit).not.toHaveAttribute('tabindex');
+      expect(explicit).toHaveAttribute('tabindex', '2');
+    });
+
+    it('drops the managed tabindex when a link loses its href', async () => {
+      const user = userEvent.setup();
+      const controls = (href?: string) => (
+        <OneCell>
+          <a href={href}>Details</a>
+          <input aria-label="Notes" />
+        </OneCell>
+      );
+      const { rerender } = render(controls('#details'));
+      const link = screen.getByRole('link', { name: 'Details' });
+      expect(link).toHaveAttribute('tabindex', '-1');
+      rerender(controls());
+      await waitFor(() => expect(link).not.toHaveAttribute('tabindex'));
+      await user.click(screen.getByRole('gridcell'));
+      await user.keyboard('{Enter}');
+      expect(screen.getByRole('textbox', { name: 'Notes' })).toHaveFocus();
+    });
+
+    it('drops the managed tabindex when an editing host becomes static', async () => {
+      const user = userEvent.setup();
+      const notes = (editable: boolean) => (
+        <OneCell>
+          <div contentEditable={editable ? 'plaintext-only' : false} suppressContentEditableWarning>
+            Note
+          </div>
+          <input aria-label="Next" />
+        </OneCell>
+      );
+      const { rerender } = render(notes(true));
+      const editor = screen.getByText('Note');
+      expect(editor).toHaveAttribute('tabindex', '-1');
+      rerender(notes(false));
+      await waitFor(() => expect(editor).not.toHaveAttribute('tabindex'));
+      await user.click(screen.getByRole('gridcell'));
+      await user.keyboard('{Enter}');
+      expect(screen.getByRole('textbox', { name: 'Next' })).toHaveFocus();
+    });
+
+    it('suppresses an editing host again after its authored negative tabindex is removed', async () => {
+      const notes = (editable: boolean, tabIndex?: number) => (
+        <OneCell>
+          <div contentEditable={editable} tabIndex={tabIndex} suppressContentEditableWarning>
+            Note
+          </div>
+        </OneCell>
+      );
+      const { rerender } = render(notes(true, -1));
+      const editor = screen.getByText('Note');
+      rerender(notes(false));
+      await act(async () => {});
+      expect(editor).not.toHaveAttribute('tabindex');
+      rerender(notes(true));
+      await waitFor(() => expect(editor).toHaveAttribute('tabindex', '-1'));
+    });
+
     it('suppresses iframe tab stops and enters the next same-document control', async () => {
       const user = userEvent.setup();
       render(
@@ -879,6 +965,26 @@ describe('Spreadsheet', () => {
       expect(checkbox.closest('td')).toHaveAttribute('tabindex', '0');
       expect(screen.getByRole('grid').parentElement).not.toHaveAttribute('tabindex');
     });
+
+    it.each([0, -1])(
+      'preserves scroller tabindex %s assigned while focus leaves the grid',
+      async (tabIndex) => {
+        const user = userEvent.setup();
+        render(
+          <OneCell>
+            <input aria-label="Notes" />
+          </OneCell>,
+        );
+        const scroller = screen.getByRole('grid').parentElement!;
+        screen.getByRole('button', { name: 'Before' }).addEventListener('focus', () => {
+          scroller.tabIndex = tabIndex;
+        });
+        await user.click(screen.getByRole('textbox', { name: 'Notes' }));
+        await user.tab({ shift: true });
+        await act(() => new Promise((resolve) => setTimeout(resolve)));
+        expect(scroller).toHaveAttribute('tabindex', String(tabIndex));
+      },
+    );
 
     it('keeps a control rendered later out of the tab order', async () => {
       const Notes = ({ editing }: { editing: boolean }) => (
