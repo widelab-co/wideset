@@ -315,10 +315,8 @@ const TRANSLATE: Record<Side, string> = {
 
 /**
  * The Anatomy picture: the component at its real size with each part named beside it, level
- * with it. Hovering a name, or its row in the table below, turns the name into a badge and
- * outlines the part and opens a popup with the tokens the part binds, read from its classes
- * (also on keyboard focus of a name, and on a tap). Parts are found by their `data-slot`, so the
- * picture follows the component's real DOM rather than a drawing of it.
+ * with it. Hovering a name or its table row highlights the part. Activating the name opens
+ * the tokens read from the part's classes. The picture finds each part by its `data-slot`.
  */
 const AnatomyDiagram = ({
   component,
@@ -339,9 +337,17 @@ const AnatomyDiagram = ({
   const [active, setActive] = useState<number | null>(null);
   const [tokensPart, setTokensPart] = useState<number | null>(null);
   const tokensTrigger = useRef<HTMLButtonElement>(null);
+  const hoveredName = useRef<number | null>(null);
   /** The part last highlighted: the scrim fades out around it instead of jumping away. */
   const [shown, setShown] = useState<number | null>(null);
   useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    const closeWhenLeaving = () => {
+      if (new URLSearchParams(location.search).get('tab') !== 'anatomy') setTokensPart(null);
+    };
+    window.addEventListener('popstate', closeWhenLeaving);
+    return () => window.removeEventListener('popstate', closeWhenLeaving);
+  }, []);
 
   // Measure the drawing when it renders or changes size (fonts, a narrower frame rewrapping
   // it); follow the frame's width. A transform changes neither, so this never loops.
@@ -530,8 +536,19 @@ const AnatomyDiagram = ({
             tokensTrigger.current = event.currentTarget;
             setTokensPart((part) => (part === n ? null : n));
           }}
-          onBlur={() => highlight(null)}
-          {...hover(n)}
+          onBlur={() => {
+            if (hoveredName.current !== n) highlight(null);
+          }}
+          onPointerEnter={(event) => {
+            if (event.pointerType !== 'mouse') return;
+            hoveredName.current = n;
+            highlight(n);
+          }}
+          onPointerLeave={(event) => {
+            if (event.pointerType !== 'mouse') return;
+            hoveredName.current = null;
+            highlight(null);
+          }}
           className={`${LABEL_BOX} absolute cursor-pointer outline-ws-dynamic-primary-strong-default transition-[color,background-color,opacity,font-weight] ease-out focus-visible:wds-focus-visible motion-reduce:transition-opacity ${active === n ? 'bg-ws-static-foreground text-ws-static-strong duration-(--ws-motion-duration-micro)' : 'text-ws-static-subtle duration-[60ms]'}`}
           style={{
             left: x,

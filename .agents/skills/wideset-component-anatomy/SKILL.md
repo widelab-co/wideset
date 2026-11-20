@@ -10,7 +10,7 @@ metadata:
 # Component anatomy
 
 The Anatomy tab of a component page (`?tab=anatomy`) shows a component's parts: the component drawn 1:1 with each part named
-beside it, and a table of the parts as a tree. Hovering a name or a row highlights it and opens the part's tokens.
+beside it, and a table of the parts as a tree. Hovering a name or a row highlights the part. Activating its name opens the part's tokens.
 Both halves are generated; a component contributes only its **composition** (what the picture
 draws) and its parts' **`data-slot`s**. Card is the pattern to copy.
 

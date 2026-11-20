@@ -41,7 +41,7 @@ const toc = headings
 
 <script>
   const icon = document.querySelector<HTMLTemplateElement>('#docs-heading-icon');
-  for (const heading of document.querySelectorAll('[data-docs-article] :is(h2, h3)[id]')) {
+  for (const heading of document.querySelectorAll('[data-docs-article] :is(h2, h3, h4)[id]')) {
     const link = document.createElement('a');
     link.className = 'docs-section-link';
     link.href = `#${encodeURIComponent(heading.id)}`;
