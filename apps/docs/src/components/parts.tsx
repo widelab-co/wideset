@@ -44,7 +44,8 @@ import { ManualSteps } from './ManualSteps';
 import SearchPalette, { type SearchItem } from './SearchPalette';
 import ThemeToggle from './ThemeToggle';
 
-const useCopy = () => {
+/** Copies text to the clipboard; `copied` stays true for a moment after, for the button's label. */
+export const useCopy = () => {
   const [copied, setCopied] = useState(false);
   const copy = async (text: string) => {
     try {

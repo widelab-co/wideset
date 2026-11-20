@@ -169,8 +169,8 @@ is merged.
 
 `/docs/themes` (`src/components/Themes.tsx`): a brand preset sets the primary colour ramp, the
 corner ladder and the font; a "Customize" row changes them by hand; the cards under it are live
-components in that theme, and the Export block prints the CSS to paste after the Wideset
-stylesheet. The theme is a scope on each card (the light or dark tokens re-declared under the
+components in that theme. "Get code", beside the presets, opens a dialog with the CSS to paste
+after the Wideset stylesheet. The theme is a scope on each card (the light or dark tokens re-declared under the
 primitive overrides), so nothing outside the cards changes. A third-party brand appears by name
 only: no logos and no proprietary fonts are in the repository (an open font loads; otherwise the
 font's name shows and Inter stands in).

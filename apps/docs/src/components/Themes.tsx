@@ -2,7 +2,10 @@ import {
   RiAddLine,
   RiArchiveLine,
   RiBarChartBoxLine,
+  RiCheckLine,
+  RiCodeSSlashLine,
   RiDashboardLine,
+  RiFileCopyLine,
   RiInboxLine,
   RiMailLine,
   RiNotification3Line,
@@ -14,6 +17,7 @@ import {
   Card,
   cn,
   IconButton,
+  Modal,
   ProgressBar,
   SegmentedControl,
   StatusBadge,
@@ -35,13 +39,14 @@ import {
 
 import { LADDERS, type Radius, STEPS } from '../lib/radius';
 import { isDark, loadAppearance, onAppearanceChange } from '../lib/theme';
-import { Code } from './parts';
+import { Code, useCopy } from './parts';
 import { WidesetWordmark } from './Wordmark';
 
 /**
- * The Themes page, after the website's "Customization" section: brand presets, a compact Customize row for manual tweaks,
- * then cards that all take the choice on (Foundation, Logo & identity, Components, Assets, and a
- * whole product screen), and the CSS to export. Every card's content is its own scope: the light
+ * The Themes page, after the website's "Customization" section: brand presets with "Get code" (the
+ * CSS to export, in a dialog), a compact Customize row for manual tweaks, then cards that all take
+ * the choice on (Foundation, Logo & identity, Components, Assets, and a whole product screen).
+ * Every card's content is its own scope: the light
  * (`.docs-light`) or dark (`.dark`) tokens re-declared on it under the primitive overrides, so
  * nothing outside the cards changes.
  */
@@ -655,7 +660,48 @@ const FIELD = 'flex items-center gap-ws-5';
 const FIELD_LABEL = 'typography-label-sm text-ws-static-subtle';
 const capitalize = (word: string) => word.charAt(0).toUpperCase() + word.slice(1);
 
-/** The Themes page under its head: presets, Customize, the cards, the export. */
+/**
+ * The theme's CSS, after the "Get code" dialog of shadcn/ui's theme builder: a button at the top of
+ * the page opens it; the code keeps its own copy icon and the footer copies all of it.
+ */
+const GetCode = ({ css }: { css: string }) => {
+  const { copied, copy } = useCopy();
+  return (
+    <Modal>
+      <Modal.Trigger asChild>
+        <Button>
+          <Button.Icon icon={RiCodeSSlashLine} />
+          Get code
+        </Button>
+      </Modal.Trigger>
+      <Modal.Content className="max-w-[48rem]">
+        <Modal.Header>
+          <Modal.Title>Your theme</Modal.Title>
+          <Modal.Description>
+            Paste it after the Wideset stylesheet: the brand ramp, the corners and, where the preset
+            sets them, the font and the text on the primary.
+          </Modal.Description>
+        </Modal.Header>
+        <Modal.Body>
+          <Code code={css} lang="css" />
+        </Modal.Body>
+        <Modal.Footer>
+          <Modal.Close asChild>
+            <Button variant="secondary" preset="border">
+              Close
+            </Button>
+          </Modal.Close>
+          <Button onClick={() => copy(css)}>
+            <Button.Icon icon={copied ? RiCheckLine : RiFileCopyLine} />
+            {copied ? 'Copied' : 'Copy CSS'}
+          </Button>
+        </Modal.Footer>
+      </Modal.Content>
+    </Modal>
+  );
+};
+
+/** The Themes page under its head: presets and the theme's code, Customize, the cards. */
 const Themes = () => {
   const [theme, setTheme] = useState<Theme>({
     preset: 'wideset',
@@ -763,20 +809,24 @@ const Themes = () => {
     >
       <div className="flex flex-col gap-ws-12">
         <div className="flex flex-col gap-ws-9">
-          <SegmentedControl
-            value={theme.preset ?? ''}
-            onValueChange={(next) => {
-              const item = PRESETS.find((candidate) => candidate.id === next);
-              if (item) pick(item);
-            }}
-            aria-label="Brand preset"
-          >
-            {PRESETS.map((item) => (
-              <SegmentedControl.Item key={item.id} value={item.id}>
-                {item.label}
-              </SegmentedControl.Item>
-            ))}
-          </SegmentedControl>
+          {/* The presets, and the theme's code at the other end of the row. */}
+          <div className="flex flex-wrap items-center justify-between gap-ws-7">
+            <SegmentedControl
+              value={theme.preset ?? ''}
+              onValueChange={(next) => {
+                const item = PRESETS.find((candidate) => candidate.id === next);
+                if (item) pick(item);
+              }}
+              aria-label="Brand preset"
+            >
+              {PRESETS.map((item) => (
+                <SegmentedControl.Item key={item.id} value={item.id}>
+                  {item.label}
+                </SegmentedControl.Item>
+              ))}
+            </SegmentedControl>
+            <GetCode css={css} />
+          </div>
 
           {/* Customize: the presets set these; here they are set by hand. */}
           <div className="flex flex-wrap items-center gap-x-ws-14 gap-y-ws-7">
@@ -900,15 +950,6 @@ const Themes = () => {
             <BillingScreen />
           </ThemeCard>
         </div>
-
-        <section className="max-w-[60rem]">
-          <h2 className="typography-subtitle-sm text-ws-static-strong">Export</h2>
-          <p className="mt-ws-4 mb-ws-9 max-w-[65ch] typography-body-md text-ws-static-subtle">
-            Paste it after the Wideset stylesheet: the brand ramp, the corners and, where the preset
-            sets them, the font and the text on the primary.
-          </p>
-          <Code code={css} lang="css" peek />
-        </section>
       </div>
     </Scope.Provider>
   );
