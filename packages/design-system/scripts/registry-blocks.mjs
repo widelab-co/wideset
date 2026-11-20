@@ -159,28 +159,60 @@ export function markBlockBoundaries(source, path, isEntry) {
   };
   markPortals(tree);
 
-  // Root candidates come only from what the default export renders, following components
+  // Root candidates come only from the JSX the default export returns, following components
   // declared in this file, so a helper the screen never renders cannot add a candidate.
+  const isFunction = (node) =>
+    node &&
+    (ts.isArrowFunction(node) || ts.isFunctionExpression(node) || ts.isFunctionDeclaration(node));
+  const unwrap = (node) =>
+    node && ts.isParenthesizedExpression(node) ? unwrap(node.expression) : node;
   const components = new Map();
+  const collect = (node) => {
+    if (ts.isFunctionDeclaration(node) && node.name) components.set(node.name.text, node);
+    if (
+      ts.isVariableDeclaration(node) &&
+      ts.isIdentifier(node.name) &&
+      isFunction(unwrap(node.initializer))
+    ) {
+      components.set(node.name.text, unwrap(node.initializer));
+    }
+    ts.forEachChild(node, collect);
+  };
+  collect(tree);
   let entry;
   for (const statement of tree.statements) {
-    if (ts.isFunctionDeclaration(statement) && statement.name) {
-      components.set(statement.name.text, statement);
+    if (ts.isFunctionDeclaration(statement)) {
       const modifiers = ts.getModifiers(statement) ?? [];
       if (modifiers.some((modifier) => modifier.kind === ts.SyntaxKind.DefaultKeyword)) {
         entry = statement;
       }
-    } else if (ts.isVariableStatement(statement)) {
-      for (const declaration of statement.declarationList.declarations) {
-        if (ts.isIdentifier(declaration.name) && declaration.initializer) {
-          components.set(declaration.name.text, declaration.initializer);
-        }
-      }
-    } else if (ts.isExportAssignment(statement) && ts.isIdentifier(statement.expression)) {
-      entry = components.get(statement.expression.text);
+    } else if (ts.isExportAssignment(statement)) {
+      const value = unwrap(statement.expression);
+      entry = ts.isIdentifier(value)
+        ? components.get(value.text)
+        : isFunction(value)
+          ? value
+          : undefined;
     }
   }
+  // What a component renders: its returned expressions, not the bodies of functions it declares.
+  const rendered = (fn) => {
+    if (!fn.body) return [];
+    if (!ts.isBlock(fn.body)) return [fn.body];
+    const found = [];
+    const walk = (node) => {
+      if (ts.isReturnStatement(node) && node.expression) found.push(node.expression);
+      else if (!ts.isFunctionLike(node) && !ts.isClassLike(node)) ts.forEachChild(node, walk);
+    };
+    ts.forEachChild(fn.body, walk);
+    return found;
+  };
   const followed = new Set();
+  const follow = (fn, insideRoot) => {
+    if (followed.has(fn)) return;
+    followed.add(fn);
+    for (const expression of rendered(fn)) visit(expression, insideRoot);
+  };
   const visit = (node, insideRoot) => {
     if (ts.isJsxElement(node) || ts.isJsxSelfClosingElement(node)) {
       const element = ts.isJsxElement(node) ? node.openingElement : node;
@@ -195,18 +227,14 @@ export function markBlockBoundaries(source, path, isEntry) {
         }
       }
       const component = components.get(tag);
-      if (component && !followed.has(component)) {
-        followed.add(component);
-        visit(component, insideRoot);
-      }
+      if (component) follow(component, insideRoot);
     }
     ts.forEachChild(node, (child) => visit(child, insideRoot));
   };
 
   if (isEntry) {
     if (!entry) throw new Error(`build-registry: no default export found in ${path}`);
-    followed.add(entry);
-    visit(entry, false);
+    follow(entry, false);
     // Screen helpers may render their own native roots. Prefer the screen's
     // AppShell, including when the entry delegates through a provider.
     const roots = shells.length ? shells : nativeRoots;

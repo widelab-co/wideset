@@ -204,6 +204,17 @@ describe('registry build', () => {
 
     const twoRoots = `export default function Screen() {\n  return (\n    <>\n      <main />\n      <aside />\n    </>\n  );\n}\n`;
     expect(() => apply(twoRoots)).toThrow(/expected one block root/);
+
+    const nested = `export default function Screen() {\n  function Hint() {\n    return <span>hint</span>;\n  }\n  return (\n    <main>\n      <Hint />\n    </main>\n  );\n}\n`;
+    expect(apply(nested)).toContain('<main className="ws-block-utility">');
+    expect(apply(nested)).toContain('<span>hint</span>');
+
+    expect(apply(`export default () => <main />;\n`)).toContain(
+      '<main className="ws-block-utility" />',
+    );
+    expect(apply(`export default function () {\n  return <main />;\n}\n`)).toContain(
+      '<main className="ws-block-utility" />',
+    );
   });
 
   it('validates against the shadcn schemas', () => {
