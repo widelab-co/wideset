@@ -238,7 +238,14 @@
 }
 
 .docs-tab-row {
+  /* Leave 4px for the Tabs focus outline and 1px for scroll rounding. */
+  --docs-tab-focus-space: 5px;
   container-type: inline-size;
+  margin-inline: calc(-1 * var(--docs-tab-focus-space));
+  padding: var(--docs-tab-focus-space);
+  padding-block-end: calc(var(--docs-tab-focus-space) + 1px);
+  background: linear-gradient(var(--border-color-ws-static-subtle) 0 0) center bottom
+    var(--docs-tab-focus-space) / calc(100% - 2 * var(--docs-tab-focus-space)) 1px no-repeat;
 }
 .docs-tab-row [role='tab'] {
   max-inline-size: 100cqi;
