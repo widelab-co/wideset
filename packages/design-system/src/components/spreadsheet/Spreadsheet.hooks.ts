@@ -16,9 +16,12 @@ import {
   cellAt,
   cellFor,
   columnOf,
+  controlsAfter,
   focusFirstControl,
+  removeAllFromTabOrder,
+  removeFromTabOrder,
+  restoreTabOrderOutsideCells,
   rowsPerPage,
-  tabbables,
   usesArrowKeys,
 } from './Spreadsheet.logic';
 
@@ -217,43 +220,90 @@ export const useSpreadsheetLayout = (
   }, [scrollerRef, tableRef, stickyColumns, store, focusWithin]);
 };
 
+const CONTROL_ATTRIBUTES = new Set(['tabindex', 'href', 'contenteditable', 'type', 'controls']);
+
+/**
+ * Keeps the controls in the cells out of the tab order, those rendered later included, so that
+ * the active cell is the grid's one tab stop (see `removeFromTabOrder`).
+ */
+export const useSpreadsheetControls = (tableRef: RefObject<HTMLTableElement | null>) => {
+  useLayoutEffect(() => {
+    const table = tableRef.current;
+    if (!table) return;
+
+    removeAllFromTabOrder(table);
+    const options: MutationObserverInit = {
+      childList: true,
+      subtree: true,
+      attributes: true,
+    };
+    // New rows and content, and a control that becomes a tab stop again (a re-render setting
+    // its tabIndex, a link gaining an href).
+    const observer = new MutationObserver((records) => {
+      // An observer's attributeFilter omits namespaced attributes such as SVG xlink:href.
+      const relevant = records.filter(
+        ({ type, attributeName }) =>
+          type === 'childList' || (attributeName !== null && CONTROL_ATTRIBUTES.has(attributeName)),
+      );
+      if (!relevant.length) return;
+      // Only authored mutations reach this observer: disconnect while writing the grid's -1.
+      // Even an authored -1 replacing our identical -1 must update the remembered attribute.
+      observer.disconnect();
+      const changed = new Map<Element, boolean>();
+      const editableParents = new Set<Element>();
+      for (const record of relevant) {
+        if (record.type === 'attributes') {
+          const element = record.target as Element;
+          changed.set(element, changed.get(element) || record.attributeName === 'tabindex');
+          if (record.attributeName === 'contenteditable') editableParents.add(element);
+        }
+      }
+      // Reconcile each target once, using its final authored value for a batch of mutations.
+      changed.forEach((tabIndexChanged, element) => removeFromTabOrder(element, tabIndexChanged));
+      // Changing an ancestor can make a descendant an independent editing host.
+      editableParents.forEach(removeAllFromTabOrder);
+      relevant.forEach((record) => {
+        record.addedNodes.forEach((node) => {
+          if (node instanceof Element) removeAllFromTabOrder(node);
+        });
+        record.removedNodes.forEach((node) => {
+          if (node instanceof Element) restoreTabOrderOutsideCells(node);
+        });
+      });
+      observer.observe(table, options);
+    });
+    observer.observe(table, options);
+    return () => observer.disconnect();
+  }, [tableRef]);
+};
+
 /**
  * Keyboard and focus for the grid (the APG grid pattern). Arrows, Home and End, Ctrl/Cmd+Home and
  * End, Page Up and Page Down move the active cell, which takes focus. Enter or F2 moves focus to
  * the first control in the cell, Tab between the cell's controls; Escape or F2 brings it back.
- * The grid is one tab stop: past the cell's controls Tab leaves it whatever the other cells hold,
- * and tabbing back returns to the cell the user left.
+ * The grid is one tab stop (the controls in its cells are out of the tab order), so the browser's
+ * Tab leaves it from the cell or past the cell's controls without stopping on another control,
+ * and tabbing back lands on the cell the user left.
  */
 export const useSpreadsheetKeyboard = (
   scrollerRef: RefObject<HTMLDivElement | null>,
   store: ActiveCellStore,
 ) => {
-  // Whether the focus now arriving comes from a Tab press. Read on the document, which hears the
-  // key before the browser moves focus.
-  const tabbing = useRef(false);
-  // True while the grid hands focus to its first or last control, so that the browser's own Tab
-  // continues from there out of the grid.
-  const leaving = useRef(false);
   // Whether focus is in the grid (portals included), for the layout to hand focus on when the
   // focused cell is removed.
   const focusWithin = useRef(false);
   const blurTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
+  const tabTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
+  const restoreTabOrder = useRef<(() => void) | undefined>(undefined);
 
-  useEffect(() => {
-    const onKey = (event: globalThis.KeyboardEvent) => {
-      tabbing.current = event.key === 'Tab';
-    };
-    const onPointer = () => {
-      tabbing.current = false;
-    };
-    document.addEventListener('keydown', onKey, true);
-    document.addEventListener('pointerdown', onPointer, true);
-    return () => {
-      document.removeEventListener('keydown', onKey, true);
-      document.removeEventListener('pointerdown', onPointer, true);
+  useEffect(
+    () => () => {
       clearTimeout(blurTimer.current);
-    };
-  }, []);
+      clearTimeout(tabTimer.current);
+      restoreTabOrder.current?.();
+    },
+    [],
+  );
 
   const onBlur = (event: FocusEvent<HTMLTableElement>) => {
     const target = event.target as Node;
@@ -276,55 +326,56 @@ export const useSpreadsheetKeyboard = (
     const target = event.target as HTMLElement;
     // Focus from a portal (an open menu) reaches the table through React; it is not in a cell.
     const cell = table.contains(target) ? target.closest<HTMLElement>(CELL_SELECTOR) : null;
-    if (leaving.current || !cell) return;
-
-    if (tabbing.current && !table.contains(event.relatedTarget as Node | null)) {
-      const active = findCell(table, store.get().id);
-      if (active && !active.contains(target)) {
-        active.focus();
-        return;
-      }
-    }
-    store.set(cell.getAttribute(CELL_ATTRIBUTE), true);
+    if (cell) store.set(cell.getAttribute(CELL_ATTRIBUTE), true);
   };
 
   const onKeyDown = (event: KeyboardEvent<HTMLTableElement>) => {
     const table = event.currentTarget;
-    const target = event.target as HTMLElement;
+    const target = event.target as Element;
     if (event.defaultPrevented || !table.contains(target)) return;
     const cell = target.closest<HTMLTableCellElement>(CELL_SELECTOR);
     if (!cell) return;
 
     if (event.key === 'Tab') {
-      // From a control, Tab and Shift+Tab first move between the controls of the same cell,
-      // skipping those that do not take focus (hidden ones).
-      if (target !== cell) {
-        const controls = tabbables(cell);
-        const index = controls.indexOf(target);
-        const after = event.shiftKey
-          ? controls.slice(0, Math.max(index, 0)).reverse()
-          : controls.slice(index + 1);
-        if (index !== -1) {
-          for (const control of after) {
-            control.focus();
-            if (table.ownerDocument.activeElement === control) {
-              event.preventDefault();
-              return;
-            }
-          }
+      // From the cell the browser's Tab leaves the grid: nothing else in it is a tab stop.
+      if (target === cell) return;
+      // Try the rest of the cell's controls, skipping any that do not take focus.
+      for (const control of controlsAfter(cell, target, event.shiftKey)) {
+        control.focus();
+        if (table.ownerDocument.activeElement === control) {
+          event.preventDefault();
+          return;
         }
       }
-      // Hand focus to the grid's last (first) control that takes it, skipping hidden ones, so
-      // the browser's Tab continues from there out of the grid.
-      const stops = tabbables(table);
-      if (!event.shiftKey) stops.reverse();
-      leaving.current = true;
-      for (const stop of stops) {
-        if (stop === target) break;
-        stop.focus({ preventScroll: true });
-        if (table.ownerDocument.activeElement === stop) break;
+      // Past the first control Shift+Tab would stop on the cell, which comes before its
+      // controls: the cell leaves the tab order until the browser has moved focus out of the grid.
+      // So does the scroll container, which Chrome makes a tab stop once nothing in it is one.
+      const scroller = scrollerRef.current;
+      if (event.shiftKey && scroller) {
+        clearTimeout(tabTimer.current);
+        restoreTabOrder.current?.();
+        const scrollerTabIndex = scroller.getAttribute('tabindex');
+        cell.tabIndex = -1;
+        scroller.tabIndex = -1;
+        // A focus handler outside the grid can assign tabindex, even the same -1 we just wrote.
+        let scrollerTabIndexChanged = false;
+        const scrollerObserver = new MutationObserver(() => {
+          scrollerTabIndexChanged = true;
+        });
+        scrollerObserver.observe(scroller, { attributeFilter: ['tabindex'] });
+        const restore = () => {
+          restoreTabOrder.current = undefined;
+          if (store.get().id === cell.getAttribute(CELL_ATTRIBUTE)) cell.tabIndex = 0;
+          const changed = scrollerTabIndexChanged || scrollerObserver.takeRecords().length > 0;
+          scrollerObserver.disconnect();
+          if (!changed) {
+            if (scrollerTabIndex === null) scroller.removeAttribute('tabindex');
+            else scroller.setAttribute('tabindex', scrollerTabIndex);
+          }
+        };
+        restoreTabOrder.current = restore;
+        tabTimer.current = setTimeout(restore);
       }
-      leaving.current = false;
       return;
     }
 

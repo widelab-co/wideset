@@ -5,6 +5,7 @@ import { cn } from 'src/lib/utils';
 import { SpreadsheetContext } from './Spreadsheet.context';
 import {
   createActiveCellStore,
+  useSpreadsheetControls,
   useSpreadsheetKeyboard,
   useSpreadsheetLayout,
 } from './Spreadsheet.hooks';
@@ -41,6 +42,7 @@ export const Spreadsheet = React.forwardRef<HTMLDivElement, SpreadsheetProps>(
     const { focusWithin, onBlur, onFocus, onKeyDown } = useSpreadsheetKeyboard(scrollerRef, store);
 
     useSpreadsheetLayout(scrollerRef, tableRef, stickyColumns, store, focusWithin);
+    useSpreadsheetControls(tableRef);
 
     return (
       <SpreadsheetContext.Provider value={context}>
