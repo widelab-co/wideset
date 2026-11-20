@@ -53,7 +53,8 @@ installer writes, and Storybook reads the original source.
 The registry adds `ws-block-utility` to the installed entry’s layout root and to its portal parts.
 The layout root is the entry’s `AppShell` or its single outer HTML element. The compiled
 utilities apply to each marked element and its DOM descendants. For custom content rendered
-through a portal callback, such as a toast message, put the class on its styled DOM root.
+through a portal callback, such as a toast message, or beside the layout root, such as a
+full-screen viewer, put the class on its styled DOM root.
 
 ## The four directions
 

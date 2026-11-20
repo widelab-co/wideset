@@ -18,7 +18,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
 import { BLOCKS, PANELS } from '../src/blocks';
 import { buildRegistry } from './build-registry.mjs';
-import { rewriteBlockImports } from './registry-blocks.mjs';
+import { markBlockBoundaries, rewriteBlockImports } from './registry-blocks.mjs';
 
 const ROOT = resolve(__dirname, '..');
 const BASE = 'https://example.test/r';
@@ -178,6 +178,32 @@ describe('registry build', () => {
       .files.find((file) => file.target.endsWith('/move-toast.tsx'))!.content;
     expect(toast).toContain('<span className="ws-block-utility ');
     expect(toast.match(/ws-block-utility/g)).toHaveLength(1);
+
+    const viewer = byName
+      .get('block-media-viewer')!
+      .files.find((file) => file.target.endsWith('/media-viewer.tsx'))!.content;
+    expect(viewer.match(/ws-block-utility/g)).toHaveLength(1);
+  });
+
+  it('takes the block root only from what the entry renders', () => {
+    const apply = (source: string) => {
+      let out = source;
+      const edits = markBlockBoundaries(source, 'index.tsx', true);
+      for (const edit of edits.sort((a, b) => b.pos - a.pos)) {
+        out = out.slice(0, edit.pos) + edit.text + out.slice(edit.end);
+      }
+      return out;
+    };
+
+    const unused = `function Hint() {\n  return <span>hint</span>;\n}\n\nexport default function Screen() {\n  return <main className="flex">x</main>;\n}\n`;
+    expect(apply(unused)).toContain('<main className="ws-block-utility flex">');
+    expect(apply(unused)).toContain('<span>hint</span>');
+
+    const delegated = `function Page() {\n  return <main>x</main>;\n}\n\nexport default function Screen() {\n  return (\n    <Provider>\n      <Page />\n    </Provider>\n  );\n}\n`;
+    expect(apply(delegated)).toContain('<main className="ws-block-utility">');
+
+    const twoRoots = `export default function Screen() {\n  return (\n    <>\n      <main />\n      <aside />\n    </>\n  );\n}\n`;
+    expect(() => apply(twoRoots)).toThrow(/expected one block root/);
   });
 
   it('validates against the shadcn schemas', () => {

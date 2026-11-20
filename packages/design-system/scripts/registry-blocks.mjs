@@ -150,12 +150,42 @@ export function markBlockBoundaries(source, path, isEntry) {
     }
   };
 
-  const visit = (node, insideRoot = false) => {
+  const markPortals = (node) => {
+    if (ts.isJsxElement(node) || ts.isJsxSelfClosingElement(node)) {
+      const element = ts.isJsxElement(node) ? node.openingElement : node;
+      if (portalParts.has(element.tagName.getText(tree))) mark(element);
+    }
+    ts.forEachChild(node, markPortals);
+  };
+  markPortals(tree);
+
+  // Root candidates come only from what the default export renders, following components
+  // declared in this file, so a helper the screen never renders cannot add a candidate.
+  const components = new Map();
+  let entry;
+  for (const statement of tree.statements) {
+    if (ts.isFunctionDeclaration(statement) && statement.name) {
+      components.set(statement.name.text, statement);
+      const modifiers = ts.getModifiers(statement) ?? [];
+      if (modifiers.some((modifier) => modifier.kind === ts.SyntaxKind.DefaultKeyword)) {
+        entry = statement;
+      }
+    } else if (ts.isVariableStatement(statement)) {
+      for (const declaration of statement.declarationList.declarations) {
+        if (ts.isIdentifier(declaration.name) && declaration.initializer) {
+          components.set(declaration.name.text, declaration.initializer);
+        }
+      }
+    } else if (ts.isExportAssignment(statement) && ts.isIdentifier(statement.expression)) {
+      entry = components.get(statement.expression.text);
+    }
+  }
+  const followed = new Set();
+  const visit = (node, insideRoot) => {
     if (ts.isJsxElement(node) || ts.isJsxSelfClosingElement(node)) {
       const element = ts.isJsxElement(node) ? node.openingElement : node;
       const tag = element.tagName.getText(tree);
-      if (portalParts.has(tag)) mark(element);
-      if (isEntry && !insideRoot) {
+      if (!insideRoot) {
         if (tag === 'AppShell') {
           shells.push(element);
           insideRoot = true;
@@ -164,12 +194,19 @@ export function markBlockBoundaries(source, path, isEntry) {
           insideRoot = true;
         }
       }
+      const component = components.get(tag);
+      if (component && !followed.has(component)) {
+        followed.add(component);
+        visit(component, insideRoot);
+      }
     }
     ts.forEachChild(node, (child) => visit(child, insideRoot));
   };
-  visit(tree);
 
   if (isEntry) {
+    if (!entry) throw new Error(`build-registry: no default export found in ${path}`);
+    followed.add(entry);
+    visit(entry, false);
     // Screen helpers may render their own native roots. Prefer the screen's
     // AppShell, including when the entry delegates through a provider.
     const roots = shells.length ? shells : nativeRoots;
