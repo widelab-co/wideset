@@ -1,4 +1,5 @@
 import { samplePayment, today } from './data';
+import { formatUsd } from './format';
 
 export type When = 'now' | 'date';
 
@@ -61,6 +62,8 @@ export function validatePaymentForm(values: PaymentValues): PaymentErrors {
   if (!values.amount.trim()) errors.amount = 'Enter an amount.';
   else if (!Number.isFinite(amount) || amount <= 0)
     errors.amount = 'Enter an amount above zero, like 250.00.';
+  else if (amount + samplePayment.fee > samplePayment.balance)
+    errors.amount = `Enter ${formatUsd(samplePayment.balance - samplePayment.fee)} or less. The balance has to cover the fee too.`;
 
   if (values.when === 'date') {
     if (!values.date) errors.date = 'Pick the day to send it.';

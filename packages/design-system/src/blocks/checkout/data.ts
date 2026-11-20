@@ -162,7 +162,7 @@ type OrderSelection = {
 export function demoSummary({ seats, addOnIds, interval, showDiscount }: OrderSelection) {
   const months = interval === 'yearly' ? 12 : 1;
   const seatPrice = plan.seatPrice[interval];
-  const lines = [
+  const lines: { id: string; label: string; detail?: string; amount: number }[] = [
     {
       id: 'plan',
       label: `${plan.name} plan`,
@@ -174,7 +174,6 @@ export function demoSummary({ seats, addOnIds, interval, showDiscount }: OrderSe
       .map((addOn) => ({
         id: addOn.id,
         label: addOn.name,
-        detail: undefined,
         amount: addOn.monthlyPrice * months,
       })),
   ];

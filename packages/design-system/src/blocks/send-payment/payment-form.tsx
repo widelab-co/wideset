@@ -90,11 +90,7 @@ export function PaymentForm({ id, values, errors, onChange, onSubmit }: PaymentF
                   onChange({ amount: event.target.value.replace(/[^\d.,]/g, '') })
                 }
                 // Leaving the field settles what was typed into an amount: 4250 → 4,250.00.
-                onBlur={() => {
-                  if (Number.isFinite(amount) && amount > 0) {
-                    onChange({ amount: formatAmount(amount) });
-                  }
-                }}
+                onBlur={() => amount > 0 && onChange({ amount: formatAmount(amount) })}
               >
                 <TextInput.Prefix>$</TextInput.Prefix>
                 <TextInput.Input className="tabular-nums" />
