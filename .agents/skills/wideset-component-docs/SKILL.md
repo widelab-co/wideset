@@ -10,7 +10,7 @@ metadata:
 # Component examples and docs page
 
 The page builds itself from the library: the title and description (the stories meta) with
-"Copy page", then up to three tabs.
+"Copy page", then up to five tabs.
 
 - **Overview:** the component on its stage (the thumbnail); Installation (one card: CLI or
   Manual, from the registry item); **Examples (the example files)**, each a card with the live
@@ -20,6 +20,9 @@ The page builds itself from the library: the title and description (the stories 
   (named exports). Its rules are the `wideset-component-anatomy` skill.
 - **Relationships** (when the graph links the component to another): the map and the lists
   "Built with", "Uses <name>", "Appears with", read from imports.
+- **Code** shows the component's own installed source files when it has a registry item.
+- **Playground** shows the interactive stage, properties and generated code when a default example
+  exists.
 
 The same stage with controls is the component's entry on the Playground page
 (`/docs/playground?c=<page>`). One file per example feeds both Storybook and the page, so they

@@ -41,6 +41,7 @@ import {
   blockEntries,
   blockStyleImport,
   blockStyles,
+  markBlockClasses,
   publicExports,
   rewriteBlockImports,
 } from './registry-blocks.mjs';
@@ -348,6 +349,8 @@ export async function buildRegistry({ root = ROOT, out, base, version, commit } 
             : `@/${stripExt(localTarget)}`;
         if (wanted) edits.push({ pos, end, text: wanted });
       }
+
+      if (block) edits.push(...markBlockClasses(source, rel));
 
       let content = source;
       for (const edit of edits.sort((a, b) => b.pos - a.pos)) {

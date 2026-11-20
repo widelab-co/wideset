@@ -37,7 +37,7 @@ wideset.co is shared with the landing page: the docs Worker owns only the paths 
 `.github/workflows/build.yaml` and an exclusion in the zone's Redirect Rule.
 
 **A component page** opens with the title and description and "Copy page" (the page as
-Markdown, or handed to a model), then up to three tabs whose content switches in place:
+Markdown, or handed to a model), then up to five tabs whose content switches in place:
 
 - **Overview:** the component on its stage; Installation, one card whose header picks CLI or
   Manual and the package manager; Examples, each a card with the live example and its code; API
@@ -50,6 +50,9 @@ Markdown, or handed to a model), then up to three tabs whose content switches in
 - **Relationships:** the map of what the component is built with and appears beside
   (`gen-graph.mjs`), with a button that widens it to the whole system, then the same as lists:
   "Built with", "Uses <name>", "Appears with". Only for a component the graph links to another.
+- **Code** shows the component's own files from its registry item.
+- **Playground** shows the interactive stage, properties and generated JSX when the component has
+  a default example.
 
 A component with only Overview has no tab row. The tab is in the address (`?tab=anatomy`;
 Overview has none), set on `html[data-tab]` before first paint, so nothing flashes and Back and

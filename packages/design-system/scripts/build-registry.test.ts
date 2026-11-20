@@ -11,6 +11,7 @@ import {
 import { tmpdir } from 'node:os';
 import { join, posix, resolve } from 'node:path';
 
+import postcss from 'postcss';
 import { registryItemSchema, registrySchema } from 'shadcn/schema';
 import ts from 'typescript';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
@@ -144,6 +145,32 @@ describe('registry build', () => {
         "import type { Shared as Local } from '@/types';",
       ].join('\n'),
     );
+  });
+
+  it('restricts fallback block styles to classes in the installed block files', () => {
+    const css = postcss.parse(byName.get('block-styles')!.files[0].content);
+    const utilities = css.nodes.find(
+      (rule) => rule.type === 'atrule' && rule.params === 'utilities',
+    );
+    expect(utilities?.type).toBe('atrule');
+    if (utilities?.type !== 'atrule') throw new Error('missing block utility layer');
+    const selectors = utilities.nodes!.flatMap((rule) =>
+      rule.type === 'rule' ? rule.selectors : [],
+    );
+    const scope = ':where(.ws-block-utility, .ws-block-utility *)';
+    expect(selectors).toContain(`.md\\:flex${scope}`);
+    expect(selectors.every((selector) => selector.endsWith(scope))).toBe(true);
+
+    const calendars = byName
+      .get('block-calendar')!
+      .files.map((file) => file.content)
+      .join('\n');
+    expect(calendars).toMatch(/className="ws-block-utility [^"]+/);
+    const agent = byName
+      .get('block-agent-code')!
+      .files.map((file) => file.content)
+      .join('\n');
+    expect(agent).toMatch(/className=\{\['ws-block-utility', /);
   });
 
   it('validates against the shadcn schemas', () => {

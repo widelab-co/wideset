@@ -45,10 +45,12 @@ const RegistryCode = ({
   files: source,
   directory,
   entry,
+  initialFile = entry,
 }: {
   files: ManualFile[];
   directory: string;
   entry?: string;
+  initialFile?: string;
 }) => {
   const files = useMemo(
     () =>
@@ -60,7 +62,7 @@ const RegistryCode = ({
       })),
     [source, directory],
   );
-  const first = files.find((file) => file.name === entry)?.name ?? files[0].name;
+  const first = files.find((file) => file.name === initialFile)?.name ?? files[0].name;
   const [current, setCurrent] = useState(first);
   const [query, setQuery] = useState('');
   const selectId = useId();

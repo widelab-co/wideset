@@ -2,7 +2,7 @@
   Installs registry items and representative blocks into fresh Vite + Tailwind v4 + shadcn projects.
   This is the only proof that a scaffolded component compiles outside this repo.
 
-    pnpm test:registry                         # every item, one fresh app each, then all at once
+    pnpm test:registry                         # components and sampled blocks, separately and together
     pnpm test:registry --items button,select   # a subset
     pnpm test:registry --shard 2/4             # a quarter of the items (CI matrix)
     pnpm test:registry --all                   # only the "catalog in one app + vite build" run
