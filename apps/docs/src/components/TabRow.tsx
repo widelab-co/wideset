@@ -3,13 +3,15 @@ import { type ReactNode, useEffect, useRef } from 'react';
 function reveal(row: HTMLDivElement, tab: HTMLElement) {
   const bounds = row.getBoundingClientRect();
   const item = tab.getBoundingClientRect();
-  if (item.left < bounds.left) row.scrollLeft += item.left - bounds.left;
-  else if (item.right > bounds.right) row.scrollLeft += item.right - bounds.right;
+  const styles = getComputedStyle(row);
+  const left = bounds.left + parseFloat(styles.paddingLeft);
+  const right = bounds.right - parseFloat(styles.paddingRight);
+  if (item.left < left) row.scrollLeft += item.left - left;
+  else if (item.right > right) row.scrollLeft += item.right - right;
 }
 
 /**
- * The divider spans the reading column. The space below the list keeps the underline inside the
- * scroll area when the tabs overflow.
+ * The scroll area leaves room for the Tabs focus outline and the active underline.
  */
 const TabRow = ({ children, selected }: { children: ReactNode; selected?: string }) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -22,7 +24,7 @@ const TabRow = ({ children, selected }: { children: ReactNode; selected?: string
   return (
     <div
       ref={ref}
-      className="docs-tab-row docs-scroll min-w-0 overflow-x-auto pb-px shadow-[inset_0_-1px_0_var(--border-color-ws-static-subtle)]"
+      className="docs-tab-row docs-scroll min-w-0 overflow-x-auto"
       onFocus={(event) => {
         if (event.target.getAttribute('role') === 'tab') reveal(event.currentTarget, event.target);
       }}
