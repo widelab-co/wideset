@@ -1,0 +1,206 @@
+# Handoff: environment fixes from the #80 retrospective
+
+Written 2026-11-14 after the session that merged `develop` into #80 (starting points), moved the
+blocks onto `AppShell` and migrated them to the new title scale. The work itself is in #80's
+commits; this file lists what in the repository's environment made that session slower or let
+mistakes through, and how to fix each. One small pull request per item, from `develop`, in the
+order below, except items 6 and 8, which are resolved outside the repository. Items 1–3 are
+mechanical and should land before #81 (stacked on #80), which repeats the same patterns.
+
+## 1. Git hooks never run
+
+**Problem.** `.husky/pre-commit` and `.husky/pre-push` are tracked as `100644`
+(`git ls-files -s .husky/`). Husky 8 (`"prepare": "husky install"`, `core.hooksPath=.husky`)
+needs them executable, so Git skips both with "hook was ignored because it's not set as
+executable". Nobody on macOS or Linux runs lint-staged on commit or the pre-push checks
+(changeset, no direct push to `main`/`develop`), although `AGENTS.md` says the pre-push hook
+enforces them. In the #80 session a Prettier failure reached a commit unnoticed.
+
+**Fix.** `git update-index --chmod=+x .husky/pre-commit .husky/pre-push`, commit. Optionally
+move to Husky 9 in a separate change.
+
+**Done when**, after the mode change, a commit with a Prettier error is stopped locally, and a
+push to a `develop` branch on a disposable remote (`git init --bare /tmp/remote.git`, then
+`git push /tmp/remote.git HEAD:develop`) is refused by the hook. Never test it against `origin`:
+if the hook still does not run, the push lands on the real `develop`.
+
+## 2. Classes that do not exist pass every check
+
+**Problem.** Tailwind drops unknown classes silently. After the title-scale change (#57, #52)
+removed `typography-subtitle-lg`, 21 headings in #80 rendered as body text while typecheck,
+lint, every test and CI were green. Any renamed or removed utility or token class fails the same
+way.
+
+**Fix.** A test (beside `src/styles/token-prefix.test.ts`, which already has a `compile()` helper)
+that collects every `typography-*` class, and ideally every class containing `-ws-`, from
+`src/**/*.{ts,tsx}` (components, examples, blocks) and from code fences in `specs/**/*.md`,
+compiles them against the theme entry and fails on each class that produces no CSS, naming the
+file. Allow a short, explicit list of exceptions if any are needed.
+
+**Done when** reintroducing `typography-subtitle-lg` in one block fails the test with that file
+and class in the message.
+
+## 3. Blocks can hand-write the app frame again
+
+**Problem.** `specs/components/layout/app-shell.md` and `specs/patterns/directions.md` list a
+hand-written surround (grey row, rounded `main` with a shadow, `Sidebar surface` per screen) as
+an anti-pattern, yet 63 blocks shipped that way and had to be migrated by codemod. Agents copy
+blocks whole, and only prose guards the rule.
+
+**Fix.** In `src/__tests__/blocks.test.tsx`:
+
+- every block whose `navigation` in `src/blocks/index.ts` is not `none`, and every panel stage
+  that shows an app page, renders `[data-slot="app-shell"]`;
+- no file under `src/blocks/` contains the Inset recipe (`shadow-ws-low my-ws-7 mr-ws-7`) or
+  `surface="frame"` / `surface="tinted"` on a `Sidebar`.
+
+Then apply the same migration to #81's blocks (the #80 commit `refactor(blocks): every app
+screen on AppShell direction` is the reference).
+
+**Done when** the test fails on a block that builds its frame by hand.
+
+## 4. One fact in five places drifts
+
+**Problem.** The default visual direction is stated in the AppShell types, the AppShell spec,
+`specs/patterns/directions.md`, `wideset-craft/SKILL.md` and `wideset-build/SKILL.md`. When it
+changed from Flat to Inset, `wideset-build` kept "Flat, the default" and a link to the retired
+`workers.dev` docs origin, and the first pass missed it.
+
+**Fix.**
+
+- Mechanical: a test in `packages/skills` (or `scripts/`) that fails on `workers.dev` in any file
+  that ships: `packages/skills/**`, `packages/design-system/specs/**`,
+  `packages/design-system/src/**`, `packages/cli/src/**`, `apps/docs/src/**`, minus the
+  infrastructure files that legitimately name it (`apps/docs/astro.config.mjs`,
+  `apps/docs/wrangler.jsonc`, `apps/docs/src/layouts/DocsLayout.astro`,
+  `packages/design-system/scripts/registry-smoke.mjs`).
+  `packages/cli/src/cli.mjs:256` still links to `workers.dev`: fix it in the same pull request
+  (needs a changeset).
+- Judgement: state the default direction once, in `directions.md`; the two skills and the craft
+  table point there instead of repeating the value.
+
+## 5. Branches drift from `develop`
+
+**Problem.** #80 went days without merging `develop`. Its 77 reference screens were generated on
+the old type scale and tuned visually against it, which later took a `git blame` classification
+to migrate. CI tests the merge result, but no check covered the class change (item 2).
+
+**Fix (team decision, not code).** Either require branches to be up to date before merging into
+`develop` (GitHub ruleset), or a CI notice when a branch is behind `develop` and `develop` has
+changed `packages/design-system/src/styles/` since the merge base. Add one line to
+`CONTRIBUTING.md`: merge `develop` before generating or restyling screens.
+
+## 6. No before/after screenshot tool
+
+**Problem.** Reviewing #80 needed screenshots of all 96 Starting points stories on two branches.
+The tool had to be written during the session; plain `chrome --headless --screenshot` captured
+Storybook's loading spinner, and dialogs were caught mid-animation. `.claude/launch.json` and
+`CLAUDE.md` point at preview tools that were not available in that session, so the instruction
+did nothing there.
+
+**Resolved outside the repository.** The tool is only needed while reviewing, so it is a
+personal, local skill (`storybook-shots`, in the reviewer's `~/.claude/skills/`), not a script
+in the repository: the working tree against `--ref` in a temporary worktree, headless Chrome over
+the DevTools protocol, a wait for the rendered story, transitions and animations at their end
+state, focus emulated per tab, and an `index.html` sorted by differing pixels. Nothing to do here.
+
+## 7. Context cost of generated files
+
+**Problem.** One `git diff` of the regenerated, minified playground stylesheet printed 867 KB.
+Generated skill references produce the same noise in reviews.
+
+**Fix.** `.gitattributes`:
+
+```
+packages/design-system/playground/src/styles/wideset.css -diff linguist-generated
+packages/skills/skills/*/references/specs/** linguist-generated
+packages/skills/skills/*/references/good-practices/** linguist-generated
+packages/skills/skills/wideset-build/references/registry-imports.md linguist-generated
+```
+
+## 8. Takeover workflow as a skill
+
+**Problem.** Fixing another contributor's pull request on their branch repeats the same steps
+every session, and today they live in local notes as an exception to `wideset-pr-queue`.
+
+**Resolved outside the repository.** Only the reviewer takes PRs over this way, so the steps
+are a personal, local skill (`wideset-pr-takeover`, in the reviewer's `~/.claude/skills/`) next to
+the local `wideset-pr-queue`, not a contributor skill. Nothing to do here.
+
+## 9. Asking the user
+
+From the same session: ask in the language the user writes in, and show a visible change across
+many screens (here 66 page titles from 24 to 32px) before making it, not after. These are
+personal preferences, so they go to the agent's memory, not the repository.
+
+## Addendum 2026-11-18: seven review rounds on #81 and #93
+
+#81 and #93 (the agent interface) needed seven CodeRabbit rounds on 17.11. Most findings were the
+same kind of bug, found one at a time: a state change computed from an outdated value. Items
+10–12 are what let that through.
+
+## 10. A review finding is fixed only where it was reported
+
+**Problem.** When CodeRabbit reported a bug, we fixed the line it named. The same kind of bug sat
+in other places of the same file. CodeRabbit re-reads only the files changed since its last
+review, so each fix sent it back into that file, where it found the next case: five rounds for
+one kind of bug in `agent-chat/use-session.ts`. Bugs fixed the same way on 16.11 (IME in a
+composer, "Copied" shown before the copy) came back on 17.11 in other files.
+
+**Fix.** In `.agents/skills/wideset-pr-review-resolve/SKILL.md`, step 3: for every accepted
+finding, name the kind of bug ("reads state from the last render"), search the whole pull
+request for it, copies of shared files included, and fix every case at once. The reply says how
+many places changed. Optionally, the CodeRabbit CLI (`coderabbit review --agent`) runs the same
+review locally before a push; it is a personal tool, not a repository change.
+
+**Done when** a review report lists, for each accepted finding, the kind of bug, the search and
+every place fixed, not only the reported line.
+
+## 11. Pull requests based on another pull request get no CI
+
+**Problem.** A pull request can be based on another one's branch instead of `develop`: #81 was
+based on #91's branch (`feature/blocks/auth-panels`), #93 on #81's (`feature/blocks/agent-ui`).
+`.github/workflows/build.yaml` only runs for pull requests into `develop` or `main`, and
+`.coderabbit.yaml` only reviews those automatically. So #81 and #93 had no lint, typecheck, tests
+or build on GitHub during their whole review; every check ran only locally, and CodeRabbit had
+to be started by hand each time. Changing the base to `develop` later does not start CI either.
+
+**Fix.** Add `feature/**` to `pull_request.branches` in `build.yaml` and to
+`auto_review.base_branches` in `.coderabbit.yaml`. Both lists name the branch a pull request
+merges into, not the one it comes from, so CI then runs for every pull request whose base is a
+`feature/…` branch. Both files belong to `wideset-core`.
+
+**Done when** a pull request based on a `feature/…` branch shows `Build & validate`.
+
+## 12. State changes are not atomic
+
+**Problem.** A hook that holds the state of a flow (a session with a queue, a multi-step form, a
+list being edited) exposes actions that read the state from the last render and set a new value
+from it. When two changes land before React renders again (two calls in one handler, an effect
+and an event at once, StrictMode setting effects up twice in development), the second works from
+an outdated value and undoes or repeats the first. Tests render once, outside StrictMode, and
+call one action at a time, so they never see it; neither does lint.
+
+Example: the agent kit's `useSession` (17.11) sent a queued message twice under StrictMode,
+dropped the first of two messages sent in one handler, and attached the same files to both; each
+was a separate review round.
+
+**Fix.**
+
+- Make every change atomic: computed from the current state in one place, with `useReducer` for
+  a hook with several actions, or the updater form (`setOpen((value) => !value)`), never from the
+  value the render captured (`setOpen(!open)`).
+- Mechanical: `configure({ reactStrictMode: true })` from `@testing-library/react` in
+  `src/test-setup.ts`; a `no-restricted-syntax` rule in `.eslintrc.json` that flags a `set…` call
+  whose argument is `!x`, an array spreading `x`, or `x ± 1`, asking for the updater form.
+- Tests: for a hook with actions, call each action twice in one `act`.
+
+**Done when** every test renders in StrictMode and passes, and reintroducing `setOpen(!open)` in
+a block fails `pnpm lint`.
+
+## Suggested skills
+
+- `writing-for-agents`: before editing `CLAUDE.md`, `AGENTS.md`, `CONTRIBUTING.md` or the skill
+  in item 10.
+- `wideset-code-review`: review each pull request before opening it.
+- `tdd`: items 2–4 and 12 are tests; write each one failing on a planted example first.
