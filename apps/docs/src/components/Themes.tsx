@@ -675,7 +675,7 @@ const capitalize = (word: string) => word.charAt(0).toUpperCase() + word.slice(1
 /**
  * The theme's CSS, after the "Get code" dialog of shadcn/ui's theme builder: a button at the top of
  * the page opens it; the code is the dialog's body itself, on a soft grey ground that scrolls both
- * ways in one place, and the footer copies all of it.
+ * ways in one place, with a copy button in its top-right corner, and the footer copies it too.
  */
 const GetCode = ({ css }: { css: string }) => {
   const { copied, copy } = useCopy();
@@ -696,7 +696,7 @@ const GetCode = ({ css }: { css: string }) => {
         </Button>
       </Modal.Trigger>
       {/* At most 40rem tall (the code scrolls in the body), and the Modal's own inset below that. */}
-      <Modal.Content className="max-h-[min(40rem,calc(100%-2*var(--spacing-ws-5)))] max-w-[48rem]">
+      <Modal.Content className="max-h-[min(40rem,calc(100%-2*var(--spacing-ws-5)))] max-w-[54rem]">
         <Modal.Header>
           <Modal.Title>Your theme</Modal.Title>
           <Modal.Description>
@@ -704,10 +704,22 @@ const GetCode = ({ css }: { css: string }) => {
             sets them, the font and the text on the primary.
           </Modal.Description>
         </Modal.Header>
-        {/* `docs-snippet` for the site's code colours; its <pre> neither scrolls nor pads itself
-            here (the site's rule sets both), so the body is the one scroller. */}
-        <Modal.Body className="docs-snippet overflow-auto bg-ws-static-alpha-subtle p-0 [&_pre]:w-max [&_pre]:min-w-full [&_pre]:overflow-visible! [&_pre]:p-ws-11!">
-          {html ? <div dangerouslySetInnerHTML={{ __html: html }} /> : <pre>{css}</pre>}
+        {/* The body is the code's frame: the copy button pinned to its top-right corner, the code
+            in the one area that scrolls both ways. `docs-snippet` for the site's code colours; its
+            <pre> neither scrolls nor pads itself here (the site's rule sets both). */}
+        <Modal.Body className="docs-snippet relative flex min-h-0 flex-col overflow-hidden bg-ws-static-alpha-subtle p-0">
+          <div className="min-h-0 flex-1 overflow-auto [&_pre]:w-max [&_pre]:min-w-full [&_pre]:overflow-visible! [&_pre]:p-ws-11!">
+            {html ? <div dangerouslySetInnerHTML={{ __html: html }} /> : <pre>{css}</pre>}
+          </div>
+          <IconButton
+            icon={copied ? RiCheckLine : RiFileCopyLine}
+            size="sm"
+            variant="secondary"
+            preset="border"
+            aria-label={copied ? 'Copied' : 'Copy CSS'}
+            onClick={() => copy(css)}
+            className="absolute top-ws-7 right-ws-9"
+          />
         </Modal.Body>
         <Modal.Footer>
           <Modal.Close asChild>
