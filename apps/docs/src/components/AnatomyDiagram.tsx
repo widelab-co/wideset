@@ -536,8 +536,10 @@ const AnatomyDiagram = ({
             tokensTrigger.current = event.currentTarget;
             setTokensPart((part) => (part === n ? null : n));
           }}
-          onBlur={() => {
-            if (hoveredName.current !== n) highlight(null);
+          onBlur={(event) => {
+            if (hoveredName.current === n) return;
+            if (event.relatedTarget?.closest('[data-anatomy-tokens]')) return;
+            highlight(null);
           }}
           onPointerEnter={(event) => {
             if (event.pointerType !== 'mouse') return;
@@ -579,7 +581,12 @@ const AnatomyDiagram = ({
           neither side has room. Escape or a click elsewhere closes it. */}
       <Popup
         open={Boolean(info && tokenFocus)}
-        onOpenChange={(next) => !next && setTokensPart(null)}
+        onOpenChange={(next) => {
+          if (next) return;
+          setTokensPart(null);
+          const onName = document.activeElement?.closest('[data-anatomy-name]');
+          if (hoveredName.current === null && !onName) highlight(null);
+        }}
       >
         <Popup.Trigger asChild>
           <span

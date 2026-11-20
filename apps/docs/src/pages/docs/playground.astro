@@ -1,7 +1,8 @@
 ---
 import { entries } from '../../lib/catalog';
+import { hasPlayground } from '../../lib/playground';
 
-const ids = entries.map(({ id }) => id);
+const ids = entries.filter(({ id }) => hasPlayground(id)).map(({ id }) => id);
 const fallback = '/components/button?tab=playground';
 ---
 
