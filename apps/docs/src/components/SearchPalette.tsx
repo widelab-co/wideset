@@ -2,13 +2,15 @@ import { RiSearchLine } from '@remixicon/react';
 import { IconButton, Modal, Search } from '@wideset/react';
 import { useEffect, useState } from 'react';
 
+import { listKeys } from './listKeys';
+
 export type SearchItem = { title: string; href: string; group: string };
 
 /**
  * Search across the docs: a dialog listing every page, component and block, opened with ⌘K /
  * Ctrl+K from anywhere, or with the header search button
- * (the bar has no field of its own; each sidebar filters its own list). Type to narrow, click to
- * go; the results are plain links.
+ * (the bar has no field of its own; each sidebar filters its own list). Type to narrow, then
+ * Enter opens the first result, or the arrow keys move through them; the results are plain links.
  */
 const SearchPalette = ({ items }: { items: SearchItem[] }) => {
   const [open, setOpen] = useState(false);
@@ -45,7 +47,7 @@ const SearchPalette = ({ items }: { items: SearchItem[] }) => {
         <Modal.Header>
           <Modal.Title>Search</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body onKeyDown={listKeys('a[href]')}>
           <Search
             value={query}
             onChange={(event) => setQuery(event.target.value)}
@@ -56,7 +58,7 @@ const SearchPalette = ({ items }: { items: SearchItem[] }) => {
               <li key={item.href}>
                 <a
                   href={item.href}
-                  className="flex h-ws-15 items-center justify-between rounded-ws-control-lg px-ws-7 typography-body-md text-ws-static-strong hover:bg-ws-static-alpha-subtle"
+                  className="flex h-ws-15 items-center justify-between rounded-ws-control-lg px-ws-7 typography-body-md text-ws-static-strong outline-ws-dynamic-primary-strong-default hover:bg-ws-static-alpha-subtle focus-visible:bg-ws-static-alpha-subtle focus-visible:wds-focus-visible"
                 >
                   <span>{item.title}</span>
                   <span className="typography-body-sm text-ws-static-subtle">{item.group}</span>

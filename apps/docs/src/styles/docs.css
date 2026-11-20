@@ -236,6 +236,14 @@
 .docs-scroll::-webkit-scrollbar {
   display: none;
 }
+/* A scroll row whose controls show a focus outline (the Installation card's pills): room for
+   the 2px outline and its 2px offset inside the row, which a scroll container would clip, taken
+   back with a negative margin so the row's controls stay where they were. */
+.docs-focus-room {
+  --docs-focus-room: 5px;
+  margin: calc(-1 * var(--docs-focus-room));
+  padding: var(--docs-focus-room);
+}
 
 .docs-tab-row {
   /* Leave 4px for the Tabs focus outline and 1px for scroll rounding. */

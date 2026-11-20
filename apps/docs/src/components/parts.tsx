@@ -40,6 +40,7 @@ import type { ManualFiles } from '../lib/registry';
 import { isDark, loadAppearance, onAppearanceChange } from '../lib/theme';
 import { useShownCode } from './ComponentCode';
 import { Fit } from './Example';
+import { listKeys } from './listKeys';
 import { ManualSteps } from './ManualSteps';
 import SearchPalette, { type SearchItem } from './SearchPalette';
 import TabRow from './TabRow';
@@ -320,7 +321,7 @@ export const Install = ({ id, files }: { id: string; files: ManualFiles }) => {
         code={`${run} wideset add ${id}`}
         rule
         header={
-          <div className="docs-scroll flex min-w-0 flex-1 items-center justify-between gap-ws-7 overflow-x-auto">
+          <div className="docs-scroll docs-focus-room flex min-w-0 flex-1 items-center justify-between gap-ws-7 overflow-x-auto">
             {methods}
             <Pills
               label="Package manager"
@@ -429,10 +430,13 @@ export const CopyPage = ({
 
 export type NavGroup = {
   label?: string;
-  items: { title: string; href: string; fresh?: boolean }[];
+  items: { title: string; href: string }[];
 };
 
-/** A searchable list of the current section's pages, with the current page selected. */
+/**
+ * A searchable list of the current section's pages, with the current page selected. The arrow
+ * keys move between the filter and the rows; Enter in the filter opens the first row (`listKeys`).
+ */
 export const SideNav = ({
   groups,
   current,
@@ -466,6 +470,7 @@ export const SideNav = ({
     <Sidebar
       className={cn('h-full w-full border-r-0 bg-transparent pt-ws-14', className)}
       aria-label="Navigation"
+      onKeyDown={listKeys('nav a[href]')}
     >
       <Sidebar.Header>
         <TextInput
@@ -493,19 +498,7 @@ export const SideNav = ({
                 <Sidebar.Item
                   key={item.href}
                   href={item.href}
-                  label={
-                    item.fresh ? (
-                      <span className="inline-flex items-center gap-ws-4">
-                        {item.title}
-                        <span
-                          className="size-ws-4 shrink-0 rounded-ws-control-full bg-ws-dynamic-primary-default"
-                          title="New"
-                        />
-                      </span>
-                    ) : (
-                      item.title
-                    )
-                  }
+                  label={item.title}
                   active={item.href === current}
                   aria-current={item.href === current ? 'page' : undefined}
                 />
