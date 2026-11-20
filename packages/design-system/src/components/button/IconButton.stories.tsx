@@ -33,7 +33,7 @@ const meta = {
     docs: {
       description: {
         component: `IconButton is an icon-only action for compact toolbars, utility controls, and dense interfaces where a full text label would add unnecessary visual weight.
-Make sure to provide an accessible name with \`aria-label\`.
+Provide either \`aria-label\` or \`aria-labelledby\`; an accessible name is required.
 
 Use Button when a visible text label is needed, or LinkButton when the action navigates.`,
       },
@@ -137,6 +137,13 @@ Use Button when a visible text label is needed, or LinkButton when the action na
         type: { summary: 'string' },
       },
     },
+    'aria-labelledby': {
+      control: 'text',
+      table: {
+        category: 'Content',
+        type: { summary: 'string' },
+      },
+    },
     onClick: {
       description: 'Called when the user activates the icon button.',
       table: {
@@ -176,22 +183,22 @@ export const Default: Story = {
 
 export const Variants: Story = {
   ...exampleStory(VariantsExample, variantsSource),
-  args: { icon: RiBugLine },
+  args: { icon: RiBugLine, 'aria-label': 'Report issue' },
 };
 
 export const Presets: Story = {
   ...exampleStory(PresetsExample, presetsSource),
-  args: { icon: RiBugLine },
+  args: { icon: RiBugLine, 'aria-label': 'Report issue' },
 };
 
 export const Sizes: Story = {
   ...exampleStory(SizesExample, sizesSource),
-  args: { icon: RiBugLine },
+  args: { icon: RiBugLine, 'aria-label': 'Report issue' },
 };
 
 export const States: Story = {
   ...exampleStory(StatesExample, statesSource),
-  args: { icon: RiBugLine },
+  args: { icon: RiBugLine, 'aria-label': 'Report issue' },
 };
 
 export const Composition: Story = {

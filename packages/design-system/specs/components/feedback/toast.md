@@ -88,8 +88,8 @@ Render `Toast` directly only for static previews or your own container:
 ## Accessibility
 
 - `error` renders `role="alert"` (announced at once); other statuses render `role="status"`.
-- Icon actions need `aria-label`. `dismissAriaLabel` and `progressAriaLabel` name the dismiss
-  button and progress bar.
+- Icon actions need `aria-label` or `aria-labelledby` referencing an existing label.
+  `dismissAriaLabel` and `progressAriaLabel` name the dismiss button and progress bar.
 
 ## Do / Don't
 

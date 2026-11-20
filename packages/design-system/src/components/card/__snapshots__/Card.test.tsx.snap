@@ -473,6 +473,7 @@ exports[`Card > should match snapshot with header action containing icon button 
           data-slot="card-action"
         >
           <button
+            aria-label="Download"
             class="whitespace-nowrap box-border relative inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default shrink-0 px-0 typography-label-strong-sm gap-ws-3 rounded-ws-control-lg h-ws-forms-md w-ws-forms-md bg-ws-dynamic-secondary-alpha-default text-ws-dynamic-secondary-default outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover hover:text-ws-dynamic-secondary-hover active:bg-ws-dynamic-secondary-alpha-pressed active:text-ws-dynamic-secondary-pressed disabled:text-ws-dynamic-secondary-disabled disabled:bg-none transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
             data-slot="icon-button"
             type="button"
