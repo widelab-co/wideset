@@ -45,6 +45,9 @@ const parts = partsOf(entry);
 const root = entry.exports[0];
 const A11yNotes = accessibilityContent(entry.id);
 const allPaths = projectPaths();
+const sourceEntry = files.own.find(
+  ({ path }) => `@/${path.replace(/\.tsx?$/, '')}` === allPaths[root],
+);
 const used = new Set([
   ...entries.flatMap((item) => item.exports),
   ...examples.flatMap((example) =>
@@ -316,7 +319,7 @@ const td = 'px-ws-9 py-ws-8 align-top';
       <RegistryCode
         directory={files.own[0].path.split('/').slice(0, -1).join('/')}
         files={files.own}
-        initialFile={`${root}.tsx`}
+        initialFile={sourceEntry?.path}
         client:visible
       />
     </div>

@@ -62,7 +62,9 @@ const RegistryCode = ({
       })),
     [source, directory],
   );
-  const first = files.find((file) => file.name === initialFile)?.name ?? files[0].name;
+  const first =
+    files.find((file) => file.path === initialFile || file.name === initialFile)?.name ??
+    files[0].name;
   const [current, setCurrent] = useState(first);
   const [query, setQuery] = useState('');
   const selectId = useId();
