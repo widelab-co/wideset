@@ -43,7 +43,6 @@ Markdown, or handed to a model), then up to four tabs whose content switches in 
   code" peek as an example; Installation, one card whose header picks CLI or
   Manual and the package manager; Examples, each a card with the live example and its code; API
   reference, one props table per part; Accessibility, when the component's spec has the section.
-- **Code** shows the component's own files from its registry item.
 - **Anatomy:** the component drawn 1:1 with each part named beside it, then the parts as a table
   (Part, Renders, Description). Hover highlights the part. Activating its name opens a popup
   with the tokens read from the rendered classes (`src/lib/tokenClasses.ts`) and computed styles.
