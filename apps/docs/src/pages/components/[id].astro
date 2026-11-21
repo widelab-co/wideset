@@ -1,6 +1,5 @@
 ---
 import AnatomyDiagram from '../../components/AnatomyDiagram';
-import RegistryCode from '../../components/RegistryCode';
 import PageHead from '../../components/PageHead.astro';
 import { CopyPage, ExampleCard, Install, PageTabs, Rail, Stage } from '../../components/parts';
 import PropsTables from '../../components/PropsTables';
@@ -27,7 +26,6 @@ import { componentsSidebar } from '../../lib/sidebar';
  *   Only for a component with two or more parts whose playground does not say `anatomy: false`.
  * - Relationships: the map of what the component is built with and appears beside, then the
  *   same as lists. Only for a component the graph links to another.
- * - Code: the component's installable source files.
  * - Playground: a live example with editable props and its generated code.
  *
  * A component with only Overview has no tab row. Every panel is in the HTML; `html[data-tab]`,
@@ -45,9 +43,6 @@ const parts = partsOf(entry);
 const root = entry.exports[0];
 const A11yNotes = accessibilityContent(entry.id);
 const allPaths = projectPaths();
-const sourceEntry = files.own.find(
-  ({ path }) => `@/${path.replace(/\.tsx?$/, '')}` === allPaths[root],
-);
 const used = new Set([
   ...entries.flatMap((item) => item.exports),
   ...examples.flatMap((example) =>
@@ -71,7 +66,6 @@ const hasRelations = relationLists.length > 0;
 
 const tabs = [
   { id: 'overview', label: 'Overview' },
-  files.own.length > 0 && { id: 'code', label: 'Code' },
   hasAnatomy && { id: 'anatomy', label: 'Anatomy' },
   hasRelations && { id: 'relationships', label: 'Relationships' },
   playground && { id: 'playground', label: 'Playground' },
@@ -94,7 +88,6 @@ const rails: Record<string, RailItem[]> = {
   // One section each way: no rail.
   anatomy: [],
   relationships: [{ id: 'map', label: 'Map' }, ...relationLists],
-  code: [],
   playground: [],
 };
 const page = `/components/${entry.id}`;
@@ -132,15 +125,26 @@ const td = 'px-ws-9 py-ws-8 align-top';
       var old = location.hash.slice(1);
       var moved = { install: '#installation', props: '#api', usage: '' };
       var tabs = { anatomy: 'anatomy', related: 'relationships', playground: 'playground' };
-      if (!Object.hasOwn(moved, old) && !Object.hasOwn(tabs, old)) return false;
       var url = new URL(location.href);
+      // The Code tab is gone: its source files are under Installation › Manual.
+      if (url.searchParams.get('tab') === 'code') {
+        url.searchParams.delete('tab');
+        url.searchParams.delete('file');
+        url.hash = '#installation';
+        history.replaceState(history.state, '', url);
+        return true;
+      }
+      if (!Object.hasOwn(moved, old) && !Object.hasOwn(tabs, old)) return false;
       url.hash = moved[old] || '';
       if (ids.includes(tabs[old])) url.searchParams.set('tab', tabs[old]);
       else url.searchParams.delete('tab');
       history.replaceState(history.state, '', url);
       return true;
     };
-    moveAnchor();
+    if (moveAnchor() && location.hash)
+      addEventListener('DOMContentLoaded', function () {
+        document.getElementById(location.hash.slice(1))?.scrollIntoView();
+      });
     addEventListener('hashchange', function () {
       if (!moveAnchor()) return;
       dispatchEvent(new PopStateEvent('popstate'));
@@ -163,7 +167,7 @@ const td = 'px-ws-9 py-ws-8 align-top';
   >
     {playground && (
       <div data-playground={entry.id}>
-        <Stage component={entry.id} client:load />
+        <Stage component={entry.id} paths={paths} client:load />
       </div>
     )}
 
@@ -314,17 +318,6 @@ const td = 'px-ws-9 py-ws-8 align-top';
     </div>
   )}
 
-  {files.own.length > 0 && (
-    <div data-tab-panel="code" id="panel-code" role="tabpanel" aria-labelledby="tab-code">
-      <RegistryCode
-        directory={files.own[0].path.split('/').slice(0, -1).join('/')}
-        files={files.own}
-        initialFile={sourceEntry?.path}
-        client:visible
-      />
-    </div>
-  )}
-
   {playground && (
     <div
       data-tab-panel="playground"
@@ -332,7 +325,12 @@ const td = 'px-ws-9 py-ws-8 align-top';
       role="tabpanel"
       aria-labelledby="tab-playground"
     >
-      <Workbench component={entry.id} paths={allPaths} client:visible />
+      <Workbench
+        component={entry.id}
+        paths={allPaths}
+        aside="docs-aside-playground"
+        client:visible
+      />
     </div>
   )}
 
@@ -345,5 +343,7 @@ const td = 'px-ws-9 py-ws-8 align-top';
           </div>
         ),
     )}
+    {/* The Playground's properties move here from `xl`. */}
+    {playground && <div data-tab-panel="playground" id="docs-aside-playground" />}
   </Fragment>
 </DocsLayout>

@@ -40,6 +40,7 @@ import type { ManualFiles } from '../lib/registry';
 import { isDark, loadAppearance, onAppearanceChange } from '../lib/theme';
 import { useShownCode } from './ComponentCode';
 import { Fit } from './Example';
+import { listKeys } from './listKeys';
 import { ManualSteps } from './ManualSteps';
 import SearchPalette, { type SearchItem } from './SearchPalette';
 import TabRow from './TabRow';
@@ -148,25 +149,35 @@ export const Code = ({
 
 /**
  * The component page's thumbnail: the component as the gallery draws it, on the soft stage every
- * thumbnail sits on. No code under it.
+ * thumbnail sits on, and under it the code for the playground's defaults in the same peek as an
+ * example's. An overlay's stage draws it open (`preview`); its code is the trigger and the overlay,
+ * as the reader writes them.
  */
-export const Stage = withPlayground(({ component }: { component: string }) => {
-  const definition = PLAYGROUNDS[component];
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
-  return (
-    <div
-      data-stage
-      className="grid min-h-[20rem] place-items-center overflow-hidden rounded-ws-container-md bg-ws-static-alpha-subtle px-ws-14 py-ws-14 text-ws-static-base"
-    >
-      {(mounted || !definition.clientOnly) && (
-        <div className="w-max max-w-full">
-          {definition.preview ? definition.preview() : definition.render(definition.defaults)}
+export const Stage = withPlayground(
+  ({ component, paths }: { component: string; paths: ProjectPaths }) => {
+    const definition = PLAYGROUNDS[component];
+    const [mounted, setMounted] = useState(false);
+    useEffect(() => setMounted(true), []);
+    const shown = useShownCode(definition.code(definition.defaults), paths, true);
+    return (
+      <div className="overflow-hidden rounded-ws-container-md border border-ws-static-subtle">
+        <div
+          data-stage
+          className="grid min-h-[20rem] place-items-center overflow-hidden bg-ws-static-alpha-subtle px-ws-14 py-ws-14 text-ws-static-base"
+        >
+          {(mounted || !definition.clientOnly) && (
+            <div className="w-max max-w-full">
+              {definition.preview ? definition.preview() : definition.render(definition.defaults)}
+            </div>
+          )}
         </div>
-      )}
-    </div>
-  );
-});
+        <div className="border-t border-ws-static-subtle">
+          <Code code={shown} peek flush />
+        </div>
+      </div>
+    );
+  },
+);
 
 /** An example: one hairline card, the live file on its stage and its source in the peek under it. */
 export const ExampleCard = ({
@@ -310,7 +321,7 @@ export const Install = ({ id, files }: { id: string; files: ManualFiles }) => {
         code={`${run} wideset add ${id}`}
         rule
         header={
-          <div className="docs-scroll flex min-w-0 flex-1 items-center justify-between gap-ws-7 overflow-x-auto">
+          <div className="docs-scroll docs-focus-room flex min-w-0 flex-1 items-center justify-between gap-ws-7 overflow-x-auto">
             {methods}
             <Pills
               label="Package manager"
@@ -419,10 +430,13 @@ export const CopyPage = ({
 
 export type NavGroup = {
   label?: string;
-  items: { title: string; href: string; fresh?: boolean }[];
+  items: { title: string; href: string }[];
 };
 
-/** A searchable list of the current section's pages, with the current page selected. */
+/**
+ * A searchable list of the current section's pages, with the current page selected. The arrow
+ * keys move between the filter and the rows; Enter in the filter opens the first row (`listKeys`).
+ */
 export const SideNav = ({
   groups,
   current,
@@ -456,6 +470,7 @@ export const SideNav = ({
     <Sidebar
       className={cn('h-full w-full border-r-0 bg-transparent pt-ws-14', className)}
       aria-label="Navigation"
+      onKeyDown={listKeys('nav a[href]')}
     >
       <Sidebar.Header>
         <TextInput
@@ -483,19 +498,7 @@ export const SideNav = ({
                 <Sidebar.Item
                   key={item.href}
                   href={item.href}
-                  label={
-                    item.fresh ? (
-                      <span className="inline-flex items-center gap-ws-4">
-                        {item.title}
-                        <span
-                          className="size-ws-4 shrink-0 rounded-ws-control-full bg-ws-dynamic-primary-default"
-                          title="New"
-                        />
-                      </span>
-                    ) : (
-                      item.title
-                    )
-                  }
+                  label={item.title}
                   active={item.href === current}
                   aria-current={item.href === current ? 'page' : undefined}
                 />
