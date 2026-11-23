@@ -44,11 +44,10 @@ read in one sitting and either merge as is or adapt onto a feature branch, not a
    story descriptions, copy, and snapshot updates caused by your visual change. Not allowed
    without a developer: public props and types, `src/index.ts`, `src/lib/`, `src/styles/` (tokens,
    theme entry points and the hand-maintained utilities), usage specs in `specs/`, `package.json`
-   and dependencies, CI and config files, other tests, `registry.json` and the registry copies in
-   `playground/`, changesets and `CHANGELOG.md`. The developer who merges writes the changeset and
-   refreshes the playground. If the design needs one of these, implement the visual part, describe
-   the rest as an `OPEN:` item and let the reviewer adapt it; that is a normal outcome, not a
-   failure.
+   and dependencies, CI and config files, other tests, `registry.json`, changesets and
+   `CHANGELOG.md`. The developer who merges writes the changeset. If the design needs one of these,
+   implement the visual part, describe the rest as an `OPEN:` item and let the reviewer adapt it;
+   that is a normal outcome, not a failure.
 6. **Tokens only, never edit them.** Use existing `ws` token classes (`bg-ws-dynamic-primary-default`,
    `rounded-ws-control-lg`, `p-ws-4`, `duration-(--ws-motion-duration-fast)`). No palette classes
    (`text-gray-900`), raw hex, Tailwind scale classes (`p-4`, `w-64`, `text-sm`, `rounded-lg`) or
@@ -236,9 +235,9 @@ When the branch does what the designer wanted (or has gone as far as the visual 
    in its thread (usually "needs a developer, listed as OPEN in the handoff").
 4. Start the next topic on a new branch from step 1. Do not reuse this branch.
 
-The developer answers with one of three verdicts: merge as is (after adding the changeset,
-refreshing the playground and deleting the handoff), adapt on a feature branch (they keep what
-works and rework the rest, with a note in the handoff), or decline with a reason. Adapting is the
+The developer answers with one of three verdicts: merge as is (after adding the changeset and
+deleting the handoff), adapt on a feature branch (they keep what works and rework the rest, with a
+note in the handoff), or decline with a reason. Adapting is the
 expected path whenever an `OPEN:` item needs a prop, a token or a test.
 
 ## Boundaries in one line
