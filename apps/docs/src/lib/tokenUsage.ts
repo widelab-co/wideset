@@ -2,11 +2,13 @@ import type { ReactNode } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 
 import { resolveUtility, type TokenClassData } from '../../scripts/token-classes.mjs';
+import generatedControls from '../generated/controls.json';
 import tokenClassData from '../generated/token-classes.json';
 import { entries, type Entry, entryById, partsOf } from './catalog';
 import { kebab } from './kebab';
 import { PLAYGROUNDS, type Values } from './playground';
 import { classify, segments } from './tokenClasses';
+import { type ClassSource, PORTALLED, type PortalledPart } from './tokenUsagePortals';
 
 /**
  * Which design tokens each component paints with, in which part, variant and state: the token
@@ -51,8 +53,9 @@ export type Use = {
   tokens: string[];
   group: string;
   /**
-   * The control values the class appears with, as alternatives: `[{}]` always, `[{ variant:
-   * 'primary', preset: 'filled' }]` only there. Keys are the playground's controls.
+   * The values the class appears with, as alternatives: `[{}]` always, `[{ variant: 'primary',
+   * preset: 'filled' }]` only there. Keys are the playground's controls; for a part read from
+   * its variants (a portalled part), that part's own props (`side`, `size`).
    */
   when: Values[];
 };
@@ -286,6 +289,57 @@ for (const entry of entries)
 const pascal = (slot: string) =>
   slot.replace(/(^|-)([a-z0-9])/g, (_, __, char: string) => char.toUpperCase());
 
+const PLAYGROUND_SOURCES = import.meta.glob<string>('../playgrounds/*.tsx', {
+  query: '?raw',
+  import: 'default',
+  eager: true,
+});
+/** The `data-slot`s a playground writes itself: stand-ins for parts it cannot render. */
+const copiedSlots = (id: string) => {
+  const source = PLAYGROUND_SOURCES[`../playgrounds/${id}.tsx`] ?? '';
+  return new Set(
+    [...source.matchAll(/data-slot[^'"\n]{0,40}['"]([a-z][a-z0-9-]*)['"]/g)].map(
+      ([, slot]) => slot,
+    ),
+  );
+};
+
+const GENERATED_CONTROLS = generatedControls as Record<
+  string,
+  { name: string; type: 'select' | 'switch'; values?: string[] }[]
+>;
+
+/** A portalled part's classes over every combination of its props' selects and switches. */
+const variantsOf = (source: PortalledPart) => {
+  const axes = (source.from ? (GENERATED_CONTROLS[source.from] ?? []) : []).map((row) => ({
+    key: row.name,
+    values: row.type === 'switch' ? [false, true] : row.values!,
+  }));
+  let combinations: Values[] = [{}];
+  for (const axis of axes)
+    combinations = combinations.flatMap((values) =>
+      axis.values.map((value) => ({ ...values, [axis.key]: value })),
+    );
+  const found = new Map<string, { className: string; nested: boolean; present: Set<number> }>();
+  combinations.forEach((values, index) => {
+    const call = (list: ClassSource[] = [], nested: boolean) => {
+      const classes = list
+        .map((item) => (typeof item === 'string' ? item : item({ ...source.args, ...values })))
+        .join(' ')
+        .split(/\s+/)
+        .filter(Boolean);
+      for (const className of classes) {
+        const key = `${nested} ${className}`;
+        if (!found.has(key)) found.set(key, { className, nested, present: new Set() });
+        found.get(key)!.present.add(index);
+      }
+    };
+    call(source.classes, false);
+    call(source.inner, true);
+  });
+  return { keys: axes.map((axis) => axis.key), combinations, classes: [...found.values()] };
+};
+
 const usesOf = (entry: Entry, problems: string[]) => {
   const definition = PLAYGROUNDS[entry.id];
   const axes = axesOf(entry.id);
@@ -356,40 +410,65 @@ const usesOf = (entry: Entry, problems: string[]) => {
     return fromContent.length ? fromContent : [{}];
   };
   const uses: Use[] = [];
-  for (const { slot, className, nested, renders: present } of seen.values()) {
+  /** One class on one part, read: its tokens, state and property, or a problem. */
+  const file = (slot: string, className: string, nested: boolean, when: () => Values[]) => {
     // Another public component's part is that component's business, not this one's.
     const part = partOf.get(slot);
-    if (!part && publicSlots.has(slot)) continue;
+    if (!part && publicSlots.has(slot)) return;
     const parts = segments(className);
     const utility = parts.pop()!;
     const tokens = resolveUtility(DATA, utility);
     // `undefined`: not a token class; `[]`: a Wideset utility that reads no token (wds-disabled).
-    if (tokens === undefined || tokens?.length === 0) continue;
+    if (tokens === undefined || tokens?.length === 0) return;
     const where = `${entry.id} (${slot})`;
     if (tokens === null) {
       problems.push(`${where}: ${className} reads no declared token variable`);
-      continue;
+      return;
     }
     const state = stateOf(parts);
     if (state === undefined) {
       problems.push(
         `${where}: ${className} has a state prefix with no key; add it to STATE_KEYS or LAYOUT in src/lib/tokenUsage.ts`,
       );
-      continue;
+      return;
     }
-    const property = propertyOf(utility, className, problems, where);
     uses.push({
       part: part ?? pascal(slot),
       ...(part ? {} : { internal: true as const }),
       ...(nested ? { nested: true as const } : {}),
       className,
       state,
-      property,
+      property: propertyOf(utility, className, problems, where),
       tokens: tokens.map((token) => token.name),
       group: tokens[0]?.group ?? 'other',
-      when: whenOf(present),
+      when: when(),
     });
+  };
+
+  // Portalled parts come from their variants; the playground's stand-ins only draw the picture.
+  const portalled = PORTALLED[entry.id] ?? {};
+  for (const slot of copiedSlots(entry.id))
+    if (!portalled[slot])
+      problems.push(
+        `${entry.id}: the playground draws ${slot} by hand; add the variants it renders with to PORTALLED in src/lib/tokenUsagePortals.ts`,
+      );
+  for (const [slot, source] of Object.entries(portalled)) {
+    if (!partOf.has(slot)) {
+      problems.push(`${entry.id}: PORTALLED names ${slot}, which is not one of its parts`);
+      continue;
+    }
+    slots.add(slot);
+    const read = variantsOf(source);
+    if (read.combinations.length > MAX_RENDERS) {
+      problems.push(`${entry.id} (${slot}): more than ${MAX_RENDERS} variant combinations`);
+      continue;
+    }
+    for (const { className, nested, present } of read.classes)
+      file(slot, className, nested, () => conditions(read.keys, read.combinations, present));
   }
+
+  for (const { slot, className, nested, renders: present } of seen.values())
+    if (!portalled[slot]) file(slot, className, nested, () => whenOf(present));
   return { uses, parts: new Set([...slots].flatMap((slot) => partOf.get(slot) ?? [])) };
 };
 
