@@ -19,7 +19,7 @@ export type TokenClass = {
 };
 
 /** Splits on `:` outside brackets: `data-[state=on]:bg-x` → ['data-[state=on]', 'bg-x']. */
-const segments = (cls: string) => {
+export const segments = (cls: string) => {
   const out: string[] = [];
   let depth = 0;
   let current = '';
@@ -78,7 +78,7 @@ const PROPERTIES: [RegExp, string | ((utility: string) => string)][] = [
   [/^font-ws-/, 'Font weight'],
   [/^leading-ws-/, 'Line height'],
   [/^tracking-ws-/, 'Letter spacing'],
-  [/^border-(ws-|\[|transparent)/, 'Border colour'],
+  [/^border-(ws-|\[|\(|transparent)/, 'Border colour'],
   // Tailwind's own palette and type scale: no token, listed so the popup can say so.
   [PALETTE, (utility) => PALETTE_PROPERTY[utility.split('-')[0]]],
   [/^text-(xs|sm|base|lg|\d?xl)$/, 'Font size'],
