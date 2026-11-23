@@ -75,6 +75,14 @@ type Preset = {
    */
   licensed?: boolean;
 };
+/**
+ * Text on a primary too light for white: each mode's darkest neutral, as a token (the system has
+ * no pure black). The cards and the export both write the variable.
+ */
+const ON_LIGHT: Record<Mode, string> = {
+  light: 'var(--ws-colors-light-neutral-1100)',
+  dark: 'var(--ws-colors-dark-neutral-1100)',
+};
 /** The stack's tail for a licensed font: the docs' own Inter, as the page loads it. */
 const INTER = "'Inter Variable', ui-sans-serif, system-ui, sans-serif";
 /**
@@ -92,7 +100,7 @@ const PRESETS: Preset[] = [
     darkBrand: '#ffffff',
     // Dark step 200 stays the generated light one: dark mode draws primary text with it.
     darkRamp: { 500: '#276ef1' },
-    onPrimary: { dark: '#000000' },
+    onPrimary: { dark: ON_LIGHT.dark },
     radius: 'default',
     font: 'UberMove',
     stack: `'Uber Move', 'UberMove', ${INTER}`,
@@ -102,7 +110,7 @@ const PRESETS: Preset[] = [
     id: 'lime',
     label: 'Lime',
     brand: '#00dd00',
-    onPrimary: { light: '#000000', dark: '#000000' },
+    onPrimary: ON_LIGHT,
     radius: 'round',
     font: 'Poppins',
     stack: "'Poppins', ui-sans-serif, system-ui, sans-serif",
@@ -156,51 +164,12 @@ const RADII: { value: Radius; label: string }[] = [
   { value: 'round', label: 'Round' },
 ];
 
-/** A `#rrggbb` colour as linear sRGB. */
-const linearOf = (hex: string) =>
-  [1, 3, 5]
-    .map((at) => parseInt(hex.slice(at, at + 2), 16) / 255)
-    .map((c) => (c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4));
-/** Relative luminance (WCAG) of linear sRGB. */
-const luminanceOf = ([r, g, b]: number[]) => 0.2126 * r + 0.7152 * g + 0.0722 * b;
-/** The WCAG contrast ratio of two luminances. */
-const contrast = (a: number, b: number) => (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
 /** White text on a `#rrggbb` ground: the WCAG contrast ratio. */
-const contrastWithWhite = (hex: string) => contrast(luminanceOf(linearOf(hex)), 1);
-
-/** Linear sRGB to Oklab and back (Björn Ottosson's matrices), to work out a `color-mix(in oklab)`. */
-const toOklab = ([r, g, b]: number[]) => {
-  const [l, m, s] = [
-    0.4122214708 * r + 0.5363325363 * g + 0.0514459929 * b,
-    0.2119034982 * r + 0.6806995451 * g + 0.1073969566 * b,
-    0.0883024619 * r + 0.2817188376 * g + 0.6299787005 * b,
-  ].map(Math.cbrt);
-  return [
-    0.2104542553 * l + 0.793617785 * m - 0.0040720468 * s,
-    1.9779984951 * l - 2.428592205 * m + 0.4505937099 * s,
-    0.0259040371 * l + 0.7827717662 * m - 0.808675766 * s,
-  ];
-};
-const fromOklab = ([L, a, b]: number[]) => {
-  const [l, m, s] = [
-    L + 0.3963377774 * a + 0.2158037573 * b,
-    L - 0.1055613458 * a - 0.0638541728 * b,
-    L - 0.0894841775 * a - 1.291485548 * b,
-  ].map((value) => value ** 3);
-  return [
-    4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s,
-    -1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s,
-    -0.0004196086 * l - 0.7034186147 * m + 1.707628274 * s,
-  ].map((value) => Math.min(1, Math.max(0, value)));
-};
-/** A step of a hex colour's generated ramp (`rampOf`) as linear sRGB, as the browser mixes it. */
-const stepOf = (hex: string, step: number) => {
-  const base = linearOf(hex);
-  if (step === 600) return base;
-  const [ink, percent] = MIX[step].split(' ');
-  const amount = parseFloat(percent) / 100;
-  const [from, to] = [toOklab(base), toOklab(ink === 'white' ? [1, 1, 1] : [0, 0, 0])];
-  return fromOklab(from.map((value, index) => value * (1 - amount) + to[index] * amount));
+const contrastWithWhite = (hex: string) => {
+  const [r, g, b] = [1, 3, 5]
+    .map((at) => parseInt(hex.slice(at, at + 2), 16) / 255)
+    .map((c) => (c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4));
+  return 1.05 / (0.2126 * r + 0.7152 * g + 0.0722 * b + 0.05);
 };
 /**
  * How many steps darker a system ramp is taken in light mode, so the primary button (step 600,
@@ -215,30 +184,9 @@ const shiftOf = (brand: string, resolved: Record<string, string>) => {
   return 3;
 };
 
-type State = 'default' | 'hover' | 'pressed';
-const STATES: State[] = ['default', 'hover', 'pressed'];
-/** Text on the primary, per state: the colour each `--ws-dynamic-text-on-primary-*` takes. */
-type OnPrimary = Partial<Record<State, string>>;
-const onPrimaryVar = (state: State) => `--ws-dynamic-text-on-primary-${state}`;
-/** The ramp step each primary fill reads (`--ws-dynamic-fill-primary-*` in the library's tokens). */
-const FILL_STEP: Record<Mode, Record<State, number>> = {
-  light: { default: 600, hover: 800, pressed: 900 },
-  dark: { default: 600, hover: 500, pressed: 700 },
-};
-/** The library's text on the primary (`neutral-0` of each mode). */
-const INK: Record<Mode, string> = { light: '#ffffff', dark: '#f5f5f5' };
-/**
- * A custom colour's text on the primary: black on every fill (the colour, its hover and pressed
- * steps) where the library's light text falls under 4.5:1, so each state reads on its own fill.
- */
-const customOnOf = (hex: string, mode: Mode): OnPrimary => {
-  const ink = luminanceOf(linearOf(INK[mode]));
-  return Object.fromEntries(
-    STATES.filter(
-      (state) => contrast(luminanceOf(stepOf(hex, FILL_STEP[mode][state])), ink) < 4.5,
-    ).map((state) => [state, '#000000']),
-  );
-};
+const ON_PRIMARY = ['default', 'hover', 'pressed'].map(
+  (state) => `--ws-dynamic-text-on-primary-${state}`,
+);
 
 /**
  * The brand's translucent steps (the primary's ghost and alpha fills), which the library writes as
@@ -860,12 +808,11 @@ const Themes = () => {
   const selected = own && theme.radius === preset.radius ? preset.id : '';
   const custom = !own && brand.startsWith('#');
   const vars = overrides(brand, theme.radius, own, shiftOf(brand, resolved));
-  /** Text on the primary in a mode: the preset's, or black where a custom colour's fills need it. */
-  const onPrimaryOf = (mode: Mode): OnPrimary => {
-    const named = own?.onPrimary?.[mode];
-    if (named) return Object.fromEntries(STATES.map((state) => [state, named]));
-    return custom ? customOnOf(brand, mode) : {};
-  };
+  // A custom colour too light for white text takes dark text, in the cards and the export.
+  const customOn = custom && contrastWithWhite(brand) < 4.5;
+  /** Text on the primary in a mode: the preset's, or dark text on a light custom colour. */
+  const onPrimaryOf = (mode: Mode) =>
+    own?.onPrimary?.[mode] ?? (customOn ? ON_LIGHT[mode] : undefined);
   const onPrimary = onPrimaryOf(theme.mode);
 
   // The semantic corners read the primitives at the root; restate them in each scope so its own
@@ -880,10 +827,7 @@ const Themes = () => {
       ['xl', 'xlarge'],
     ])
       style[`--radius-ws-${kind}-${short}`] = `var(--ws-corner-radius-${kind}-${step})`;
-  for (const state of STATES) {
-    const colour = onPrimary[state];
-    if (colour) style[onPrimaryVar(state)] = colour;
-  }
+  if (onPrimary) for (const name of ON_PRIMARY) style[name] = onPrimary;
   const font: Record<string, string> = preset.stack
     ? { fontFamily: preset.stack, '--font-ws-sans': preset.stack }
     : {};
@@ -893,19 +837,13 @@ const Themes = () => {
     return `  ${name}: ${(system && resolved[system]) || value};`;
   });
   if (preset.stack) lines.push(`  --font-ws-sans: ${preset.stack};`);
+  const text = (colour: string) => ON_PRIMARY.map((name) => `  ${name}: ${colour};`);
   const lightOn = onPrimaryOf('light');
   const darkOn = onPrimaryOf('dark');
-  for (const state of STATES) {
-    const colour = lightOn[state];
-    if (colour) lines.push(`  ${onPrimaryVar(state)}: ${colour};`);
-  }
+  if (lightOn) lines.push(...text(lightOn));
   // Wideset re-declares the text on the primary under `.dark`, which wins over `:root` wherever
-  // the class sits below the root: dark mode restates every state either mode sets, as the cards
-  // do, and keeps the library's own text where only light mode needs another.
-  const darkLines = STATES.filter((state) => lightOn[state] || darkOn[state]).map(
-    (state) => `  ${onPrimaryVar(state)}: ${darkOn[state] ?? 'var(--ws-colors-dark-neutral-0)'};`,
-  );
-  const dark = darkLines.length ? `\n.dark {\n${darkLines.join('\n')}\n}` : '';
+  // the class sits below the root: dark mode restates it, as the cards do.
+  const dark = darkOn ? `\n.dark {\n${text(darkOn).join('\n')}\n}` : '';
   // The stack names the brand's font; the app loads it (Wideset loads none). A licensed font comes
   // from the brand's own licence, so the note says that instead of where to get it.
   const fontNote = !preset.stack
