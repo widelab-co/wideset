@@ -25,15 +25,24 @@ export const listKeys = (links: string) => (event: KeyboardEvent<HTMLElement>) =
   // In the field, Home and End move the caret.
   if (inField && (event.key === 'Home' || event.key === 'End')) return;
 
-  const first = field ? 1 : 0;
   const last = stops.length - 1;
-  const next = {
-    ArrowDown: Math.min(at + 1, last),
-    ArrowUp: Math.max(at - 1, 0),
-    Home: first,
-    End: last,
-  }[event.key];
-  if (next === undefined) return;
+  let next: number;
+  switch (event.key) {
+    case 'ArrowDown':
+      next = Math.min(at + 1, last);
+      break;
+    case 'ArrowUp':
+      next = Math.max(at - 1, 0);
+      break;
+    case 'Home':
+      next = field ? 1 : 0;
+      break;
+    case 'End':
+      next = last;
+      break;
+    default:
+      return;
+  }
   event.preventDefault();
   stops[next].focus();
   stops[next].scrollIntoView({ block: 'nearest' });
