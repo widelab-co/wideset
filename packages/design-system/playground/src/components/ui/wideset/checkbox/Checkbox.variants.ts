@@ -23,7 +23,6 @@ export const checkboxVariants = cva(
         primary: cn(
           'outline-ws-dynamic-primary-strong-default',
           'disabled:text-ws-dynamic-on-primary-disabled',
-          'focus-visible:bg-ws-static-highlight-base',
 
           'radix-state-unchecked:border-ws-static-strong',
           'radix-state-unchecked:bg-ws-static-highlight-base',
@@ -47,7 +46,6 @@ export const checkboxVariants = cva(
         danger: cn(
           'outline-ws-dynamic-danger-strong-default',
           'disabled:text-ws-dynamic-on-danger-disabled',
-          'focus-visible:bg-ws-static-highlight-base',
 
           'radix-state-unchecked:border-ws-dynamic-danger-strong-default',
           'radix-state-unchecked:bg-ws-static-highlight-base',
