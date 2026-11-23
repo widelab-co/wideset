@@ -49,34 +49,51 @@ export const PACKAGE = '@wideset/react';
 /** `{ Button: '@/components/ui/wideset/button/Button' }`: where each export lives once scaffolded. */
 export type ProjectPaths = Record<string, string>;
 
-/** Import lines for these names, from the package or grouped by their scaffolded file. */
-export const importLines = (names: string[], source: ImportSource, paths: ProjectPaths) => {
-  const sorted = [...new Set(names)].sort();
-  if (!sorted.length) return [];
-  if (source === 'package') return [`import { ${sorted.join(', ')} } from '${PACKAGE}';`];
-  const byPath = new Map<string, string[]>();
-  for (const name of sorted) {
-    const path = paths[name] ?? PACKAGE;
-    byPath.set(path, [...(byPath.get(path) ?? []), name]);
-  }
-  return [...byPath].map(([path, list]) => `import { ${list.join(', ')} } from '${path}';`);
+/** The name a specifier imports: `type ToastStatus` → `ToastStatus`, `A as B` → `A`. */
+const nameOf = (specifier: string) => specifier.replace(/^type\s+/, '').split(/\s+as\s+/)[0];
+const byName = (a: string, b: string) => {
+  const [x, y] = [nameOf(a), nameOf(b)];
+  return x < y ? -1 : x > y ? 1 : 0;
 };
 
 /**
- * The same code with its package import rewritten for the chosen source. Code that does
- * not import the package is returned as it is.
+ * Import lines for these specifiers (`Toast`, `type ToastStatus`), from the package or grouped
+ * by their scaffolded file. `typeOnly` writes `import type { … }`.
+ */
+export const importLines = (
+  specifiers: string[],
+  source: ImportSource,
+  paths: ProjectPaths,
+  typeOnly = false,
+) => {
+  const sorted = [...new Set(specifiers)].sort(byName);
+  if (!sorted.length) return [];
+  const keyword = typeOnly ? 'import type' : 'import';
+  if (source === 'package') return [`${keyword} { ${sorted.join(', ')} } from '${PACKAGE}';`];
+  const byPath = new Map<string, string[]>();
+  for (const specifier of sorted) {
+    const path = paths[nameOf(specifier)] ?? PACKAGE;
+    byPath.set(path, [...(byPath.get(path) ?? []), specifier]);
+  }
+  return [...byPath].map(([path, list]) => `${keyword} { ${list.join(', ')} } from '${path}';`);
+};
+
+/**
+ * The same code with its package import rewritten for the chosen source, `import type` and
+ * `type` specifiers included. Code that does not import the package is returned as it is.
  */
 export const withImportSource = (code: string, source: ImportSource, paths: ProjectPaths) => {
   if (source === 'package') return code;
-  const pattern = new RegExp(`import\\s*\\{([^}]*)\\}\\s*from\\s*'${PACKAGE}';?`, 'g');
-  return code.replace(pattern, (_, list: string) =>
+  const pattern = new RegExp(`import\\s*(type\\s+)?\\{([^}]*)\\}\\s*from\\s*'${PACKAGE}';?`, 'g');
+  return code.replace(pattern, (_, typeOnly: string | undefined, list: string) =>
     importLines(
       list
         .split(',')
-        .map((name) => name.trim())
+        .map((specifier) => specifier.trim())
         .filter(Boolean),
       source,
       paths,
+      Boolean(typeOnly),
     ).join('\n'),
   );
 };
