@@ -19,7 +19,7 @@ type ZoomControlsProps = {
  * scale is, so from Fit at 73% they go to 50% or 75%.
  */
 export function ZoomControls({ zoom, scale, onZoomChange }: ZoomControlsProps) {
-  const smaller = ZOOM_STEPS.findLast((step) => step < scale - 0.001);
+  const smaller = ZOOM_STEPS.filter((step) => step < scale - 0.001).at(-1);
   const larger = ZOOM_STEPS.find((step) => step > scale + 0.001);
   const percent = Math.round(scale * 100);
 

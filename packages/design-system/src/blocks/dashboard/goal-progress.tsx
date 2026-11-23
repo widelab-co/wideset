@@ -43,9 +43,9 @@ export function GoalProgress({ label, revenue, target, daysLeft, className }: Go
         <ProgressBar
           value={Math.min(revenue, target)}
           max={target}
-          variant={met ? 'success' : 'default'}
+          status={met ? 'success' : 'default'}
           aria-labelledby={titleId}
-          getValueLabel={() => `${formatUsd(revenue)} of ${formatUsd(target)}`}
+          aria-valuetext={`${formatUsd(revenue)} of ${formatUsd(target)}`}
         />
       </div>
       <dl className="gap-ws-5 typography-label-sm flex flex-col tabular-nums">

@@ -5,6 +5,7 @@
  */
 type RegistryItem = {
   name: string;
+  type: string;
   registryDependencies?: string[];
   files: { target: string; content: string }[];
 };
@@ -34,28 +35,40 @@ export type ManualFiles = {
   shared: ManualFile[];
 };
 
+const toFiles = (item: RegistryItem) =>
+  item.files.map(({ target, content }) => ({ path: target, content }));
+const depsOf = (item?: RegistryItem) =>
+  (item?.registryDependencies ?? []).map((url) =>
+    url
+      .split('/')
+      .pop()!
+      .replace(/\.json$/, ''),
+  );
+
+export const installedBlock = (id: string) => {
+  const name = `block-${id}`;
+  const item = items[name];
+  if (item?.type !== 'registry:block') throw new Error(`Missing registry item for ${name}`);
+  return {
+    directory: `blocks/wideset/${id}`,
+    files: toFiles(item),
+    dependencies: depsOf(item),
+  };
+};
+
 /** Every source file a component needs: its own, then the shared helpers it imports, each once. */
 export const manualFiles = (id: string): ManualFiles => {
   const seen = new Set<string>();
   const shared: ManualFile[] = [];
-  const toFiles = (name: string) =>
-    items[name].files.map((file) => ({ path: file.target, content: file.content }));
-  const depsOf = (name: string) =>
-    (items[name]?.registryDependencies ?? []).map((url) =>
-      url
-        .split('/')
-        .pop()!
-        .replace(/\.json$/, ''),
-    );
   const visit = (name: string) => {
     if (seen.has(name) || STYLES.has(name) || !items[name]) return;
     seen.add(name);
-    shared.push(...toFiles(name));
-    depsOf(name).forEach(visit);
+    shared.push(...toFiles(items[name]));
+    depsOf(items[name]).forEach(visit);
   };
   seen.add(id);
-  depsOf(id).forEach(visit);
-  return { own: items[id] ? toFiles(id) : [], shared };
+  depsOf(items[id]).forEach(visit);
+  return { own: items[id] ? toFiles(items[id]) : [], shared };
 };
 
 /**
@@ -66,6 +79,7 @@ export const manualFiles = (id: string): ManualFiles => {
 export const projectPaths = (): Record<string, string> => {
   const paths: Record<string, string> = {};
   for (const item of Object.values(items)) {
+    if (item.type === 'registry:block') continue;
     for (const file of item.files) {
       if (!/\.tsx?$/.test(file.target)) continue;
       const path = `@/${file.target.replace(/\.tsx?$/, '')}`;

@@ -408,7 +408,7 @@ export const WithTable: Story = {
           projects
         </p>
 
-        <div className="w-full overflow-auto">
+        <div className="ws-scrollbar w-full overflow-auto">
           <Table striped>
             <Table.Head>
               <Table.Row>

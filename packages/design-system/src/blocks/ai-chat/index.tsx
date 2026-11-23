@@ -20,13 +20,14 @@ export default function AiChat() {
         <TopBar />
         <div className="px-ws-12">
           <div className="gap-ws-12 pb-ws-12 mx-auto flex w-full max-w-[41.25rem] flex-col pt-[11rem]">
-            <div className="px-ws-5 flex flex-col items-start">
+            {/* Figma places the composer 26px under the greeting: the column's 24 plus 2 here. */}
+            <div className="px-ws-5 pb-ws-2 flex flex-col items-start">
               <Avatar agent size="lg" alt="" />
-              {/* Figma's gradient runs in sRGB; Tailwind's default (oklab) brightens the middle. */}
-              <h1 className="mt-ws-10 typography-title-md from-ws-non-semantic-brand-strong to-ws-non-semantic-pink-strong bg-linear-to-r/srgb bg-clip-text text-transparent">
-                Hello {USER.firstName},
-                <br />
-                What would you like to know?
+              {/* Figma's greeting is its own style, 32/32 at -0.2px, not a step of the title scale.
+                  Its gradient runs in sRGB; Tailwind's default (oklab) brightens the middle. */}
+              <h1 className="mt-ws-10 text-ws-800 leading-ws-800 tracking-ws-tight-50 font-ws-medium from-ws-non-semantic-brand-strong to-ws-non-semantic-pink-strong bg-linear-to-r/srgb bg-clip-text text-balance text-transparent">
+                <span className="block">Hello {USER.firstName},</span>
+                <span className="block">What would you like to know?</span>
               </h1>
             </div>
 

@@ -45,7 +45,6 @@ function OrderPage() {
       <OrderHeader
         status={status}
         onRefund={refunded < total ? () => setRefunding(true) : undefined}
-        quiet={refunding}
       />
 
       <div className="gap-ws-16 grid grid-cols-1 items-start lg:grid-cols-[minmax(0,1fr)_18rem]">
@@ -170,7 +169,7 @@ export default function OrderDetail() {
           </div>
 
           {/* The page scrolls inside the card, so the card's corners stay put. */}
-          <div className="min-h-0 flex-1 overflow-y-auto">
+          <div className="ws-scrollbar min-h-0 flex-1 overflow-y-auto">
             <OrderPage />
           </div>
         </AppShell.Main>

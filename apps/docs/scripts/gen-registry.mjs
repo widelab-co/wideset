@@ -20,7 +20,7 @@ import {
 import { docs, generatedDir, library } from './paths.mjs';
 
 const out = join(generatedDir, 'registry');
-const { items } = buildRegistry({ root: library, out, base: resolveBaseUrl() });
+const { items } = await buildRegistry({ root: library, out, base: resolveBaseUrl() });
 
 const publicDir = join(docs, 'public', 'r');
 rmSync(publicDir, { recursive: true, force: true });

@@ -2,9 +2,9 @@ import { Card } from '@wideset/react';
 import { type ReactNode, useId } from 'react';
 
 /**
- * One part of the page in a bordered card: its 16px title in the header, then what it holds. The
- * title names the region. Every part of the page is drawn this way, the main column and the side
- * alike, so the page reads as one set of blocks.
+ * One part of the event in a bordered card: its 16px title in the header, then what it holds. The
+ * title names the region. The main column is drawn this way; the side column's lists stay plain
+ * (`SideSection`).
  */
 export function Section({ title, children }: { title: string; children: ReactNode }) {
   const id = useId();

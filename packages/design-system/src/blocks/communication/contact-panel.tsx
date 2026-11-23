@@ -100,7 +100,7 @@ export function ContactPanel({
         />
       </header>
 
-      <div className="gap-ws-14 pt-ws-14 flex min-h-0 flex-1 flex-col overflow-y-auto">
+      <div className="gap-ws-14 pt-ws-14 ws-scrollbar flex min-h-0 flex-1 flex-col overflow-y-auto">
         <div className="gap-ws-9 flex flex-col items-center">
           <Avatar size="2xl" initials={contact.initials} color={contact.color} />
           <div className="gap-ws-2 flex flex-col items-center">

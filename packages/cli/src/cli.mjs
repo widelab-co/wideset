@@ -33,13 +33,13 @@ import { runShadcn as defaultRunShadcn } from './shadcn.mjs';
 
 const { version: VERSION } = createRequire(import.meta.url)('../package.json');
 
-const HELP = `wideset ${VERSION} — scaffold Wideset components into your React project
+const HELP = `wideset ${VERSION} — scaffold Wideset components and blocks into your React project
 
 Usage
   npx wideset init                 set up this project (add runs it for you the first time)
-  npx wideset add <name...>        add components, e.g. npx wideset add button select
+  npx wideset add <name...>        add components or blocks, e.g. npx wideset add block-calendar
   npx wideset add --all            add every component
-  npx wideset list                 show the components you can add
+  npx wideset list                 show the components and blocks you can add
   npx wideset skills               add the Wideset agent skills and rules to this project
   npx wideset info                 show how this project uses Wideset (--json for agents)
 
@@ -285,7 +285,7 @@ async function add(ctx) {
   const names = opts.positional.map((name) => name.replace(new RegExp(`^${NAMESPACE}/`), ''));
   if (!names.length && !opts.all) {
     throw new CliError(
-      'Name at least one component, e.g. `npx wideset add button`. See `npx wideset list`.',
+      'Name at least one component or block, e.g. `npx wideset add button`. See `npx wideset list`.',
     );
   }
 
@@ -312,7 +312,9 @@ async function add(ctx) {
   }
 
   const selected = opts.all ? index.items.filter(isComponent).map((item) => item.name) : names;
-  log(`Adding ${selected.length === 1 ? selected[0] : `${selected.length} components`}\n`);
+  log(
+    `Adding ${selected.length === 1 ? selected[0] : `${selected.length} ${opts.all ? 'components' : 'items'}`}\n`,
+  );
   await runShadcn(
     [
       'add',
@@ -329,16 +331,23 @@ async function list(ctx) {
   const { cwd, opts, env, log, fetchImpl } = ctx;
   const { base } = registryFor(opts, env, readComponentsJson(cwd));
   const index = await fetchIndex(base, fetchImpl);
-  const components = index.items.filter(isComponent);
-  const width = Math.max(...components.map((item) => item.name.length));
-  log(`${components.length} components (npx wideset add <name>):\n`);
-  const room = Math.max(20, (ctx.columns ?? 100) - width - 6);
-  for (const item of components) {
-    const text = item.description ?? item.title ?? '';
-    const clipped = text.length > room ? `${text.slice(0, room - 1).trimEnd()}…` : text;
-    log(`  ${item.name.padEnd(width)}  ${clipped}`.trimEnd());
+  const show = (label, items) => {
+    const width = Math.max(0, ...items.map((item) => item.name.length));
+    const room = Math.max(20, (ctx.columns ?? 100) - width - 6);
+    log(`${items.length} ${label} (npx wideset add <name>):\n`);
+    for (const item of items) {
+      const text = item.description ?? item.title ?? '';
+      const clipped = text.length > room ? `${text.slice(0, room - 1).trimEnd()}…` : text;
+      log(`  ${item.name.padEnd(width)}  ${clipped}`.trimEnd());
+    }
+  };
+  show('components', index.items.filter(isComponent));
+  const blocks = index.items.filter((item) => item.type === 'registry:block');
+  if (blocks.length) {
+    log('');
+    show('blocks', blocks);
   }
-  log(`\nShared code (styles, utils, motion, …) comes along with the components that need it.`);
+  log('\nShared code and styles come along with the items that need them.');
   return 0;
 }
 

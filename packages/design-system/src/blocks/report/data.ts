@@ -51,17 +51,23 @@ export const COMPARE_OPTIONS: { value: Compare; label: string }[] = [
   cancellation, each with its plan and region. Every figure on the screen is summed from these
   rows and the opening balances, so the KPIs, the charts and the table always add up.
 
-  The rows are generated once and deterministically (a seeded random sequence), up to the real
-  today: the date picker's presets ("This month", "Last year") count from today, so the data has
-  to reach it. A real app fetches the same rows for the range on screen.
+  The rows are generated once from a seeded random sequence. The report opens on a sample period
+  that the server and browser can render identically. The data also extends through today for
+  the date picker's relative presets. A real app fetches the rows for the range on screen.
 */
 
 const DAY = 86_400_000;
 const START = Date.UTC(2023, 0, 1);
+export const SAMPLE_RANGE = { from: '2026-01-01', to: '2026-11-10' };
 const now = new Date();
-/** Today as a day number: days since Jan 1, 2023. */
+/** The last available day, as the number of days since Jan 1, 2023. */
 export const TODAY = Math.round(
-  (Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()) - START) / DAY,
+  (Math.max(
+    Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()),
+    Date.parse(SAMPLE_RANGE.to),
+  ) -
+    START) /
+    DAY,
 );
 /** The first day a range may start: a year in, so a range always has a year before it. */
 export const FIRST_DAY = 365;

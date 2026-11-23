@@ -9,6 +9,7 @@ import {
   isoOf,
   type Range,
   revenueReport,
+  SAMPLE_RANGE,
   type Summary,
   TODAY,
 } from './data';
@@ -67,7 +68,6 @@ function exportCsv({ range, regions, ...total }: Summary) {
   URL.revokeObjectURL(link.href);
 }
 
-const year = isoOf(TODAY).slice(0, 4);
 /** The day of every point of a daily series: the close of the day before the range, then each day. */
 const daysFrom = (range: Range) =>
   Array.from({ length: range.to - range.from + 2 }, (_, index) => range.from - 1 + index);
@@ -80,8 +80,8 @@ const daysFrom = (range: Range) =>
  */
 export default function Report() {
   const [picked, setPicked] = useState<{ range: DateRangeValue; preset: DateRangePreset }>({
-    range: { from: `${year}-01-01`, to: `${year}-12-31` },
-    preset: 'thisYear',
+    range: SAMPLE_RANGE,
+    preset: 'custom',
   });
   const [compare, setCompare] = useState<Compare>('year');
 
@@ -139,7 +139,7 @@ export default function Report() {
         />
 
         {/* The controls stay in view; the report scrolls under them. */}
-        <div className="px-ws-12 pb-ws-12 min-h-0 flex-1 overflow-y-auto">
+        <div className="px-ws-12 pb-ws-12 ws-scrollbar min-h-0 flex-1 overflow-y-auto">
           <div className={cn(COLUMN, 'gap-ws-9 flex flex-col')}>
             <section aria-label="Key figures" className="gap-ws-9 grid grid-cols-4">
               {figures.map((figure) => (

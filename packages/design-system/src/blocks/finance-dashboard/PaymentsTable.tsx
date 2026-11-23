@@ -76,7 +76,7 @@ export function PaymentsTable() {
                 <div className="w-[5rem]">
                   <ProgressBar
                     value={payment.progress}
-                    variant={status.progress}
+                    status={status.progress}
                     aria-label={`${payment.customer}: settled`}
                   />
                 </div>

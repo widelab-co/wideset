@@ -82,7 +82,7 @@ async function serveRegistry(work) {
   });
   await new Promise((done) => server.listen(0, '127.0.0.1', done));
   const base = `http://127.0.0.1:${server.address().port}/r`;
-  buildRegistry({ root: join(PACKAGE, '../design-system'), out: dir, base });
+  await buildRegistry({ root: join(PACKAGE, '../design-system'), out: dir, base });
   return { base, close: () => server.close() };
 }
 

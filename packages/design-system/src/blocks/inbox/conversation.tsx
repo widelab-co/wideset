@@ -65,7 +65,7 @@ export function Conversation({
         </div>
       </header>
 
-      <div className="min-h-0 flex-1 overflow-y-auto">
+      <div className="ws-scrollbar min-h-0 flex-1 overflow-y-auto">
         <ol
           aria-label="Messages"
           className="px-ws-12 pb-ws-9 mx-auto flex w-full max-w-[48rem] flex-col"

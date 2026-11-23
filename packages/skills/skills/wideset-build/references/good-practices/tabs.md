@@ -62,6 +62,8 @@ function RoutingTabs() {
 
 ## Gotchas
 
+- When a panel starts with a focusable element, pass `tabIndex={-1}` to `Tabs.Content` so Tab
+  reaches that element directly. Otherwise the panel itself is a tab stop by default.
 - `type` and `size` are set once on `Tabs`; items and list read them from context. There is no
   `type` on `Tabs.Item`.
 - `divider={false}` has no effect on `pills` and `ghost`; they never draw it.
