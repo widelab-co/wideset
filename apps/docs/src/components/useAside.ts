@@ -1,6 +1,6 @@
 import { useSyncExternalStore } from 'react';
 
-/** The page's rail column shows from `xl` (DocsLayout). */
+/** Same breakpoint as the right rail in DocsLayout. */
 const WIDE = '(min-width: 80rem)';
 
 const subscribe = (onChange: () => void) => {
@@ -10,9 +10,8 @@ const subscribe = (onChange: () => void) => {
 };
 
 /**
- * The element with this id in the page's right rail, while the rail is on screen; otherwise
- * null, and the caller renders its side part inline. The server and the first render return
- * null, so the caller hides its inline copy from `xl` with CSS to avoid a flash.
+ * Where to move a side panel (the Playground's properties) into the page's right rail: the rail
+ * element when the window is wide enough to show it, otherwise null, and the panel stays inline.
  */
 export const useAside = (id?: string) =>
   useSyncExternalStore(
