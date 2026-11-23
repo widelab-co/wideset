@@ -227,6 +227,31 @@ describe('MultiSelect', () => {
     });
   });
 
+  describe('Tags inset', () => {
+    // Figma's Mutli Select sets tags 4 / 8 / 8px from the edge and from what follows them; text
+    // keeps the 12 / 16 / 16px inset of Select.
+    it.each([
+      ['sm', 'ps-ws-3'],
+      ['md', 'ps-ws-5'],
+      ['lg', 'ps-ws-5'],
+    ] as const)('sets %s tags at the tag inset', (size, inset) => {
+      render(
+        <MultiSelect
+          options={baseOptions}
+          size={size}
+          defaultValue={['poland']}
+          placeholder="Select countries"
+        />,
+      );
+      expect(screen.getByRole('button', { name: /Poland/ })).toHaveClass(inset);
+    });
+
+    it('keeps the text inset for the placeholder', () => {
+      render(<MultiSelect options={baseOptions} placeholder="Select countries" />);
+      expect(screen.getByRole('button', { name: /Select countries/ })).toHaveClass('ps-ws-9');
+    });
+  });
+
   describe('Disabled state', () => {
     it('does not open when disabled', async () => {
       const user = userEvent.setup();

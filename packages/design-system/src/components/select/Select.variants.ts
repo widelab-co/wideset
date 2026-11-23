@@ -35,12 +35,21 @@ export const selectTriggerVariants = cva(
         ),
       },
       size: {
-        sm: 'typography-label-sm h-ws-forms-sm max-h-ws-forms-sm rounded-ws-control-lg px-ws-7',
-        md: 'typography-label-sm h-ws-forms-md max-h-ws-forms-md rounded-ws-control-lg px-ws-9',
-        lg: 'typography-label-md h-ws-forms-lg max-h-ws-forms-lg rounded-ws-control-xl px-ws-9',
+        sm: 'typography-label-sm h-ws-forms-sm max-h-ws-forms-sm rounded-ws-control-lg ps-ws-7',
+        md: 'typography-label-sm h-ws-forms-md max-h-ws-forms-md rounded-ws-control-lg ps-ws-9',
+        lg: 'typography-label-md h-ws-forms-lg max-h-ws-forms-lg rounded-ws-control-xl ps-ws-9',
+      },
+      // Figma ends the field with its icon buttons 4px from the right edge; without the arrow the
+      // value keeps the same inset on both sides.
+      withArrow: {
+        true: 'pe-ws-3',
+        false: '',
       },
     },
     compoundVariants: [
+      { withArrow: false, size: 'sm', className: 'pe-ws-7' },
+      { withArrow: false, size: 'md', className: 'pe-ws-9' },
+      { withArrow: false, size: 'lg', className: 'pe-ws-9' },
       {
         preset: 'border',
         variant: 'danger',
@@ -56,6 +65,7 @@ export const selectTriggerVariants = cva(
       preset: 'border',
       variant: 'primary',
       size: 'md',
+      withArrow: false,
     },
   },
 );
@@ -67,14 +77,17 @@ export const selectTriggerMotionVariants = cva('', {
   defaultVariants: { enabled: true },
 });
 
+// Figma draws the arrow as an icon button (24 / 32 / 40px, the icon 16 / 16 / 20px in its middle)
+// after the value's own inset. The side padding makes the svg as wide as that button (only its width
+// matters: a taller box would stretch MultiSelect); the clear button, when shown, sits right before it.
 export const selectTriggerIconVariants = cva(
-  'text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0',
+  'text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled box-content shrink-0',
   {
     variants: {
       size: {
-        sm: '-mr-ws-3 ml-ws-5',
-        md: '-mr-ws-4 ml-ws-6',
-        lg: '-mr-ws-3 ml-ws-7',
+        sm: 'px-ws-3 ms-ws-7 size-ws-9',
+        md: 'px-ws-5 ms-ws-9 size-ws-9',
+        lg: 'px-ws-6 ms-ws-9 size-ws-11',
       },
       // Ghost reads as a value, not a control: its arrow shows only while the trigger is hovered,
       // focused or open, and always on touch screens, which have no hover. It keeps its space, so
@@ -219,6 +232,62 @@ export const selectClearButtonVariants = cva('relative shrink-0 rounded-full p-0
       className:
         'mr-[calc(var(--spacing-ws-17)+1px)] -ml-[calc(var(--spacing-ws-17)+var(--spacing-ws-14)+1px)]',
     },
+  ],
+  defaultVariants: {
+    size: 'md',
+    hideArrow: false,
+  },
+});
+
+// Select and MultiSelect: the clear button is a sibling of the trigger (a button cannot hold a
+// button), drawn over it right before the arrow as Figma's icon button (24 / 32 / 40px). Its
+// negative margin cancels its own width, so it takes no room; `end` moves it past the arrow and
+// the 4px edge inset, and the 1px shift past the trigger's border. Logical sides keep it right in
+// a right-to-left layout.
+export const selectTriggerClearButtonVariants = cva(
+  '-translate-x-ws-1 rtl:translate-x-ws-1 relative shrink-0 rounded-full p-0',
+  {
+    variants: {
+      size: {
+        sm: '-ms-ws-12 size-ws-12',
+        md: '-ms-ws-14 size-ws-14',
+        lg: '-ms-ws-16 size-ws-16',
+      },
+      hideArrow: {
+        true: 'end-ws-3',
+        false: '',
+      },
+    },
+    compoundVariants: [
+      { hideArrow: false, size: 'sm', className: 'end-ws-13' },
+      { hideArrow: false, size: 'md', className: 'end-ws-15' },
+      { hideArrow: false, size: 'lg', className: 'end-ws-17' },
+    ],
+    defaultVariants: {
+      size: 'md',
+      hideArrow: false,
+    },
+  },
+);
+
+// The value's room for that clear button: its width, plus the 4px edge inset when no arrow is there
+// to absorb it. The value then ends one inset (12 / 16 / 16px) before the button, as in Figma.
+export const selectTriggerClearPaddingVariants = cva('', {
+  variants: {
+    size: {
+      sm: 'pe-ws-12',
+      md: 'pe-ws-14',
+      lg: 'pe-ws-16',
+    },
+    hideArrow: {
+      true: '',
+      false: '',
+    },
+  },
+  compoundVariants: [
+    { hideArrow: true, size: 'sm', className: 'pe-ws-13' },
+    { hideArrow: true, size: 'md', className: 'pe-ws-15' },
+    { hideArrow: true, size: 'lg', className: 'pe-ws-17' },
   ],
   defaultVariants: {
     size: 'md',

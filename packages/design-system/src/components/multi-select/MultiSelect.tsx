@@ -21,8 +21,8 @@ import { Select } from '../select/Select';
 import { SelectContext } from '../select/Select.context';
 import {
   selectClearButtonIconVariants,
-  selectClearButtonVariants,
-  selectValueRightPaddingVariants,
+  selectTriggerClearButtonVariants,
+  selectTriggerClearPaddingVariants,
 } from '../select/Select.variants';
 import { SelectContent } from '../select/SelectContent';
 import { SelectTrigger } from '../select/SelectTrigger';
@@ -34,7 +34,7 @@ import type {
   MultiSelectSeparatorProps,
   MultiSelectTriggerProps,
 } from './MultiSelect.types';
-import { multiSelectTriggerVariants } from './MultiSelect.variants';
+import { multiSelectTriggerVariants, multiSelectValueRowVariants } from './MultiSelect.variants';
 import { MultiSelectOption } from './MultiSelectOption';
 import { MultiSelectValue } from './MultiSelectValue';
 
@@ -281,7 +281,10 @@ export const MultiSelect = ({
                 name={name}
                 type="button"
                 disabled={disabled}
-                className={cn(multiSelectTriggerVariants({ size, tagsGrow }), className)}
+                className={cn(
+                  multiSelectTriggerVariants({ size, tagsGrow, tags: areTagsVisible }),
+                  className,
+                )}
                 size={size}
                 preset={preset}
                 variant={variant}
@@ -301,7 +304,8 @@ export const MultiSelect = ({
                         : size === 'lg'
                           ? 'min-h-ws-13'
                           : 'min-h-ws-12'),
-                    hasClearButton && selectValueRightPaddingVariants({ size }),
+                    hasClearButton && selectTriggerClearPaddingVariants({ size, hideArrow }),
+                    multiSelectValueRowVariants({ tags: areTagsVisible }),
                   )}
                 >
                   <MultiSelectValue
@@ -310,7 +314,6 @@ export const MultiSelect = ({
                     areTagsVisible={areTagsVisible}
                     selectedOptions={selectedOptions}
                     size={size}
-                    hasClearButton={hasClearButton}
                     multiValuesLabel={multiValuesLabel}
                     onRemoveValue={handleValueRemove}
                     wrap={tagsGrow}
@@ -398,10 +401,7 @@ export const MultiSelect = ({
               preset="ghost"
               variant="secondary"
               defaultMotion={motion}
-              className={selectClearButtonVariants({
-                size,
-                hideArrow,
-              })}
+              className={selectTriggerClearButtonVariants({ size, hideArrow })}
               iconClassName={selectClearButtonIconVariants({ size })}
             />
           )}
