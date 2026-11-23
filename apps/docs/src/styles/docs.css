@@ -561,14 +561,6 @@ html[data-tab='relationships'] [data-tab-panel='relationships'] {
 html[data-tab] .docs-page-tabs:not([data-ready]) {
   visibility: hidden;
 }
-/* On the Playground tab the rail holds the properties, which need more than the 12rem of
-   "On this page". */
-@media (min-width: 80rem) {
-  html[data-tab='playground'] #docs-page:has(#docs-aside-playground) {
-    grid-template-columns: 15.25rem minmax(0, 1fr) 17rem;
-  }
-}
-
 .docs-section-link {
   display: inline-flex;
   align-items: center;
