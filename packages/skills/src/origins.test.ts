@@ -24,7 +24,6 @@ const INFRASTRUCTURE = new Set([
   'apps/docs/astro.config.mjs',
   'apps/docs/wrangler.jsonc',
   'apps/docs/src/layouts/DocsLayout.astro',
-  'packages/design-system/scripts/registry-smoke.mjs',
 ]);
 
 const tracked = execFileSync('git', ['ls-files', '-z', '--', ...SHIPPED], { cwd: REPO })
