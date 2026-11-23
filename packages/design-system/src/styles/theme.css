@@ -17,6 +17,7 @@
 @import './tokens/theme-desktop-semantic.css';
 
 @import './utilities/motion.css';
+@import './utilities/scrollbar.css';
 @import './utilities/shadow.css';
 @import './utilities/typography.css';
 @import './utilities/wds.css';

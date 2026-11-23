@@ -169,7 +169,7 @@ export function SearchModal({
           */}
           <Tabs.Content
             value={scope}
-            className="my-ws-11 px-ws-11 h-[22.375rem] shrink overflow-y-auto"
+            className="my-ws-11 px-ws-11 ws-scrollbar h-[22.375rem] shrink overflow-y-auto"
           >
             {shown.length === 0 ? (
               <p role="status" className="py-ws-5 typography-body-md text-ws-static-subtle">

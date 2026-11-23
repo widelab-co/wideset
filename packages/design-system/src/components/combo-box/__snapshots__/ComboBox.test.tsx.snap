@@ -188,7 +188,7 @@ exports[`ComboBox > snapshots > should match snapshot for opened dropdown with o
       tabindex="-1"
     >
       <ul
-        class="p-ws-3 max-h-[18rem] overflow-y-auto"
+        class="p-ws-3 ws-scrollbar max-h-[18rem] overflow-y-auto"
         id="_r_2c_"
         role="listbox"
       >

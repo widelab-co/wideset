@@ -15,7 +15,7 @@ const COLUMN = 'px-ws-14 mx-auto w-full max-w-[80rem]';
 export function HomePage() {
   return (
     // The page scrolls inside the card, so the card's corners stay put.
-    <div className="min-h-0 flex-1 overflow-y-auto">
+    <div className="ws-scrollbar min-h-0 flex-1 overflow-y-auto">
       <div className={cn(COLUMN, 'gap-ws-12 pt-ws-14 pb-ws-16 flex flex-col')}>
         <header className="gap-ws-2 flex flex-col">
           <h1 className="typography-title-md text-ws-static-strong">

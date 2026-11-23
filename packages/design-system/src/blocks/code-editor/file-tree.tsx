@@ -130,7 +130,7 @@ export function FileTree({ active, unsaved, onOpen }: FileTreeProps) {
         </TextInput>
       </div>
 
-      <div className="p-ws-5 min-h-0 flex-1 overflow-y-auto">
+      <div className="p-ws-5 ws-scrollbar min-h-0 flex-1 overflow-y-auto">
         {shown.length > 0 ? (
           <ul>
             {folderRow(ROOT, ROOT, [

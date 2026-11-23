@@ -422,50 +422,29 @@ export type NavGroup = {
   items: { title: string; href: string; fresh?: boolean }[];
 };
 
-/** A page switched in place (the Playground's component): the URL changes, the page hears it. */
-export const SOFT_NAVIGATE = 'docs:navigate';
-
-/**
- * The one sidebar, the same on every page: a search field that narrows the list as you type,
- * then the page's own rows (library Sidebar rows; the current one filled). `soft`: the rows switch
- * the page in place instead of loading it (the Playground).
- */
+/** A searchable list of the current section's pages, with the current page selected. */
 export const SideNav = ({
   groups,
   current,
   placeholder,
-  soft = false,
   className,
 }: {
   groups: NavGroup[];
   /** The current row's href. */
   current: string;
   placeholder: string;
-  soft?: boolean;
   /** Extra classes on the sidebar (the narrow menu drops the column's top padding). */
   className?: string;
 }) => {
   const [query, setQuery] = useState('');
-  const [active, setActive] = useState(current);
   useEffect(() => {
-    if (soft) {
-      // Both sidebars (the column and the narrow menu) follow a switch made in either.
-      const sync = () => setActive(`${location.pathname}${location.search.split('&')[0]}`);
-      if (location.search) sync();
-      addEventListener('popstate', sync);
-      addEventListener(SOFT_NAVIGATE, sync);
-      return () => {
-        removeEventListener('popstate', sync);
-        removeEventListener(SOFT_NAVIGATE, sync);
-      };
-    }
     // The list scrolls on its own; bring the current row to its middle.
     const row = document.querySelector<HTMLElement>('#docs-nav [aria-current="page"]');
     const viewport = row?.closest<HTMLElement>('[data-slot="scroll-area-viewport"]');
     if (!row || !viewport) return;
     const offset = row.getBoundingClientRect().top - viewport.getBoundingClientRect().top;
     viewport.scrollTop += offset - viewport.clientHeight / 2 + row.offsetHeight / 2;
-  }, [soft]);
+  }, [current]);
   const needle = query.trim().toLowerCase();
   const shown = groups
     .map((group) => ({
@@ -517,20 +496,8 @@ export const SideNav = ({
                       item.title
                     )
                   }
-                  active={item.href === active}
-                  aria-current={item.href === active ? 'page' : undefined}
-                  onClick={
-                    soft
-                      ? (event: React.MouseEvent) => {
-                          if (event.metaKey || event.ctrlKey || event.shiftKey) return;
-                          event.preventDefault();
-                          history.pushState(null, '', item.href);
-                          setActive(item.href);
-                          document.documentElement.removeAttribute('data-docs-menu');
-                          window.dispatchEvent(new Event(SOFT_NAVIGATE));
-                        }
-                      : undefined
-                  }
+                  active={item.href === current}
+                  aria-current={item.href === current ? 'page' : undefined}
                 />
               ))}
             </nav>
@@ -692,7 +659,7 @@ const DocsMenu = ({ active }: { active: boolean }) => {
 /**
  * The top bar after the logo, as the website's navbar: the pages as plain text links at the left
  * (Docs opens its menu), and at the right GitHub (icon and text), the theme and "Get started".
- * The one search palette lives here with no trigger of its own: ⌘K opens it.
+ * The search button and ⌘K open the global search palette.
  */
 export const TopNav = ({
   area,
@@ -709,7 +676,6 @@ export const TopNav = ({
       {[
         { id: 'components', label: 'Components', href: '/components' },
         { id: 'blocks', label: 'Blocks', href: '/blocks' },
-        { id: 'playground', label: 'Playground', href: '/docs/playground' },
       ].map((page) => (
         <a
           key={page.id}

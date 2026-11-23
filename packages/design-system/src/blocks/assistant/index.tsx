@@ -79,7 +79,7 @@ export default function Assistant() {
         </div>
 
         {/* The record scrolls inside its card; the assistant's card keeps its composer in reach. */}
-        <div className="min-h-0 flex-1 overflow-y-auto">
+        <div className="ws-scrollbar min-h-0 flex-1 overflow-y-auto">
           <div className={cn(COLUMN, 'gap-ws-14 pt-ws-14 pb-ws-16 flex flex-col')}>
             <RecordHeader />
 

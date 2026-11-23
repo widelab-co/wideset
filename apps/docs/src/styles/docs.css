@@ -159,7 +159,7 @@
   list-style: decimal;
   padding-left: 1.25rem;
 }
-.docs-prose a {
+.docs-prose a:not(.docs-section-link) {
   color: var(--text-color-ws-static-strong);
   text-decoration: underline;
   text-underline-offset: 3px;
@@ -238,7 +238,14 @@
 }
 
 .docs-tab-row {
+  /* Leave 4px for the Tabs focus outline and 1px for scroll rounding. */
+  --docs-tab-focus-space: 5px;
   container-type: inline-size;
+  margin-inline: calc(-1 * var(--docs-tab-focus-space));
+  padding: var(--docs-tab-focus-space);
+  padding-block-end: calc(var(--docs-tab-focus-space) + 1px);
+  background: linear-gradient(var(--border-color-ws-static-subtle) 0 0) center bottom
+    var(--docs-tab-focus-space) / calc(100% - 2 * var(--docs-tab-focus-space)) 1px no-repeat;
 }
 .docs-tab-row [role='tab'] {
   max-inline-size: 100cqi;
@@ -292,33 +299,6 @@ html .docs .docs-fade {
 }
 .dark .docs :is(.docs-card, .docs-card-rule, .docs-frame, .docs-code):not(.docs-light) {
   border-color: var(--border-color-ws-static-base);
-}
-/* Scrollbars inside the page: a thin, quiet thumb with no track or arrows, a little stronger under the pointer.
-   Chromium and Safari draw it from the ::-webkit-scrollbar rules (setting scrollbar-color there
-   would switch those off); browsers without them, Firefox, get the standard thin bar. */
-@supports not selector(::-webkit-scrollbar) {
-  .docs * {
-    scrollbar-width: thin;
-    scrollbar-color: var(--background-color-ws-static-alpha-base) transparent;
-  }
-}
-.docs ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-.docs ::-webkit-scrollbar-track,
-.docs ::-webkit-scrollbar-corner {
-  background: transparent;
-}
-.docs ::-webkit-scrollbar-button {
-  display: none;
-}
-.docs ::-webkit-scrollbar-thumb {
-  background: var(--background-color-ws-static-alpha-base);
-  border-radius: 999px;
-}
-.docs ::-webkit-scrollbar-thumb:hover {
-  background: var(--background-color-ws-static-alpha-strong);
 }
 /* A jump to a heading lands clear of the bar. */
 .docs .docs-prose :is(h2, h3) {
@@ -428,6 +408,9 @@ body.docs :is(.docs-snippet pre, .docs-code pre, .docs-code .docs-code-fallback)
 }
 body.docs .docs-code pre {
   padding-top: 16px;
+}
+body.docs .docs-code--prompt :is(pre, .docs-code-fallback) {
+  padding: 16px 48px 16px 16px;
 }
 body.docs .docs-prose pre:not(.docs-code pre) {
   position: relative;

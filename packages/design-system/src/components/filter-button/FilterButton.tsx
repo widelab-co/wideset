@@ -182,7 +182,7 @@ export const FilterButton = React.forwardRef<HTMLButtonElement, FilterButtonProp
             role="listbox"
             aria-multiselectable
             aria-label={label}
-            className="max-h-[18rem] overflow-x-hidden overflow-y-auto outline-none"
+            className="ws-scrollbar max-h-[18rem] overflow-x-hidden overflow-y-auto outline-none"
           >
             {options.map((option, index) => {
               const selected = selectedValues.includes(option.value);

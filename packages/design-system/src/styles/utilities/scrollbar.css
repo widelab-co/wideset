@@ -1,0 +1,8 @@
+/* ScrollArea's colours; standard properties only, so the OS keeps hiding bars where it does. */
+@layer components {
+  :where(.ws-scrollbar, .ws-scrollbars, .ws-scrollbars *) {
+    scrollbar-width: thin;
+    scrollbar-color: var(--background-color-ws-dynamic-secondary-alpha-strong-default)
+      var(--background-color-ws-static-alpha-subtle);
+  }
+}
