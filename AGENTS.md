@@ -271,6 +271,7 @@ checks out as a plain text file.
 | ------------------------------ | -------------------------------------------------------------------------------------- |
 | `wideset-code-review`          | reviewing a PR, branch or working tree: safety, standards, intent                      |
 | `wideset-pr-review-resolve`    | evaluating PR feedback, fixing locally, drafting replies and publishing after approval |
+| `wideset-pr-announcement`      | a short Polish announcement of a PR for the team, pasted or saved as a Slack draft     |
 | `wideset-component-convention` | reviewing a component against the conventions above; DS-readiness                      |
 | `wideset-storybook-docs`       | formatting rules for Storybook MDX pages (form only, not content)                      |
 | `wideset-component-docs`       | a component's docs page: examples, playground and its tuning                           |

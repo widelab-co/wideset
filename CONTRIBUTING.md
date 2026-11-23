@@ -73,6 +73,10 @@ It evaluates comments against repository rules, applies clear fixes locally, and
 report with decisions and exact reply drafts. After approval of the reply batch, it posts the
 approved replies and resolves eligible threads. Code pushes require a separate instruction.
 
+To tell the team about a PR, use `wideset-pr-announcement` with a PR URL or number. It writes a
+short Polish message (Dlaczego / Co / Jak sprawdzić) to paste into Slack, or saves it as a Slack
+draft when you name a channel; it never posts.
+
 ## Adding a component
 
 1. Create `packages/design-system/src/components/<component-name>/` following the folder structure in
