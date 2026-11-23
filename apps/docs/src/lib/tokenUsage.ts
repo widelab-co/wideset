@@ -36,6 +36,11 @@ export type Use = {
   part: string;
   /** Not a public part: a building block the component renders (`FieldLabel` in `FormField`). */
   internal?: true;
+  /**
+   * On an element inside the part that has no `data-slot` of its own: the part's inner markup
+   * (Slider's track) or content the playground composed into it.
+   */
+  nested?: true;
   /** The class as rendered, state prefixes included. */
   className: string;
   /** Machine key: `default`, `hover`, `pressed`, `focus`, `disabled`, `state:open`, … joined by `+`. */
@@ -121,15 +126,47 @@ const ENTITIES: Record<string, string> = {
 };
 const unescape = (text: string) => text.replace(/&(amp|quot|#x27|#39|lt|gt);/g, (m) => ENTITIES[m]);
 
-/** Every element's `data-slot` and classes. React escapes attribute values, so a regex is safe. */
+const VOID = new Set([
+  'area',
+  'br',
+  'col',
+  'embed',
+  'hr',
+  'img',
+  'input',
+  'link',
+  'meta',
+  'source',
+  'track',
+  'wbr',
+]);
+
+/**
+ * Every element's slot and classes. An element without a `data-slot` belongs to the nearest
+ * ancestor that has one (`nested`): a part's own inner elements (Slider's Radix track) or the
+ * content the composition put in it. React escapes attribute values, so a regex is safe.
+ */
 export const slotsIn = (html: string) => {
-  const out: { slot: string; classes: string[] }[] = [];
-  for (const [, attributes] of html.matchAll(/<[a-zA-Z][\w-]*(\s[^>]*)?>/g)) {
-    if (!attributes) continue;
-    const slot = /\sdata-slot="([^"]*)"/.exec(attributes)?.[1];
-    if (!slot) continue;
+  const out: { slot: string; classes: string[]; nested: boolean }[] = [];
+  const stack: (string | undefined)[] = [];
+  for (const [, close, tag, attributes = '', selfClosing] of html.matchAll(
+    /<(\/)?([a-zA-Z][\w-]*)(\s[^>]*?)?(\/)?>/g,
+  )) {
+    if (close) {
+      stack.pop();
+      continue;
+    }
+    const own = /\sdata-slot="([^"]*)"/.exec(attributes)?.[1];
+    const slot = own ?? stack.at(-1);
+    if (!selfClosing && !VOID.has(tag.toLowerCase())) stack.push(slot);
     const classes = /\sclass="([^"]*)"/.exec(attributes)?.[1];
-    out.push({ slot, classes: classes ? unescape(classes).split(/\s+/).filter(Boolean) : [] });
+    // A part with no class still counts as rendered.
+    if (own || (slot && classes))
+      out.push({
+        slot: slot!,
+        classes: classes ? unescape(classes).split(/\s+/).filter(Boolean) : [],
+        nested: !own,
+      });
   }
   return out;
 };
@@ -263,14 +300,17 @@ const usesOf = (entry: Entry, problems: string[]) => {
 
   // (part, class) → the renders it appears in: the product, then the content renders, then the
   // anatomy picture, so parts the stage never shows still count.
-  const seen = new Map<string, { slot: string; className: string; renders: Set<number> }>();
+  const seen = new Map<
+    string,
+    { slot: string; className: string; nested: boolean; renders: Set<number> }
+  >();
   const slots = new Set<string>();
   const add = (html: string, index: number) => {
-    for (const { slot, classes } of slotsIn(html)) {
-      slots.add(slot);
+    for (const { slot, classes, nested } of slotsIn(html)) {
+      if (!nested) slots.add(slot);
       for (const className of classes) {
-        const key = `${slot} ${className}`;
-        if (!seen.has(key)) seen.set(key, { slot, className, renders: new Set() });
+        const key = `${slot} ${nested} ${className}`;
+        if (!seen.has(key)) seen.set(key, { slot, className, nested, renders: new Set() });
         seen.get(key)!.renders.add(index);
       }
     }
@@ -316,7 +356,7 @@ const usesOf = (entry: Entry, problems: string[]) => {
     return fromContent.length ? fromContent : [{}];
   };
   const uses: Use[] = [];
-  for (const { slot, className, renders: present } of seen.values()) {
+  for (const { slot, className, nested, renders: present } of seen.values()) {
     // Another public component's part is that component's business, not this one's.
     const part = partOf.get(slot);
     if (!part && publicSlots.has(slot)) continue;
@@ -341,6 +381,7 @@ const usesOf = (entry: Entry, problems: string[]) => {
     uses.push({
       part: part ?? pascal(slot),
       ...(part ? {} : { internal: true as const }),
+      ...(nested ? { nested: true as const } : {}),
       className,
       state,
       property,
