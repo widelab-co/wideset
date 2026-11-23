@@ -246,6 +246,10 @@ const METHODS = [
 export const Install = ({ id, files }: { id: string; files: ManualFiles }) => {
   const [method, setMethod] = useState('cli');
   const [runner, setRunner] = useState('pnpm');
+  // `#installation-manual` (where an old `?tab=code` link lands) opens the files.
+  useEffect(() => {
+    if (location.hash === '#installation-manual') setMethod('manual');
+  }, []);
   const run = RUNNERS.find((item) => item.value === runner)!.run;
   const methods = (
     <Pills label="Install with" options={METHODS} value={method} onChange={setMethod} />

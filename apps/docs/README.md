@@ -117,7 +117,7 @@ without touching anything. The Overview stage and the gallery thumbnail show the
 the stage's code is `code(defaults)`. The component's Playground tab (`?tab=playground`) contains
 the workbench. The Properties panel sets the props, the code shows the resulting JSX, and the
 address saves changed values. The component's own files are under Installation › Manual; an old
-`?tab=code` address opens there.
+`?tab=code` address opens there (`#installation-manual`), without the file it named.
 
 `src/playgrounds/<id>.tsx` is optional tuning: `playground({...})` from
 `src/lib/playground-kit.ts` with `hide`, `labels` (`preset` is already "Style"), `order`,

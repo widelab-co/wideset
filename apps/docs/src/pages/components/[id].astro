@@ -127,11 +127,12 @@ const td = 'px-ws-9 py-ws-8 align-top';
       var moved = { install: '#installation', props: '#api', usage: '' };
       var tabs = { anatomy: 'anatomy', related: 'relationships', playground: 'playground' };
       var url = new URL(location.href);
-      // The Code tab is gone: its source files are under Installation › Manual.
+      // The Code tab is gone: its source files are under Installation › Manual, which `Install`
+      // opens for this anchor.
       if (url.searchParams.get('tab') === 'code') {
         url.searchParams.delete('tab');
         url.searchParams.delete('file');
-        url.hash = '#installation';
+        url.hash = '#installation-manual';
         history.replaceState(history.state, '', url);
         return true;
       }
@@ -172,7 +173,7 @@ const td = 'px-ws-9 py-ws-8 align-top';
       </div>
     )}
 
-    <section class={playground ? section : undefined}>
+    <section id="installation-manual" class:list={['scroll-mt-ws-21', playground && section]}>
       <SectionHeading id="installation" label="Installation" />
       <div class="mt-ws-9">
         <Install id={entry.id} files={files} client:idle />

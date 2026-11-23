@@ -5,7 +5,8 @@ import type { KeyboardEvent } from 'react';
  * with the arrow keys, Home and End, and open the first match with Enter.
  */
 export const listKeys = (links: string) => (event: KeyboardEvent<HTMLElement>) => {
-  // An IME composing text, or a shortcut, owns the key.
+  // An IME composing text, or a shortcut, owns the key. `keyCode` is deprecated, but 229 is how
+  // Safari marks the keydown that ends a composition, which `isComposing` misses: keep it.
   if (event.nativeEvent.isComposing || event.keyCode === 229) return;
   if (event.altKey || event.ctrlKey || event.metaKey) return;
 
