@@ -90,7 +90,8 @@ const PRESETS: Preset[] = [
     brand: '#000000',
     ramp: { 500: '#276ef1', 200: '#ffffff' },
     darkBrand: '#ffffff',
-    darkRamp: { 500: '#276ef1', 200: '#000000' },
+    // Dark step 200 stays the generated light one: dark mode draws primary text with it.
+    darkRamp: { 500: '#276ef1' },
     onPrimary: { dark: '#000000' },
     radius: 'default',
     font: 'UberMove',
@@ -117,7 +118,14 @@ const PRESETS: Preset[] = [
   },
 ];
 
-type Theme = { preset: string | null; brand: string; radius: Radius; mode: Mode };
+type Theme = {
+  /** The preset last picked: its font and name stay while the colour or the corners change. */
+  preset: string;
+  /** The brand colour: `null` for the preset's own (with the steps it names), else a system ramp or a hex. */
+  brand: string | null;
+  radius: Radius;
+  mode: Mode;
+};
 
 const RAMP = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100];
 /** Ramps the system already has, offered as brand colours; `brand` is Wideset's own. */
@@ -148,12 +156,51 @@ const RADII: { value: Radius; label: string }[] = [
   { value: 'round', label: 'Round' },
 ];
 
-/** White text on a `#rrggbb` ground: the WCAG contrast ratio. */
-const contrastWithWhite = (hex: string) => {
-  const [r, g, b] = [1, 3, 5]
+/** A `#rrggbb` colour as linear sRGB. */
+const linearOf = (hex: string) =>
+  [1, 3, 5]
     .map((at) => parseInt(hex.slice(at, at + 2), 16) / 255)
-    .map((c) => (c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4));
-  return 1.05 / (0.2126 * r + 0.7152 * g + 0.0722 * b + 0.05);
+    .map((c) => (c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4));
+/** Relative luminance (WCAG) of linear sRGB. */
+const luminanceOf = ([r, g, b]: number[]) => 0.2126 * r + 0.7152 * g + 0.0722 * b;
+/** The WCAG contrast ratio of two luminances. */
+const contrast = (a: number, b: number) => (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
+/** White text on a `#rrggbb` ground: the WCAG contrast ratio. */
+const contrastWithWhite = (hex: string) => contrast(luminanceOf(linearOf(hex)), 1);
+
+/** Linear sRGB to Oklab and back (Björn Ottosson's matrices), to work out a `color-mix(in oklab)`. */
+const toOklab = ([r, g, b]: number[]) => {
+  const [l, m, s] = [
+    0.4122214708 * r + 0.5363325363 * g + 0.0514459929 * b,
+    0.2119034982 * r + 0.6806995451 * g + 0.1073969566 * b,
+    0.0883024619 * r + 0.2817188376 * g + 0.6299787005 * b,
+  ].map(Math.cbrt);
+  return [
+    0.2104542553 * l + 0.793617785 * m - 0.0040720468 * s,
+    1.9779984951 * l - 2.428592205 * m + 0.4505937099 * s,
+    0.0259040371 * l + 0.7827717662 * m - 0.808675766 * s,
+  ];
+};
+const fromOklab = ([L, a, b]: number[]) => {
+  const [l, m, s] = [
+    L + 0.3963377774 * a + 0.2158037573 * b,
+    L - 0.1055613458 * a - 0.0638541728 * b,
+    L - 0.0894841775 * a - 1.291485548 * b,
+  ].map((value) => value ** 3);
+  return [
+    4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s,
+    -1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s,
+    -0.0004196086 * l - 0.7034186147 * m + 1.707628274 * s,
+  ].map((value) => Math.min(1, Math.max(0, value)));
+};
+/** A step of a hex colour's generated ramp (`rampOf`) as linear sRGB, as the browser mixes it. */
+const stepOf = (hex: string, step: number) => {
+  const base = linearOf(hex);
+  if (step === 600) return base;
+  const [ink, percent] = MIX[step].split(' ');
+  const amount = parseFloat(percent) / 100;
+  const [from, to] = [toOklab(base), toOklab(ink === 'white' ? [1, 1, 1] : [0, 0, 0])];
+  return fromOklab(from.map((value, index) => value * (1 - amount) + to[index] * amount));
 };
 /**
  * How many steps darker a system ramp is taken in light mode, so the primary button (step 600,
@@ -168,9 +215,30 @@ const shiftOf = (brand: string, resolved: Record<string, string>) => {
   return 3;
 };
 
-const ON_PRIMARY = ['default', 'hover', 'pressed'].map(
-  (state) => `--ws-dynamic-text-on-primary-${state}`,
-);
+type State = 'default' | 'hover' | 'pressed';
+const STATES: State[] = ['default', 'hover', 'pressed'];
+/** Text on the primary, per state: the colour each `--ws-dynamic-text-on-primary-*` takes. */
+type OnPrimary = Partial<Record<State, string>>;
+const onPrimaryVar = (state: State) => `--ws-dynamic-text-on-primary-${state}`;
+/** The ramp step each primary fill reads (`--ws-dynamic-fill-primary-*` in the library's tokens). */
+const FILL_STEP: Record<Mode, Record<State, number>> = {
+  light: { default: 600, hover: 800, pressed: 900 },
+  dark: { default: 600, hover: 500, pressed: 700 },
+};
+/** The library's text on the primary (`neutral-0` of each mode). */
+const INK: Record<Mode, string> = { light: '#ffffff', dark: '#f5f5f5' };
+/**
+ * A custom colour's text on the primary: black on every fill (the colour, its hover and pressed
+ * steps) where the library's light text falls under 4.5:1, so each state reads on its own fill.
+ */
+const customOnOf = (hex: string, mode: Mode): OnPrimary => {
+  const ink = luminanceOf(linearOf(INK[mode]));
+  return Object.fromEntries(
+    STATES.filter(
+      (state) => contrast(luminanceOf(stepOf(hex, FILL_STEP[mode][state])), ink) < 4.5,
+    ).map((state) => [state, '#000000']),
+  );
+};
 
 /**
  * The brand's translucent steps (the primary's ghost and alpha fills), which the library writes as
@@ -187,15 +255,18 @@ const OPACITY: Record<Mode, [number, number[]][]> = {
   ],
 };
 
-/** The primitive overrides a theme makes: the brand ramp (both modes) and the corner ladders. */
-const overrides = ({ brand, radius }: Theme, preset: Preset | undefined, shift: number) => {
+/**
+ * The primitive overrides a theme makes: the brand ramp (both modes) and the corner ladders. `own`
+ * is the preset whose own colour is in use, with the steps it names; a hand-picked colour has none.
+ */
+const overrides = (brand: string, radius: Radius, own: Preset | undefined, shift: number) => {
   const vars: Record<string, string> = {};
   if (brand !== 'brand')
     for (const mode of ['light', 'dark'] as const) {
-      const base = mode === 'dark' ? (preset?.darkBrand ?? brand) : brand;
+      const base = mode === 'dark' ? (own?.darkBrand ?? brand) : brand;
       RAMP.forEach((step, index) => {
         const from = mode === 'light' ? RAMP[Math.min(index + shift, RAMP.length - 1)] : step;
-        const named = (base === brand ? preset?.ramp : preset?.darkRamp)?.[step];
+        const named = (base === brand ? own?.ramp : own?.darkRamp)?.[step];
         vars[`--ws-colors-${mode}-brand-${step}`] = named ?? rampOf(base, mode, from);
       });
       for (const [step, alphas] of OPACITY[mode])
@@ -217,8 +288,9 @@ const Scope = createContext<{
   pageDark: boolean;
   style: CSSProperties;
   font: CSSProperties;
-  preset: Preset | undefined;
-}>({ mode: 'light', pageDark: false, style: {}, font: {}, preset: undefined });
+  /** The preset last picked, whose font and name the cards draw. */
+  preset: Preset;
+}>({ mode: 'light', pageDark: false, style: {}, font: {}, preset: PRESETS[0] });
 
 /**
  * One card: the page's soft stage with its title, the content in the theme's scope. The corners
@@ -314,6 +386,28 @@ const Tile = ({
   );
 };
 
+/** A type style drawn in itself, with its size and line height read from what it draws. */
+const TypeStyle = ({ label, className }: { label: string; className: string }) => {
+  const ref = useRef<HTMLElement>(null);
+  const [measure, setMeasure] = useState('');
+  useEffect(() => {
+    if (!ref.current) return;
+    const { fontSize, lineHeight } = getComputedStyle(ref.current);
+    setMeasure(`Size: ${parseFloat(fontSize)} · Line-height: ${lineHeight}`);
+  }, []);
+  return (
+    <div className="flex flex-col gap-ws-2">
+      <dt ref={ref} className={cn(className, 'text-ws-static-strong')}>
+        {label}
+      </dt>
+      <dd className="typography-caption-md text-ws-static-subtle tabular-nums">
+        {/* A no-break space holds the line until the measure is read. */}
+        {measure || String.fromCharCode(0xa0)}
+      </dd>
+    </div>
+  );
+};
+
 const Foundation = () => {
   const { mode, preset } = useContext(Scope);
   const ramp = (step: number) => ({ background: `var(--ws-colors-${mode}-brand-${step})` });
@@ -323,22 +417,12 @@ const Foundation = () => {
         <div className="flex flex-col gap-ws-5">
           <span className="text-ws-1800 leading-ws-1800 text-ws-static-strong">Aa</span>
           <span className="border-t border-ws-static-subtle pt-ws-5 typography-body-md text-ws-static-subtle">
-            {preset?.font ?? 'Inter'}
+            {preset.font}
           </span>
         </div>
         <dl className="flex flex-col gap-ws-9">
-          <div className="flex flex-col gap-ws-2">
-            <dt className="typography-subtitle-xs text-ws-static-strong">Heading</dt>
-            <dd className="typography-caption-md text-ws-static-subtle">
-              Size: 40 · Line-height: 48px
-            </dd>
-          </div>
-          <div className="flex flex-col gap-ws-2">
-            <dt className="typography-body-md text-ws-static-strong">Body text</dt>
-            <dd className="typography-caption-md text-ws-static-subtle">
-              Size: 24 · Line-height: 28px
-            </dd>
-          </div>
+          <TypeStyle label="Heading" className="typography-subtitle-xs" />
+          <TypeStyle label="Body text" className="typography-body-md" />
         </dl>
       </div>
       <div className="flex gap-ws-3">
@@ -362,7 +446,7 @@ const Identity = () => {
     <div className="grid min-h-ws-28 flex-1 grid-cols-[var(--spacing-ws-16)_minmax(0,1fr)_var(--spacing-ws-16)] overflow-hidden rounded-ws-container-sm border border-dashed border-ws-static-base">
       <div className={hatch} />
       <div className="flex flex-col items-center justify-center gap-ws-7 border-x border-dashed border-ws-static-base text-ws-static-strong">
-        {preset && preset.id !== 'wideset' ? (
+        {preset.id !== 'wideset' ? (
           // A third-party brand shows as its name in the specimen font, not as its logo.
           <span className="text-ws-800 leading-ws-1000 font-ws-semibold tracking-ws-tight-100">
             {preset.label}
@@ -410,7 +494,7 @@ const Assets = () => {
   return (
     <div className="flex flex-1 flex-col rounded-ws-container-lg border border-ws-static-subtle bg-ws-static-foreground">
       <div className="flex items-center justify-between gap-ws-7 border-b border-ws-static-subtle px-ws-9 py-ws-7 text-ws-static-strong">
-        {preset && preset.id !== 'wideset' ? (
+        {preset.id !== 'wideset' ? (
           <span className="typography-subtitle-xs">{preset.label}</span>
         ) : (
           <WidesetWordmark width={84} />
@@ -741,7 +825,7 @@ const GetCode = ({ css }: { css: string }) => {
 const Themes = () => {
   const [theme, setTheme] = useState<Theme>({
     preset: 'wideset',
-    brand: 'brand',
+    brand: null,
     radius: 'default',
     mode: 'light',
   });
@@ -767,12 +851,22 @@ const Themes = () => {
     return onAppearanceChange((value) => follow(isDark(value)));
   }, []);
 
-  const preset = PRESETS.find((item) => item.id === theme.preset);
-  const vars = overrides(theme, preset, shiftOf(theme.brand, resolved));
-  const custom = theme.brand.startsWith('#') && !preset;
-  // A custom colour too light for white text takes black text, in the cards and the export.
-  const customOn = custom && contrastWithWhite(theme.brand) < 4.5 ? '#000000' : undefined;
-  const onPrimary = preset?.onPrimary?.[theme.mode] ?? customOn;
+  const preset = PRESETS.find((item) => item.id === theme.preset) ?? PRESETS[0];
+  // The preset's own colour, with the steps and the text it names; a colour picked by hand has neither.
+  const own = theme.brand === null ? preset : undefined;
+  const brand = theme.brand ?? preset.brand;
+  // One rule for the preset marker: it stays while the theme is still the preset, and a colour
+  // or corners set by hand clear it. The font and the name stay the preset's either way.
+  const selected = own && theme.radius === preset.radius ? preset.id : '';
+  const custom = !own && brand.startsWith('#');
+  const vars = overrides(brand, theme.radius, own, shiftOf(brand, resolved));
+  /** Text on the primary in a mode: the preset's, or black where a custom colour's fills need it. */
+  const onPrimaryOf = (mode: Mode): OnPrimary => {
+    const named = own?.onPrimary?.[mode];
+    if (named) return Object.fromEntries(STATES.map((state) => [state, named]));
+    return custom ? customOnOf(brand, mode) : {};
+  };
+  const onPrimary = onPrimaryOf(theme.mode);
 
   // The semantic corners read the primitives at the root; restate them in each scope so its own
   // overrides reach them. Text on the primary is this mode's.
@@ -786,8 +880,11 @@ const Themes = () => {
       ['xl', 'xlarge'],
     ])
       style[`--radius-ws-${kind}-${short}`] = `var(--ws-corner-radius-${kind}-${step})`;
-  if (onPrimary) for (const name of ON_PRIMARY) style[name] = onPrimary;
-  const font: Record<string, string> = preset?.stack
+  for (const state of STATES) {
+    const colour = onPrimary[state];
+    if (colour) style[onPrimaryVar(state)] = colour;
+  }
+  const font: Record<string, string> = preset.stack
     ? { fontFamily: preset.stack, '--font-ws-sans': preset.stack }
     : {};
 
@@ -795,17 +892,23 @@ const Themes = () => {
     const system = value.match(/^var\((--[^)]+)\)$/)?.[1];
     return `  ${name}: ${(system && resolved[system]) || value};`;
   });
-  if (preset?.stack) lines.push(`  --font-ws-sans: ${preset.stack};`);
-  const text = (colour: string) => ON_PRIMARY.map((name) => `  ${name}: ${colour};`);
-  const lightOn = preset?.onPrimary?.light ?? customOn;
-  const darkOn = preset?.onPrimary?.dark ?? customOn;
-  if (lightOn) lines.push(...text(lightOn));
+  if (preset.stack) lines.push(`  --font-ws-sans: ${preset.stack};`);
+  const lightOn = onPrimaryOf('light');
+  const darkOn = onPrimaryOf('dark');
+  for (const state of STATES) {
+    const colour = lightOn[state];
+    if (colour) lines.push(`  ${onPrimaryVar(state)}: ${colour};`);
+  }
   // Wideset re-declares the text on the primary under `.dark`, which wins over `:root` wherever
-  // the class sits below the root: dark mode restates it, as the cards do.
-  const dark = darkOn ? `\n.dark {\n${text(darkOn).join('\n')}\n}` : '';
+  // the class sits below the root: dark mode restates every state either mode sets, as the cards
+  // do, and keeps the library's own text where only light mode needs another.
+  const darkLines = STATES.filter((state) => lightOn[state] || darkOn[state]).map(
+    (state) => `  ${onPrimaryVar(state)}: ${darkOn[state] ?? 'var(--ws-colors-dark-neutral-0)'};`,
+  );
+  const dark = darkLines.length ? `\n.dark {\n${darkLines.join('\n')}\n}` : '';
   // The stack names the brand's font; the app loads it (Wideset loads none). A licensed font comes
   // from the brand's own licence, so the note says that instead of where to get it.
-  const fontNote = !preset?.stack
+  const fontNote = !preset.stack
     ? ''
     : preset.licensed
       ? `/* ${preset.font} is the brand's licensed font: serve it under your own licence (400, 500 and 600); without it, Inter stands in. */\n`
@@ -818,13 +921,13 @@ const Themes = () => {
     setTheme((current) => ({
       ...current,
       preset: item.id,
-      brand: item.brand,
+      brand: null,
       radius: item.radius,
     }));
 
-  const checkedSwatch = preset ? '' : theme.brand;
-  const pickSwatch = (name: string) =>
-    setTheme((current) => ({ ...current, preset: null, brand: name }));
+  const checkedSwatch = theme.brand ?? '';
+  // A colour by hand keeps the preset's font and name; only the colour changes.
+  const pickSwatch = (name: string) => setTheme((current) => ({ ...current, brand: name }));
   /** The radio group's arrow keys: move to the next or previous swatch and pick it. */
   const moveSwatch = (event: KeyboardEvent<HTMLDivElement>) => {
     const step = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[event.key];
@@ -851,7 +954,7 @@ const Themes = () => {
           {/* The presets, and the theme's code at the other end of the row. */}
           <div className="flex flex-wrap items-center justify-between gap-ws-7">
             <SegmentedControl
-              value={theme.preset ?? ''}
+              value={selected}
               onValueChange={(next) => {
                 const item = PRESETS.find((candidate) => candidate.id === next);
                 if (item) pick(item);
@@ -881,7 +984,7 @@ const Themes = () => {
                 onKeyDown={moveSwatch}
               >
                 {SYSTEM.map((name) => {
-                  const checked = !preset && theme.brand === name;
+                  const checked = theme.brand === name;
                   // One tab stop for the group: the checked swatch, or the first when none is.
                   const tabbable =
                     checked || (!SYSTEM.includes(checkedSwatch) && name === SYSTEM[0]);
@@ -897,7 +1000,10 @@ const Themes = () => {
                       tabIndex={tabbable ? 0 : -1}
                       onClick={() => pickSwatch(name)}
                       className={cn(SWATCH, checked && 'outline-2')}
-                      style={{ background: `var(--ws-colors-light-${name}-600)` }}
+                      // The step the primary takes (see `shiftOf`), so the swatch is the colour you get.
+                      style={{
+                        background: `var(--ws-colors-light-${name}-${600 + shiftOf(name, resolved) * 100})`,
+                      }}
                     />
                   );
                 })}
@@ -910,19 +1016,15 @@ const Themes = () => {
                         'relative grid cursor-pointer place-items-center text-ws-static-subtle hover:text-ws-static-strong has-focus-visible:outline-2',
                         custom ? 'outline-2' : 'border border-dashed border-ws-static-base',
                       )}
-                      style={custom ? { background: theme.brand } : undefined}
+                      style={custom ? { background: brand } : undefined}
                     >
                       {!custom && <RiAddLine className="size-ws-9" aria-hidden="true" />}
                       <input
                         type="color"
                         aria-label="Custom brand colour"
-                        value={custom ? theme.brand : '#4e3ee0'}
+                        value={custom ? brand : '#4e3ee0'}
                         onChange={(event) =>
-                          setTheme((current) => ({
-                            ...current,
-                            preset: null,
-                            brand: event.target.value,
-                          }))
+                          setTheme((current) => ({ ...current, brand: event.target.value }))
                         }
                         className="absolute inset-0 cursor-pointer opacity-0"
                       />
