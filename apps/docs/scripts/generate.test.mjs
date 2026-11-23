@@ -11,6 +11,7 @@ import { describe, it } from 'node:test';
 
 import { asText } from './as-text.mjs';
 import { generatedDir } from './paths.mjs';
+import { resolveUtility } from './token-classes.mjs';
 
 const read = (name) => JSON.parse(readFileSync(join(generatedDir, name), 'utf8'));
 const controls = read('controls.json');
@@ -126,6 +127,69 @@ describe('generate: foundations token data', () => {
     const token = background.tokens.find((row) => row.className === 'bg-ws-static-background');
     assert.match(token.light, /^--ws-colors-light-/);
     assert.match(token.dark, /^--ws-colors-dark-/);
+  });
+});
+
+describe('token-classes: class → token', () => {
+  const data = read('token-classes.json');
+  const names = (utility) => resolveUtility(data, utility)?.map((token) => token.name);
+
+  it('reads a colour class from its theme namespace, down to light and dark primitives', () => {
+    assert.deepEqual(resolveUtility(data, 'bg-ws-dynamic-primary-default'), [
+      { name: '--background-color-ws-dynamic-primary-default', group: 'background' },
+    ]);
+    const token = data.variables['--background-color-ws-dynamic-primary-default'];
+    assert.equal(token.alias, '--ws-dynamic-fill-primary-default');
+    assert.match(token.light, /^--ws-colors-light-/);
+    assert.match(token.dark, /^--ws-colors-dark-/);
+  });
+
+  it('maps every spacing prefix to --spacing-ws-*, not only the one on the reference', () => {
+    for (const utility of ['gap-ws-4', 'px-ws-4', '-ml-ws-4', 'size-ws-4', 'border-spacing-x-ws-4'])
+      assert.deepEqual(names(utility), ['--spacing-ws-4'], utility);
+    assert.deepEqual(names('h-ws-forms-md'), ['--spacing-ws-forms-md']);
+  });
+
+  it('tells a font size from a text colour (text-ws-400, text-ws-static-strong)', () => {
+    assert.deepEqual(resolveUtility(data, 'text-ws-400'), [
+      { name: '--text-ws-400', group: 'type' },
+    ]);
+    assert.deepEqual(resolveUtility(data, 'text-ws-static-strong'), [
+      { name: '--text-color-ws-static-strong', group: 'text' },
+    ]);
+  });
+
+  it('expands a typography-* utility through its @apply', () => {
+    assert.deepEqual(names('typography-label-md'), [
+      '--text-ws-400',
+      '--tracking-ws-tight-25',
+      '--leading-ws-500',
+      '--font-weight-ws-normal',
+    ]);
+  });
+
+  it('reads named utilities: z-index, drop shadows and the wds behaviour classes', () => {
+    assert.deepEqual(names('z-ws-modal'), ['--ws-z-index-modal']);
+    assert.deepEqual(names('drop-shadow-ws-medium'), ['--ws-elevation-drop-medium']);
+    // A Wideset class that reads no token: known, so not an error.
+    assert.deepEqual(names('wds-focus-visible'), []);
+  });
+
+  it('reads arbitrary variables only when they are ws tokens', () => {
+    assert.deepEqual(names('bg-(--ws-static-stroke-base)'), ['--ws-static-stroke-base']);
+    assert.deepEqual(names('rounded-l-[var(--radius-ws-control-lg)]'), ['--radius-ws-control-lg']);
+    assert.equal(resolveUtility(data, 'bg-(--spreadsheet-tint)'), undefined);
+  });
+
+  it('reads the functional slide utilities from their --value() namespace', () => {
+    assert.deepEqual(names('ws-slide-in-from-top-2'), ['--spacing-ws-2']);
+  });
+
+  it('returns null for a ws class that reads no variable, undefined for a non-token class', () => {
+    assert.equal(resolveUtility(data, 'bg-ws-no-such-token'), null);
+    assert.equal(resolveUtility(data, 'bg-(--ws-no-such-token)'), null);
+    assert.equal(resolveUtility(data, 'flex'), undefined);
+    assert.equal(resolveUtility(data, 'w-[16rem]'), undefined);
   });
 });
 

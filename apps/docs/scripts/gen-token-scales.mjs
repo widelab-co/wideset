@@ -2,6 +2,7 @@ import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 import { componentsDir, generatedDir, library } from './paths.mjs';
+import { isTokenVariable, resolveUtility } from './token-classes.mjs';
 
 /**
  * More keys for src/generated/tokens.json, added to what gen-tokens.mjs wrote (its keys are
@@ -13,6 +14,11 @@ import { componentsDir, generatedDir, library } from './paths.mjs';
  *   radius     [{ group, name, className, value, primitive }]         container and control
  *   shadows    [{ name, className, kind, paint, variable, light, dark, usedBy }]
  *   reference  [{ family, title, utility (class prefix, e.g. bg-ws), tokens: [{ name, className, light, dark }] }]
+ *
+ * And src/generated/token-classes.json, what scripts/token-classes.mjs resolves a class with:
+ *   variables  { [name]: { alias, light, dark } }        every ws variable, light and dark
+ *   utilities  { [class]: { group, reads: [variable] } } named @utility classes, @apply expanded
+ *   functional { [prefix]: namespace }                   `@utility x-*` reading `--value(--ns-*)`
  */
 const styles = join(library, 'src/styles');
 const css = (path) => readFileSync(join(styles, path), 'utf8').replace(/\/\*[\s\S]*?\*\//g, '');
@@ -245,6 +251,64 @@ for (const [label, list] of Object.entries({ spacing, sizes, radius, shadows, re
 for (const item of reference) {
   if (item.tokens.length === 0) throw new Error(`gen-tokens: no ${item.family} tokens found`);
 }
+
+// Class → token data. A colour ends on its primitive, anything else on its literal value.
+const variables = {};
+for (const name of new Set([...light.keys(), ...dark.keys()])) {
+  if (!isTokenVariable(name) || PRIMITIVE_COLOUR.test(name)) continue;
+  let alias = null;
+  for (let current = name, depth = 0; depth < 20; depth += 1) {
+    const next = /^var\((--[\w-]+)\)$/.exec(light.get(current) ?? '')?.[1];
+    if (!next || PRIMITIVE_COLOUR.test(next)) break;
+    if (next.startsWith('--ws-')) {
+      alias = next;
+      break;
+    }
+    current = next;
+  }
+  variables[name] = { alias, light: valueOf(name, 'light'), dark: valueOf(name, 'dark') };
+}
+const utilityCss = readdirSync(join(styles, 'utilities'))
+  .filter((name) => name.endsWith('.css'))
+  .map((name) => css(join('utilities', name)))
+  .join('\n');
+const functional = {};
+for (const [, prefix, body] of utilityCss.matchAll(/@utility\s+([\w-]+)-\*\s*\{([^{}]*)\}/g)) {
+  const namespace = /--value\(\s*(--[\w-]+-)\*\s*\)/.exec(body)?.[1];
+  if (!namespace) throw new Error(`gen-tokens: @utility ${prefix}-* reads no --value() namespace`);
+  functional[prefix] = namespace;
+}
+const GROUPS = [
+  [/^typography-/, 'type'],
+  [/^z-/, 'layer'],
+  [/shadow/, 'shadow'],
+  [/^wds-focus/, 'focus'],
+];
+const utilities = {};
+const data = { variables, utilities, functional };
+for (const [, name, body] of [
+  ...utilityCss.matchAll(/@utility\s+([\w-]+)\s*\{([^{}]*)\}/g),
+  ...utilityCss.matchAll(/\.([\w-]+-ws-[\w-]+)\s*\{([^{}]*)\}/g),
+]) {
+  const reads = [...body.matchAll(/var\(\s*(--[\w-]+)/g)]
+    .map(([, variable]) => variable)
+    .filter(isTokenVariable);
+  for (const [, list] of body.matchAll(/@apply\s+([^;]+);/g))
+    for (const cls of list.trim().split(/\s+/)) {
+      const tokens = resolveUtility(data, cls);
+      if (tokens === null)
+        throw new Error(`gen-tokens: @utility ${name} applies ${cls}, which reads no token`);
+      reads.push(...(tokens ?? []).map((token) => token.name));
+    }
+  for (const variable of reads)
+    if (!variables[variable])
+      throw new Error(`gen-tokens: @utility ${name} reads ${variable}, which is not declared`);
+  utilities[name] = {
+    group: GROUPS.find(([re]) => re.test(name))?.[1] ?? 'other',
+    reads: [...new Set(reads)],
+  };
+}
+writeFileSync(join(generatedDir, 'token-classes.json'), `${JSON.stringify(data, null, 2)}\n`);
 
 const file = join(generatedDir, 'tokens.json');
 const tokens = JSON.parse(readFileSync(file, 'utf8'));
