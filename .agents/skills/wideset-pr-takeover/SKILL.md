@@ -55,7 +55,7 @@ concrete text.
    agreed scope as if it were new work, under every rule that applies: `AGENTS.md`, the
    `wideset-component-convention` skill for component code, `wideset-component-docs` for
    examples and docs pages, the spec in `packages/design-system/specs/` when usage changes,
-   `pnpm build:skills` and `pnpm playground --no-dev` when their inputs change, a changeset.
+   `pnpm build:skills` when a spec changes, a changeset.
    Every review thread of the old PR is answered by the code or by a written reason it does not
    apply. Conventional commits, one topic each; credit the original author with a
    `Co-authored-by:` line when their idea carries over.
