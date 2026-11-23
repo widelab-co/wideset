@@ -12,7 +12,7 @@
     "lint": "eslint . --ext .ts,.tsx,.mjs",
     "lint:fix": "pnpm lint --fix",
     "generate": "node scripts/generate.mjs",
-    "test": "node scripts/generate.mjs && node --test scripts/generate.test.mjs scripts/blocks.test.mjs"
+    "test": "node scripts/generate.mjs && node --test scripts/generate.test.mjs scripts/blocks.test.mjs scripts/graph.test.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^8.0.2",
