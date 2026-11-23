@@ -1,6 +1,19 @@
 import { cva } from 'class-variance-authority';
 import { cn } from 'src/lib/utils';
 
+/**
+ * The menu surface. Hard rule for floating menus: never narrower than Size/28 (10rem —
+ * Bootstrap's floor; shadcn uses 8rem, Material 112dp). Trigger-matching popovers
+ * (Select/MultiSelect) override the floor with max(trigger, Size/28).
+ */
+export const dropdownMenuContentVariants = cva(
+  cn(
+    'min-w-ws-28',
+    'rounded-ws-container-sm p-ws-3 outline-hidden',
+    'bg-ws-static-overlay text-ws-dynamic-secondary-default shadow-ws-medium z-ws-popout',
+  ),
+);
+
 export const dropdownMenuContentMotionVariants = cva('', {
   variants: {
     enabled: {

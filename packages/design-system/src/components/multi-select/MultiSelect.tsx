@@ -22,6 +22,7 @@ import { SelectContext } from '../select/Select.context';
 import {
   selectClearButtonIconVariants,
   selectClearButtonVariants,
+  selectSearchVariants,
   selectValueRightPaddingVariants,
 } from '../select/Select.variants';
 import { SelectContent } from '../select/SelectContent';
@@ -325,14 +326,13 @@ export const MultiSelect = ({
               portalContainer={portalContainer}
               align="start"
               sideOffset={4}
-              className="p-ws-3"
               onKeyDown={handleContentKeyDown}
             >
               {hasSearch && (
                 <>
                   <Search
                     ref={searchRef}
-                    className="m-ws-5 w-auto shrink-0"
+                    className={selectSearchVariants()}
                     value={searchQuery}
                     onChange={handleFilterChange}
                     onClear={handleSearchClear}

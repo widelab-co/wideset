@@ -130,6 +130,22 @@ export const selectTriggerSuffixIconVariants = cva(
   },
 );
 
+/**
+ * The list when it renders through DropdownMenu.Content (MultiSelect, `shouldUsePrimitive={false}`).
+ * Figma's Dropdown Menu container: Gap/3 (4px) inset, Gap/0 between rows. Width floor: never
+ * narrower than the trigger nor the Size/28 menu minimum (min-width beats DropdownMenu.Content's
+ * max-w cap).
+ */
+export const selectMenuContentVariants = cva(
+  'p-ws-3 ws-scrollbar flex max-h-[18rem] min-w-[max(var(--radix-dropdown-menu-trigger-width),var(--spacing-ws-28))] flex-col overflow-auto',
+);
+
+/** The scrolling list inside the Radix Select content. */
+export const selectViewportVariants = cva('p-ws-3 flex max-h-[18rem] flex-col overflow-y-auto');
+
+/** The search field at the top of the list. */
+export const selectSearchVariants = cva('m-ws-5 w-auto shrink-0');
+
 export const selectContentVariants = cva(
   cn(
     'rounded-ws-container-sm z-ws-popout overflow-hidden',
