@@ -107,7 +107,7 @@ ${navCode(v, '    ')}
   },
   // Expanded and Collapsed render no element of their own, so the picture cannot point at them.
   anatomy: () => (
-    <div className="flex h-[16rem] overflow-hidden rounded-ws-control-lg border border-ws-static-base bg-ws-static-background">
+    <div className="flex h-[19rem] overflow-hidden rounded-ws-control-lg border border-ws-static-base bg-ws-static-background">
       <Sidebar>
         <Sidebar.Header>
           <div className="flex items-center gap-ws-7 py-ws-3">
@@ -125,6 +125,12 @@ ${navCode(v, '    ')}
             <Sidebar.Item href="#" icon={RiUser3Line} label="Customers" />
           </nav>
         </Sidebar.Section>
+        <Sidebar.Footer>
+          <div className="flex items-center gap-ws-5 px-ws-5 py-ws-3">
+            <Avatar initials="AS" size="sm" />
+            <span className="typography-label-strong-sm text-ws-static-base">Adam Smith</span>
+          </div>
+        </Sidebar.Footer>
       </Sidebar>
     </div>
   ),

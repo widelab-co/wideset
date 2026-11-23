@@ -24,6 +24,12 @@ export default playground({
       />
     </div>
   ),
+  // `Slider.Label` is drawn by the `labels` prop: the minimum and maximum beside the track.
+  anatomy: () => (
+    <div className="w-[20rem] max-w-full">
+      <Slider defaultValue={[40]} labels="side" aria-label="Volume" />
+    </div>
+  ),
   // `defaultValue` sits among the generated props, and the tag breaks onto lines once it is long.
   code: (v) => {
     const props = [
