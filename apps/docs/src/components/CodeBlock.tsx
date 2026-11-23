@@ -1,8 +1,9 @@
 import { RiCheckLine, RiFileCopyLine } from '@remixicon/react';
 import { IconButton } from '@wideset/react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
-import { type CodeLang, highlight } from '../lib/highlight';
+import type { CodeLang } from '../lib/highlight';
+import { useHighlightedCode } from './useHighlightedCode';
 
 /**
  * A code block with syntax colour and a copy button. Renders the plain text first and
@@ -25,18 +26,8 @@ export const CodeBlock = ({
   /** Extra classes on the block, e.g. `flex-1` to fill a taller panel. */
   className?: string;
 }) => {
-  const [html, setHtml] = useState<string | null>(null);
+  const html = useHighlightedCode(code, lang);
   const [copied, setCopied] = useState(false);
-
-  useEffect(() => {
-    let cancelled = false;
-    highlight(code, lang).then((result) => {
-      if (!cancelled) setHtml(result);
-    });
-    return () => {
-      cancelled = true;
-    };
-  }, [code, lang]);
 
   const copy = async () => {
     try {

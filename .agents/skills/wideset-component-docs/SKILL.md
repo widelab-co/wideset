@@ -10,20 +10,23 @@ metadata:
 # Component examples and docs page
 
 The page builds itself from the library: the title and description (the stories meta) with
-"Copy page", then up to three tabs.
+"Copy page", then up to five tabs.
 
 - **Overview:** the component on its stage (the thumbnail); Installation (one card: CLI or
   Manual, from the registry item); **Examples (the example files)**, each a card with the live
   example and its code; API reference (one props table per part, from the types); Accessibility
   (the spec's section, when it has one).
+- **Code** shows the component's own installed source files when it has a registry item.
 - **Anatomy** (two or more parts): the picture (parts found by `data-slot`) and the parts table
   (named exports). Its rules are the `wideset-component-anatomy` skill.
 - **Relationships** (when the graph links the component to another): the map and the lists
   "Built with", "Uses <name>", "Appears with", read from imports.
+- **Playground** shows the interactive stage, properties and generated code when a default example
+  exists.
 
-The same stage with controls is the component's entry on the Playground page
-(`/docs/playground?c=<page>`). One file per example feeds both Storybook and the page, so they
-cannot drift. Tabs is the pattern to copy.
+The Playground tab (`/components/<page>?tab=playground`) is the only playground; the old
+`/docs/playground?c=<page>` address redirects there. One file per example feeds both Storybook
+and the page, so they cannot drift. Tabs is the pattern to copy.
 
 The page tabs are the only row of tabs in the page's flow: any other switch sits inside a card
 (Installation's CLI | Manual pills) or is another control. Do not add a second row.
@@ -149,7 +152,7 @@ pnpm lint && pnpm prettier
 ```
 
 Then open the page (`pnpm docs:dev`, `/components/<page>`), its playground
-(`/docs/playground?c=<page>`) and the stories in Storybook: the stage and the thumbnail in the
+(`/components/<page>?tab=playground`) and the stories in Storybook: the stage and the thumbnail in the
 gallery, the playground's controls and the code after changing one, each example in light and
 dark, the API tables, the Anatomy tab (`?tab=anatomy`, the checklist in
 `wideset-component-anatomy`) and the Relationships tab (`?tab=relationships`).

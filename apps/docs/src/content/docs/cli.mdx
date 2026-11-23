@@ -1,6 +1,6 @@
 ---
 title: CLI
-description: Copy a component's source into your own repo with the wideset CLI.
+description: Copy components and blocks into your own repo with the wideset CLI.
 section: Guide
 ---
 
@@ -25,6 +25,18 @@ later. A project that already has a `components.json` is left alone.
 Already using shadcn? `init` keeps your
 `components.json` and only registers the `@wideset` namespace. Files land in
 `components/ui/wideset/`, `lib/wideset/` and `hooks/wideset/`.
+
+## Add a block
+
+```bash
+npx wideset add block-calendar
+```
+
+The CLI installs the block's source files under `blocks/wideset/calendar/`, relative to your
+project's source directory. Its components and layout stylesheet go in `components/ui/wideset/`
+and `styles/`. Import the default export from `@/blocks/wideset/calendar`. Browse the
+[Blocks catalog](/blocks) to see the install command and files for each screen or panel.
+`npx wideset list` shows both catalogs and `npx wideset add --all` installs the component catalog.
 
 ## Without the Wideset CLI
 

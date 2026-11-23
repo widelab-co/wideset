@@ -192,8 +192,13 @@ export function FolderTree({
         else focusRow(index + 1);
       },
       ArrowLeft: () => {
-        if (open && !searching) toggle(folder.id, false);
-        else focusRow(rows.findLastIndex((row, at) => at < index && row.depth === depth - 1));
+        if (open && !searching) {
+          toggle(folder.id, false);
+          return;
+        }
+        let parent = index - 1;
+        while (parent >= 0 && rows[parent].depth !== depth - 1) parent--;
+        if (parent >= 0) focusRow(parent);
       },
       Enter: () => folder.id !== current && onChoose(folder.id),
       ' ': () => folder.id !== current && onChoose(folder.id),

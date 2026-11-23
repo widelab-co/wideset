@@ -39,6 +39,23 @@ drifts; a Code-mode part edited in `agent-code/` goes on `AGENT_CODE_KIT`. A par
 already does is reused, not rewritten under another name: the test only compares files with the
 same name.
 
+## Registry installation
+
+`npx wideset add block-calendar` installs the calendar screen into `blocks/wideset/calendar/`
+under the project's source directory. Import the default export from `@/blocks/wideset/calendar`.
+Screens and panels use the same `block-<id>` naming scheme.
+
+The registry builder reads `BLOCKS` and `PANELS` from `index.ts`. Add the block there and keep
+its imports named so the builder can resolve Wideset exports to their registry items. The block
+entry imports the compiled layout stylesheet. The documentation's Code tab shows the files the
+installer writes, and Storybook reads the original source.
+
+The registry adds `ws-block-utility` to the installed entry’s layout root and to its portal parts.
+The layout root is the entry’s `AppShell` or its single outer HTML element. The compiled
+utilities apply to each marked element and its DOM descendants. For custom content rendered
+through a portal callback, such as a toast message, or beside the layout root, such as a
+full-screen viewer, put the class on its styled DOM root.
+
 ## The four directions
 
 | Direction  | Looks like                                                    | Figma screens            |
@@ -101,6 +118,8 @@ centre their panel on a plain white screen.
   36px in a larger switcher); other workspaces are `Avatar shape="square"` with initials. The
   sign-in screens show the app icon instead (`app-icon.tsx`, Figma's glass tile, the same in
   dark). Icons are Remix.
+- Every element that scrolls on its own (`overflow-*-auto`, `overflow-*-scroll`) takes
+  `ws-scrollbar`, unless its bar is hidden on purpose (`[scrollbar-width:none]`).
 - Past 1440px the frame keeps filling the window and the content stops growing
   (`mx-auto w-full max-w-[80rem]`; a thread reads at 48rem); boards, calendars and timelines may
   fill. Panels stack their sections from the top. At 1440×960 nothing scrolls.

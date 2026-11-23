@@ -52,7 +52,7 @@ export function Home({ mode, repository: chosen, onSend }: HomeProps) {
     });
 
   return (
-    <div className="min-h-0 flex-1 overflow-y-auto">
+    <div className="ws-scrollbar min-h-0 flex-1 overflow-y-auto">
       <div className="gap-ws-12 px-ws-11 py-ws-14 mx-auto flex min-h-full w-full max-w-[44rem] flex-col justify-center">
         <div className="gap-ws-9 px-ws-5 flex flex-col items-start">
           <Avatar agent size="lg" alt="" />

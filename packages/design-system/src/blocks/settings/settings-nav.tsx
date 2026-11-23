@@ -16,7 +16,7 @@ export function SettingsNav({
   return (
     <nav
       aria-labelledby="settings-nav-title"
-      className="gap-ws-5 px-ws-5 py-ws-12 border-ws-static-subtle flex w-[15rem] shrink-0 flex-col overflow-y-auto border-r"
+      className="gap-ws-5 px-ws-5 py-ws-12 border-ws-static-subtle ws-scrollbar flex w-[15rem] shrink-0 flex-col overflow-y-auto border-r"
     >
       <h2
         id="settings-nav-title"

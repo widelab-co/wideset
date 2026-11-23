@@ -23,7 +23,7 @@ type ComparisonTableProps = {
  */
 export function ComparisonTable({ rows, live, citing }: ComparisonTableProps) {
   return (
-    <div className="border-ws-static-base rounded-ws-container-md overflow-x-auto border">
+    <div className="border-ws-static-base rounded-ws-container-md ws-scrollbar overflow-x-auto border">
       <Table className="whitespace-nowrap [&_tbody_tr:last-child_td]:border-b-0">
         <Table.Head>
           <Table.Row>

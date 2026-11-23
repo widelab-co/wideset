@@ -153,9 +153,9 @@ The full checklist is the `wideset-component-convention` skill. The rules that m
   code like an example, so it imports `@wideset/react` and its own files, never a library file or
   another block (ESLint enforces it), and uses `ws` tokens only. A file standing in for a component
   Wideset lacks starts with `// TODO(custom): <what it is, what Wideset lacks>`; files that only
-  compose Wideset or the block's own parts need no marker. Blocks ship in neither the npm package
-  nor the registry (the docs site and Storybook read them), so a change to one alone takes
-  `pnpm changeset --empty`. Rules for building one: `src/blocks/README.md`.
+  compose Wideset or the block's own parts need no marker. The registry builds a `block-<id>` item
+  from each manifest entry. Blocks are released with the docs site. A block-only change takes
+  `pnpm changeset --empty`. See `src/blocks/README.md` for block and registry rules.
 
 ## Storybook and tests
 

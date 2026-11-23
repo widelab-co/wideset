@@ -18,7 +18,7 @@ import { THEME_KEY } from '../lib/theme';
  * same component everywhere, listing only that page's rows), the content, and a rail when the
  * page has one. Every page starts with PageHead at the same offset; no lines between columns.
  */
-export type Area = 'docs' | 'components' | 'blocks' | 'playground' | 'themes';
+export type Area = 'docs' | 'components' | 'blocks' | 'themes';
 interface Props {
   title: string;
   description: string;
@@ -29,8 +29,6 @@ interface Props {
   current?: string;
   /** The sidebar's search placeholder. */
   search?: string;
-  /** The sidebar switches the page in place (the Playground). */
-  soft?: boolean;
   sections?: SearchItem[];
   /** The content takes its whole column instead of the 760px reading measure. */
   broad?: boolean;
@@ -44,7 +42,6 @@ const {
   nav,
   current = '',
   search = 'Search…',
-  soft = false,
   sections = [],
   broad = false,
   full = false,
@@ -54,7 +51,6 @@ const PAGES: { id: Area; label: string; href: string }[] = [
   { id: 'docs', label: 'Docs', href: '/docs/introduction' },
   { id: 'components', label: 'Components', href: '/components' },
   { id: 'blocks', label: 'Blocks', href: '/blocks' },
-  { id: 'playground', label: 'Playground', href: '/docs/playground' },
   { id: 'themes', label: 'Themes', href: '/docs/themes' },
 ];
 
@@ -77,7 +73,7 @@ const searchItems: SearchItem[] = [
 ];
 ---
 
-<html lang="en">
+<html lang="en" class="ws-scrollbars">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -136,7 +132,7 @@ const searchItems: SearchItem[] = [
           id="docs-nav"
           class="docs-nav sticky top-ws-19 -ml-ws-9 hidden h-[calc(100dvh-3.5rem)] overflow-y-auto lg:block"
         >
-          <SideNav groups={nav} current={current} placeholder={search} soft={soft} client:load />
+          <SideNav groups={nav} current={current} placeholder={search} client:load />
         </aside>
       )}
       <main class="min-w-0 pt-ws-14 pb-ws-23">
@@ -175,7 +171,6 @@ const searchItems: SearchItem[] = [
             groups={nav}
             current={current}
             placeholder={search}
-            soft={soft}
             className="pt-ws-9 pl-0"
             client:media="(max-width: 1023px)"
           />

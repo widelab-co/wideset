@@ -28,7 +28,7 @@ Vitest and tsc. Only the stylesheets come from the built package (`@wideset/reac
 | `/blocks`              | Whole screens to start a product from, by business domain                    |
 | `/blocks/<id>`         | One block, live, and its code; `/blocks/<id>.md` and `/blocks.md` for models |
 | `/blocks/<id>/preview` | The block alone at the window's size (`?theme=light\|dark`)                  |
-| `/docs/playground`     | Every component's props, set live; the address keeps the configuration       |
+| `/docs/playground`     | Redirects old Playground links to the component's Playground tab             |
 | `/docs/themes`         | Brand presets (colour, corners, font) on live components, and the CSS        |
 | `/llms.txt`, `/r/*`    | The docs for models; the shadcn registry                                     |
 
@@ -38,19 +38,21 @@ wideset.co is shared with the landing page: the docs Worker owns only the paths 
 `.github/workflows/build.yaml` and an exclusion in the zone's Redirect Rule.
 
 **A component page** opens with the title and description and "Copy page" (the page as
-Markdown, or handed to a model), then up to three tabs whose content switches in place:
+Markdown, or handed to a model), then up to five tabs whose content switches in place:
 
 - **Overview:** the component on its stage; Installation, one card whose header picks CLI or
   Manual and the package manager; Examples, each a card with the live example and its code; API
   reference, one props table per part; Accessibility, when the component's spec has the section.
+- **Code** shows the component's own files from its registry item.
 - **Anatomy:** the component drawn 1:1 with each part named beside it, then the parts as a table
-  (Part, Renders, Description). Hovering a part, its name or its row opens a popup with the
-  tokens the part binds, read from the classes of the part as rendered (`src/lib/tokenClasses.ts`)
-  with the values from its computed style, so they follow the theme. Only for a component with two or more parts whose playground
-  does not say `anatomy: false`.
+  (Part, Renders, Description). Hover highlights the part. Activating its name opens a popup
+  with the tokens read from the rendered classes (`src/lib/tokenClasses.ts`) and computed styles.
+  Only for a component with two or more parts whose playground does not say `anatomy: false`.
 - **Relationships:** the map of what the component is built with and appears beside
   (`gen-graph.mjs`), with a button that widens it to the whole system, then the same as lists:
   "Built with", "Uses <name>", "Appears with". Only for a component the graph links to another.
+- **Playground** shows the interactive stage, properties and generated JSX when the component has
+  a default example.
 
 A component with only Overview has no tab row. The tab is in the address (`?tab=anatomy`;
 Overview has none), set on `html[data-tab]` before first paint, so nothing flashes and Back and
@@ -73,7 +75,7 @@ scripts/generate.mjs           runs before dev, build, typecheck and test → sr
   gen-tokens.mjs, gen-token-scales.mjs   the foundation pages' token tables
   generate.test.mjs            node:test checks on what the generators wrote
 src/lib/catalog.ts             the generated data as the pages read it
-src/lib/sidebar.ts             each page's own sidebar rows (docs, components, playground, blocks)
+src/lib/sidebar.ts             each page's own sidebar rows (docs, components, blocks)
 src/pages/components/[id].astro   one page per catalogue entry
 src/lib/examples.ts            a page's examples: the library's examples/<id>/ files, in index.ts order
 src/lib/playground.tsx         the playgrounds: the library's examples/<id>/default.tsx + src/playgrounds/<id>.tsx
@@ -112,10 +114,9 @@ where to go instead. Never a sentence that repeats the title or describes what i
 A playground is the component's `examples/<id>/default.tsx` (one typical instance whose root
 takes `{...props}`) with controls: every string-literal union and boolean of the root props type
 in `src/generated/controls.json`, with the component's own default, so a new variant shows up
-without touching anything. It appears in three places: the stage at the top of the component's
-page and its thumbnail in the gallery (both at the defaults), and the Playground page
-(`/docs/playground?c=<id>`), where the Properties panel sets the props and the code under the
-stage prints the JSX `default.tsx` returns with them.
+without touching anything. The Overview stage and the gallery thumbnail show the defaults. The
+component's Playground tab (`?tab=playground`) contains the workbench. The Properties panel sets
+the props, the code shows the resulting JSX, and the address saves changed values.
 
 `src/playgrounds/<id>.tsx` is optional tuning: `playground({...})` from
 `src/lib/playground-kit.ts` with `hide`, `labels` (`preset` is already "Style"), `order`,
@@ -143,8 +144,8 @@ stage out of line; both make the stage blink.
 A block is a whole screen (or a panel that opens over one) in the library,
 `packages/design-system/src/blocks/<id>/`, listed in the manifest beside them (`blocks/index.ts`:
 `BLOCKS`, `PANELS`, the directions and navigations). `src/lib/blocks.ts` reads the manifest and
-every block's files as text, for the code and the Markdown; the browser loads only the block a
-page shows. Only blocks in the manifest are listed: one in an open pull request appears once it
+the package source excerpts for Markdown. `src/lib/registry.ts` reads the installable files,
+and the browser loads only the block a page shows. Only blocks in the manifest are listed: one in an open pull request appears once it
 is merged.
 
 - `/blocks/<id>/preview` renders the block alone at the window's size (`BlockFrame`, with an error
@@ -152,10 +153,10 @@ is merged.
   is inert, a picture, unless the frame asks for `?live`.
 - `/blocks/<id>` has two tabs. Preview frames that route live (`BlockLiveFrame` in
   `BlockPreviewFrame.tsx`): clickable, in the page's theme, loaded again when the theme changes,
-  with the block's direction and navigation in one line. Code (`?tab=code`, `BlockCode.tsx`) shows
-  the folder's files one at a time, listed beside the code as Entry, Parts and Data (a Select in a
-  narrow window); the file is in the address (`&file=Header.tsx`). "Open full screen" opens the
-  route.
+  with the block's direction and navigation in one line. Code (`?tab=code`, `RegistryCode.tsx`)
+  shows the install command and the installed files, grouped as Entry, Parts and Data. On narrow
+  screens use the file picker. The address keeps the selected file (`&file=Header.tsx`).
+  "Open full screen" opens the preview route.
 - `/blocks` lists the manifest by business domain, from `src/data/block-categories.json` (kept by
   hand). The list names every block the manifest has (`scripts/blocks.test.mjs` fails otherwise),
   so a pull request that adds a block gives it its category in the same change. A block the list
@@ -197,7 +198,7 @@ draws where the viewer has it installed, and Inter stands in everywhere else.
 - `src/components/` — islands and Astro parts: `PageHead` (every page's title, description and
   actions), `parts.tsx` (the bar, the sidebar, the rail, the page tabs, the code block, the
   example card, Installation, "Copy page", breadcrumbs), `SearchPalette` (⌘K, on the system's `Modal` +
-  `Search`), `Thumbnail`, `Playground` + `PlaygroundPage` + `PropertiesPanel` (one shared store),
+  `Search`), `Thumbnail`, `Playground` + `Workbench` + `PropertiesPanel` (one shared store),
   `PropsTables`, `AnatomyDiagram`, `RelationshipGraph`, `Themes`, `BlockFrame` (a block on its
   preview route) and `BlockPreviewFrame` (that route in a frame).
 - `src/styles/docs.css` — Tailwind plus `@import '@wideset/react/theme'`, so the chrome is

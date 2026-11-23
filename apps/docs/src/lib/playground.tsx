@@ -138,6 +138,9 @@ const subscribe = (id: string) => (listener: () => void) => {
   return () => listeners.get(id)?.delete(listener);
 };
 
+export const subscribeValues = (id: string, listener: (values: Values) => void) =>
+  subscribe(id)(() => listener(current(id)));
+
 export const useValues = (id: string) =>
   useSyncExternalStore(
     subscribe(id),

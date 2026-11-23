@@ -46,9 +46,9 @@ export function VideoPlayer({ title, playback, chapters, captions }: VideoPlayer
     return () => document.removeEventListener('fullscreenchange', onChange);
   }, []);
 
-  const chapter = chapters.findLast((item) => item.start <= time);
+  const chapter = chapters.filter((item) => item.start <= time).at(-1);
   // Before the first word there is nothing to caption.
-  const caption = time > 0 ? captions.findLast((line) => line.at <= time) : undefined;
+  const caption = time > 0 ? captions.filter((line) => line.at <= time).at(-1) : undefined;
 
   return (
     <section
