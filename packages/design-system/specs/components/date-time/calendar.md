@@ -57,6 +57,8 @@ const [day, setDay] = useState<Date | undefined>();
   cannot be picked and the keyboard skips them.
 - The calendar opens on the month of the selected date (or `defaultMonth`), then follows
   navigation.
+- Month and year header buttons open their pickers without shrinking. Day, month and year
+  choices, and navigation arrows, retain press scaling.
 
 ## Content
 

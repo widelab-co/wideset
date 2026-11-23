@@ -14,6 +14,12 @@ export const pressMotion = cn(
   'active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)',
 );
 
+/** Button press feedback, excluding popup triggers. */
+export const buttonPressMotion = cn(
+  'not-[[aria-haspopup]:not([aria-haspopup=false])]:active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro)',
+  'not-[[aria-haspopup]:not([aria-haspopup=false])]:active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)',
+);
+
 export const switchTrackMotion =
   'transition-[background-color] duration-(--ws-motion-duration-micro) ease-(--ws-motion-ease-out)';
 

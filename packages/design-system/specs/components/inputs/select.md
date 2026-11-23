@@ -105,6 +105,7 @@ Open state: `open` / `defaultOpen` / `onOpenChange`.
   without opening the list and calls `onClear`.
 - Disabled: skipped by Tab, no clear button.
 - Danger: set it after submit or blur; the reason goes in `FormField`'s `errorText`.
+- The trigger keeps its size when pressed; hover, pressed colors and focus feedback remain.
 
 ## Content
 

@@ -72,9 +72,10 @@ inside; pass only its items in `menuContent` (`DropdownMenu.Item`, `DropdownMenu
 
 ## States
 
-- Each half has its own hover, press and focus.
+- Each half has its own hover, pressed colors and focus.
 - Disable the halves independently; set `disabled` and `iconDisabled` together when nothing can
   be done right now.
+- The main action retains press scaling; the menu trigger keeps its size when pressed.
 
 ## Content
 

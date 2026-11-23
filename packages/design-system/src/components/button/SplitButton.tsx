@@ -14,6 +14,7 @@ import {
   splitButtonIconVariants,
   splitButtonMainVariants,
   splitButtonMotionVariants,
+  splitButtonTriggerMotionVariants,
   splitButtonWrapperVariants,
 } from './SplitButton.variants';
 
@@ -80,7 +81,7 @@ const SplitButton = React.forwardRef<HTMLButtonElement, SplitButtonProps>(functi
             <button
               className={cn(
                 splitButtonIconButtonVariants({ preset, size, variant }),
-                splitButtonMotionVariants({ enabled: motion }),
+                splitButtonTriggerMotionVariants({ enabled: motion }),
               )}
               aria-label={iconAriaLabel}
               type="button"

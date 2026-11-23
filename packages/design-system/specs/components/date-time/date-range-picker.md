@@ -63,6 +63,8 @@ Preset keys: `custom`, `today`, `yesterday`, `thisWeek`, `lastWeek`, `thisMonth`
 - Empty (placeholder, default `'Select date range'`), filled with a range, filled with a preset,
   open, invalid, disabled.
 - A chosen preset shows its name in the field ("Last Week"), not the dates.
+- The field keeps its size when pressed. Calendar selections and preset ranges retain
+  press scaling.
 
 ## Content
 

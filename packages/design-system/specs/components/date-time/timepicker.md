@@ -55,6 +55,7 @@ A single component: a `Select` whose options are generated from `min`, `max` and
 
 - Empty (placeholder, default `'Time'`), picked, open, invalid, disabled. With `clearable`, a clear
   button appears once a time is picked. Disabled leaves the tab order.
+- The field keeps its size when pressed, through the shared Select trigger.
 
 ## Content
 
