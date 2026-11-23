@@ -106,7 +106,9 @@ API change in one PR that no single changeset line can describe.
 
 ### 4. Spawn the three sub-agents in parallel
 
-Each gets the diff command, the commit list, the PR title/body, the changeset files, and its own brief only:
+Each gets the diff command, the commit list, the PR title/body, the changeset files, and its own brief only. Every
+brief ends with the same rule: a finding names its kind of problem and lists every place in the diff where that kind
+occurs, copies of shared files included, so the author fixes it once instead of one review round per place.
 
 - **Safety**: "Using the risk zones from step 2, list every place this diff can hurt consumers, the release or the repo: file:line,
   zone, what breaks for whom, what makes it safe. Quote the hunk. A missing or mismatched changeset is a finding. No style."
@@ -128,10 +130,15 @@ behaviour claim. `git diff --ignore-cr-at-eol` strips Windows line-ending noise 
 
 ### 6. Aggregate
 
-Present `## Safety`, `## Standards`, `## Intent` as returned, findings as `🔴 blocker | 🟡 should fix | 🟢 nit` with
-`file:line`, what, why (rule source), how to fix. Do not merge or rerank across axes. Then `## Changeset` (present, bump,
+Open with `## Overview`: what the change brings, in plain words, before any finding: the problem it solves, what
+changes for a consumer or a user (components, props, tokens, blocks, docs pages), where in the repo it lands, and what
+it leaves out. For a visual change, name the stories or docs pages that show it, with before/after screenshots when a
+tool for them is available. In audit mode the overview describes the audited part.
+
+Then present `## Safety`, `## Standards`, `## Intent` as returned, findings as `🔴 blocker | 🟡 should fix | 🟢 nit`
+with `file:line` (every place of that kind), what, why (rule source), how to fix. Do not merge or rerank across axes. Then `## Changeset` (present, bump,
 first line), `## Verified` (commands run and not run), and a verdict that follows the worst axis: ✅ Approve,
-⚠️ Approve with fixes (listed), ❌ Request changes (blockers named). Under ~500 words; no praise, no diff restated.
+⚠️ Approve with fixes (listed), ❌ Request changes (blockers named). Under ~600 words; no praise, no diff restated.
 An audit has no `## Changeset`; its verdict is ✅ Sound, ⚠️ Sound with fixes (listed) or ❌ Needs work (blockers named).
 
 ## Why three axes
