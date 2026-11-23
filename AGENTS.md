@@ -230,6 +230,9 @@ design can bind it.
 - Addressing existing PR feedback: the `wideset-pr-review-resolve` skill (requires a PR URL or
   number; local fixes, decisions and reply drafts; publish replies and resolve eligible threads
   only after approval of the concrete batch).
+- Taking over a stale or unfinished PR: the `wideset-pr-takeover` skill (overview and before/after
+  screenshots first, then a fresh PR from `develop` that answers the old threads; the old PR is
+  closed with a pointer, after approval).
 - Keep entries in `src/index.ts` alphabetical and export public types next to their component.
 - Do not commit `dist/`, `storybook-static/`, `*.log`, `.env*`, or personal editor state.
 
@@ -271,6 +274,7 @@ checks out as a plain text file.
 | ------------------------------ | -------------------------------------------------------------------------------------- |
 | `wideset-code-review`          | reviewing a PR, branch or working tree: safety, standards, intent                      |
 | `wideset-pr-review-resolve`    | evaluating PR feedback, fixing locally, drafting replies and publishing after approval |
+| `wideset-pr-takeover`          | rebuilding a stale PR as a fresh one from `develop`, then closing the old one          |
 | `wideset-component-convention` | reviewing a component against the conventions above; DS-readiness                      |
 | `wideset-storybook-docs`       | formatting rules for Storybook MDX pages (form only, not content)                      |
 | `wideset-component-docs`       | a component's docs page: examples, playground and its tuning                           |
