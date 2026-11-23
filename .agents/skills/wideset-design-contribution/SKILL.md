@@ -79,10 +79,12 @@ branch="design/$topic"          # or: branch="design/123abc/$topic" with a Click
 title="Tabs motion"             # the topic in words, for the PR title and the handoff heading
 ```
 
-Continuing a topic:
+Continuing a topic: take what is already pushed on the branch first (a developer may have synced
+or adapted it), then `develop`. Skip the second line for a branch that was never pushed.
 
 ```bash
 git checkout "$branch"
+git merge "origin/$branch" --no-edit
 git merge origin/develop --no-edit
 ```
 
@@ -97,10 +99,11 @@ Then verify before touching any file:
 ```bash
 git branch --show-current              # must equal $branch
 git log --oneline HEAD..origin/develop # must print nothing
+git log --oneline "HEAD..origin/$branch" # must print nothing (skip if never pushed)
 ```
 
 If the branch name is wrong, switch; if `develop` has commits you do not have, merge again. If
-the merge reports conflicts, run `git merge --abort` and stop the visual work: the branch is
+either merge reports conflicts, run `git merge --abort` and stop the visual work: the branch is
 behind `develop`, and changes made on it would target components that no longer look that way. Add
 `OPEN: branch needs a developer sync (conflicts with develop)` to the handoff, commit and push
 it, and tell the designer to ask a developer to sync the branch. Continue only once the check
