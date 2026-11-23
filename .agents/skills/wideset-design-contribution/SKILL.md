@@ -102,12 +102,24 @@ git log --oneline HEAD..origin/develop # must print nothing
 git log --oneline "HEAD..origin/$branch" # must print nothing (skip if never pushed)
 ```
 
-If the branch name is wrong, switch; if `develop` has commits you do not have, merge again. If
-either merge reports conflicts, run `git merge --abort` and stop the visual work: the branch is
-behind `develop`, and changes made on it would target components that no longer look that way. Add
-`OPEN: branch needs a developer sync (conflicts with develop)` to the handoff, commit and push
-it, and tell the designer to ask a developer to sync the branch. Continue only once the check
-above prints nothing. Never resolve conflicts by picking sides in files you did not change.
+If the branch name is wrong, switch; if `develop` has commits you do not have, merge again. If a
+merge reports conflicts, run `git merge --abort` and stop the visual work: changes made now would
+build on an out-of-date branch. Never resolve conflicts by picking sides in files you did not
+change. What to do next depends on which merge failed:
+
+- **`origin/$branch` conflicts** (your local commits clash with what was pushed): commit nothing
+  and push nothing, since the push would be refused. Leave the note on the pull request instead
+  and tell the designer to ask a developer:
+
+  ```bash
+  gh pr comment "$branch" --body "OPEN: local commits conflict with the pushed branch; needs a developer"
+  ```
+
+- **`origin/develop` conflicts**: add
+  `OPEN: branch needs a developer sync (conflicts with develop)` to the handoff, commit and push
+  it, and tell the designer to ask a developer to sync the branch.
+
+Continue only once both checks above print nothing.
 
 For a new topic, create `docs/design-contributions/$topic.md` from the template in step 6 before
 the first commit, so the branch explains itself from the first push.
