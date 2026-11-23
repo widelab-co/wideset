@@ -86,7 +86,7 @@ export function GanttChart({ onOpenTask }: { onOpenTask: (title: string) => void
   ]);
 
   return (
-    <div className="min-h-0 flex-1 overflow-y-auto">
+    <div className="ws-scrollbar min-h-0 flex-1 overflow-y-auto">
       <div className="flex min-h-full">
         <div className={cn(TABLE, 'shrink-0')}>
           <div className="border-ws-static-subtle h-ws-18 px-ws-11 typography-label-strong-sm text-ws-static-strong flex items-center border-b">
@@ -262,11 +262,10 @@ function MemberCells({
         </span>
       </div>
       <div className="w-ws-21 pr-ws-9 pointer-events-none flex shrink-0 justify-end">
-        <ProgressBar
-          type="circle"
-          value={member.progress}
-          aria-label={`${member.name}, work done`}
-        />
+        <ProgressBar type="circle" value={member.progress} aria-label={`${member.name}, work done`}>
+          <ProgressBar.Value />
+          <ProgressBar.Track />
+        </ProgressBar>
       </div>
     </div>
   );

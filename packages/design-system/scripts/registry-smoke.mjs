@@ -1,11 +1,11 @@
 /*
-  Installs registry items into fresh Vite + Tailwind v4 + shadcn projects and type-checks them.
+  Installs registry items and representative blocks into fresh Vite + Tailwind v4 + shadcn projects.
   This is the only proof that a scaffolded component compiles outside this repo.
 
-    pnpm test:registry                         # every item, one fresh app each, then all at once
+    pnpm test:registry                         # components and sampled blocks, separately and together
     pnpm test:registry --items button,select   # a subset
     pnpm test:registry --shard 2/4             # a quarter of the items (CI matrix)
-    pnpm test:registry --all                   # only the "every item in one app + vite build" run
+    pnpm test:registry --all                   # only the "catalog in one app + vite build" run
     pnpm test:registry --next                  # Next.js App Router: Server Components, named exports,
                                                # for the scaffolded files and the packed npm package
     pnpm test:registry --registry https://<branch>-wideset-docs-develop.<account>.workers.dev/r
@@ -102,7 +102,7 @@ async function serveRegistry(work) {
   const base = `http://127.0.0.1:${server.address().port}/r`;
   let result;
   try {
-    result = buildRegistry({ out: dir, base });
+    result = await buildRegistry({ out: dir, base });
   } catch (err) {
     server.close();
     throw err;
@@ -111,13 +111,19 @@ async function serveRegistry(work) {
   return { base, close: () => server.close() };
 }
 
+// The registry unit tests cover the complete block catalog. Install a sample here by default.
+const SMOKE_BLOCKS = new Set(['block-calendar', 'block-task-sidepanel', 'block-agent-code']);
 const itemsFrom = (base) =>
   fetch(`${base}/registry.json`)
     .then((r) => {
       if (!r.ok) throw new Error(`${base}/registry.json → ${r.status}`);
       return r.json();
     })
-    .then((index) => index.items.map((i) => i.name));
+    .then((index) =>
+      index.items
+        .filter((item) => item.type !== 'registry:block' || SMOKE_BLOCKS.has(item.name))
+        .map((item) => item.name),
+    );
 
 // ---------------------------------------------------------------------------------------------
 // Pristine consumer app: Vite + React + TS + Tailwind v4 + shadcn init.
@@ -470,7 +476,7 @@ async function runNext(work, registry) {
         dependencies: {
           // Exact, like shadcn: a floating range would let CI go red (or green) on a release nobody
           // here chose. Bump deliberately.
-          next: '16.3.8',
+          next: '16.4.6',
           react: dev.react,
           'react-dom': dev['react-dom'],
           ...pkg.dependencies,

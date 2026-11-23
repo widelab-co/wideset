@@ -151,7 +151,7 @@ export function TaskSidepanel({
             </div>
           </div>
 
-          <div className="flex min-h-0 flex-1 flex-col overflow-y-auto">
+          <div className="ws-scrollbar flex min-h-0 flex-1 flex-col overflow-y-auto">
             <div className="p-ws-12">
               <Sidepanel.Title>{task.title}</Sidepanel.Title>
               <Sidepanel.Description className="mt-ws-5">{task.due}</Sidepanel.Description>
@@ -200,7 +200,10 @@ export function TaskSidepanel({
                           type="circle"
                           value={subtask.progress}
                           aria-label={`${subtask.title} progress`}
-                        />
+                        >
+                          <ProgressBar.Value />
+                          <ProgressBar.Track />
+                        </ProgressBar>
                       )}
                     </li>
                   ))}

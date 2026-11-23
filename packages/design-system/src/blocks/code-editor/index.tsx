@@ -224,7 +224,7 @@ export default function CodeEditorBlock() {
 
         {/* The page scrolls inside the card when the window is short; at full size the editor
             takes the height and scrolls inside itself. */}
-        <div className="min-h-0 flex-1 overflow-y-auto">
+        <div className="ws-scrollbar min-h-0 flex-1 overflow-y-auto">
           <EditorPage />
         </div>
       </AppShell.Main>

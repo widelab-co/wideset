@@ -46,8 +46,9 @@ function RunStatus({ run, running }: { run?: TestRun; running: boolean }) {
 /**
  * The panel under the editor, split from it by a line: a test run's output and the code's
  * problems, as two tabs without counts (the wavy marks in the code already say where to look).
- * The last run's verdict sits at the end of the tab row, so it shows from either tab. Its height
- * is fixed and its content scrolls, so the editor keeps its room.
+ * The last run's verdict sits at the end of the tab row, so it shows from either tab. It is as
+ * tall as what it has to say, up to 15rem, where its content scrolls: before a run it is one
+ * line and the editor keeps the room; a run's output opens it.
  */
 export function OutputPanel({
   tab,
@@ -62,7 +63,7 @@ export function OutputPanel({
       value={tab}
       onValueChange={(value) => onTabChange(value as OutputTab)}
       divider={false}
-      className="border-ws-static-base h-[15rem] shrink-0 border-t"
+      className="border-ws-static-base max-h-[15rem] shrink-0 border-t"
     >
       {/* The tabs share their row with the verdict, so the row draws the line, not the list. */}
       <div className="border-ws-static-subtle px-ws-9 gap-ws-9 flex items-center justify-between border-b">
@@ -76,12 +77,12 @@ export function OutputPanel({
         </Tabs.List>
         <RunStatus run={run} running={running} />
       </div>
-      <Tabs.Content value="output" className="min-h-0 flex-1 overflow-y-auto">
+      <Tabs.Content value="output" className="ws-scrollbar min-h-0 flex-1 overflow-y-auto">
         <div className="px-ws-9 py-ws-7">
           <TestOutput run={run} running={running} />
         </div>
       </Tabs.Content>
-      <Tabs.Content value="problems" className="min-h-0 flex-1 overflow-y-auto">
+      <Tabs.Content value="problems" className="ws-scrollbar min-h-0 flex-1 overflow-y-auto">
         <div className="px-ws-9 py-ws-5">
           <ProblemList problems={problems} onReveal={onReveal} />
         </div>

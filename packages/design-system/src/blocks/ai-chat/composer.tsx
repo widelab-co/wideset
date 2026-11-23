@@ -96,6 +96,7 @@ export function Composer({ onSend }: { onSend: (text: string) => void }) {
             {files.map((file) => (
               <Chip
                 key={file.id}
+                size="md"
                 variant="secondary"
                 style="border"
                 aria-label={`Remove ${file.name}`}

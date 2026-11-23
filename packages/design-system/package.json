@@ -84,7 +84,6 @@
     "test": "vitest run",
     "test-watch": "vitest",
     "test:registry": "node scripts/registry-smoke.mjs",
-    "playground": "node scripts/playground.mjs",
     "prefix-tokens": "node prefix-tokens.cjs",
     "generate-semantic-variables": "node generate-semantic-variables.cjs",
     "storybook": "storybook dev -p 6006",

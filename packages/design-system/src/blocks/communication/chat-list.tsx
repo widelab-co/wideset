@@ -128,7 +128,7 @@ export function ChatList() {
         </div>
       </header>
 
-      <div className="gap-ws-5 px-ws-3 pt-ws-8 flex min-h-0 flex-1 flex-col overflow-y-auto">
+      <div className="gap-ws-5 px-ws-3 pt-ws-8 ws-scrollbar flex min-h-0 flex-1 flex-col overflow-y-auto">
         <div className="px-ws-8">
           <TextInput size="sm">
             <TextInput.Prefix inner>

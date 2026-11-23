@@ -1,4 +1,4 @@
-import { ARRIVAL_DAYS, balance, FEE, today } from './data';
+import { samplePayment, today } from './data';
 import { formatUsd } from './format';
 
 export type When = 'now' | 'date';
@@ -35,50 +35,35 @@ export const draftPayment: PaymentValues = {
 export const parseAmount = (text: string) =>
   text.trim() ? Math.round(Number(text.replace(/,/g, '')) * 100) : NaN;
 
-export const feeFor = (amount: number) => Math.min(Math.round(amount * FEE.rate), FEE.max);
-
-/** The most that can be sent: the balance has to cover the fee too. */
-export const maxAmount = balance - feeFor(balance);
-
-/** An ISO date a number of bank days later: Saturdays and Sundays do not count. */
-const addBankDays = (iso: string, days: number) => {
-  const date = new Date(iso);
-  while (days > 0) {
-    date.setUTCDate(date.getUTCDate() + 1);
-    if (date.getUTCDay() !== 0 && date.getUTCDay() !== 6) days -= 1;
-  }
-  return date.toISOString().slice(0, 10);
-};
-
-/** What a valid payment comes to: the fee, what leaves the balance, when it goes and arrives. */
-export function quotePayment(values: PaymentValues) {
+/** Combine the form values and sample fee for the review and receipt. */
+export function summarizePayment(values: PaymentValues) {
   const amount = parseAmount(values.amount);
-  const fee = feeFor(amount);
   const sendDate = values.when === 'date' && values.date ? values.date : today;
 
   return {
     amount,
-    fee,
-    total: amount + fee,
+    fee: samplePayment.fee,
+    total: amount + samplePayment.fee,
     sendDate,
     scheduled: sendDate > today,
-    arrival: addBankDays(sendDate, ARRIVAL_DAYS),
+    arrival: sendDate === today ? samplePayment.arrival : undefined,
   };
 }
 
-export type PaymentQuote = ReturnType<typeof quotePayment>;
+export type PaymentSummary = ReturnType<typeof summarizePayment>;
 
-/** What is wrong with the payment, by field; empty when it can go to review. */
-export function validatePayment(values: PaymentValues): PaymentErrors {
+/** Field errors to illustrate form validation before review. */
+export function validatePaymentForm(values: PaymentValues): PaymentErrors {
   const errors: PaymentErrors = {};
   const amount = parseAmount(values.amount);
 
   if (!values.recipientId) errors.recipientId = 'Choose who gets the payment.';
 
   if (!values.amount.trim()) errors.amount = 'Enter an amount.';
-  else if (!(amount > 0)) errors.amount = 'Enter an amount above zero, like 250.00.';
-  else if (amount > maxAmount)
-    errors.amount = `Enter ${formatUsd(maxAmount)} or less. The balance has to cover the fee too.`;
+  else if (!Number.isFinite(amount) || amount <= 0)
+    errors.amount = 'Enter an amount above zero, like 250.00.';
+  else if (amount + samplePayment.fee > samplePayment.balance)
+    errors.amount = `Enter ${formatUsd(samplePayment.balance - samplePayment.fee)} or less. The balance has to cover the fee too.`;
 
   if (values.when === 'date') {
     if (!values.date) errors.date = 'Pick the day to send it.';

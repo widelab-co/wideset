@@ -57,6 +57,16 @@ const iconsIn = (code: string) => [
 const iconImport = (icons: string[]) =>
   icons.length ? [`import { ${icons.sort().join(', ')} } from '@remixicon/react';`] : [];
 
+/** The code as the reader copies it: with its import, from wherever they take components. */
+export const useShownCode = (code: string, paths: ProjectPaths, snippet = false) => {
+  const source = useImportSource();
+  return snippet
+    ? [...iconImport(iconsIn(code)), ...importLines(namesIn(code, paths), source, paths), '', code]
+        .join('\n')
+        .trimStart()
+    : withImportSource(code, source, paths);
+};
+
 /**
  * Code that uses library components, with its import from wherever the reader takes them:
  * the package, or the files `npx wideset add` wrote. A bare JSX snippet gets its import
@@ -75,12 +85,7 @@ const ComponentCode = ({
   /** Passed to the code block. */
   className?: string;
 }) => {
-  const source = useImportSource();
-  const shown = snippet
-    ? [...iconImport(iconsIn(code)), ...importLines(namesIn(code, paths), source, paths), '', code]
-        .join('\n')
-        .trimStart()
-    : withImportSource(code, source, paths);
+  const shown = useShownCode(code, paths, snippet);
   return <CodeBlock code={shown} lang="tsx" toolbar={<SourcePick />} className={className} />;
 };
 

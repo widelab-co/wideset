@@ -6,7 +6,7 @@ import { boxFillMotion } from '../../motion/recipes';
 export const radioVariants = cva(
   cn(
     'group relative box-border flex cursor-pointer border',
-    'disabled:wds-disabled focus-visible:wds-focus-visible focus-visible:bg-ws-static-highlight-base',
+    'disabled:wds-disabled focus-visible:wds-focus-visible',
     'radix-state-checked:border-2',
     'radix-state-checked:disabled:bg-ws-dynamic-secondary-alpha-default',
     'radix-state-checked:disabled:border-ws-dynamic-secondary-disabled',

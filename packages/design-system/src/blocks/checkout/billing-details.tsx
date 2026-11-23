@@ -5,9 +5,10 @@ import { type BillingDetails as Details, countries, countryName } from './data';
 
 type Field = keyof Details;
 
-/** What a field's error says when it is left empty; the VAT number is the only optional one. */
+/** What a field's error says when it is left empty. */
 const REQUIRED: Partial<Record<Field, string>> = {
   company: 'Enter the company name.',
+  vatNumber: 'Enter the VAT number.',
   address: 'Enter the street address.',
   city: 'Enter the city.',
   postalCode: 'Enter the postal code.',
@@ -21,8 +22,7 @@ type BillingDetailsProps = {
 /**
  * Who the invoice is made out to: read back on one tile, with Edit opening the fields in its
  * place. The fields work on a copy, so Cancel leaves the saved details alone; Save checks the
- * required ones and moves focus to the first that is empty. The VAT number decides the VAT on the
- * order, which is why it is asked here and not in settings.
+ * required ones and moves focus to the first that is empty.
  */
 export function BillingDetails({ details, onChange }: BillingDetailsProps) {
   const id = useId();
@@ -45,9 +45,7 @@ export function BillingDetails({ details, onChange }: BillingDetailsProps) {
     return (
       <Tile
         title={details.company}
-        description={`${details.address}, ${details.city} ${details.postalCode}, ${countryName(details.country)}. ${
-          details.vatNumber ? `VAT ${details.vatNumber}` : 'No VAT number'
-        }.`}
+        description={`${details.address}, ${details.city} ${details.postalCode}, ${countryName(details.country)}. VAT ${details.vatNumber}.`}
       >
         <Button
           size="sm"
@@ -97,12 +95,7 @@ export function BillingDetails({ details, onChange }: BillingDetailsProps) {
         <FormField label="Company" htmlFor={`${id}-company`} errorText={errors.company}>
           <TextInput {...text('company')} ref={firstField} autoComplete="organization" />
         </FormField>
-        <FormField
-          label="VAT number"
-          suffix="(optional)"
-          htmlFor={`${id}-vatNumber`}
-          helperText="With a VAT number, the VAT is reverse-charged."
-        >
+        <FormField label="VAT number" htmlFor={`${id}-vatNumber`} errorText={errors.vatNumber}>
           <TextInput {...text('vatNumber')} autoComplete="off" placeholder="GB 123 4567 89" />
         </FormField>
       </div>

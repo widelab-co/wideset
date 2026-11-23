@@ -27,7 +27,7 @@ export function Transcript({ lines, time, playing, onSeek }: TranscriptProps) {
   const [query, setQuery] = useState('');
   const needle = query.trim().toLowerCase();
 
-  const current = lines.findLast((line) => line.at <= time)?.at;
+  const current = lines.filter((line) => line.at <= time).at(-1)?.at;
   const shown = needle
     ? lines.filter(
         (line) =>
@@ -81,7 +81,7 @@ export function Transcript({ lines, time, playing, onSeek }: TranscriptProps) {
         <ol
           ref={listRef}
           aria-label="Transcript lines"
-          className="-mx-ws-7 px-ws-3 pt-ws-3 pb-ws-12 relative min-h-0 flex-1 overflow-y-auto"
+          className="-mx-ws-7 px-ws-3 pt-ws-3 pb-ws-12 ws-scrollbar relative min-h-0 flex-1 overflow-y-auto"
         >
           {shown.map((line) => (
             <li key={line.at}>
