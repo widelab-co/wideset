@@ -1,44 +1,48 @@
 import { useSyncExternalStore } from 'react';
 
 /**
- * Where the code samples import components from: the npm package, or the reader's own
- * project after `npx wideset add`. One choice for the whole site, remembered in the browser;
- * every code block with a component import follows it.
+ * Where the code samples import components from: the reader's own project after
+ * `npx wideset add` (the default, as the docs install with the CLI), or the npm package. One
+ * choice for the whole site, remembered in the browser; every code block with a component import
+ * follows it.
  */
 export type ImportSource = 'package' | 'project';
 
 const KEY = 'wideset-docs-import-source';
-const listeners = new Set<() => void>();
+/** Each Astro island has its own copy of this module, so a change reaches the others as an event. */
+const CHANGE = 'wideset-import-source';
 
 const read = (): ImportSource => {
   try {
-    return localStorage.getItem(KEY) === 'project' ? 'project' : 'package';
+    return localStorage.getItem(KEY) === 'package' ? 'package' : 'project';
   } catch {
-    return 'package';
+    // Storage unavailable: the choice lasts for this page only.
+    return document.documentElement.dataset.importSource === 'package' ? 'package' : 'project';
   }
 };
 
 export const setImportSource = (source: ImportSource) => {
+  document.documentElement.dataset.importSource = source;
   try {
     localStorage.setItem(KEY, source);
   } catch {
-    // storage unavailable: the choice lasts for this page only
+    // Kept on the page above.
   }
-  listeners.forEach((listener) => listener());
+  dispatchEvent(new Event(CHANGE));
 };
 
 const subscribe = (listener: () => void) => {
-  listeners.add(listener);
   const onStorage = (event: StorageEvent) => event.key === KEY && listener();
+  addEventListener(CHANGE, listener);
   addEventListener('storage', onStorage);
   return () => {
-    listeners.delete(listener);
+    removeEventListener(CHANGE, listener);
     removeEventListener('storage', onStorage);
   };
 };
 
 export const useImportSource = () =>
-  useSyncExternalStore(subscribe, read, () => 'package' as ImportSource);
+  useSyncExternalStore(subscribe, read, () => 'project' as ImportSource);
 
 export const PACKAGE = '@wideset/react';
 

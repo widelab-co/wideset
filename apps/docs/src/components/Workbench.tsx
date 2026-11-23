@@ -11,7 +11,7 @@ import {
   withPlayground,
 } from '../lib/playground';
 import type { Values } from '../lib/playground-kit';
-import { useShownCode } from './ComponentCode';
+import { ImportPick, useShownCode } from './ComponentCode';
 import { Code } from './parts';
 import Playground from './Playground';
 import PropertiesPanel from './PropertiesPanel';
@@ -94,7 +94,7 @@ const Workbench = withPlayground(
       <div className={cn('grid gap-ws-14', !aside && 'xl:grid-cols-[minmax(0,1fr)_17rem]')}>
         <div className="flex min-w-0 flex-col gap-ws-9">
           <Playground component={component} className="min-h-[26rem]" />
-          <Code code={shown} />
+          <Code code={shown} tools={<ImportPick />} />
         </div>
         {rail ? (
           createPortal(properties, rail)

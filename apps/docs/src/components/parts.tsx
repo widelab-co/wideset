@@ -38,10 +38,11 @@ import type { ProjectPaths } from '../lib/importSource';
 import { PLAYGROUNDS, withPlayground } from '../lib/playground';
 import type { ManualFiles } from '../lib/registry';
 import { isDark, loadAppearance, onAppearanceChange } from '../lib/theme';
-import { useShownCode } from './ComponentCode';
+import { ImportPick, useShownCode } from './ComponentCode';
 import { Fit } from './Example';
 import { listKeys } from './listKeys';
 import { ManualSteps } from './ManualSteps';
+import { Pills } from './Pills';
 import SearchPalette, { type SearchItem } from './SearchPalette';
 import TabRow from './TabRow';
 import ThemeToggle from './ThemeToggle';
@@ -99,11 +100,14 @@ export const Code = ({
   peek = false,
   flush = false,
   rule = false,
+  tools,
 }: {
   code: string;
   lang?: CodeLang;
   label?: string;
   header?: ReactNode;
+  /** Controls beside the copy button (the Local / npm import pick). */
+  tools?: ReactNode;
   peek?: boolean;
   flush?: boolean;
   /** A hairline under the header, edge to edge (a header that holds a choice). */
@@ -131,7 +135,10 @@ export const Code = ({
             {label}
           </span>
         )}
-        <CopyIcon text={() => code} />
+        <div className="flex shrink-0 items-center gap-ws-5">
+          {tools}
+          <CopyIcon text={() => code} />
+        </div>
       </div>
       <div className={cn('relative', !open && 'max-h-[7.5rem] overflow-hidden')}>
         {html ? <div dangerouslySetInnerHTML={{ __html: html }} /> : <pre>{code.trimEnd()}</pre>}
@@ -172,7 +179,7 @@ export const Stage = withPlayground(
           )}
         </div>
         <div className="border-t border-ws-static-subtle">
-          <Code code={shown} peek flush />
+          <Code code={shown} peek flush tools={<ImportPick />} />
         </div>
       </div>
     );
@@ -213,7 +220,7 @@ export const ExampleCard = ({
         )}
       </div>
       <div className="border-t border-ws-static-subtle">
-        <Code code={shown} peek flush />
+        <Code code={shown} peek flush tools={<ImportPick />} />
       </div>
     </div>
   );
@@ -225,66 +232,6 @@ const RUNNERS = [
   { value: 'yarn', run: 'yarn dlx' },
   { value: 'bun', run: 'bunx' },
 ];
-
-const PILL =
-  'h-ws-12 rounded-ws-control-md px-ws-5 typography-caption-md outline-ws-dynamic-primary-strong-default transition-colors focus-visible:wds-focus-visible';
-const ARROWS: Record<string, number> = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 };
-
-/**
- * A row of small pills that picks one value, in a card's header. A radio group: one tab stop
- * (the chosen pill), the arrow keys choose the next or the previous one.
- */
-const Pills = ({
-  label,
-  options,
-  value,
-  onChange,
-  mono = false,
-}: {
-  label: string;
-  options: { value: string; label: string }[];
-  value: string;
-  onChange: (value: string) => void;
-  mono?: boolean;
-}) => (
-  // ds-exempt: small pills in a code block's header; SegmentedControl's items are a 14px
-  // control, too loud for this row, and a second row of Tabs would compete with the page's.
-  <div role="radiogroup" aria-label={label} className="flex shrink-0 gap-ws-2">
-    {options.map((item, index) => (
-      <button
-        key={item.value}
-        type="button"
-        role="radio"
-        aria-checked={value === item.value}
-        tabIndex={value === item.value ? 0 : -1}
-        onClick={() => onChange(item.value)}
-        onKeyDown={(event) => {
-          const step = ARROWS[event.key];
-          if (!step) return;
-          event.preventDefault();
-          onChange(options[(index + step + options.length) % options.length].value);
-          // The chosen pill takes the focus once drawn (Install draws the row anew for Manual).
-          requestAnimationFrame(() =>
-            document
-              .querySelector<HTMLElement>(
-                `[role="radiogroup"][aria-label="${label}"] [aria-checked="true"]`,
-              )
-              ?.focus(),
-          );
-        }}
-        className={cn(
-          PILL,
-          mono && 'font-mono',
-          value === item.value
-            ? 'bg-ws-static-alpha-base text-ws-static-strong'
-            : 'text-ws-static-subtle hover:text-ws-static-strong',
-        )}
-      >
-        {item.label}
-      </button>
-    ))}
-  </div>
-);
 
 const METHODS = [
   { value: 'cli', label: 'CLI' },
