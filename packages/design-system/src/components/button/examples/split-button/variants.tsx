@@ -37,7 +37,7 @@ export default function SplitButtonVariants() {
       <SplitButton variant="success" icon={RiArrowDownSLine} menuContent={menu}>
         Approve
       </SplitButton>
-      <div className="bg-ws-static-inverse-background p-ws-8">
+      <div className="bg-ws-static-inverse-background rounded-ws-container-md p-ws-8">
         <SplitButton variant="inverse" icon={RiArrowDownSLine} menuContent={menu}>
           Share
         </SplitButton>
