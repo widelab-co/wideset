@@ -108,9 +108,12 @@ describe('NavigationBar', () => {
       // Mimics a router Link: forwards className and props onto the anchor.
       const RouterLink = ({
         to,
+        children,
         ...rest
       }: { to: string } & React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
-        <a href={to} data-router-link {...rest} />
+        <a href={to} data-router-link {...rest}>
+          {children}
+        </a>
       );
       render(
         <NavigationBar.Item asChild active>

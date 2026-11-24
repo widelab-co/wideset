@@ -1,5 +1,5 @@
-import { Button, cn, DropdownMenu, ListItem } from '@wideset/react';
-import { type AnchorHTMLAttributes, useState } from 'react';
+import { Button, DropdownMenu, ListItem, NavigationBar } from '@wideset/react';
+import { useState } from 'react';
 
 import { BrandMark } from './brand-mark';
 import { MODELS, NAV } from './data';
@@ -10,8 +10,8 @@ export function TopBar() {
   const [model, setModel] = useState(MODELS[0]);
 
   return (
-    <header className="h-ws-22 px-ws-12 grid shrink-0 grid-cols-[1fr_auto_1fr] items-center">
-      <div className="gap-ws-12 flex items-center">
+    <NavigationBar divider={false} className="h-ws-22 grid grid-cols-[1fr_auto_1fr]">
+      <NavigationBar.Start className="gap-ws-12">
         <BrandMark label="Wide AI" />
         <DropdownMenu>
           <DropdownMenu.Trigger asChild>
@@ -33,52 +33,27 @@ export function TopBar() {
             ))}
           </DropdownMenu.Content>
         </DropdownMenu>
-      </div>
+      </NavigationBar.Start>
 
       {/* Below md the bar keeps the brand, the model and the invite; the links do not fit. */}
-      <nav aria-label="Main" className="gap-ws-3 hidden items-center md:flex">
+      <NavigationBar.Nav className="hidden md:flex">
         {NAV.map((item) => (
-          <NavItem
+          <NavigationBar.Item
             key={item.href}
             href={item.href}
             active={item.href === current}
             onClick={() => setCurrent(item.href)}
           >
-            {item.label}
-          </NavItem>
+            <NavigationBar.Label>{item.label}</NavigationBar.Label>
+          </NavigationBar.Item>
         ))}
-      </nav>
+      </NavigationBar.Nav>
 
-      <Button
-        variant="secondary"
-        preset="border"
-        size="sm"
-        className="col-start-3 justify-self-end"
-      >
-        Invite
-      </Button>
-    </header>
-  );
-}
-
-type NavItemProps = AnchorHTMLAttributes<HTMLAnchorElement> & { active: boolean };
-
-/** Figma ".Assets/Top Navigation/Navigation Item": a top-bar link, tinted while it is the page. */
-function NavItem({ active, className, children, ...props }: NavItemProps) {
-  return (
-    <a
-      aria-current={active ? 'page' : undefined}
-      className={cn(
-        'typography-label-strong-sm rounded-ws-control-lg px-ws-7 py-ws-3 min-h-ws-14 flex items-center',
-        'focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default',
-        active
-          ? 'bg-ws-static-alpha-base text-ws-dynamic-secondary-default'
-          : 'text-ws-static-base hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed',
-        className,
-      )}
-      {...props}
-    >
-      {children}
-    </a>
+      <NavigationBar.End className="col-start-3">
+        <Button variant="secondary" preset="border" size="sm">
+          Invite
+        </Button>
+      </NavigationBar.End>
+    </NavigationBar>
   );
 }
