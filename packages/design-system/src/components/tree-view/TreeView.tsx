@@ -97,6 +97,8 @@ const TreeView = React.forwardRef<HTMLUListElement, TreeViewProps>(
       const root = tree.current;
       const item = event.target as HTMLElement;
       if (event.defaultPrevented || !root || item.getAttribute('role') !== 'treeitem') return;
+      // Alt+Left is the browser's Back, Ctrl/Cmd+Home scroll the page: leave chords alone.
+      if (event.altKey || event.ctrlKey || event.metaKey) return;
 
       const items = visibleItems(root);
       const index = items.indexOf(item);
@@ -116,10 +118,13 @@ const TreeView = React.forwardRef<HTMLUListElement, TreeViewProps>(
         case 'End':
           focusElement(items[items.length - 1]);
           break;
-        case 'ArrowRight':
-          if (isOpen) focusElement(items[index + 1]);
+        case 'ArrowRight': {
+          // Into the group's first item; an open group with nothing in it keeps the focus here.
+          const next = items[index + 1];
+          if (isOpen && next && item.contains(next)) focusElement(next);
           else if (isShut) activate(item);
           break;
+        }
         case 'ArrowLeft':
           // A disabled open branch cannot shut, so Left goes on to its parent.
           if (isOpen && item.getAttribute('aria-disabled') !== 'true') activate(item);
@@ -129,12 +134,9 @@ const TreeView = React.forwardRef<HTMLUListElement, TreeViewProps>(
         case ' ':
           activate(item);
           break;
-        default: {
-          const isChar =
-            event.key.length === 1 && !event.ctrlKey && !event.metaKey && !event.altKey;
-          if (!isChar) return;
+        default:
+          if (event.key.length !== 1) return;
           focusElement(typeAheadTarget(items, index, event.key));
-        }
       }
       event.preventDefault();
     };

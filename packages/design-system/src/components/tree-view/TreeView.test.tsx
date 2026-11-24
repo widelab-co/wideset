@@ -234,6 +234,30 @@ describe('TreeView', () => {
       expect(item('src')).toHaveAttribute('aria-expanded', 'false');
     });
 
+    it('keeps the focus on an open branch whose group is empty', async () => {
+      render(
+        <TreeView aria-label="Files" defaultExpanded={['empty']}>
+          <TreeView.Item value="empty">
+            <TreeView.Label>empty</TreeView.Label>
+            <TreeView.Group />
+          </TreeView.Item>
+          <TreeView.Item value="next">
+            <TreeView.Label>next</TreeView.Label>
+          </TreeView.Item>
+        </TreeView>,
+      );
+      await userEvent.tab();
+      await userEvent.keyboard('{ArrowRight}');
+      expect(item('empty')).toHaveFocus();
+    });
+
+    it('leaves Alt, Ctrl and Cmd chords to the browser', async () => {
+      render(<Files defaultExpanded={['src']} defaultValue="src/app.tsx" />);
+      await userEvent.tab();
+      await userEvent.keyboard('{Alt>}{ArrowLeft}{/Alt}');
+      expect(item('app.tsx')).toHaveFocus();
+    });
+
     it('jumps with Home and End', async () => {
       render(<Files />);
       await userEvent.tab();
