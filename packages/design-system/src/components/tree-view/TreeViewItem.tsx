@@ -1,0 +1,79 @@
+import { RiArrowRightSLine } from '@remixicon/react';
+import React, { Children, isValidElement, useContext, useId, useMemo } from 'react';
+import { cn } from 'src/lib/utils';
+
+import { TreeViewItemContext, TreeViewLevelContext, useTreeViewContext } from './TreeView.context';
+import type { TreeViewItemProps } from './TreeView.types';
+import {
+  treeViewChevronVariants,
+  treeViewItemRowVariants,
+  treeViewItemVariants,
+} from './TreeView.variants';
+import { TreeViewGroup } from './TreeViewGroup';
+
+const TreeViewItem = React.forwardRef<HTMLLIElement, TreeViewItemProps>(
+  ({ value, disabled = false, className, children, onFocus, ...props }, ref) => {
+    const { currentValue, currentExpanded, tabStop, motion, focusItem } = useTreeViewContext();
+    const level = useContext(TreeViewLevelContext);
+    const labelId = useId();
+
+    // The group goes under the row; everything else (icon, label, suffix) is the row.
+    // Wrapping TreeView.Group in your own component hides it from this: pass it directly.
+    const all = Children.toArray(children);
+    const group = all.find((child) => isValidElement(child) && child.type === TreeViewGroup);
+    const row = all.filter((child) => child !== group);
+
+    const isBranch = group !== undefined;
+    const expanded = isBranch && currentExpanded.includes(value);
+    const selected = !isBranch && currentValue === value;
+
+    const itemContext = useMemo(() => ({ expanded, labelId }), [expanded, labelId]);
+
+    return (
+      <TreeViewItemContext.Provider value={itemContext}>
+        <li
+          ref={ref}
+          role="treeitem"
+          data-slot="tree-view-item"
+          data-value={value}
+          aria-level={level}
+          aria-labelledby={labelId}
+          aria-expanded={isBranch ? expanded : undefined}
+          aria-selected={isBranch ? undefined : selected}
+          aria-disabled={disabled || undefined}
+          tabIndex={tabStop === value ? 0 : -1}
+          className={cn(treeViewItemVariants(), className)}
+          // Clicks and keys are handled once, on the tree (TreeView.tsx).
+          onFocus={(event) => {
+            if (event.target === event.currentTarget) focusItem(value);
+            onFocus?.(event);
+          }}
+          {...props}
+        >
+          <div
+            data-slot="tree-view-item-row"
+            data-disabled={disabled || undefined}
+            className={treeViewItemRowVariants({ selected, branch: isBranch, motion })}
+          >
+            {isBranch ? (
+              <RiArrowRightSLine
+                aria-hidden="true"
+                data-slot="tree-view-item-chevron"
+                className={treeViewChevronVariants({ expanded, motion })}
+              />
+            ) : (
+              // No chevron on a leaf: the space keeps its icon in line with a branch's.
+              <span aria-hidden="true" className="size-ws-9 shrink-0" />
+            )}
+            {row}
+          </div>
+          {expanded && group}
+        </li>
+      </TreeViewItemContext.Provider>
+    );
+  },
+);
+
+TreeViewItem.displayName = 'TreeViewItem';
+
+export { TreeViewItem };
