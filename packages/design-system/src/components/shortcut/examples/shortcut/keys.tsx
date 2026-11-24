@@ -1,7 +1,8 @@
 /**
  * One `Shortcut.Key` per key, in the order they are pressed: modifiers first, in the order macOS
  * prints them (⌃ ⌥ ⇧ ⌘), then the key. Screen readers hear the modifier glyphs as Control, Option,
- * Shift and Command; letters, digits and named keys such as Esc are read as written.
+ * Shift and Command; ↵ and the arrows are drawn as icons and read as Enter and the arrow keys;
+ * letters, digits and named keys such as Esc are read as written.
  */
 import { Shortcut } from '@wideset/react';
 
@@ -14,6 +15,13 @@ export default function ShortcutKeys() {
       <Shortcut>
         <Shortcut.Key>⌘</Shortcut.Key>
         <Shortcut.Key>K</Shortcut.Key>
+      </Shortcut>
+      <Shortcut>
+        <Shortcut.Key>⌘</Shortcut.Key>
+        <Shortcut.Key>↵</Shortcut.Key>
+      </Shortcut>
+      <Shortcut>
+        <Shortcut.Key>↑</Shortcut.Key>
       </Shortcut>
       <Shortcut>
         <Shortcut.Key>⌥</Shortcut.Key>

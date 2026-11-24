@@ -30,7 +30,8 @@
 
 ## Gotchas
 
-- A key gets its spoken name only when its child is exactly one of `⌘ ⇧ ⌥ ⌃`.
+- A key gets its spoken name (and an icon, for `↵ ↑ ↓ ← →`) only when its child is exactly one of
+  `⌘ ⇧ ⌥ ⌃ ↵ ↑ ↓ ← →`.
 - The default Inter subsets of Fontsource and Google Fonts leave out `⌘ ⇧ ⌥ ⌃`, so the browser
   draws them from a fallback font. Load those four glyphs as well, for example a Google Fonts
   request with `&text=⌘⇧⌥⌃`.

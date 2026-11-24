@@ -89,6 +89,27 @@ describe('Shortcut', () => {
       );
     });
 
+    it('reads Enter and the arrows by name and draws them as icons', () => {
+      render(
+        <button type="button">
+          <Shortcut>
+            <Shortcut.Key>↵</Shortcut.Key>
+            <Shortcut.Key>↑</Shortcut.Key>
+            <Shortcut.Key>↓</Shortcut.Key>
+            <Shortcut.Key>←</Shortcut.Key>
+            <Shortcut.Key>→</Shortcut.Key>
+          </Shortcut>
+        </button>,
+      );
+
+      const button = screen.getByRole('button');
+      expect(button).toHaveAccessibleName(
+        /^Enter\s?Up Arrow\s?Down Arrow\s?Left Arrow\s?Right Arrow$/,
+      );
+      expect(button.querySelectorAll('svg[aria-hidden="true"]')).toHaveLength(5);
+      expect(button).not.toHaveTextContent(/[↵↑↓←→]/);
+    });
+
     it('reads letters and named keys as written', () => {
       render(
         <button type="button">
@@ -103,7 +124,7 @@ describe('Shortcut', () => {
   });
 
   describe('Keys', () => {
-    it.each(['⌘', '⇧', '⌥'])('draws %s at the wide minimum width', (glyph) => {
+    it.each(['⌘', '⇧', '⌥', '↵', '↑', '→'])('draws %s at the wide minimum width', (glyph) => {
       render(
         <Shortcut>
           <Shortcut.Key data-testid="key">{glyph}</Shortcut.Key>

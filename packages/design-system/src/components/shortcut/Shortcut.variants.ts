@@ -33,7 +33,9 @@ export const shortcutVariants = cva(
 
 /**
  * Figma `.Shortcut Symbol`: one key, centred. Command, Shift and Option keep a Size/9 minimum
- * width, Control and Letter Size/8; a longer label (Esc, Tab) hugs its text.
+ * width, Control and Letter Size/8; a longer label (Esc, Tab) hugs its text. Enter and the arrows
+ * are Remix icons at the text size (1em, 12px) in a Size/9 cell like Command; Figma does not draw
+ * them yet, so their width follows Command until it does.
  */
 export const shortcutKeyVariants = cva(
   'flex items-center justify-center font-[family-name:inherit]',
@@ -44,6 +46,8 @@ export const shortcutKeyVariants = cva(
         shift: 'min-w-ws-9',
         option: 'min-w-ws-9',
         control: 'min-w-ws-8',
+        enter: 'min-w-ws-9',
+        arrow: 'min-w-ws-9',
         letter: 'min-w-ws-8',
       },
     },

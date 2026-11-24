@@ -60,7 +60,8 @@ One `Shortcut.Key` per key, in the order they are pressed. `ShortcutKey` is the 
 ## Content
 
 - Write each key as a Mac keyboard prints it: the glyphs `⌃ ⌥ ⇧ ⌘`, capital letters (`K`),
-  named keys as words (`Esc`, `Tab`, `Enter`).
+  `↵` for Enter and `↑ ↓ ← →` for the arrows, other named keys as capitalised words (`Esc`,
+  `Tab`, `Del`).
 - Modifiers first, in the order macOS prints them (⌃ ⌥ ⇧ ⌘), then the key: `⇧⌘8`, not `⌘⇧8`.
   No `+` between keys.
 - The component does not detect the platform. On Windows and Linux write `Ctrl`, `Alt` and
@@ -69,8 +70,9 @@ One `Shortcut.Key` per key, in the order they are pressed. `ShortcutKey` is the 
 ## Accessibility
 
 - Shortcut renders nested `<kbd>` elements: text, with no role, never focusable.
-- `⌘ ⇧ ⌥ ⌃` are read as Command, Shift, Option and Control; letters and named keys as written.
-  Other glyphs (⏎, ⌫, arrows) are read by their Unicode names, so write those keys as words.
+- `⌘ ⇧ ⌥ ⌃` are read as Command, Shift, Option and Control, `↵ ↑ ↓ ← →` as Enter and Up, Down,
+  Left and Right Arrow; letters and named keys as written. Other glyphs (⏎, ⌫, ⎋) are read by their
+  Unicode names, so write those keys as words.
 - The keys belong to the row's text: a menu item reads "Bold, Command B".
 - Showing a shortcut does not register it. Listen for the keys in your app, and keep every action
   reachable without them.
@@ -93,7 +95,8 @@ One `Shortcut.Key` per key, in the order they are pressed. `ShortcutKey` is the 
 
 ## Gotchas
 
-- A key gets its spoken name only when its child is exactly one of `⌘ ⇧ ⌥ ⌃`.
+- A key gets its spoken name (and an icon, for `↵ ↑ ↓ ← →`) only when its child is exactly one of
+  `⌘ ⇧ ⌥ ⌃ ↵ ↑ ↓ ← →`.
 - The default Inter subsets of Fontsource and Google Fonts leave out `⌘ ⇧ ⌥ ⌃`, so the browser
   draws them from a fallback font. Load those four glyphs as well, for example a Google Fonts
   request with `&text=⌘⇧⌥⌃`.

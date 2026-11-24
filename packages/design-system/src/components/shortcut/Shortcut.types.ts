@@ -27,8 +27,8 @@ export type ShortcutProps = HTMLAttributes<HTMLElement> & {
 export type ShortcutKeyProps = HTMLAttributes<HTMLElement> & {
   /**
    * The key as printed on the keyboard: a letter or digit (`K`, `8`), a named key (`Esc`, `Tab`)
-   * or a modifier glyph. `⌘`, `⇧`, `⌥` and `⌃` are read to screen readers as Command, Shift,
-   * Option and Control.
+   * or a symbol. `⌘`, `⇧`, `⌥` and `⌃` are read to screen readers as Command, Shift, Option and
+   * Control; `↵`, `↑`, `↓`, `←` and `→` are drawn as icons and read as Enter and the arrow keys.
    */
   children?: ReactNode;
   /** Additional CSS classes for layout overrides. */

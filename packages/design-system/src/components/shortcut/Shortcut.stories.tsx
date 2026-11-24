@@ -24,7 +24,7 @@ Use Tag or StatusBadge for a label that is not a key.
 **Composition:**
 \`\`\`
 <Shortcut>        — root, controls emphasis
-  <Shortcut.Key>  — one key: a letter, a named key (Esc) or a modifier glyph (⌘ ⇧ ⌥ ⌃)
+  <Shortcut.Key>  — one key: a letter, a named key (Esc) or a symbol (⌘ ⇧ ⌥ ⌃ ↵ ↑ ↓ ← →)
 </Shortcut>
 \`\`\``,
       },
@@ -122,7 +122,7 @@ export const Composition: Story = {
         <dd>
           <Shortcut {...args}>
             <Shortcut.Key>⌘</Shortcut.Key>
-            <Shortcut.Key>Enter</Shortcut.Key>
+            <Shortcut.Key>↵</Shortcut.Key>
           </Shortcut>
         </dd>
       </div>
