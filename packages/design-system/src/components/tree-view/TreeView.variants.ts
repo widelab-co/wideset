@@ -21,6 +21,7 @@ export const treeViewItemRowVariants = cva(
   cn(
     'gap-ws-3 px-ws-5 h-ws-13 rounded-ws-control-lg typography-label-sm flex w-full cursor-pointer items-center text-left select-none',
     'hover:not-data-disabled:bg-ws-dynamic-tertiary-alpha-strong-default hover:not-data-disabled:text-ws-static-strong',
+    'active:not-data-disabled:bg-ws-dynamic-tertiary-alpha-strong-pressed',
     'data-disabled:text-ws-dynamic-secondary-disabled data-disabled:cursor-default',
   ),
   {
@@ -38,7 +39,11 @@ export const treeViewItemRowVariants = cva(
   },
 );
 
-export const treeViewChevronVariants = cva('size-ws-9 text-ws-static-subtle shrink-0', {
+/** The row's quiet parts (chevron, icon, suffix) take the disabled colour with the row's text. */
+export const treeViewQuietPartClassName =
+  'text-ws-static-subtle in-data-disabled:text-ws-dynamic-secondary-disabled';
+
+export const treeViewChevronVariants = cva(cn('size-ws-9 shrink-0', treeViewQuietPartClassName), {
   variants: {
     expanded: { true: 'rotate-90', false: '' },
     motion: {
@@ -49,5 +54,10 @@ export const treeViewChevronVariants = cva('size-ws-9 text-ws-static-subtle shri
   defaultVariants: { expanded: false, motion: true },
 });
 
-/** One level in: the guide line runs under the chevron above, the rows start under its icon. */
-export const treeViewGroupVariants = cva('ml-ws-9 pl-ws-3 border-ws-static-subtle border-l');
+/**
+ * One level in: the guide line runs under the chevron above, the rows start under its icon.
+ * The padding gives back the line's 1px, so a child's chevron sits exactly under its parent's icon.
+ */
+export const treeViewGroupVariants = cva(
+  'ml-ws-9 border-ws-static-subtle border-l pl-[calc(var(--spacing-ws-3)-1px)]',
+);

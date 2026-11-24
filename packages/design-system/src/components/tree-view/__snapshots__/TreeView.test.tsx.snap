@@ -19,12 +19,12 @@ exports[`TreeView > Rendering > matches the snapshot 1`] = `
     tabindex="-1"
   >
     <div
-      class="gap-ws-3 px-ws-5 h-ws-13 rounded-ws-control-lg typography-label-sm flex w-full cursor-pointer items-center text-left select-none hover:not-data-disabled:bg-ws-dynamic-tertiary-alpha-strong-default hover:not-data-disabled:text-ws-static-strong data-disabled:text-ws-dynamic-secondary-disabled data-disabled:cursor-default text-ws-static-base transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+      class="gap-ws-3 px-ws-5 h-ws-13 rounded-ws-control-lg typography-label-sm flex w-full cursor-pointer items-center text-left select-none hover:not-data-disabled:bg-ws-dynamic-tertiary-alpha-strong-default hover:not-data-disabled:text-ws-static-strong active:not-data-disabled:bg-ws-dynamic-tertiary-alpha-strong-pressed data-disabled:text-ws-dynamic-secondary-disabled data-disabled:cursor-default text-ws-static-base transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
       data-slot="tree-view-item-row"
     >
       <svg
         aria-hidden="true"
-        class="remixicon size-ws-9 text-ws-static-subtle shrink-0 rotate-90 transition-transform duration-(--ws-motion-duration-fast) ease-(--ws-motion-ease-smooth-out)"
+        class="remixicon size-ws-9 shrink-0 text-ws-static-subtle in-data-disabled:text-ws-dynamic-secondary-disabled rotate-90 transition-transform duration-(--ws-motion-duration-fast) ease-(--ws-motion-ease-smooth-out)"
         data-slot="tree-view-item-chevron"
         fill="currentColor"
         height="24"
@@ -38,7 +38,7 @@ exports[`TreeView > Rendering > matches the snapshot 1`] = `
       </svg>
       <svg
         aria-hidden="true"
-        class="remixicon size-ws-9 text-ws-static-subtle mr-ws-2 shrink-0"
+        class="remixicon size-ws-9 mr-ws-2 shrink-0 text-ws-static-subtle in-data-disabled:text-ws-dynamic-secondary-disabled"
         data-slot="tree-view-icon"
         data-testid="src-icon"
         fill="currentColor"
@@ -59,7 +59,7 @@ exports[`TreeView > Rendering > matches the snapshot 1`] = `
         src
       </span>
       <span
-        class="min-w-ws-9 typography-label-sm text-ws-static-subtle flex shrink-0 items-center justify-center tabular-nums"
+        class="min-w-ws-9 typography-label-sm flex shrink-0 items-center justify-center tabular-nums text-ws-static-subtle in-data-disabled:text-ws-dynamic-secondary-disabled"
         data-slot="tree-view-suffix"
         id="_r_2p_"
       >
@@ -67,7 +67,7 @@ exports[`TreeView > Rendering > matches the snapshot 1`] = `
       </span>
     </div>
     <ul
-      class="ml-ws-9 pl-ws-3 border-ws-static-subtle border-l"
+      class="ml-ws-9 pl-[calc(var(--spacing-ws-3)-1px)] border-ws-static-subtle border-l"
       data-slot="tree-view-group"
       role="group"
     >
@@ -82,7 +82,7 @@ exports[`TreeView > Rendering > matches the snapshot 1`] = `
         tabindex="0"
       >
         <div
-          class="gap-ws-3 px-ws-5 h-ws-13 rounded-ws-control-lg typography-label-sm flex w-full cursor-pointer items-center text-left select-none hover:not-data-disabled:bg-ws-dynamic-tertiary-alpha-strong-default hover:not-data-disabled:text-ws-static-strong data-disabled:text-ws-dynamic-secondary-disabled data-disabled:cursor-default bg-ws-dynamic-tertiary-alpha-strong-default text-ws-static-strong text-ws-static-strong transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+          class="gap-ws-3 px-ws-5 h-ws-13 rounded-ws-control-lg typography-label-sm flex w-full cursor-pointer items-center text-left select-none hover:not-data-disabled:bg-ws-dynamic-tertiary-alpha-strong-default hover:not-data-disabled:text-ws-static-strong active:not-data-disabled:bg-ws-dynamic-tertiary-alpha-strong-pressed data-disabled:text-ws-dynamic-secondary-disabled data-disabled:cursor-default bg-ws-dynamic-tertiary-alpha-strong-default text-ws-static-strong text-ws-static-strong transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
           data-slot="tree-view-item-row"
         >
           <span
@@ -109,7 +109,7 @@ exports[`TreeView > Rendering > matches the snapshot 1`] = `
         tabindex="-1"
       >
         <div
-          class="gap-ws-3 px-ws-5 h-ws-13 rounded-ws-control-lg typography-label-sm flex w-full cursor-pointer items-center text-left select-none hover:not-data-disabled:bg-ws-dynamic-tertiary-alpha-strong-default hover:not-data-disabled:text-ws-static-strong data-disabled:text-ws-dynamic-secondary-disabled data-disabled:cursor-default text-ws-static-strong transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+          class="gap-ws-3 px-ws-5 h-ws-13 rounded-ws-control-lg typography-label-sm flex w-full cursor-pointer items-center text-left select-none hover:not-data-disabled:bg-ws-dynamic-tertiary-alpha-strong-default hover:not-data-disabled:text-ws-static-strong active:not-data-disabled:bg-ws-dynamic-tertiary-alpha-strong-pressed data-disabled:text-ws-dynamic-secondary-disabled data-disabled:cursor-default text-ws-static-strong transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
           data-slot="tree-view-item-row"
         >
           <span
@@ -138,7 +138,7 @@ exports[`TreeView > Rendering > matches the snapshot 1`] = `
     tabindex="-1"
   >
     <div
-      class="gap-ws-3 px-ws-5 h-ws-13 rounded-ws-control-lg typography-label-sm flex w-full cursor-pointer items-center text-left select-none hover:not-data-disabled:bg-ws-dynamic-tertiary-alpha-strong-default hover:not-data-disabled:text-ws-static-strong data-disabled:text-ws-dynamic-secondary-disabled data-disabled:cursor-default text-ws-static-strong transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+      class="gap-ws-3 px-ws-5 h-ws-13 rounded-ws-control-lg typography-label-sm flex w-full cursor-pointer items-center text-left select-none hover:not-data-disabled:bg-ws-dynamic-tertiary-alpha-strong-default hover:not-data-disabled:text-ws-static-strong active:not-data-disabled:bg-ws-dynamic-tertiary-alpha-strong-pressed data-disabled:text-ws-dynamic-secondary-disabled data-disabled:cursor-default text-ws-static-strong transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
       data-slot="tree-view-item-row"
     >
       <span
@@ -166,13 +166,13 @@ exports[`TreeView > Rendering > matches the snapshot 1`] = `
     tabindex="-1"
   >
     <div
-      class="gap-ws-3 px-ws-5 h-ws-13 rounded-ws-control-lg typography-label-sm flex w-full cursor-pointer items-center text-left select-none hover:not-data-disabled:bg-ws-dynamic-tertiary-alpha-strong-default hover:not-data-disabled:text-ws-static-strong data-disabled:text-ws-dynamic-secondary-disabled data-disabled:cursor-default text-ws-static-base transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+      class="gap-ws-3 px-ws-5 h-ws-13 rounded-ws-control-lg typography-label-sm flex w-full cursor-pointer items-center text-left select-none hover:not-data-disabled:bg-ws-dynamic-tertiary-alpha-strong-default hover:not-data-disabled:text-ws-static-strong active:not-data-disabled:bg-ws-dynamic-tertiary-alpha-strong-pressed data-disabled:text-ws-dynamic-secondary-disabled data-disabled:cursor-default text-ws-static-base transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
       data-disabled="true"
       data-slot="tree-view-item-row"
     >
       <svg
         aria-hidden="true"
-        class="remixicon size-ws-9 text-ws-static-subtle shrink-0 transition-transform duration-(--ws-motion-duration-fast) ease-(--ws-motion-ease-smooth-out)"
+        class="remixicon size-ws-9 shrink-0 text-ws-static-subtle in-data-disabled:text-ws-dynamic-secondary-disabled transition-transform duration-(--ws-motion-duration-fast) ease-(--ws-motion-ease-smooth-out)"
         data-slot="tree-view-item-chevron"
         fill="currentColor"
         height="24"
@@ -204,7 +204,7 @@ exports[`TreeView > Rendering > matches the snapshot 1`] = `
     tabindex="-1"
   >
     <div
-      class="gap-ws-3 px-ws-5 h-ws-13 rounded-ws-control-lg typography-label-sm flex w-full cursor-pointer items-center text-left select-none hover:not-data-disabled:bg-ws-dynamic-tertiary-alpha-strong-default hover:not-data-disabled:text-ws-static-strong data-disabled:text-ws-dynamic-secondary-disabled data-disabled:cursor-default text-ws-static-strong transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+      class="gap-ws-3 px-ws-5 h-ws-13 rounded-ws-control-lg typography-label-sm flex w-full cursor-pointer items-center text-left select-none hover:not-data-disabled:bg-ws-dynamic-tertiary-alpha-strong-default hover:not-data-disabled:text-ws-static-strong active:not-data-disabled:bg-ws-dynamic-tertiary-alpha-strong-pressed data-disabled:text-ws-dynamic-secondary-disabled data-disabled:cursor-default text-ws-static-strong transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
       data-slot="tree-view-item-row"
     >
       <span
