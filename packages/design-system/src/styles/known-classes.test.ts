@@ -28,9 +28,27 @@ const sourceFiles = filesUnder(
 );
 const specFiles = filesUnder(path.join(root, 'specs'), (file) => file.endsWith('.md'));
 
-// Only the code an agent copies from a spec: its fenced blocks, not the prose around them.
-const codeFences = (markdown: string) =>
-  Array.from(markdown.matchAll(/^```[^\n]*\n([\s\S]*?)^```/gm), (match) => match[1]).join('\n');
+// Only the code an agent copies from a spec: its fenced blocks, not the prose around them. A fence
+// opens with three or more backticks or tildes and closes with at least as many of the same.
+const codeFences = (markdown: string) => {
+  const code: string[] = [];
+  let fence: string | undefined;
+  for (const line of markdown.split('\n')) {
+    const marker = /^ {0,3}(`{3,}|~{3,})/.exec(line)?.[1];
+    if (fence === undefined) {
+      if (marker) fence = marker;
+    } else if (
+      marker?.[0] === fence[0] &&
+      marker.length >= fence.length &&
+      !line.trim().slice(marker.length).trim()
+    ) {
+      fence = undefined;
+    } else {
+      code.push(line);
+    }
+  }
+  return code.join('\n');
+};
 
 /** Strips variants (`hover:`, `radix-state-open:`, `[&_svg]:`) and the important flag. */
 const baseOf = (candidate: string) => {
@@ -52,10 +70,13 @@ const UTILITY =
   /^-?[a-z][a-z0-9]*(?:-[a-z0-9]+)*-(?:[a-z0-9][\w.-]*|\[[^\]\s]+\]|\(--[\w-]+\))(?:\/[\w.%[\]()-]+)?$/;
 const isWideset = (base: string) => /(^|-)typography-|-ws-/.test(base) && !base.startsWith('--');
 
+// A candidate ends at a quote, brace, comma or `=`, except inside brackets (`aria-[current=page]:`).
+const CANDIDATE = /(?:\[[^\]\s]*\]|[^\s'"`{}<>,;=\\])+/g;
+
 /** Every Wideset utility in a piece of source, by its base name. */
 const classesIn = (text: string) =>
   new Set(
-    (text.match(/[^\s'"`{}<>,;=\\]+/g) ?? [])
+    (text.match(CANDIDATE) ?? [])
       .map(baseOf)
       // A class built in a template literal (`gap-ws-${n}`) ends where the expression starts.
       .filter((base) => UTILITY.test(base) && isWideset(base) && !base.endsWith('-')),
@@ -66,6 +87,30 @@ const selectorOf = (base: string) => '.' + base.replace(/[^\w-]/g, (char) => `\\
 
 /** Classes that are deliberately not utilities. Each needs a reason. */
 const EXCEPTIONS = new Set<string>([]);
+
+describe('class collection', () => {
+  it('reads classes behind variants, bracketed ones included', () => {
+    expect(classesIn('hover:gap-ws-nope data-[state=open]:p-ws-nope')).toEqual(
+      new Set(['gap-ws-nope', 'p-ws-nope']),
+    );
+  });
+
+  it('reads code fenced with backticks or tildes, not the prose', () => {
+    const markdown = [
+      'Prose with gap-ws-prose.',
+      '~~~tsx',
+      '<h2 className="typography-subtitle-lg" />',
+      '~~~',
+      '````md',
+      '```',
+      'p-ws-nested',
+      '````',
+    ].join('\n');
+    expect(classesIn(codeFences(markdown))).toEqual(
+      new Set(['typography-subtitle-lg', 'p-ws-nested']),
+    );
+  });
+});
 
 describe('Wideset classes', () => {
   it('compiles every typography and -ws- class used in src and in the specs’ code', () => {
