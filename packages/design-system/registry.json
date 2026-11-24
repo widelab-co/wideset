@@ -574,6 +574,19 @@
       ]
     },
     {
+      "name": "navigation-bar",
+      "type": "registry:ui",
+      "title": "NavigationBar",
+      "description": "NavigationBar is the app's top bar: the menu button and logo, page links or breadcrumbs, and the tools that apply on every page.",
+      "files": [
+        {
+          "path": "src/components/navigation-bar/NavigationBar.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/wideset/navigation-bar/NavigationBar.tsx"
+        }
+      ]
+    },
+    {
       "name": "pagination",
       "type": "registry:ui",
       "title": "Pagination",
