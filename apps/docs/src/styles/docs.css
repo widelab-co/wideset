@@ -23,6 +23,20 @@
 
 /* The package ships only the font variable; the site loads Inter itself
    (@fontsource-variable/inter, imported in the layout), which registers as `Inter Variable`. */
+
+/* Fontsource's Inter subsets leave out the modifier keys Shortcut draws (⌘ ⇧ ⌥ ⌃), so they would
+   come from a fallback font. This face adds just those four glyphs to `Inter Variable`: Inter 4.1
+   (SIL Open Font License 1.1), `pyftsubset InterVariable.woff2 --unicodes=U+2318,U+21E7,U+2325,U+2303
+   --flavor=woff2 --layout-features='*'`. */
+@font-face {
+  font-family: 'Inter Variable';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('./fonts/inter-modifier-keys.woff2') format('woff2-variations');
+  unicode-range: U+21E7, U+2303, U+2318, U+2325;
+}
+
 :root {
   --font-ws-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
 }
