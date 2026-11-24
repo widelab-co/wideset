@@ -83,7 +83,7 @@ const AGENT_KIT = [
   'home.tsx',
   'person-avatar.tsx',
   'people.assets.ts',
-  'keyboard-key.tsx',
+  'use-modifier.ts',
   'menu-sub.tsx',
   'menu-choice.tsx',
 ];
