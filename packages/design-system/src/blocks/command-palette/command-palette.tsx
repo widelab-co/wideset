@@ -9,7 +9,7 @@ import { type KeyboardEvent, useId, useState } from 'react';
 
 import { CommandRow } from './command-row';
 import { type Command, GROUPS } from './data';
-import { Hint, Key } from './keyboard-hints';
+import { Hint, KeyButton } from './keyboard-hints';
 
 /** A query that starts with this lists only actions. */
 const ACTIONS_PREFIX = '>';
@@ -69,6 +69,7 @@ type PaletteBodyProps = {
  * The palette's inside, mounted each time it opens, so it always starts empty with the first row
  * active. The field keeps the focus the whole time: typing filters, the arrow keys move the
  * highlight (the field points at it for screen readers), Enter runs it. Esc is the Modal's own.
+ * The hint row's keys do the same for the pointer.
  */
 function PaletteBody({ commands, recent, suggested, onRun }: PaletteBodyProps) {
   const id = useId();
@@ -80,17 +81,27 @@ function PaletteBody({ commands, recent, suggested, onRun }: PaletteBodyProps) {
   const current = shown[active];
   const optionId = (command: Command) => `${id}-${command.id}`;
 
+  const move = (step: 1 | -1) => {
+    const next = shown[active + step];
+    if (!next) return;
+    setActive(shown.indexOf(next));
+    document.getElementById(optionId(next))?.scrollIntoView({ block: 'nearest' });
+  };
+
   const onKeyDown = (event: KeyboardEvent) => {
     if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
       event.preventDefault();
-      const next = shown[active + (event.key === 'ArrowDown' ? 1 : -1)];
-      if (!next) return;
-      setActive(shown.indexOf(next));
-      document.getElementById(optionId(next))?.scrollIntoView({ block: 'nearest' });
+      move(event.key === 'ArrowDown' ? 1 : -1);
     } else if (event.key === 'Enter' && current) {
       event.preventDefault();
       onRun(current);
     }
+  };
+
+  /** The hint's `>` key: lists the actions only, as typing `>` does. */
+  const actionsOnly = () => {
+    if (!query.trimStart().startsWith(ACTIONS_PREFIX)) setQuery(ACTIONS_PREFIX + query);
+    setActive(0);
   };
 
   return (
@@ -167,17 +178,37 @@ function PaletteBody({ commands, recent, suggested, onRun }: PaletteBodyProps) {
           <Hint
             keys={
               <span className="gap-ws-3 flex">
-                <Key icon={RiArrowUpSLine} name="Up arrow" />
-                <Key icon={RiArrowDownSLine} name="Down arrow" />
+                <KeyButton icon={RiArrowUpSLine} name="Up arrow" onClick={() => move(-1)} />
+                <KeyButton icon={RiArrowDownSLine} name="Down arrow" onClick={() => move(1)} />
               </span>
             }
           >
             Move
           </Hint>
-          <Hint keys={<Key icon={RiCornerDownLeftLine} name="Enter" />}>Run</Hint>
-          <Hint keys={<Key>{ACTIONS_PREFIX}</Key>}>Actions only</Hint>
+          <Hint
+            keys={
+              <KeyButton
+                icon={RiCornerDownLeftLine}
+                name="Enter"
+                onClick={() => current && onRun(current)}
+              />
+            }
+          >
+            Run
+          </Hint>
+          <Hint keys={<KeyButton onClick={actionsOnly}>{ACTIONS_PREFIX}</KeyButton>}>
+            Actions only
+          </Hint>
         </div>
-        <Hint keys={<Key>esc</Key>}>Close</Hint>
+        <Hint
+          keys={
+            <Modal.Close asChild>
+              <KeyButton>Esc</KeyButton>
+            </Modal.Close>
+          }
+        >
+          Close
+        </Hint>
       </Modal.Footer>
     </div>
   );
