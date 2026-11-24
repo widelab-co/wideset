@@ -1,5 +1,5 @@
 import { useComposedRefs } from '@radix-ui/react-compose-refs';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { cn } from 'src/lib/utils';
 
 import { useDefaultMotion } from '../../motion/MotionProvider';
@@ -42,9 +42,15 @@ const TreeView = React.forwardRef<HTMLUListElement, TreeViewProps>(
     const isExpandedControlled = expanded !== undefined;
     const currentExpanded = isExpandedControlled ? expanded : internalExpanded;
 
-    // The one item in the Tab order (roving tabindex): the last one focused, else the selected.
-    const [focused, setFocused] = useState<string>();
-    const tabStop = focused ?? currentValue;
+    // The one item in the Tab order (roving tabindex): the last one focused while the selection
+    // stayed the same, else the selected one. A new selection, from a click or from outside the
+    // tree, takes the tab stop back.
+    const [focused, setFocusedState] = useState<{ item: string; selected?: string }>();
+    const setFocused = useCallback(
+      (item: string) => setFocusedState({ item, selected: currentValue }),
+      [currentValue],
+    );
+    const tabStop = focused && focused.selected === currentValue ? focused.item : currentValue;
 
     const toggle = (item: string) => {
       const next = currentExpanded.includes(item)
@@ -77,12 +83,12 @@ const TreeView = React.forwardRef<HTMLUListElement, TreeViewProps>(
       if (!root || root.querySelector('[role="treeitem"][tabindex="0"]')) return;
       const first = visibleItems(root)[0]?.dataset.value;
       if (first !== undefined) setFocused(first);
-    }, [tabStop, currentExpanded, children]);
+    }, [tabStop, currentExpanded, children, setFocused]);
 
     const focusElement = (item: HTMLElement | null | undefined) => {
       if (!item) return;
       item.focus();
-      setFocused(item.dataset.value);
+      setFocused(item.dataset.value ?? '');
     };
 
     /** Arrow keys, Home, End, Enter, Space and type-ahead, as the WAI-ARIA tree pattern has them. */
@@ -135,7 +141,7 @@ const TreeView = React.forwardRef<HTMLUListElement, TreeViewProps>(
 
     const context = useMemo(
       () => ({ currentValue, currentExpanded, tabStop, motion, focusItem: setFocused }),
-      [currentValue, currentExpanded, tabStop, motion],
+      [currentValue, currentExpanded, tabStop, motion, setFocused],
     );
 
     return (

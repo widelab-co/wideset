@@ -197,6 +197,16 @@ describe('TreeView', () => {
       expect(item('README.md')).toHaveFocus();
     });
 
+    it('gives the tab stop to an item selected from outside', async () => {
+      const { rerender } = render(<Files value="" />);
+      await userEvent.tab();
+      await userEvent.keyboard('{ArrowDown}');
+      expect(item('package.json')).toHaveFocus();
+      rerender(<Files value="README.md" />);
+      expect(item('README.md')).toHaveAttribute('tabindex', '0');
+      expect(item('package.json')).toHaveAttribute('tabindex', '-1');
+    });
+
     it('moves with ArrowDown and ArrowUp', async () => {
       render(<Files />);
       await userEvent.tab();
