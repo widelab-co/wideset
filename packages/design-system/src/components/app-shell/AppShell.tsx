@@ -15,8 +15,7 @@ import { AppShellSidebarTrigger } from './AppShellSidebarTrigger';
 
 const AppShell = React.forwardRef<HTMLDivElement, AppShellProps>(
   ({ direction = 'inset', className, children, ...props }, ref) => {
-    // The `Sidebar` inside owns its collapsed state and reports it here, so a trigger in the page
-    // (`AppShell.SidebarTrigger`) can toggle it from outside the sidebar.
+    // Filled in by the Sidebar, which keeps its own collapsed state.
     const [sidebar, registerSidebar] = React.useState<AppShellSidebarState | null>(null);
     const contextValue = React.useMemo(
       () => ({ direction, sidebar, registerSidebar }),

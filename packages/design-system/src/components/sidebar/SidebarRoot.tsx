@@ -53,8 +53,7 @@ const SidebarRoot = React.forwardRef<HTMLDivElement, SidebarProps>(
       [isCollapsed, toggle, motion, sidebarId],
     );
 
-    // Inside an AppShell the sidebar reports its state, so `AppShell.SidebarTrigger` in the page's
-    // page bar can toggle it. The state stays here: controlled or not, as outside a shell.
+    // Lets AppShell.SidebarTrigger toggle this sidebar.
     const registerSidebar = shell?.registerSidebar;
     React.useLayoutEffect(() => {
       if (!registerSidebar) return;

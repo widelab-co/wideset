@@ -45,7 +45,7 @@ exports[`AppShell > Page bar > Rendering > should match snapshot with a page bar
       </div>
     </div>
     <main
-      class="min-w-0 flex-1 overflow-y-auto bg-ws-static-foreground rounded-ws-container-lg shadow-ws-low my-ws-7 mr-ws-7 ml-ws-5 relative flex flex-col"
+      class="ws-scrollbar min-w-0 flex-1 overflow-y-auto bg-ws-static-foreground rounded-ws-container-lg shadow-ws-low my-ws-7 mr-ws-7 ml-ws-5 relative flex flex-col"
       data-slot="app-shell-main"
     >
       <header

@@ -19,7 +19,7 @@ const AppShellSidebarTrigger = React.forwardRef<HTMLButtonElement, AppShellSideb
     },
     ref,
   ) => {
-    // Until the shell's `Sidebar` has mounted (the server render) the trigger reads as expanded.
+    // Expanded until the Sidebar mounts (server render).
     const { sidebar } = useAppShellContext();
     const isCollapsed = sidebar?.isCollapsed ?? false;
 
@@ -34,7 +34,6 @@ const AppShellSidebarTrigger = React.forwardRef<HTMLButtonElement, AppShellSideb
         data-slot="app-shell-sidebar-trigger"
         {...props}
         ref={ref}
-        // One icon in both states, as the blocks draw it: the bar does not move with the sidebar.
         icon={RiSideBarLine}
         variant="secondary"
         preset="ghost"
