@@ -219,7 +219,7 @@ function ImportPage({ collapsed, onToggleSidebar, sidebarId }: PageProps) {
                         variant="secondary"
                         preset="border"
                         disabled={importing}
-                        onClick={() => setStep((step) => step - 1)}
+                        onClick={() => setStep((step) => Math.max(UPLOAD, step - 1))}
                       >
                         Back
                       </Button>

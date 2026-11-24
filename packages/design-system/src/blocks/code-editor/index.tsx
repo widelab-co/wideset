@@ -52,14 +52,14 @@ function EditorPage() {
   ).sort((a, b) => Number(b.problem.severity === 'error') - Number(a.problem.severity === 'error'));
 
   const openFile = (id: FileId) => {
-    if (!open.includes(id)) setOpen((open) => [...open, id]);
+    setOpen((open) => (open.includes(id) ? open : [...open, id]));
     setActive(id);
   };
 
   const save = () => {
     if (!dirty) return;
     setVersions((versions) => [
-      { number: current.number + 1, savedAt: NOW, by: 'maya', sources: drafts },
+      { number: versions[0].number + 1, savedAt: NOW, by: 'maya', sources: drafts },
       ...versions,
     ]);
   };
@@ -91,7 +91,7 @@ function EditorPage() {
   const restore = (version: Version) => {
     setVersions((versions) => [
       {
-        number: current.number + 1,
+        number: versions[0].number + 1,
         savedAt: NOW,
         by: 'maya',
         restoredFrom: version.number,

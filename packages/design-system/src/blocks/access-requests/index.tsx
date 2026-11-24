@@ -80,22 +80,26 @@ function AccessPage() {
   /** Takes requests out of the list (and the selection); returns how to put them back. */
   const remove = (ids: string[]) => {
     const before = requests;
-    setRequests(requests.filter((request) => !ids.includes(request.id)));
-    setSelected(selected.filter((id) => !ids.includes(id)));
+    const gone = before.filter((request) => ids.includes(request.id));
+    setRequests((current) => current.filter((request) => !ids.includes(request.id)));
+    setSelected((current) => current.filter((id) => !ids.includes(id)));
     return {
-      gone: before.filter((request) => ids.includes(request.id)),
-      restore: () => setRequests(before),
+      gone,
+      // Puts back only these requests, in their old places; what changed since stays changed.
+      restore: () =>
+        setRequests((current) =>
+          before.filter((request) => current.includes(request) || gone.includes(request)),
+        ),
     };
   };
 
   const approve = (ids: string[], role: Role) => {
     const { gone, restore } = remove(ids);
-    const seats = seatsUsed;
-    setSeatsUsed(seats + gone.length);
+    setSeatsUsed((seats) => seats + gone.length);
     const who = gone.length === 1 ? gone[0].name : `${gone.length} people`;
     toastWithUndo(`${who} joined as ${asRole(role, gone.length)}`, () => {
       restore();
-      setSeatsUsed(seats);
+      setSeatsUsed((seats) => seats - gone.length);
     });
   };
 

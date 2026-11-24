@@ -168,6 +168,8 @@ export function Conversation({
   const [thread, setThread] = useState(messages);
   const [draft, setDraft] = useState('');
   const scroller = useRef<HTMLDivElement>(null);
+  // Sent messages count up from here, so two sends never share an id (or a React key).
+  const sent = useRef(0);
 
   // Keep the newest message in view.
   useEffect(() => {
@@ -178,10 +180,9 @@ export function Conversation({
     event.preventDefault();
     const text = draft.trim();
     if (!text) return;
-    setThread((thread) => [
-      ...thread,
-      { id: String(Date.now()), kind: 'text', time: 'Just now', text },
-    ]);
+    sent.current += 1;
+    const id = `sent-${sent.current}`;
+    setThread((thread) => [...thread, { id, kind: 'text', time: 'Just now', text }]);
     setDraft('');
   };
 
