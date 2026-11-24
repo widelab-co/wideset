@@ -41,7 +41,7 @@ concrete text.
    - whether it still makes sense: what `develop` already covers, what went stale, what the PR
      missed, and any Figma claim checked against Figma;
    - **before/after screenshots**: the old PR against its merge base with `develop`, through the
-     `visual-shots` skill when it is installed (else Storybook), the stories of what it touches
+     `wideset-visual-shots` skill, the stories of what it touches
      and the docs pages for a docs change; read the diff pictures and name what each shows;
    - the review threads, each with what the rebuild will do about it;
    - every decision that is not technical (business, public API, scope, a departure from Figma),
@@ -70,7 +70,7 @@ concrete text.
    `pnpm build:lib && pnpm test` after a change to build config or exports. Done when all are
    green.
 
-6. **Screenshots of the result**: `visual-shots` (or Storybook) of the new branch against
+6. **Screenshots of the result**: `wideset-visual-shots` of the new branch against
    `origin/develop`, the same stories and pages as step 2, so the user sees the old PR's look
    and ours side by side.
 
