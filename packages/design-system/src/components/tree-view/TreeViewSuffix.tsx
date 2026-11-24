@@ -7,13 +7,13 @@ import { treeViewQuietPartClassName } from './TreeView.variants';
 
 // A column at least an icon wide, so single letters and dots line up down the tree.
 const TreeViewSuffix = React.forwardRef<HTMLSpanElement, TreeViewSuffixProps>(
-  ({ className, ...props }, ref) => {
+  ({ id, className, ...props }, ref) => {
     const { suffixId } = useTreeViewItemContext();
 
     return (
       <span
         ref={ref}
-        id={suffixId}
+        id={id ?? suffixId}
         data-slot="tree-view-suffix"
         className={cn(
           'min-w-ws-9 typography-label-sm flex shrink-0 items-center justify-center tabular-nums',

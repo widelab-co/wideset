@@ -108,10 +108,12 @@ const TreeView = React.forwardRef<HTMLUListElement, TreeViewProps>(
       const root = tree.current;
       const item = event.target as HTMLElement;
       if (event.defaultPrevented || !root || item.getAttribute('role') !== 'treeitem') return;
-      // Alt+Left is the browser's Back, Ctrl/Cmd+Home scroll the page: leave chords alone.
-      // AltGr reports Ctrl+Alt on Windows and types letters such as ł or ż: those stay.
+      // Alt+Left is the browser's Back, Ctrl/Cmd+Home scroll the page: leave chords alone. A
+      // letter typed with a modifier still types ahead: AltGr (Ctrl+Alt on Windows) and Option
+      // on a Mac type letters such as ł or ż.
       const isAltGraph = event.getModifierState('AltGraph');
-      if (event.metaKey || ((event.altKey || event.ctrlKey) && !isAltGraph)) return;
+      const isPrinted = event.key.length === 1;
+      if (event.metaKey || (event.ctrlKey && !isAltGraph) || (event.altKey && !isPrinted)) return;
 
       const items = visibleItems(root);
       const index = items.indexOf(item);

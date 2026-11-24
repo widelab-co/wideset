@@ -58,6 +58,19 @@ describe('TreeView', () => {
       expect(item('src')).toBeInTheDocument();
     });
 
+    it("points the description at the suffix's own id when it has one", () => {
+      render(
+        <TreeView aria-label="Files">
+          <TreeView.Item value="src">
+            <TreeView.Label>src</TreeView.Label>
+            <TreeView.Suffix id="src-count">2</TreeView.Suffix>
+          </TreeView.Item>
+        </TreeView>,
+      );
+      expect(item('src')).toHaveAttribute('aria-describedby', 'src-count');
+      expect(item('src')).toHaveAccessibleDescription('2');
+    });
+
     it('reads the suffix as the description, after the name', () => {
       render(<Files />);
       expect(item('src')).toHaveAccessibleDescription('2');
@@ -226,6 +239,31 @@ describe('TreeView', () => {
       rerender(<Files value="package.json" />);
       rerender(<Files value="README.md" />);
       expect(item('README.md')).toHaveAttribute('tabindex', '0');
+    });
+
+    it('gives the tab stop back to the selected item when the focused one goes', async () => {
+      const { rerender } = render(<Files expanded={['src']} value="README.md" />);
+      await userEvent.tab();
+      await userEvent.keyboard('{Home}{ArrowDown}');
+      expect(item('app.tsx')).toHaveFocus();
+      rerender(<Files expanded={[]} value="README.md" />);
+      expect(item('README.md')).toHaveAttribute('tabindex', '0');
+    });
+
+    it('types ahead with a letter typed through Option or AltGr', async () => {
+      render(
+        <TreeView aria-label="Cities">
+          <TreeView.Item value="gdansk">
+            <TreeView.Label>Gdańsk</TreeView.Label>
+          </TreeView.Item>
+          <TreeView.Item value="lodz">
+            <TreeView.Label>Łódź</TreeView.Label>
+          </TreeView.Item>
+        </TreeView>,
+      );
+      await userEvent.tab();
+      await userEvent.keyboard('{Alt>}ł{/Alt}');
+      expect(item('Łódź')).toHaveFocus();
     });
 
     it('gives the tab stop to an item selected from outside', async () => {
