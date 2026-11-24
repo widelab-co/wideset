@@ -107,8 +107,6 @@ Named exports `ButtonIcon` and `ButtonTruncatedText` are the same parts for Serv
   `SplitButton`; it does not work inside `LinkButton`.
 - With `asChild` the child must be exactly one element.
 - Animations follow `MotionProvider`; `defaultMotion={false}` turns them off for one button.
-- Menu and popup triggers keep their size when `aria-haspopup` is present and not `false`.
-  Use the appropriate trigger composition or popup semantics; `onClick` alone is not inspected.
 
 ## API
 

@@ -86,8 +86,6 @@ Open state: `open` / `defaultOpen` / `onOpenChange`; `modal` blocks the page whi
 - Search with no match shows `noResultsLabel` ("No results found").
 - Danger: set it after submit or blur ("choose at least one"); the reason goes in `FormField`'s
   `errorText`.
-- The standard trigger keeps its size when pressed. Individual tag-removal controls retain
-  press scaling.
 
 ## Content
 

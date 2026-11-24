@@ -58,7 +58,6 @@ Calendar options such as `weekStartsOn` and `numberOfMonths` pass through to the
 - Empty (placeholder), filled, open, invalid (`variant="danger"`), disabled. Disabled does not open
   and leaves the tab order.
 - Picking a day closes the popup.
-- The field keeps its size when pressed. Calendar day selections retain press scaling.
 
 ## Content
 

@@ -68,8 +68,6 @@ State: `activePage` + `onChangeActivePage` (controlled) or `defaultActivePage`; 
 
 - First page disables Prev; last page disables Next.
 - Out-of-range pages are clamped to `1…pagesCount`.
-- The overflow page selector, ellipsis selector and rows-per-page selector keep their size
-  when pressed. Page buttons and previous/next actions retain press scaling.
 
 ## Content
 

@@ -1,7 +1,7 @@
 import { cva } from 'class-variance-authority';
 import { cn } from 'src/lib/utils';
 
-import { buttonPressMotion, hoverTintMotion } from '../../motion/recipes';
+import { hoverTintMotion, pressMotion } from '../../motion/recipes';
 
 export const buttonClassNames =
   'w-fit whitespace-nowrap box-border relative inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default';
@@ -207,7 +207,7 @@ export const buttonVariants = cva(buttonClassNames, {
 
 export const buttonMotionVariants = cva('', {
   variants: {
-    enabled: { true: cn(hoverTintMotion, buttonPressMotion), false: '' },
+    enabled: { true: cn(hoverTintMotion, pressMotion), false: '' },
   },
   defaultVariants: { enabled: true },
 });

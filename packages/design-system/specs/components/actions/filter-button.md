@@ -63,7 +63,6 @@ popup checklist.
 - With a selection: shows `label` plus a summary ("Active, +1") and a clear button that resets to
   `[]` in one click and returns focus to the trigger.
 - Disabled: use only while filtering is briefly unavailable, such as during a reload.
-- The filter trigger keeps its size when pressed. The clear button retains press scaling.
 
 ## Content
 

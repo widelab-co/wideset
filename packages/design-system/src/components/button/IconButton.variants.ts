@@ -1,7 +1,7 @@
 import { cva } from 'class-variance-authority';
 import { cn } from 'src/lib/utils';
 
-import { buttonPressMotion, hoverTintMotion } from '../../motion/recipes';
+import { hoverTintMotion, pressMotion } from '../../motion/recipes';
 import {
   buttonClassNames,
   buttonSizeVariants,
@@ -29,7 +29,7 @@ export const iconButtonVariants = cva(cn(buttonClassNames, 'shrink-0 px-0'), {
 
 export const iconButtonMotionVariants = cva('', {
   variants: {
-    enabled: { true: cn(hoverTintMotion, buttonPressMotion), false: '' },
+    enabled: { true: cn(hoverTintMotion, pressMotion), false: '' },
   },
   defaultVariants: { enabled: true },
 });

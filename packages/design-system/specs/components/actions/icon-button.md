@@ -86,8 +86,6 @@ What differs for icon-only use:
 - `type` defaults to `button`; set `submit` explicitly inside forms.
 - Default is `filled` + `primary`. Toolbars almost always want `preset="ghost"` and
   `variant="secondary"`.
-- Menu and popup triggers keep their size when `aria-haspopup` is present and not `false`.
-  This works through `asChild` and wrappers such as `Toast.IconAction` that forward the attribute.
 
 ## API
 
