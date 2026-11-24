@@ -279,3 +279,4 @@ checks out as a plain text file.
 | `wideset-storybook-docs`       | formatting rules for Storybook MDX pages (form only, not content)                      |
 | `wideset-component-docs`       | a component's docs page: examples, playground and its tuning                           |
 | `wideset-component-anatomy`    | a docs page's Anatomy section: composition, look, audit                                |
+| `wideset-visual-shots`         | before/after screenshots of stories or docs pages against a git ref, with a pixel diff |
