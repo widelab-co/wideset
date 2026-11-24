@@ -9,7 +9,10 @@ import type { TreeViewItem } from './TreeViewItem';
 import type { TreeViewLabel } from './TreeViewLabel';
 import type { TreeViewSuffix } from './TreeViewSuffix';
 
-/** A hierarchy of items that fold open and shut, such as files and folders. */
+/**
+ * A hierarchy of items that fold open and shut, such as files and folders. Name the tree with
+ * `aria-label` or `aria-labelledby`.
+ */
 export type TreeViewProps = Omit<HTMLAttributes<HTMLUListElement>, 'defaultValue'> &
   MotionProps & {
     /**
@@ -17,7 +20,10 @@ export type TreeViewProps = Omit<HTMLAttributes<HTMLUListElement>, 'defaultValue
      * are selected; an item with one folds open and shut instead.
      */
     value?: string;
-    /** The item selected on first render (uncontrolled). */
+    /**
+     * The item selected on first render (uncontrolled). For a controlled tree with nothing
+     * selected, pass `value=""`: `undefined` hands the selection back to the tree.
+     */
     defaultValue?: string;
     /** Fired with the item's `value` when an item is selected by click, Enter or Space. */
     onValueChange?: (value: string) => void;
@@ -32,8 +38,11 @@ export type TreeViewProps = Omit<HTMLAttributes<HTMLUListElement>, 'defaultValue
     onExpandedChange?: (expanded: string[]) => void;
   };
 
-/** One item in the tree: a row, and a `TreeView.Group` under it when it holds more items. */
-export type TreeViewItemProps = LiHTMLAttributes<HTMLLIElement> & {
+/**
+ * One item in the tree: a row, and a `TreeView.Group` under it when it holds more items.
+ * Every item needs a `TreeView.Label`: it is the item's name and what type-ahead matches.
+ */
+export type TreeViewItemProps = Omit<LiHTMLAttributes<HTMLLIElement>, 'value'> & {
   /** Identifies the item in `value` and `expanded`. Unique across the tree. */
   value: string;
   /**
@@ -46,7 +55,7 @@ export type TreeViewItemProps = LiHTMLAttributes<HTMLLIElement> & {
 /** The items one level in, under the row of the item that holds them. */
 export type TreeViewGroupProps = HTMLAttributes<HTMLUListElement>;
 
-/** The item's name; the tree reads it out and types ahead to it. */
+/** The item's name, required in every item; the tree reads it out and types ahead to it. */
 export type TreeViewLabelProps = HTMLAttributes<HTMLSpanElement>;
 
 /** Trailing content at the end of a row: a count, a status letter, a dot. */
