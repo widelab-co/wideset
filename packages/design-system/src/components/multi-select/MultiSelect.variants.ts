@@ -1,7 +1,6 @@
 import { cva } from 'class-variance-authority';
-import { cn } from 'src/lib/utils';
 
-import { hoverTintMotion, pressMotion } from '../../motion/recipes';
+import { hoverTintMotion } from '../../motion/recipes';
 
 export const multiSelectTriggerVariants = cva('', {
   variants: {
@@ -34,7 +33,7 @@ export const multiSelectTriggerVariants = cva('', {
 
 export const multiSelectTagRemoveMotionVariants = cva('', {
   variants: {
-    enabled: { true: cn(hoverTintMotion, pressMotion), false: '' },
+    enabled: { true: hoverTintMotion, false: '' },
   },
   defaultVariants: { enabled: true },
 });

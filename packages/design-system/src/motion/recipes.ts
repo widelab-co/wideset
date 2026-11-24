@@ -14,6 +14,15 @@ export const pressMotion = cn(
   'not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)',
 );
 
+/** Menu, select and picker lists: a short fade in and out, no zoom or slide. Durations carry the state variant to beat animate-in/out's own 150ms. */
+export const menuFadeMotion = cn(
+  'transition-none ease-(--ws-motion-ease-out)',
+  'data-[state=open]:animate-in data-[state=open]:fade-in-0',
+  'data-[state=open]:duration-(--ws-motion-duration-quick)',
+  'data-[state=closed]:animate-out data-[state=closed]:fade-out-0',
+  'data-[state=closed]:duration-(--ws-motion-duration-quick)',
+);
+
 export const switchTrackMotion =
   'transition-[background-color] duration-(--ws-motion-duration-micro) ease-(--ws-motion-ease-out)';
 
