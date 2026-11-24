@@ -145,6 +145,45 @@ describe('Shortcut', () => {
     });
   });
 
+  describe('Variants', () => {
+    it('keeps the default colours unless asked', () => {
+      render(
+        <Shortcut data-testid="shortcut">
+          <Shortcut.Key>K</Shortcut.Key>
+        </Shortcut>,
+      );
+
+      const shortcut = screen.getByTestId('shortcut');
+      expect(shortcut).toHaveClass('text-ws-static-subtle');
+      expect(shortcut).not.toHaveClass('text-ws-static-inverse-subtle');
+    });
+
+    it('draws inverse text and stroke for a dark surface', () => {
+      render(
+        <Shortcut variant="inverse" data-testid="shortcut">
+          <Shortcut.Key>K</Shortcut.Key>
+        </Shortcut>,
+      );
+
+      const shortcut = screen.getByTestId('shortcut');
+      expect(shortcut).toHaveClass('text-ws-static-inverse-subtle');
+      expect(shortcut).toHaveClass('inset-ring-(--ws-static-stroke-inverse-base)');
+      expect(shortcut).not.toHaveClass('text-ws-static-subtle');
+    });
+
+    it('draws no stroke for weak inverse', () => {
+      render(
+        <Shortcut variant="inverse" emphasis="weak" data-testid="shortcut">
+          <Shortcut.Key>K</Shortcut.Key>
+        </Shortcut>,
+      );
+
+      expect(screen.getByTestId('shortcut')).not.toHaveClass(
+        'inset-ring-(--ws-static-stroke-inverse-base)',
+      );
+    });
+  });
+
   describe('Snapshots', () => {
     it.each(emphases)('should match snapshot for emphasis="%s"', (emphasis) => {
       const { container } = render(

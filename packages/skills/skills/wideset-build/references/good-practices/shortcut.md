@@ -35,6 +35,5 @@
 - The default Inter subsets of Fontsource and Google Fonts leave out `⌘ ⇧ ⌥ ⌃`, so the browser
   draws them from a fallback font. Load those four glyphs as well, for example a Google Fonts
   request with `&text=⌘⇧⌥⌃`.
-- Shortcut is drawn for the theme's own surfaces (page, card, menu). On the default `Tooltip`,
-  which is inverted, the cap's stroke disappears and the keys lose contrast; there is no inverted
-  Shortcut yet.
+- On the default `Tooltip`, which is inverted, use `variant="inverse"`; the default variant's
+  stroke disappears there and the keys lose contrast.

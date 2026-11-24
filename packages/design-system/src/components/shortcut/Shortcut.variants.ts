@@ -11,6 +11,8 @@ import { cn } from 'src/lib/utils';
  * Strong is a cap: Size/12 high, Gap/4 × Gap/2 padding, Corner Radius/Control/md and a 1px
  * Static/Stroke/Base stroke drawn inside the frame. A CSS border would add 2px to the hugged width,
  * so the stroke is an inset ring, as on Tile. Weak is the bare keys, Size/11 high.
+ * Inverse (not in Figma yet) swaps the text and stroke for their Static/Inverse pair, for a dark
+ * surface such as the default Tooltip.
  */
 export const shortcutVariants = cva(
   cn(
@@ -24,9 +26,21 @@ export const shortcutVariants = cva(
           'h-ws-12 px-ws-4 py-ws-2 rounded-ws-control-md inset-ring inset-ring-(--ws-static-stroke-base)',
         weak: 'h-ws-11',
       },
+      variant: {
+        default: '',
+        inverse: 'text-ws-static-inverse-subtle',
+      },
     },
+    compoundVariants: [
+      {
+        emphasis: 'strong',
+        variant: 'inverse',
+        className: 'inset-ring-(--ws-static-stroke-inverse-base)',
+      },
+    ],
     defaultVariants: {
       emphasis: 'strong',
+      variant: 'default',
     },
   },
 );

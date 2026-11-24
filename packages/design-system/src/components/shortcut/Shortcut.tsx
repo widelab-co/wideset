@@ -6,11 +6,11 @@ import { shortcutVariants } from './Shortcut.variants';
 import { ShortcutKey } from './ShortcutKey';
 
 const Shortcut = forwardRef<HTMLElement, ShortcutProps>(
-  ({ className, emphasis, ...props }, ref) => (
+  ({ className, emphasis, variant, ...props }, ref) => (
     <kbd
       ref={ref}
       data-slot="shortcut"
-      className={cn(shortcutVariants({ emphasis }), className)}
+      className={cn(shortcutVariants({ emphasis, variant }), className)}
       {...props}
     />
   ),

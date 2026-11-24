@@ -17,6 +17,11 @@ export type ShortcutProps = HTMLAttributes<HTMLElement> & {
    * the bare keys, for a shortcut inside a line of text.
    */
   emphasis?: VariantProps<typeof shortcutVariants>['emphasis'];
+  /**
+   * `inverse` draws the keys for a dark surface, such as the default `Tooltip`.
+   * @default 'default'
+   */
+  variant?: VariantProps<typeof shortcutVariants>['variant'];
   /** The keys, one `Shortcut.Key` each, in the order they are pressed. */
   children?: ReactNode;
   /** Additional CSS classes for layout overrides. */

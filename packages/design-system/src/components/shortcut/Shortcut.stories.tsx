@@ -7,6 +7,8 @@ import KeysExample from './examples/shortcut/keys';
 import keysSource from './examples/shortcut/keys?raw';
 import MenuExample from './examples/shortcut/menu';
 import menuSource from './examples/shortcut/menu?raw';
+import VariantsExample from './examples/shortcut/variants';
+import variantsSource from './examples/shortcut/variants?raw';
 import { Shortcut } from './Shortcut';
 
 const meta = {
@@ -38,6 +40,16 @@ Use Tag or StatusBadge for a label that is not a key.
         category: 'Appearance',
         type: { summary: "'strong' | 'weak'" },
         defaultValue: { summary: 'strong' },
+      },
+    },
+    variant: {
+      control: 'radio',
+      options: ['default', 'inverse'],
+      description: '`inverse` draws the keys for a dark surface, such as the default Tooltip.',
+      table: {
+        category: 'Appearance',
+        type: { summary: "'default' | 'inverse'" },
+        defaultValue: { summary: 'default' },
       },
     },
     children: {
@@ -81,6 +93,8 @@ export const Default: Story = {
 };
 
 export const Emphasis: Story = exampleStory(EmphasisExample, emphasisSource);
+
+export const Variants: Story = exampleStory(VariantsExample, variantsSource);
 
 export const Keys: Story = exampleStory(KeysExample, keysSource);
 

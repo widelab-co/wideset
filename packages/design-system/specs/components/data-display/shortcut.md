@@ -56,6 +56,8 @@ One `Shortcut.Key` per key, in the order they are pressed. `ShortcutKey` is the 
 | ---------- | ------------------ | ------------------------------------------------------------------------ |
 | `emphasis` | `strong` (default) | Menu and sidebar rows: the bordered cap sets the keys apart from labels. |
 |            | `weak`             | Inside a line of text: the bare keys, at the height of body text.        |
+| `variant`  | `default`          | The theme's own surfaces: page, card, menu, popover.                     |
+|            | `inverse`          | A dark, inverted surface such as the default Tooltip.                    |
 
 ## Content
 
@@ -100,9 +102,8 @@ One `Shortcut.Key` per key, in the order they are pressed. `ShortcutKey` is the 
 - The default Inter subsets of Fontsource and Google Fonts leave out `⌘ ⇧ ⌥ ⌃`, so the browser
   draws them from a fallback font. Load those four glyphs as well, for example a Google Fonts
   request with `&text=⌘⇧⌥⌃`.
-- Shortcut is drawn for the theme's own surfaces (page, card, menu). On the default `Tooltip`,
-  which is inverted, the cap's stroke disappears and the keys lose contrast; there is no inverted
-  Shortcut yet.
+- On the default `Tooltip`, which is inverted, use `variant="inverse"`; the default variant's
+  stroke disappears there and the keys lose contrast.
 
 ## API
 
