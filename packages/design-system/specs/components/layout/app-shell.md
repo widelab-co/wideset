@@ -62,7 +62,8 @@ A `Sidebar` inside `AppShell` takes the matching surface on its own: the bare gr
 nav centred in the column (inset, canvas), white with a line (flat), grey tint (frame). Pass
 nothing to it. Choose by the product, not by taste, and keep one direction for every screen of the
 app. Ask the user which direction they want before the first screen, unless the prompt already
-says; without a way to ask, take `inset`.
+says; without a way to ask, take the default [Visual directions](../../patterns/directions.md)
+names.
 
 With a top bar instead of a `Sidebar`, the bar is the first child of `AppShell.Main` and scrolls
 with the page. In `canvas` it has no fill and no line: it sits on the grey, and the white sections

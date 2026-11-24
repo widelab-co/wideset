@@ -14,9 +14,10 @@ const REPO = resolve(dirname(fileURLToPath(import.meta.url)), '../../..');
 const PATTERN = 'packages/design-system/specs/patterns/directions.md';
 const read = (file: string) => readFileSync(join(REPO, file), 'utf8');
 
-// A direction's name and "default" in one clause, either way round.
+// A direction's name and "default" in one clause, either way round, or a fallback that names
+// one ("without a way to ask, take `inset`").
 const STATES_DEFAULT =
-  /\b(inset|flat|frame|canvas)\b[^.\n]{0,25}\bdefault\b|\bdefault\b[^.\n]{0,25}\b(inset|flat|frame|canvas)\b/i;
+  /\b(inset|flat|frame|canvas)\b[^.\n]{0,25}\bdefault\b|\bdefault\b[^.\n]{0,25}\b(inset|flat|frame|canvas)\b|\btake `?(inset|flat|frame|canvas)\b/i;
 
 const prose = execFileSync(
   'git',
