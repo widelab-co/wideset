@@ -25,7 +25,10 @@ const TreeViewItem = React.forwardRef<HTMLLIElement, TreeViewItemProps>(
     const all = Children.toArray(children);
     const group = all.find((child) => isValidElement(child) && child.type === TreeViewGroup);
     const row = all.filter((child) => child !== group);
-    const hasSuffix = row.some((child) => isValidElement(child) && child.type === TreeViewSuffix);
+    const suffix = row.find(
+      (child): child is React.ReactElement<{ id?: string }> =>
+        isValidElement(child) && child.type === TreeViewSuffix,
+    );
 
     const isBranch = group !== undefined;
     const expanded = isBranch && currentExpanded.includes(value);
@@ -46,7 +49,7 @@ const TreeViewItem = React.forwardRef<HTMLLIElement, TreeViewItemProps>(
           aria-level={level}
           aria-labelledby={labelId}
           // The suffix (a count, "modified") is read after the name, not as part of it.
-          aria-describedby={hasSuffix ? suffixId : undefined}
+          aria-describedby={suffix ? (suffix.props.id ?? suffixId) : undefined}
           aria-expanded={isBranch ? expanded : undefined}
           aria-selected={isBranch ? undefined : selected}
           aria-disabled={disabled || undefined}

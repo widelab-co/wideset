@@ -17,13 +17,11 @@ export type TreeViewProps = Omit<HTMLAttributes<HTMLUListElement>, 'defaultValue
   MotionProps & {
     /**
      * The `value` of the selected item (controlled). Only items without a `TreeView.Group`
-     * are selected; an item with one folds open and shut instead.
+     * are selected; an item with one folds open and shut instead. For a controlled tree with
+     * nothing selected, pass `""`: `undefined` hands the selection back to the tree.
      */
     value?: string;
-    /**
-     * The item selected on first render (uncontrolled). For a controlled tree with nothing
-     * selected, pass `value=""`: `undefined` hands the selection back to the tree.
-     */
+    /** The item selected on first render (uncontrolled). */
     defaultValue?: string;
     /** Fired with the item's `value` when an item is selected by click, Enter or Space. */
     onValueChange?: (value: string) => void;
@@ -58,7 +56,7 @@ export type TreeViewGroupProps = HTMLAttributes<HTMLUListElement>;
 /** The item's name, required in every item; the tree reads it out and types ahead to it. */
 export type TreeViewLabelProps = HTMLAttributes<HTMLSpanElement>;
 
-/** Trailing content at the end of a row: a count, a status letter, a dot. */
+/** Trailing content at the end of a row: a count, a status letter, a dot. One per item. */
 export type TreeViewSuffixProps = HTMLAttributes<HTMLSpanElement>;
 
 /** An icon before the item's label. */

@@ -109,7 +109,9 @@ const TreeView = React.forwardRef<HTMLUListElement, TreeViewProps>(
       const item = event.target as HTMLElement;
       if (event.defaultPrevented || !root || item.getAttribute('role') !== 'treeitem') return;
       // Alt+Left is the browser's Back, Ctrl/Cmd+Home scroll the page: leave chords alone.
-      if (event.altKey || event.ctrlKey || event.metaKey) return;
+      // AltGr reports Ctrl+Alt on Windows and types letters such as ł or ż: those stay.
+      const isAltGraph = event.getModifierState('AltGraph');
+      if (event.metaKey || ((event.altKey || event.ctrlKey) && !isAltGraph)) return;
 
       const items = visibleItems(root);
       const index = items.indexOf(item);
