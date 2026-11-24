@@ -52,6 +52,12 @@ describe('TreeView', () => {
       expect(item('src')).toBeInTheDocument();
     });
 
+    it('reads the suffix as the description, after the name', () => {
+      render(<Files />);
+      expect(item('src')).toHaveAccessibleDescription('2');
+      expect(item('package.json')).not.toHaveAttribute('aria-describedby');
+    });
+
     it('marks a branch with aria-expanded and a leaf with aria-selected', () => {
       render(<Files />);
       expect(item('src')).toHaveAttribute('aria-expanded', 'false');

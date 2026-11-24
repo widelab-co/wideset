@@ -71,6 +71,7 @@ export type TreeViewContextType = {
 export type TreeViewItemContextType = {
   expanded: boolean;
   labelId: string;
+  suffixId: string;
 };
 
 export type TreeViewWithSubComponents = React.ForwardRefExoticComponent<

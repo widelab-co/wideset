@@ -8,8 +8,9 @@ exports[`TreeView > Rendering > matches the snapshot 1`] = `
   role="tree"
 >
   <li
+    aria-describedby="_r_2p_"
     aria-expanded="true"
-    aria-labelledby="_r_18_"
+    aria-labelledby="_r_2o_"
     aria-level="1"
     class="outline-none [&:focus-visible>[data-slot=tree-view-item-row]]:wds-focus-visible [&:focus-visible>[data-slot=tree-view-item-row]]:-outline-offset-2 [&:focus-visible>[data-slot=tree-view-item-row]]:outline-ws-dynamic-primary-strong-default"
     data-slot="tree-view-item"
@@ -53,13 +54,14 @@ exports[`TreeView > Rendering > matches the snapshot 1`] = `
       <span
         class="min-w-0 flex-1 truncate"
         data-slot="tree-view-label"
-        id="_r_18_"
+        id="_r_2o_"
       >
         src
       </span>
       <span
         class="min-w-ws-9 typography-label-sm text-ws-static-subtle flex shrink-0 items-center justify-center tabular-nums"
         data-slot="tree-view-suffix"
+        id="_r_2p_"
       >
         2
       </span>
@@ -70,7 +72,7 @@ exports[`TreeView > Rendering > matches the snapshot 1`] = `
       role="group"
     >
       <li
-        aria-labelledby="_r_19_"
+        aria-labelledby="_r_2q_"
         aria-level="2"
         aria-selected="true"
         class="outline-none [&:focus-visible>[data-slot=tree-view-item-row]]:wds-focus-visible [&:focus-visible>[data-slot=tree-view-item-row]]:-outline-offset-2 [&:focus-visible>[data-slot=tree-view-item-row]]:outline-ws-dynamic-primary-strong-default"
@@ -90,14 +92,14 @@ exports[`TreeView > Rendering > matches the snapshot 1`] = `
           <span
             class="min-w-0 flex-1 truncate"
             data-slot="tree-view-label"
-            id="_r_19_"
+            id="_r_2q_"
           >
             app.tsx
           </span>
         </div>
       </li>
       <li
-        aria-labelledby="_r_1a_"
+        aria-labelledby="_r_2s_"
         aria-level="2"
         aria-selected="false"
         class="outline-none [&:focus-visible>[data-slot=tree-view-item-row]]:wds-focus-visible [&:focus-visible>[data-slot=tree-view-item-row]]:-outline-offset-2 [&:focus-visible>[data-slot=tree-view-item-row]]:outline-ws-dynamic-primary-strong-default"
@@ -117,7 +119,7 @@ exports[`TreeView > Rendering > matches the snapshot 1`] = `
           <span
             class="min-w-0 flex-1 truncate"
             data-slot="tree-view-label"
-            id="_r_1a_"
+            id="_r_2s_"
           >
             main.tsx
           </span>
@@ -126,7 +128,7 @@ exports[`TreeView > Rendering > matches the snapshot 1`] = `
     </ul>
   </li>
   <li
-    aria-labelledby="_r_1b_"
+    aria-labelledby="_r_2u_"
     aria-level="1"
     aria-selected="false"
     class="outline-none [&:focus-visible>[data-slot=tree-view-item-row]]:wds-focus-visible [&:focus-visible>[data-slot=tree-view-item-row]]:-outline-offset-2 [&:focus-visible>[data-slot=tree-view-item-row]]:outline-ws-dynamic-primary-strong-default"
@@ -146,7 +148,7 @@ exports[`TreeView > Rendering > matches the snapshot 1`] = `
       <span
         class="min-w-0 flex-1 truncate"
         data-slot="tree-view-label"
-        id="_r_1b_"
+        id="_r_2u_"
       >
         package.json
       </span>
@@ -155,7 +157,7 @@ exports[`TreeView > Rendering > matches the snapshot 1`] = `
   <li
     aria-disabled="true"
     aria-expanded="false"
-    aria-labelledby="_r_1c_"
+    aria-labelledby="_r_30_"
     aria-level="1"
     class="outline-none [&:focus-visible>[data-slot=tree-view-item-row]]:wds-focus-visible [&:focus-visible>[data-slot=tree-view-item-row]]:-outline-offset-2 [&:focus-visible>[data-slot=tree-view-item-row]]:outline-ws-dynamic-primary-strong-default"
     data-slot="tree-view-item"
@@ -185,14 +187,14 @@ exports[`TreeView > Rendering > matches the snapshot 1`] = `
       <span
         class="min-w-0 flex-1 truncate"
         data-slot="tree-view-label"
-        id="_r_1c_"
+        id="_r_30_"
       >
         private
       </span>
     </div>
   </li>
   <li
-    aria-labelledby="_r_1d_"
+    aria-labelledby="_r_32_"
     aria-level="1"
     aria-selected="false"
     class="outline-none [&:focus-visible>[data-slot=tree-view-item-row]]:wds-focus-visible [&:focus-visible>[data-slot=tree-view-item-row]]:-outline-offset-2 [&:focus-visible>[data-slot=tree-view-item-row]]:outline-ws-dynamic-primary-strong-default"
@@ -212,7 +214,7 @@ exports[`TreeView > Rendering > matches the snapshot 1`] = `
       <span
         class="min-w-0 flex-1 truncate"
         data-slot="tree-view-label"
-        id="_r_1d_"
+        id="_r_32_"
       >
         README.md
       </span>

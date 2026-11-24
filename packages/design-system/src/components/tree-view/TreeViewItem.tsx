@@ -10,24 +10,31 @@ import {
   treeViewItemVariants,
 } from './TreeView.variants';
 import { TreeViewGroup } from './TreeViewGroup';
+import { TreeViewSuffix } from './TreeViewSuffix';
 
 const TreeViewItem = React.forwardRef<HTMLLIElement, TreeViewItemProps>(
   ({ value, disabled = false, className, children, onFocus, ...props }, ref) => {
     const { currentValue, currentExpanded, tabStop, motion, focusItem } = useTreeViewContext();
     const level = useContext(TreeViewLevelContext);
     const labelId = useId();
+    const suffixId = useId();
 
     // The group goes under the row; everything else (icon, label, suffix) is the row.
-    // Wrapping TreeView.Group in your own component hides it from this: pass it directly.
+    // Wrapping TreeView.Group or TreeView.Suffix in your own component hides it from this:
+    // pass them directly.
     const all = Children.toArray(children);
     const group = all.find((child) => isValidElement(child) && child.type === TreeViewGroup);
     const row = all.filter((child) => child !== group);
+    const hasSuffix = row.some((child) => isValidElement(child) && child.type === TreeViewSuffix);
 
     const isBranch = group !== undefined;
     const expanded = isBranch && currentExpanded.includes(value);
     const selected = !isBranch && currentValue === value;
 
-    const itemContext = useMemo(() => ({ expanded, labelId }), [expanded, labelId]);
+    const itemContext = useMemo(
+      () => ({ expanded, labelId, suffixId }),
+      [expanded, labelId, suffixId],
+    );
 
     return (
       <TreeViewItemContext.Provider value={itemContext}>
@@ -38,6 +45,8 @@ const TreeViewItem = React.forwardRef<HTMLLIElement, TreeViewItemProps>(
           data-value={value}
           aria-level={level}
           aria-labelledby={labelId}
+          // The suffix (a count, "modified") is read after the name, not as part of it.
+          aria-describedby={hasSuffix ? suffixId : undefined}
           aria-expanded={isBranch ? expanded : undefined}
           aria-selected={isBranch ? undefined : selected}
           aria-disabled={disabled || undefined}
