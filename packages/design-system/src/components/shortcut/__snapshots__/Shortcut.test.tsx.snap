@@ -1,0 +1,63 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Shortcut > Snapshots > should match snapshot for emphasis="strong" 1`] = `
+<div>
+  <kbd
+    class="inline-flex items-center whitespace-nowrap typography-caption-md text-ws-static-subtle font-[family-name:inherit] h-ws-12 px-ws-4 py-ws-2 rounded-ws-control-md inset-ring inset-ring-(--ws-static-stroke-base)"
+    data-slot="shortcut"
+  >
+    <kbd
+      class="flex items-center justify-center font-[family-name:inherit] min-w-ws-9"
+      data-slot="shortcut-key"
+    >
+      <span
+        aria-hidden="true"
+      >
+        ⌘
+      </span>
+      <span
+        class="sr-only"
+      >
+        Command
+      </span>
+    </kbd>
+    <kbd
+      class="flex items-center justify-center font-[family-name:inherit] min-w-ws-8"
+      data-slot="shortcut-key"
+    >
+      K
+    </kbd>
+  </kbd>
+</div>
+`;
+
+exports[`Shortcut > Snapshots > should match snapshot for emphasis="weak" 1`] = `
+<div>
+  <kbd
+    class="inline-flex items-center whitespace-nowrap typography-caption-md text-ws-static-subtle font-[family-name:inherit] h-ws-11"
+    data-slot="shortcut"
+  >
+    <kbd
+      class="flex items-center justify-center font-[family-name:inherit] min-w-ws-9"
+      data-slot="shortcut-key"
+    >
+      <span
+        aria-hidden="true"
+      >
+        ⌘
+      </span>
+      <span
+        class="sr-only"
+      >
+        Command
+      </span>
+    </kbd>
+    <kbd
+      class="flex items-center justify-center font-[family-name:inherit] min-w-ws-8"
+      data-slot="shortcut-key"
+    >
+      K
+    </kbd>
+  </kbd>
+</div>
+`;
