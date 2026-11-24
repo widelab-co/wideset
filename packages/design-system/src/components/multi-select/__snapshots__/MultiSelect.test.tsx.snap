@@ -68,7 +68,7 @@ exports[`MultiSelect Snapshots > Size: lg > matches snapshot for border lg clear
           Poland
           <span
             aria-hidden="true"
-            class="inline-flex cursor-pointer items-center justify-center rounded-full p-0 size-ws-12 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+            class="inline-flex cursor-pointer items-center justify-center rounded-full p-0 size-ws-12 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
           >
             <svg
               aria-hidden="true"
@@ -105,7 +105,7 @@ exports[`MultiSelect Snapshots > Size: lg > matches snapshot for border lg clear
   </button>
   <button
     aria-label="Clear selection"
-    class="whitespace-nowrap box-border inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default typography-label-strong-sm gap-ws-3 bg-ws-dynamic-secondary-alpha-default text-ws-dynamic-secondary-default outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover hover:text-ws-dynamic-secondary-hover active:bg-ws-dynamic-secondary-alpha-pressed active:text-ws-dynamic-secondary-pressed disabled:text-ws-dynamic-secondary-disabled disabled:bg-none transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) not-[[aria-haspopup]:not([aria-haspopup=false])]:active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) not-[[aria-haspopup]:not([aria-haspopup=false])]:active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small) relative shrink-0 rounded-full p-0 size-ws-14 mr-[calc(var(--spacing-ws-17)+1px)] -ml-[calc(var(--spacing-ws-17)+var(--spacing-ws-14)+1px)]"
+    class="whitespace-nowrap box-border inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default typography-label-strong-sm gap-ws-3 bg-ws-dynamic-secondary-alpha-default text-ws-dynamic-secondary-default outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover hover:text-ws-dynamic-secondary-hover active:bg-ws-dynamic-secondary-alpha-pressed active:text-ws-dynamic-secondary-pressed disabled:text-ws-dynamic-secondary-disabled disabled:bg-none transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small) relative shrink-0 rounded-full p-0 size-ws-14 mr-[calc(var(--spacing-ws-17)+1px)] -ml-[calc(var(--spacing-ws-17)+var(--spacing-ws-14)+1px)]"
     data-slot="icon-button"
     type="button"
   >
@@ -267,7 +267,7 @@ exports[`MultiSelect Snapshots > Size: lg > matches snapshot for border lg with 
           Poland
           <span
             aria-hidden="true"
-            class="inline-flex cursor-pointer items-center justify-center rounded-full p-0 size-ws-12 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+            class="inline-flex cursor-pointer items-center justify-center rounded-full p-0 size-ws-12 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
           >
             <svg
               aria-hidden="true"
@@ -292,7 +292,7 @@ exports[`MultiSelect Snapshots > Size: lg > matches snapshot for border lg with 
           USA
           <span
             aria-hidden="true"
-            class="inline-flex cursor-pointer items-center justify-center rounded-full p-0 size-ws-12 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+            class="inline-flex cursor-pointer items-center justify-center rounded-full p-0 size-ws-12 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
           >
             <svg
               aria-hidden="true"
@@ -398,7 +398,7 @@ exports[`MultiSelect Snapshots > Size: lg > matches snapshot for ghost lg cleara
           Poland
           <span
             aria-hidden="true"
-            class="inline-flex cursor-pointer items-center justify-center rounded-full p-0 size-ws-12 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+            class="inline-flex cursor-pointer items-center justify-center rounded-full p-0 size-ws-12 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
           >
             <svg
               aria-hidden="true"
@@ -435,7 +435,7 @@ exports[`MultiSelect Snapshots > Size: lg > matches snapshot for ghost lg cleara
   </button>
   <button
     aria-label="Clear selection"
-    class="whitespace-nowrap box-border inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default typography-label-strong-sm gap-ws-3 bg-ws-dynamic-secondary-alpha-default text-ws-dynamic-secondary-default outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover hover:text-ws-dynamic-secondary-hover active:bg-ws-dynamic-secondary-alpha-pressed active:text-ws-dynamic-secondary-pressed disabled:text-ws-dynamic-secondary-disabled disabled:bg-none transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) not-[[aria-haspopup]:not([aria-haspopup=false])]:active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) not-[[aria-haspopup]:not([aria-haspopup=false])]:active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small) relative shrink-0 rounded-full p-0 size-ws-14 mr-[calc(var(--spacing-ws-17)+1px)] -ml-[calc(var(--spacing-ws-17)+var(--spacing-ws-14)+1px)]"
+    class="whitespace-nowrap box-border inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default typography-label-strong-sm gap-ws-3 bg-ws-dynamic-secondary-alpha-default text-ws-dynamic-secondary-default outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover hover:text-ws-dynamic-secondary-hover active:bg-ws-dynamic-secondary-alpha-pressed active:text-ws-dynamic-secondary-pressed disabled:text-ws-dynamic-secondary-disabled disabled:bg-none transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small) relative shrink-0 rounded-full p-0 size-ws-14 mr-[calc(var(--spacing-ws-17)+1px)] -ml-[calc(var(--spacing-ws-17)+var(--spacing-ws-14)+1px)]"
     data-slot="icon-button"
     type="button"
   >
@@ -597,7 +597,7 @@ exports[`MultiSelect Snapshots > Size: lg > matches snapshot for ghost lg with v
           Poland
           <span
             aria-hidden="true"
-            class="inline-flex cursor-pointer items-center justify-center rounded-full p-0 size-ws-12 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+            class="inline-flex cursor-pointer items-center justify-center rounded-full p-0 size-ws-12 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
           >
             <svg
               aria-hidden="true"
@@ -622,7 +622,7 @@ exports[`MultiSelect Snapshots > Size: lg > matches snapshot for ghost lg with v
           USA
           <span
             aria-hidden="true"
-            class="inline-flex cursor-pointer items-center justify-center rounded-full p-0 size-ws-12 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+            class="inline-flex cursor-pointer items-center justify-center rounded-full p-0 size-ws-12 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
           >
             <svg
               aria-hidden="true"
@@ -728,7 +728,7 @@ exports[`MultiSelect Snapshots > Size: md > matches snapshot for border md clear
           Poland
           <span
             aria-hidden="true"
-            class="inline-flex cursor-pointer items-center justify-center rounded-full p-0 size-ws-10 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+            class="inline-flex cursor-pointer items-center justify-center rounded-full p-0 size-ws-10 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
           >
             <svg
               aria-hidden="true"
@@ -765,7 +765,7 @@ exports[`MultiSelect Snapshots > Size: md > matches snapshot for border md clear
   </button>
   <button
     aria-label="Clear selection"
-    class="whitespace-nowrap box-border inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default typography-label-strong-sm gap-ws-3 bg-ws-dynamic-secondary-alpha-default text-ws-dynamic-secondary-default outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover hover:text-ws-dynamic-secondary-hover active:bg-ws-dynamic-secondary-alpha-pressed active:text-ws-dynamic-secondary-pressed disabled:text-ws-dynamic-secondary-disabled disabled:bg-none transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) not-[[aria-haspopup]:not([aria-haspopup=false])]:active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) not-[[aria-haspopup]:not([aria-haspopup=false])]:active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small) relative shrink-0 rounded-full p-0 size-ws-13 mr-[calc(var(--spacing-ws-15)+1px)] -ml-[calc(var(--spacing-ws-15)+var(--spacing-ws-13)+1px)]"
+    class="whitespace-nowrap box-border inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default typography-label-strong-sm gap-ws-3 bg-ws-dynamic-secondary-alpha-default text-ws-dynamic-secondary-default outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover hover:text-ws-dynamic-secondary-hover active:bg-ws-dynamic-secondary-alpha-pressed active:text-ws-dynamic-secondary-pressed disabled:text-ws-dynamic-secondary-disabled disabled:bg-none transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small) relative shrink-0 rounded-full p-0 size-ws-13 mr-[calc(var(--spacing-ws-15)+1px)] -ml-[calc(var(--spacing-ws-15)+var(--spacing-ws-13)+1px)]"
     data-slot="icon-button"
     type="button"
   >
@@ -927,7 +927,7 @@ exports[`MultiSelect Snapshots > Size: md > matches snapshot for border md with 
           Poland
           <span
             aria-hidden="true"
-            class="inline-flex cursor-pointer items-center justify-center rounded-full p-0 size-ws-10 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+            class="inline-flex cursor-pointer items-center justify-center rounded-full p-0 size-ws-10 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
           >
             <svg
               aria-hidden="true"
@@ -952,7 +952,7 @@ exports[`MultiSelect Snapshots > Size: md > matches snapshot for border md with 
           USA
           <span
             aria-hidden="true"
-            class="inline-flex cursor-pointer items-center justify-center rounded-full p-0 size-ws-10 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+            class="inline-flex cursor-pointer items-center justify-center rounded-full p-0 size-ws-10 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
           >
             <svg
               aria-hidden="true"
@@ -1058,7 +1058,7 @@ exports[`MultiSelect Snapshots > Size: md > matches snapshot for ghost md cleara
           Poland
           <span
             aria-hidden="true"
-            class="inline-flex cursor-pointer items-center justify-center rounded-full p-0 size-ws-10 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+            class="inline-flex cursor-pointer items-center justify-center rounded-full p-0 size-ws-10 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
           >
             <svg
               aria-hidden="true"
@@ -1095,7 +1095,7 @@ exports[`MultiSelect Snapshots > Size: md > matches snapshot for ghost md cleara
   </button>
   <button
     aria-label="Clear selection"
-    class="whitespace-nowrap box-border inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default typography-label-strong-sm gap-ws-3 bg-ws-dynamic-secondary-alpha-default text-ws-dynamic-secondary-default outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover hover:text-ws-dynamic-secondary-hover active:bg-ws-dynamic-secondary-alpha-pressed active:text-ws-dynamic-secondary-pressed disabled:text-ws-dynamic-secondary-disabled disabled:bg-none transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) not-[[aria-haspopup]:not([aria-haspopup=false])]:active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) not-[[aria-haspopup]:not([aria-haspopup=false])]:active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small) relative shrink-0 rounded-full p-0 size-ws-13 mr-[calc(var(--spacing-ws-15)+1px)] -ml-[calc(var(--spacing-ws-15)+var(--spacing-ws-13)+1px)]"
+    class="whitespace-nowrap box-border inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default typography-label-strong-sm gap-ws-3 bg-ws-dynamic-secondary-alpha-default text-ws-dynamic-secondary-default outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover hover:text-ws-dynamic-secondary-hover active:bg-ws-dynamic-secondary-alpha-pressed active:text-ws-dynamic-secondary-pressed disabled:text-ws-dynamic-secondary-disabled disabled:bg-none transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small) relative shrink-0 rounded-full p-0 size-ws-13 mr-[calc(var(--spacing-ws-15)+1px)] -ml-[calc(var(--spacing-ws-15)+var(--spacing-ws-13)+1px)]"
     data-slot="icon-button"
     type="button"
   >
@@ -1257,7 +1257,7 @@ exports[`MultiSelect Snapshots > Size: md > matches snapshot for ghost md with v
           Poland
           <span
             aria-hidden="true"
-            class="inline-flex cursor-pointer items-center justify-center rounded-full p-0 size-ws-10 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+            class="inline-flex cursor-pointer items-center justify-center rounded-full p-0 size-ws-10 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
           >
             <svg
               aria-hidden="true"
@@ -1282,7 +1282,7 @@ exports[`MultiSelect Snapshots > Size: md > matches snapshot for ghost md with v
           USA
           <span
             aria-hidden="true"
-            class="inline-flex cursor-pointer items-center justify-center rounded-full p-0 size-ws-10 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+            class="inline-flex cursor-pointer items-center justify-center rounded-full p-0 size-ws-10 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
           >
             <svg
               aria-hidden="true"
@@ -1388,7 +1388,7 @@ exports[`MultiSelect Snapshots > Size: sm > matches snapshot for border sm clear
           Poland
           <span
             aria-hidden="true"
-            class="inline-flex cursor-pointer items-center justify-center rounded-full p-0 size-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+            class="inline-flex cursor-pointer items-center justify-center rounded-full p-0 size-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
           >
             <svg
               aria-hidden="true"
@@ -1425,7 +1425,7 @@ exports[`MultiSelect Snapshots > Size: sm > matches snapshot for border sm clear
   </button>
   <button
     aria-label="Clear selection"
-    class="whitespace-nowrap box-border inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default typography-label-strong-sm gap-ws-3 bg-ws-dynamic-secondary-alpha-default text-ws-dynamic-secondary-default outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover hover:text-ws-dynamic-secondary-hover active:bg-ws-dynamic-secondary-alpha-pressed active:text-ws-dynamic-secondary-pressed disabled:text-ws-dynamic-secondary-disabled disabled:bg-none transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) not-[[aria-haspopup]:not([aria-haspopup=false])]:active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) not-[[aria-haspopup]:not([aria-haspopup=false])]:active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small) relative shrink-0 rounded-full p-0 size-ws-11 mr-[calc(var(--spacing-ws-13)+1px)] -ml-[calc(var(--spacing-ws-13)+var(--spacing-ws-11)+1px)]"
+    class="whitespace-nowrap box-border inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default typography-label-strong-sm gap-ws-3 bg-ws-dynamic-secondary-alpha-default text-ws-dynamic-secondary-default outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover hover:text-ws-dynamic-secondary-hover active:bg-ws-dynamic-secondary-alpha-pressed active:text-ws-dynamic-secondary-pressed disabled:text-ws-dynamic-secondary-disabled disabled:bg-none transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small) relative shrink-0 rounded-full p-0 size-ws-11 mr-[calc(var(--spacing-ws-13)+1px)] -ml-[calc(var(--spacing-ws-13)+var(--spacing-ws-11)+1px)]"
     data-slot="icon-button"
     type="button"
   >
@@ -1587,7 +1587,7 @@ exports[`MultiSelect Snapshots > Size: sm > matches snapshot for border sm with 
           Poland
           <span
             aria-hidden="true"
-            class="inline-flex cursor-pointer items-center justify-center rounded-full p-0 size-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+            class="inline-flex cursor-pointer items-center justify-center rounded-full p-0 size-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
           >
             <svg
               aria-hidden="true"
@@ -1612,7 +1612,7 @@ exports[`MultiSelect Snapshots > Size: sm > matches snapshot for border sm with 
           USA
           <span
             aria-hidden="true"
-            class="inline-flex cursor-pointer items-center justify-center rounded-full p-0 size-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+            class="inline-flex cursor-pointer items-center justify-center rounded-full p-0 size-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
           >
             <svg
               aria-hidden="true"
@@ -1718,7 +1718,7 @@ exports[`MultiSelect Snapshots > Size: sm > matches snapshot for ghost sm cleara
           Poland
           <span
             aria-hidden="true"
-            class="inline-flex cursor-pointer items-center justify-center rounded-full p-0 size-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+            class="inline-flex cursor-pointer items-center justify-center rounded-full p-0 size-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
           >
             <svg
               aria-hidden="true"
@@ -1755,7 +1755,7 @@ exports[`MultiSelect Snapshots > Size: sm > matches snapshot for ghost sm cleara
   </button>
   <button
     aria-label="Clear selection"
-    class="whitespace-nowrap box-border inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default typography-label-strong-sm gap-ws-3 bg-ws-dynamic-secondary-alpha-default text-ws-dynamic-secondary-default outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover hover:text-ws-dynamic-secondary-hover active:bg-ws-dynamic-secondary-alpha-pressed active:text-ws-dynamic-secondary-pressed disabled:text-ws-dynamic-secondary-disabled disabled:bg-none transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) not-[[aria-haspopup]:not([aria-haspopup=false])]:active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) not-[[aria-haspopup]:not([aria-haspopup=false])]:active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small) relative shrink-0 rounded-full p-0 size-ws-11 mr-[calc(var(--spacing-ws-13)+1px)] -ml-[calc(var(--spacing-ws-13)+var(--spacing-ws-11)+1px)]"
+    class="whitespace-nowrap box-border inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default typography-label-strong-sm gap-ws-3 bg-ws-dynamic-secondary-alpha-default text-ws-dynamic-secondary-default outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover hover:text-ws-dynamic-secondary-hover active:bg-ws-dynamic-secondary-alpha-pressed active:text-ws-dynamic-secondary-pressed disabled:text-ws-dynamic-secondary-disabled disabled:bg-none transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small) relative shrink-0 rounded-full p-0 size-ws-11 mr-[calc(var(--spacing-ws-13)+1px)] -ml-[calc(var(--spacing-ws-13)+var(--spacing-ws-11)+1px)]"
     data-slot="icon-button"
     type="button"
   >
@@ -1917,7 +1917,7 @@ exports[`MultiSelect Snapshots > Size: sm > matches snapshot for ghost sm with v
           Poland
           <span
             aria-hidden="true"
-            class="inline-flex cursor-pointer items-center justify-center rounded-full p-0 size-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+            class="inline-flex cursor-pointer items-center justify-center rounded-full p-0 size-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
           >
             <svg
               aria-hidden="true"
@@ -1942,7 +1942,7 @@ exports[`MultiSelect Snapshots > Size: sm > matches snapshot for ghost sm with v
           USA
           <span
             aria-hidden="true"
-            class="inline-flex cursor-pointer items-center justify-center rounded-full p-0 size-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+            class="inline-flex cursor-pointer items-center justify-center rounded-full p-0 size-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
           >
             <svg
               aria-hidden="true"
