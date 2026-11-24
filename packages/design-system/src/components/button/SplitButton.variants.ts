@@ -19,13 +19,6 @@ export const splitButtonMotionVariants = cva('', {
   defaultVariants: { enabled: true },
 });
 
-export const splitButtonTriggerMotionVariants = cva('', {
-  variants: {
-    enabled: { true: hoverTintMotion, false: '' },
-  },
-  defaultVariants: { enabled: true },
-});
-
 export const splitButtonMainVariants = cva(
   cn(buttonClassNames, 'focus-visible:z-ws-base min-w-0 flex-1 rounded-r-none'),
   {
