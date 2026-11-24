@@ -209,6 +209,25 @@ describe('TreeView', () => {
       expect(item('README.md')).toHaveFocus();
     });
 
+    it('gives the tab stop back to the selected item when its folder opens again', async () => {
+      const { rerender } = render(<Files expanded={['src']} value="src/app.tsx" />);
+      rerender(<Files expanded={[]} value="src/app.tsx" />);
+      expect(item('src')).toHaveAttribute('tabindex', '0');
+      rerender(<Files expanded={['src']} value="src/app.tsx" />);
+      expect(item('app.tsx')).toHaveAttribute('tabindex', '0');
+      expect(item('src')).toHaveAttribute('tabindex', '-1');
+    });
+
+    it('drops the focused item when the selection changes, even back to an old one', async () => {
+      const { rerender } = render(<Files value="README.md" />);
+      await userEvent.tab();
+      await userEvent.keyboard('{Home}');
+      expect(item('src')).toHaveFocus();
+      rerender(<Files value="package.json" />);
+      rerender(<Files value="README.md" />);
+      expect(item('README.md')).toHaveAttribute('tabindex', '0');
+    });
+
     it('gives the tab stop to an item selected from outside', async () => {
       const { rerender } = render(<Files value="" />);
       await userEvent.tab();

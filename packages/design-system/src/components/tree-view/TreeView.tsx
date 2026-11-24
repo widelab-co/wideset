@@ -42,15 +42,20 @@ const TreeView = React.forwardRef<HTMLUListElement, TreeViewProps>(
     const isExpandedControlled = expanded !== undefined;
     const currentExpanded = isExpandedControlled ? expanded : internalExpanded;
 
-    // The one item in the Tab order (roving tabindex): the last one focused while the selection
-    // stayed the same, else the selected one. A new selection, from a click or from outside the
-    // tree, takes the tab stop back.
-    const [focused, setFocusedState] = useState<{ item: string; selected?: string }>();
-    const setFocused = useCallback(
-      (item: string) => setFocusedState({ item, selected: currentValue }),
-      [currentValue],
-    );
-    const tabStop = focused && focused.selected === currentValue ? focused.item : currentValue;
+    // The one item in the Tab order (roving tabindex): the last one focused since the selection
+    // last changed, else the selected one. `fallback` marks the first item standing in while the
+    // selected one is off screen (nothing selected, its folder shut, filtered out).
+    const [focused, setFocusedState] = useState<{ item: string; fallback?: boolean }>();
+    const setFocused = useCallback((item: string) => setFocusedState({ item }), []);
+    const tabStop = focused?.item ?? currentValue;
+
+    // A new selection, from a click or from outside the tree, takes the tab stop back. Adjusted
+    // during render (React's "storing information from previous renders"), so no stale frame.
+    const [lastValue, setLastValue] = useState(currentValue);
+    if (lastValue !== currentValue) {
+      setLastValue(currentValue);
+      setFocusedState(undefined);
+    }
 
     const toggle = (item: string) => {
       const next = currentExpanded.includes(item)
@@ -76,14 +81,20 @@ const TreeView = React.forwardRef<HTMLUListElement, TreeViewProps>(
       if (!event.defaultPrevented && row?.parentElement) activate(row.parentElement);
     };
 
-    // A tab stop that is not on screen (nothing selected yet, or its folder shut) moves to the
-    // first item, so Tab always lands in the tree.
+    // Keeps the tab stop on screen, so Tab always lands in the tree: a focused item that went
+    // away, or a fallback once the selected item is back, gives way to the selected item; with
+    // the selected item off screen, the first item stands in.
     useEffect(() => {
       const root = tree.current;
-      if (!root || root.querySelector('[role="treeitem"][tabindex="0"]')) return;
-      const first = visibleItems(root)[0]?.dataset.value;
-      if (first !== undefined) setFocused(first);
-    }, [tabStop, currentExpanded, children, setFocused]);
+      if (!root) return;
+      const shown = visibleItems(root).map((item) => item.dataset.value);
+      const selectedShown = currentValue !== undefined && shown.includes(currentValue);
+      if (focused && (!shown.includes(focused.item) || (focused.fallback && selectedShown))) {
+        setFocusedState(undefined);
+      } else if (!focused && !selectedShown && shown[0] !== undefined) {
+        setFocusedState({ item: shown[0], fallback: true });
+      }
+    }, [focused, currentValue, currentExpanded, children]);
 
     const focusElement = (item: HTMLElement | null | undefined) => {
       if (!item) return;
