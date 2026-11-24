@@ -334,6 +334,32 @@ describe('TreeView', () => {
       expect(item('private')).toHaveAttribute('aria-expanded', 'true');
     });
 
+    it('moves from a nested disabled open branch to its parent', async () => {
+      render(
+        <TreeView aria-label="Files" defaultExpanded={['src', 'src/vendor']}>
+          <TreeView.Item value="src">
+            <TreeView.Label>src</TreeView.Label>
+            <TreeView.Group>
+              <TreeView.Item value="src/vendor" disabled>
+                <TreeView.Label>vendor</TreeView.Label>
+                <TreeView.Group>
+                  <TreeView.Item value="src/vendor/lib.js">
+                    <TreeView.Label>lib.js</TreeView.Label>
+                  </TreeView.Item>
+                </TreeView.Group>
+              </TreeView.Item>
+            </TreeView.Group>
+          </TreeView.Item>
+        </TreeView>,
+      );
+      await userEvent.tab();
+      await userEvent.keyboard('{ArrowDown}');
+      expect(item('vendor')).toHaveFocus();
+      await userEvent.keyboard('{ArrowLeft}');
+      expect(item('src')).toHaveFocus();
+      expect(item('vendor')).toHaveAttribute('aria-expanded', 'true');
+    });
+
     it('does not select a disabled leaf by Enter, Space or click', async () => {
       const onValueChange = vi.fn();
       render(
