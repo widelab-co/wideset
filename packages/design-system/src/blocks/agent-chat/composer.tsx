@@ -1,5 +1,5 @@
 // TODO(custom): the composer (the message card on a grey tray: a growing text area, the mode's tools, the model and Send, the attachments under it); Textarea does not grow and has no slot for actions inside its frame.
-import { RiArrowRightLine, RiCloseLine, RiFileLine, RiStopFill } from '@remixicon/react';
+import { RiArrowRightLine, RiFileLine, RiStopFill } from '@remixicon/react';
 import { Chip, cn, IconButton, Tooltip } from '@wideset/react';
 import {
   type FormEvent,
@@ -217,16 +217,10 @@ export function Composer({
           </p>
           <div className="gap-ws-3 px-ws-7 flex flex-wrap">
             {attachments.map((name, index) => (
-              <Chip
-                key={name}
-                variant="secondary"
-                style="border"
-                aria-label={`Remove ${name}`}
-                onClick={() => onDetach?.(index)}
-              >
+              <Chip key={name} variant="secondary" style="border">
                 <Chip.Icon icon={RiFileLine} />
-                {name}
-                <Chip.Icon icon={RiCloseLine} />
+                <Chip.Label>{name}</Chip.Label>
+                <Chip.IconButton aria-label={`Remove ${name}`} onClick={() => onDetach?.(index)} />
               </Chip>
             ))}
           </div>

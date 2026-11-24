@@ -14,8 +14,10 @@ export function SuggestedPrompts({
   return (
     <div role="group" aria-label="Suggested questions" className="gap-ws-3 flex flex-wrap">
       {prompts.map((prompt) => (
-        <Chip key={prompt} variant="secondary" style="border" onClick={() => onPick(prompt)}>
-          {prompt}
+        <Chip key={prompt} variant="secondary" style="border">
+          <Chip.Action onClick={() => onPick(prompt)}>
+            <Chip.Label>{prompt}</Chip.Label>
+          </Chip.Action>
         </Chip>
       ))}
     </div>

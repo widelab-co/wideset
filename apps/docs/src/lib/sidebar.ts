@@ -1,7 +1,6 @@
 import type { NavGroup } from '../components/parts';
 import { blockCategories } from './blocks';
 import { entries } from './catalog';
-import { newIds } from './gitInfo';
 import { docsNav } from './nav';
 
 /** The sidebars: each page lists only its own rows, in the one sidebar component. */
@@ -25,22 +24,18 @@ export const docsSidebar = async (): Promise<NavGroup[]> => {
 
 const sorted = [...entries].sort((a, b) => a.title.localeCompare(b.title));
 
-/** Components: Overview, then every component A–Z; the newest carry a mark. */
-export const componentsSidebar = (): NavGroup[] => {
-  const fresh = newIds(entries);
-  return [
-    {
-      items: [
-        { title: 'Overview', href: '/components' },
-        ...sorted.map((entry) => ({
-          title: entry.title,
-          href: `/components/${entry.id}`,
-          fresh: fresh.has(entry.id),
-        })),
-      ],
-    },
-  ];
-};
+/** Components: Overview, then every component A–Z. */
+export const componentsSidebar = (): NavGroup[] => [
+  {
+    items: [
+      { title: 'Overview', href: '/components' },
+      ...sorted.map((entry) => ({
+        title: entry.title,
+        href: `/components/${entry.id}`,
+      })),
+    ],
+  },
+];
 
 /** Blocks: Overview, then each category with its blocks. */
 export const blocksSidebar = (): NavGroup[] => [

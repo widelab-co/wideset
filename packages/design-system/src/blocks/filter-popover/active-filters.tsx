@@ -1,4 +1,3 @@
-import { RiCloseLine } from '@remixicon/react';
 import { Chip } from '@wideset/react';
 import { Fragment } from 'react';
 
@@ -31,18 +30,17 @@ export function ActiveFilters({
             {index > 0 && (
               <span className="typography-label-sm text-ws-static-subtle">{filter.join}</span>
             )}
-            <Chip
-              variant="secondary"
-              aria-label={`Remove filter: ${words}`}
-              onClick={() =>
-                onChange({
-                  ...filter,
-                  conditions: filter.conditions.filter((c) => c.id !== condition.id),
-                })
-              }
-            >
-              {words}
-              <Chip.Icon icon={RiCloseLine} />
+            <Chip variant="secondary">
+              <Chip.Label>{words}</Chip.Label>
+              <Chip.IconButton
+                aria-label={`Remove filter: ${words}`}
+                onClick={() =>
+                  onChange({
+                    ...filter,
+                    conditions: filter.conditions.filter((c) => c.id !== condition.id),
+                  })
+                }
+              />
             </Chip>
           </Fragment>
         );

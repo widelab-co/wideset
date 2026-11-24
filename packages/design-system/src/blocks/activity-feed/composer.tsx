@@ -1,4 +1,3 @@
-import { RiCloseLine } from '@remixicon/react';
 import { Button, Chip, FileUpload, Select, Textarea } from '@wideset/react';
 import { type ChangeEvent, useRef, useState } from 'react';
 
@@ -51,16 +50,9 @@ export function Composer({ onPost }: { onPost: (draft: Draft) => void }) {
           }}
         />
         {file && (
-          <Chip
-            variant="secondary"
-            style="border"
-            size="sm"
-            className="self-start"
-            aria-label={`Remove ${file}`}
-            onClick={() => setFile(undefined)}
-          >
-            {file}
-            <Chip.Icon icon={RiCloseLine} />
+          <Chip variant="secondary" style="border" size="sm" className="self-start">
+            <Chip.Label>{file}</Chip.Label>
+            <Chip.IconButton aria-label={`Remove ${file}`} onClick={() => setFile(undefined)} />
           </Chip>
         )}
         <div className="gap-ws-5 flex flex-wrap items-center">
