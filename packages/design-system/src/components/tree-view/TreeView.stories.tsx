@@ -88,6 +88,14 @@ export const Default: Story = {
     defaultExpanded: ['src', 'src/features'],
     defaultValue: 'src/features/bookings-table.tsx',
   },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Folders and files, uncontrolled: `defaultExpanded` opens two folders and `defaultValue` selects a file. Folders take `expandedIcon` for the open-folder glyph.',
+      },
+    },
+  },
   render: (args) => (
     <TreeView {...args}>
       <TreeView.Item value="e2e">
@@ -213,6 +221,7 @@ export const Composition: Story = {
   render: function Render(args) {
     const [query, setQuery] = useState('');
     const [expanded, setExpanded] = useState(['src', 'src/features', 'src/features/bookings']);
+    const [filterExpanded, setFilterExpanded] = useState<string[]>([]);
     const [value, setValue] = useState('src/features/bookings/export-csv.ts');
 
     const needle = query.trim().toLowerCase();
@@ -281,20 +290,25 @@ export const Composition: Story = {
       ];
     };
 
-    // A filter opens every folder it found something in.
+    // A filter opens every folder it found something in. Folding while filtering changes only
+    // the filter's own set, so clearing the filter brings back the folders as they were.
     const allFolders = REPOSITORY.flatMap((file) =>
       file.path
         .split('/')
         .slice(0, -1)
         .map((_, i, parts) => parts.slice(0, i + 1).join('/')),
     );
+    const filter = (next: string) => {
+      setQuery(next);
+      setFilterExpanded(allFolders);
+    };
 
     return (
       <div className="gap-ws-5 flex flex-col">
         <TextInput
           size="sm"
           value={query}
-          onChange={(event: ChangeEvent<HTMLInputElement>) => setQuery(event.target.value)}
+          onChange={(event: ChangeEvent<HTMLInputElement>) => filter(event.target.value)}
         >
           <TextInput.Prefix inner>
             <TextInput.Icon icon={RiSearchLine} />
@@ -309,8 +323,8 @@ export const Composition: Story = {
             {...args}
             value={value}
             onValueChange={setValue}
-            expanded={needle ? allFolders : expanded}
-            onExpandedChange={setExpanded}
+            expanded={needle ? filterExpanded : expanded}
+            onExpandedChange={needle ? setFilterExpanded : setExpanded}
           >
             {items('')}
           </TreeView>
@@ -337,7 +351,8 @@ export const Controlled: Story = {
   render: function Render(args) {
     const branches = ['marketing', 'marketing/campaigns', 'product'];
     const [expanded, setExpanded] = useState<string[]>(['marketing']);
-    const [value, setValue] = useState<string>();
+    // '' rather than undefined: the tree is controlled from the start, with nothing selected.
+    const [value, setValue] = useState('');
 
     return (
       <div className="gap-ws-5 flex flex-col">
