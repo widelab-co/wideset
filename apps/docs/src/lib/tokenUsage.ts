@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 
+import { cn } from '../../../../packages/design-system/src/lib/utils';
 import { resolveUtility, type TokenClassData } from '../../scripts/token-classes.mjs';
 import generatedControls from '../generated/controls.json';
 import tokenClassData from '../generated/token-classes.json';
@@ -94,6 +95,8 @@ const STATE_KEYS: [RegExp, string | ((match: RegExpExecArray) => string)][] = [
   [/^(data-\[placeholder\]|placeholder)$/, 'placeholder'],
   [/data-\[?side=(\w+)\]?/, (m) => `side:${m[1]}`],
   [/^data-(active|sticky)$/, (m) => m[1]],
+  // A boolean data attribute, also on a descendant: `has-data-[shake=true]:` (a field's shake).
+  [/data-\[(\w+)=true\]/, (m) => m[1]],
 ];
 
 /** `not-` turns a state into its absence, which is the default for the graph. */
@@ -262,7 +265,7 @@ const NOT_LISTED = [
   /^-?(m|mx|my|mt|mr|mb|ml|ms|me)-/,
   /^-?(space-[xy]|translate-[xy]|border-spacing(-[xy])?)-/,
   /^(ws-)?slide-(in|out)-/,
-  /^(duration|delay|ease|scale|zoom-in|zoom-out)-/,
+  /^(duration|delay|ease|scale|zoom-in|zoom-out|animate)-/,
   /^-?z-/,
   /^(inset-)?ring-/,
   /^from-|^via-|^to-/,
@@ -323,9 +326,12 @@ const variantsOf = (source: PortalledPart) => {
   const found = new Map<string, { className: string; nested: boolean; present: Set<number> }>();
   combinations.forEach((values, index) => {
     const call = (list: ClassSource[] = [], nested: boolean) => {
-      const classes = list
-        .map((item) => (typeof item === 'string' ? item : item({ ...source.args, ...values })))
-        .join(' ')
+      // Merged as the component merges them, so a class another one overrides is not a use.
+      const classes = cn(
+        ...list.map((item) =>
+          typeof item === 'string' ? item : item({ ...source.args, ...values }),
+        ),
+      )
         .split(/\s+/)
         .filter(Boolean);
       for (const className of classes) {

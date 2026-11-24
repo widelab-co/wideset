@@ -103,14 +103,20 @@ export const resolveUtility = (data, utility) => {
     return data.variables[name] ? [{ name, group: 'motion' }] : null;
   }
 
-  const arbitrary =
-    /^([a-z-]+?)-\[var\((--[\w-]+)\)\]$/.exec(u) ?? /^([a-z-]+?)-\((--[\w-]+)\)$/.exec(u);
-  if (arbitrary) {
-    const [, prefix, name] = arbitrary;
-    if (!isTokenVariable(name)) return undefined;
-    if (!data.variables[name]) return null;
+  // `p-(--x)`, `p-[var(--x)]`, or an expression with several reads:
+  // `min-w-[max(var(--radix-select-trigger-width),var(--spacing-ws-28))]`.
+  const variable = /^([a-z-]+?)-\((--[\w-]+)\)$/.exec(u);
+  const arbitrary = /^([a-z-]+?)-\[(.*\bvar\(.*)\]$/.exec(u);
+  if (variable || arbitrary) {
+    const prefix = (variable ?? arbitrary)[1];
+    const names = variable
+      ? [variable[2]]
+      : [...arbitrary[2].matchAll(/\bvar\((--[\w-]+)/g)].map(([, name]) => name);
+    const tokens = names.filter(isTokenVariable);
+    if (tokens.length === 0) return undefined;
+    if (tokens.some((name) => !data.variables[name])) return null;
     const group = ARBITRARY.find(([re]) => re.test(prefix))?.[1] ?? 'other';
-    return [{ name, group }];
+    return tokens.map((name) => ({ name, group }));
   }
 
   const theme = /^([a-z-]+?)-ws-([\w.-]+)$/.exec(u);

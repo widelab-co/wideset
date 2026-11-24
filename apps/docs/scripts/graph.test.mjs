@@ -127,4 +127,15 @@ describe('graph.json: what it says', { skip: !built && 'no docs build (dist/grap
     assert.deepEqual(find('sidepanel', 'SidepanelPanel', 'right-ws-5')?.when, [{ side: 'right' }]);
     assert.ok(find('dropdown-menu', 'DropdownMenuContent', 'bg-ws-static-overlay'));
   });
+
+  it('reads a token inside an arbitrary expression (Select, Sidepanel)', () => {
+    const select = 'min-w-[max(var(--radix-select-trigger-width),var(--spacing-ws-28))]';
+    assert.deepEqual(find('select', 'SelectContent', select)?.tokens, ['--spacing-ws-28']);
+    const panel = 'max-h-[calc(100vh-2*var(--ws-size-5))]';
+    assert.deepEqual(find('sidepanel', 'SidepanelPanel', panel)?.tokens, ['--ws-size-5']);
+  });
+
+  it('drops a portalled class the component merges away (Toast stack gap with motion on)', () => {
+    assert.deepEqual(find('toast', 'ToastContainer', 'gap-ws-5')?.when, [{ defaultMotion: false }]);
+  });
 });

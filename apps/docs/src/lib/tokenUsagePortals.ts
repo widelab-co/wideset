@@ -134,8 +134,13 @@ export const PORTALLED: Record<string, Record<string, PortalledPart>> = {
   toast: {
     'toast-container': {
       from: 'ToastContainerProps',
-      args: { ...MOTION, stacked: true },
-      classes: [toastContainerVariants, toastViewportMotionVariants],
+      args: { stacked: true },
+      classes: [
+        toastContainerVariants,
+        // The prop is `defaultMotion`; the variants call it `enabled`.
+        (values) =>
+          toastViewportMotionVariants({ ...values, enabled: values.defaultMotion !== false }),
+      ],
     },
   },
   tooltip: {
