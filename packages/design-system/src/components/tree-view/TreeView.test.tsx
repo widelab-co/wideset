@@ -42,6 +42,12 @@ const item = (name: string) => screen.getByRole('treeitem', { name });
 
 describe('TreeView', () => {
   describe('Rendering', () => {
+    // First in the file, so the ids React generates in it do not depend on the tests above it.
+    it('matches the snapshot', () => {
+      const { container } = render(<Files defaultExpanded={['src']} defaultValue="src/app.tsx" />);
+      expect(container.firstChild).toMatchSnapshot();
+    });
+
     it('renders a named tree', () => {
       render(<Files />);
       expect(screen.getByRole('tree', { name: 'Files' })).toBeInTheDocument();
@@ -100,13 +106,15 @@ describe('TreeView', () => {
     });
 
     it('truncates a long label on one line', () => {
-      render(<Files />);
-      expect(screen.getByText('package.json')).toHaveClass('truncate', 'min-w-0');
-    });
-
-    it('matches the snapshot', () => {
-      const { container } = render(<Files defaultExpanded={['src']} defaultValue="src/app.tsx" />);
-      expect(container.firstChild).toMatchSnapshot();
+      const name = 'quarterly-revenue-reconciliation-for-the-finance-team.md';
+      render(
+        <TreeView aria-label="Files">
+          <TreeView.Item value="long">
+            <TreeView.Label>{name}</TreeView.Label>
+          </TreeView.Item>
+        </TreeView>,
+      );
+      expect(screen.getByText(name)).toHaveClass('truncate', 'min-w-0');
     });
   });
 
@@ -130,10 +138,14 @@ describe('TreeView', () => {
     });
 
     it('throws when an item is used outside a TreeView', () => {
-      vi.spyOn(console, 'error').mockImplementation(() => {});
-      expect(() => render(<TreeView.Item value="a" />)).toThrow(
-        'useTreeViewContext must be used within a <TreeView>',
-      );
+      const spy = vi.spyOn(console, 'error').mockImplementation(() => {});
+      try {
+        expect(() => render(<TreeView.Item value="a" />)).toThrow(
+          'useTreeViewContext must be used within a <TreeView>',
+        );
+      } finally {
+        spy.mockRestore();
+      }
     });
   });
 
@@ -284,11 +296,39 @@ describe('TreeView', () => {
       expect(item('README.md')).toHaveFocus();
     });
 
-    it('moves the tab stop to the first item when the focused one goes', async () => {
-      render(<Files defaultExpanded={['src']} defaultValue="src/app.tsx" />);
-      await userEvent.click(screen.getByText('src'));
-      expect(screen.queryByRole('treeitem', { name: 'app.tsx' })).not.toBeInTheDocument();
-      expect(screen.getAllByRole('treeitem').filter((el) => el.tabIndex === 0)).toHaveLength(1);
+    it('moves the tab stop to the first item when its own item is folded away', async () => {
+      const { rerender } = render(<Files expanded={['src']} defaultValue="src/app.tsx" />);
+      rerender(<Files expanded={[]} defaultValue="src/app.tsx" />);
+      await userEvent.tab();
+      expect(item('src')).toHaveFocus();
+    });
+
+    it('moves from an item in a disabled open branch to the branch, which stays open', async () => {
+      render(<Files defaultExpanded={['private']} />);
+      await userEvent.tab();
+      await userEvent.keyboard('{End}{ArrowUp}');
+      expect(item('keys.json')).toHaveFocus();
+      await userEvent.keyboard('{ArrowLeft}');
+      expect(item('private')).toHaveFocus();
+      await userEvent.keyboard('{ArrowLeft}{Enter}');
+      expect(item('private')).toHaveFocus();
+      expect(item('private')).toHaveAttribute('aria-expanded', 'true');
+    });
+
+    it('does not select a disabled leaf by Enter, Space or click', async () => {
+      const onValueChange = vi.fn();
+      render(
+        <TreeView aria-label="Files" onValueChange={onValueChange}>
+          <TreeView.Item value="archive.md" disabled>
+            <TreeView.Label>archive.md</TreeView.Label>
+          </TreeView.Item>
+        </TreeView>,
+      );
+      await userEvent.tab();
+      await userEvent.keyboard('{Enter} ');
+      await userEvent.click(screen.getByText('archive.md'));
+      expect(onValueChange).not.toHaveBeenCalled();
+      expect(item('archive.md')).toHaveAttribute('aria-selected', 'false');
     });
   });
 });
