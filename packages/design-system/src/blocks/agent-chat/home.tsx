@@ -125,14 +125,13 @@ export function Home({ mode, repository: chosen, onSend }: HomeProps) {
           />
           <div role="group" aria-label="Ways to start" className="gap-ws-3 px-ws-3 flex flex-wrap">
             {starters[mode].map(({ label, icon, prompt }) => (
-              <Chip
-                key={label}
-                variant="secondary"
-                style="border"
-                onClick={() => setStarter((current) => ({ text: prompt, id: current.id + 1 }))}
-              >
-                <Chip.Icon icon={icon} />
-                {label}
+              <Chip key={label} variant="secondary" style="border">
+                <Chip.Action
+                  onClick={() => setStarter((current) => ({ text: prompt, id: current.id + 1 }))}
+                >
+                  <Chip.Icon icon={icon} />
+                  <Chip.Label>{label}</Chip.Label>
+                </Chip.Action>
               </Chip>
             ))}
           </div>

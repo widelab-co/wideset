@@ -2,7 +2,7 @@
 '@wideset/react': minor
 ---
 
-Fix RadioButton navigation and Pagination focus; enable keyboard feedback for SegmentedControl, Tabs, and Chip. **Breaking:** SegmentedControl uses radio-group behavior.
+Fix RadioButton navigation and Pagination focus; enable keyboard feedback for SegmentedControl and Tabs. **Breaking:** SegmentedControl uses radio-group behavior.
 
 **Breaking:** SegmentedControl now uses radio-group behavior. The root no longer accepts `rovingFocus`, and items no longer accept `name`; set `name` on the group for form submission. Arrow keys select the focused item, Space selects an unselected item, and Enter no longer activates items. Custom item selectors must use `data-state="checked"` / `"unchecked"` instead of `"on"` / `"off"`.
 
