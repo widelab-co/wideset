@@ -27,7 +27,7 @@ exports[`Modal Snapshots > matches snapshot for default modal 1`] = `
   <div
     aria-describedby="radix-_r_10_"
     aria-labelledby="radix-_r_v_"
-    class="rounded-ws-container-md z-ws-modal fixed top-1/2 left-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden border max-w-[600px] w-[calc(100%-2*var(--spacing-ws-5))] max-h-[calc(100%-2*var(--spacing-ws-5))] bg-ws-static-overlay border-ws-dynamic-secondary-default shadow-ws-high data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 data-[state=open]:zoom-in-(--ws-motion-scale-large) data-[state=closed]:zoom-out-(--ws-motion-scale-large) ease-(--ws-motion-ease-smooth-out) data-[state=open]:duration-(--ws-motion-duration-fast) data-[state=closed]:duration-(--ws-motion-duration-quick)"
+    class="rounded-ws-container-md z-ws-modal fixed top-1/2 left-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden border max-w-[600px] w-[calc(100%-2*var(--spacing-ws-5))] max-h-[calc(100%-2*var(--spacing-ws-5))] bg-ws-static-overlay border-ws-dynamic-secondary-default shadow-ws-high outline-hidden data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 data-[state=open]:zoom-in-(--ws-motion-scale-large) data-[state=closed]:zoom-out-(--ws-motion-scale-large) ease-(--ws-motion-ease-smooth-out) data-[state=open]:duration-(--ws-motion-duration-fast) data-[state=closed]:duration-(--ws-motion-duration-quick)"
     data-slot="modal-content"
     data-state="open"
     id="radix-_r_u_"
@@ -147,7 +147,7 @@ exports[`Modal Snapshots > matches snapshot for persistent modal 1`] = `
   <div
     aria-describedby="radix-_r_13_"
     aria-labelledby="radix-_r_12_"
-    class="rounded-ws-container-md z-ws-modal fixed top-1/2 left-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden border max-w-[600px] w-[calc(100%-2*var(--spacing-ws-5))] max-h-[calc(100%-2*var(--spacing-ws-5))] bg-ws-static-overlay border-ws-dynamic-secondary-default shadow-ws-high data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 data-[state=open]:zoom-in-(--ws-motion-scale-large) data-[state=closed]:zoom-out-(--ws-motion-scale-large) ease-(--ws-motion-ease-smooth-out) data-[state=open]:duration-(--ws-motion-duration-fast) data-[state=closed]:duration-(--ws-motion-duration-quick)"
+    class="rounded-ws-container-md z-ws-modal fixed top-1/2 left-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden border max-w-[600px] w-[calc(100%-2*var(--spacing-ws-5))] max-h-[calc(100%-2*var(--spacing-ws-5))] bg-ws-static-overlay border-ws-dynamic-secondary-default shadow-ws-high outline-hidden data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 data-[state=open]:zoom-in-(--ws-motion-scale-large) data-[state=closed]:zoom-out-(--ws-motion-scale-large) ease-(--ws-motion-ease-smooth-out) data-[state=open]:duration-(--ws-motion-duration-fast) data-[state=closed]:duration-(--ws-motion-duration-quick)"
     data-slot="modal-content"
     data-state="open"
     id="radix-_r_11_"

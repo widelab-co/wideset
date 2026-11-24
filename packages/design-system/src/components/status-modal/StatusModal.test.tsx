@@ -1,4 +1,4 @@
-import { render, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it } from 'vitest';
 
@@ -160,5 +160,20 @@ describe('data-slot', () => {
       'data-slot',
       'status-modal-close',
     );
+  });
+});
+
+describe('Focus', () => {
+  it('focuses the dialog itself, without a browser outline, when nothing inside can take focus', async () => {
+    render(
+      <StatusModal defaultOpen>
+        <StatusModal.Content showCloseButton={false}>
+          <StatusModal.Title>Title</StatusModal.Title>
+        </StatusModal.Content>
+      </StatusModal>,
+    );
+    const dialog = await screen.findByRole('dialog');
+    await waitFor(() => expect(dialog).toHaveFocus());
+    expect(dialog).toHaveClass('outline-hidden');
   });
 });

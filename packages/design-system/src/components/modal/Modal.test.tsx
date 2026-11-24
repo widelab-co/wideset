@@ -1,4 +1,4 @@
-import { render, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
@@ -320,5 +320,20 @@ describe('data-slot', () => {
     expect(getByText('Body')).toHaveAttribute('data-slot', 'modal-body');
     expect(getByText('Footer')).toHaveAttribute('data-slot', 'modal-footer');
     expect(slot('modal-close')).toHaveAttribute('aria-label', 'Close modal');
+  });
+});
+
+describe('Focus', () => {
+  it('focuses the dialog itself, without a browser outline, when nothing inside can take focus', async () => {
+    render(
+      <Modal defaultOpen>
+        <Modal.Content showCloseButton={false}>
+          <Modal.Title>Title</Modal.Title>
+        </Modal.Content>
+      </Modal>,
+    );
+    const dialog = await screen.findByRole('dialog');
+    await waitFor(() => expect(dialog).toHaveFocus());
+    expect(dialog).toHaveClass('outline-hidden');
   });
 });
