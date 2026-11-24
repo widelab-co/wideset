@@ -67,7 +67,7 @@ exports[`TreeView > Rendering > matches the snapshot 1`] = `
       </span>
     </div>
     <ul
-      class="ml-ws-9 pl-[calc(var(--spacing-ws-3)-1px)] border-ws-static-subtle border-l"
+      class="ml-ws-9 border-ws-static-subtle border-l pl-[calc(var(--spacing-ws-3)-1px)]"
       data-slot="tree-view-group"
       role="group"
     >
