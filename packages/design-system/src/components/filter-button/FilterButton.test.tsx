@@ -234,21 +234,6 @@ describe('FilterButton', () => {
     });
   });
 
-  describe('List height', () => {
-    it('stops the list at 18rem and at the room left in the window', async () => {
-      const user = userEvent.setup();
-      render(<FilterButton options={options} onChange={() => {}} />);
-
-      await user.click(screen.getByRole('button', { name: 'Filter' }));
-
-      const list = screen.getByRole('listbox', { name: 'Filter' });
-      expect(list.closest('[data-slot="popup-container"]')).toHaveClass(
-        'max-h-[var(--radix-popover-content-available-height)]',
-      );
-      expect(list).toHaveClass('max-h-[18rem]', 'min-h-0');
-    });
-  });
-
   describe('Custom className', () => {
     it('merges custom className with default classes', () => {
       render(
@@ -271,6 +256,15 @@ describe('FilterButton Snapshots', () => {
     { label: 'Option 1', value: 'option1' },
     { label: 'Option 2', value: 'option2' },
   ];
+
+  it('matches snapshot with the list open', async () => {
+    const user = userEvent.setup();
+    const { baseElement } = render(<FilterButton options={options} onChange={() => {}} />);
+
+    await user.click(screen.getByRole('button', { name: 'Filter' }));
+
+    expect(baseElement).toMatchSnapshot();
+  });
 
   const sizes: Array<'sm' | 'md' | 'lg'> = ['sm', 'md', 'lg'];
 

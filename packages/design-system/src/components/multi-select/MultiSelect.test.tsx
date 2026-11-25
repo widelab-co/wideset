@@ -401,6 +401,18 @@ describe('MultiSelect Keyboard navigation', () => {
 });
 
 describe('MultiSelect Snapshots', () => {
+  it('matches snapshot with the list open', async () => {
+    const user = userEvent.setup();
+    const { baseElement } = render(
+      <MultiSelect options={baseOptions} placeholder="Select countries" />,
+    );
+
+    await user.click(screen.getByRole('button', { name: /select countries/i }));
+    await screen.findByRole('menu');
+
+    expect(baseElement).toMatchSnapshot();
+  });
+
   const sizes: Array<'sm' | 'md' | 'lg'> = ['sm', 'md', 'lg'];
   const presets: Array<'border' | 'ghost'> = ['border', 'ghost'];
 
@@ -953,18 +965,5 @@ describe('MultiSelect data-slot', () => {
       expect(slot('multi-select-option')).toHaveLength(1);
       expect(slot('multi-select-separator')).toHaveLength(1);
     });
-  });
-});
-
-describe('MultiSelect list height', () => {
-  it('stops the list at 18rem and at the room left in the window', async () => {
-    const user = userEvent.setup();
-    render(<MultiSelect options={baseOptions} placeholder="Select countries" />);
-
-    await user.click(screen.getByRole('button', { name: /select countries/i }));
-
-    expect(await screen.findByRole('menu')).toHaveClass(
-      'max-h-[min(18rem,var(--radix-dropdown-menu-content-available-height))]',
-    );
   });
 });
