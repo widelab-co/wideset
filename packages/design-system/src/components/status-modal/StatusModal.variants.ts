@@ -5,7 +5,6 @@ export const statusModalContainerVariants = cva(
   cn(
     'bg-ws-static-overlay rounded-ws-container-lg shadow-ws-high z-ws-modal fixed top-1/2 left-1/2 flex w-full max-w-[600px] -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden',
     'before:z-ws-deep before:absolute before:inset-0 before:block before:bg-inherit before:bg-linear-to-b before:content-[""]',
-    // The dialog itself can take focus: no browser ring (see modalContainerVariants).
     'outline-hidden',
   ),
   {

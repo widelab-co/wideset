@@ -2,7 +2,6 @@ import { cva } from 'class-variance-authority';
 import { cn } from 'src/lib/utils';
 
 export const sidepanelPanelVariants = cva(
-  // outline-hidden: the panel itself can take focus; it needs no browser ring (see modalContainerVariants).
   'bg-ws-static-container rounded-ws-container-lg z-ws-drawer fixed flex max-h-[calc(100vh-2*var(--ws-size-5))] w-full flex-col overflow-hidden outline-hidden',
   {
     variants: {

@@ -1,5 +1,205 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Sidepanel Snapshots > matches snapshot for default sidepanel 1`] = `<DocumentFragment />`;
+exports[`Sidepanel Snapshots > matches snapshot for default sidepanel 1`] = `
+<body
+  data-scroll-locked="1"
+  style="pointer-events: none;"
+>
+  <span
+    aria-hidden="true"
+    data-aria-hidden="true"
+    data-radix-focus-guard=""
+    style="outline: none; opacity: 0; position: fixed; pointer-events: none;"
+    tabindex="0"
+  />
+  <div
+    aria-hidden="true"
+    data-aria-hidden="true"
+  />
+  <div
+    aria-hidden="true"
+    class="bg-ws-static-scrim-base fixed inset-0 z-ws-drawer data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 data-[state=open]:duration-(--ws-motion-duration-fast) data-[state=closed]:duration-(--ws-motion-duration-quick)"
+    data-aria-hidden="true"
+    data-slot="sidepanel-overlay"
+    data-state="open"
+    style="pointer-events: auto;"
+  />
+  <div
+    aria-describedby="radix-_r_k_"
+    aria-labelledby="radix-_r_j_"
+    class="bg-ws-static-container rounded-ws-container-lg z-ws-drawer fixed flex max-h-[calc(100vh-2*var(--ws-size-5))] w-full flex-col overflow-hidden outline-hidden inset-y-ws-5 right-ws-5 max-w-[44rem] data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 ease-(--ws-motion-ease-smooth-out) data-[state=open]:duration-(--ws-motion-duration-slow) data-[state=closed]:duration-(--ws-motion-duration-medium) data-[state=open]:slide-in-from-right-ws-8 data-[state=closed]:slide-out-to-right-ws-8"
+    data-slot="sidepanel-panel"
+    data-state="open"
+    id="radix-_r_i_"
+    role="dialog"
+    style="pointer-events: auto;"
+    tabindex="-1"
+  >
+    <div
+      class="p-ws-12 flex flex-col border-ws-static-base border-b"
+      data-slot="sidepanel-header"
+    >
+      <h2
+        class="text-ws-static-strong typography-subtitle-md"
+        data-slot="sidepanel-title"
+        id="radix-_r_j_"
+      >
+        Snapshot Title
+      </h2>
+      <p
+        class="text-ws-static-subtle typography-body-lg mt-ws-3"
+        data-slot="sidepanel-description"
+        id="radix-_r_k_"
+      >
+        Snapshot Description
+      </p>
+    </div>
+    <div
+      class="overflow-hidden min-h-0 min-w-0 grow"
+      data-slot="scroll-area"
+      dir="ltr"
+      style="position: relative; --radix-scroll-area-corner-width: 0px; --radix-scroll-area-corner-height: 0px;"
+    >
+      <style>
+        [data-radix-scroll-area-viewport]{scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch;}[data-radix-scroll-area-viewport]::-webkit-scrollbar{display:none}
+      </style>
+      <div
+        class="h-full w-full max-w-full min-w-0 pr-ws-6"
+        data-radix-scroll-area-viewport=""
+        data-slot="scroll-area-viewport"
+        style="overflow-x: hidden; overflow-y: scroll;"
+      >
+        <div
+          style="min-width: 100%; display: table;"
+        >
+          <div
+            class="p-ws-12 min-h-full"
+            data-slot="sidepanel-content"
+          >
+            Snapshot Content
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="gap-ws-5 p-ws-12 flex border-ws-static-base border-t"
+      data-slot="sidepanel-footer"
+    >
+      <button
+        class="w-fit whitespace-nowrap box-border relative inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default typography-label-strong-sm h-ws-forms-md gap-ws-3 rounded-ws-control-lg px-ws-7 bg-ws-dynamic-primary-default shadow-ws-controls-control text-ws-dynamic-on-primary-default outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-primary-hover active:bg-ws-dynamic-primary-pressed disabled:bg-ws-dynamic-primary-disabled disabled:text-ws-dynamic-on-primary-disabled transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+        data-slot="button"
+        type="button"
+      >
+        <span
+          class="px-ws-2"
+        >
+          Save
+        </span>
+      </button>
+      <button
+        class="w-fit whitespace-nowrap box-border relative inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default border typography-label-strong-sm h-ws-forms-md gap-ws-3 rounded-ws-control-lg px-ws-7 border-ws-dynamic-secondary-default shadow-ws-controls-control bg-ws-static-highlight-subtle text-ws-dynamic-secondary-default outline-ws-dynamic-primary-strong-default hover:border-ws-dynamic-secondary-hover hover:text-ws-dynamic-secondary-hover active:border-ws-dynamic-secondary-pressed active:text-ws-dynamic-secondary-pressed disabled:border-ws-dynamic-secondary-disabled disabled:text-ws-dynamic-secondary-disabled transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+        data-slot="sidepanel-close"
+        type="button"
+      >
+        <span
+          class="px-ws-2"
+        >
+          Cancel
+        </span>
+      </button>
+    </div>
+  </div>
+  <span
+    aria-hidden="true"
+    data-aria-hidden="true"
+    data-radix-focus-guard=""
+    style="outline: none; opacity: 0; position: fixed; pointer-events: none;"
+    tabindex="0"
+  />
+</body>
+`;
 
-exports[`Sidepanel Snapshots > matches snapshot for left sidepanel 1`] = `<DocumentFragment />`;
+exports[`Sidepanel Snapshots > matches snapshot for left sidepanel 1`] = `
+<body
+  data-scroll-locked="1"
+  style="pointer-events: none;"
+>
+  <span
+    aria-hidden="true"
+    data-aria-hidden="true"
+    data-radix-focus-guard=""
+    style="outline: none; opacity: 0; position: fixed; pointer-events: none;"
+    tabindex="0"
+  />
+  <div
+    aria-hidden="true"
+    data-aria-hidden="true"
+  />
+  <div
+    aria-hidden="true"
+    class="bg-ws-static-scrim-base fixed inset-0 z-ws-drawer data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 data-[state=open]:duration-(--ws-motion-duration-fast) data-[state=closed]:duration-(--ws-motion-duration-quick)"
+    data-aria-hidden="true"
+    data-slot="sidepanel-overlay"
+    data-state="open"
+    style="pointer-events: auto;"
+  />
+  <div
+    aria-describedby="radix-_r_n_"
+    aria-labelledby="radix-_r_m_"
+    class="bg-ws-static-container rounded-ws-container-lg z-ws-drawer fixed flex max-h-[calc(100vh-2*var(--ws-size-5))] w-full flex-col overflow-hidden outline-hidden inset-y-ws-5 left-ws-5 max-w-[35rem] data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 ease-(--ws-motion-ease-smooth-out) data-[state=open]:duration-(--ws-motion-duration-slow) data-[state=closed]:duration-(--ws-motion-duration-medium) data-[state=closed]:[--tw-exit-translate-x:calc(var(--ws-size-8)*-1)] data-[state=open]:[--tw-enter-translate-x:calc(var(--ws-size-8)*-1)]"
+    data-slot="sidepanel-panel"
+    data-state="open"
+    id="radix-_r_l_"
+    role="dialog"
+    style="pointer-events: auto;"
+    tabindex="-1"
+  >
+    <div
+      class="p-ws-12 flex flex-col border-ws-static-base border-b"
+      data-slot="sidepanel-header"
+    >
+      <h2
+        class="text-ws-static-strong typography-subtitle-md"
+        data-slot="sidepanel-title"
+        id="radix-_r_m_"
+      >
+        Left Panel
+      </h2>
+    </div>
+    <div
+      class="overflow-hidden min-h-0 min-w-0 grow"
+      data-slot="scroll-area"
+      dir="ltr"
+      style="position: relative; --radix-scroll-area-corner-width: 0px; --radix-scroll-area-corner-height: 0px;"
+    >
+      <style>
+        [data-radix-scroll-area-viewport]{scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch;}[data-radix-scroll-area-viewport]::-webkit-scrollbar{display:none}
+      </style>
+      <div
+        class="h-full w-full max-w-full min-w-0 pr-ws-6"
+        data-radix-scroll-area-viewport=""
+        data-slot="scroll-area-viewport"
+        style="overflow-x: hidden; overflow-y: scroll;"
+      >
+        <div
+          style="min-width: 100%; display: table;"
+        >
+          <div
+            class="p-ws-12 min-h-full"
+            data-slot="sidepanel-content"
+          >
+            Content
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <span
+    aria-hidden="true"
+    data-aria-hidden="true"
+    data-radix-focus-guard=""
+    style="outline: none; opacity: 0; position: fixed; pointer-events: none;"
+    tabindex="0"
+  />
+</body>
+`;

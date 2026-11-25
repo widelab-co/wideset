@@ -16,8 +16,6 @@ export const modalContainerVariants = cva(
     'max-w-[600px]',
     VIEWPORT_INSET,
     'bg-ws-static-overlay border-ws-dynamic-secondary-default shadow-ws-high',
-    // Radix focuses the dialog itself when nothing inside can take focus. It needs no ring, and
-    // without the reset the browser draws its own; `outline-hidden` keeps one in forced colours.
     'outline-hidden',
   ),
 );

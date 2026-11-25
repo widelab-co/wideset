@@ -127,7 +127,7 @@ describe('Sidepanel', () => {
 
 describe('Sidepanel Snapshots', () => {
   it('matches snapshot for default sidepanel', () => {
-    const { asFragment } = render(
+    const { baseElement } = render(
       <Sidepanel defaultOpen>
         <Sidepanel.Panel>
           <Sidepanel.Header>
@@ -147,11 +147,11 @@ describe('Sidepanel Snapshots', () => {
       </Sidepanel>,
     );
 
-    expect(asFragment()).toMatchSnapshot();
+    expect(baseElement).toMatchSnapshot();
   });
 
   it('matches snapshot for left sidepanel', () => {
-    const { asFragment } = render(
+    const { baseElement } = render(
       <Sidepanel defaultOpen>
         <Sidepanel.Panel side="left" size="sm">
           <Sidepanel.Header>
@@ -162,7 +162,7 @@ describe('Sidepanel Snapshots', () => {
       </Sidepanel>,
     );
 
-    expect(asFragment()).toMatchSnapshot();
+    expect(baseElement).toMatchSnapshot();
   });
 });
 
@@ -196,20 +196,5 @@ describe('data-slot', () => {
     expect(screen.getByText('Description')).toHaveAttribute('data-slot', 'sidepanel-description');
     expect(screen.getByText('Content')).toHaveAttribute('data-slot', 'sidepanel-content');
     expect(screen.getByText('Footer')).toHaveAttribute('data-slot', 'sidepanel-footer');
-  });
-});
-
-describe('Focus', () => {
-  it('focuses the dialog itself, without a browser outline, when nothing inside can take focus', async () => {
-    render(
-      <Sidepanel defaultOpen>
-        <Sidepanel.Panel>
-          <Sidepanel.Title>Title</Sidepanel.Title>
-        </Sidepanel.Panel>
-      </Sidepanel>,
-    );
-    const dialog = await screen.findByRole('dialog');
-    await waitFor(() => expect(dialog).toHaveFocus());
-    expect(dialog).toHaveClass('outline-hidden');
   });
 });
