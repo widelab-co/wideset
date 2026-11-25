@@ -24,6 +24,9 @@ export const segmentedControlVariants = cva('bg-ws-static-alpha-base p-ws-2', {
 export const segmentedControlItemVariants = cva(
   cn(
     'text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center',
+    // Figma: an unselected segment's icon is Static/Text/Base; selected, focused and disabled
+    // segments keep the item's text colour.
+    'data-[state=unchecked]:enabled:not-focus-visible:*:data-[slot=segmented-control-icon]:text-ws-static-base',
     'focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default',
     'hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed',
     'data-[state=checked]:bg-ws-static-highlight-strong data-[state=checked]:shadow-ws-low',
@@ -83,7 +86,7 @@ export const segmentedControlGlideVariants = cva('', {
 });
 
 export const segmentedControlPillVariants = cva(
-  'bg-ws-static-highlight-base shadow-ws-low pointer-events-none absolute top-0 left-0 -z-[var(--ws-z-index-base)]',
+  'bg-ws-static-highlight-strong shadow-ws-low pointer-events-none absolute top-0 left-0 -z-[var(--ws-z-index-base)]',
   {
     variants: {
       size: {
