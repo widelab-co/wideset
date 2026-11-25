@@ -36,8 +36,9 @@ jobs:
           esac
           # ClickUp task IDs: `[CU-1amndjnjwf0]` in the title, or a branch segment `1amndjnjwf0` /
           # `CU-1amndjnjwf0` (`fix/1amndjnjwf0/…`, `feature/CU-1amndjnjwf0/…`).
+          clickup_title='\[CU-[0-9][a-z0-9]{10}\]'
           clickup_branch='(^|/)(CU-)?[0-9][a-z0-9]{10}(/|$)'
-          if [[ "$TITLE" == *"CU-"* || "$BRANCH" =~ $clickup_branch ]]; then labels+=(clickup); fi
+          if [[ "$TITLE" =~ $clickup_title || "$BRANCH" =~ $clickup_branch ]]; then labels+=(clickup); fi
           if [[ "$AUTHOR" == themce77 ]]; then labels+=("design contribution"); fi
           [[ ${#labels[@]} -eq 0 ]] && exit 0
           args=()
