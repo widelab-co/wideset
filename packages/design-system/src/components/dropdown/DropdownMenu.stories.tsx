@@ -14,6 +14,7 @@ import { useArgs } from 'storybook/preview-api';
 
 import { exampleStory } from '../../stories/example';
 import { Avatar } from '../avatar/Avatar';
+import { Button } from '../button/Button';
 import { IconButton } from '../button/IconButton';
 import { ListItem } from '../list-item/ListItem';
 import { Switch } from '../switch/Switch';
@@ -21,6 +22,8 @@ import { DropdownMenu } from './DropdownMenu';
 import type { DropdownMenuContentProps, DropdownMenuProps } from './DropdownMenu.types';
 import StatesExample from './examples/dropdown-menu/states';
 import statesSource from './examples/dropdown-menu/states?raw';
+import SubmenusExample from './examples/dropdown-menu/submenus';
+import submenusSource from './examples/dropdown-menu/submenus?raw';
 import VariantsExample from './examples/dropdown-menu/variants';
 import variantsSource from './examples/dropdown-menu/variants?raw';
 
@@ -276,6 +279,8 @@ export const Variants: Story = exampleStory(VariantsExample, variantsSource);
 
 export const States: Story = exampleStory(StatesExample, statesSource);
 
+export const Submenus: Story = exampleStory(SubmenusExample, submenusSource);
+
 export const Composition: Story = {
   parameters: {
     docs: {
@@ -453,4 +458,60 @@ export const Composition: Story = {
       </DropdownMenu>
     );
   },
+};
+
+const folders = [
+  'Inbox',
+  'Archive',
+  'Design',
+  'Engineering',
+  'Marketing',
+  'Sales',
+  'Support',
+  'Finance',
+  'Legal',
+  'Hiring',
+  'Onboarding',
+  'Roadmap',
+  'Research',
+  'Releases',
+  'Brand',
+  'Website',
+  'Mobile app',
+  'Partners',
+  'Events',
+  'Q1 planning',
+  'Q2 planning',
+  'Q3 planning',
+  'Q4 planning',
+];
+
+export const LongMenu: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Open the menu in a short viewport to see it scroll within the available space.',
+      },
+    },
+  },
+  render: () => (
+    <DropdownMenu>
+      <DropdownMenu.Trigger asChild>
+        <Button variant="secondary" preset="border">
+          Move to
+          <Button.Icon icon={RiArrowDownSLine} />
+        </Button>
+      </DropdownMenu.Trigger>
+      <DropdownMenu.Content align="start">
+        {folders.map((folder) => (
+          <DropdownMenu.Item key={folder}>
+            <ListItem.Prefix>
+              <RiFolderLine className="size-ws-9" />
+            </ListItem.Prefix>
+            <ListItem.Label>{folder}</ListItem.Label>
+          </DropdownMenu.Item>
+        ))}
+      </DropdownMenu.Content>
+    </DropdownMenu>
+  ),
 };

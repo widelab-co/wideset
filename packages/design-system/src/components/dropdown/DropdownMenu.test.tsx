@@ -414,8 +414,6 @@ describe('DropdownMenu', () => {
     });
   });
 
-  // Figma's Dropdown Menu draws these parts as Menu Item rows (Single Select, Divider) on the
-  // menu surface; they used to render as bare Radix parts.
   describe('Figma parts', () => {
     const renderMenu = () =>
       render(
@@ -489,8 +487,34 @@ describe('DropdownMenu', () => {
     it('keeps the separator row at 12px, as Figma draws it', () => {
       renderMenu();
 
-      // 5.5px + the 1px border + 5.5px; `my-ws-4` made it 13px.
       expect(screen.getByRole('separator')).toHaveClass('my-[5.5px]', 'border-t');
+    });
+  });
+
+  describe('Window height', () => {
+    it('caps the menu and its submenu at the room left in the window and scrolls the rest', () => {
+      render(
+        <DropdownMenu open modal={false}>
+          <DropdownMenu.Trigger>Open</DropdownMenu.Trigger>
+          <DropdownMenu.Content>
+            <DropdownMenu.Sub open>
+              <DropdownMenu.SubTrigger>Move to</DropdownMenu.SubTrigger>
+              <DropdownMenu.SubContent>
+                <DropdownMenu.Item>Archive</DropdownMenu.Item>
+              </DropdownMenu.SubContent>
+            </DropdownMenu.Sub>
+          </DropdownMenu.Content>
+        </DropdownMenu>,
+      );
+
+      const menus = screen.getAllByRole('menu');
+      expect(menus).toHaveLength(2);
+      for (const menu of menus) {
+        expect(menu).toHaveClass(
+          'max-h-[var(--radix-dropdown-menu-content-available-height)]',
+          'overflow-y-auto',
+        );
+      }
     });
   });
 });

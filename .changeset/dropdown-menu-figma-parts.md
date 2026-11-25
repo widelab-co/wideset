@@ -2,4 +2,4 @@
 '@wideset/react': patch
 ---
 
-`DropdownMenu.SubTrigger`, `SubContent` and `RadioItem` are styled as the menu's own rows and surface (chevron, check), and `DropdownMenu.Separator` is 12px tall, as in Figma.
+Match DropdownMenu submenu and radio item styling to the main menu, including submenu chevrons and radio checkmarks, and tighten separator spacing.

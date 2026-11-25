@@ -4,7 +4,7 @@ exports[`DropdownMenu > DropdownMenu Snapshots > matches snapshot for basic drop
 <div
   aria-labelledby="radix-_r_b_"
   aria-orientation="vertical"
-  class="min-w-ws-28 rounded-ws-container-sm p-ws-3 outline-hidden bg-ws-static-overlay text-ws-dynamic-secondary-default shadow-ws-medium z-ws-popout origin-radix-dropdown-menu transition-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 data-[state=open]:zoom-in-95 data-[state=closed]:zoom-out-95 data-[side=bottom]:ws-slide-in-from-top-2 data-[side=left]:slide-in-from-right-ws-2 data-[side=right]:ws-slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-ws-2 ease-(--ws-motion-ease-smooth-out) data-[state=open]:duration-(--ws-motion-duration-fast) data-[state=closed]:duration-(--ws-motion-duration-quick)"
+  class="min-w-ws-28 rounded-ws-container-sm p-ws-3 outline-hidden bg-ws-static-overlay text-ws-dynamic-secondary-default shadow-ws-medium z-ws-popout max-h-[var(--radix-dropdown-menu-content-available-height)] overflow-y-auto origin-radix-dropdown-menu transition-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 data-[state=open]:zoom-in-95 data-[state=closed]:zoom-out-95 data-[side=bottom]:ws-slide-in-from-top-2 data-[side=left]:slide-in-from-right-ws-2 data-[side=right]:ws-slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-ws-2 ease-(--ws-motion-ease-smooth-out) data-[state=open]:duration-(--ws-motion-duration-fast) data-[state=closed]:duration-(--ws-motion-duration-quick)"
   data-align="center"
   data-orientation="vertical"
   data-radix-menu-content=""
@@ -69,7 +69,7 @@ exports[`DropdownMenu > DropdownMenu Snapshots > matches snapshot for dropdown w
 <div
   aria-labelledby="radix-_r_n_"
   aria-orientation="vertical"
-  class="min-w-ws-28 rounded-ws-container-sm p-ws-3 outline-hidden bg-ws-static-overlay text-ws-dynamic-secondary-default shadow-ws-medium z-ws-popout origin-radix-dropdown-menu transition-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 data-[state=open]:zoom-in-95 data-[state=closed]:zoom-out-95 data-[side=bottom]:ws-slide-in-from-top-2 data-[side=left]:slide-in-from-right-ws-2 data-[side=right]:ws-slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-ws-2 ease-(--ws-motion-ease-smooth-out) data-[state=open]:duration-(--ws-motion-duration-fast) data-[state=closed]:duration-(--ws-motion-duration-quick)"
+  class="min-w-ws-28 rounded-ws-container-sm p-ws-3 outline-hidden bg-ws-static-overlay text-ws-dynamic-secondary-default shadow-ws-medium z-ws-popout max-h-[var(--radix-dropdown-menu-content-available-height)] overflow-y-auto origin-radix-dropdown-menu transition-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 data-[state=open]:zoom-in-95 data-[state=closed]:zoom-out-95 data-[side=bottom]:ws-slide-in-from-top-2 data-[side=left]:slide-in-from-right-ws-2 data-[side=right]:ws-slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-ws-2 ease-(--ws-motion-ease-smooth-out) data-[state=open]:duration-(--ws-motion-duration-fast) data-[state=closed]:duration-(--ws-motion-duration-quick)"
   data-align="center"
   data-orientation="vertical"
   data-radix-menu-content=""
@@ -104,7 +104,7 @@ exports[`DropdownMenu > DropdownMenu Snapshots > matches snapshot for dropdown w
 <div
   aria-labelledby="radix-_r_q_"
   aria-orientation="vertical"
-  class="min-w-ws-28 rounded-ws-container-sm p-ws-3 outline-hidden bg-ws-static-overlay text-ws-dynamic-secondary-default shadow-ws-medium z-ws-popout origin-radix-dropdown-menu transition-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 data-[state=open]:zoom-in-95 data-[state=closed]:zoom-out-95 data-[side=bottom]:ws-slide-in-from-top-2 data-[side=left]:slide-in-from-right-ws-2 data-[side=right]:ws-slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-ws-2 ease-(--ws-motion-ease-smooth-out) data-[state=open]:duration-(--ws-motion-duration-fast) data-[state=closed]:duration-(--ws-motion-duration-quick)"
+  class="min-w-ws-28 rounded-ws-container-sm p-ws-3 outline-hidden bg-ws-static-overlay text-ws-dynamic-secondary-default shadow-ws-medium z-ws-popout max-h-[var(--radix-dropdown-menu-content-available-height)] overflow-y-auto origin-radix-dropdown-menu transition-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 data-[state=open]:zoom-in-95 data-[state=closed]:zoom-out-95 data-[side=bottom]:ws-slide-in-from-top-2 data-[side=left]:slide-in-from-right-ws-2 data-[side=right]:ws-slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-ws-2 ease-(--ws-motion-ease-smooth-out) data-[state=open]:duration-(--ws-motion-duration-fast) data-[state=closed]:duration-(--ws-motion-duration-quick)"
   data-align="center"
   data-orientation="vertical"
   data-radix-menu-content=""
@@ -141,7 +141,7 @@ exports[`DropdownMenu > DropdownMenu Snapshots > matches snapshot for dropdown w
 <div
   aria-labelledby="radix-_r_k_"
   aria-orientation="vertical"
-  class="min-w-ws-28 rounded-ws-container-sm p-ws-3 outline-hidden bg-ws-static-overlay text-ws-dynamic-secondary-default shadow-ws-medium z-ws-popout origin-radix-dropdown-menu transition-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 data-[state=open]:zoom-in-95 data-[state=closed]:zoom-out-95 data-[side=bottom]:ws-slide-in-from-top-2 data-[side=left]:slide-in-from-right-ws-2 data-[side=right]:ws-slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-ws-2 ease-(--ws-motion-ease-smooth-out) data-[state=open]:duration-(--ws-motion-duration-fast) data-[state=closed]:duration-(--ws-motion-duration-quick)"
+  class="min-w-ws-28 rounded-ws-container-sm p-ws-3 outline-hidden bg-ws-static-overlay text-ws-dynamic-secondary-default shadow-ws-medium z-ws-popout max-h-[var(--radix-dropdown-menu-content-available-height)] overflow-y-auto origin-radix-dropdown-menu transition-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 data-[state=open]:zoom-in-95 data-[state=closed]:zoom-out-95 data-[side=bottom]:ws-slide-in-from-top-2 data-[side=left]:slide-in-from-right-ws-2 data-[side=right]:ws-slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-ws-2 ease-(--ws-motion-ease-smooth-out) data-[state=open]:duration-(--ws-motion-duration-fast) data-[state=closed]:duration-(--ws-motion-duration-quick)"
   data-align="center"
   data-orientation="vertical"
   data-radix-menu-content=""
@@ -182,7 +182,7 @@ exports[`DropdownMenu > DropdownMenu Snapshots > matches snapshot for dropdown w
 <div
   aria-labelledby="radix-_r_g_"
   aria-orientation="vertical"
-  class="min-w-ws-28 rounded-ws-container-sm p-ws-3 outline-hidden bg-ws-static-overlay text-ws-dynamic-secondary-default shadow-ws-medium z-ws-popout origin-radix-dropdown-menu transition-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 data-[state=open]:zoom-in-95 data-[state=closed]:zoom-out-95 data-[side=bottom]:ws-slide-in-from-top-2 data-[side=left]:slide-in-from-right-ws-2 data-[side=right]:ws-slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-ws-2 ease-(--ws-motion-ease-smooth-out) data-[state=open]:duration-(--ws-motion-duration-fast) data-[state=closed]:duration-(--ws-motion-duration-quick)"
+  class="min-w-ws-28 rounded-ws-container-sm p-ws-3 outline-hidden bg-ws-static-overlay text-ws-dynamic-secondary-default shadow-ws-medium z-ws-popout max-h-[var(--radix-dropdown-menu-content-available-height)] overflow-y-auto origin-radix-dropdown-menu transition-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 data-[state=open]:zoom-in-95 data-[state=closed]:zoom-out-95 data-[side=bottom]:ws-slide-in-from-top-2 data-[side=left]:slide-in-from-right-ws-2 data-[side=right]:ws-slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-ws-2 ease-(--ws-motion-ease-smooth-out) data-[state=open]:duration-(--ws-motion-duration-fast) data-[state=closed]:duration-(--ws-motion-duration-quick)"
   data-align="center"
   data-orientation="vertical"
   data-radix-menu-content=""

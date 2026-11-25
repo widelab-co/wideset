@@ -127,11 +127,10 @@ the menu (call `event.preventDefault()` to keep it open).
 
 ## Gotchas
 
-- `RadioItem` (inside `RadioGroup`) and `SubTrigger` are menu rows like `Item`, composed the same
-  way; `RadioItem` draws its own check and `SubTrigger` its chevron. `SubContent` is the same
-  surface as `Content`.
-- `CheckboxItem` and `ItemIndicator` are exported as plain Radix parts without Wideset styling.
-  Avoid them; use a `MultiSelect` for several choices.
+- Group related actions in a submenu. Put `SubTrigger` and `SubContent` together inside `DropdownMenu.Sub`.
+- Use `RadioGroup` and `RadioItem` for a single menu setting, such as sort order. The selected item
+  includes a checkmark.
+- `CheckboxItem` and `ItemIndicator` need custom styling.
 - `DropdownMenu.Portal` is optional: Content already portals. Wrap only to set a different
   `container` or `forceMount`.
 - Items are styled by `ListItem`; do not wrap their children in another `ListItem`.

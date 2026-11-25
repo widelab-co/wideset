@@ -1,22 +1,43 @@
 import { cva } from 'class-variance-authority';
 import { cn } from 'src/lib/utils';
 
-/** Figma's Dropdown Menu surface, shared by `DropdownMenu.Content` and `DropdownMenu.SubContent`. */
 export const dropdownMenuContentClassName = cn(
-  // Hard rule for floating menus: never narrower than Size/28 (10rem — Bootstrap's floor; shadcn
-  // uses 8rem, Material 112dp). Trigger-matching popovers (Select/MultiSelect) override the floor
-  // with max(trigger, Size/28).
   'min-w-ws-28',
   'rounded-ws-container-sm p-ws-3 outline-hidden',
   'bg-ws-static-overlay text-ws-dynamic-secondary-default shadow-ws-medium z-ws-popout',
+  'max-h-[var(--radix-dropdown-menu-content-available-height)] overflow-y-auto',
 );
 
-/**
- * A menu row, shared by `Item`, `RadioItem` and `SubTrigger`; `ListItem` draws the rest. Figma
- * pins the row's min-height to `Size/14` (32px); ListItem's padding (Gap/3 + 20px content +
- * Gap/3) only reaches 28px on its own.
- */
 export const dropdownMenuItemClassName = 'min-h-ws-14 outline-hidden';
+
+export const dropdownMenuLabelVariants = cva(
+  'typography-label-sm text-ws-dynamic-secondary-default pt-ws-7 pr-ws-5 pb-ws-5 pl-ws-5',
+  {
+    variants: {
+      inset: {
+        true: 'pl-ws-8',
+      },
+    },
+  },
+);
+
+// The 1px border counts toward the 12px row, leaving 5.5px on each side.
+export const dropdownMenuSeparatorClassName = 'border-ws-static-base -mx-ws-3 my-[5.5px] border-t';
+
+export const dropdownMenuSubTriggerClassName = cn(
+  dropdownMenuItemClassName,
+  'data-[state=open]:bg-ws-dynamic-secondary-alpha-hover',
+);
+export const dropdownMenuSubTriggerSuffixClassName = 'size-ws-12 justify-center';
+export const dropdownMenuSubTriggerIconClassName = 'size-ws-9';
+
+export const dropdownMenuTriggerVariants = cva('cursor-pointer', {
+  variants: {
+    focusOutline: {
+      true: 'focus-visible:wds-focus-visible focus-visible:wds-outline',
+    },
+  },
+});
 
 export const dropdownMenuContentMotionVariants = cva('', {
   variants: {

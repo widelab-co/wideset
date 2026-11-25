@@ -1,5 +1,5 @@
 import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
-import * as React from 'react';
+import { type ComponentRef, forwardRef, type PointerEvent, useContext, useRef } from 'react';
 import { cn } from 'src/lib/utils';
 
 import { useDefaultMotion } from '../../motion/MotionProvider';
@@ -10,14 +10,15 @@ import {
   dropdownMenuContentMotionVariants,
 } from './DropdownMenu.variants';
 
-export const DropdownMenuContent = React.forwardRef<
-  React.ComponentRef<typeof DropdownMenuPrimitive.Content>,
+export const DropdownMenuContent = forwardRef<
+  ComponentRef<typeof DropdownMenuPrimitive.Content>,
   DropdownMenuContentProps
 >(
   (
     {
       className,
       sideOffset = 4,
+      collisionPadding = 10,
       onCloseAutoFocus,
       onPointerDown,
       portalContainer,
@@ -27,11 +28,11 @@ export const DropdownMenuContent = React.forwardRef<
     ref,
   ) => {
     const motion = useDefaultMotion(defaultMotion);
-    const insidePortal = React.useContext(DropdownMenuPortalContext);
+    const insidePortal = useContext(DropdownMenuPortalContext);
     // Prevent focus return to trigger after closing with mouse click, to not show the outline on the trigger
-    const lastPointerTime = React.useRef(0);
+    const lastPointerTime = useRef(0);
 
-    const handlePointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
+    const handlePointerDown = (event: PointerEvent<HTMLDivElement>) => {
       lastPointerTime.current = Date.now();
       onPointerDown?.(event);
     };
@@ -52,6 +53,7 @@ export const DropdownMenuContent = React.forwardRef<
           ref={ref}
           data-slot="dropdown-menu-content"
           sideOffset={sideOffset}
+          collisionPadding={collisionPadding}
           onCloseAutoFocus={handleCloseAutoFocus}
           onPointerDown={handlePointerDown}
           className={cn(

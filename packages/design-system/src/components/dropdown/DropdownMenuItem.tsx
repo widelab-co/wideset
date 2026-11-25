@@ -1,5 +1,5 @@
 import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
-import * as React from 'react';
+import { type ComponentRef, forwardRef } from 'react';
 import { cn } from 'src/lib/utils';
 
 import { ListItem } from '../list-item/ListItem';
@@ -7,8 +7,8 @@ import { useDropdownMenuContext } from './DropdownMenu.context';
 import type { DropdownMenuItemProps } from './DropdownMenu.types';
 import { dropdownMenuItemClassName } from './DropdownMenu.variants';
 
-export const DropdownMenuItem = React.forwardRef<
-  React.ComponentRef<typeof DropdownMenuPrimitive.Item>,
+export const DropdownMenuItem = forwardRef<
+  ComponentRef<typeof DropdownMenuPrimitive.Item>,
   DropdownMenuItemProps
 >(({ className, children, onSelect, variant, defaultMotion, ...props }, ref) => {
   const { motion } = useDropdownMenuContext();
