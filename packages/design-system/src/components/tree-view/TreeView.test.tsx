@@ -1,7 +1,7 @@
 import { RiFolderLine, RiFolderOpenLine } from '@remixicon/react';
 import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { useState } from 'react';
+import { createRef, useState } from 'react';
 import { describe, expect, it, vi } from 'vitest';
 
 import { TreeView } from './TreeView';
@@ -162,6 +162,19 @@ describe('TreeView', () => {
         </TreeView>,
       );
       expect(screen.getByTestId('a')).toHaveClass('custom');
+    });
+
+    it("forwards the icon's ref to its svg", () => {
+      const ref = createRef<SVGSVGElement>();
+      render(
+        <TreeView aria-label="Files">
+          <TreeView.Item value="src">
+            <TreeView.Icon ref={ref} icon={RiFolderLine} />
+            <TreeView.Label>src</TreeView.Label>
+          </TreeView.Item>
+        </TreeView>,
+      );
+      expect(ref.current).toBeInstanceOf(SVGSVGElement);
     });
 
     it('throws when an item is used outside a TreeView', () => {
