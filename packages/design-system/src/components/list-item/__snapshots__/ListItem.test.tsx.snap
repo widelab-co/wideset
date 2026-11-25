@@ -41,7 +41,7 @@ exports[`ListItem Snapshots > Selected state > matches snapshot for selected dan
   </div>
   <svg
     aria-hidden="true"
-    class="remixicon size-ws-10 shrink-0"
+    class="remixicon size-ws-11 shrink-0"
     fill="currentColor"
     focusable="false"
     height="24"
@@ -81,7 +81,7 @@ exports[`ListItem Snapshots > Selected state > matches snapshot for selected pri
   </div>
   <svg
     aria-hidden="true"
-    class="remixicon size-ws-10 shrink-0"
+    class="remixicon size-ws-11 shrink-0 text-ws-dynamic-primary-default in-aria-disabled:text-ws-dynamic-primary-disabled"
     fill="currentColor"
     focusable="false"
     height="24"

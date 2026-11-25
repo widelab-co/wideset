@@ -53,6 +53,30 @@ describe('ListItem', () => {
       expect(handleClick).toHaveBeenCalledTimes(1);
     });
   });
+
+  describe('Selected check', () => {
+    it('draws a 20px check in the primary text colour', () => {
+      const { container } = render(
+        <ListItem data-state="checked">
+          <ListItem.Label>Selected Item</ListItem.Label>
+        </ListItem>,
+      );
+      expect(container.querySelector('svg')).toHaveClass(
+        'size-ws-11',
+        'text-ws-dynamic-primary-default',
+        'in-aria-disabled:text-ws-dynamic-primary-disabled',
+      );
+    });
+
+    it('keeps the row colour on a danger row', () => {
+      const { container } = render(
+        <ListItem variant="danger" data-state="checked">
+          <ListItem.Label>Delete</ListItem.Label>
+        </ListItem>,
+      );
+      expect(container.querySelector('svg')).not.toHaveClass('text-ws-dynamic-primary-default');
+    });
+  });
 });
 
 describe('ListItem Snapshots', () => {

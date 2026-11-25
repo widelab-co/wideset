@@ -39,6 +39,17 @@ export const listItemVariants = cva(
   },
 );
 
+// Danger rows have no selected state in Figma, so their check keeps the row colour.
+export const listItemCheckVariants = cva('size-ws-11 shrink-0', {
+  variants: {
+    variant: {
+      primary: 'text-ws-dynamic-primary-default in-aria-disabled:text-ws-dynamic-primary-disabled',
+      danger: '',
+    },
+  },
+  defaultVariants: { variant: 'primary' },
+});
+
 export const listItemMotionVariants = cva('', {
   variants: {
     enabled: { true: hoverTintMotion, false: '' },
