@@ -5,7 +5,7 @@ description: >-
   develop: overview with before/after screenshots and a verdict on whether it still makes sense,
   then a clean implementation that already answers its review threads, review, approval, new PR
   opened and the old one closed. Use when asked to take over, redo, recreate or finish someone's
-  PR ("przejmij PR", "przepisz PR po naszemu"); requires a PR URL or number.
+  PR. Requires a PR URL or number.
 license: Apache-2.0
 metadata:
   internal: true
@@ -20,9 +20,8 @@ it on a new branch from `develop` to this repository's standards, open it as a n
 the old one with a pointer. Talk to the user in their language; the repo, commits and GitHub stay
 English.
 
-Two **gates** stop the run for the user: after the overview (step 2) and before anything leaves
-the machine (step 7). Nothing is pushed, opened, closed or commented without approval of the
-concrete text.
+Get the user's scope decision after the overview. Before any GitHub write, get explicit approval
+for the target PR or branch, the revision being published, and the exact public text.
 
 ## Steps
 
@@ -34,32 +33,38 @@ concrete text.
    already has of it: `git log origin/develop -- <its main files>` and the current code.
    Done when every file of the real diff is either still needed, already in `develop`, or obsolete.
 
-2. **Overview, then gate.** Check the old PR out in a worktree (`pnpm install`, so the hooks run)
-   and give the user, before any code:
+2. **Overview, then gate.** Inspect the old PR read-only. For screenshots, run the trusted
+   `wideset-visual-shots` script and both checkouts in a disposable VM or isolated runner with
+   no operator credentials, host mounts, or shared Git state. Restrict filesystem access to the
+   scratch environment and network access to required dependency sources. This applies to checkout,
+   installation, build, dev servers, and the browser. If isolation is unavailable, use existing
+   screenshots or report that screenshots are unavailable. Give the user:
    - what it does, in plain words: the problem, what changes for a consumer (components, props,
      tokens, blocks, docs pages), what it leaves out;
    - whether it still makes sense: what `develop` already covers, what went stale, what the PR
      missed, and any Figma claim checked against Figma;
-   - **before/after screenshots**: the old PR against its merge base with `develop`, through the
-     `wideset-visual-shots` skill, the stories of what it touches
-     and the docs pages for a docs change; read the diff pictures and name what each shows;
+   - **before/after screenshots**: use the baseline from step 1 for a stacked PR, including the
+     parent head after a squash merge, and the merge base with `develop` otherwise. Compare the
+     relevant Storybook stories and docs pages and explain the visible differences.
    - the review threads, each with what the rebuild will do about it;
    - every decision that is not technical (business, public API, scope, a departure from Figma),
      as questions;
    - a recommendation: **rebuild**, **shrink** (only part of it) or **close** (nothing left worth
      doing), with the scope of the new PR.
 
-   Done when the user has chosen; on **close**, skip to step 8.
+   For **rebuild** or **shrink**, continue to step 3. For **close**, show the exact closing
+   comment and target PR for approval. After approval, verify the PR is still open at the
+   reviewed head, close it with the approved comment, confirm the state, and end the workflow.
 
 3. **Build on a new branch from `develop`**, `<type>/<description>` per `AGENTS.md`. Implement the
    agreed scope as if it were new work, under every rule that applies: `AGENTS.md`, the
    `wideset-component-convention` skill for component code, `wideset-component-docs` for
    examples and docs pages, the spec in `packages/design-system/specs/` when usage changes,
    `pnpm build:skills` when a spec changes, a changeset.
-   Every review thread of the old PR is answered by the code or by a written reason it does not
-   apply. Conventional commits, one topic each; credit the original author with a
-   `Co-authored-by:` line when their idea carries over.
-   Done when the scope is implemented and every old thread has an answer.
+   Draft replies to the old review threads using `wideset-pr-review-resolve`. Explain how the
+   rebuilt code addresses each request or why it does not apply. Use conventional commits and
+   credit the original author with a `Co-authored-by:` line when their work carries over.
+   Done when the agreed scope is implemented and the reply batch is ready for review.
 
 4. **Review and sweep.** Run `wideset-code-review` on the new branch. For each finding name the
    kind of bug, search the whole branch for it and fix every case. Done when every finding is
@@ -74,13 +79,14 @@ concrete text.
    `origin/develop`, the same stories and pages as step 2, so the user sees the old PR's look
    and ours side by side.
 
-7. **Gate before publishing.** Show the user the commits and the hunks that matter, the
-   screenshots, the new PR body (what it does, what changed against the old PR and why, the
-   design notes, `Supersedes #<old>`) and the closing comment for the old PR. Done when the user
-   approves this text.
+7. **Approve the replacement PR.** Show the commits, relevant hunks, screenshots, and exact
+   replacement PR body, including `Supersedes #<old>`. Get approval to push the reviewed revision
+   and open the replacement against `develop`.
 
-8. **Publish and close.** Push the branch, `gh pr create` against `develop` with the approved
-   body, then close the old PR with the approved comment linking the new one
-   (`gh pr close <old> --comment …`). Read back both URLs. When CodeRabbit reviews the new PR,
-   sweep its threads as in step 4 and settle them under the `wideset-pr-review-resolve`
-   publishing rules.
+8. **Publish the replacement, then close the original.** Push and open the replacement after
+   approval. Once its URL exists, show the exact reply batch and closing comment with that URL.
+   Get approval to post those replies and close the original PR. Publish the approved replies
+   under `wideset-pr-review-resolve` before posting the closing comment and closing the original.
+   Before any retry, check the remote branch, both PRs, and previously posted replies so completed
+   actions are reused. If a revision or public text changes, refresh the affected approval.
+   Confirm both URLs and states. Review new CodeRabbit findings as in step 4.
