@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import * as React from 'react';
+import { renderToString } from 'react-dom/server';
 import { describe, expect, it, vi } from 'vitest';
 
 import { Sidebar } from '../sidebar/Sidebar';
@@ -331,8 +332,19 @@ describe('AppShell', () => {
         expect(screen.getByTestId('sidebar')).toHaveAttribute('data-state', 'expanded');
       });
 
-      it('reads as expanded and does nothing in a shell with no Sidebar', async () => {
-        const user = userEvent.setup();
+      it('is in the server HTML, before the Sidebar registers', () => {
+        const html = renderToString(
+          <AppShell>
+            <Sidebar />
+            <AppShell.Main>
+              <AppShell.SidebarTrigger />
+            </AppShell.Main>
+          </AppShell>,
+        );
+        expect(html).toContain('data-slot="app-shell-sidebar-trigger"');
+      });
+
+      it('renders nothing in a shell with no Sidebar', () => {
         render(
           <AppShell>
             <AppShell.Main>
@@ -340,10 +352,7 @@ describe('AppShell', () => {
             </AppShell.Main>
           </AppShell>,
         );
-        const trigger = barTrigger('Collapse sidebar');
-        await user.click(trigger);
-        expect(trigger).toHaveAttribute('aria-expanded', 'true');
-        expect(trigger).not.toHaveAttribute('aria-controls');
+        expect(screen.queryByRole('button')).not.toBeInTheDocument();
       });
 
       it('forgets a sidebar that unmounts', () => {
@@ -359,7 +368,7 @@ describe('AppShell', () => {
         expect(barTrigger()).toHaveAttribute('aria-controls', 'sidebar');
 
         rerender(<Shell withSidebar={false} />);
-        expect(barTrigger()).not.toHaveAttribute('aria-controls');
+        expect(screen.queryByRole('button')).not.toBeInTheDocument();
       });
     });
 

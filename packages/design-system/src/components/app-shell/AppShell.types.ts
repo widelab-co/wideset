@@ -25,7 +25,10 @@ export type AppShellProps = React.HTMLAttributes<HTMLDivElement> & {
    * @default 'inset'
    */
   direction?: AppShellDirection;
-  /** A `Sidebar` (or another navigation) followed by `AppShell.Main`. */
+  /**
+   * A `Sidebar` (or another navigation) followed by `AppShell.Main`. AppShell supports one
+   * `Sidebar`: a second one overwrites the first one's registration.
+   */
   children?: React.ReactNode;
 };
 
@@ -59,6 +62,7 @@ export type AppShellPageBarActionsProps = React.HTMLAttributes<HTMLDivElement> &
 /**
  * Props for the button in `AppShell.PageBar` that collapses and expands the shell's `Sidebar`.
  * The `Sidebar` keeps the state: use its `collapsed`, `defaultCollapsed` and `onCollapsedChange`.
+ * Renders nothing in a shell without a `Sidebar`.
  */
 export type AppShellSidebarTriggerProps = Omit<
   React.ButtonHTMLAttributes<HTMLButtonElement>,

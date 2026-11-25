@@ -19,8 +19,10 @@ const AppShellSidebarTrigger = React.forwardRef<HTMLButtonElement, AppShellSideb
     },
     ref,
   ) => {
-    // Expanded until the Sidebar mounts (server render).
+    // The Sidebar registers after mount: render as expanded until then, nothing if none registers.
     const { sidebar } = useAppShellContext();
+    const [isMounted, setIsMounted] = React.useState(false);
+    React.useEffect(() => setIsMounted(true), []);
     const isCollapsed = sidebar?.isCollapsed ?? false;
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -28,6 +30,8 @@ const AppShellSidebarTrigger = React.forwardRef<HTMLButtonElement, AppShellSideb
 
       if (!event.defaultPrevented) sidebar?.toggle();
     };
+
+    if (isMounted && !sidebar) return null;
 
     return (
       <IconButton
