@@ -8,5 +8,5 @@ export const DropdownMenuContext = createContext<DropdownMenuContextValue>({});
 
 export const useDropdownMenuContext = () => useContext(DropdownMenuContext);
 
-/** True inside `DropdownMenu.Portal`: `DropdownMenu.Content` then renders into it instead of its own portal. */
+/** Tells the panel to use its enclosing DropdownMenu.Portal. */
 export const DropdownMenuPortalContext = createContext(false);

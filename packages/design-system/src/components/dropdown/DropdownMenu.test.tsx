@@ -342,6 +342,38 @@ describe('DropdownMenu', () => {
       expect(document.body).toContainElement(screen.getByTestId('inner'));
       portalContainer.remove();
     });
+
+    it.each([
+      { destination: 'document.body', custom: false },
+      { destination: 'an explicit portal container', custom: true },
+    ])('renders the submenu in $destination', ({ custom }) => {
+      const container = custom ? render(<div />).container : document.body;
+      const submenu = (
+        <DropdownMenu.SubContent>
+          <DropdownMenu.Item>Archive</DropdownMenu.Item>
+        </DropdownMenu.SubContent>
+      );
+
+      render(
+        <DropdownMenu open modal={false}>
+          <DropdownMenu.Trigger>Open</DropdownMenu.Trigger>
+          <DropdownMenu.Content>
+            <DropdownMenu.Sub open>
+              <DropdownMenu.SubTrigger>Move to</DropdownMenu.SubTrigger>
+              {custom ? (
+                <DropdownMenu.Portal container={container}>{submenu}</DropdownMenu.Portal>
+              ) : (
+                submenu
+              )}
+            </DropdownMenu.Sub>
+          </DropdownMenu.Content>
+        </DropdownMenu>,
+      );
+
+      const panel = screen.getByRole('menu', { name: 'Move to' });
+      expect(container).toContainElement(panel);
+      expect(screen.getByRole('menu', { name: 'Open' })).not.toContainElement(panel);
+    });
   });
 
   describe('Keyboard interaction', () => {
@@ -488,6 +520,29 @@ describe('DropdownMenu', () => {
       renderMenu();
 
       expect(screen.getByRole('separator')).toHaveClass('my-[5.5px]', 'border-t');
+    });
+
+    it('uses the caller-provided element for submenu triggers and radio items with asChild', () => {
+      render(
+        <DropdownMenu open modal={false}>
+          <DropdownMenu.Trigger>Open</DropdownMenu.Trigger>
+          <DropdownMenu.Content>
+            <DropdownMenu.Sub>
+              <DropdownMenu.SubTrigger asChild>
+                <button type="button">Share</button>
+              </DropdownMenu.SubTrigger>
+            </DropdownMenu.Sub>
+            <DropdownMenu.RadioGroup defaultValue="name">
+              <DropdownMenu.RadioItem asChild value="name">
+                <button type="button">Name</button>
+              </DropdownMenu.RadioItem>
+            </DropdownMenu.RadioGroup>
+          </DropdownMenu.Content>
+        </DropdownMenu>,
+      );
+
+      expect(screen.getByRole('menuitem', { name: 'Share' })).toHaveAttribute('type', 'button');
+      expect(screen.getByRole('menuitemradio', { name: 'Name' })).toHaveAttribute('type', 'button');
     });
   });
 

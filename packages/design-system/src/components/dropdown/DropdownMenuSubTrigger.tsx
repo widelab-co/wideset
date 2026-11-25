@@ -15,27 +15,31 @@ import {
 export const DropdownMenuSubTrigger = forwardRef<
   ComponentRef<typeof DropdownMenuPrimitive.SubTrigger>,
   DropdownMenuSubTriggerProps
->(({ className, children, ...props }, ref) => {
+>(({ asChild, className, children, ...props }, ref) => {
   const { motion } = useDropdownMenuContext();
 
   return (
     <DropdownMenuPrimitive.SubTrigger
       ref={ref}
       data-slot="dropdown-menu-sub-trigger"
-      className={cn(dropdownMenuSubTriggerClassName, className)}
+      className={asChild ? className : cn(dropdownMenuSubTriggerClassName, className)}
       {...props}
       asChild
     >
-      <ListItem defaultMotion={motion}>
-        {children}
-        <ListItem.Suffix className={dropdownMenuSubTriggerSuffixClassName}>
-          <RiArrowRightSLine
-            aria-hidden="true"
-            focusable="false"
-            className={dropdownMenuSubTriggerIconClassName}
-          />
-        </ListItem.Suffix>
-      </ListItem>
+      {asChild ? (
+        children
+      ) : (
+        <ListItem defaultMotion={motion}>
+          {children}
+          <ListItem.Suffix className={dropdownMenuSubTriggerSuffixClassName}>
+            <RiArrowRightSLine
+              aria-hidden="true"
+              focusable="false"
+              className={dropdownMenuSubTriggerIconClassName}
+            />
+          </ListItem.Suffix>
+        </ListItem>
+      )}
     </DropdownMenuPrimitive.SubTrigger>
   );
 });

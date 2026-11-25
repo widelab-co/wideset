@@ -37,6 +37,6 @@
 - Use `RadioGroup` and `RadioItem` for a single menu setting, such as sort order. The selected item
   includes a checkmark.
 - `CheckboxItem` and `ItemIndicator` need custom styling.
-- `DropdownMenu.Portal` is optional: Content already portals. Wrap only to set a different
-  `container` or `forceMount`.
+- Menus and submenus portal by default. Use `DropdownMenu.Portal` to set a custom `container` or
+  `forceMount`.
 - Items are styled by `ListItem`; do not wrap their children in another `ListItem`.

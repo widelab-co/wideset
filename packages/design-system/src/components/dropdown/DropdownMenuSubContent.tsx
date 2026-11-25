@@ -1,8 +1,8 @@
 import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
-import { type ComponentRef, forwardRef } from 'react';
+import { type ComponentRef, forwardRef, useContext } from 'react';
 import { cn } from 'src/lib/utils';
 
-import { useDropdownMenuContext } from './DropdownMenu.context';
+import { DropdownMenuPortalContext, useDropdownMenuContext } from './DropdownMenu.context';
 import type { DropdownMenuSubContentProps } from './DropdownMenu.types';
 import {
   dropdownMenuContentClassName,
@@ -14,19 +14,30 @@ export const DropdownMenuSubContent = forwardRef<
   DropdownMenuSubContentProps
 >(({ className, collisionPadding = 10, ...props }, ref) => {
   const { motion } = useDropdownMenuContext();
+  const insidePortal = useContext(DropdownMenuPortalContext);
 
-  return (
-    <DropdownMenuPrimitive.SubContent
-      ref={ref}
-      data-slot="dropdown-menu-sub-content"
-      collisionPadding={collisionPadding}
-      className={cn(
-        dropdownMenuContentClassName,
-        dropdownMenuContentMotionVariants({ enabled: motion }),
-        className,
-      )}
-      {...props}
-    />
+  const content = (
+    <DropdownMenuPortalContext.Provider value={false}>
+      <DropdownMenuPrimitive.SubContent
+        ref={ref}
+        data-slot="dropdown-menu-sub-content"
+        collisionPadding={collisionPadding}
+        className={cn(
+          dropdownMenuContentClassName,
+          dropdownMenuContentMotionVariants({ enabled: motion }),
+          className,
+        )}
+        {...props}
+      />
+    </DropdownMenuPortalContext.Provider>
+  );
+
+  return insidePortal ? (
+    content
+  ) : (
+    <DropdownMenuPrimitive.Portal forceMount={props.forceMount}>
+      {content}
+    </DropdownMenuPrimitive.Portal>
   );
 });
 

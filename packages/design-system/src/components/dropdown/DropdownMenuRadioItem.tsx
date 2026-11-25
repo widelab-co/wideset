@@ -10,18 +10,18 @@ import { dropdownMenuItemClassName } from './DropdownMenu.variants';
 export const DropdownMenuRadioItem = forwardRef<
   ComponentRef<typeof DropdownMenuPrimitive.RadioItem>,
   DropdownMenuRadioItemProps
->(({ className, children, ...props }, ref) => {
+>(({ asChild, className, children, ...props }, ref) => {
   const { motion } = useDropdownMenuContext();
 
   return (
     <DropdownMenuPrimitive.RadioItem
       ref={ref}
       data-slot="dropdown-menu-radio-item"
-      className={cn(dropdownMenuItemClassName, className)}
+      className={asChild ? className : cn(dropdownMenuItemClassName, className)}
       {...props}
       asChild
     >
-      <ListItem defaultMotion={motion}>{children}</ListItem>
+      {asChild ? children : <ListItem defaultMotion={motion}>{children}</ListItem>}
     </DropdownMenuPrimitive.RadioItem>
   );
 });

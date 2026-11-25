@@ -17,18 +17,16 @@ export default function DropdownMenuSubmenus() {
       <DropdownMenu.Content align="start">
         <DropdownMenu.Sub>
           <DropdownMenu.SubTrigger>Sort by</DropdownMenu.SubTrigger>
-          <DropdownMenu.Portal>
-            <DropdownMenu.SubContent>
-              <DropdownMenu.RadioGroup
-                aria-label="Sort files by"
-                value={sortBy}
-                onValueChange={setSortBy}
-              >
-                <DropdownMenu.RadioItem value="name">Name</DropdownMenu.RadioItem>
-                <DropdownMenu.RadioItem value="modified">Last modified</DropdownMenu.RadioItem>
-              </DropdownMenu.RadioGroup>
-            </DropdownMenu.SubContent>
-          </DropdownMenu.Portal>
+          <DropdownMenu.SubContent>
+            <DropdownMenu.RadioGroup
+              aria-label="Sort files by"
+              value={sortBy}
+              onValueChange={setSortBy}
+            >
+              <DropdownMenu.RadioItem value="name">Name</DropdownMenu.RadioItem>
+              <DropdownMenu.RadioItem value="modified">Last modified</DropdownMenu.RadioItem>
+            </DropdownMenu.RadioGroup>
+          </DropdownMenu.SubContent>
         </DropdownMenu.Sub>
         <DropdownMenu.Separator />
         <DropdownMenu.Item disabled={sortBy === 'name'} onSelect={() => setSortBy('name')}>
