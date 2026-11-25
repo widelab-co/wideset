@@ -397,6 +397,68 @@ exports[`ComboBox > snapshots > should match snapshot for size="lg" 1`] = `
 </div>
 `;
 
+exports[`ComboBox > snapshots > should match snapshot for size="lg" with a clear button and a value 1`] = `
+<div>
+  <div
+    aria-controls="_r_2i_"
+    aria-expanded="false"
+    aria-haspopup="listbox"
+    class="group/select-trigger text-ws-static-strong flex items-center justify-between overflow-hidden text-start whitespace-nowrap outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base border-ws-dynamic-secondary-default shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-md h-ws-forms-lg max-h-ws-forms-lg rounded-ws-control-xl px-ws-9 transition-[border-color,box-shadow,background-color,color] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) cursor-text relative w-[16rem]"
+    data-slot="combo-box-trigger"
+    data-state="closed"
+    role="combobox"
+    tabindex="0"
+    type="button"
+  >
+    <span
+      class="min-w-0 flex-1 truncate"
+    >
+      Poland
+    </span>
+    <button
+      aria-label="Clear selection"
+      class="whitespace-nowrap box-border inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default typography-label-strong-sm gap-ws-3 bg-ws-dynamic-secondary-alpha-default text-ws-dynamic-secondary-default outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover hover:text-ws-dynamic-secondary-hover active:bg-ws-dynamic-secondary-alpha-pressed active:text-ws-dynamic-secondary-pressed disabled:text-ws-dynamic-secondary-disabled disabled:bg-none transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small) ml-ws-3 relative shrink-0 rounded-full p-0 size-ws-14 mr-ws-3"
+      data-slot="icon-button"
+      type="button"
+    >
+      <svg
+        aria-hidden="true"
+        class="remixicon shrink-0 p-0 size-ws-11"
+        data-slot="button-icon"
+        fill="currentColor"
+        focusable="false"
+        height="24"
+        viewBox="0 0 24 24"
+        width="24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M11.9997 10.5865L16.9495 5.63672L18.3637 7.05093L13.4139 12.0007L18.3637 16.9504L16.9495 18.3646L11.9997 13.4149L7.04996 18.3646L5.63574 16.9504L10.5855 12.0007L5.63574 7.05093L7.04996 5.63672L11.9997 10.5865Z"
+        />
+      </svg>
+    </button>
+    <div
+      class="flex h-full shrink-0 items-center justify-center -mr-ws-9 w-ws-18 border-ws-static-base border-l cursor-pointer"
+    >
+      <svg
+        aria-hidden="true"
+        class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled shrink-0 size-ws-11"
+        fill="currentColor"
+        focusable="false"
+        height="24"
+        viewBox="0 0 24 24"
+        width="24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M11.9999 13.1714L16.9497 8.22168L18.3639 9.63589L11.9999 15.9999L5.63599 9.63589L7.0502 8.22168L11.9999 13.1714Z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`ComboBox > snapshots > should match snapshot for size="md" 1`] = `
 <div>
   <div
@@ -437,6 +499,68 @@ exports[`ComboBox > snapshots > should match snapshot for size="md" 1`] = `
 </div>
 `;
 
+exports[`ComboBox > snapshots > should match snapshot for size="md" with a clear button and a value 1`] = `
+<div>
+  <div
+    aria-controls="_r_2g_"
+    aria-expanded="false"
+    aria-haspopup="listbox"
+    class="group/select-trigger text-ws-static-strong flex items-center justify-between overflow-hidden text-start whitespace-nowrap outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base border-ws-dynamic-secondary-default shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-md max-h-ws-forms-md rounded-ws-control-lg px-ws-9 transition-[border-color,box-shadow,background-color,color] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) cursor-text relative w-[16rem]"
+    data-slot="combo-box-trigger"
+    data-state="closed"
+    role="combobox"
+    tabindex="0"
+    type="button"
+  >
+    <span
+      class="min-w-0 flex-1 truncate"
+    >
+      Poland
+    </span>
+    <button
+      aria-label="Clear selection"
+      class="whitespace-nowrap box-border inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default typography-label-strong-sm gap-ws-3 bg-ws-dynamic-secondary-alpha-default text-ws-dynamic-secondary-default outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover hover:text-ws-dynamic-secondary-hover active:bg-ws-dynamic-secondary-alpha-pressed active:text-ws-dynamic-secondary-pressed disabled:text-ws-dynamic-secondary-disabled disabled:bg-none transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small) ml-ws-3 relative shrink-0 rounded-full p-0 size-ws-13 mr-ws-3"
+      data-slot="icon-button"
+      type="button"
+    >
+      <svg
+        aria-hidden="true"
+        class="remixicon shrink-0 p-0 size-ws-9"
+        data-slot="button-icon"
+        fill="currentColor"
+        focusable="false"
+        height="24"
+        viewBox="0 0 24 24"
+        width="24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M11.9997 10.5865L16.9495 5.63672L18.3637 7.05093L13.4139 12.0007L18.3637 16.9504L16.9495 18.3646L11.9997 13.4149L7.04996 18.3646L5.63574 16.9504L10.5855 12.0007L5.63574 7.05093L7.04996 5.63672L11.9997 10.5865Z"
+        />
+      </svg>
+    </button>
+    <div
+      class="flex h-full shrink-0 items-center justify-center -mr-ws-9 w-ws-16 border-ws-static-base border-l cursor-pointer"
+    >
+      <svg
+        aria-hidden="true"
+        class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled shrink-0 size-ws-9"
+        fill="currentColor"
+        focusable="false"
+        height="24"
+        viewBox="0 0 24 24"
+        width="24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M11.9999 13.1714L16.9497 8.22168L18.3639 9.63589L11.9999 15.9999L5.63599 9.63589L7.0502 8.22168L11.9999 13.1714Z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`ComboBox > snapshots > should match snapshot for size="sm" 1`] = `
 <div>
   <div
@@ -455,6 +579,68 @@ exports[`ComboBox > snapshots > should match snapshot for size="sm" 1`] = `
     >
       Select country
     </span>
+    <div
+      class="flex h-full shrink-0 items-center justify-center -mr-ws-7 w-ws-14 border-ws-static-base border-l cursor-pointer"
+    >
+      <svg
+        aria-hidden="true"
+        class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled shrink-0 size-ws-8"
+        fill="currentColor"
+        focusable="false"
+        height="24"
+        viewBox="0 0 24 24"
+        width="24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M11.9999 13.1714L16.9497 8.22168L18.3639 9.63589L11.9999 15.9999L5.63599 9.63589L7.0502 8.22168L11.9999 13.1714Z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ComboBox > snapshots > should match snapshot for size="sm" with a clear button and a value 1`] = `
+<div>
+  <div
+    aria-controls="_r_2e_"
+    aria-expanded="false"
+    aria-haspopup="listbox"
+    class="group/select-trigger text-ws-static-strong flex items-center justify-between overflow-hidden text-start whitespace-nowrap outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base border-ws-dynamic-secondary-default shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-sm max-h-ws-forms-sm rounded-ws-control-lg px-ws-7 transition-[border-color,box-shadow,background-color,color] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) cursor-text relative w-[16rem]"
+    data-slot="combo-box-trigger"
+    data-state="closed"
+    role="combobox"
+    tabindex="0"
+    type="button"
+  >
+    <span
+      class="min-w-0 flex-1 truncate"
+    >
+      Poland
+    </span>
+    <button
+      aria-label="Clear selection"
+      class="whitespace-nowrap box-border inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default typography-label-strong-sm gap-ws-3 bg-ws-dynamic-secondary-alpha-default text-ws-dynamic-secondary-default outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover hover:text-ws-dynamic-secondary-hover active:bg-ws-dynamic-secondary-alpha-pressed active:text-ws-dynamic-secondary-pressed disabled:text-ws-dynamic-secondary-disabled disabled:bg-none transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small) ml-ws-3 relative shrink-0 rounded-full p-0 size-ws-11 mr-ws-2"
+      data-slot="icon-button"
+      type="button"
+    >
+      <svg
+        aria-hidden="true"
+        class="remixicon shrink-0 p-0 size-ws-9"
+        data-slot="button-icon"
+        fill="currentColor"
+        focusable="false"
+        height="24"
+        viewBox="0 0 24 24"
+        width="24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M11.9997 10.5865L16.9495 5.63672L18.3637 7.05093L13.4139 12.0007L18.3637 16.9504L16.9495 18.3646L11.9997 13.4149L7.04996 18.3646L5.63574 16.9504L10.5855 12.0007L5.63574 7.05093L7.04996 5.63672L11.9997 10.5865Z"
+        />
+      </svg>
+    </button>
     <div
       class="flex h-full shrink-0 items-center justify-center -mr-ws-7 w-ws-14 border-ws-static-base border-l cursor-pointer"
     >
