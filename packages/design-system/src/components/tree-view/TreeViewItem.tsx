@@ -1,5 +1,13 @@
 import { RiArrowRightSLine } from '@remixicon/react';
-import React, { Children, isValidElement, useContext, useId, useMemo } from 'react';
+import React, {
+  Children,
+  isValidElement,
+  useContext,
+  useEffect,
+  useId,
+  useMemo,
+  useRef,
+} from 'react';
 import { cn } from 'src/lib/utils';
 
 import { TreeViewItemContext, TreeViewLevelContext, useTreeViewContext } from './TreeView.context';
@@ -14,7 +22,8 @@ import { TreeViewSuffix } from './TreeViewSuffix';
 
 const TreeViewItem = React.forwardRef<HTMLLIElement, TreeViewItemProps>(
   ({ value, disabled = false, className, children, onFocus, ...props }, ref) => {
-    const { currentValue, currentExpanded, tabStop, motion, focusItem } = useTreeViewContext();
+    const { currentValue, currentExpanded, tabStop, motion, focusItem, releaseTabStop } =
+      useTreeViewContext();
     const level = useContext(TreeViewLevelContext);
     const labelId = useId();
     const suffixId = useId();
@@ -33,6 +42,20 @@ const TreeViewItem = React.forwardRef<HTMLLIElement, TreeViewItemProps>(
     const isBranch = group !== undefined;
     const expanded = isBranch && currentExpanded.includes(value);
     const selected = !isBranch && currentValue === value;
+
+    // Leaving while it holds the tab stop, the item asks the tree to pick another one, so Tab
+    // still lands in the tree when nothing else re-renders it.
+    const isTabStop = tabStop === value;
+    const holdsTabStop = useRef(isTabStop);
+    useEffect(() => {
+      holdsTabStop.current = isTabStop;
+    }, [isTabStop]);
+    useEffect(() => {
+      const holds = holdsTabStop;
+      return () => {
+        if (holds.current) releaseTabStop();
+      };
+    }, [releaseTabStop]);
 
     const itemContext = useMemo(
       () => ({ expanded, labelId, suffixId }),
@@ -53,7 +76,7 @@ const TreeViewItem = React.forwardRef<HTMLLIElement, TreeViewItemProps>(
           aria-expanded={isBranch ? expanded : undefined}
           aria-selected={isBranch ? undefined : selected}
           aria-disabled={disabled || undefined}
-          tabIndex={tabStop === value ? 0 : -1}
+          tabIndex={isTabStop ? 0 : -1}
           className={cn(treeViewItemVariants(), className)}
           // Clicks and keys are handled once, on the tree (TreeView.tsx).
           onFocus={(event) => {

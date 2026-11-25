@@ -73,6 +73,8 @@ export type TreeViewContextType = {
   tabStop: string | undefined;
   motion: boolean;
   focusItem: (value: string) => void;
+  /** Called by an item that unmounts while it holds the tab stop. */
+  releaseTabStop: () => void;
 };
 
 export type TreeViewItemContextType = {

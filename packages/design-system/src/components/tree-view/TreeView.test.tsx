@@ -1,6 +1,7 @@
 import { RiFolderLine, RiFolderOpenLine } from '@remixicon/react';
-import { render, screen } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { useState } from 'react';
 import { describe, expect, it, vi } from 'vitest';
 
 import { TreeView } from './TreeView';
@@ -247,6 +248,32 @@ describe('TreeView', () => {
       await userEvent.keyboard('{Home}{ArrowDown}');
       expect(item('app.tsx')).toHaveFocus();
       rerender(<Files expanded={[]} value="README.md" />);
+      expect(item('README.md')).toHaveAttribute('tabindex', '0');
+    });
+
+    it('moves the tab stop on when a stateful child removes the focused item', async () => {
+      let removeChangelog = () => {};
+      const Rest = () => {
+        const [shown, setShown] = useState(true);
+        removeChangelog = () => setShown(false);
+        return shown ? (
+          <TreeView.Item value="CHANGELOG.md">
+            <TreeView.Label>CHANGELOG.md</TreeView.Label>
+          </TreeView.Item>
+        ) : null;
+      };
+      render(
+        <TreeView aria-label="Files">
+          <TreeView.Item value="README.md">
+            <TreeView.Label>README.md</TreeView.Label>
+          </TreeView.Item>
+          <Rest />
+        </TreeView>,
+      );
+      await userEvent.tab();
+      await userEvent.keyboard('{End}');
+      expect(item('CHANGELOG.md')).toHaveFocus();
+      act(() => removeChangelog());
       expect(item('README.md')).toHaveAttribute('tabindex', '0');
     });
 

@@ -49,6 +49,11 @@ const TreeView = React.forwardRef<HTMLUListElement, TreeViewProps>(
     const setFocused = useCallback((item: string) => setFocusedState({ item }), []);
     const tabStop = focused?.item ?? currentValue;
 
+    // An item that unmounts while it holds the tab stop (a stateful child removed it, with no
+    // re-render of the tree) bumps this, so the effect below runs and moves the tab stop on.
+    const [releases, setReleases] = useState(0);
+    const releaseTabStop = useCallback(() => setReleases((count) => count + 1), []);
+
     // A new selection, from a click or from outside the tree, takes the tab stop back. Adjusted
     // during render (React's "storing information from previous renders"), so no stale frame.
     const [lastValue, setLastValue] = useState(currentValue);
@@ -94,7 +99,7 @@ const TreeView = React.forwardRef<HTMLUListElement, TreeViewProps>(
       } else if (!focused && !selectedShown && shown[0] !== undefined) {
         setFocusedState({ item: shown[0], fallback: true });
       }
-    }, [focused, currentValue, currentExpanded, children]);
+    }, [focused, currentValue, currentExpanded, children, releases]);
 
     const focusElement = (item: HTMLElement | null | undefined) => {
       if (!item) return;
@@ -157,8 +162,15 @@ const TreeView = React.forwardRef<HTMLUListElement, TreeViewProps>(
     };
 
     const context = useMemo(
-      () => ({ currentValue, currentExpanded, tabStop, motion, focusItem: setFocused }),
-      [currentValue, currentExpanded, tabStop, motion, setFocused],
+      () => ({
+        currentValue,
+        currentExpanded,
+        tabStop,
+        motion,
+        focusItem: setFocused,
+        releaseTabStop,
+      }),
+      [currentValue, currentExpanded, tabStop, motion, setFocused, releaseTabStop],
     );
 
     return (
