@@ -7,7 +7,7 @@ design system's own tokens; component data read from the library at build time.
 pnpm docs:dev        # dev server on http://localhost:4321 (builds the library first)
 pnpm docs:build      # static build into apps/docs/dist
 pnpm docs:preview    # serve the build
-pnpm --filter @wideset/docs test   # the generators' output and the blocks list
+pnpm turbo run test --filter=@wideset/docs   # builds the library first; generators, blocks list, registry Worker
 pnpm typecheck       # includes `astro check` for this app (run from the repo root)
 pnpm lint            # ESLint for this app too (rules shared from the root .eslintrc.json)
 pnpm prettier        # one Prettier for the workspace, this app included

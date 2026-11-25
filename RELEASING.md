@@ -135,7 +135,9 @@ The `deploy` job in `.github/workflows/build.yaml` publishes to Cloudflare Worke
 Repository settings: secrets `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`, `NPM_TOKEN`; variable
 `CF_WORKERS_SUBDOMAIN`; environments `production` (branch `main`) and `develop` (branch `develop`);
 Actions allowed to create pull requests. Chromatic runs only when the variable `CHROMATIC_APP_ID`
-is set.
+is set. Analytics are optional: the variables `CF_ANALYTICS_TOKEN_DOCS` and
+`CF_ANALYTICS_TOKEN_STORYBOOK` turn on Cloudflare Web Analytics for production builds, and the
+docs Worker counts registry downloads in the Analytics Engine dataset `wideset_registry`.
 
 Production on `wideset.co`:
 
