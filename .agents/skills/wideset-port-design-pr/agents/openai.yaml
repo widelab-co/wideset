@@ -1,4 +1,4 @@
 interface:
   display_name: 'Wideset Port Design PR'
   short_description: 'Port a designer PR from the fork into Wideset'
-  default_prompt: 'Use $wideset-port-design-pr for the fork PR I name (or show the ready-for-port queue): plan the split by commit ranges, cherry-pick keeping the designer as author, complete it to the repo standard, run the review loop, and ask before every push, PR, comment or label.'
+  default_prompt: 'Use $wideset-port-design-pr for the fork PR I name (or show the ready-for-port queue): plan the split by commit ranges, cherry-pick keeping the designer as author, complete it to the repo standard, track it in a ClickUp task (found or created, in progress, then in review), run the review loop, and ask before every push, PR, comment or label.'
