@@ -173,11 +173,16 @@ export const Stage = withPlayground(
           data-stage
           className="grid min-h-[20rem] place-items-center overflow-hidden bg-ws-static-alpha-subtle px-ws-14 py-ws-14 text-ws-static-base"
         >
-          {(mounted || !definition.clientOnly) && (
-            <div className="w-max max-w-full">
-              {definition.preview ? definition.preview() : definition.render(definition.defaults)}
-            </div>
-          )}
+          {(mounted || !definition.clientOnly) &&
+            (definition.preview && !definition.livePreview ? (
+              <div inert aria-hidden="true" className="pointer-events-none w-max max-w-full">
+                {definition.preview()}
+              </div>
+            ) : (
+              <div className="w-max max-w-full">
+                {definition.preview ? definition.preview() : definition.render(definition.defaults)}
+              </div>
+            ))}
         </div>
         <div className="border-t border-ws-static-subtle">
           <Code code={shown} peek flush tools={<ImportPick />} />
