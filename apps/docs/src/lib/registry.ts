@@ -73,8 +73,8 @@ export const manualFiles = (id: string): ManualFiles => {
 
 /**
  * Where every component export lives once scaffolded, read off the files the CLI writes:
- * `Button` → `@/components/ui/wideset/button/Button`. A name exported by its own file wins
- * over a re-export elsewhere.
+ * `Button` → `@/components/ui/wideset/button/Button`, and its types too (`ButtonProps` →
+ * `…/button/Button.types`). A name exported by its own file wins over a re-export elsewhere.
  */
 export const projectPaths = (): Record<string, string> => {
   const paths: Record<string, string> = {};
@@ -85,15 +85,19 @@ export const projectPaths = (): Record<string, string> => {
       const path = `@/${file.target.replace(/\.tsx?$/, '')}`;
       const stem = path.split('/').pop()!;
       const names = [
-        ...[...file.content.matchAll(/^export\s*\{([^}]*)\}\s*;/gm)].flatMap(([, list]) =>
-          list.split(',').map((part) =>
-            part
-              .trim()
-              .split(/\s+as\s+/)
-              .pop()!,
-          ),
+        ...[...file.content.matchAll(/^export\s*(?:type\s*)?\{([^}]*)\}\s*;/gm)].flatMap(
+          ([, list]) =>
+            list.split(',').map((part) =>
+              part
+                .trim()
+                .replace(/^type\s+/, '')
+                .split(/\s+as\s+/)
+                .pop()!,
+            ),
         ),
-        ...[...file.content.matchAll(/^export\s+(?:const|function)\s+(\w+)/gm)].map(([, n]) => n),
+        ...[...file.content.matchAll(/^export\s+(?:const|function|type|interface)\s+(\w+)/gm)].map(
+          ([, n]) => n,
+        ),
       ].filter((name) => /^[A-Z]/.test(name));
       for (const name of names) if (!paths[name] || name === stem) paths[name] = path;
     }

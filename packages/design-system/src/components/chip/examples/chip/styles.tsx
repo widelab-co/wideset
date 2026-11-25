@@ -7,8 +7,16 @@ import { Chip } from '@wideset/react';
 export default function ChipStyles() {
   return (
     <div className="gap-ws-12 flex flex-wrap items-center">
-      <Chip style="filled">Design</Chip>
-      <Chip style="border">Engineering</Chip>
+      <Chip style="filled">
+        <Chip.Action>
+          <Chip.Label>Design</Chip.Label>
+        </Chip.Action>
+      </Chip>
+      <Chip style="border">
+        <Chip.Action>
+          <Chip.Label>Engineering</Chip.Label>
+        </Chip.Action>
+      </Chip>
     </div>
   );
 }
