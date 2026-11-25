@@ -45,7 +45,7 @@ every CodeRabbit and `OPEN:` decision, the review rounds. A later session resume
 ## 0. Prepare and tidy up
 
 ```bash
-git status --short                   # must print nothing; stash or ask otherwise
+git status --short --untracked-files=no   # must print nothing; stash or ask otherwise
 git fetch origin --prune
 git remote get-url design 2>/dev/null || git remote add design "https://github.com/$fork.git"
 git fetch design --prune
@@ -149,8 +149,10 @@ That bound is for people; CodeRabbit's limit is 300 files, not lines. Rules:
   concerns.
 
 Show the developer a table: range → commits (`<first>..<last>`) → files → base → branch name
-(`feature/<topic>[-<n>]`, `fix/…` for a correction). The step is done when the developer approves
-the table or the changed version of it.
+(`feature/<topic>[-<n>]`, `fix/…` for a correction). Under it, each commit author with no GitHub
+account from step 2 and whom you propose to credit (usually the fork PR's author); only the
+developer can confirm that an unknown identity is the designer. The step is done when the
+developer approves the table and the authors, or the changed version of them.
 
 ## 4. Apply
 
@@ -166,17 +168,19 @@ and `-x` records the source SHA. On a conflict, resolve towards the current `dev
 the fork's overlay files (`.agents/skills/wideset-design-lab/`, `DESIGNERS.md`,
 `.claude/rules/designers.md`), then `git cherry-pick --continue`.
 
-When step 2 found commits whose author is no GitHub account, give them to the designer while the
-branch is still local:
+When the developer confirmed a credit for an author with no GitHub account, rewrite only that
+author's commits while the branch is still local; commits by anyone else keep their author:
 
 ```bash
-id=$(gh api users/<login> --jq .id)
-git rebase origin/develop --exec \
-  "git commit --amend --no-edit --author='<Name> <$id+<login>@users.noreply.github.com>'"
+old='<unlinked email from step 2>'
+author="<Name> <$(gh api users/<login> --jq .id)+<login>@users.noreply.github.com>"
+git rebase <range base> --exec \
+  "if [ \"\$(git log -1 --format=%ae)\" = '$old' ]; then git commit -q --amend --no-edit --author='$author'; fi"
+git log --format='%h %an <%ae> %s' <range base>..HEAD
 ```
 
-(Use the range's real base instead of `origin/develop` for a stacked range.) Co-author trailers
-already in the messages stay.
+`<range base>` is `origin/develop`, or the previous range's branch for a stacked range. The `-x`
+lines and co-author trailers stay in the messages.
 
 Fallback, when the commits are unreadable or the cherry-picks keep failing: one squash with the
 designer as co-author.
@@ -209,7 +213,8 @@ Each as its own commit on the range's branch, the designer's commits untouched:
   nothing ships), because a stacked child moved onto `develop` gets no new changeset check
   without a new push; the export in `src/index.ts` and an entry in `registry.json` for a new
   public component; the spec in `specs/` when the API, variants or parts change, then
-  `pnpm build:skills` and commit its output; examples and the docs page through
+  `pnpm build:skills` and commit its output (the consumer skills ship too, so the changeset
+  also names `@wideset/skills`); examples and the docs page through
   `wideset-component-docs` (stories switch to `exampleStory`); snapshots only for intended
   render changes.
 
@@ -234,6 +239,11 @@ Then the gate (`pnpm build:lib` first when `packages/design-system/dist/` is mis
 pnpm lint && pnpm prettier && pnpm typecheck && pnpm test
 node scripts/check-changeset.mjs origin/develop HEAD
 ```
+
+A failure outside the ported files counts as the port's only when it fails on its own
+(`pnpm --filter @wideset/react exec vitest run <file>`) and passes on `origin/develop`; a timeout
+that shows up only in the full run is the suite under load, so report it and run the suite once
+more.
 
 Check the result visually: the stories in Storybook against the designer's screenshots and Figma
 node. The step is done when a round has no blocker and no should-fix, or after round three, and
@@ -284,8 +294,8 @@ gh pr edit "$n" -R widelab-co/wideset-design --remove-label ready-for-port --add
 
 The comment: which commits went to which of our PRs, what was adapted and why, what was declined
 and why, the `needs-design` items with their Figma node, variant and property, and the follow-ups.
-Its last line is exactly `Ported in: widelab-co/wideset#<a>, widelab-co/wideset#<b>`, which
-step 0 reads. Closing with `ported` happens in step 0 once our PRs merge.
+It ends with a line of its own, exactly `Ported in: widelab-co/wideset#<a>, widelab-co/wideset#<b>`,
+which step 0 reads. Closing with `ported` happens in step 0 once our PRs merge.
 
 Declining the whole PR instead: after approval, a comment with the reason, label `declined`,
 `gh pr close`.
