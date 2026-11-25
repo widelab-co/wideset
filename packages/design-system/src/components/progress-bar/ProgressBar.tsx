@@ -1,18 +1,23 @@
 import * as ProgressPrimitive from '@radix-ui/react-progress';
-import { RiCheckboxCircleFill, RiErrorWarningFill } from '@remixicon/react';
 import * as React from 'react';
 import { cn } from 'src/lib/utils';
+import { hasContent } from 'src/logic/helpers';
 
 import { useDefaultMotion } from '../../motion/MotionProvider';
-import { FieldLabel } from '../field-label/FieldLabel';
-import { HelperText } from '../helper-text/HelperText';
-import type { ProgressBarProps } from './ProgressBar.types';
-import {
-  progressBarCircleIconVariants,
-  progressBarCircleMotionVariants,
-  progressBarIndicatorMotionVariants,
-  progressBarIndicatorVariants,
-} from './ProgressBar.variants';
+import { ProgressBarContext } from './ProgressBar.context';
+import { useInvalidPropWarnings, usePartId } from './ProgressBar.hooks';
+import { omitValueText, validateMax, validateValue } from './ProgressBar.logic';
+import type {
+  ProgressBarContextValue,
+  ProgressBarProps,
+  ProgressBarWithSubComponents,
+} from './ProgressBar.types';
+import { progressBarRootVariants } from './ProgressBar.variants';
+import { ProgressBarDescription } from './ProgressBarDescription';
+import { ProgressBarHeader } from './ProgressBarHeader';
+import { ProgressBarLabel } from './ProgressBarLabel';
+import { ProgressBarTrack } from './ProgressBarTrack';
+import { ProgressBarValue } from './ProgressBarValue';
 
 const ProgressBar = React.forwardRef<
   React.ComponentRef<typeof ProgressPrimitive.Root>,
@@ -21,159 +26,84 @@ const ProgressBar = React.forwardRef<
   (
     {
       className,
-      value,
+      value: valueProp,
       max: maxProp,
-      getValueLabel,
-      asChild,
-      label,
-      description,
-      fixedWidth,
-      variant = 'default',
+      status = 'default',
       type = 'bar',
       defaultMotion,
+      asChild,
+      children,
       ...props
     },
     ref,
   ) => {
     const motion = useDefaultMotion(defaultMotion);
-    const labelId = React.useId();
-    const hasOwnName = Boolean(props['aria-label'] || props['aria-labelledby']);
-    const fallbackName = hasOwnName || label ? undefined : 'Progress';
-    const max = typeof maxProp === 'number' && maxProp > 0 ? maxProp : 100;
-    const clampedValue =
-      typeof value === 'number' && !Number.isNaN(value) ? Math.min(Math.max(value, 0), max) : 0;
-    const progressValue = Math.round((clampedValue / max) * 100);
+    const [labelId, registerLabel] = usePartId();
+    const [descriptionId, registerDescription] = usePartId();
 
-    if (Number.isNaN(value)) {
-      // eslint-disable-next-line no-console
-      console.warn('ProgressBar received NaN for `value` prop.');
-    }
+    useInvalidPropWarnings(valueProp, maxProp);
+    const max = validateMax(maxProp);
+    const value = validateValue(valueProp, max);
+    const percent = Math.round((value / max) * 100);
 
-    if (type === 'circle') {
-      const size = 20;
-      const strokeWidth = 2.5;
-      const radius = size / 2 - strokeWidth / 2;
-      const circumference = 2 * Math.PI * radius;
-      const fraction = progressValue / 100;
-      const dashArray = circumference;
-      const offset = circumference * (1 - fraction);
+    const context = React.useMemo<ProgressBarContextValue>(
+      () => ({ value, max, percent, status, type, motion, registerLabel, registerDescription }),
+      [value, max, percent, status, type, motion, registerLabel, registerDescription],
+    );
 
-      const icons: Record<typeof variant, React.ReactNode> = {
-        default: (
-          <svg
-            width={size}
-            height={size}
-            viewBox={`0 0 ${size} ${size}`}
-            className="shrink-0"
-            aria-hidden="true"
-            focusable="false"
-          >
-            <circle
-              cx={size / 2}
-              cy={size / 2}
-              r={radius}
-              className="fill-none stroke-(--border-color-ws-dynamic-secondary-default)"
-              strokeWidth={strokeWidth}
-            />
-            <circle
-              cx={size / 2}
-              cy={size / 2}
-              r={radius}
-              className={cn(
-                'stroke-ws-dynamic-primary-default fill-none',
-                progressBarCircleMotionVariants({ enabled: motion }),
-              )}
-              strokeWidth={strokeWidth}
-              strokeLinecap="round"
-              strokeDasharray={dashArray}
-              strokeDashoffset={offset}
-              transform={`rotate(-90 ${size / 2} ${size / 2})`}
-            />
-          </svg>
-        ),
-        success: (
-          <RiCheckboxCircleFill
-            aria-hidden="true"
-            focusable="false"
-            className={progressBarCircleIconVariants({ variant: 'success' })}
-          />
-        ),
-        error: (
-          <RiErrorWarningFill
-            aria-hidden="true"
-            focusable="false"
-            className={progressBarCircleIconVariants({ variant: 'error' })}
-          />
-        ),
-      };
+    const labelledBy = props['aria-labelledby'] || labelId;
+    const label = props['aria-label'] || (labelledBy ? undefined : 'Progress');
+    const describedBy =
+      [props['aria-describedby'], descriptionId].filter(Boolean).join(' ') || undefined;
 
-      return (
-        <div
-          data-slot="progress-bar"
-          ref={ref}
-          {...props}
-          className={cn('gap-ws-5 inline-flex items-center', className)}
-          role="progressbar"
-          aria-valuenow={clampedValue}
-          aria-valuemin={0}
-          aria-valuemax={max}
-          // The circle has no visible label, so `label` names it when no ARIA name is given.
-          aria-label={hasOwnName ? props['aria-label'] : (label ?? 'Progress')}
-        >
-          <div className={fixedWidth ? 'w-ws-14' : undefined}>
-            <span className="typography-label-sm text-ws-static-subtle">{`${progressValue}%`}</span>
-          </div>
+    // Applied after `{...props}` and on the slotted child, so caller ARIA cannot override them.
+    const semantics = {
+      role: 'progressbar',
+      'aria-valuenow': value,
+      'aria-valuemin': 0,
+      'aria-valuemax': max,
+    } as const;
 
-          {icons[variant]}
-        </div>
-      );
-    }
+    const isSlotted =
+      Boolean(asChild) && React.isValidElement(children) && children.type !== React.Fragment;
+    const content = isSlotted ? (
+      React.cloneElement(children as React.ReactElement<Record<string, unknown>>, semantics)
+    ) : hasContent(children) ? (
+      children
+    ) : (
+      <ProgressBarTrack />
+    );
 
     return (
-      <div className="gap-ws-5 flex w-full flex-col">
-        {label && (
-          <div className="gap-ws-3 flex items-center justify-between">
-            <FieldLabel id={labelId}>{label}</FieldLabel>
-            <span className="typography-label-sm text-ws-static-subtle">{`${progressValue}%`}</span>
-          </div>
-        )}
-
+      <ProgressBarContext.Provider value={context}>
         <ProgressPrimitive.Root
           ref={ref}
-          value={clampedValue}
+          value={value}
           max={max}
-          getValueLabel={getValueLabel}
-          asChild={asChild}
-          className={cn(
-            'h-ws-3 relative w-full overflow-hidden rounded-full bg-(--ws-dynamic-stroke-secondary-default)',
-            // Figma puts a Gap/3 top padding on the Helper Text instance; the
-            // 8px above it is the Main frame's Gap/5. Together: 12px bar → text.
-            Boolean(description) && 'mb-ws-3',
-            className,
-          )}
-          aria-labelledby={label ? labelId : undefined}
+          asChild={isSlotted}
+          getValueLabel={omitValueText}
           data-slot="progress-bar"
-          aria-label={fallbackName}
+          data-type={type}
+          data-status={status}
           {...props}
+          aria-label={label}
+          aria-labelledby={labelledBy}
+          aria-describedby={describedBy}
+          {...semantics}
+          className={cn(progressBarRootVariants({ type }), className)}
         >
-          <ProgressPrimitive.Indicator
-            className={cn(
-              progressBarIndicatorVariants({ variant }),
-              progressBarIndicatorMotionVariants({ enabled: motion }),
-            )}
-            style={{ transform: `translateX(-${100 - (progressValue || 0)}%)` }}
-          />
+          {content}
         </ProgressPrimitive.Root>
-
-        {description && (
-          <HelperText state={variant} showIcon={variant === 'success' || variant === 'error'}>
-            {description}
-          </HelperText>
-        )}
-      </div>
+      </ProgressBarContext.Provider>
     );
   },
-);
+) as ProgressBarWithSubComponents;
 ProgressBar.displayName = 'ProgressBar';
+
+ProgressBar.Header = ProgressBarHeader;
+ProgressBar.Label = ProgressBarLabel;
+ProgressBar.Value = ProgressBarValue;
+ProgressBar.Track = ProgressBarTrack;
+ProgressBar.Description = ProgressBarDescription;
 
 export { ProgressBar };

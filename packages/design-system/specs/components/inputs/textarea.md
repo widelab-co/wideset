@@ -5,7 +5,7 @@ group: inputs
 status: stable
 parts: [Textarea]
 related: [TextInput, FormField]
-docs: https://wideset-docs.widelab.workers.dev/components/textarea
+docs: https://wideset.co/components/textarea
 storybook: form-textarea--default
 ---
 
@@ -95,5 +95,5 @@ State: native, so both modes work: `value` + `onChange`, or `defaultValue`.
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/textarea.md` · Types:
+Full props: `https://wideset.co/components/textarea.md` · Types:
 `packages/design-system/src/components/textarea/Textarea.types.ts`

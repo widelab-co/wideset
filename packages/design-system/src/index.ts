@@ -29,6 +29,13 @@ export { ActionTileDescription } from './components/action-tile/ActionTileDescri
 export { ActionTileEntity } from './components/action-tile/ActionTileEntity';
 export { ActionTileIcon } from './components/action-tile/ActionTileIcon';
 export { ActionTileTitle } from './components/action-tile/ActionTileTitle';
+export { AppShell } from './components/app-shell/AppShell';
+export type {
+  AppShellDirection,
+  AppShellMainProps,
+  AppShellProps,
+} from './components/app-shell/AppShell.types';
+export { AppShellMain } from './components/app-shell/AppShellMain';
 export { Avatar } from './components/avatar/Avatar';
 export type { AvatarColor } from './components/avatar/Avatar.colors';
 export type {
@@ -108,8 +115,17 @@ export { Checkbox, CheckboxDescription, CheckboxLabel } from './components/check
 export type { CheckboxGroupProps, CheckboxProps } from './components/checkbox/Checkbox.types';
 export { CheckboxGroup } from './components/checkbox/CheckboxGroup';
 export { Chip } from './components/chip/Chip';
-export type { ChipIconProps, ChipProps } from './components/chip/Chip.types';
+export type {
+  ChipActionProps,
+  ChipIconButtonProps,
+  ChipIconProps,
+  ChipLabelProps,
+  ChipProps,
+} from './components/chip/Chip.types';
+export { ChipAction } from './components/chip/ChipAction';
 export { ChipIcon } from './components/chip/ChipIcon';
+export { ChipIconButton } from './components/chip/ChipIconButton';
+export { ChipLabel } from './components/chip/ChipLabel';
 export { ComboBox, ComboBoxIcon, ComboBoxPrefix } from './components/combo-box/ComboBox';
 export type {
   ComboBoxContentProps,
@@ -189,6 +205,12 @@ export { FilterButton } from './components/filter-button/FilterButton';
 export type { FilterButtonProps } from './components/filter-button/FilterButton.types';
 export { FormField } from './components/form-field/FormField';
 export type { FormFieldProps } from './components/form-field/FormField.types';
+export { Illustration } from './components/illustration/Illustration';
+export type {
+  IllustrationName,
+  IllustrationProps,
+  IllustrationSize,
+} from './components/illustration/Illustration.types';
 export { InlineAlert } from './components/inline-alert/InlineAlert';
 export { useInlineAlert } from './components/inline-alert/InlineAlert.hooks';
 export type {
@@ -297,7 +319,22 @@ export { PopupHeader } from './components/popup/PopupHeader';
 export { PopupTitle } from './components/popup/PopupTitle';
 export { PopupTrigger } from './components/popup/PopupTrigger';
 export { ProgressBar } from './components/progress-bar/ProgressBar';
-export type { ProgressBarProps } from './components/progress-bar/ProgressBar.types';
+export type {
+  ProgressBarDescriptionProps,
+  ProgressBarHeaderProps,
+  ProgressBarLabelProps,
+  ProgressBarProps,
+  ProgressBarStatus,
+  ProgressBarTrackProps,
+  ProgressBarType,
+  ProgressBarValueProps,
+  ProgressBarWithSubComponents,
+} from './components/progress-bar/ProgressBar.types';
+export { ProgressBarDescription } from './components/progress-bar/ProgressBarDescription';
+export { ProgressBarHeader } from './components/progress-bar/ProgressBarHeader';
+export { ProgressBarLabel } from './components/progress-bar/ProgressBarLabel';
+export { ProgressBarTrack } from './components/progress-bar/ProgressBarTrack';
+export { ProgressBarValue } from './components/progress-bar/ProgressBarValue';
 export { ProgressStepper } from './components/progress-stepper/ProgressStepper';
 export type {
   ProgressStepperIconProps,
@@ -370,17 +407,21 @@ export { Sidebar } from './components/sidebar/Sidebar';
 export type {
   SidebarCollapsedProps,
   SidebarExpandedProps,
+  SidebarFooterProps,
   SidebarHeaderProps,
   SidebarItemProps,
   SidebarProps,
+  SidebarSectionHeaderProps,
   SidebarSectionProps,
   SidebarTriggerProps,
 } from './components/sidebar/Sidebar.types';
 export { SidebarCollapsed } from './components/sidebar/SidebarCollapsed';
 export { SidebarExpanded } from './components/sidebar/SidebarExpanded';
+export { SidebarFooter } from './components/sidebar/SidebarFooter';
 export { SidebarHeader } from './components/sidebar/SidebarHeader';
 export { SidebarItem } from './components/sidebar/SidebarItem';
 export { SidebarSection } from './components/sidebar/SidebarSection';
+export { SidebarSectionHeader } from './components/sidebar/SidebarSectionHeader';
 export { SidebarTrigger } from './components/sidebar/SidebarTrigger';
 export { Sidepanel, SidepanelClose, SidepanelTrigger } from './components/sidepanel/Sidepanel';
 export type {
@@ -405,6 +446,28 @@ export { SidepanelTitle } from './components/sidepanel/SidepanelTitle';
 export { Slider } from './components/slider/Slider';
 export type { SliderLabelProps, SliderProps } from './components/slider/Slider.types';
 export { SliderLabel } from './components/slider/SliderLabel';
+export { Spreadsheet } from './components/spreadsheet/Spreadsheet';
+export type {
+  SpreadsheetAlign,
+  SpreadsheetBodyProps,
+  SpreadsheetCellProps,
+  SpreadsheetColumnHeaderIconProps,
+  SpreadsheetColumnHeaderProps,
+  SpreadsheetColumnHeaderTriggerProps,
+  SpreadsheetHeadProps,
+  SpreadsheetProps,
+  SpreadsheetRowHeaderProps,
+  SpreadsheetRowProps,
+  SpreadsheetSize,
+} from './components/spreadsheet/Spreadsheet.types';
+export { SpreadsheetBody } from './components/spreadsheet/SpreadsheetBody';
+export { SpreadsheetCell } from './components/spreadsheet/SpreadsheetCell';
+export { SpreadsheetColumnHeader } from './components/spreadsheet/SpreadsheetColumnHeader';
+export { SpreadsheetColumnHeaderIcon } from './components/spreadsheet/SpreadsheetColumnHeaderIcon';
+export { SpreadsheetColumnHeaderTrigger } from './components/spreadsheet/SpreadsheetColumnHeaderTrigger';
+export { SpreadsheetHead } from './components/spreadsheet/SpreadsheetHead';
+export { SpreadsheetRow } from './components/spreadsheet/SpreadsheetRow';
+export { SpreadsheetRowHeader } from './components/spreadsheet/SpreadsheetRowHeader';
 export { StatusBadge } from './components/status-badge/StatusBadge';
 export type {
   StatusBadgeIconProps,
@@ -435,9 +498,8 @@ export { StatusModalContent } from './components/status-modal/StatusModalContent
 export { StatusModalFooter } from './components/status-modal/StatusModalFooter';
 export { StatusModalOverlay } from './components/status-modal/StatusModalOverlay';
 export { StatusModalTitle } from './components/status-modal/StatusModalTitle';
-export { Switch } from './components/switch/Switch';
+export { Switch, SwitchDescription, SwitchLabel } from './components/switch/Switch';
 export type { SwitchLabelProps, SwitchProps } from './components/switch/Switch.types';
-export { SwitchLabel } from './components/switch/SwitchLabel';
 export { SystemAlert } from './components/system-alert/SystemAlert';
 export type {
   SystemAlertActionProps,
@@ -454,6 +516,7 @@ export type {
   SelectionMode,
   SortDirection,
   TableBodyProps,
+  TableCellDescriptionProps,
   TableCellProps,
   TableFootProps,
   TableHeaderProps,
@@ -463,6 +526,7 @@ export type {
 } from './components/table/Table.types';
 export { TableBody } from './components/table/TableBody';
 export { TableCell } from './components/table/TableCell';
+export { TableCellDescription } from './components/table/TableCellDescription';
 export { TableFoot } from './components/table/TableFoot';
 export { TableHead } from './components/table/TableHead';
 export { TableHeader } from './components/table/TableHeader';

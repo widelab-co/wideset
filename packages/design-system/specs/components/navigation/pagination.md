@@ -5,7 +5,7 @@ group: navigation
 status: stable
 parts: [Pagination, PaginationNumbers, PaginationOverflow, PaginationRowsPerPage]
 related: [Table]
-docs: https://wideset-docs.widelab.workers.dev/components/pagination
+docs: https://wideset.co/components/pagination
 storybook: components-pagination--default
 ---
 
@@ -100,5 +100,5 @@ State: `activePage` + `onChangeActivePage` (controlled) or `defaultActivePage`; 
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/pagination.md` · Types:
+Full props: `https://wideset.co/components/pagination.md` · Types:
 `packages/design-system/src/components/pagination/Pagination.types.ts`

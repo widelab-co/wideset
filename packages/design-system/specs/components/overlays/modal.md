@@ -17,7 +17,7 @@ parts:
     ModalOverlay,
   ]
 related: [StatusModal, Sidepanel, Popup]
-docs: https://wideset-docs.widelab.workers.dev/components/modal
+docs: https://wideset.co/components/modal
 storybook: components-modal-modal--default
 ---
 
@@ -125,5 +125,5 @@ State: `open` + `onOpenChange` (controlled) or `defaultOpen`, on `Modal` (Radix 
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/modal.md` · Types:
+Full props: `https://wideset.co/components/modal.md` · Types:
 `packages/design-system/src/components/modal/Modal.types.ts`

@@ -6,11 +6,13 @@ license: Apache-2.0
 
 # Build with Wideset
 
-The component source is in the project, or at `https://wideset-docs.widelab.workers.dev/components/<id>.md`. Read it for exact props. This skill holds what source cannot tell you: which component fits, how they combine, and what breaks without an error.
+The component source is in the project, or at `https://wideset.co/components/<id>.md`. Read it for exact props. This skill holds what source cannot tell you: which component fits, how they combine, and what breaks without an error.
 
 The pages here and on the docs site are written once. Their examples import from `@wideset/react`. In registry mode (`components/ui/wideset/` in the source) keep the code and take each import from [registry-imports](references/registry-imports.md), since paths cannot be guessed from names.
 
 ## Before you write
+
+0. **For a new app, pick its visual direction and start from its screen.** Once per app, before the first screen: [directions](references/specs/patterns/directions.md) describes Inset (page a raised card on the grey frame; the default), Flat (one white surface, lines), Frame (navigation on a grey tint, page white) and Canvas (grey page, content in white cards). If the person gave a screenshot or a reference, match its surround; otherwise ask, or take Inset. Set it once with `<AppShell direction>`. Then start from the closest whole screen rather than an empty file: `https://wideset.co/blocks.md` lists them, and `https://wideset.co/blocks/<id>.md` holds each one's code (`calendar` for Inset, `kanban`, `process`, `finance-dashboard` for Flat, `communication` for Frame, `crypto` for Canvas). Keep its `AppShell` and replace its content. In an existing app, keep the direction it already has. Sign in and sign up start from `sign-in`, `sign-in-card` or `sign-up`.
 
 1. **Find the screen's pattern** and copy its structure:
 
@@ -23,6 +25,7 @@ The pages here and on the docs site are written once. Their examples import from
    | Delete or another action hard to undo     | [confirm-destructive](references/specs/patterns/confirm-destructive.md)    |
    | Success, error, loading and empty states  | [page-feedback](references/specs/patterns/page-feedback.md)                |
    | Several components sharing state or value | [composition](references/specs/patterns/composition.md)                    |
+   | Sign in, sign up, a password reset        | [auth](references/specs/patterns/auth.md)                                  |
    | Anything else                             | [the specs index](references/specs/README.md), which lists every component |
 
 2. **Choose each component from its group**, not from what looks close. Each group file asks the questions in order:
@@ -56,12 +59,12 @@ Choose by what the thing does. These pairs get mixed up most:
 | Something clickable or removable            | `Chip`                | `Tag`                |
 | A short decision or small form that blocks  | `Modal`               | `Sidepanel`          |
 | Detail or a long form beside the page       | `Sidepanel`           | `Modal`              |
-| Going to another page, styled as a button   | `LinkButton`          | `Button` + `onClick` |
+| Going to another page, as a text link       | `LinkButton`          | `Button` + `onClick` |
 | A search field                              | `TextInput`, composed | `Search`             |
 
 ## What compiles and still breaks
 
-- `Sidebar.Section` renders nothing without a `Sidebar.Expanded` or `Sidebar.Collapsed` child for the current mode. Give it both.
+- `Sidebar` is one tree for both modes: put the nav and `Sidebar.Trigger` straight into `Sidebar.Header` / `Sidebar.Section`. `Sidebar.Expanded` and `Sidebar.Collapsed` wrap only what exists in one mode; never duplicate the nav in both.
 - A trigger wrapping your `Button` needs `asChild`; without it a button nests in a button.
 - `persistent`, `showCloseButton` and `autoFocusOnOpen` go on `Modal.Content`, not on `Modal`.
 - `Modal.Close asChild` closes at once. For a save that can fail, control `open` and close it yourself.
@@ -80,7 +83,7 @@ Choose by what the thing does. These pairs get mixed up most:
 
 ## Styling and content
 
-Style only with `ws` classes, and let components own their looks: `className` is for layout. Look up a token at `https://wideset-docs.widelab.workers.dev/docs/tokens.md`.
+Style only with `ws` classes, and let components own their looks: `className` is for layout. Look up a token at `https://wideset.co/docs/tokens.md`.
 
 For how a finished screen should look, and for the rules on token choice, focus, icons, words and responsive layout, load `wideset-craft`.
 

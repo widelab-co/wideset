@@ -35,6 +35,22 @@
 
 - Don't add `striped` and `separated` to a short table; row lines are enough.
 - Don't build a status pill from a styled `span` in a cell; use `StatusBadge`.
+- Don't put `typography-*` on the text in a cell: the table sets the type for its size, and a
+  two-line cell is the label plus `Table.CellDescription`.
+
+```tsx
+// Do
+<Table.Cell>
+  Offline sync
+  <Table.CellDescription>Edits made offline merge on reconnect.</Table.CellDescription>
+</Table.Cell>
+
+// Don't: a bigger label and a hand-made second line
+<Table.Cell>
+  <div className="typography-label-md">Offline sync</div>
+  <div className="typography-caption-md">Edits made offline merge on reconnect.</div>
+</Table.Cell>
+```
 
 ## Gotchas
 

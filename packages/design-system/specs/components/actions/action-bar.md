@@ -5,7 +5,7 @@ group: actions
 status: stable
 parts: [ActionBar]
 related: [Button, IconButton, Table]
-docs: https://wideset-docs.widelab.workers.dev/components/action-bar
+docs: https://wideset.co/components/action-bar
 storybook: components-actionbar--default
 ---
 
@@ -110,5 +110,5 @@ Order inside: close button (from `onClose`), the count, then your children. Chil
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/action-bar.md` · Types:
+Full props: `https://wideset.co/components/action-bar.md` · Types:
 `packages/design-system/src/components/action-bar/ActionBar.types.ts`

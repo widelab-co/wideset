@@ -51,7 +51,10 @@ type AvatarImageContent = {
 };
 
 type AvatarInitialsContent = {
-  /** The initials to display when no image is provided. */
+  /**
+   * The initials to display when no image is provided: one or two letters. At `xs` and `sm`
+   * only the first is drawn, as in Figma, since two crowd a 20–24px circle.
+   */
   initials: string;
   src?: never;
   alt?: never;
@@ -138,7 +141,7 @@ export type IconProps = {
 
 /** Initials content of an avatar. */
 export type InitialsProps = {
-  /** The initials to display. */
+  /** The initials to display; at `xs` and `sm` only the first letter is drawn. */
   initials: string;
   /** Additional CSS classes to apply to the initials avatar. */
   className?: string;

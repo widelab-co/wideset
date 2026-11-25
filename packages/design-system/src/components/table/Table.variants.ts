@@ -1,7 +1,7 @@
 import { cva } from 'class-variance-authority';
 
 export const cellVariants = cva(
-  `border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-t [tfoot_&]:border-b-0`,
+  `border-ws-static-base text-ws-static-base border-b [tfoot_&]:border-b-0 [tfoot>tr:first-child>&]:border-t`,
   {
     variants: {
       size: {
@@ -68,3 +68,6 @@ export const cellVariants = cva(
     },
   },
 );
+
+/** Figma Table Cell › Description: Body/Small in Static/Text/Subtle, on its own line. */
+export const tableCellDescriptionVariants = cva('typography-body-sm text-ws-static-subtle block');

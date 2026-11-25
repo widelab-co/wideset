@@ -5,7 +5,7 @@ group: inputs
 status: stable
 parts: [ComboBox, ComboBoxTrigger, ComboBoxContent, ComboBoxItem, ComboBoxPrefix, ComboBoxIcon]
 related: [Select, MultiSelect, TextInput, FormField]
-docs: https://wideset-docs.widelab.workers.dev/components/combo-box
+docs: https://wideset.co/components/combo-box
 storybook: form-combobox--default
 ---
 
@@ -127,5 +127,5 @@ only). `onChange` gets the next string in both modes.
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/combo-box.md` · Types:
+Full props: `https://wideset.co/components/combo-box.md` · Types:
 `packages/design-system/src/components/combo-box/ComboBox.types.ts`

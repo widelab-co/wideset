@@ -9,7 +9,7 @@ const CardTitle = ({ asChild, className, children, ...props }: CardTitleProps) =
   return (
     <Comp
       data-slot="card-title"
-      className={cn('text-ws-static-strong typography-subtitle-sm mt-ws-2', className)}
+      className={cn('text-ws-static-strong typography-subtitle-xs mt-ws-2', className)}
       {...props}
     >
       {children}

@@ -4,7 +4,7 @@ Components animate out of the box (press, hover tint, menus, modals, toasts, fie
 read every duration, easing, distance and scale from `--ws-motion-*` tokens. Reduced motion is
 handled by the tokens themselves, so there is nothing to set up.
 
-Docs: `https://wideset-docs.widelab.workers.dev/docs/motion` · Source:
+Docs: `https://wideset.co/docs/motion` · Source:
 `packages/design-system/src/styles/utilities/motion.css`, `packages/design-system/src/motion/`
 
 ## Tokens
@@ -30,6 +30,12 @@ Docs: `https://wideset-docs.widelab.workers.dev/docs/motion` · Source:
 
 Rule of thumb: opening is `fast` + `smooth-out`, closing is `quick`, hover and press are
 `micro`/`quick` + `ease-out`. Exits are shorter than entrances.
+
+Only free-standing Button and IconButton controls shrink on press, except when they open a popup
+(non-false `aria-haspopup` or `role="combobox"`). The halves of a SplitButton,
+fields, select, date and filter triggers, tabs, chips, list rows, tiles and calendar days change
+colour on press, never size. Do not join two Buttons by hand: use SplitButton, or each half shrinks
+alone and the seam opens.
 
 ## Using the tokens in your own UI
 
@@ -73,7 +79,7 @@ Redefine a token in a stylesheet loaded after Wideset's; wrap it in
 @media (prefers-reduced-motion: no-preference) {
   :root {
     --ws-motion-duration-quick: 100ms;
-    --ws-motion-scale-small: 1; /* no shrink on press */
+    --ws-motion-scale-small: 1; /* buttons do not shrink on press */
   }
 }
 ```

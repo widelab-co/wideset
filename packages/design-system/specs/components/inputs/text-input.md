@@ -15,7 +15,7 @@ parts:
     TextInputClearButton,
   ]
 related: [Textarea, FormField, ComboBox, Select]
-docs: https://wideset-docs.widelab.workers.dev/components/text-input
+docs: https://wideset.co/components/text-input
 storybook: form-textinput--default
 ---
 
@@ -132,5 +132,5 @@ State: `value` + `onChange` (controlled), or nothing (uncontrolled, starts empty
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/text-input.md` · Types:
+Full props: `https://wideset.co/components/text-input.md` · Types:
 `packages/design-system/src/components/text-input/TextInput.types.ts`

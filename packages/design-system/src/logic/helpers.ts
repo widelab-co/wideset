@@ -1,6 +1,20 @@
+import * as React from 'react';
+
 export const generateId = () =>
   `inline-alert-${
     globalThis.crypto?.randomUUID?.() ?? `${Date.now()}-${Math.random().toString(36).slice(2)}`
   }`;
 
 export const isBrowser = () => typeof window !== 'undefined';
+
+/** A number that is not `NaN`, `Infinity` or `-Infinity`. */
+export const isFiniteNumber = (value: unknown): value is number =>
+  typeof value === 'number' && Number.isFinite(value);
+
+/** `value` limited to `min…max`. Same arguments as the proposed `Math.clamp`. */
+export const clamp = (value: number, min: number, max: number) =>
+  Math.min(Math.max(value, min), max);
+
+/** False for `null`, `undefined`, booleans and `''`; `0` counts as content. */
+export const hasContent = (node: React.ReactNode) =>
+  React.Children.toArray(node).some((child) => child !== '');

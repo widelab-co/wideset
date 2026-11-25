@@ -3,9 +3,11 @@ import { cn } from 'src/lib/utils';
 
 import { FieldLabel } from '../field-label/FieldLabel';
 import { HelperText } from '../helper-text/HelperText';
+import { hasContent } from './FormField.logic';
 import type { FormFieldProps } from './FormField.types';
 import {
   formFieldContentVariants,
+  formFieldLabelRowVariants,
   formFieldLabelVariants,
   formFieldVariants,
 } from './FormField.variants';
@@ -21,6 +23,10 @@ export const FormField = React.forwardRef<HTMLDivElement | HTMLFieldSetElement, 
       helperText,
       helperTextId: helperTextIdProp,
       label,
+      suffix,
+      tooltip,
+      tooltipAriaLabel,
+      aside,
       ...props
     },
     ref,
@@ -30,7 +36,12 @@ export const FormField = React.forwardRef<HTMLDivElement | HTMLFieldSetElement, 
     const hasHelperText = Boolean(errorText || helperText);
 
     const helperTextComponent = hasHelperText ? (
-      <HelperText state={errorText ? 'error' : 'default'} showIcon={!!errorText} id={helperTextId}>
+      <HelperText
+        key={errorText ? 'error' : 'helper'}
+        state={errorText ? 'error' : 'default'}
+        showIcon={!!errorText}
+        id={helperTextId}
+      >
         {errorText || helperText}
       </HelperText>
     ) : null;
@@ -54,7 +65,22 @@ export const FormField = React.forwardRef<HTMLDivElement | HTMLFieldSetElement, 
     const content = (
       <>
         <div className={formFieldLabelVariants({ variant })}>
-          <FieldLabel {...props}>{label}</FieldLabel>
+          <div data-slot="form-field-label-row" className={formFieldLabelRowVariants()}>
+            <FieldLabel {...props}>
+              {label}
+              <FieldLabel.RequiredIndicator />
+              {hasContent(suffix) && (
+                <>
+                  {' '}
+                  <FieldLabel.Suffix>{suffix}</FieldLabel.Suffix>
+                </>
+              )}
+            </FieldLabel>
+            {hasContent(tooltip) && (
+              <FieldLabel.Tooltip aria-label={tooltipAriaLabel}>{tooltip}</FieldLabel.Tooltip>
+            )}
+            {hasContent(aside) && <FieldLabel.Aside>{aside}</FieldLabel.Aside>}
+          </div>
           {variant === 'horizontal' && helperTextComponent}
         </div>
         <div className={formFieldContentVariants({ variant })}>

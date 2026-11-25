@@ -11,11 +11,14 @@ import {
 import { tmpdir } from 'node:os';
 import { join, posix, resolve } from 'node:path';
 
+import postcss from 'postcss';
 import { registryItemSchema, registrySchema } from 'shadcn/schema';
 import ts from 'typescript';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
+import { BLOCKS, PANELS } from '../src/blocks';
 import { buildRegistry } from './build-registry.mjs';
+import { markBlockBoundaries, rewriteBlockImports } from './registry-blocks.mjs';
 
 const ROOT = resolve(__dirname, '..');
 const BASE = 'https://example.test/r';
@@ -33,19 +36,25 @@ let out: string;
 let items: Item[];
 let byName: Map<string, Item>;
 
+const SOURCE: { items: { name: string; dependencies?: string[] }[] } = JSON.parse(
+  readFileSync(join(ROOT, 'registry.json'), 'utf8'),
+);
+const declaredDependencies = (name: string) =>
+  SOURCE.items.find((item) => item.name === name)?.dependencies ?? [];
+
 const readAll = (dir: string): Item[] =>
   readdirSync(dir)
     .filter((f) => f.endsWith('.json') && f !== 'registry.json')
     .map((f) => JSON.parse(readFileSync(join(dir, f), 'utf8')));
 
-beforeAll(() => {
+beforeAll(async () => {
   // The registry ships dist/*.css. On a fresh clone, and in the pre-push hook, nothing has built
   // it yet; build it here rather than fail the whole suite with "run pnpm build:lib first".
   if (!existsSync(join(ROOT, 'dist', 'styles.css'))) {
     execSync('pnpm build:lib', { cwd: ROOT, stdio: 'ignore' });
   }
   out = mkdtempSync(join(tmpdir(), 'ws-registry-'));
-  buildRegistry({ out, base: BASE, commit: 'test' });
+  await buildRegistry({ out, base: BASE, commit: 'test' });
   items = readAll(out);
   byName = new Map(items.map((i) => [i.name, i]));
 }, 180_000);
@@ -78,11 +87,162 @@ const specifiers = (content: string) =>
   ts.preProcessFile(content, true, true).importedFiles.map((f) => f.fileName);
 
 describe('registry build', () => {
-  it('produces every item in registry.json', () => {
-    const declared = JSON.parse(readFileSync(join(ROOT, 'registry.json'), 'utf8')).items.map(
-      (i: Item) => i.name,
+  it('produces the declared items and a registry block for every screen and panel', () => {
+    expect(items.map((item) => item.name).sort()).toEqual(
+      [
+        ...SOURCE.items.map((item) => item.name),
+        'block-styles',
+        ...[...BLOCKS, ...PANELS].map((block) => `block-${block.id}`),
+      ].sort(),
     );
-    expect(items.map((i) => i.name).sort()).toEqual([...declared].sort());
+  });
+
+  it('ships every block file in its own folder with the dependencies it uses', () => {
+    for (const block of [...BLOCKS, ...PANELS]) {
+      const item = byName.get(`block-${block.id}`)!;
+      const directory = `src/blocks/${block.id}`;
+      const target = `blocks/wideset/${block.id}`;
+      const sources = readdirSync(join(ROOT, directory), { recursive: true, withFileTypes: true })
+        .filter((file) => file.isFile() && /\.tsx?$/.test(file.name))
+        .map((file) =>
+          join(file.parentPath, file.name)
+            .slice(ROOT.length + 1)
+            .split('\\')
+            .join('/'),
+        );
+      expect(item.type).toBe('registry:block');
+      expect(item.files.map((file) => file.path).sort()).toEqual(sources.sort());
+      expect(item.registryDependencies).toContain(`${BASE}/block-styles.json`);
+      for (const file of item.files) {
+        expect(file.target).toBe(target + file.path.slice(directory.length));
+        expect(specifiers(file.content)).not.toContain('@wideset/react');
+      }
+      const entry = item.files.find((file) => file.target === `${target}/index.tsx`)!;
+      expect(entry.content).toMatch(/^'use client';\n/);
+      expect(specifiers(entry.content)).toContain('@/styles/wideset-blocks.css');
+    }
+  });
+
+  it('preserves aliases and type imports while resolving public export names', () => {
+    const source = [
+      "import { Button as Action, type ButtonProps as ActionProps, Name } from '@wideset/react';",
+      "import type { Shared as Local } from '@wideset/react';",
+    ].join('\n');
+    const targets: Record<string, { target: string; exported: string }> = {
+      Button: { target: 'button', exported: 'Button' },
+      ButtonProps: { target: 'button', exported: 'ButtonProps' },
+      Name: { target: 'name', exported: 'OriginalName' },
+      Shared: { target: 'types', exported: 'Shared' },
+    };
+    const fail = (message: string) => {
+      throw new Error(message);
+    };
+    const edits = rewriteBlockImports(source, 'index.tsx', (name: string) => targets[name], fail);
+    expect(edits.map((edit: { text: string }) => edit.text).join('\n')).toBe(
+      [
+        "import { Button as Action, type ButtonProps as ActionProps } from '@/button';",
+        "import { OriginalName as Name } from '@/name';",
+        "import type { Shared as Local } from '@/types';",
+      ].join('\n'),
+    );
+  });
+
+  it('restricts fallback block styles to classes in the installed block files', () => {
+    const css = postcss.parse(byName.get('block-styles')!.files[0].content);
+    const utilities = css.nodes.find(
+      (rule) => rule.type === 'atrule' && rule.params === 'utilities',
+    );
+    expect(utilities?.type).toBe('atrule');
+    if (utilities?.type !== 'atrule') throw new Error('missing block utility layer');
+    const selectors = utilities.nodes!.flatMap((rule) =>
+      rule.type === 'rule' ? rule.selectors : [],
+    );
+    const scope = ':where(.ws-block-utility, .ws-block-utility *)';
+    expect(selectors).toContain(`.md\\:flex${scope}`);
+    expect(selectors.every((selector) => selector.endsWith(scope))).toBe(true);
+
+    const calendar = byName
+      .get('block-calendar')!
+      .files.find((file) => file.target.endsWith('/index.tsx'))!.content;
+    expect(calendar).toMatch(/<AppShell className="ws-block-utility"/);
+    expect(calendar.match(/ws-block-utility/g)).toHaveLength(1);
+
+    const dialog = byName
+      .get('block-modal-form')!
+      .files.find((file) => file.target.endsWith('/payment-form-modal.tsx'))!.content;
+    expect(dialog).toMatch(/<Modal\.Content className="ws-block-utility"/);
+    expect(dialog.match(/ws-block-utility/g)).toHaveLength(1);
+
+    const toast = byName
+      .get('block-move-dialog')!
+      .files.find((file) => file.target.endsWith('/move-toast.tsx'))!.content;
+    expect(toast).toContain('<span className="ws-block-utility ');
+    expect(toast.match(/ws-block-utility/g)).toHaveLength(1);
+
+    const viewer = byName
+      .get('block-media-viewer')!
+      .files.find((file) => file.target.endsWith('/media-viewer.tsx'))!.content;
+    expect(viewer.match(/ws-block-utility/g)).toHaveLength(1);
+  });
+
+  it('takes the block root only from what the entry renders', () => {
+    const apply = (source: string) => {
+      let out = source;
+      const edits = markBlockBoundaries(source, 'index.tsx', true);
+      for (const edit of edits.sort((a, b) => b.pos - a.pos)) {
+        out = out.slice(0, edit.pos) + edit.text + out.slice(edit.end);
+      }
+      return out;
+    };
+
+    const unused = `function Hint() {\n  return <span>hint</span>;\n}\n\nexport default function Screen() {\n  return <main className="flex">x</main>;\n}\n`;
+    expect(apply(unused)).toContain('<main className="ws-block-utility flex">');
+    expect(apply(unused)).toContain('<span>hint</span>');
+
+    const delegated = `function Page() {\n  return <main>x</main>;\n}\n\nexport default function Screen() {\n  return (\n    <Provider>\n      <Page />\n    </Provider>\n  );\n}\n`;
+    expect(apply(delegated)).toContain('<main className="ws-block-utility">');
+
+    const twoRoots = `export default function Screen() {\n  return (\n    <>\n      <main />\n      <aside />\n    </>\n  );\n}\n`;
+    expect(() => apply(twoRoots)).toThrow(/expected one block root/);
+
+    const sharedBody = `function Body() {\n  return <section />;\n}\n\nexport default function Screen() {\n  return (\n    <>\n      <main>\n        <Body />\n      </main>\n      <Body />\n    </>\n  );\n}\n`;
+    expect(() => apply(sharedBody)).toThrow(/found 2/);
+
+    const unrelatedBinding = `
+      function Content() {
+        return <main />;
+      }
+      function Unused() {
+        const Content = () => null;
+        return <Content />;
+      }
+      export default function Screen() {
+        return <Content />;
+      }
+    `;
+    expect(apply(unrelatedBinding)).toContain('<main className="ws-block-utility" />');
+
+    const localBinding = `
+      const Content = () => null;
+      function Screen() {
+        const Content = () => <main />;
+        const Wrapper = () => <Content />;
+        return <Wrapper />;
+      }
+      export default Screen;
+    `;
+    expect(apply(localBinding)).toContain('<main className="ws-block-utility" />');
+
+    const nested = `export default function Screen() {\n  function Hint() {\n    return <span>hint</span>;\n  }\n  return (\n    <main>\n      <Hint />\n    </main>\n  );\n}\n`;
+    expect(apply(nested)).toContain('<main className="ws-block-utility">');
+    expect(apply(nested)).toContain('<span>hint</span>');
+
+    expect(apply(`export default () => <main />;\n`)).toContain(
+      '<main className="ws-block-utility" />',
+    );
+    expect(apply(`export default function () {\n  return <main />;\n}\n`)).toContain(
+      '<main className="ws-block-utility" />',
+    );
   });
 
   it('validates against the shadcn schemas', () => {
@@ -96,7 +256,7 @@ describe('registry build', () => {
     for (const item of items) {
       for (const file of item.files) {
         expect(file.target, `${item.name}: ${file.path}`).toMatch(
-          /^(components\/ui\/wideset\/|lib\/wideset\/|hooks\/wideset\/|styles\/|~\/\.agents\/skills\/|~\/\.claude\/(skills|agents)\/|~\/\.cursor\/rules\/|~\/AGENTS\.wideset\.md$)/,
+          /^(components\/ui\/wideset\/|lib\/wideset\/|hooks\/wideset\/|styles\/|blocks\/wideset\/|~\/\.agents\/skills\/|~\/\.claude\/(skills|agents)\/|~\/\.cursor\/rules\/|~\/AGENTS\.wideset\.md$)/,
         );
         expect(file.content.length, `${item.name}: ${file.path}`).toBeGreaterThan(0);
         expect(file.content, `${item.name}: ${file.path} has CRLF`).not.toContain('\r');
@@ -118,7 +278,9 @@ describe('registry build', () => {
       for (const dep of item.dependencies ?? []) {
         const at = dep.lastIndexOf('@');
         const [name, range] = [dep.slice(0, at), dep.slice(at + 1)];
-        expect(pkg.dependencies[name], `${item.name}: ${dep}`).toBe(range);
+        // A CSS-only item names its own packages in registry.json; the library does not use them.
+        if (declaredDependencies(item.name).includes(dep)) expect(range).toMatch(/^[\^~]?\d/);
+        else expect(pkg.dependencies[name], `${item.name}: ${dep}`).toBe(range);
       }
     }
   });
@@ -126,7 +288,7 @@ describe('registry build', () => {
   it('references other items by full URL', () => {
     for (const item of items) {
       for (const url of item.registryDependencies ?? []) {
-        expect(url).toMatch(new RegExp(`^${BASE}/[a-z-]+\\.json$`));
+        expect(url).toMatch(new RegExp(`^${BASE}/[a-z0-9-]+\\.json$`));
         expect(
           byName.has(
             url
@@ -148,7 +310,7 @@ describe('registry build', () => {
 
   it('leaves no src/ specifier in shipped code', () => {
     for (const item of items) {
-      for (const file of item.files.filter((f) => f.type !== 'registry:file')) {
+      for (const file of item.files.filter((file) => /\.tsx?$/.test(file.path))) {
         for (const spec of specifiers(file.content))
           expect(spec, `${item.name}: ${file.path}`).not.toMatch(/^src\//);
       }
@@ -158,13 +320,15 @@ describe('registry build', () => {
   it('resolves every local import inside the item and its dependency closure', () => {
     for (const item of items) {
       const closure = closureTargets(item);
-      for (const file of item.files.filter((f) => f.type !== 'registry:file')) {
+      for (const file of item.files.filter((file) => /\.tsx?$/.test(file.path))) {
         for (const spec of specifiers(file.content)) {
           if (!spec.startsWith('.') && !spec.startsWith('@/')) continue;
           const bare = spec.startsWith('@/')
             ? spec.slice(2)
             : posix.join(posix.dirname(file.target), spec);
-          const hit = ['.ts', '.tsx', '.css', ''].some((ext) => closure.has(bare + ext));
+          const hit = ['.ts', '.tsx', '.css', '/index.ts', '/index.tsx', ''].some((ext) =>
+            closure.has(bare + ext),
+          );
           expect(
             hit,
             `${item.name}: ${file.path} imports '${spec}' (${bare}) which is not in its closure`,
@@ -220,7 +384,7 @@ describe('registry build', () => {
   it("marks components, contexts and hooks 'use client' and nothing else", () => {
     const usesReact = /\b(createContext|forwardRef|use[A-Z]\w*)\s*[(<]/;
     for (const item of items) {
-      for (const file of item.files.filter((f) => f.type !== 'registry:file')) {
+      for (const file of item.files.filter((file) => /\.tsx?$/.test(file.path))) {
         const hasDirective = file.content.startsWith("'use client';\n");
         const isServerSafe = /\.(types|variants)\.ts$/.test(file.path);
         const expected =
@@ -236,10 +400,12 @@ describe('registry build', () => {
     expect(buttonVariants.content).not.toContain('use client');
   });
 
-  it('is deterministic', () => {
+  // A second full build, the work beforeAll gets 180s for: under the pre-push hook's parallel
+  // `pnpm test` it took longer than vitest's 5s default and failed at random.
+  it('is deterministic', { timeout: 30_000 }, async () => {
     const again = mkdtempSync(join(tmpdir(), 'ws-registry-again-'));
     try {
-      buildRegistry({ out: again, base: BASE, commit: 'test' });
+      await buildRegistry({ out: again, base: BASE, commit: 'test' });
       for (const f of readdirSync(out).filter((n) => n.endsWith('.json'))) {
         expect(readFileSync(join(again, f), 'utf8')).toBe(readFileSync(join(out, f), 'utf8'));
       }
@@ -251,7 +417,7 @@ describe('registry build', () => {
 
 describe('registry:file directories', () => {
   /** A throwaway registry root: `files` are paths to create, `entries` are registry.json items. */
-  const buildFixture = (files: string[], entries: unknown[]) => {
+  const buildFixture = async (files: string[], entries: unknown[]) => {
     const root = mkdtempSync(join(tmpdir(), 'ws-registry-fixture-'));
     const output = mkdtempSync(join(tmpdir(), 'ws-registry-fixture-out-'));
     for (const file of files) {
@@ -267,7 +433,12 @@ describe('registry:file directories', () => {
       JSON.stringify({ name: 'fixture', homepage: 'https://x.test', items: entries }),
     );
     try {
-      const { items: built } = buildRegistry({ root, out: output, base: BASE, commit: 'test' });
+      const { items: built } = await buildRegistry({
+        root,
+        out: output,
+        base: BASE,
+        commit: 'test',
+      });
       return built as unknown as Item[];
     } finally {
       rmSync(root, { recursive: true, force: true });
@@ -282,8 +453,8 @@ describe('registry:file directories', () => {
     files: [{ path, type, target }],
   });
 
-  it('expands a directory to every file under it, with relative targets and LF', () => {
-    const [item] = buildFixture(
+  it('expands a directory to every file under it, with relative targets and LF', async () => {
+    const [item] = await buildFixture(
       ['docs/z.md', 'docs/a/SKILL.md', 'docs/a/references/api/b.md'],
       [fileItem('docs', 'docs', '~/.agents/skills')],
     );
@@ -296,8 +467,8 @@ describe('registry:file directories', () => {
     expect(nested?.content).toBe('content of docs/a/references/api/b.md\n');
   });
 
-  it('lets two items ship one directory, each with its own targets', () => {
-    const [first, second] = buildFixture(
+  it('lets two items ship one directory, each with its own targets', async () => {
+    const [first, second] = await buildFixture(
       ['docs/a/SKILL.md'],
       [fileItem('one', 'docs', '~/.agents/skills'), fileItem('two', 'docs', '~/.claude/skills')],
     );
@@ -305,8 +476,8 @@ describe('registry:file directories', () => {
     expect(second.files[0].target).toBe('~/.claude/skills/a/SKILL.md');
   });
 
-  it('still rejects code declared by two items', () => {
-    expect(() =>
+  it('still rejects code declared by two items', async () => {
+    await expect(
       buildFixture(
         ['src/a.ts'],
         [
@@ -314,7 +485,7 @@ describe('registry:file directories', () => {
           fileItem('two', 'src/a.ts', 'lib/b.ts', 'registry:lib'),
         ],
       ),
-    ).toThrow(/is declared by both one and two/);
+    ).rejects.toThrow(/is declared by both one and two/);
   });
 
   it('ships the skills to the agents that read them', () => {

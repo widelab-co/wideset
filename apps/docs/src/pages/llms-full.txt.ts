@@ -7,7 +7,7 @@ import { componentPages, docMarkdown, docsPages, SITE_SUMMARY } from '../lib/llm
  * file a model can read whole.
  */
 export const GET: APIRoute = async ({ site }) => {
-  const base = site ?? new URL('https://wideset-docs.widelab.workers.dev');
+  const base = site ?? new URL('https://wideset.co');
   const { all } = await docsPages();
   const separator = '\n\n---\n\n';
 

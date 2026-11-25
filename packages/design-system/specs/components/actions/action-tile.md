@@ -5,7 +5,7 @@ group: actions
 status: stable
 parts: [ActionTile, ActionTileEntity, ActionTileTitle, ActionTileDescription, ActionTileIcon]
 related: [Tile, LinkButton, Button]
-docs: https://wideset-docs.widelab.workers.dev/components/action-tile
+docs: https://wideset.co/components/action-tile
 storybook: components-tile-actiontile--default
 ---
 
@@ -109,5 +109,5 @@ The rendered element follows the props: `href` → `<a>`; `onClick` or `type` �
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/action-tile.md` · Types:
+Full props: `https://wideset.co/components/action-tile.md` · Types:
 `packages/design-system/src/components/action-tile/ActionTile.types.ts`

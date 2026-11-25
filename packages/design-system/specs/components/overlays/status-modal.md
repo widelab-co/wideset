@@ -15,7 +15,7 @@ parts:
     StatusModalOverlay,
   ]
 related: [Modal, InlineAlert, Toast, SystemAlert]
-docs: https://wideset-docs.widelab.workers.dev/components/status-modal
+docs: https://wideset.co/components/status-modal
 storybook: components-modal-statusmodal--default
 ---
 
@@ -117,5 +117,5 @@ State: `open` + `onOpenChange` (controlled) or `defaultOpen`, on `StatusModal` (
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/status-modal.md` · Types:
+Full props: `https://wideset.co/components/status-modal.md` · Types:
 `packages/design-system/src/components/status-modal/StatusModal.types.ts`

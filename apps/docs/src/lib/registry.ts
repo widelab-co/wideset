@@ -5,6 +5,7 @@
  */
 type RegistryItem = {
   name: string;
+  type: string;
   registryDependencies?: string[];
   files: { target: string; content: string }[];
 };
@@ -34,52 +35,69 @@ export type ManualFiles = {
   shared: ManualFile[];
 };
 
+const toFiles = (item: RegistryItem) =>
+  item.files.map(({ target, content }) => ({ path: target, content }));
+const depsOf = (item?: RegistryItem) =>
+  (item?.registryDependencies ?? []).map((url) =>
+    url
+      .split('/')
+      .pop()!
+      .replace(/\.json$/, ''),
+  );
+
+export const installedBlock = (id: string) => {
+  const name = `block-${id}`;
+  const item = items[name];
+  if (item?.type !== 'registry:block') throw new Error(`Missing registry item for ${name}`);
+  return {
+    directory: `blocks/wideset/${id}`,
+    files: toFiles(item),
+    dependencies: depsOf(item),
+  };
+};
+
 /** Every source file a component needs: its own, then the shared helpers it imports, each once. */
 export const manualFiles = (id: string): ManualFiles => {
   const seen = new Set<string>();
   const shared: ManualFile[] = [];
-  const toFiles = (name: string) =>
-    items[name].files.map((file) => ({ path: file.target, content: file.content }));
-  const depsOf = (name: string) =>
-    (items[name]?.registryDependencies ?? []).map((url) =>
-      url
-        .split('/')
-        .pop()!
-        .replace(/\.json$/, ''),
-    );
   const visit = (name: string) => {
     if (seen.has(name) || STYLES.has(name) || !items[name]) return;
     seen.add(name);
-    shared.push(...toFiles(name));
-    depsOf(name).forEach(visit);
+    shared.push(...toFiles(items[name]));
+    depsOf(items[name]).forEach(visit);
   };
   seen.add(id);
-  depsOf(id).forEach(visit);
-  return { own: items[id] ? toFiles(id) : [], shared };
+  depsOf(items[id]).forEach(visit);
+  return { own: items[id] ? toFiles(items[id]) : [], shared };
 };
 
 /**
  * Where every component export lives once scaffolded, read off the files the CLI writes:
- * `Button` → `@/components/ui/wideset/button/Button`. A name exported by its own file wins
- * over a re-export elsewhere.
+ * `Button` → `@/components/ui/wideset/button/Button`, and its types too (`ButtonProps` →
+ * `…/button/Button.types`). A name exported by its own file wins over a re-export elsewhere.
  */
 export const projectPaths = (): Record<string, string> => {
   const paths: Record<string, string> = {};
   for (const item of Object.values(items)) {
+    if (item.type === 'registry:block') continue;
     for (const file of item.files) {
       if (!/\.tsx?$/.test(file.target)) continue;
       const path = `@/${file.target.replace(/\.tsx?$/, '')}`;
       const stem = path.split('/').pop()!;
       const names = [
-        ...[...file.content.matchAll(/^export\s*\{([^}]*)\}\s*;/gm)].flatMap(([, list]) =>
-          list.split(',').map((part) =>
-            part
-              .trim()
-              .split(/\s+as\s+/)
-              .pop()!,
-          ),
+        ...[...file.content.matchAll(/^export\s*(?:type\s*)?\{([^}]*)\}\s*;/gm)].flatMap(
+          ([, list]) =>
+            list.split(',').map((part) =>
+              part
+                .trim()
+                .replace(/^type\s+/, '')
+                .split(/\s+as\s+/)
+                .pop()!,
+            ),
         ),
-        ...[...file.content.matchAll(/^export\s+(?:const|function)\s+(\w+)/gm)].map(([, n]) => n),
+        ...[...file.content.matchAll(/^export\s+(?:const|function|type|interface)\s+(\w+)/gm)].map(
+          ([, n]) => n,
+        ),
       ].filter((name) => /^[A-Z]/.test(name));
       for (const name of names) if (!paths[name] || name === stem) paths[name] = path;
     }

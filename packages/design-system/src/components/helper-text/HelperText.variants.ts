@@ -1,6 +1,7 @@
 import { cva } from 'class-variance-authority';
 
-export const helperTextVariants = cva('typography-body-sm gap-ws-3 flex items-center', {
+// Figma gives Helper Text a Gap/3 padding above and below; components that use it space around it.
+export const helperTextVariants = cva('typography-body-sm gap-ws-3 py-ws-3 flex items-center', {
   variants: {
     state: {
       default: 'text-ws-static-subtle',

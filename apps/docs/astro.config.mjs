@@ -21,7 +21,12 @@ const library = (path) =>
  */
 export default defineConfig({
   // The deploy job in build.yaml sets DOCS_URL per environment (develop, PR previews).
-  site: process.env.DOCS_URL || 'https://wideset-docs.widelab.workers.dev',
+  site: process.env.DOCS_URL || 'https://wideset.co',
+  // wideset.co is shared with the landing page, which owns everything the docs do not route
+  // (apps/docs/wrangler.jsonc): the site's own files sit under /_docs, not Astro's /_astro, and
+  // URLs carry no trailing slash on either side.
+  trailingSlash: 'never',
+  build: { assets: '_docs' },
   integrations: [react(), mdx()],
   prefetch: { prefetchAll: true, defaultStrategy: 'hover' },
   // Code in the Markdown pages carries both themes as variables, like the CodeBlock island;
@@ -29,8 +34,9 @@ export default defineConfig({
   markdown: {
     shikiConfig: { themes: { light: 'github-light', dark: 'github-dark' }, defaultColor: false },
   },
-  // The site opens on the Introduction; there is no separate home page.
-  redirects: { '/': '/docs/introduction' },
+  // The docs open on the Introduction. On wideset.co `/` is the landing page's and never reaches
+  // this site; the redirect serves the workers.dev origins and the previews.
+  redirects: { '/': '/docs/introduction', '/docs': '/docs/introduction' },
   vite: {
     plugins: [tailwindcss()],
     resolve: {

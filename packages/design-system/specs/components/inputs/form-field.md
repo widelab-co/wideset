@@ -5,7 +5,7 @@ group: inputs
 status: stable
 parts: [FormField]
 related: [TextInput, Textarea, Select, MultiSelect, ComboBox, FileUpload]
-docs: https://wideset-docs.widelab.workers.dev/components/form-field
+docs: https://wideset.co/components/form-field
 storybook: form-formfield--default
 ---
 
@@ -41,9 +41,10 @@ storybook: form-formfield--default
 </FormField>
 ```
 
-FormField renders the label, then the control you pass, then the helper or error text. The label
-and the text are internal parts (`FieldLabel`, `HelperText`); they are not exported, so reach them
-only through FormField's props.
+FormField renders the label row (the label, its info button, the aside), then the control you
+pass, then the helper or error text. The label and the text are internal parts (`FieldLabel` with
+its `RequiredIndicator`, `Suffix`, `Tooltip` and `Aside`, `HelperText`); they are not exported, so reach them only
+through FormField's props.
 
 ## Choosing props
 
@@ -53,9 +54,9 @@ only through FormField's props.
 | `htmlFor`          | the control's `id`           | Links the label to the control. Not generated: match it yourself.                               |
 | `helperText`       | string                       | A hint the user needs before typing (format, limits, why).                                      |
 | `errorText`        | string                       | The validation message. Replaces `helperText` while set.                                        |
-| `required`         | boolean                      | Red asterisk after the label.                                                                   |
+| `required`         | boolean                      | Red asterisk after the label (decorative, `aria-hidden`).                                       |
 | `suffix`           | string                       | Quiet text after the label, such as "(optional)".                                               |
-| `tooltip`          | ReactNode                    | Extra explanation behind an info icon next to the label.                                        |
+| `tooltip`          | ReactNode                    | Extra explanation behind an info button next to the label.                                      |
 | `aside`            | ReactNode                    | Quiet content at the far end of the label row.                                                  |
 | `variant`          | `vertical` (default)         | Label above the control. Most forms, narrow columns, mobile.                                    |
 |                    | `horizontal`                 | Label in a column beside the control, helper under the label. Settings pages with short values. |
@@ -70,7 +71,8 @@ only through FormField's props.
 
 Validation is yours; FormField shows the message. For a single child element it adds the helper
 or error id to the control's `aria-describedby` (keeping ids already there) and sets
-`aria-invalid` while `errorText` is set. The red look is not automatic: set `variant="danger"` on
+`aria-invalid` while `errorText` is set. The error text is a `role="alert"`, so a screen reader
+announces it when it appears. The red look is not automatic: set `variant="danger"` on
 the TextInput, Textarea, Select, MultiSelect or ComboBox. Show errors after blur or submit, not on
 the first keystroke; `useShake` on the control flags a rejected submit with motion.
 
@@ -82,13 +84,16 @@ the first keystroke; `useShake` on the control flags a rejected submit with moti
 
 ## Accessibility
 
-- `required` only draws the asterisk. Set `required` (or `aria-required`) on the control too.
+- `required` only draws the asterisk, and the asterisk is `aria-hidden`. Set `required` (or
+  `aria-required`) on the control too.
 - `htmlFor` works for native controls, TextInput, Textarea, Select and MultiSelect (their `id`
   lands on the input or trigger). It does not reach `ComboBox`: give FormField an `id` (it lands on
   the label) and pass it to the ComboBox as `aria-labelledby`.
 - With `fieldset`, the label is not a `<legend>`: also name the group (`aria-label` on
   `RadioButton.Group`).
-- The `tooltip` icon is labelled "More information"; translate with `tooltipAriaLabel`.
+- The `tooltip` is a `<button>` next to the label (not inside it), labelled "More information";
+  translate with `tooltipAriaLabel`. `suffix` is inside the label, so it is part of the control's
+  accessible name ("Nickname (optional)").
 
 ## Do / Don't
 
@@ -115,9 +120,10 @@ the first keystroke; `useShake` on the control flags a rejected submit with moti
 
 ## Gotchas
 
-- Props other than `className`, `variant`, `WrapperComponent`, the texts and `helperTextId` go to
-  the label part, and HTML attributes among them (`htmlFor`, `id`, `data-*`) land on the
-  `<label>`. Only `className` and the `ref` reach the root.
+- Props other than `className`, `variant`, `WrapperComponent`, the texts, `helperTextId`,
+  `suffix`, `tooltip`, `tooltipAriaLabel` and `aside` go to the label part, and HTML attributes
+  among them (`htmlFor`, `id`, `data-*`) land on the `<label>`. Only `className` and the `ref`
+  reach the root.
 - The control is wired only when `children` is one element (not a Fragment). Wrap several
   controls and wire `aria-describedby` yourself with `helperTextId`.
 - Composed `Select` (with `Select.Trigger`) drops the cloned `aria-describedby`; set it on
@@ -126,5 +132,5 @@ the first keystroke; `useShake` on the control flags a rejected submit with moti
 
 ## API
 
-Full props: `https://wideset-docs.widelab.workers.dev/components/form-field.md` · Types:
+Full props: `https://wideset.co/components/form-field.md` · Types:
 `packages/design-system/src/components/form-field/FormField.types.ts`

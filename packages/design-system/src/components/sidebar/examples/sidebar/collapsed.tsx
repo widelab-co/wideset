@@ -1,4 +1,4 @@
-/** Collapsed keeps only the icons; each item's label becomes its `aria-label` and the trigger flips to Expand. Each section says what it shows in each mode with `Sidebar.Expanded` and `Sidebar.Collapsed`; a section without content for the current mode is not rendered. */
+/** Collapsed keeps only the icons; each item's label becomes its `aria-label` and the trigger flips to Expand. The same tree serves both modes, so the trigger and the items keep focus across a toggle; `Sidebar.Expanded` wraps what exists only when expanded, here the product name. */
 import { RiDashboardLine, RiFolder3Line, RiUser3Line } from '@remixicon/react';
 import { Sidebar } from '@wideset/react';
 
@@ -26,24 +26,16 @@ export default function SidebarCollapsedMode() {
         >
           <Sidebar defaultCollapsed={collapsed}>
             <Sidebar.Header>
-              <Sidebar.Expanded>
-                <div className="gap-ws-7 py-ws-3 pl-ws-5 flex items-center justify-between">
-                  <span className="typography-label-strong-sm text-ws-static-strong">
+              <div className="gap-ws-7 py-ws-3 flex items-center">
+                <Sidebar.Expanded>
+                  <span className="typography-label-strong-sm text-ws-static-strong pl-ws-5">
                     Northwind
                   </span>
-                  <Sidebar.Trigger />
-                </div>
-              </Sidebar.Expanded>
-              <Sidebar.Collapsed>
-                <div className="py-ws-3 flex items-center">
-                  <Sidebar.Trigger />
-                </div>
-              </Sidebar.Collapsed>
+                </Sidebar.Expanded>
+                <Sidebar.Trigger />
+              </div>
             </Sidebar.Header>
-            <Sidebar.Section>
-              <Sidebar.Expanded>{nav}</Sidebar.Expanded>
-              <Sidebar.Collapsed>{nav}</Sidebar.Collapsed>
-            </Sidebar.Section>
+            <Sidebar.Section>{nav}</Sidebar.Section>
           </Sidebar>
         </div>
       ))}

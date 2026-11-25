@@ -1,0 +1,27 @@
+---
+import { entries } from '../../lib/catalog';
+import { hasPlayground } from '../../lib/playground';
+
+const ids = entries.filter(({ id }) => hasPlayground(id)).map(({ id }) => id);
+const fallback = '/components/button?tab=playground';
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Playground moved — Wideset</title>
+    <script is:inline define:vars={{ ids }}>
+      const params = new URLSearchParams(location.search);
+      const component = params.get('c');
+      params.delete('c');
+      params.set('tab', 'playground');
+      const id = ids.includes(component) ? component : 'button';
+      location.replace(`/components/${id}?${params}${location.hash}`);
+    </script>
+  </head>
+  <body>
+    <p>
+      The Playground moved to each component page. <a href={fallback}>Open Button Playground</a>.
+    </p>
+  </body>
+</html>

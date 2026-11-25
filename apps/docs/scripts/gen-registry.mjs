@@ -5,7 +5,7 @@
  * dist/*.css), which every docs task builds first.
  *
  * The same items are the public shadcn registry: copied to public/r, the site serves them at
- * `<site>/r/{name}.json` (wideset-docs.widelab.workers.dev/r in production). REGISTRY_URL is the address this
+ * `<site>/r/{name}.json` (wideset.co/r in production). REGISTRY_URL is the address this
  * build is served from; the deploy job in build.yaml sets it per environment.
  *
  * Output: src/generated/registry/<item>.json and public/r/<item>.json (both git-ignored)
@@ -20,7 +20,7 @@ import {
 import { docs, generatedDir, library } from './paths.mjs';
 
 const out = join(generatedDir, 'registry');
-const { items } = buildRegistry({ root: library, out, base: resolveBaseUrl() });
+const { items } = await buildRegistry({ root: library, out, base: resolveBaseUrl() });
 
 const publicDir = join(docs, 'public', 'r');
 rmSync(publicDir, { recursive: true, force: true });

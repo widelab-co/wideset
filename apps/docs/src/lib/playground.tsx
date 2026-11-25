@@ -50,7 +50,7 @@ for (const [id, page] of Object.entries(PAGES)) {
 export const PLAYGROUNDS: Record<string, PlaygroundDefinition> = {};
 
 const loading = new Map<string, Promise<PlaygroundDefinition>>();
-export const loadPlayground = (id: string) => {
+const loadPlayground = (id: string) => {
   if (!loading.has(id)) {
     loading.set(
       id,
@@ -137,6 +137,9 @@ const subscribe = (id: string) => (listener: () => void) => {
   listeners.get(id)!.add(listener);
   return () => listeners.get(id)?.delete(listener);
 };
+
+export const subscribeValues = (id: string, listener: (values: Values) => void) =>
+  subscribe(id)(() => listener(current(id)));
 
 export const useValues = (id: string) =>
   useSyncExternalStore(
