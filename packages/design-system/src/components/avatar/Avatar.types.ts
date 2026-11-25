@@ -20,7 +20,7 @@ import type { AvatarInitials } from './AvatarInitials';
 import type { AvatarMore } from './AvatarMore';
 import type { AvatarStatus } from './AvatarStatus';
 
-export type AvatarGroupContextType = AvatarCommonProps;
+export type AvatarGroupContextType = AvatarCommonProps & Pick<GroupProps, 'layout'>;
 
 /** Shared visual options used by all content modes. */
 export type AvatarCommonProps = {

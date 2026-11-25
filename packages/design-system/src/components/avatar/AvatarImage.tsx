@@ -36,6 +36,7 @@ const AvatarImage = ({
             size: size || context?.size,
             shape: shape || context?.shape,
             hasStatus: !!status,
+            grouped: context?.layout === 'row',
             className,
           }),
         )}
@@ -47,6 +48,7 @@ const AvatarImage = ({
             size: size || context?.size,
             shape: shape || context?.shape,
             hasStatus: !!status,
+            grouped: context?.layout === 'row',
             className,
           }),
         )}

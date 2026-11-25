@@ -25,11 +25,23 @@ export const avatarVariants = cva(
         square: '',
       },
       hasStatus: {
-        true: 'mask-[radial-gradient(circle_at_calc(100%-var(--mask-position))_calc(100%-var(--mask-position)),transparent_var(--mask-radius),black_calc(var(--mask-radius)_+_var(--mask-edge)))] [-webkit-mask-image:radial-gradient(circle_at_calc(100%-var(--mask-position))_calc(100%-var(--mask-position)),transparent_var(--mask-radius),black_calc(var(--mask-radius)_+_var(--mask-edge)))]',
+        // `no-clip` keeps the group ring: a mask otherwise clips everything outside the box.
+        true: 'mask-[radial-gradient(circle_at_calc(100%-var(--mask-position))_calc(100%-var(--mask-position)),transparent_var(--mask-radius),black_calc(var(--mask-radius)_+_var(--mask-edge)))] [mask-clip:no-clip] [-webkit-mask-clip:no-clip] [-webkit-mask-image:radial-gradient(circle_at_calc(100%-var(--mask-position))_calc(100%-var(--mask-position)),transparent_var(--mask-radius),black_calc(var(--mask-radius)_+_var(--mask-edge)))]',
+        false: '',
+      },
+      /**
+       * Set by a `row` group, where avatars overlap. Figma strokes each one outside in
+       * Static/Fill/Container, so the avatar in front cuts a gap into the one behind; an
+       * outline is that stroke: outside the box, on its radius, without moving the layout.
+       */
+      grouped: {
+        true: 'outline-ws-static-container outline-2 outline-solid',
         false: '',
       },
     },
     compoundVariants: [
+      // Figma's Large row strokes 3px; xl and 2xl have no Figma group and follow it.
+      { grouped: true, size: ['lg', 'xl', '2xl'], class: 'outline-3' },
       { shape: 'square', size: 'xs', class: 'rounded-ws-control-sm' },
       { shape: 'square', size: 'sm', class: 'rounded-ws-control-md' },
       { shape: 'square', size: 'md', class: 'rounded-ws-control-lg' },

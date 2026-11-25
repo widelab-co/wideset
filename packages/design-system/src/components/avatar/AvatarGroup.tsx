@@ -53,7 +53,7 @@ const AvatarGroup = ({
   });
 
   return (
-    <AvatarGroupContext.Provider value={{ size, shape, color }}>
+    <AvatarGroupContext.Provider value={{ size, shape, color, layout }}>
       <div
         data-slot="avatar-group"
         className={cn('w-full', groupVariants({ size, layout, className }))}
