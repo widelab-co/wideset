@@ -140,7 +140,7 @@ exports[`Thumbnail Snapshots > matches snapshot for type document 1`] = `
 
 exports[`Thumbnail Snapshots > matches snapshot for type pdf 1`] = `
 <div
-  class="relative flex shrink-0 items-center justify-center overflow-hidden rounded-ws-control-lg size-ws-14 text-ws-non-semantic-purple-on-strong bg-[#e96949]"
+  class="relative flex shrink-0 items-center justify-center overflow-hidden rounded-ws-control-lg size-ws-14 bg-ws-non-semantic-pink-strong text-ws-non-semantic-purple-on-strong"
   data-slot="thumbnail"
 >
   <svg
