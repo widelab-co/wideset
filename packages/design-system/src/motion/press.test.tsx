@@ -55,8 +55,14 @@ describe('Press scale', () => {
   });
 
   it('does not shrink a Chip on press', () => {
-    render(<Chip>Remote</Chip>);
+    render(
+      <Chip>
+        <Chip.Action>Remote</Chip.Action>
+        <Chip.IconButton aria-label="Remove Remote" />
+      </Chip>,
+    );
 
-    expect(screen.getByText('Remote').className).not.toMatch(pressScale);
+    expect(screen.getByRole('button', { name: 'Remote' }).className).not.toMatch(pressScale);
+    expect(screen.getByRole('button', { name: 'Remove Remote' }).className).not.toMatch(pressScale);
   });
 });

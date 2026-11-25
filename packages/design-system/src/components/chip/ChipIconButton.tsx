@@ -5,7 +5,7 @@ import { cn } from 'src/lib/utils';
 import { IconButton } from '../button/IconButton';
 import { useChipContext } from './Chip.context';
 import type { ChipIconButtonProps } from './Chip.types';
-import { chipIconButtonVariants } from './Chip.variants';
+import { chipIconButtonVariants, chipMotionVariants } from './Chip.variants';
 
 const ChipIconButton = forwardRef<HTMLButtonElement, ChipIconButtonProps>(
   ({ className, disabled, icon = RiCloseLine, ...props }, ref) => {
@@ -19,8 +19,12 @@ const ChipIconButton = forwardRef<HTMLButtonElement, ChipIconButtonProps>(
         variant="secondary"
         size="xs"
         disabled={chipDisabled || disabled}
-        defaultMotion={motion}
-        className={cn(chipIconButtonVariants({ size, variant, style }), className)}
+        defaultMotion={false}
+        className={cn(
+          chipIconButtonVariants({ size, variant, style }),
+          chipMotionVariants({ enabled: motion }),
+          className,
+        )}
         data-slot="chip-icon-button"
         {...props}
       />

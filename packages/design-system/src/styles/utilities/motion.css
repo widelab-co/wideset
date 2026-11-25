@@ -4,8 +4,8 @@
   /* Durations */
   --ws-motion-duration-stagger: 40ms; /* per-item stagger offset */
   --ws-motion-duration-micro: 80ms; /* press feedback, hover tint, shake segment */
-  --ws-motion-duration-quick: 150ms; /* close (menu, tooltip, modal), text swap, checkbox fill */
-  --ws-motion-duration-fast: 250ms; /* open (menu, modal), icon swap, tabs pill, indicator pop */
+  --ws-motion-duration-quick: 150ms; /* menus, close (tooltip, modal), text swap, checkbox fill */
+  --ws-motion-duration-fast: 250ms; /* open (modal), icon swap, tabs pill, indicator pop */
   --ws-motion-duration-medium: 350ms; /* switch thumb, panel close, toast close */
   --ws-motion-duration-slow: 400ms; /* sidebar collapse, panel open, skeleton reveal */
   --ws-motion-duration-very-slow: 500ms; /* emphasis moments: success check, badge appear */
@@ -27,9 +27,9 @@
 
   /* Scales */
   --ws-motion-scale-large: 0.96; /* modal */
-  --ws-motion-scale-medium: 0.97; /* dropdown open */
+  --ws-motion-scale-medium: 0.97; /* toast */
   --ws-motion-scale-small: 0.98; /* button press, tooltip */
-  --ws-motion-scale-tiny: 0.99; /* dropdown close */
+  --ws-motion-scale-tiny: 0.99; /* unused */
 
   /* Blur */
   --ws-motion-blur-small: 2px; /* swaps, panel reveal */

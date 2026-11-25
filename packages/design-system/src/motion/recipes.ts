@@ -14,7 +14,7 @@ export const pressMotion = cn(
   'not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)',
 );
 
-/** Menu, select and picker lists: a short fade in and out, no zoom or slide. Durations carry the state variant to beat animate-in/out's own 150ms. */
+/** Menu, select and picker lists: a short fade in and out. */
 export const menuFadeMotion = cn(
   'transition-none ease-(--ws-motion-ease-out)',
   'data-[state=open]:animate-in data-[state=open]:fade-in-0',
