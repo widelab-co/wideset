@@ -18,6 +18,7 @@ import {
   treeViewItemVariants,
 } from './TreeView.variants';
 import { TreeViewGroup } from './TreeViewGroup';
+import { TreeViewLabel } from './TreeViewLabel';
 import { TreeViewSuffix } from './TreeViewSuffix';
 
 const TreeViewItem = React.forwardRef<HTMLLIElement, TreeViewItemProps>(
@@ -25,19 +26,26 @@ const TreeViewItem = React.forwardRef<HTMLLIElement, TreeViewItemProps>(
     const { currentValue, currentExpanded, tabStop, motion, focusItem, releaseTabStop } =
       useTreeViewContext();
     const level = useContext(TreeViewLevelContext);
-    const labelId = useId();
+    const generatedLabelId = useId();
     const suffixId = useId();
 
     // The group goes under the row; everything else (icon, label, suffix) is the row.
-    // Wrapping TreeView.Group or TreeView.Suffix in your own component hides it from this:
-    // pass them directly.
+    // Wrapping TreeView.Group, TreeView.Label or TreeView.Suffix in your own component hides it
+    // from this: pass them directly.
     const all = Children.toArray(children);
     const group = all.find((child) => isValidElement(child) && child.type === TreeViewGroup);
     const row = all.filter((child) => child !== group);
+    const label = row.find(
+      (child): child is React.ReactElement<{ id?: string }> =>
+        isValidElement(child) && child.type === TreeViewLabel,
+    );
     const suffix = row.find(
       (child): child is React.ReactElement<{ id?: string }> =>
         isValidElement(child) && child.type === TreeViewSuffix,
     );
+
+    // The label's own id, when it has one, so aria-labelledby points at it.
+    const labelId = label?.props.id ?? generatedLabelId;
 
     const isBranch = group !== undefined;
     const expanded = isBranch && currentExpanded.includes(value);

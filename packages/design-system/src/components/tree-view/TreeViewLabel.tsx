@@ -5,13 +5,13 @@ import { useTreeViewItemContext } from './TreeView.context';
 import type { TreeViewLabelProps } from './TreeView.types';
 
 const TreeViewLabel = React.forwardRef<HTMLSpanElement, TreeViewLabelProps>(
-  ({ className, ...props }, ref) => {
+  ({ id, className, ...props }, ref) => {
     const { labelId } = useTreeViewItemContext();
 
     return (
       <span
         ref={ref}
-        id={labelId}
+        id={id ?? labelId}
         data-slot="tree-view-label"
         className={cn('min-w-0 flex-1 truncate', className)}
         {...props}

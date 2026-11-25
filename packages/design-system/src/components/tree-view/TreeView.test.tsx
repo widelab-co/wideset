@@ -72,6 +72,19 @@ describe('TreeView', () => {
       expect(item('src')).toHaveAccessibleDescription('2');
     });
 
+    it("points the name at the label's own id when it has one", () => {
+      render(
+        <TreeView aria-label="Files">
+          <TreeView.Item value="src">
+            <TreeView.Label id="src-name">src</TreeView.Label>
+            <TreeView.Suffix>2</TreeView.Suffix>
+          </TreeView.Item>
+        </TreeView>,
+      );
+      expect(item('src')).toHaveAttribute('aria-labelledby', 'src-name');
+      expect(item('src')).toHaveAccessibleDescription('2');
+    });
+
     it('reads the suffix as the description, after the name', () => {
       render(<Files />);
       expect(item('src')).toHaveAccessibleDescription('2');
