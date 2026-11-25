@@ -57,9 +57,8 @@ const TableRoot = ({
         className={cn(
           separated && 'is-separated',
           'group w-full table-auto border-separate border-spacing-0',
-          // Keep the focus indicator inside the scroll container and preserve text selection.
           isSticky &&
-            'focus-visible:outline-ws-dynamic-primary-strong-default focus-visible:outline-(length:--spacing-ws-2) focus-visible:-outline-offset-(--spacing-ws-2)',
+            'focus-visible:outline-ws-dynamic-primary-strong-default focus-visible:outline-2 focus-visible:-outline-offset-2',
           className,
         )}
       >

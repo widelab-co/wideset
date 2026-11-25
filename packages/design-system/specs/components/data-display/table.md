@@ -104,9 +104,7 @@ Native `table` / `thead` / `tbody` / `tfoot` / `tr` / `th` / `td`. Named exports
 - A selection checkbox needs `aria-label` naming the row (`Select Acme Corp`).
 - Row click is mouse-only. Put a real control (a `Checkbox`, a `LinkButton`, a `Button`) in the
   row so keyboard users can reach the same action.
-- With `stickyHeader` or `stickyColumn` the table becomes a tab stop by default so keyboard users
-  can scroll it. An explicit `tabIndex` overrides the default. Use `tabIndex={-1}` on an ordinary
-  table if you need to focus it programmatically.
+- With `stickyHeader` or `stickyColumn` the table becomes a tab stop so keyboard users can scroll it.
 
 ## Do / Don't
 

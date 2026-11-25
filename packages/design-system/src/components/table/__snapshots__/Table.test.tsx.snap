@@ -681,7 +681,7 @@ exports[`Table Snapshots > matches snapshot for size sm 1`] = `
 
 exports[`Table Snapshots > matches snapshot for stickyColumn table 1`] = `
 <table
-  class="group w-full table-auto border-separate border-spacing-0 focus-visible:outline-ws-dynamic-primary-strong-default focus-visible:outline-(length:--spacing-ws-2) focus-visible:-outline-offset-(--spacing-ws-2)"
+  class="group w-full table-auto border-separate border-spacing-0 focus-visible:outline-ws-dynamic-primary-strong-default focus-visible:outline-2 focus-visible:-outline-offset-2"
   data-slot="table"
   tabindex="0"
 >
@@ -734,7 +734,7 @@ exports[`Table Snapshots > matches snapshot for stickyColumn table 1`] = `
 
 exports[`Table Snapshots > matches snapshot for stickyHeader table 1`] = `
 <table
-  class="group w-full table-auto border-separate border-spacing-0 focus-visible:outline-ws-dynamic-primary-strong-default focus-visible:outline-(length:--spacing-ws-2) focus-visible:-outline-offset-(--spacing-ws-2)"
+  class="group w-full table-auto border-separate border-spacing-0 focus-visible:outline-ws-dynamic-primary-strong-default focus-visible:outline-2 focus-visible:-outline-offset-2"
   data-slot="table"
   tabindex="0"
 >
