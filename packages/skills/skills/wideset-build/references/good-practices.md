@@ -59,6 +59,7 @@ One file per component: when to use it, when not, do and don't, and gotchas. Rea
 - [Pagination](good-practices/pagination.md): page through a collection; it never slices data.
 - [Sidebar](good-practices/sidebar.md): the permanent app navigation that collapses to icons.
 - [ProgressStepper](good-practices/progress-stepper.md): named, ordered steps of a flow.
+- [TreeView](good-practices/tree-view.md): browse a folding hierarchy (files, categories) and pick one item.
 
 ## [Overlays](specs/components/overlays/README.md)
 

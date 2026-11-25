@@ -226,6 +226,12 @@ A member such as `Card.Header` comes with `Card`; its named form, `CardHeader`, 
 - `import { TooltipContent } from '@/components/ui/wideset/tooltip/TooltipContent';`
 - `import { TooltipDescription } from '@/components/ui/wideset/tooltip/TooltipDescription';`
 - `import { TooltipLabel } from '@/components/ui/wideset/tooltip/TooltipLabel';`
+- `import { TreeView } from '@/components/ui/wideset/tree-view/TreeView';`
+- `import { TreeViewGroup } from '@/components/ui/wideset/tree-view/TreeViewGroup';`
+- `import { TreeViewIcon } from '@/components/ui/wideset/tree-view/TreeViewIcon';`
+- `import { TreeViewItem } from '@/components/ui/wideset/tree-view/TreeViewItem';`
+- `import { TreeViewLabel } from '@/components/ui/wideset/tree-view/TreeViewLabel';`
+- `import { TreeViewSuffix } from '@/components/ui/wideset/tree-view/TreeViewSuffix';`
 - `import { useTheme } from '@/hooks/wideset/useTheme';`
 - `import { MotionProvider, useShake } from '@/lib/wideset/motion';`
 - `import { cn } from '@/lib/wideset/utils';`
@@ -289,4 +295,5 @@ A member such as `Card.Header` comes with `Card`; its named form, `CardHeader`, 
 - `import type { TimePickerProps } from '@/components/ui/wideset/timepicker/Timepicker.types';`
 - `import type { ToastActionProps, ToastContainerProps, ToastContextType, ToastDescriptionProps, ToastIconActionProps, ToastItem, ToastMessageProps, ToastPosition, ToastProps, ToastProviderProps, ToastShowOptions, ToastStatus, ToastVariant, ToastWithSubComponents } from '@/components/ui/wideset/toast/Toast.types';`
 - `import type { TooltipArrowProps, TooltipContentProps, TooltipDescriptionProps, TooltipLabelProps, TooltipPortalProps, TooltipProps, TooltipSize, TooltipTriggerProps, TooltipVariant } from '@/components/ui/wideset/tooltip/Tooltip.types';`
+- `import type { TreeViewGroupProps, TreeViewIconProps, TreeViewItemProps, TreeViewLabelProps, TreeViewProps, TreeViewSuffixProps } from '@/components/ui/wideset/tree-view/TreeView.types';`
 - `import type { MotionProps, MotionProviderProps } from '@/lib/wideset/motion';`

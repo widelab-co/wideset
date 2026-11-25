@@ -112,6 +112,8 @@ in the snippet will point into `node_modules/@wideset/react/` then.
 - [Sidebar](components/navigation/sidebar.md): the permanent app navigation that collapses to
   icons.
 - [ProgressStepper](components/navigation/progress-stepper.md): named, ordered steps of a flow.
+- [TreeView](components/navigation/tree-view.md): browse a folding hierarchy (files,
+  categories) and pick one item.
 
 ### [Overlays](components/overlays/README.md)
 

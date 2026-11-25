@@ -98,6 +98,8 @@ Sources of truth, in order: Figma → code → specs.
 - [Sidebar](../good-practices/sidebar.md): the permanent app navigation that collapses to
   icons.
 - [ProgressStepper](../good-practices/progress-stepper.md): named, ordered steps of a flow.
+- [TreeView](../good-practices/tree-view.md): browse a folding hierarchy (files,
+  categories) and pick one item.
 
 ### [Overlays](components/overlays/README.md)
 
