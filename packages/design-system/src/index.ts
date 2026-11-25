@@ -625,6 +625,20 @@ export type {
 export { TooltipContent } from './components/tooltip/TooltipContent';
 export { TooltipDescription } from './components/tooltip/TooltipDescription';
 export { TooltipLabel } from './components/tooltip/TooltipLabel';
+export { TreeView } from './components/tree-view/TreeView';
+export type {
+  TreeViewGroupProps,
+  TreeViewIconProps,
+  TreeViewItemProps,
+  TreeViewLabelProps,
+  TreeViewProps,
+  TreeViewSuffixProps,
+} from './components/tree-view/TreeView.types';
+export { TreeViewGroup } from './components/tree-view/TreeViewGroup';
+export { TreeViewIcon } from './components/tree-view/TreeViewIcon';
+export { TreeViewItem } from './components/tree-view/TreeViewItem';
+export { TreeViewLabel } from './components/tree-view/TreeViewLabel';
+export { TreeViewSuffix } from './components/tree-view/TreeViewSuffix';
 
 // Utilities
 export { cn } from './lib/utils';

@@ -954,6 +954,19 @@
           "target": "components/ui/wideset/tooltip/Tooltip.tsx"
         }
       ]
+    },
+    {
+      "name": "tree-view",
+      "type": "registry:ui",
+      "title": "TreeView",
+      "description": "TreeView shows a hierarchy whose levels fold open and shut, such as the files and folders of a repository.",
+      "files": [
+        {
+          "path": "src/components/tree-view/TreeView.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/wideset/tree-view/TreeView.tsx"
+        }
+      ]
     }
   ]
 }
