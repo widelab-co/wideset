@@ -38,12 +38,12 @@ wideset.co is shared with the landing page: the docs Worker owns only the paths 
 `.github/workflows/build.yaml` and an exclusion in the zone's Redirect Rule.
 
 **A component page** opens with the title and description and "Copy page" (the page as
-Markdown, or handed to a model), then up to five tabs whose content switches in place:
+Markdown, or handed to a model), then up to four tabs whose content switches in place:
 
-- **Overview:** the component on its stage; Installation, one card whose header picks CLI or
+- **Overview:** the component on its stage, with the code for its defaults in the same "View
+  code" peek as an example; Installation, one card whose header picks CLI or
   Manual and the package manager; Examples, each a card with the live example and its code; API
   reference, one props table per part; Accessibility, when the component's spec has the section.
-- **Code** shows the component's own files from its registry item.
 - **Anatomy:** the component drawn 1:1 with each part named beside it, then the parts as a table
   (Part, Renders, Description). Hover highlights the part. Activating its name opens a popup
   with the tokens read from the rendered classes (`src/lib/tokenClasses.ts`) and computed styles.
@@ -114,9 +114,11 @@ where to go instead. Never a sentence that repeats the title or describes what i
 A playground is the component's `examples/<id>/default.tsx` (one typical instance whose root
 takes `{...props}`) with controls: every string-literal union and boolean of the root props type
 in `src/generated/controls.json`, with the component's own default, so a new variant shows up
-without touching anything. The Overview stage and the gallery thumbnail show the defaults. The
-component's Playground tab (`?tab=playground`) contains the workbench. The Properties panel sets
-the props, the code shows the resulting JSX, and the address saves changed values.
+without touching anything. The Overview stage and the gallery thumbnail show the defaults, and
+the stage's code is `code(defaults)`. The component's Playground tab (`?tab=playground`) contains
+the workbench. The Properties panel sets the props, the code shows the resulting JSX, and the
+address saves changed values. The component's own files are under Installation › Manual; an old
+`?tab=code` address opens there (`#installation-manual`), without the file it named.
 
 `src/playgrounds/<id>.tsx` is optional tuning: `playground({...})` from
 `src/lib/playground-kit.ts` with `hide`, `labels` (`preset` is already "Style"), `order`,

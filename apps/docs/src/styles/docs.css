@@ -236,6 +236,14 @@
 .docs-scroll::-webkit-scrollbar {
   display: none;
 }
+/* A scroll row whose controls show a focus outline (the Installation card's pills): room for
+   the 2px outline and its 2px offset inside the row, which a scroll container would clip, taken
+   back with a negative margin so the row's controls stay where they were. */
+.docs-focus-room {
+  --docs-focus-room: 5px;
+  margin: calc(-1 * var(--docs-focus-room));
+  padding: var(--docs-focus-room);
+}
 
 .docs-tab-row {
   /* Leave 4px for the Tabs focus outline and 1px for scroll rounding. */
@@ -483,16 +491,12 @@ body.docs.docs .docs-snippet-ruled pre {
   padding: 12px 16px;
 }
 /* The shell: the sidebar's list scrolls with no bar; every demo frame, code block and card
-   has the same 12px corners; the Playground's Properties sit in their column with no padding of
-   their own. */
+   has the same 12px corners. */
 #docs-nav [data-slot='scroll-area-scrollbar'] {
   display: none;
 }
 body.docs.docs .docs-frame:not(.docs-light, .dark) {
   border-radius: var(--radius-ws-container-md);
-}
-body.docs .docs-properties > section {
-  padding: 0;
 }
 /* The Playground's stage is the soft stage every thumbnail sits on, in the stage's own theme
    (its sun/moon button can show the other one). */
@@ -557,7 +561,6 @@ html[data-tab='relationships'] [data-tab-panel='relationships'] {
 html[data-tab] .docs-page-tabs:not([data-ready]) {
   visibility: hidden;
 }
-
 .docs-section-link {
   display: inline-flex;
   align-items: center;
