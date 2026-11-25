@@ -37,3 +37,5 @@
   `src` is the fallback, not a second mode.
 - Initials colour is derived from the initials; inside `Avatar.Group` colours are spread so
   duplicates differ. Pass `color` only to pin it.
+- A `row` group rings each avatar in the container colour, so the overlap reads as a gap on a
+  container surface (a card, a panel). On any other background the ring shows as a halo.
