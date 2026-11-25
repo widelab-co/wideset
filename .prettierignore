@@ -8,5 +8,4 @@ storybook-static
 pnpm-lock.yaml
 CHANGELOG.md
 packages/design-system/public
-packages/design-system/playground
 apps/docs/src/generated

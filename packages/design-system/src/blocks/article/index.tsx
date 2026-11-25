@@ -60,7 +60,7 @@ export default function Article() {
         {/* The page scrolls inside the card, so the card's corners stay put; anchor jumps glide. */}
         <div
           ref={scrollRef}
-          className="min-h-0 flex-1 overflow-y-auto scroll-smooth motion-reduce:scroll-auto"
+          className="ws-scrollbar min-h-0 flex-1 overflow-y-auto scroll-smooth motion-reduce:scroll-auto"
         >
           <div className={cn(COLUMN, 'gap-ws-14 pt-ws-14 pb-ws-16 flex flex-col')}>
             <ArticleHeader />

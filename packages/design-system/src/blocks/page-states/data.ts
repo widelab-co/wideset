@@ -68,8 +68,8 @@ export const lastSynced = '2026-11-10T10:42:00';
 export type Deal = {
   id: string;
   name: string;
-  /** A lifecycle state, so its badge stays neutral. */
-  stage: string;
+  /** Where the deal stands; its badge takes the stage's colour. */
+  stage: 'Discovery' | 'Qualified' | 'Proposal' | 'Negotiation';
   closes: string;
   /** A year of the deal, in dollars. */
   value: number;
@@ -110,7 +110,7 @@ export const deals: Deal[] = [
 export type Ticket = {
   id: string;
   subject: string;
-  /** A lifecycle state, so its badge stays neutral. */
+  /** Its badge takes the colour of its meaning. */
   status: 'Open' | 'Pending' | 'Solved';
   opened: string;
   replies: number;

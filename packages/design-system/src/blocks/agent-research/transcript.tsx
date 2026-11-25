@@ -35,7 +35,7 @@ export function Transcript({
   onRate,
   onRetry,
 }: TranscriptProps) {
-  const latest = turns.findLast((turn) => turn.role === 'agent')?.id;
+  const latest = turns.filter((turn) => turn.role === 'agent').at(-1)?.id;
 
   return (
     <div key={view} role="log" aria-label="Transcript" className="gap-ws-9 flex flex-col">

@@ -101,7 +101,7 @@ export function TerminalPane() {
     >
       <div className="h-ws-16 border-ws-static-subtle px-ws-11 gap-ws-5 flex shrink-0 items-center border-b">
         {/* More shells than fit scroll sideways inside the bar; the actions keep their place. */}
-        <div className="gap-ws-3 flex min-w-0 items-center overflow-x-auto">
+        <div className="gap-ws-3 ws-scrollbar flex min-w-0 items-center overflow-x-auto">
           <Tabs.List aria-label="Shells">
             {shells.map(({ id, name, runs }) => {
               const state = runs.at(-1)?.state;

@@ -173,6 +173,7 @@ export function FilesTree({ files, active, onOpen, reveal }: FilesTreeProps) {
       <div className="h-ws-16 px-ws-7 border-ws-static-subtle flex shrink-0 items-center border-b">
         <TextInput
           size="sm"
+          preset="ghost"
           className="w-full"
           value={query}
           onChange={(event) => setQuery(event.target.value)}
@@ -187,7 +188,7 @@ export function FilesTree({ files, active, onOpen, reveal }: FilesTreeProps) {
         </TextInput>
       </div>
 
-      <div className="px-ws-7 py-ws-5 min-h-0 flex-1 overflow-y-auto">
+      <div className="px-ws-7 py-ws-5 ws-scrollbar min-h-0 flex-1 overflow-y-auto">
         {shown.length > 0 ? (
           <ul>{rows('')}</ul>
         ) : (

@@ -16,11 +16,7 @@ import {
   RiTeamLine,
 } from '@remixicon/react';
 
-/*
-  Maya pays Halcyon Freight its partner commission for the third quarter from Lumen Studio's
-  balance in Orbit, on 10 November 2026. Money is whole cents everywhere in this block: every sum
-  is an integer, so amount, fee and total add up exactly.
-*/
+// Example payout from Lumen Studio's balance. Display amounts are in cents.
 
 /** The product is Orbit; the workspace paying is Lumen Studio. */
 export const product = { name: 'Orbit' };
@@ -66,17 +62,8 @@ export const settingsLinks: NavLink[] = [
 
 export const helpLink: NavLink = { id: 'help', label: 'Help and support', icon: RiQuestionLine };
 
-/** What the workspace can send, in cents. */
-export const balance = 48_210_75;
-
-/** What a payment costs: a share of the amount, up to a ceiling. */
-export const FEE = { rate: 0.005, max: 25_00 };
-
-/** A payment above this is confirmed once more in a dialog; one at or under it goes straight out. */
-export const CONFIRM_ABOVE = 10_000_00;
-
-/** Bank days from the day a payment is sent to the day it arrives. */
-export const ARRIVAL_DAYS = 2;
+/** Values supplied with the demo payment. The arrival illustrates the immediate transfer. */
+export const samplePayment = { balance: 48_210_75, fee: 21_25, arrival: '2026-11-12' };
 
 export type Recipient = {
   id: string;

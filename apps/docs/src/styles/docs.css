@@ -17,6 +17,10 @@
 /* The starting points (src/blocks) render on /blocks/<id>/preview with the same sheets. */
 @source '../../../../packages/design-system/src/blocks';
 
+/* The page's own rules are scoped to `.docs` (the body's class): a rule under `.docs` or
+   `body.docs` outranks the base rules above it in this file, and one under `body.docs.docs`
+   outranks those. The class is doubled on purpose where a rule has to win over both. */
+
 /* The package ships only the font variable; the site loads Inter itself
    (@fontsource-variable/inter, imported in the layout), which registers as `Inter Variable`. */
 :root {
@@ -33,22 +37,6 @@
   --docs-panel: #181818;
   --docs-hairline: rgba(255, 255, 255, 0.06);
   --docs-hairline-faint: rgba(255, 255, 255, 0.03);
-  --docs-wash: rgba(255, 255, 255, 0.06);
-  --docs-text-muted: #8f8f8f;
-}
-
-/* The tint around a part the Anatomy picture spotlights. On the light page it is the table row's
-   own highlight, so picture and table hover alike; on the dark page that highlight is a white
-   wash, which would light the rest up, so the system's scrim dims it instead. */
-:root {
-  --docs-anatomy-veil: var(--background-color-ws-static-alpha-base);
-}
-.dark {
-  --docs-anatomy-veil: color-mix(
-    in srgb,
-    var(--background-color-ws-static-scrim-base) 70%,
-    transparent
-  );
 }
 
 @layer base {
@@ -71,58 +59,8 @@
   }
 }
 
-/* The second layer of text in dark: a fainter grey, so the page has two
-   temperatures (white says heading, grey says prose). Documentation prose only; inside a
-   frame or a code block the text belongs to a component and keeps its own colour. */
-.dark :is(.text-ws-static-base, .text-ws-static-subtle):not(.docs-frame *, .docs-code *) {
-  color: var(--docs-text-muted);
-}
-
-/* The top bar is the page's own ground, no rule under it. Fixed elements do not inherit, so
-   the ground is named again. */
-.docs-topbar {
-  background: var(--background-color-ws-static-container);
-}
-.dark .docs-topbar {
-  background: var(--docs-ground);
-}
-
-/* Rail panels sit one step off the page ground: off-white on the white page, the panel tone
-   on the dark one, so the inspector reads as a surface, not as more page. */
-.docs-rail {
-  background: var(--background-color-ws-static-background);
-}
-.dark .docs-rail {
-  background: var(--docs-panel);
-}
-
-/* The rail runs on one 14px line: a 32px row, the label regular and subtle on the left, the
-   value regular and strong on the right with a 14px chevron 4px from the panel's inner edge.
-   The design system's ghost Select is a form control with a fixed width; here it becomes
-   that value. Docs chrome, not the system's. */
-.docs-rail [role='combobox'] {
-  width: auto;
-  min-width: 0;
-  height: 32px;
-  max-height: 32px;
-  padding: 0 4px 0 12px;
-  margin-right: 0;
-  gap: 6px;
-  color: var(--text-color-ws-static-strong);
-}
-.docs-rail [role='combobox'],
-.docs-rail [role='combobox'] span {
-  font-size: 14px;
-  line-height: 20px;
-  font-weight: 400;
-}
-.docs-rail [role='combobox'] svg {
-  width: 14px;
-  height: 14px;
-  margin: 0;
-}
-/* The Select's list is as wide as its trigger, which in the rail is as wide as one word. The
-   list sizes to its own options instead, with a floor so short lists still read as a menu. */
+/* The Select's list is as wide as its trigger, which can be as wide as one word. The list
+   sizes to its own options instead, with a floor so short lists still read as a menu. */
 [role='listbox'] {
   width: auto;
   min-width: 10rem;
@@ -183,63 +121,6 @@
 .dark .docs-fade {
   background: linear-gradient(to bottom, transparent, var(--docs-panel) 70%);
 }
-
-/* Navigation hover: one highlight that glides between rows instead of each row lighting up.
-   Positioned by SideNav's inline script; hidden until the pointer enters the list. */
-.nav-pill {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 32px;
-  z-index: 0;
-  border-radius: var(--radius-ws-control-md);
-  background: var(--background-color-ws-static-alpha-subtle);
-  opacity: 0;
-  pointer-events: none;
-  transition:
-    transform var(--ws-motion-duration-quick) var(--ws-motion-ease-smooth-out),
-    height var(--ws-motion-duration-quick) var(--ws-motion-ease-smooth-out),
-    opacity var(--ws-motion-duration-quick) ease;
-}
-.dark .nav-pill {
-  background: var(--docs-wash);
-}
-@media (prefers-reduced-motion: reduce) {
-  .nav-pill {
-    transition: opacity 120ms ease;
-  }
-}
-
-/* The relationship map's large view: a dialog over a dimmed page. The backdrop fades on the
-   quick clock, the panel arrives from the modal scale on the fast clock. */
-.docs-modal-backdrop {
-  background: rgba(0, 0, 0, 0.32);
-  animation: docs-fade var(--ws-motion-duration-quick) var(--ws-motion-ease-out);
-}
-.dark .docs-modal-backdrop {
-  background: rgba(0, 0, 0, 0.56);
-}
-.docs-modal {
-  animation: docs-pop var(--ws-motion-duration-fast) var(--ws-motion-ease-smooth-out);
-}
-@keyframes docs-fade {
-  from {
-    opacity: 0;
-  }
-}
-@keyframes docs-pop {
-  from {
-    opacity: 0;
-    scale: var(--ws-motion-scale-large);
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .docs-modal {
-    animation: docs-fade var(--ws-motion-duration-quick) var(--ws-motion-ease-out);
-  }
-}
-
 /* Long-form text on documentation pages (MDX output). Minimal on purpose: the reading
    typography is a content-layer decision and gets its own pass. */
 .docs-prose {
@@ -278,7 +159,7 @@
   list-style: decimal;
   padding-left: 1.25rem;
 }
-.docs-prose a {
+.docs-prose a:not(.docs-section-link) {
   color: var(--text-color-ws-static-strong);
   text-decoration: underline;
   text-underline-offset: 3px;
@@ -308,15 +189,6 @@
   background: none;
   font-size: inherit;
 }
-.docs-prose pre.astro-code,
-.docs-prose pre.astro-code span {
-  color: var(--shiki-light);
-}
-.dark .docs-prose pre.astro-code,
-.dark .docs-prose pre.astro-code span {
-  color: var(--shiki-dark);
-}
-
 .docs-prose table {
   display: block;
   overflow-x: auto;
@@ -356,15 +228,6 @@
   margin-top: 0.5rem;
 }
 
-/* "On this page" opened from its ticks: a panel over the page's edge. */
-.docs-toc-panel {
-  background: var(--background-color-ws-static-background);
-  box-shadow: var(--shadow-ws-medium);
-}
-.dark .docs-toc-panel {
-  background: var(--docs-panel);
-}
-
 /* Scroll containers that scroll without showing a bar (the navigation columns). */
 .docs-scroll {
   scrollbar-width: none;
@@ -373,9 +236,35 @@
 .docs-scroll::-webkit-scrollbar {
   display: none;
 }
+/* A scroll row whose controls show a focus outline (the Installation card's pills): room for
+   the 2px outline and its 2px offset inside the row, which a scroll container would clip, taken
+   back with a negative margin so the row's controls stay where they were. */
+.docs-focus-room {
+  --docs-focus-room: 5px;
+  margin: calc(-1 * var(--docs-focus-room));
+  padding: var(--docs-focus-room);
+}
 
-/* Code blocks (CodeBlock island). shiki renders both themes as variables
-   (defaultColor: false); the page picks one by `.dark`. */
+.docs-tab-row {
+  /* Leave 4px for the Tabs focus outline and 1px for scroll rounding. */
+  --docs-tab-focus-space: 5px;
+  container-type: inline-size;
+  margin-inline: calc(-1 * var(--docs-tab-focus-space));
+  padding: var(--docs-tab-focus-space);
+  padding-block-end: calc(var(--docs-tab-focus-space) + 1px);
+  background: linear-gradient(var(--border-color-ws-static-subtle) 0 0) center bottom
+    var(--docs-tab-focus-space) / calc(100% - 2 * var(--docs-tab-focus-space)) 1px no-repeat;
+}
+.docs-tab-row [role='tab'] {
+  max-inline-size: 100cqi;
+}
+.docs-tab-row [data-slot='tabs-label'] {
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Code blocks (CodeBlock island). */
 .docs-code pre,
 .docs-code-fallback {
   margin: 0;
@@ -390,14 +279,6 @@
 .docs-code code {
   font-family: inherit;
 }
-.docs-code .shiki,
-.docs-code .shiki span {
-  color: var(--shiki-light);
-}
-.dark .docs-code .shiki,
-.dark .docs-code .shiki span {
-  color: var(--shiki-dark);
-}
 .docs-code--prompt pre,
 .docs-code--prompt .docs-code-fallback {
   font-size: 13px;
@@ -409,4 +290,296 @@
 }
 .docs-code-fallback {
   white-space: pre;
+}
+/* On the page every surface is the page's own tone: code and stages are drawn by their line,
+   not filled (a stage switched to the other theme keeps that theme's tone). The lines are the
+   system's, in dark too. */
+.docs :is(.docs-code, .docs-pane, .docs-frame:not(.docs-light, .dark)),
+.dark .docs .docs-frame.dark {
+  background: transparent;
+}
+html .docs .docs-fade {
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    var(--background-color-ws-static-foreground) 70%
+  );
+}
+.dark .docs :is(.docs-card, .docs-card-rule, .docs-frame, .docs-code):not(.docs-light) {
+  border-color: var(--border-color-ws-static-base);
+}
+/* A jump to a heading lands clear of the bar. */
+.docs .docs-prose :is(h2, h3) {
+  scroll-margin-top: var(--spacing-ws-14);
+}
+/* The MDX disclosure cards (TokenReference, ColorTokens). The summary drops the native
+   marker for the sidebar's chevron (RiArrowRightSLine, turned down when open) at the row's end;
+   the table inside keeps the card's padding and wraps long variable names in their cell. */
+.docs .docs-prose details > summary {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-ws-3);
+  padding: var(--spacing-ws-7) var(--spacing-ws-9);
+  list-style: none;
+}
+.docs .docs-prose details > summary::-webkit-details-marker {
+  display: none;
+}
+/* Only the group's title in the row: the count and the class prefix (TokenReference,
+   ColorTokens) repeat what the open table shows. */
+.docs .docs-prose details > summary > span {
+  display: none;
+}
+.docs .docs-prose details > summary::after {
+  content: '';
+  flex-shrink: 0;
+  width: var(--spacing-ws-10);
+  height: var(--spacing-ws-10);
+  margin-left: auto;
+  background: var(--text-color-ws-static-subtle);
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M13.1717 12.0007L8.22192 7.05093L9.63614 5.63672L16.0001 12.0007L9.63614 18.3646L8.22192 16.9504L13.1717 12.0007Z'/%3E%3C/svg%3E")
+    center / contain no-repeat;
+  transition: rotate var(--ws-motion-duration-fast) var(--ws-motion-ease-smooth-out);
+}
+.docs .docs-prose details[open] > summary::after {
+  rotate: 90deg;
+}
+@media (prefers-reduced-motion: reduce) {
+  .docs .docs-prose details > summary::after {
+    transition: none;
+  }
+}
+/* Tables the foundation pages set in a bordered card (TokenTable, SpacingScale, TokenReference):
+   prose's own table rules (block, top margin, no left padding) give way to the card's padding. */
+.docs .docs-prose :is(details, .border) table {
+  display: table;
+  width: 100%;
+  margin-top: 0;
+}
+.docs .docs-prose :is(details, .border) :is(th, td) {
+  padding: var(--spacing-ws-5) var(--spacing-ws-9);
+}
+.docs .docs-prose details td {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+/* One flat page under a top bar. Demo frames (gallery thumbnails, the playground stage) sit on
+   one soft fill with no line; `body.docs` outranks the transparent surfaces above. */
+body.docs .docs-frame:not(.docs-light, .dark) {
+  background: var(--background-color-ws-static-alpha-subtle);
+  border: 0;
+  border-radius: var(--radius-ws-container-xl);
+}
+body.docs .docs-frame .docs-frame {
+  background: transparent;
+  border-radius: 0;
+}
+/* Tables in cards (props, tokens): rows with hairlines, no box. */
+body.docs .docs-card {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+}
+body.docs .docs-card :is(th, td):first-child {
+  padding-left: 0;
+}
+body.docs .docs-card :is(th, td):last-child {
+  padding-right: 0;
+}
+body.docs :is(.docs-card, .docs-card-rule, .docs-card tr) {
+  border-color: var(--border-color-ws-static-subtle);
+}
+html body.docs .docs-fade {
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    var(--background-color-ws-static-foreground) 70%
+  );
+}
+/* The one code block (Code in parts.tsx), and the same look on the MDX pages' fences and the older
+   CodeBlock: the page's ground with a hairline, 12px corners, mono at 16px (its size is under
+   "Type" below). The fences get the language at the top-left (their `data-language`) and a copy
+   button (ProseCopy). */
+body.docs :is(.docs-code, .docs-prose pre:not(.docs-code pre)) {
+  background: transparent !important;
+  border: 1px solid var(--border-color-ws-static-subtle);
+  border-radius: var(--radius-ws-container-lg);
+}
+body.docs :is(.docs-snippet pre, .docs-code pre, .docs-code .docs-code-fallback) {
+  margin: 0;
+  padding: 4px 16px 16px;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  background: transparent !important;
+  color: var(--text-color-ws-static-base);
+}
+body.docs .docs-code pre {
+  padding-top: 16px;
+}
+body.docs .docs-code--prompt :is(pre, .docs-code-fallback) {
+  padding: 16px 48px 16px 16px;
+}
+body.docs .docs-prose pre:not(.docs-code pre) {
+  position: relative;
+  margin: 0;
+  padding: 40px 16px 16px;
+}
+body.docs .docs-prose pre[data-language]:not(.docs-code pre)::before {
+  content: attr(data-language);
+  position: absolute;
+  top: 12px;
+  left: 16px;
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--text-color-ws-static-subtle);
+}
+body.docs .docs-prose-pre {
+  margin-top: var(--spacing-ws-9);
+}
+body.docs .docs-code--prompt .line::before {
+  color: var(--text-color-ws-static-subtle);
+}
+
+/* Shiki emits both GitHub themes for interactive snippets and Astro's Markdown fences. */
+body.docs :is(pre.shiki, pre.astro-code) span[style] {
+  color: var(--shiki-light);
+}
+.dark body.docs :is(pre.shiki, pre.astro-code) span[style] {
+  color: var(--shiki-dark);
+}
+
+.docs .docs-prose :is(h2, h3) {
+  scroll-margin-top: var(--spacing-ws-21);
+}
+.docs .docs-prose > :is(p, ul, ol, blockquote) {
+  max-width: 65ch;
+}
+
+/* The code block's look, the code peek's fade and the side columns' hidden bars. In dark a
+   framed block sits one step off the page; a flush one (in a preview
+   card) keeps the card's ground, so the peek fades into it. */
+.dark body.docs :is(.docs-snippet.border, .docs-code, .docs-prose pre:not(.docs-code pre)) {
+  background: var(--background-color-ws-static-alpha-subtle) !important;
+}
+body.docs .docs-snippet-fade {
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    var(--background-color-ws-static-foreground) 70%
+  );
+}
+body.docs .docs-nav {
+  scrollbar-width: none;
+}
+body.docs .docs-nav::-webkit-scrollbar {
+  display: none;
+}
+/* Type: code 13/24, prose 15/24. */
+body.docs.docs .docs-snippet pre,
+body.docs.docs .docs-prose pre:not(.docs-code pre),
+body.docs.docs :is(.docs-code pre, .docs-code .docs-code-fallback) {
+  font-size: 13px;
+  line-height: 24px;
+}
+body.docs main .docs-prose :is(p, li) {
+  font-size: 15px;
+  line-height: 24px;
+}
+/* A ruled code block (the install command): the body sits 12px 16px under the header's hairline. */
+body.docs.docs .docs-snippet-ruled pre {
+  padding: 12px 16px;
+}
+/* The shell: the sidebar's list scrolls with no bar; every demo frame, code block and card
+   has the same 12px corners. */
+#docs-nav [data-slot='scroll-area-scrollbar'] {
+  display: none;
+}
+body.docs.docs .docs-frame:not(.docs-light, .dark) {
+  border-radius: var(--radius-ws-container-md);
+}
+/* The Playground's stage is the soft stage every thumbnail sits on, in the stage's own theme
+   (its sun/moon button can show the other one). */
+body.docs.docs .docs-frame[data-playground-stage] {
+  background: var(--background-color-ws-static-alpha-subtle);
+  border: 0;
+  border-radius: var(--radius-ws-container-md);
+}
+/* Prose: it starts right under the page head, and its headings are the pages' own sizes. */
+body.docs main .docs-prose > :first-child {
+  margin-top: 0;
+}
+body.docs.docs :is(.docs-code, .docs-prose pre:not(.docs-code pre)) {
+  border-radius: var(--radius-ws-container-md);
+}
+body.docs main .docs-prose :is(h2, h3) {
+  font-weight: var(--font-weight-ws-medium);
+}
+/* The window keeps its scrollbar's room on every page, so a short page and a long one put the
+   centred container at the same x. */
+html:has(body.docs) {
+  scrollbar-gutter: stable;
+}
+/* An open menu or dialog locks the page's scroll, and the library that does it gives the body a
+   margin as wide as the scrollbar, to stand in for the bar it hides. The window keeps that room
+   already (the gutter above), so the margin would move the whole page sideways: none here. */
+html body.docs[data-scroll-locked] {
+  margin-right: 0 !important;
+  padding-right: 0 !important;
+}
+/* On a narrow window the bar's menu button opens the pages and the page's list. The page under
+   it is hidden while it is open, so Tab stays in the menu (the menu shows below 64rem only). */
+html[data-docs-menu] #docs-menu {
+  display: flex;
+}
+@media (width < 64rem) {
+  html[data-docs-menu] #docs-page {
+    visibility: hidden;
+  }
+}
+/* Switched to the other theme than the page's, the stage takes that theme's own ground. */
+html:not(.dark) body.docs.docs .docs-frame[data-playground-stage].dark,
+html.dark body.docs.docs .docs-frame[data-playground-stage].docs-light {
+  background: var(--background-color-ws-static-background);
+}
+/* Component and block page tabs.
+   The page writes the tab in the address onto `html[data-tab]` before first paint, so the right
+   panel (and its rail) shows with no flash; the first tab is the page with no tab. Until the tab
+   row has hydrated on a page opened on another tab, it stays out of sight rather than show the
+   first tab as the chosen one. */
+[data-tab-panel] {
+  display: none;
+}
+html:not([data-tab]) [data-tab-panel='overview'],
+html:not([data-tab]) [data-tab-panel='preview'],
+html[data-tab='code'] [data-tab-panel='code'],
+html[data-tab='playground'] [data-tab-panel='playground'],
+html[data-tab='anatomy'] [data-tab-panel='anatomy'],
+html[data-tab='relationships'] [data-tab-panel='relationships'] {
+  display: block;
+}
+html[data-tab] .docs-page-tabs:not([data-ready]) {
+  visibility: hidden;
+}
+.docs-section-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-ws-4);
+  text-decoration: none;
+}
+.docs-section-link svg {
+  opacity: 0;
+  color: var(--text-color-ws-static-subtle);
+}
+.docs-section-link:is(:hover, :focus-visible) svg {
+  opacity: 1;
+}
+.docs-section-link:focus-visible {
+  outline: 2px solid var(--outline-color-ws-dynamic-primary-strong-default);
+  outline-offset: 4px;
+}
+@media (hover: none) {
+  .docs-section-link svg {
+    opacity: 1;
+  }
 }

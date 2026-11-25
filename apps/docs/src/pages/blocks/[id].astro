@@ -1,83 +1,121 @@
 ---
-import { RiExternalLinkLine, RiMarkdownLine } from '@remixicon/react';
-
-import BlockPreviewFrame from '../../components/BlockPreviewFrame';
-import CodeBlock from '../../components/CodeBlock';
+import RegistryCode from '../../components/RegistryCode';
+import { CodeBlock } from '../../components/CodeBlock';
+import { BlockLiveFrame } from '../../components/BlockPreviewFrame';
+import PageHead from '../../components/PageHead.astro';
+import { ButtonLink, CopyPage, Crumbs, PageTabs } from '../../components/parts';
 import DocsLayout from '../../layouts/DocsLayout.astro';
 import {
   blockById,
+  blockCategories,
+  blockMarkdown,
   DIRECTION_SUMMARY,
   DIRECTION_TITLE,
   ENTRIES,
-  filesOf,
   inlineCode,
   isScreen,
   NAVIGATION_TITLE,
   PANEL_SUMMARY,
 } from '../../lib/blocks';
+import { installedBlock } from '../../lib/registry';
 
-/** One starting point: what it is, its direction (or that it is a panel), the previews, every file. */
+/**
+ * A block, the window's full width (no sidebar, no rail): a breadcrumb with its category, the
+ * title and description, then two tabs. Preview: the block live in one frame (its preview route,
+ * clickable, in the page's theme), its direction and navigation in one line. Code: how to use the
+ * folder, then its files one at a time (RegistryCode). The tab is in the address (`?tab=code`;
+ * Preview has none), as on a component page.
+ */
 export function getStaticPaths() {
   return ENTRIES.map((block) => ({ params: { id: block.id } }));
 }
+
 const block = blockById(Astro.params.id!)!;
-const files = filesOf(block.id);
-const link =
-  'text-ws-static-base hover:text-ws-static-strong inline-flex items-center gap-ws-3 typography-label-sm';
+const category = blockCategories.find((item) => item.blocks.includes(block))!;
+const { directory, files, dependencies } = installedBlock(block.id);
+const summary = isScreen(block) ? DIRECTION_SUMMARY[block.direction] : PANEL_SUMMARY;
+const markdown = blockMarkdown(block, Astro.site ?? new URL('https://wideset.co'));
+const code = 'text-ws-static-base font-mono';
+const tabs = [
+  { id: 'preview', label: 'Preview' },
+  { id: 'code', label: `Code · ${files.length} ${files.length === 1 ? 'file' : 'files'}` },
+];
 ---
 
-<DocsLayout title={block.title} description={block.description} frame>
-  <div class="docs-prose">
-    <h1>{block.title}</h1>
-    <p class="text-ws-static-subtle">{block.description}</p>
-    {isScreen(block) ? (
-      <p class="text-ws-static-subtle">
-        <strong class="text-ws-static-strong">{DIRECTION_TITLE[block.direction]}</strong>·{' '}
-        {NAVIGATION_TITLE[block.navigation]}.{' '}
-        {inlineCode(DIRECTION_SUMMARY[block.direction]).map((part) =>
-          part.code ? <code>{part.text}</code> : part.text,
-        )}
-      </p>
-    ) : (
-      <p class="text-ws-static-subtle">{PANEL_SUMMARY}</p>
-    )}
+<DocsLayout title={block.title} description={block.description} area="blocks" broad full>
+  <div class="mb-ws-9 -ml-ws-5">
+    <Crumbs
+      crumbs={[
+        { label: 'Blocks', href: '/blocks' },
+        { label: category.label, href: `/blocks#${category.slug}` },
+      ]}
+      title={block.title}
+    />
   </div>
-  <div class="mt-ws-9 flex flex-wrap items-center gap-ws-11">
-    <a class={link} href={`/blocks/${block.id}/preview`} target="_blank" rel="noopener">
-      <RiExternalLinkLine aria-hidden="true" className="size-ws-9" /> Open full screen
-    </a>
-    <a class={link} href={`/blocks/${block.id}.md`}>
-      <RiMarkdownLine aria-hidden="true" className="size-ws-9" /> Markdown for agents
-    </a>
-  </div>
-  <section class="mt-ws-12 flex flex-col gap-ws-9" aria-label="Preview">
-    <BlockPreviewFrame id={block.id} title={block.title} theme="light" client:visible />
-    <BlockPreviewFrame id={block.id} title={`${block.title} (dark)`} theme="dark" client:visible />
-  </section>
-  <section class="mt-ws-18" aria-labelledby="files">
-    <div class="docs-prose">
-      <h2 id="files">Files</h2>
-      {isScreen(block) ? (
-        <p class="text-ws-static-subtle">
-          Copy the folder into your app, keep the surround (the root element, the navigation and
-          <code>main</code>) and replace the content and <code>data.ts</code>.
-        </p>
-      ) : (
-        <p class="text-ws-static-subtle">
-          Copy the folder into your app, render the panel from the screen that opens it and replace
-          its content and <code>data.ts</code>.
-        </p>
-      )}
+  <PageHead title={block.title} description={block.description}>
+    <ButtonLink slot="actions" href={`/blocks/${block.id}/preview`} newTab>
+      Open full screen
+    </ButtonLink>
+    <CopyPage slot="actions" markdown={markdown} client:idle />
+  </PageHead>
+
+  <script
+    // Before first paint: the tab in the address picks the panel, so nothing flashes. The earlier
+    // page's `#code` anchor opens the Code tab, on load and when followed on the page (the tab
+    // row and the file list read the address on popstate).
+    is:inline
+    slot="head"
+  >
+    var codeAnchor = function () {
+      if (location.hash !== '#code') return false;
+      var url = new URL(location.pathname, location.href);
+      url.searchParams.set('tab', 'code');
+      history.replaceState(history.state, '', url);
+      return true;
+    };
+    codeAnchor();
+    addEventListener('hashchange', function () {
+      if (codeAnchor()) dispatchEvent(new PopStateEvent('popstate'));
+    });
+    if (new URLSearchParams(location.search).get('tab') === 'code')
+      document.documentElement.dataset.tab = 'code';
+  </script>
+  <PageTabs tabs={tabs} client:load />
+
+  <div data-tab-panel="preview" id="panel-preview" role="tabpanel" aria-labelledby="tab-preview">
+    <div class="border-ws-static-subtle bg-ws-static-foreground h-[max(45rem,calc(100dvh-16rem))] overflow-hidden rounded-ws-container-md border">
+      <BlockLiveFrame id={block.id} title={block.title} client:only="react" />
     </div>
-    {files.map((file) => (
-      <div class="mt-ws-9">
-        <h3 class="text-ws-static-strong typography-label-strong-sm mb-ws-5">{file.name}</h3>
-        <CodeBlock
-          code={file.code}
-          lang={file.name.endsWith('.ts') ? 'ts' : 'tsx'}
-          client:visible
-        />
-      </div>
-    ))}
-  </section>
+    <p class="text-ws-static-subtle mt-ws-7 max-w-[60rem] typography-body-sm">
+      {isScreen(block) && (
+        <span class="text-ws-static-base">
+          {DIRECTION_TITLE[block.direction]} · {NAVIGATION_TITLE[block.navigation]}.{' '}
+        </span>
+      )}
+      {inlineCode(summary).map((part) =>
+        part.code ? <code class={code}>{part.text}</code> : part.text,
+      )}
+    </p>
+  </div>
+
+  <div data-tab-panel="code" id="panel-code" role="tabpanel" aria-labelledby="tab-code">
+    <div class="mb-ws-14 flex max-w-[65ch] flex-col gap-ws-7">
+      <CodeBlock code={`npx wideset add block-${block.id}`} lang="bash" prompt client:visible />
+      <p class="text-ws-static-subtle typography-body-md">
+        Import the default export from <code class={code}>{`@/${directory}`}</code>. The files below
+        are relative to your project's source directory.
+      </p>
+      <details class="text-ws-static-subtle typography-body-sm">
+        <summary class="cursor-pointer">Installed with this block</summary>
+        <ul class="mt-ws-5 flex flex-wrap gap-ws-5" aria-label="Registry dependencies">
+          {dependencies.map((name) => (
+            <li>
+              <code class={code}>{name}</code>
+            </li>
+          ))}
+        </ul>
+      </details>
+    </div>
+    <RegistryCode files={files} directory={directory} entry="index.tsx" client:visible />
+  </div>
 </DocsLayout>

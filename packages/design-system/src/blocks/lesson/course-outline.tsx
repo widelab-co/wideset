@@ -24,9 +24,9 @@ const ROW =
   'gap-ws-5 px-ws-5 py-ws-4 rounded-ws-control-lg typography-label-sm flex w-full items-center';
 
 /**
- * One lesson: its state, its title and its length. The open lesson takes the selected
- * treatment (the brand tint, its mark in the brand colour); a locked one is plain text, since
- * there is nowhere to go yet.
+ * One lesson: its state, its title and its length. A finished lesson carries the positive
+ * (green) mark; the open lesson takes the selected treatment (the brand tint, its mark in the
+ * brand colour); a locked one is plain text, since there is nowhere to go yet.
  */
 function LessonRow({
   lesson,
@@ -45,7 +45,7 @@ function LessonRow({
         className={cn(
           'size-ws-9 shrink-0',
           state === 'done'
-            ? 'text-ws-static-base'
+            ? 'text-ws-semantic-positive'
             : open
               ? 'text-ws-dynamic-primary-default'
               : 'text-ws-static-subtle',

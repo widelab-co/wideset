@@ -73,11 +73,13 @@ export default function AgentResearch() {
 
   /* The research turn, found in the thread as its data holds it: there from the start, while the
      transcript shows only what the clock has reached, and a follow-up does not replace it. */
-  const researchTurn = thread?.turns.findLast(
-    (turn) =>
-      turn.role === 'agent' &&
-      turn.blocks.some((block) => block.kind === 'card' && block.card === REPORT),
-  );
+  const researchTurn = thread?.turns
+    .filter(
+      (turn) =>
+        turn.role === 'agent' &&
+        turn.blocks.some((block) => block.kind === 'card' && block.card === REPORT),
+    )
+    .at(-1);
   /* The report is a card that is written like an answer: this is its text as far as it has come. */
   const reportTurn = session.shown.find((turn) => turn.id === researchTurn?.id);
   const report =

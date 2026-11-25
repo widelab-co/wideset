@@ -18,24 +18,22 @@ export const REACTIONS: Record<ReactionKind, { icon: RemixiconComponentType; lab
 type ReactionsProps = { reactions: Reaction[]; onToggle: (kind: ReactionKind) => void };
 
 /**
- * The reactions under a message: small neutral chips, an icon and how many. The ones the
+ * The reactions under a message: neutral chips, an icon and how many. The ones the
  * signed-in user gave are filled, the rest outlined; a click adds or takes back their own.
  */
 export function Reactions({ reactions, onToggle }: ReactionsProps) {
   return (
-    <div className="gap-ws-3 pt-ws-3 flex flex-wrap">
+    <div className="gap-ws-4 pt-ws-4 flex flex-wrap">
       {reactions.map(({ kind, count, mine }) => (
-        <Chip
-          key={kind}
-          size="sm"
-          variant="secondary"
-          style={mine ? 'filled' : 'border'}
-          aria-pressed={mine}
-          aria-label={`${REACTIONS[kind].label}, ${count}`}
-          onClick={() => onToggle(kind)}
-        >
-          <Chip.Icon icon={REACTIONS[kind].icon} />
-          <span className="tabular-nums">{count}</span>
+        <Chip key={kind} variant="secondary" style={mine ? 'filled' : 'border'}>
+          <Chip.Action
+            aria-pressed={mine}
+            aria-label={`${REACTIONS[kind].label}, ${count}`}
+            onClick={() => onToggle(kind)}
+          >
+            <Chip.Icon icon={REACTIONS[kind].icon} />
+            <Chip.Label className="tabular-nums">{count}</Chip.Label>
+          </Chip.Action>
         </Chip>
       ))}
     </div>

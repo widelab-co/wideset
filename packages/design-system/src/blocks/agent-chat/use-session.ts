@@ -310,7 +310,9 @@ export function useSession({
 
     /** Plays a turn again from its start: the newest agent turn, or the one named. */
     replay(turnId?: string) {
-      const turn = turnId ? agentTurn(turnId) : turns.findLast((item) => item.role === 'agent');
+      const turn = turnId
+        ? agentTurn(turnId)
+        : turns.filter((item) => item.role === 'agent').at(-1);
       if (!turn) return;
       changeTurn(turn.id, rewind);
       start(turn.id);

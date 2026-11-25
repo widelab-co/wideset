@@ -1,10 +1,8 @@
-import { RiCloseLine, RiExpandDiagonalLine, RiNodeTree } from '@remixicon/react';
-import { IconButton, Tabs } from '@wideset/react';
+import { RiNodeTree } from '@remixicon/react';
+import { IconButton } from '@wideset/react';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { createPortal } from 'react-dom';
 
 import type { Graph, Graph as GraphData } from '../lib/catalog';
-import { RailPanel } from './railControls';
 
 /**
  * The relationship map in the rail, in the manner of Obsidian's interactive graph. The
@@ -487,6 +485,11 @@ function GraphCanvas({ graph, current, pages, mode, width, height }: CanvasProps
   );
 }
 
+/**
+ * The map on a component's Relationships tab, the column's width: the component with what it is
+ * built with, what is built with it and what it appears beside; the corner button widens it to
+ * the whole system. Nodes with a page are links.
+ */
 export default function RelationshipGraph({
   current,
   graph,
@@ -498,143 +501,48 @@ export default function RelationshipGraph({
   pages: readonly string[];
 }) {
   const [mode, setMode] = useState<Mode>('local');
-  const [fullscreen, setFullscreen] = useState(false);
   const hostRef = useRef<HTMLDivElement>(null);
-  const stageRef = useRef<HTMLDivElement>(null);
-  const [width, setWidth] = useState(272);
-  const [stage, setStage] = useState({ w: 1200, h: 800 });
+  const [width, setWidth] = useState(0);
   const title = graph.nodes.find((node) => node.id === current)?.title ?? current;
 
+  // The canvas is drawn at the host's width; a hidden tab has none until it is shown.
   useEffect(() => {
-    setWidth(hostRef.current?.clientWidth || 272);
+    const host = hostRef.current;
+    if (!host) return;
+    const observer = new ResizeObserver(() => setWidth(host.clientWidth));
+    observer.observe(host);
+    return () => observer.disconnect();
   }, []);
-
-  // Fullscreen: measure the stage, follow the window, close on Escape, freeze the page behind.
-  useEffect(() => {
-    if (!fullscreen) return;
-    const measure = () => {
-      const el = stageRef.current;
-      if (el) setStage({ w: el.clientWidth, h: el.clientHeight });
-    };
-    measure();
-    const onKey = (event: KeyboardEvent) => event.key === 'Escape' && setFullscreen(false);
-    window.addEventListener('resize', measure);
-    window.addEventListener('keydown', onKey);
-    const previous = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-    return () => {
-      window.removeEventListener('resize', measure);
-      window.removeEventListener('keydown', onKey);
-      document.body.style.overflow = previous;
-    };
-  }, [fullscreen]);
 
   const scopeLabel = mode === 'local' ? 'Show the whole system' : `Show only ${title}`;
 
   return (
-    <>
-      <RailPanel>
-        {/* The panel is a 272px square in Figma: the canvas fills it edge to edge, the scope and
-            fullscreen buttons sit in its corner. */}
-        <div className="relative -my-ws-7 -mr-ws-7 -ml-ws-9">
-          <div ref={hostRef}>
-            {!fullscreen && (
-              <GraphCanvas
-                graph={graph}
-                current={current}
-                pages={pages}
-                mode={mode}
-                width={width}
-                height={width}
-              />
-            )}
-          </div>
-          <div className="absolute top-ws-5 right-ws-5 flex items-center gap-ws-2">
-            <IconButton
-              size="xs"
-              variant="secondary"
-              preset="ghost"
-              icon={RiNodeTree}
-              aria-label={scopeLabel}
-              aria-pressed={mode === 'all'}
-              title={scopeLabel}
-              onClick={() => setMode(mode === 'local' ? 'all' : 'local')}
-            />
-            <IconButton
-              size="xs"
-              variant="secondary"
-              preset="ghost"
-              icon={RiExpandDiagonalLine}
-              aria-label="Open large view"
-              title="Open large view"
-              onClick={() => setFullscreen(true)}
-            />
-          </div>
-        </div>
-      </RailPanel>
-      {fullscreen &&
-        createPortal(
-          // Docs chrome: a dialog around the graph; the system's Modal is sized for forms.
-          <div
-            className="docs-modal-backdrop fixed inset-0 z-[100] grid place-items-center p-ws-18"
-            onPointerDown={(event) => event.target === event.currentTarget && setFullscreen(false)}
-          >
-            <div
-              className="docs-modal docs-frame flex h-full max-h-[800px] w-full max-w-[1200px] flex-col overflow-hidden rounded-ws-container-xl border border-ws-static-subtle"
-              role="dialog"
-              aria-modal="true"
-              aria-label="Relationships"
-            >
-              <header className="flex h-ws-19 shrink-0 items-center gap-ws-11 px-ws-7">
-                <Tabs
-                  type="ghost"
-                  divider={false}
-                  value={mode}
-                  onValueChange={(id) => setMode(id as Mode)}
-                >
-                  <Tabs.List aria-label="Scope">
-                    <Tabs.Item value="local">
-                      <Tabs.Label>{title}</Tabs.Label>
-                    </Tabs.Item>
-                    <Tabs.Item value="all">
-                      <Tabs.Label>Whole system</Tabs.Label>
-                    </Tabs.Item>
-                  </Tabs.List>
-                </Tabs>
-                <span className="min-w-0 truncate typography-label-strong-sm text-ws-static-strong">
-                  {mode === 'local'
-                    ? `What ${title} is used with`
-                    : `${graph.nodes.length} components`}
-                </span>
-                <span className="ml-auto flex">
-                  <IconButton
-                    size="sm"
-                    variant="secondary"
-                    preset="ghost"
-                    icon={RiCloseLine}
-                    aria-label="Close"
-                    onClick={() => setFullscreen(false)}
-                  />
-                </span>
-              </header>
-              <div ref={stageRef} className="min-h-0 flex-1">
-                <GraphCanvas
-                  graph={graph}
-                  current={current}
-                  pages={pages}
-                  mode={mode}
-                  width={stage.w}
-                  height={stage.h}
-                />
-              </div>
-              <p className="shrink-0 px-ws-12 pb-ws-9 typography-body-sm text-ws-static-subtle">
-                A line means the two components go together. Hover one to read how: contained,
-                containing, or simply used side by side.
-              </p>
-            </div>
-          </div>,
-          document.body,
-        )}
-    </>
+    <div
+      ref={hostRef}
+      className="docs-frame relative h-[26rem] overflow-hidden rounded-ws-container-md"
+    >
+      {width > 0 && (
+        <GraphCanvas
+          graph={graph}
+          current={current}
+          pages={pages}
+          mode={mode}
+          width={width}
+          height={416}
+        />
+      )}
+      <div className="absolute top-ws-5 right-ws-5">
+        <IconButton
+          size="sm"
+          variant="secondary"
+          preset="ghost"
+          icon={RiNodeTree}
+          aria-label={scopeLabel}
+          aria-pressed={mode === 'all'}
+          title={scopeLabel}
+          onClick={() => setMode(mode === 'local' ? 'all' : 'local')}
+        />
+      </div>
+    </div>
   );
 }

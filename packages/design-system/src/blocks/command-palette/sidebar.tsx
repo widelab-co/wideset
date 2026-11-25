@@ -15,7 +15,7 @@ import {
   type SidebarProps,
   TextInput,
 } from '@wideset/react';
-import { useState } from 'react';
+import { useState, useSyncExternalStore } from 'react';
 
 import { BrandMark } from './brand-mark';
 import {
@@ -29,6 +29,16 @@ import {
 } from './data';
 import { PersonAvatar } from './person-avatar';
 
+const never = () => () => {};
+const apple = () => (/Mac|iPhone|iPad/.test(navigator.userAgent) ? '⌘' : 'Ctrl');
+
+/**
+ * ⌘ on Apple keyboards, Ctrl elsewhere; both open the palette everywhere. The server, which has
+ * no keyboard, renders Ctrl and the browser corrects it after hydration, so a server-rendered
+ * page does not mismatch.
+ */
+const useModifier = () => useSyncExternalStore(never, apple, () => 'Ctrl');
+
 /**
  * The workspace sidebar: switcher, search, the app's pages, settings and the signed-in account.
  * Its toggle sits in the page bar, so the screen holds `collapsed` and passes it down; collapsed,
@@ -38,10 +48,12 @@ export function WorkspaceSidebar({
   onSearch,
   ...props
 }: Pick<SidebarProps, 'id' | 'collapsed' | 'onCollapsedChange'> & {
-  /** The search field opens the command palette: a click, or Enter. */
+  /** The search field opens the command palette: a click, or Enter. It is the palette's one door
+   *  on the screen, so it carries the shortcut; collapsed, it is the search icon. */
   onSearch: () => void;
 }) {
   const [active, setActive] = useState('home');
+  const modifier = useModifier();
 
   const link = ({ id, label, icon, activeIcon }: NavLink) => (
     <Sidebar.Item
@@ -119,16 +131,32 @@ export function WorkspaceSidebar({
                 placeholder="Search"
                 aria-label="Search"
                 aria-haspopup="dialog"
+                aria-keyshortcuts="Control+K Meta+K"
                 readOnly
                 onClick={onSearch}
                 onKeyDown={(event) => event.key === 'Enter' && onSearch()}
               />
+              <TextInput.Suffix inner>
+                <span aria-hidden="true" className="typography-caption-md text-ws-static-subtle">
+                  {`${modifier} K`}
+                </span>
+              </TextInput.Suffix>
             </TextInput>
           </div>
         </Sidebar.Expanded>
         <Sidebar.Collapsed>
-          <div className="pt-ws-3 pb-ws-7 flex justify-center">
+          <div className="gap-ws-9 pt-ws-3 flex flex-col items-center">
             <BrandMark className="size-ws-15" />
+            <IconButton
+              icon={RiSearchLine}
+              variant="secondary"
+              preset="ghost"
+              size="sm"
+              aria-label="Search"
+              aria-haspopup="dialog"
+              aria-keyshortcuts="Control+K Meta+K"
+              onClick={onSearch}
+            />
           </div>
         </Sidebar.Collapsed>
       </Sidebar.Header>

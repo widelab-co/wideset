@@ -1,10 +1,16 @@
 // TODO(custom): keyboard keys (a key chip, and a shortcut as a row of them); Wideset has no Kbd / shortcut component, so the key is the box of Button `xs` Border drawn by hand.
 import { type RemixiconComponentType, RiCornerDownLeftLine } from '@remixicon/react';
 import { cn } from '@wideset/react';
+import { useSyncExternalStore } from 'react';
 
-/** ⌘ on Apple keyboards, Ctrl elsewhere. */
-export const MODIFIER =
-  typeof navigator !== 'undefined' && /Mac|iPhone|iPad/.test(navigator.userAgent) ? '⌘' : 'Ctrl';
+const never = () => () => {};
+const apple = () => (/Mac|iPhone|iPad/.test(navigator.userAgent) ? '⌘' : 'Ctrl');
+
+/**
+ * ⌘ on Apple keyboards, Ctrl elsewhere. The server, which has no keyboard, renders Ctrl and the
+ * browser corrects it after hydration, so a server-rendered page does not mismatch.
+ */
+export const useModifier = () => useSyncExternalStore(never, apple, () => 'Ctrl');
 
 /** Keys drawn as a glyph rather than spelled out. */
 const GLYPHS: Record<string, RemixiconComponentType> = { Enter: RiCornerDownLeftLine };
