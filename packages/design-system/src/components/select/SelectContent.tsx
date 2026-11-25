@@ -65,6 +65,7 @@ export const SelectContent = React.forwardRef<
           )}
           sideOffset={4}
           position={position}
+          collisionPadding={10}
           {...props}
         >
           <SelectPrimitive.Viewport className="p-ws-3 flex max-h-[18rem] flex-col overflow-y-auto">
