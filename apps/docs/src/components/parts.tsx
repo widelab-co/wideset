@@ -48,7 +48,8 @@ import TabRow from './TabRow';
 import ThemeToggle from './ThemeToggle';
 import { useHighlightedCode } from './useHighlightedCode';
 
-const useCopy = () => {
+/** Copies text to the clipboard; `copied` stays true for a moment after, for the button's label. */
+export const useCopy = () => {
   const [copied, setCopied] = useState(false);
   const copy = async (text: string) => {
     try {
@@ -635,6 +636,7 @@ export const TopNav = ({
       {[
         { id: 'components', label: 'Components', href: '/components' },
         { id: 'blocks', label: 'Blocks', href: '/blocks' },
+        { id: 'themes', label: 'Themes', href: '/docs/themes' },
       ].map((page) => (
         <a
           key={page.id}

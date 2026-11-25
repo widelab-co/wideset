@@ -31,7 +31,8 @@ Docs: `https://wideset.co/docs/motion` · Source:
 Rule of thumb: opening is `fast` + `smooth-out`, closing is `quick`, hover and press are
 `micro`/`quick` + `ease-out`. Exits are shorter than entrances.
 
-Only free-standing buttons shrink on press (Button, IconButton). The halves of a SplitButton,
+Only free-standing Button and IconButton controls shrink on press, except when they open a popup
+(non-false `aria-haspopup` or `role="combobox"`). The halves of a SplitButton,
 fields, select, date and filter triggers, tabs, chips, list rows, tiles and calendar days change
 colour on press, never size. Do not join two Buttons by hand: use SplitButton, or each half shrinks
 alone and the seam opens.
