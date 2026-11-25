@@ -10,8 +10,13 @@ import {
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { type ChangeEvent, type ReactNode, useState } from 'react';
 
+import { exampleStory } from '../../stories/example';
 import { Button } from '../button/Button';
 import { TextInput } from '../text-input/TextInput';
+import StatesExample from './examples/tree-view/states';
+import statesSource from './examples/tree-view/states?raw';
+import SuffixesExample from './examples/tree-view/suffixes';
+import suffixesSource from './examples/tree-view/suffixes?raw';
 import { TreeView } from './TreeView';
 
 const meta = {
@@ -144,51 +149,9 @@ export const Default: Story = {
   ),
 };
 
-export const States: Story = {
-  args: { ...Default.args, defaultExpanded: ['docs'], defaultValue: 'docs/onboarding.md' },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'Selected, disabled and a long name. A disabled item stays in the keyboard order but cannot be selected or folded; a long name ends in an ellipsis on one line.',
-      },
-    },
-  },
-  render: (args) => (
-    <TreeView {...args}>
-      <TreeView.Item value="docs">
-        <TreeView.Icon icon={RiFolderLine} expandedIcon={RiFolderOpenLine} />
-        <TreeView.Label>docs</TreeView.Label>
-        <TreeView.Group>
-          <TreeView.Item value="docs/onboarding.md">
-            <TreeView.Icon icon={RiMarkdownLine} />
-            <TreeView.Label>onboarding.md</TreeView.Label>
-          </TreeView.Item>
-          <TreeView.Item value="docs/archive.md" disabled>
-            <TreeView.Icon icon={RiMarkdownLine} />
-            <TreeView.Label>archive.md</TreeView.Label>
-          </TreeView.Item>
-          <TreeView.Item value="docs/long">
-            <TreeView.Icon icon={RiFileTextLine} />
-            <TreeView.Label>
-              quarterly-revenue-reconciliation-for-the-finance-team.md
-            </TreeView.Label>
-          </TreeView.Item>
-        </TreeView.Group>
-      </TreeView.Item>
-      <TreeView.Item value="private" disabled>
-        <TreeView.Icon icon={RiFolderLine} />
-        <TreeView.Label>private</TreeView.Label>
-        <TreeView.Group>
-          <TreeView.Item value="private/keys.json">
-            <TreeView.Icon icon={RiBracesLine} />
-            <TreeView.Label>keys.json</TreeView.Label>
-          </TreeView.Item>
-        </TreeView.Group>
-      </TreeView.Item>
-    </TreeView>
-  ),
-};
+export const States: Story = exampleStory(StatesExample, statesSource);
+
+export const Suffixes: Story = exampleStory(SuffixesExample, suffixesSource);
 
 type RepoFile = { path: string; change?: 'added' | 'modified' };
 
