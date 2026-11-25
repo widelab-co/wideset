@@ -1,7 +1,7 @@
-import { act, cleanup, render, renderHook } from '@testing-library/react';
+import { act, cleanup, render, renderHook, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { type ComponentType, StrictMode, useState } from 'react';
-import { afterEach, describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { BLOCKS, PANELS } from '../blocks';
 import type { AgentTurn, Turn } from '../blocks/agent-chat/model';
@@ -155,6 +155,40 @@ describe('Rendering', () => {
     expect(typeof Block).toBe('function');
     const { container } = render(<Block />);
     expect(container.firstElementChild).not.toBeNull();
+  });
+});
+
+describe('Payment form keyboard navigation', () => {
+  it('skips footer hints and stops at the last control', async () => {
+    const { PaymentFormModal } = await import('../blocks/modal-form/payment-form-modal');
+    const user = userEvent.setup();
+    const onOpenChange = vi.fn();
+    render(<PaymentFormModal open onOpenChange={onOpenChange} />);
+
+    const dialog = screen.getByRole('dialog', { name: 'Add payment method' });
+    const addCard = screen.getByRole('button', { name: 'Add card' });
+    const close = screen.getByRole('button', { name: 'Close modal' });
+    // jsdom has no layout, so provide a client rect for each visible button.
+    const rect = new DOMRect(0, 0, 16, 16);
+    const rects = Object.assign([rect], { item: (index: number) => (index === 0 ? rect : null) });
+    for (const button of dialog.querySelectorAll('button')) {
+      vi.spyOn(button, 'getClientRects').mockReturnValue(rects);
+    }
+
+    addCard.focus();
+    await user.keyboard('{ArrowDown}');
+
+    expect(close).toHaveFocus();
+
+    await user.keyboard('{ArrowDown}');
+    expect(close).toHaveFocus();
+    expect(onOpenChange).not.toHaveBeenCalled();
+
+    await user.keyboard('{ArrowUp}');
+    expect(addCard).toHaveFocus();
+
+    await user.keyboard('{ArrowLeft}');
+    expect(onOpenChange).toHaveBeenCalledExactlyOnceWith(false);
   });
 });
 

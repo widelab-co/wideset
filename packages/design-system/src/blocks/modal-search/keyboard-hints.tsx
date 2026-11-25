@@ -132,12 +132,12 @@ const caretAtStart = (target: Element) =>
   (target.selectionStart === 0 && target.selectionEnd === 0);
 
 /**
- * Moves the focus to the previous or next visible control of `container`, from `from`; from
- * outside it (nothing focused yet), Down goes to the first control and Up to the last.
+ * Moves the focus to the previous or next visible control in the Tab order of `container`. From
+ * outside that order, Down goes to the first control and Up to the last.
  */
 function moveFocus(container: HTMLElement, from: Element | null, step: Step): boolean {
   const controls = [...container.querySelectorAll<HTMLElement>(FOCUSABLE)].filter(
-    (element) => element.getClientRects().length > 0,
+    (element) => element.tabIndex >= 0 && element.getClientRects().length > 0,
   );
   const index = controls.indexOf(from as HTMLElement);
   const next =
