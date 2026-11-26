@@ -144,7 +144,9 @@ below are `bg-ws-static-foreground rounded-ws-container-md`, with no border and 
 - `AppShell` fills the window (`h-dvh`). Inside a bounded preview, pass a height through
   `className` (`h-[24rem]`).
 - `AppShell.Main`, `AppShell.PageBar` and `AppShell.SidebarTrigger` throw outside an `AppShell`.
-- `AppShell.SidebarTrigger` needs a `Sidebar` in the same `AppShell`; without one it does nothing.
+- `AppShell.SidebarTrigger` needs a `Sidebar` in the same `AppShell`; without one it renders nothing
+  (it is in the server HTML until the Sidebar registers).
+- One `Sidebar` per `AppShell`: the trigger follows the first one; a second one is ignored.
 - `AppShell.PageBar` sticks to the top of `AppShell.Main`. When the content under it scrolls by
   itself (`min-h-0 flex-1` with its own overflow), the bar simply stays above it.
 - On narrow screens the trigger still collapses the `Sidebar` to its rail; `Sidebar` has no drawer

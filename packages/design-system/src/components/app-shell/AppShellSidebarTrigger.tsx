@@ -15,6 +15,7 @@ const AppShellSidebarTrigger = React.forwardRef<HTMLButtonElement, AppShellSideb
       'aria-label': ariaLabelProp,
       expandLabel = 'Expand sidebar',
       collapseLabel = 'Collapse sidebar',
+      defaultMotion,
       ...props
     },
     ref,
@@ -44,6 +45,7 @@ const AppShellSidebarTrigger = React.forwardRef<HTMLButtonElement, AppShellSideb
         size="sm"
         iconClassName="text-ws-static-subtle size-ws-9"
         onClick={handleClick}
+        defaultMotion={defaultMotion ?? sidebar?.motion}
         aria-label={ariaLabelProp || (isCollapsed ? expandLabel : collapseLabel)}
         aria-expanded={!isCollapsed}
         aria-controls={sidebar?.sidebarId}

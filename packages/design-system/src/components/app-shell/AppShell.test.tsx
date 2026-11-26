@@ -370,6 +370,33 @@ describe('AppShell', () => {
         rerender(<Shell withSidebar={false} />);
         expect(screen.queryByRole('button')).not.toBeInTheDocument();
       });
+
+      it('keeps the sidebar when a second one unmounts', () => {
+        const Shell = ({ withSubNav }: { withSubNav: boolean }) => (
+          <AppShell>
+            <Sidebar id="sidebar" />
+            <AppShell.Main>
+              {withSubNav && <Sidebar id="sub-nav" />}
+              <AppShell.SidebarTrigger />
+            </AppShell.Main>
+          </AppShell>
+        );
+        const { rerender } = render(<Shell withSubNav />);
+        expect(barTrigger()).toHaveAttribute('aria-controls', 'sidebar');
+
+        rerender(<Shell withSubNav={false} />);
+        expect(barTrigger()).toHaveAttribute('aria-controls', 'sidebar');
+      });
+
+      it('presses without motion when the sidebar turns motion off', () => {
+        renderWithPageBar({ sidebar: { defaultMotion: false } });
+        expect(barTrigger().className).not.toMatch(/scale-/);
+      });
+
+      it('lets its own defaultMotion win over the sidebar', () => {
+        renderWithPageBar({ sidebar: { defaultMotion: false }, trigger: { defaultMotion: true } });
+        expect(barTrigger(/Collapse sidebar/).className).toMatch(/scale-/);
+      });
     });
 
     describe('Props', () => {

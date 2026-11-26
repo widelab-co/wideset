@@ -3,6 +3,7 @@ import { cn } from 'src/lib/utils';
 
 import { useDefaultMotion } from '../../motion/MotionProvider';
 import { AppShellContext } from '../app-shell/AppShell.context';
+import type { AppShellSidebarState } from '../app-shell/AppShell.types';
 import { SidebarContext } from './Sidebar.context';
 import type { SidebarProps } from './Sidebar.types';
 import {
@@ -58,10 +59,13 @@ const SidebarRoot = React.forwardRef<HTMLDivElement, SidebarProps>(
     React.useLayoutEffect(() => {
       if (!registerSidebar) return;
 
-      registerSidebar({ isCollapsed, toggle, sidebarId });
+      const isOwn = (current: AppShellSidebarState | null) => current?.sidebarId === sidebarId;
+      registerSidebar((current) =>
+        current && !isOwn(current) ? current : { isCollapsed, toggle, sidebarId, motion },
+      );
 
-      return () => registerSidebar(null);
-    }, [registerSidebar, isCollapsed, toggle, sidebarId]);
+      return () => registerSidebar((current) => (isOwn(current) ? null : current));
+    }, [registerSidebar, isCollapsed, toggle, sidebarId, motion]);
 
     return (
       <SidebarContext.Provider value={contextValue}>

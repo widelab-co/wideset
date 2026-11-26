@@ -27,7 +27,7 @@ export type AppShellProps = React.HTMLAttributes<HTMLDivElement> & {
   direction?: AppShellDirection;
   /**
    * A `Sidebar` (or another navigation) followed by `AppShell.Main`. AppShell supports one
-   * `Sidebar`: a second one overwrites the first one's registration.
+   * `Sidebar`: a second one is ignored.
    */
   children?: React.ReactNode;
 };
@@ -80,6 +80,8 @@ export type AppShellSidebarState = {
   toggle: () => void;
   /** The sidebar root's `id`, for the trigger's `aria-controls`. */
   sidebarId: string;
+  /** The sidebar's `defaultMotion`, the trigger's fallback. */
+  motion?: boolean;
 };
 
 export type AppShellContextValue = {
@@ -87,7 +89,7 @@ export type AppShellContextValue = {
   /** The `Sidebar` inside this shell, once it has mounted. */
   sidebar: AppShellSidebarState | null;
   /** Called by `Sidebar` with its state, and with `null` when it unmounts. */
-  registerSidebar: (sidebar: AppShellSidebarState | null) => void;
+  registerSidebar: React.Dispatch<React.SetStateAction<AppShellSidebarState | null>>;
 };
 
 export type AppShellWithSubComponents = React.ForwardRefExoticComponent<
