@@ -15,7 +15,7 @@ import { Breadcrumbs, IconButton, NavigationBar, SegmentedControl } from '@wides
  */
 export function TopBar() {
   return (
-    <NavigationBar className="h-ws-19 px-ws-11">
+    <NavigationBar className="px-ws-11">
       <NavigationBar.Start>
         <IconButton
           variant="secondary"

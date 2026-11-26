@@ -13,7 +13,7 @@ export function TopBar() {
   const [current, setCurrent] = useState(PAGES[0].href);
 
   return (
-    <NavigationBar className="h-ws-19 px-ws-11 gap-ws-12">
+    <NavigationBar className="px-ws-11 gap-ws-12">
       {/* One mark in every screen: this one has no sidebar, so the top bar carries it. */}
       <NavigationBar.Start className="gap-ws-7">
         <BrandMark label="Wideset" />
