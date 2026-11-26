@@ -102,6 +102,7 @@ function RoutingTabs() {
   return (
     <Tabs
       value={currentTab}
+      activationMode="manual"
       onValueChange={(value) => {
         if (value !== currentTab) navigate('/' + value);
       }}
@@ -119,11 +120,13 @@ function RoutingTabs() {
     </Tabs>
   );
 }
+```
 
+```tsx
 // Don't: an icon passed as a bare child
 <Tabs.Item value="x">
   <RiTeamLine />
-</Tabs.Item>;
+</Tabs.Item>
 ```
 
 - Don't mix `size` or `type` between tab rows on one screen.
@@ -138,6 +141,8 @@ function RoutingTabs() {
 - `divider={false}` has no effect on `pills` and `ghost`; they never draw it.
 - `Tabs.List`, `Tabs.Item` and `Tabs.Count` throw outside `<Tabs>`.
 - Animations follow `MotionProvider`; set `defaultMotion={false}` on `Tabs` to turn them off here.
+- When tab selection updates the URL, use `activationMode="manual"` so arrow keys move focus
+  without adding browser history entries. Enter or Space selects the focused tab.
 
 ## API
 
