@@ -9,10 +9,13 @@ concurrency:
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened]
+    types: [opened, synchronize, reopened, edited]
+    # The branch a PR merges into. feature/**: a PR stacked on another PR's branch gets the same
+    # checks and a preview. "Changeset present" is in changeset.yaml, for PRs into develop only.
     branches:
       - main
       - develop
+      - 'feature/**'
   # Weekly: the registry smoke against shadcn@latest, so a CLI release that changes what consumers
   # receive shows up here first (the docs recommend `npx shadcn@latest`).
   schedule:
@@ -95,7 +98,7 @@ jobs:
   # until the deployed hosts answer. Setup: RELEASING.md.
   #   push to main    → production Workers wideset-storybook, wideset-docs (environment production)
   #   push to develop → wideset-storybook-develop, wideset-docs-develop (environment develop)
-  #   pull request    → a preview version of each develop Worker (PRs target develop), alias
+  #   pull request    → a preview version of each develop Worker (whatever the base), alias
   #                     pr-<number>, URLs commented on the PR (environment preview)
   # Every build bakes in the addresses it is served from: the registry its own URL
   # (REGISTRY_URL), the docs their site and Storybook links. The environments' variables
@@ -369,28 +372,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_CONFIG_PROVENANCE: 'true'
-
-  # A PR into develop that changes shipping code (packages/design-system/src or packages/cli/src, or packages/cli/package.json, minus stories,
-  # tests, snapshots, Figma specs and docs pages; or the skills in packages/skills) must add a file in .changeset/. Nothing to release:
-  # `pnpm changeset --empty`. Same rule as the pre-push hook: scripts/check-changeset.mjs.
-  changeset:
-    name: Changeset present
-    if: github.event_name == 'pull_request' && github.base_ref == 'develop' && !startsWith(github.head_ref, 'changeset-release/')
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    permissions:
-      contents: read
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-
-      - name: Check for a changeset
-        run: node scripts/check-changeset.mjs origin/${{ github.base_ref }} HEAD
 
   # The smoke jobs install fresh apps from npm and pull shadcn presets from ui.shadcn.com, so
   # they are slow and can flake. They only prove something when a file that ends up in the
