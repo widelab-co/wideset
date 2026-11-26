@@ -6,7 +6,9 @@ import { describe, expect, it, vi } from 'vitest';
 
 import { NavigationBar } from './NavigationBar';
 
-type ItemProps = React.ComponentProps<typeof NavigationBar.Item> & { label: string };
+type ItemProps = Omit<React.ComponentProps<typeof NavigationBar.Item>, 'asChild' | 'children'> & {
+  label: string;
+};
 
 /** A page link composed the way a consumer writes it. */
 const Item = ({ label, ...props }: ItemProps) => (
@@ -94,6 +96,45 @@ describe('NavigationBar', () => {
       const notCancelled = fireEvent.click(link);
       expect(notCancelled).toBe(false);
       expect(onClick).not.toHaveBeenCalled();
+    });
+
+    it('drops the href of a disabled link and keeps its link role', () => {
+      render(<Item href="/tasks" label="Tasks" disabled />);
+      expect(screen.getByRole('link', { name: 'Tasks' })).not.toHaveAttribute('href');
+    });
+
+    it('keeps a disabled asChild router link from navigating', () => {
+      const navigate = vi.fn();
+      const onLinkClick = vi.fn();
+      // Mimics a router Link that navigates on click without checking defaultPrevented.
+      const RouterLink = ({
+        to,
+        onClick,
+        children,
+        ...rest
+      }: { to: string } & React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
+        <a
+          href={to}
+          {...rest}
+          onClick={(event) => {
+            onClick?.(event);
+            navigate(to);
+          }}
+        >
+          {children}
+        </a>
+      );
+      render(
+        <NavigationBar.Item asChild disabled>
+          <RouterLink to="/tasks" onClick={onLinkClick}>
+            <NavigationBar.Label>Tasks</NavigationBar.Label>
+          </RouterLink>
+        </NavigationBar.Item>,
+      );
+      const notCancelled = fireEvent.click(screen.getByRole('link', { name: 'Tasks' }));
+      expect(notCancelled).toBe(false);
+      expect(onLinkClick).not.toHaveBeenCalled();
+      expect(navigate).not.toHaveBeenCalled();
     });
 
     it('calls onClick on an enabled link', async () => {

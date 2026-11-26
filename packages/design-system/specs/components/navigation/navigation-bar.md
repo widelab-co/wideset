@@ -101,7 +101,8 @@ are `variant="secondary" preset="ghost"`.
 ## States
 
 - Item: hover, pressed, focus, current (`aria-current="page"`), disabled (`aria-disabled`, out of
-  the tab order, click blocked; a `Tag` in it fades with it).
+  the tab order, no `href`, click blocked before it reaches an `asChild` router `Link`; a `Tag` in
+  it fades with it).
 
 ## Content
 

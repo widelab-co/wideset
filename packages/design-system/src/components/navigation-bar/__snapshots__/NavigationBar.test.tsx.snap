@@ -81,7 +81,7 @@ exports[`NavigationBar > Snapshots > matches snapshot for a bar with links and a
       aria-disabled="true"
       class="typography-label-strong-sm rounded-ws-control-lg gap-ws-5 px-ws-5 py-ws-3 min-h-ws-14 flex min-w-0 cursor-pointer items-center no-underline focus-visible:wds-focus-visible outline-ws-static-inverse-background hover:not-aria-disabled:bg-ws-dynamic-secondary-alpha-hover active:not-aria-disabled:bg-ws-dynamic-secondary-alpha-pressed aria-disabled:text-ws-static-subtle aria-disabled:pointer-events-none aria-disabled:cursor-default aria-disabled:[&>:not([data-slot^='navigation-bar-'])]:opacity-50 bg-ws-dynamic-secondary-alpha-default text-ws-static-base transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
       data-slot="navigation-bar-item"
-      href="/tasks"
+      role="link"
       tabindex="-1"
     >
       <svg

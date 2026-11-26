@@ -10,6 +10,11 @@ import {
   navigationBarItemVariants,
 } from './NavigationBar.variants';
 
+const blockClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+  event.preventDefault();
+  event.stopPropagation();
+};
+
 const NavigationBarItem = React.forwardRef<HTMLAnchorElement, NavigationBarItemProps>(
   (
     {
@@ -17,7 +22,9 @@ const NavigationBarItem = React.forwardRef<HTMLAnchorElement, NavigationBarItemP
       active = false,
       disabled = false,
       className,
+      href,
       onClick,
+      onClickCapture,
       defaultMotion,
       ...props
     },
@@ -37,12 +44,12 @@ const NavigationBarItem = React.forwardRef<HTMLAnchorElement, NavigationBarItemP
             navigationBarItemMotionVariants({ enabled: motion }),
             className,
           )}
+          {...(disabled ? { role: 'link' } : href !== undefined && { href })}
           aria-current={active ? 'page' : undefined}
           aria-disabled={disabled || undefined}
           tabIndex={disabled ? -1 : undefined}
-          onClick={
-            disabled ? (e: React.MouseEvent<HTMLAnchorElement>) => e.preventDefault() : onClick
-          }
+          onClick={disabled ? undefined : onClick}
+          onClickCapture={disabled ? blockClick : onClickCapture}
           {...props}
         />
       </NavigationBarItemContext.Provider>

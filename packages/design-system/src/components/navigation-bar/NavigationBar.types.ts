@@ -44,16 +44,33 @@ export type NavigationBarActionsProps = React.HTMLAttributes<HTMLDivElement>;
  * A page link in `NavigationBar.Nav`. Renders an `<a>`; with `asChild` it renders its only child
  * instead, such as a router `Link`, which then holds the parts.
  */
-export type NavigationBarItemProps = React.AnchorHTMLAttributes<HTMLAnchorElement> & {
+export type NavigationBarItemProps = Omit<
+  React.AnchorHTMLAttributes<HTMLAnchorElement>,
+  'children'
+> & {
   /** Marks the link as the current page: active styling plus `aria-current="page"`. */
   active?: boolean;
-  /** Blocks navigation and dims the link via `aria-disabled`; the link leaves the tab order. */
+  /**
+   * Blocks navigation and dims the link via `aria-disabled`; the link leaves the tab order and
+   * loses its `href`. With `asChild`, clicks never reach the child, so its `onClick` and a router
+   * `Link`'s navigation do not run.
+   */
   disabled?: boolean;
-  /** Merges the link's props onto its only child instead of rendering an `<a>`, e.g. a react-router or Next.js `Link`. */
-  asChild?: boolean;
-  /** `NavigationBar.Icon`, `NavigationBar.Label` and anything after the label, such as a `Tag`. */
-  children?: React.ReactNode;
-} & MotionProps;
+} & MotionProps &
+  (
+    | {
+        /** Merges the link's props onto its only child instead of rendering an `<a>`, e.g. a react-router or Next.js `Link`. */
+        asChild: true;
+        /** The element to render as, e.g. `<Link to="/analytics" />`, holding the icon and the label. Required with `asChild`. */
+        children: React.ReactElement;
+      }
+    | {
+        /** Renders the built-in `<a>`; use the `asChild` branch for a router `Link`. */
+        asChild?: false;
+        /** `NavigationBar.Icon`, `NavigationBar.Label` and anything after the label, such as a `Tag`. */
+        children?: React.ReactNode;
+      }
+  );
 
 /** The leading icon of a `NavigationBar.Item`; it follows the item's state. */
 export type NavigationBarIconProps = RemixiconProps & {
