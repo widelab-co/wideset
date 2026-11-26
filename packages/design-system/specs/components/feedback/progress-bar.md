@@ -19,11 +19,13 @@ storybook: components-progressbar--default
 
 # ProgressBar
 
-> How far a task has got, as a percentage: a full-width bar or a compact ring.
+> Shows task progress or usage against a limit as a bar or a compact ring.
 
 ## When to use
 
 - An upload, import or long task the user is watching, with a known percentage.
+- Seats, storage or API calls as a share of a limit. Use `neutral` for normal usage and `warning`
+  near the threshold chosen by the application.
 - A compact percentage in a table row, file list or sidebar (`type="circle"`).
 
 ## When not to use
@@ -70,9 +72,11 @@ The root carries `role="progressbar"`, the value, `ref`, `className` and `aria-*
 | ------------------- | --------------- | ------------------------------------------------------------------------ |
 | `type`              | `bar` (default) | Full width of its container, with label and description.                 |
 |                     | `circle`        | Compact inline ring where a bar does not fit.                            |
-| `status`            | `default`       | Still running.                                                           |
+| `status`            | `default`       | A task in progress. Brand fill.                                          |
+|                     | `neutral`       | Usage within a limit. Neutral fill.                                      |
+|                     | `warning`       | Usage near a limit. Amber fill and a warning icon in the description.    |
 |                     | `success`       | Finished. Circle shows a check icon; description gets one too.           |
-|                     | `error`         | Failed. Circle shows an error icon; say what to do next.                 |
+|                     | `error`         | Failed or exceeded a limit. Circle shows an error icon.                  |
 | `value`             | `0`–`max`       | Clamped into range; `max` defaults to `100`.                             |
 | `Value.formatValue` | function        | A count from the clamped value: `(value, max) => \`${value} / ${max}\``. |
 | `Value` children    | ReactNode       | Fixed text instead of the percentage; wins over `formatValue`.           |
@@ -80,12 +84,13 @@ The root carries `role="progressbar"`, the value, `ref`, `className` and `aria-*
 
 ## States
 
-- Running → `status="default"`; done → `success`; failed → `error`. Change `status` yourself;
-  reaching `100` does not switch it.
+- Task progress uses `default` while running, `success` when complete and `error` on failure.
+- Usage uses `neutral` within the limit, `warning` near it and `error` when it is exceeded. Set
+  the threshold and update `status` in the application.
 
 ## Content
 
-- Label: the task, as a noun phrase: "Uploading assets".
+- Name the task or resource, such as "Uploading assets" or "API calls".
 - Description: the count or the outcome: "12 of 18 files uploaded", "Upload stopped: 9 files
   failed. Try again."
 
@@ -96,12 +101,14 @@ The root carries `role="progressbar"`, the value, `ref`, `className` and `aria-*
   back to "Progress". `ProgressBar.Description` describes it.
 - `ProgressBar.Value` text (`formatValue` or children) is visual only. Screen readers hear the percentage; set `aria-valuetext` on the
   root when the shown value means something else.
-- Success and error add an icon, so colour is not the only signal.
+- Show the value and explain a warning in the description or nearby text. The description adds
+  an icon for warning, success and error. For a compact circle, include any warning in its
+  accessible name when there is no associated description.
 
 ## Do / Don't
 
 ```tsx
-// Do: switch status when the task ends; the description follows it
+// Do: switch status when the task ends
 <ProgressBar status="success" value={100}>
   <ProgressBar.Header>
     <ProgressBar.Label>Uploading assets</ProgressBar.Label>
@@ -109,6 +116,16 @@ The root carries `role="progressbar"`, the value, `ref`, `className` and `aria-*
   </ProgressBar.Header>
   <ProgressBar.Track />
   <ProgressBar.Description>All 18 files uploaded</ProgressBar.Description>
+</ProgressBar>
+
+// Do: use neutral for normal usage and state the limit in the description
+<ProgressBar status="neutral" value={24} max={40}>
+  <ProgressBar.Header>
+    <ProgressBar.Label>Seats</ProgressBar.Label>
+    <ProgressBar.Value />
+  </ProgressBar.Header>
+  <ProgressBar.Track />
+  <ProgressBar.Description>24 of 40 seats assigned</ProgressBar.Description>
 </ProgressBar>
 
 // Don't: a description on a circle (the circle composes Value and Track only)

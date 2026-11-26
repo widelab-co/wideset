@@ -60,6 +60,36 @@ exports[`ProgressBar Snapshots > matches snapshot for all statuses > ProgressBar
 </div>
 `;
 
+exports[`ProgressBar Snapshots > matches snapshot for all statuses > ProgressBar with neutral status 1`] = `
+<div
+  aria-label="Progress"
+  aria-valuemax="100"
+  aria-valuemin="0"
+  aria-valuenow="50"
+  class="gap-ws-5 flex w-full flex-col"
+  data-max="100"
+  data-slot="progress-bar"
+  data-state="loading"
+  data-status="neutral"
+  data-type="bar"
+  data-value="50"
+  role="progressbar"
+>
+  <div
+    class="h-ws-3 relative w-full overflow-hidden rounded-full bg-(--ws-dynamic-stroke-secondary-default)"
+    data-slot="progress-bar-track"
+  >
+    <div
+      class="size-full flex-1 rounded-full bg-ws-semantic-inverse-neutral transition-transform duration-(--ws-motion-duration-medium) ease-(--ws-motion-ease-smooth-out)"
+      data-max="100"
+      data-state="loading"
+      data-value="50"
+      style="transform: translateX(-50%);"
+    />
+  </div>
+</div>
+`;
+
 exports[`ProgressBar Snapshots > matches snapshot for all statuses > ProgressBar with success status 1`] = `
 <div
   aria-label="Progress"
@@ -81,6 +111,36 @@ exports[`ProgressBar Snapshots > matches snapshot for all statuses > ProgressBar
   >
     <div
       class="size-full flex-1 rounded-full bg-(--ws-semantic-stroke-positive) transition-transform duration-(--ws-motion-duration-medium) ease-(--ws-motion-ease-smooth-out)"
+      data-max="100"
+      data-state="loading"
+      data-value="50"
+      style="transform: translateX(-50%);"
+    />
+  </div>
+</div>
+`;
+
+exports[`ProgressBar Snapshots > matches snapshot for all statuses > ProgressBar with warning status 1`] = `
+<div
+  aria-label="Progress"
+  aria-valuemax="100"
+  aria-valuemin="0"
+  aria-valuenow="50"
+  class="gap-ws-5 flex w-full flex-col"
+  data-max="100"
+  data-slot="progress-bar"
+  data-state="loading"
+  data-status="warning"
+  data-type="bar"
+  data-value="50"
+  role="progressbar"
+>
+  <div
+    class="h-ws-3 relative w-full overflow-hidden rounded-full bg-(--ws-dynamic-stroke-secondary-default)"
+    data-slot="progress-bar-track"
+  >
+    <div
+      class="size-full flex-1 rounded-full bg-(--ws-semantic-stroke-notice) transition-transform duration-(--ws-motion-duration-medium) ease-(--ws-motion-ease-smooth-out)"
       data-max="100"
       data-state="loading"
       data-value="50"

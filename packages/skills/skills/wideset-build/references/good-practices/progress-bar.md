@@ -3,6 +3,8 @@
 ## When to use
 
 - An upload, import or long task the user is watching, with a known percentage.
+- Seats, storage or API calls as a share of a limit. Use `neutral` for normal usage and `warning`
+  near the threshold chosen by the application.
 - A compact percentage in a table row, file list or sidebar (`type="circle"`).
 
 ## When not to use
@@ -14,7 +16,7 @@
 ## Do / Don't
 
 ```tsx
-// Do: switch status when the task ends; the description follows it
+// Do: switch status when the task ends
 <ProgressBar status="success" value={100}>
   <ProgressBar.Header>
     <ProgressBar.Label>Uploading assets</ProgressBar.Label>
@@ -22,6 +24,16 @@
   </ProgressBar.Header>
   <ProgressBar.Track />
   <ProgressBar.Description>All 18 files uploaded</ProgressBar.Description>
+</ProgressBar>
+
+// Do: use neutral for normal usage and state the limit in the description
+<ProgressBar status="neutral" value={24} max={40}>
+  <ProgressBar.Header>
+    <ProgressBar.Label>Seats</ProgressBar.Label>
+    <ProgressBar.Value />
+  </ProgressBar.Header>
+  <ProgressBar.Track />
+  <ProgressBar.Description>24 of 40 seats assigned</ProgressBar.Description>
 </ProgressBar>
 
 // Don't: a description on a circle (the circle composes Value and Track only)

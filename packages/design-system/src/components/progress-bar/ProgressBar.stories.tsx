@@ -8,11 +8,18 @@ import StatusesExample from './examples/progress-bar/statuses';
 import statusesSource from './examples/progress-bar/statuses?raw';
 import TypesExample from './examples/progress-bar/types';
 import typesSource from './examples/progress-bar/types?raw';
+import UsageMetersExample from './examples/progress-bar/usage-meters';
+import usageMetersSource from './examples/progress-bar/usage-meters?raw';
 import { ProgressBar } from './ProgressBar';
 import type { ProgressBarStatus, ProgressBarType } from './ProgressBar.types';
 
-const statuses: ProgressBarStatus[] = ['default', 'success', 'error'];
+const statuses: ProgressBarStatus[] = ['default', 'neutral', 'warning', 'success', 'error'];
 const types: ProgressBarType[] = ['bar', 'circle'];
+
+const usageContent: Partial<Record<ProgressBarStatus, { label: string; description: string }>> = {
+  neutral: { label: 'Storage', description: '100 GB included in your plan' },
+  warning: { label: 'API calls', description: 'Calls stop when you reach your monthly limit' },
+};
 
 const useSteppedValue = () => {
   const [value, setValue] = useState(0);
@@ -43,7 +50,7 @@ const meta = {
   parameters: {
     docs: {
       description: {
-        component: `ProgressBar communicates the progress of a task or loading operation.
+        component: `ProgressBar shows how far a task has progressed or how much of a limit is used.
 Two display types are available:
 - \`bar\` — a horizontal progress track with an optional label, value and helper text
 - \`circle\` — a compact inline circular indicator; replaces the ring with an icon on success / error
@@ -94,7 +101,7 @@ Use ProgressTracker for progress through discrete steps.
       options: statuses,
       table: {
         category: 'Appearance',
-        type: { summary: "'default' | 'success' | 'error'" },
+        type: { summary: statuses.map((status) => `'${status}'`).join(' | ') },
         defaultValue: { summary: 'default' },
       },
     },
@@ -114,31 +121,32 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   // The playground controls the root; the parts are fixed here.
-  render: ({ type, status, value, max }) => (
-    <div className="max-w-80">
-      {type === 'circle' ? (
-        <ProgressBar
-          type="circle"
-          status={status}
-          value={value}
-          max={max}
-          aria-label="Uploading assets"
-        >
-          <ProgressBar.Value />
-          <ProgressBar.Track />
-        </ProgressBar>
-      ) : (
-        <ProgressBar type="bar" status={status} value={value} max={max}>
-          <ProgressBar.Header>
-            <ProgressBar.Label>Uploading assets</ProgressBar.Label>
+  render: ({ type, status = 'default', value, max }) => {
+    const { label, description } = usageContent[status] ?? {
+      label: 'Uploading assets',
+      description: '12 of 18 files uploaded',
+    };
+
+    return (
+      <div className="max-w-80">
+        {type === 'circle' ? (
+          <ProgressBar type="circle" status={status} value={value} max={max} aria-label={label}>
             <ProgressBar.Value />
-          </ProgressBar.Header>
-          <ProgressBar.Track />
-          <ProgressBar.Description>12 of 18 files uploaded</ProgressBar.Description>
-        </ProgressBar>
-      )}
-    </div>
-  ),
+            <ProgressBar.Track />
+          </ProgressBar>
+        ) : (
+          <ProgressBar type="bar" status={status} value={value} max={max}>
+            <ProgressBar.Header>
+              <ProgressBar.Label>{label}</ProgressBar.Label>
+              <ProgressBar.Value />
+            </ProgressBar.Header>
+            <ProgressBar.Track />
+            <ProgressBar.Description>{description}</ProgressBar.Description>
+          </ProgressBar>
+        )}
+      </div>
+    );
+  },
   args: {
     type: 'bar',
     status: 'default',
@@ -149,6 +157,8 @@ export const Default: Story = {
 export const Types: Story = exampleStory(TypesExample, typesSource);
 
 export const Statuses: Story = exampleStory(StatusesExample, statusesSource);
+
+export const UsageMeters: Story = exampleStory(UsageMetersExample, usageMetersSource);
 
 export const Composition: Story = exampleStory(CompositionExample, compositionSource);
 
@@ -189,7 +199,7 @@ export const CircleStatuses: Story = {
     docs: {
       description: {
         story:
-          'Circle indicators for all three statuses: `default` shows a progress ring, `success` replaces it with a check icon, `error` replaces it with an error icon. Without children the circle is the ring alone; compose `ProgressBar.Value` to show the percentage.',
+          'Use `ProgressBar.Value` alongside the track to show the percentage. Default, neutral and warning use a coloured ring. Success shows a check icon and error shows an error icon.',
       },
     },
     controls: { disable: true },
@@ -203,7 +213,10 @@ export const CircleStatuses: Story = {
           status={status}
           value={75}
           aria-label={`Upload, ${status}`}
-        />
+        >
+          <ProgressBar.Value />
+          <ProgressBar.Track />
+        </ProgressBar>
       ))}
     </div>
   ),

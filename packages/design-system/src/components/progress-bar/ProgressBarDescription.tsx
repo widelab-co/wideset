@@ -10,7 +10,8 @@ const ProgressBarDescription = React.forwardRef<HTMLSpanElement, ProgressBarDesc
     const { status, registerDescription } = useProgressBarContext();
     const generatedId = React.useId();
     const descriptionId = id ?? generatedId;
-    const showIcon = status === 'success' || status === 'error';
+    const state = status === 'neutral' ? 'default' : status;
+    const showIcon = state === 'success' || state === 'error' || state === 'warning';
     const hasText = hasContent(children);
 
     React.useLayoutEffect(
@@ -25,7 +26,7 @@ const ProgressBarDescription = React.forwardRef<HTMLSpanElement, ProgressBarDesc
         ref={ref}
         data-slot="progress-bar-description"
         {...props}
-        state={status}
+        state={state}
         showIcon={showIcon}
         id={descriptionId}
       >

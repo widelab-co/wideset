@@ -30,12 +30,25 @@ export const progressBarIndicatorVariants = cva('size-full flex-1 rounded-full',
   variants: {
     status: {
       default: 'bg-ws-dynamic-primary-default',
+      neutral: 'bg-ws-semantic-inverse-neutral',
+      warning: 'bg-(--ws-semantic-stroke-notice)',
       success: 'bg-(--ws-semantic-stroke-positive)',
       error: 'bg-(--ws-semantic-stroke-negative)',
     },
   },
   defaultVariants: {
     status: 'default',
+  },
+});
+
+// The arc reads the fill variables directly because the stroke utilities map to text tokens.
+export const progressBarCircleArcVariants = cva('fill-none', {
+  variants: {
+    status: {
+      default: 'stroke-(--background-color-ws-dynamic-primary-default)',
+      neutral: 'stroke-(--ws-semantic-fill-inverse-neutral)',
+      warning: 'stroke-(--ws-semantic-stroke-notice)',
+    },
   },
 });
 
