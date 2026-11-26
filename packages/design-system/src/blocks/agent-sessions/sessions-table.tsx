@@ -64,10 +64,7 @@ export function SessionsTable({
         size="md"
         placement="top"
         selectionMode={ids.length > 0 ? 'multiple' : undefined}
-        // TODO(library): Table puts tabIndex={-1} on its <table>, so a click on a row focuses the
-        // table, and the next key press draws the browser's focus ring around the whole list. The
-        // table is never reached with the keyboard, so it takes no outline.
-        className={cn('table-fixed outline-none', IN_CARD)}
+        className={cn('table-fixed', IN_CARD)}
       >
         <Table.Head>
           <Table.Row>

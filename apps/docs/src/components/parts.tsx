@@ -48,7 +48,8 @@ import TabRow from './TabRow';
 import ThemeToggle from './ThemeToggle';
 import { useHighlightedCode } from './useHighlightedCode';
 
-const useCopy = () => {
+/** Copies text to the clipboard; `copied` stays true for a moment after, for the button's label. */
+export const useCopy = () => {
   const [copied, setCopied] = useState(false);
   const copy = async (text: string) => {
     try {
@@ -172,11 +173,16 @@ export const Stage = withPlayground(
           data-stage
           className="grid min-h-[20rem] place-items-center overflow-hidden bg-ws-static-alpha-subtle px-ws-14 py-ws-14 text-ws-static-base"
         >
-          {(mounted || !definition.clientOnly) && (
-            <div className="w-max max-w-full">
-              {definition.preview ? definition.preview() : definition.render(definition.defaults)}
-            </div>
-          )}
+          {(mounted || !definition.clientOnly) &&
+            (definition.preview && !definition.livePreview ? (
+              <div inert aria-hidden="true" className="pointer-events-none w-max max-w-full">
+                {definition.preview()}
+              </div>
+            ) : (
+              <div className="w-max max-w-full">
+                {definition.preview ? definition.preview() : definition.render(definition.defaults)}
+              </div>
+            ))}
         </div>
         <div className="border-t border-ws-static-subtle">
           <Code code={shown} peek flush tools={<ImportPick />} />
@@ -630,6 +636,7 @@ export const TopNav = ({
       {[
         { id: 'components', label: 'Components', href: '/components' },
         { id: 'blocks', label: 'Blocks', href: '/blocks' },
+        { id: 'themes', label: 'Themes', href: '/docs/themes' },
       ].map((page) => (
         <a
           key={page.id}
