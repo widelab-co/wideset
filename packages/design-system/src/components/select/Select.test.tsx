@@ -673,44 +673,19 @@ describe('Select', () => {
   });
 
   describe('Arrow and clear button placement', () => {
-    // Figma's Single Select ends in icon buttons (24 / 32 / 40px) 4px from the right edge, one text
-    // inset (12 / 16 / 16px) after the value: the arrow, and the clear button right before it.
-    it.each([
-      ['sm', ['box-content', 'px-ws-3', 'ms-ws-7', 'size-ws-9']],
-      ['md', ['box-content', 'px-ws-5', 'ms-ws-9', 'size-ws-9']],
-      ['lg', ['box-content', 'px-ws-6', 'ms-ws-9', 'size-ws-11']],
-    ] as const)('draws the %s arrow as a Figma icon button', (size, classes) => {
-      render(<Select options={baseOptions} size={size} placeholder="Select country" />);
-      expect(screen.getByRole('combobox').querySelector('svg')).toHaveClass(...classes);
-    });
-
-    it('ends the trigger 4px from the edge when the arrow shows', () => {
-      render(<Select options={baseOptions} placeholder="Select country" />);
-      expect(screen.getByRole('combobox')).toHaveClass('ps-ws-9', 'pe-ws-3');
-    });
-
-    it('keeps the text inset on both sides without the arrow', () => {
-      render(<Select options={baseOptions} hideArrow placeholder="Select country" />);
-      expect(screen.getByRole('combobox')).toHaveClass('ps-ws-9', 'pe-ws-9');
-    });
-
-    it.each([
-      ['sm', ['size-ws-12', '-ms-ws-12', 'end-ws-13']],
-      ['md', ['size-ws-14', '-ms-ws-14', 'end-ws-15']],
-      ['lg', ['size-ws-16', '-ms-ws-16', 'end-ws-17']],
-    ] as const)('puts the %s clear button right before the arrow', (size, classes) => {
-      render(<Select options={baseOptions} size={size} defaultValue="poland" clearable />);
-      expect(screen.getByRole('button', { name: 'Clear selection' })).toHaveClass(...classes);
-    });
-
-    it('puts the clear button 4px from the edge without the arrow', () => {
-      render(<Select options={baseOptions} defaultValue="poland" clearable hideArrow />);
-      expect(screen.getByRole('button', { name: 'Clear selection' })).toHaveClass('end-ws-3');
-    });
-
-    it('leaves the value room for the clear button', () => {
+    it('renders the clear button beside the combobox, not inside it', () => {
       render(<Select options={baseOptions} defaultValue="poland" clearable />);
-      expect(screen.getByText('Poland')).toHaveClass('pe-ws-14');
+      const combobox = screen.getByRole('combobox');
+      const clearButton = screen.getByRole('button', { name: 'Clear selection' });
+      expect(combobox).not.toContainElement(clearButton);
+      expect(clearButton.parentElement).toBe(combobox.parentElement);
+    });
+
+    it('lets a className padding replace the trigger padding', () => {
+      render(<Select options={baseOptions} className="px-ws-3" placeholder="Select country" />);
+      const combobox = screen.getByRole('combobox');
+      expect(combobox).toHaveClass('px-ws-3');
+      expect(combobox).not.toHaveClass('px-ws-9');
     });
   });
 

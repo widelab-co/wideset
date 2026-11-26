@@ -5,8 +5,8 @@ import { hoverTintMotion, pressMotion } from '../../motion/recipes';
 
 export const multiSelectTriggerVariants = cva('', {
   variants: {
-    // Text (placeholder, "2 values selected") keeps SelectTrigger's inset (12 / 16 / 16px), as in
-    // Figma; tags sit closer to the edge, 4 / 8 / 8px, the same as above and below them.
+    // The trigger keeps SelectTrigger's inset (12 / 16 / 16px) for text (placeholder, "2 values
+    // selected"), as in Figma; the value row brings tags closer to the edge.
     size: {
       sm: 'py-ws-3',
       md: 'py-ws-5',
@@ -14,10 +14,6 @@ export const multiSelectTriggerVariants = cva('', {
     },
     tagsGrow: {
       true: 'h-auto max-h-none overflow-visible',
-      false: '',
-    },
-    tags: {
-      true: '',
       false: '',
     },
   },
@@ -28,23 +24,19 @@ export const multiSelectTriggerVariants = cva('', {
     { size: 'sm', tagsGrow: true, class: 'min-h-ws-14' },
     { size: 'md', tagsGrow: true, class: 'min-h-ws-16' },
     { size: 'lg', tagsGrow: true, class: 'min-h-ws-18' },
-    { size: 'sm', tags: true, class: 'ps-ws-3' },
-    { size: 'md', tags: true, class: 'ps-ws-5' },
-    { size: 'lg', tags: true, class: 'ps-ws-5' },
   ],
   defaultVariants: {
     size: 'md',
     tagsGrow: false,
-    tags: false,
   },
 });
 
-// Figma keeps the tags one tag inset (4 / 8 / 8px) from what follows them, not the text inset the
-// arrow and the clear button are placed after.
+// Figma sets tags one tag inset (4 / 8 / 8px) from the edge and from what follows them, 8px closer
+// than text on both sides.
 export const multiSelectValueRowVariants = cva('', {
   variants: {
     tags: {
-      true: '-me-ws-5',
+      true: '-mx-ws-5',
       false: '',
     },
   },

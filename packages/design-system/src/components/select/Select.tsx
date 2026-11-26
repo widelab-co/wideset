@@ -17,6 +17,7 @@ import type {
 } from './Select.types';
 import {
   selectClearButtonIconVariants,
+  selectClearButtonSize,
   selectTriggerClearButtonVariants,
   selectTriggerClearPaddingVariants,
   selectValuePrefixVariants,
@@ -246,6 +247,7 @@ export const Select = ({
                   icon={RiCloseLine}
                   preset="ghost"
                   variant="secondary"
+                  size={selectClearButtonSize[size ?? 'md']}
                   className={selectTriggerClearButtonVariants({ size, hideArrow })}
                   iconClassName={selectClearButtonIconVariants({ size })}
                 />

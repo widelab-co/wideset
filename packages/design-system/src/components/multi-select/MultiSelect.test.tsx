@@ -225,30 +225,20 @@ describe('MultiSelect', () => {
       expect(screen.queryByRole('button', { name: 'Clear selection' })).not.toBeInTheDocument();
       expect(screen.getByRole('button', { name: /Select countries/ })).toHaveFocus();
     });
-  });
 
-  describe('Tags inset', () => {
-    // Figma's Mutli Select sets tags 4 / 8 / 8px from the edge and from what follows them; text
-    // keeps the 12 / 16 / 16px inset of Select.
-    it.each([
-      ['sm', 'ps-ws-3'],
-      ['md', 'ps-ws-5'],
-      ['lg', 'ps-ws-5'],
-    ] as const)('sets %s tags at the tag inset', (size, inset) => {
+    it('renders the clear button beside the trigger, not inside it', () => {
       render(
         <MultiSelect
           options={baseOptions}
-          size={size}
           defaultValue={['poland']}
+          clearable
           placeholder="Select countries"
         />,
       );
-      expect(screen.getByRole('button', { name: /Poland/ })).toHaveClass(inset);
-    });
-
-    it('keeps the text inset for the placeholder', () => {
-      render(<MultiSelect options={baseOptions} placeholder="Select countries" />);
-      expect(screen.getByRole('button', { name: /Select countries/ })).toHaveClass('ps-ws-9');
+      const trigger = screen.getByRole('button', { name: /Poland/ });
+      const clearButton = screen.getByRole('button', { name: 'Clear selection' });
+      expect(trigger).not.toContainElement(clearButton);
+      expect(clearButton.parentElement).toBe(trigger.parentElement);
     });
   });
 

@@ -21,6 +21,7 @@ import { Select } from '../select/Select';
 import { SelectContext } from '../select/Select.context';
 import {
   selectClearButtonIconVariants,
+  selectClearButtonSize,
   selectTriggerClearButtonVariants,
   selectTriggerClearPaddingVariants,
 } from '../select/Select.variants';
@@ -281,10 +282,7 @@ export const MultiSelect = ({
                 name={name}
                 type="button"
                 disabled={disabled}
-                className={cn(
-                  multiSelectTriggerVariants({ size, tagsGrow, tags: areTagsVisible }),
-                  className,
-                )}
+                className={cn(multiSelectTriggerVariants({ size, tagsGrow }), className)}
                 size={size}
                 preset={preset}
                 variant={variant}
@@ -401,6 +399,7 @@ export const MultiSelect = ({
               preset="ghost"
               variant="secondary"
               defaultMotion={motion}
+              size={selectClearButtonSize[size ?? 'md']}
               className={selectTriggerClearButtonVariants({ size, hideArrow })}
               iconClassName={selectClearButtonIconVariants({ size })}
             />

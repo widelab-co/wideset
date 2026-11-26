@@ -35,21 +35,12 @@ export const selectTriggerVariants = cva(
         ),
       },
       size: {
-        sm: 'typography-label-sm h-ws-forms-sm max-h-ws-forms-sm rounded-ws-control-lg ps-ws-7',
-        md: 'typography-label-sm h-ws-forms-md max-h-ws-forms-md rounded-ws-control-lg ps-ws-9',
-        lg: 'typography-label-md h-ws-forms-lg max-h-ws-forms-lg rounded-ws-control-xl ps-ws-9',
-      },
-      // Figma ends the field with its icon buttons 4px from the right edge; without the arrow the
-      // value keeps the same inset on both sides.
-      withArrow: {
-        true: 'pe-ws-3',
-        false: '',
+        sm: 'typography-label-sm h-ws-forms-sm max-h-ws-forms-sm rounded-ws-control-lg px-ws-7',
+        md: 'typography-label-sm h-ws-forms-md max-h-ws-forms-md rounded-ws-control-lg px-ws-9',
+        lg: 'typography-label-md h-ws-forms-lg max-h-ws-forms-lg rounded-ws-control-xl px-ws-9',
       },
     },
     compoundVariants: [
-      { withArrow: false, size: 'sm', className: 'pe-ws-7' },
-      { withArrow: false, size: 'md', className: 'pe-ws-9' },
-      { withArrow: false, size: 'lg', className: 'pe-ws-9' },
       {
         preset: 'border',
         variant: 'danger',
@@ -65,7 +56,6 @@ export const selectTriggerVariants = cva(
       preset: 'border',
       variant: 'primary',
       size: 'md',
-      withArrow: false,
     },
   },
 );
@@ -78,16 +68,18 @@ export const selectTriggerMotionVariants = cva('', {
 });
 
 // Figma draws the arrow as an icon button (24 / 32 / 40px, the icon 16 / 16 / 20px in its middle)
-// after the value's own inset. The side padding makes the svg as wide as that button (only its width
-// matters: a taller box would stretch MultiSelect); the clear button, when shown, sits right before it.
+// after the value's own inset, 4px from the edge. The side padding makes the svg as wide as that
+// button (only its width matters: a taller box would stretch MultiSelect), and the negative end
+// margin takes it into the trigger's padding, so the trigger keeps one `px` on both sides. The clear
+// button, when shown, sits right before it.
 export const selectTriggerIconVariants = cva(
   'text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled box-content shrink-0',
   {
     variants: {
       size: {
-        sm: 'px-ws-3 ms-ws-7 size-ws-9',
-        md: 'px-ws-5 ms-ws-9 size-ws-9',
-        lg: 'px-ws-6 ms-ws-9 size-ws-11',
+        sm: 'px-ws-3 ms-ws-7 -me-ws-5 size-ws-9',
+        md: 'px-ws-5 ms-ws-9 -me-ws-7 size-ws-9',
+        lg: 'px-ws-6 ms-ws-9 -me-ws-7 size-ws-11',
       },
       // Ghost reads as a value, not a control: its arrow shows only while the trigger is hovered,
       // focused or open, and always on touch screens, which have no hover. It keeps its space, so
@@ -182,75 +174,22 @@ export const selectContentMotionVariants = cva('', {
   defaultVariants: { enabled: true },
 });
 
-export const selectClearButtonVariants = cva('relative shrink-0 rounded-full p-0', {
-  variants: {
-    size: {
-      sm: 'size-ws-11',
-      md: 'size-ws-13',
-      lg: 'size-ws-14',
-    },
-    hideArrow: {
-      true: '',
-      false: '',
-    },
-  },
-  compoundVariants: [
-    {
-      size: 'sm',
-      hideArrow: true,
-      className:
-        'mr-[calc(var(--spacing-ws-6)+1px)] -ml-[calc(var(--spacing-ws-6)+var(--spacing-ws-11)+1px)]',
-    },
-    {
-      size: 'sm',
-      hideArrow: false,
-      className:
-        'mr-[calc(var(--spacing-ws-13)+1px)] -ml-[calc(var(--spacing-ws-13)+var(--spacing-ws-11)+1px)]',
-    },
-    {
-      size: 'md',
-      hideArrow: true,
-      className:
-        'mr-[calc(var(--spacing-ws-7)+1px)] -ml-[calc(var(--spacing-ws-7)+var(--spacing-ws-13)+1px)]',
-    },
-    {
-      size: 'md',
-      hideArrow: false,
-      className:
-        'mr-[calc(var(--spacing-ws-15)+1px)] -ml-[calc(var(--spacing-ws-15)+var(--spacing-ws-13)+1px)]',
-    },
-    {
-      size: 'lg',
-      hideArrow: true,
-      className:
-        'mr-[calc(var(--spacing-ws-7)+1px)] -ml-[calc(var(--spacing-ws-7)+var(--spacing-ws-14)+1px)]',
-    },
-    {
-      size: 'lg',
-      hideArrow: false,
-      className:
-        'mr-[calc(var(--spacing-ws-17)+1px)] -ml-[calc(var(--spacing-ws-17)+var(--spacing-ws-14)+1px)]',
-    },
-  ],
-  defaultVariants: {
-    size: 'md',
-    hideArrow: false,
-  },
-});
+// Select and MultiSelect: the clear button is Figma's icon button (24 / 32 / 40px), IconButton at
+// this size.
+export const selectClearButtonSize = { sm: 'xs', md: 'sm', lg: 'md' } as const;
 
-// Select and MultiSelect: the clear button is a sibling of the trigger (a button cannot hold a
-// button), drawn over it right before the arrow as Figma's icon button (24 / 32 / 40px). Its
-// negative margin cancels its own width, so it takes no room; `end` moves it past the arrow and
-// the 4px edge inset, and the 1px shift past the trigger's border. Logical sides keep it right in
-// a right-to-left layout.
+// It is a sibling of the trigger (a button cannot hold a button), drawn over it right before the
+// arrow. Its negative margin cancels its own width, so it takes no room; `end` moves it past the
+// arrow and the 4px edge inset, and the 1px shift past the trigger's border. Logical sides keep it
+// right in a right-to-left layout.
 export const selectTriggerClearButtonVariants = cva(
   '-translate-x-ws-1 rtl:translate-x-ws-1 relative shrink-0 rounded-full p-0',
   {
     variants: {
       size: {
-        sm: '-ms-ws-12 size-ws-12',
-        md: '-ms-ws-14 size-ws-14',
-        lg: '-ms-ws-16 size-ws-16',
+        sm: '-ms-ws-12',
+        md: '-ms-ws-14',
+        lg: '-ms-ws-16',
       },
       hideArrow: {
         true: 'end-ws-3',
@@ -313,19 +252,6 @@ export const selectValueLeftPaddingVariants = cva('', {
       sm: 'pl-ws-5',
       md: 'pl-ws-7',
       lg: 'pl-ws-7',
-    },
-  },
-  defaultVariants: {
-    size: 'md',
-  },
-});
-
-export const selectValueRightPaddingVariants = cva('', {
-  variants: {
-    size: {
-      sm: 'pr-ws-11',
-      md: 'pr-ws-16',
-      lg: 'pr-ws-19',
     },
   },
   defaultVariants: {

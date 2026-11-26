@@ -35,7 +35,7 @@ export const SelectTrigger = React.forwardRef<
     const { motion: selectMotion } = useSelectContext();
     const motion = useDefaultMotion(defaultMotion ?? selectMotion);
     const triggerClassName = cn(
-      selectTriggerVariants({ size, preset, variant, withArrow: !hideArrow }),
+      selectTriggerVariants({ size, preset, variant }),
       selectTriggerMotionVariants({ enabled: motion }),
       className,
     );
