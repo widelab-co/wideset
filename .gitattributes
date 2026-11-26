@@ -1,7 +1,4 @@
 # Generated files: kept out of `git diff` output and collapsed in GitHub reviews.
-# The playground stylesheet is minified (pnpm playground --no-dev); one diff of it printed
-# 867 KB. `git diff --text` still shows it.
-packages/design-system/playground/src/styles/wideset.css -diff linguist-generated
 # Skill references copied from packages/design-system/specs by pnpm build:skills.
 packages/skills/skills/*/references/specs/** linguist-generated
 packages/skills/skills/*/references/good-practices/** linguist-generated
