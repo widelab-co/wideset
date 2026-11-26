@@ -12,7 +12,7 @@ export default function ChipStates() {
   return (
     <div className="gap-ws-12 flex flex-wrap items-center">
       <Chip style={remoteOnly ? 'filled' : 'border'}>
-        <Chip.Action aria-pressed={remoteOnly} onClick={() => setRemoteOnly(!remoteOnly)}>
+        <Chip.Action aria-pressed={remoteOnly} onClick={() => setRemoteOnly((on) => !on)}>
           <Chip.Label>Remote only</Chip.Label>
         </Chip.Action>
       </Chip>
