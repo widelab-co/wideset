@@ -8,6 +8,7 @@ const path = require('path');
  */
 const VARIABLE_PREFIX_CONFIG = [
   // COLORS - based on https://tailwindcss.com/docs/colors
+  // Keep the published --decoration-ws-* variables for direct CSS references.
   {
     prefix: '--ws-dynamic-fill',
     tailwindPrefix: ['--background-color-ws-dynamic', '--outline-color-ws-dynamic'],
@@ -21,6 +22,7 @@ const VARIABLE_PREFIX_CONFIG = [
     tailwindPrefix: [
       '--text-color-ws-dynamic',
       '--decoration-ws-dynamic',
+      '--text-decoration-color-ws-dynamic',
       '--fill-ws-dynamic',
       '--stroke-ws-dynamic',
     ],
@@ -38,6 +40,7 @@ const VARIABLE_PREFIX_CONFIG = [
     tailwindPrefix: [
       '--text-color-ws-non-semantic',
       '--decoration-ws-non-semantic',
+      '--text-decoration-color-ws-non-semantic',
       '--fill-ws-non-semantic',
       '--stroke-ws-non-semantic',
     ],
@@ -55,6 +58,7 @@ const VARIABLE_PREFIX_CONFIG = [
     tailwindPrefix: [
       '--text-color-ws-semantic',
       '--decoration-ws-semantic',
+      '--text-decoration-color-ws-semantic',
       '--fill-ws-semantic',
       '--stroke-ws-semantic',
     ],
@@ -72,6 +76,7 @@ const VARIABLE_PREFIX_CONFIG = [
     tailwindPrefix: [
       '--text-color-ws-static',
       '--decoration-ws-static',
+      '--text-decoration-color-ws-static',
       '--fill-ws-static',
       '--stroke-ws-static',
     ],
