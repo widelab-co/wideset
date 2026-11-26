@@ -81,6 +81,8 @@ selected. Named exports (`TreeViewItem`, …) are the same parts for Server Comp
 
 ## Gotchas
 
+- Render `TreeView.Group` as a direct child of `TreeView.Item`. Wrapping the group in another
+  component makes the item behave as a leaf.
 - A branch is never the selected `value`: clicking it only folds it. A tree where a folder is
   also a page is not supported yet.
 - `value={undefined}` makes the tree uncontrolled again; pass `""` for "nothing selected".

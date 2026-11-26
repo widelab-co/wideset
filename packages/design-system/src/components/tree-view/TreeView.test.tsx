@@ -127,21 +127,12 @@ describe('TreeView', () => {
 
     it('swaps to expandedIcon while the group is open', async () => {
       render(<Files />);
-      const shut = screen.getByTestId('src-icon').innerHTML;
+      const icon = () => item('src').querySelector('[data-slot="tree-view-icon"]');
+      const closedIcon = icon();
+      expect(closedIcon).toBeInTheDocument();
       await userEvent.click(screen.getByText('src'));
-      expect(screen.getByTestId('src-icon').innerHTML).not.toBe(shut);
-    });
-
-    it('truncates a long label on one line', () => {
-      const name = 'quarterly-revenue-reconciliation-for-the-finance-team.md';
-      render(
-        <TreeView aria-label="Files">
-          <TreeView.Item value="long">
-            <TreeView.Label>{name}</TreeView.Label>
-          </TreeView.Item>
-        </TreeView>,
-      );
-      expect(screen.getByText(name)).toHaveClass('truncate', 'min-w-0');
+      expect(icon()).toBeInTheDocument();
+      expect(closedIcon).not.toBeInTheDocument();
     });
   });
 

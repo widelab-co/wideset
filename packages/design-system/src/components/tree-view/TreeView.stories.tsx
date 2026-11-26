@@ -26,6 +26,9 @@ const meta = {
   subcomponents: {
     'TreeView.Item': TreeView.Item,
     'TreeView.Icon': TreeView.Icon,
+    'TreeView.Label': TreeView.Label,
+    'TreeView.Suffix': TreeView.Suffix,
+    'TreeView.Group': TreeView.Group,
   },
   parameters: {
     docs: {
