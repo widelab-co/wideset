@@ -61,7 +61,7 @@
     "unused-imports/no-unused-vars": "warn",
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",
-    // Setters take the updater form; a controlled callback that cannot: disable the line, say why.
+    // Setters take the updater form; where a controlled callback can't, disable the line and say why.
     "no-restricted-syntax": [
       "error",
       {
