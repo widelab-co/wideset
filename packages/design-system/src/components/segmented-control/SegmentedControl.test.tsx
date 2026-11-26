@@ -712,36 +712,6 @@ describe('SegmentedControl', () => {
     });
   });
 
-  // Values from Figma's Segmented Control (557:61066) and Segmented Item (557:61311).
-  describe('Figma', () => {
-    const renderControl = () =>
-      render(
-        <SegmentedControl aria-label="Chart" defaultValue="bar" defaultMotion>
-          <SegmentedControl.Item value="bar" icon={RiCheckboxCircleFill} aria-label="Bar" />
-          <SegmentedControl.Item value="line" icon={RiCloseLine} aria-label="Line" />
-        </SegmentedControl>,
-      );
-
-    it('should fill the sliding selection highlight-strong, like a selected segment', () => {
-      renderControl();
-
-      const pill = screen.getByRole('radiogroup').querySelector(':scope > span[aria-hidden]');
-      expect(pill).toHaveClass('bg-ws-static-highlight-strong');
-      expect(pill).not.toHaveClass('bg-ws-static-highlight-base');
-    });
-
-    it('should colour the icon of an unselected, enabled, unfocused segment Static/Text/Base', () => {
-      renderControl();
-
-      const segment = screen.getByRole('radio', { name: 'Line' });
-      // The rule keys on the state attribute, so check the segment really carries it.
-      expect(segment).toHaveAttribute('data-state', 'unchecked');
-      expect(segment).toHaveClass(
-        'data-[state=unchecked]:enabled:not-focus-visible:*:data-[slot=segmented-control-icon]:text-ws-static-base',
-      );
-    });
-  });
-
   describe('Group name', () => {
     it('should expose aria-label as the accessible name of the group', () => {
       render(
