@@ -10,6 +10,7 @@ import { kebab } from './kebab';
 import { PLAYGROUNDS, type Values } from './playground';
 import { classify, segments } from './tokenClasses';
 import { type ClassSource, PORTALLED, type PortalledPart } from './tokenUsagePortals';
+import { stateOf } from './tokenUsageStates';
 
 /**
  * Which design tokens each component paints with, in which part, variant and state: the token
@@ -67,57 +68,6 @@ export type TokenEntry = {
   light: string;
   dark: string;
   usedBy: string[];
-};
-
-// --- state prefixes ------------------------------------------------------------------------
-
-/** A prefix that only narrows where a class lands (breakpoints, children, pseudo elements). */
-const LAYOUT = [
-  /^(sm|md|lg|xl|2xl|@[\w-]+)$/,
-  /^(first|last|only|odd|even|first-of-type|last-of-type|empty|before|after|\*)$/,
-  /^not-/,
-  /^\[/,
-  /^has-\[/,
-  /^group-\[/,
-  /^peer-\[/,
-];
-
-/** Machine keys for a state, from a prefix or the selector inside an arbitrary one. */
-const STATE_KEYS: [RegExp, string | ((match: RegExpExecArray) => string)][] = [
-  [/(^|[-:.[&])disabled\b|aria-disabled|is-disabled/, 'disabled'],
-  [/(^|-)(?:radix-state-|data-\[state=)(\w+)/, (m) => `state:${m[2]}`],
-  [/data-state=(\w+)/, (m) => `state:${m[1]}`],
-  [/(^|-)(active|pressed)\b|:active|data-\[pressed=true\]/, 'pressed'],
-  [/(^|-)hover\b|:hover/, 'hover'],
-  [/(^|-)focus(-visible|-within)?\b|:focus/, 'focus'],
-  [/(^|-)(aria-selected|data-\[selected\]|radix-selected)/, 'selected'],
-  [/(^|-)(data-\[highlighted\]|radix-highlighted)/, 'highlighted'],
-  [/^(data-\[placeholder\]|placeholder)$/, 'placeholder'],
-  [/data-\[?side=(\w+)\]?/, (m) => `side:${m[1]}`],
-  [/^data-(active|sticky)$/, (m) => m[1]],
-  // A boolean data attribute, also on a descendant: `has-data-[shake=true]:` (a field's shake).
-  [/data-\[(\w+)=true\]/, (m) => m[1]],
-];
-
-/** `not-` turns a state into its absence, which is the default for the graph. */
-const keyOf = (prefix: string): string | null | undefined => {
-  if (/^not-/.test(prefix)) return null;
-  for (const [pattern, key] of STATE_KEYS) {
-    const match = pattern.exec(prefix);
-    if (match) return typeof key === 'function' ? key(match) : key;
-  }
-  return LAYOUT.some((pattern) => pattern.test(prefix)) ? null : undefined;
-};
-
-/** The state key of a class's prefixes; `undefined` when one of them is unknown. */
-export const stateOf = (prefixes: string[]) => {
-  const keys = new Set<string>();
-  for (const prefix of prefixes) {
-    const key = keyOf(prefix);
-    if (key === undefined) return undefined;
-    if (key) keys.add(key);
-  }
-  return keys.size ? [...keys].sort().join('+') : 'default';
 };
 
 // --- rendering ------------------------------------------------------------------------------
@@ -434,7 +384,7 @@ const usesOf = (entry: Entry, problems: string[]) => {
     const state = stateOf(parts);
     if (state === undefined) {
       problems.push(
-        `${where}: ${className} has a state prefix with no key; add it to STATE_KEYS or LAYOUT in src/lib/tokenUsage.ts`,
+        `${where}: ${className} has a state prefix with no key; add it to STATE_KEYS or LAYOUT in src/lib/tokenUsageStates.ts`,
       );
       return;
     }

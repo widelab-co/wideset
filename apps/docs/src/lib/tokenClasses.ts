@@ -53,7 +53,14 @@ const stateOf = (prefixes: string[]) => {
 const KEYWORD =
   /-(none|transparent|current|inherit|full|fit|auto|lh|px|0|\d+\/\d+)$|^outline-offset-\d+$/;
 const BORDER_WIDTH = /^border(-[xytrbl])?(-\d+)?$/;
-const SIDES: Record<string, string> = { t: 'top', r: 'right', b: 'bottom', l: 'left' };
+const SIDES: Record<string, string> = {
+  t: 'top',
+  r: 'right',
+  b: 'bottom',
+  l: 'left',
+  s: 'start',
+  e: 'end',
+};
 /** An arbitrary value that is a length, not a colour: `[0.75rem]`, `[2px]`, `[length:…]`. */
 const LENGTH = String.raw`\[(length:[^\]]+|-?[\d.]+[a-z%]*)\]$`;
 /** Tailwind's palette (`bg-red-500`, `text-gray-900/50`, `border-black`): never a token. */
@@ -96,7 +103,7 @@ const PROPERTIES: [RegExp, string | ((utility: string) => string)][] = [
   [/^size-/, 'Size'],
   [/^px-/, 'Padding x'],
   [/^py-/, 'Padding y'],
-  [/^p[trbl]-/, (utility) => `Padding ${SIDES[utility[1]]}`],
+  [/^p[trblse]-/, (utility) => `Padding ${SIDES[utility[1]]}`],
   [/^p-/, 'Padding'],
   [/^gap-x-/, 'Gap x'],
   [/^gap-y-/, 'Gap y'],
