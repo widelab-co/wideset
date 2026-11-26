@@ -9,7 +9,7 @@ concurrency:
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened]
+    types: [opened, synchronize, reopened, edited]
     # The branch a PR merges into. feature/**: a PR stacked on another PR's branch gets the same
     # checks and a preview. "Changeset present" is in changeset.yaml, for PRs into develop only.
     branches:

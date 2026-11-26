@@ -9,9 +9,7 @@ name: Changeset
 # - PRs into feature/** (a stack) run build.yaml too, and a job skipped by `if:` reports success.
 #   That skipped result would satisfy develop's required "Changeset present" check once the PR is
 #   retargeted. Here a PR into feature/** gets no "Changeset present" result at all.
-# - `edited` covers the retarget: changing a PR's base to develop runs the check. build.yaml does
-#   not list `edited`, so a title or body edit does not rerun the whole build; here it reruns only
-#   this short check.
+# - The `edited` event runs the check against develop when a PR is retargeted.
 concurrency:
   group: changeset-${{ github.event.pull_request.number }}
   cancel-in-progress: true
