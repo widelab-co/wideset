@@ -3,7 +3,6 @@ import {
   RiArrowRightLine,
   RiArrowRightSLine,
   RiAttachment2,
-  RiCloseLine,
   RiFirefoxFill,
   RiGlobalLine,
   RiImageLine,
@@ -94,17 +93,13 @@ export function Composer({ onSend }: { onSend: (text: string) => void }) {
           </p>
           <div className="gap-ws-3 px-ws-7 flex flex-wrap">
             {files.map((file) => (
-              <Chip
-                key={file.id}
-                size="md"
-                variant="secondary"
-                style="border"
-                aria-label={`Remove ${file.name}`}
-                onClick={() => setFiles((all) => all.filter((item) => item.id !== file.id))}
-              >
+              <Chip key={file.id} size="md" variant="secondary" style="border">
                 <Chip.Icon icon={LOGO[file.source].icon} className={LOGO[file.source].className} />
-                {file.name}
-                <Chip.Icon icon={RiCloseLine} />
+                <Chip.Label>{file.name}</Chip.Label>
+                <Chip.IconButton
+                  aria-label={`Remove ${file.name}`}
+                  onClick={() => setFiles((all) => all.filter((item) => item.id !== file.id))}
+                />
               </Chip>
             ))}
           </div>

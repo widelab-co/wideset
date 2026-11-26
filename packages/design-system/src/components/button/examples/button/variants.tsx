@@ -12,7 +12,7 @@ export default function ButtonVariants() {
       <Button variant="secondary">Preview</Button>
       <Button variant="danger">Delete project</Button>
       <Button variant="success">Approve</Button>
-      <div className="bg-ws-static-inverse-background p-ws-8">
+      <div className="bg-ws-static-inverse-background rounded-ws-container-md p-ws-8">
         <Button variant="inverse">Upgrade plan</Button>
       </div>
     </div>
