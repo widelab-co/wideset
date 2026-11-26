@@ -2,17 +2,11 @@ import { type RemixiconComponentType, RiArrowRightSLine } from '@remixicon/react
 import { DropdownMenu, ListItem } from '@wideset/react';
 import type { ReactNode } from 'react';
 
-/** `DropdownMenu.Content`'s surface, copied so the submenu is drawn as the menu it opens from. */
-const PANEL =
-  'min-w-ws-28 rounded-ws-container-sm p-ws-3 bg-ws-static-overlay text-ws-dynamic-secondary-default shadow-ws-medium z-ws-popout outline-hidden';
-
 type MenuSubProps = {
   icon: RemixiconComponentType;
   label: string;
   /** What is chosen inside now, shown quietly before the chevron ("Match system"). */
   value?: string;
-  /** Where the panel portals to: the menu's own container, so it follows the screen's theme. */
-  container?: HTMLElement | null;
   children: ReactNode;
 };
 
@@ -21,7 +15,7 @@ type MenuSubProps = {
  * The row is a `ListItem` like every other item, with the choice it holds and a chevron after the
  * label; while its panel is open it keeps the hover fill, so the eye can follow where it came from.
  */
-export function MenuSub({ icon: Icon, label, value, container, children }: MenuSubProps) {
+export function MenuSub({ icon: Icon, label, value, children }: MenuSubProps) {
   return (
     <DropdownMenu.Sub>
       <DropdownMenu.SubTrigger
@@ -41,16 +35,9 @@ export function MenuSub({ icon: Icon, label, value, container, children }: MenuS
           </ListItem.Suffix>
         </ListItem>
       </DropdownMenu.SubTrigger>
-      <DropdownMenu.Portal container={container ?? undefined}>
-        <DropdownMenu.SubContent
-          sideOffset={8}
-          alignOffset={-4}
-          collisionPadding={12}
-          className={PANEL}
-        >
-          {children}
-        </DropdownMenu.SubContent>
-      </DropdownMenu.Portal>
+      <DropdownMenu.SubContent sideOffset={8} alignOffset={-4} collisionPadding={12}>
+        {children}
+      </DropdownMenu.SubContent>
     </DropdownMenu.Sub>
   );
 }
