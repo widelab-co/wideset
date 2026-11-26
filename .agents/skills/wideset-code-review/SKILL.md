@@ -94,7 +94,8 @@ beyond a one-line fix), `RELEASING.md` (changesets). On top of them, the Wideset
 5. **Snapshot tests.** Every component has a committed snapshot. A snapshot diff is a render diff: every changed class or
    attribute is explained by the PR and usually needs a changeset. Regenerated snapshots without a source change, blanket
    `vitest -u`, or deleted snapshot files are findings.
-   So is a new test that only asserts a class or attribute the snapshot already pins.
+   So is a new test that only asserts a class or attribute the snapshot already pins (the required rest-props and
+   `data-slot` checks are not that; existing tests are not removed for it).
 6. **Works where consumers run it.** Wideset supports React 18 and 19 (`peerDependencies`) and apps that render on the
    server. So: no React-19-only APIs (`use`, `ref` as a plain prop), `document`/`window` only behind a guard or inside
    an effect, timers and listeners cleaned up on unmount. Tests run in jsdom on one React version and stay green when

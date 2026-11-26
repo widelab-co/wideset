@@ -185,8 +185,9 @@ The full checklist is the `wideset-component-convention` skill. The rules that m
   story and that each renders. See the `wideset-component-docs` skill.
 - Tests: `describe` blocks per concern, `screen.getByRole(..., { name })` over test IDs, one
   assertion topic per `it`, verify rest props (`data-*`, `aria-*`, `className`) reach the DOM,
-  imports from `vitest`. No test that only repeats what the snapshot already pins (a class, an
-  attribute): test behaviour the snapshot cannot see.
+  imports from `vitest`. A new test checks what the snapshot cannot see (interaction, state,
+  focus); don't add one that only re-asserts a class or attribute the snapshot already pins. The
+  rest-props and `data-slot` checks are required, and existing tests stay.
 
 ## React Server Component boundary
 
