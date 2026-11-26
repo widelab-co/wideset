@@ -497,6 +497,27 @@ describe('Avatar', () => {
         '[-webkit-mask-clip:no-clip]',
       );
     });
+
+    it('should draw the status notch once, so it cannot cut the ring’s top and left edges', () => {
+      // A repeated mask tile puts a notch in the neighbouring tiles too, right where the ring
+      // runs; one tile, larger than the box by `--mask-bleed`, covers the ring instead.
+      const { container } = render(
+        <Avatar.Group>
+          <Avatar initials="CD" status="online" selected />
+        </Avatar.Group>,
+      );
+      const selection = container.querySelector('span[aria-hidden="true"]') as HTMLElement;
+
+      for (const masked of [screen.getByText('CD'), selection]) {
+        expect(masked).toHaveClass(
+          '[--mask-bleed:6px]',
+          '[mask-repeat:no-repeat]',
+          '[-webkit-mask-repeat:no-repeat]',
+        );
+        expect(masked.className).toContain('[mask-size:calc(100%_+_2*var(--mask-bleed))');
+        expect(masked.className).toContain('[mask-position:calc(-1*var(--mask-bleed))');
+      }
+    });
   });
 
   describe('Review regressions', () => {
