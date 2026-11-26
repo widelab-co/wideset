@@ -16,12 +16,14 @@ import {
   cellAt,
   cellFor,
   columnOf,
+  CONTROL_ATTRIBUTES,
   controlsAfter,
   focusFirstControl,
+  reconcileMutations,
   removeAllFromTabOrder,
-  removeFromTabOrder,
-  restoreTabOrderOutsideCells,
   rowsPerPage,
+  suspendTabStops,
+  svgLinksIn,
   usesArrowKeys,
 } from './Spreadsheet.logic';
 
@@ -220,8 +222,6 @@ export const useSpreadsheetLayout = (
   }, [scrollerRef, tableRef, stickyColumns, store, focusWithin]);
 };
 
-const CONTROL_ATTRIBUTES = new Set(['tabindex', 'href', 'contenteditable', 'type', 'controls']);
-
 /**
  * Keeps the controls in the cells out of the tab order, those rendered later included, so that
  * the active cell is the grid's one tab stop (see `removeFromTabOrder`).
@@ -231,48 +231,30 @@ export const useSpreadsheetControls = (tableRef: RefObject<HTMLTableElement | nu
     const table = tableRef.current;
     if (!table) return;
 
+    // New rows and content, and a control that becomes a tab stop again (a re-render setting
+    // its tabIndex, a link gaining an href). Only control attributes are observed, so a class,
+    // style or aria-* write (aria-selected on every arrow key) does not run the reconcile.
+    const observer = new MutationObserver((records) => {
+      reconcileMutations(records);
+      records.forEach(({ addedNodes }) =>
+        addedNodes.forEach((node) => {
+          if (node instanceof Element) observeSvgLinks(node);
+        }),
+      );
+      // Only authored mutations reach the reconcile: drop the records of the grid's own -1.
+      // Even an authored -1 replacing that identical -1 must update the remembered attribute.
+      observer.takeRecords();
+    });
+    const observeSvgLinks = (root: Element) =>
+      svgLinksIn(root).forEach((link) => observer.observe(link, { attributes: true }));
+
     removeAllFromTabOrder(table);
-    const options: MutationObserverInit = {
+    observer.observe(table, {
       childList: true,
       subtree: true,
-      attributes: true,
-    };
-    // New rows and content, and a control that becomes a tab stop again (a re-render setting
-    // its tabIndex, a link gaining an href).
-    const observer = new MutationObserver((records) => {
-      // An observer's attributeFilter omits namespaced attributes such as SVG xlink:href.
-      const relevant = records.filter(
-        ({ type, attributeName }) =>
-          type === 'childList' || (attributeName !== null && CONTROL_ATTRIBUTES.has(attributeName)),
-      );
-      if (!relevant.length) return;
-      // Only authored mutations reach this observer: disconnect while writing the grid's -1.
-      // Even an authored -1 replacing our identical -1 must update the remembered attribute.
-      observer.disconnect();
-      const changed = new Map<Element, boolean>();
-      const editableParents = new Set<Element>();
-      for (const record of relevant) {
-        if (record.type === 'attributes') {
-          const element = record.target as Element;
-          changed.set(element, changed.get(element) || record.attributeName === 'tabindex');
-          if (record.attributeName === 'contenteditable') editableParents.add(element);
-        }
-      }
-      // Reconcile each target once, using its final authored value for a batch of mutations.
-      changed.forEach((tabIndexChanged, element) => removeFromTabOrder(element, tabIndexChanged));
-      // Changing an ancestor can make a descendant an independent editing host.
-      editableParents.forEach(removeAllFromTabOrder);
-      relevant.forEach((record) => {
-        record.addedNodes.forEach((node) => {
-          if (node instanceof Element) removeAllFromTabOrder(node);
-        });
-        record.removedNodes.forEach((node) => {
-          if (node instanceof Element) restoreTabOrderOutsideCells(node);
-        });
-      });
-      observer.observe(table, options);
+      attributeFilter: CONTROL_ATTRIBUTES,
     });
-    observer.observe(table, options);
+    observeSvgLinks(table);
     return () => observer.disconnect();
   }, [tableRef]);
 };
@@ -354,27 +336,16 @@ export const useSpreadsheetKeyboard = (
       if (event.shiftKey && scroller) {
         clearTimeout(tabTimer.current);
         restoreTabOrder.current?.();
-        const scrollerTabIndex = scroller.getAttribute('tabindex');
-        cell.tabIndex = -1;
-        scroller.tabIndex = -1;
-        // A focus handler outside the grid can assign tabindex, even the same -1 we just wrote.
-        let scrollerTabIndexChanged = false;
-        const scrollerObserver = new MutationObserver(() => {
-          scrollerTabIndexChanged = true;
-        });
-        scrollerObserver.observe(scroller, { attributeFilter: ['tabindex'] });
-        const restore = () => {
+        const restore = suspendTabStops(
+          cell,
+          scroller,
+          () => store.get().id === cell.getAttribute(CELL_ATTRIBUTE),
+        );
+        restoreTabOrder.current = () => {
           restoreTabOrder.current = undefined;
-          if (store.get().id === cell.getAttribute(CELL_ATTRIBUTE)) cell.tabIndex = 0;
-          const changed = scrollerTabIndexChanged || scrollerObserver.takeRecords().length > 0;
-          scrollerObserver.disconnect();
-          if (!changed) {
-            if (scrollerTabIndex === null) scroller.removeAttribute('tabindex');
-            else scroller.setAttribute('tabindex', scrollerTabIndex);
-          }
+          restore();
         };
-        restoreTabOrder.current = restore;
-        tabTimer.current = setTimeout(restore);
+        tabTimer.current = setTimeout(restoreTabOrder.current);
       }
       return;
     }

@@ -125,6 +125,78 @@ export const restoreTabOrderOutsideCells = (root: Element) => {
   root.querySelectorAll('[tabindex]').forEach(restore);
 };
 
+/** The attributes that can make an element in a cell a tab stop, or stop it being one. */
+export const CONTROL_ATTRIBUTES = ['tabindex', 'href', 'contenteditable', 'type', 'controls'];
+
+const SVG_NAMESPACE = 'http://www.w3.org/2000/svg';
+
+/**
+ * The SVG links in `root`, `root` included. Their legacy `xlink:href` is namespaced, and an
+ * observer's `attributeFilter` never reports a namespaced attribute, so each is observed on its own.
+ */
+export const svgLinksIn = (root: Element) =>
+  [root, ...Array.from(root.querySelectorAll('a'))].filter(
+    (element) => element.localName === 'a' && element.namespaceURI === SVG_NAMESPACE,
+  );
+
+/**
+ * Brings the tab order in the cells up to date with a batch of authored mutations: content added
+ * or removed, and control attributes changed. Each changed element is reconciled once, with its
+ * final authored value.
+ */
+export const reconcileMutations = (records: MutationRecord[]) => {
+  const changed = new Map<Element, boolean>();
+  const editableParents = new Set<Element>();
+  for (const { type, target, attributeName } of records) {
+    if (type !== 'attributes' || !attributeName || !CONTROL_ATTRIBUTES.includes(attributeName))
+      continue;
+    const element = target as Element;
+    changed.set(element, changed.get(element) || attributeName === 'tabindex');
+    if (attributeName === 'contenteditable') editableParents.add(element);
+  }
+  changed.forEach((tabIndexChanged, element) => removeFromTabOrder(element, tabIndexChanged));
+  // Changing an ancestor can make a descendant an independent editing host.
+  editableParents.forEach(removeAllFromTabOrder);
+  for (const { addedNodes, removedNodes } of records) {
+    addedNodes.forEach((node) => {
+      if (node instanceof Element) removeAllFromTabOrder(node);
+    });
+    removedNodes.forEach((node) => {
+      if (node instanceof Element) restoreTabOrderOutsideCells(node);
+    });
+  }
+};
+
+/**
+ * Takes `cell` and the grid's scroll container out of the tab order, so that Shift+Tab past the
+ * cell's first control leaves the grid: the cell comes before its controls, and Chrome makes a
+ * scroll container a tab stop once nothing in it is one. Returns what puts them back: the cell
+ * while `isActive` says it is still the active one, and the container unless a focus handler
+ * outside the grid has set its tabindex meanwhile (even to the same -1).
+ */
+export const suspendTabStops = (
+  cell: HTMLElement,
+  scroller: HTMLElement,
+  isActive: () => boolean,
+) => {
+  const scrollerTabIndex = scroller.getAttribute('tabindex');
+  cell.tabIndex = -1;
+  scroller.tabIndex = -1;
+  let scrollerTabIndexChanged = false;
+  const observer = new MutationObserver(() => {
+    scrollerTabIndexChanged = true;
+  });
+  observer.observe(scroller, { attributeFilter: ['tabindex'] });
+  return () => {
+    if (isActive()) cell.tabIndex = 0;
+    const changed = scrollerTabIndexChanged || observer.takeRecords().length > 0;
+    observer.disconnect();
+    if (changed) return;
+    if (scrollerTabIndex === null) scroller.removeAttribute('tabindex');
+    else scroller.setAttribute('tabindex', scrollerTabIndex);
+  };
+};
+
 /** Tab follows the authored order. An excluded control has only a position in the DOM. */
 export const controlsAfter = (cell: HTMLElement, target: Element, backwards: boolean) => {
   const controls = focusables(cell)
