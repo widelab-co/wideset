@@ -26,11 +26,9 @@ const COLOUR: Record<TokenKind, string> = {
   plain: 'text-ws-static-strong',
 };
 
-// decoration-ws-* compiles to nothing: the tokens name it --decoration-ws-*, while Tailwind reads
-// underline colours from --text-decoration-color-*. The text role's variable until that is fixed.
 const MARK: Record<Problem['severity'], string> = {
-  error: 'underline decoration-wavy decoration-(--ws-semantic-text-negative)',
-  warning: 'underline decoration-wavy decoration-(--ws-semantic-text-notice)',
+  error: 'underline decoration-wavy decoration-ws-semantic-negative',
+  warning: 'underline decoration-wavy decoration-ws-semantic-notice',
 };
 
 /** Where the caret should land: a problem's line and column (1-based); `key` re-runs it. */
