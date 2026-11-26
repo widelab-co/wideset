@@ -35,7 +35,7 @@ Prefer \`regular\` or \`fullWidth\` for content navigation; use \`pills\` for co
     <Tabs.Item value="…">     — individual tab trigger
       <Tabs.Icon icon={…} />  — optional leading icon
       <Tabs.Label>…</Tabs.Label>  — tab label text
-      <Tabs.Count>…</Tabs.Count>  — optional count badge
+      <Tabs.Count>…</Tabs.Count>  — optional count (a Count)
     </Tabs.Item>
   </Tabs.List>
   <Tabs.Content value="…">    — panel shown when the matching tab is active
