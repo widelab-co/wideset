@@ -1,4 +1,4 @@
-import { RiCheckLine, RiCloseLine } from '@remixicon/react';
+import { RiAddLine, RiCheckLine } from '@remixicon/react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { exampleStory } from '../../stories/example';
@@ -26,18 +26,37 @@ const meta = {
   tags: ['autodocs'],
   component: Chip,
   subcomponents: {
+    'Chip.Action': Chip.Action,
     'Chip.Icon': Chip.Icon,
+    'Chip.IconButton': Chip.IconButton,
+    'Chip.Label': Chip.Label,
   },
   parameters: {
     docs: {
       description: {
-        component: `Chip is a compact interactive label for lightweight actions, selections, and filters.
+        component: `Chip groups a compact label with an optional main action and removal button.
 Use it when users need to scan or toggle a short piece of metadata, or dismiss a selected value.
-Do not use it for long text, primary actions, or flows that need the richer semantics and affordances of a full button.
+Do not use it for long text. Use Button for primary or more prominent actions.
 
-**Optional composition:**
-- \`Chip\` is the root and controls size, variant, style, and disabled state.
-- \`Chip.Icon\` can be placed before or after the label.
+**Composition:**
+\`\`\`
+<Chip>                  — passive root; controls appearance and disabled state
+  <Chip.Action>         — optional main button; consumer supplies onClick
+    <Chip.Icon />       — optional decorative leading icon
+    <Chip.Label />      — text label
+  </Chip.Action>
+  <Chip.IconButton />    — optional removal button; supply onClick and an accessible name
+</Chip>
+\`\`\`
+
+**Without a main action:**
+\`\`\`
+<Chip>                  — passive root
+  <Chip.Icon />         — optional decorative leading icon
+  <Chip.Label />        — non-interactive text label
+  <Chip.IconButton />    — optional removal button; supply onClick and an accessible name
+</Chip>
+\`\`\`
 
 Use Tag for descriptive labels and StatusBadge for non-interactive status.`,
       },
@@ -110,11 +129,20 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Minimal chip example with the default visual settings and active controls.',
+        story:
+          'Full chip composition with a leading icon, main action, label, and independent removal button.',
       },
     },
   },
-  render: ({ children, ...args }) => <Chip {...args}>{children}</Chip>,
+  render: ({ children, ...args }) => (
+    <Chip {...args}>
+      <Chip.Action>
+        <Chip.Icon icon={RiAddLine} />
+        <Chip.Label>{children}</Chip.Label>
+      </Chip.Action>
+      <Chip.IconButton aria-label="Remove chip" />
+    </Chip>
+  ),
   args: {
     children: 'Label',
     variant: 'primary',
@@ -139,7 +167,7 @@ export const Composition: Story = {
     docs: {
       description: {
         story:
-          'A common composition pattern for selected filters or removable tokens: combine the chip root with optional leading and trailing icons to communicate state and available actions.',
+          'The main action and removal button are independent. Omit Action for a passive label with removal, or omit IconButton for a single main action.',
       },
     },
   },
@@ -151,17 +179,21 @@ export const Composition: Story = {
   render: (args) => (
     <div className="gap-ws-12 flex flex-wrap">
       <Chip {...args} variant="primary" style="filled">
-        <Chip.Icon icon={RiCheckLine} />
-        Active filter
-        <Chip.Icon icon={RiCloseLine} />
+        <Chip.Action>
+          <Chip.Icon icon={RiCheckLine} />
+          <Chip.Label>Active filter</Chip.Label>
+        </Chip.Action>
+        <Chip.IconButton aria-label="Remove active filter" />
       </Chip>
       <Chip {...args} variant="secondary" style="border">
-        <Chip.Icon icon={RiCheckLine} />
-        Saved view
+        <Chip.Action>
+          <Chip.Icon icon={RiCheckLine} />
+          <Chip.Label>Saved view</Chip.Label>
+        </Chip.Action>
       </Chip>
       <Chip {...args} variant="secondary" style="filled">
-        Team access
-        <Chip.Icon icon={RiCloseLine} />
+        <Chip.Label>Team access</Chip.Label>
+        <Chip.IconButton aria-label="Remove team access" />
       </Chip>
     </div>
   ),

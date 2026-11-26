@@ -45,7 +45,7 @@ export function ReferralsTable({ referrals }: { referrals: Referral[] }) {
               </Table.Cell>
               <Table.Cell className="tabular-nums">{formatDate(referral.invited)}</Table.Cell>
               <Table.Cell>
-                <StatusBadge color={STATUS[referral.status].color}>
+                <StatusBadge size="sm" color={STATUS[referral.status].color}>
                   {STATUS[referral.status].label}
                 </StatusBadge>
               </Table.Cell>

@@ -1,6 +1,5 @@
 import { Button, StatusModal } from '@wideset/react';
 
-import { CONFIRM_ABOVE } from './data';
 import { formatUsd } from './format';
 
 type ConfirmDialogProps = {
@@ -15,9 +14,7 @@ type ConfirmDialogProps = {
 };
 
 /**
- * The second look a large payment gets. It opens only above the limit, which it states: asked
- * about every payment, the question would be clicked through. Cancel and Esc go back to the
- * review with nothing sent.
+ * A confirmation step for the example payment. Cancel and Esc return to the review.
  */
 export function ConfirmDialog({
   open,
@@ -36,8 +33,7 @@ export function ConfirmDialog({
           {action} to {recipient}?
         </StatusModal.Title>
         <StatusModal.Body>
-          Payments over {formatUsd(CONFIRM_ABOVE)} are confirmed once more. A payment cannot be
-          recalled once it has left the balance.
+          Check the amount and recipient before confirming this sample payment.
         </StatusModal.Body>
         <StatusModal.Footer>
           <StatusModal.Close asChild>

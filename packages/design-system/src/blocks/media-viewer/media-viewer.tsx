@@ -8,7 +8,7 @@ import {
   RiShareLine,
 } from '@remixicon/react';
 import { Button, cn, IconButton } from '@wideset/react';
-import { type KeyboardEvent, useEffect, useId, useRef, useState } from 'react';
+import { type KeyboardEvent, type ReactNode, useEffect, useId, useRef, useState } from 'react';
 
 import type { FileItem } from './data';
 import { FileDetails } from './file-details';
@@ -33,6 +33,8 @@ type MediaViewerProps = {
   onShare: (file: FileItem) => void;
   onMore: (file: FileItem, action: MoreAction) => void;
   onComment: (file: FileItem, text: string) => void;
+  /** What the viewer has to say about the last action: drawn inside it, in its dark scope. */
+  toast?: ReactNode;
 };
 
 /**
@@ -54,6 +56,7 @@ export function MediaViewer({
   onShare,
   onMore,
   onComment,
+  toast,
 }: MediaViewerProps) {
   const dialog = useRef<HTMLDivElement>(null);
   const titleId = useId();
@@ -121,7 +124,8 @@ export function MediaViewer({
       aria-labelledby={titleId}
       tabIndex={-1}
       onKeyDown={onKeyDown}
-      className="dark bg-ws-static-background text-ws-static-strong z-ws-modal fixed inset-0 flex flex-col outline-hidden"
+      // The entry renders the viewer beside its AppShell, outside the block's layout root.
+      className="ws-block-utility dark bg-ws-static-background text-ws-static-strong z-ws-modal fixed inset-0 flex flex-col outline-hidden"
     >
       {/* A line under the bar, edge to edge: the details' line starts on it, so neither line
           ends in the air. */}
@@ -182,7 +186,7 @@ export function MediaViewer({
               tabIndex={0}
               role="region"
               aria-label="File"
-              className="focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default h-full overflow-auto focus-visible:-outline-offset-4"
+              className="focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default ws-scrollbar h-full overflow-auto focus-visible:-outline-offset-4"
             >
               <div className="px-ws-20 py-ws-16 flex min-h-full w-max min-w-full items-center justify-center">
                 <FilePreview file={file} scale={scale} />
@@ -216,6 +220,7 @@ export function MediaViewer({
 
         {details && <FileDetails file={file} onComment={(text) => onComment(file, text)} />}
       </div>
+      {toast}
     </div>
   );
 }

@@ -8,12 +8,6 @@
       "port": 6006
     },
     {
-      "name": "playground",
-      "runtimeExecutable": "pnpm",
-      "runtimeArgs": ["playground"],
-      "port": 5174
-    },
-    {
       "name": "docs",
       "runtimeExecutable": "pnpm",
       "runtimeArgs": ["docs:dev"],

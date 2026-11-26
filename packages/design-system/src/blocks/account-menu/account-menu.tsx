@@ -10,15 +10,21 @@ import {
   RiUserSharedLine,
 } from '@remixicon/react';
 import { Avatar, DropdownMenu, ListItem } from '@wideset/react';
+import { useSyncExternalStore } from 'react';
 
 import { type Account, type Theme, THEMES, type Workspace } from './data';
 import { MenuChoice } from './menu-choice';
 import { MenuSub } from './menu-sub';
 import { PersonAvatar } from './person-avatar';
 
-/** ⌘ on Apple keyboards, Ctrl elsewhere. */
-const MODIFIER =
-  typeof navigator !== 'undefined' && /Mac|iPhone|iPad/.test(navigator.userAgent) ? '⌘' : 'Ctrl';
+const never = () => () => {};
+const apple = () => (/Mac|iPhone|iPad/.test(navigator.userAgent) ? '⌘' : 'Ctrl');
+
+/**
+ * ⌘ on Apple keyboards, Ctrl elsewhere. The server, which has no keyboard, renders Ctrl
+ * and the browser corrects it after hydration, so a server-rendered page does not mismatch.
+ */
+const useModifier = () => useSyncExternalStore(never, apple, () => 'Ctrl');
 
 type AccountMenuProps = {
   open: boolean;
@@ -87,6 +93,8 @@ export function AccountMenu({
   onLogOut,
   container,
 }: AccountMenuProps) {
+  const modifier = useModifier();
+
   return (
     <DropdownMenu open={open} onOpenChange={onOpenChange}>
       <DropdownMenu.Trigger asChild>
@@ -147,7 +155,7 @@ export function AccountMenu({
         <DropdownMenu.Separator />
 
         <Command icon={RiSettingsLine} label="Account settings" />
-        <Command icon={RiKeyboardLine} label="Keyboard shortcuts" suffix={`${MODIFIER} /`} />
+        <Command icon={RiKeyboardLine} label="Keyboard shortcuts" suffix={`${modifier} /`} />
         <MenuSub
           icon={RiContrast2Line}
           label="Theme"

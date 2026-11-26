@@ -17,7 +17,8 @@ export function MoveToast({
   return (
     <>
       {message}
-      <span className="mt-ws-9 gap-ws-7 flex">
+      {/* ToastProvider renders this content outside the block’s layout root. */}
+      <span className="ws-block-utility mt-ws-9 gap-ws-7 flex">
         <Toast.Action variant="secondary" onClick={onOpenFolder}>
           Open folder
         </Toast.Action>

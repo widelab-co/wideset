@@ -431,9 +431,9 @@ jobs:
             echo "run=false" >> "$GITHUB_OUTPUT"
           fi
 
-  # Every registry item has to install into a fresh Vite + Tailwind v4 + shadcn app and type-check.
-  # Sharded because each item is a separate install; "all" adds every item to one app and runs
-  # vite build. Runs against a locally served build of the registry, never a deployed one.
+  # Install components and representative blocks into fresh Vite + Tailwind v4 + shadcn apps.
+  # Shard the individual installs. The combined run adds the same items to one app and builds it.
+  # Tests use a locally served build of the registry.
   registry-smoke:
     name: Registry smoke (${{ matrix.shard }})
     needs: [build, registry-changes]

@@ -68,7 +68,8 @@ export function SessionsTable({
       >
         <Table.Head>
           <Table.Row>
-            <Table.Header className="w-[3.25rem]">
+            {/* The card's inset, the box and the cell's own padding: 20 + 20 + 16. */}
+            <Table.Header className="w-[3.5rem]">
               <Checkbox
                 aria-label="Select all sessions"
                 disabled={ids.length === 0}

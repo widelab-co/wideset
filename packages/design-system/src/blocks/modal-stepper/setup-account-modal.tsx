@@ -93,7 +93,7 @@ export function SetupAccountModal({ open, onOpenChange }: SetupAccountModalProps
                 </Button>
               </Modal.Close>
               <Button type="submit" form={id}>
-                Continue
+                {step < STEPS.length - 1 ? 'Continue' : 'Finish setup'}
               </Button>
             </Modal.Footer>
           </div>

@@ -1,5 +1,5 @@
-import { RiSearchLine, RiSideBarLine } from '@remixicon/react';
-import { AppShell, Breadcrumbs, Button, IconButton } from '@wideset/react';
+import { RiSideBarLine } from '@remixicon/react';
+import { AppShell, Breadcrumbs, IconButton } from '@wideset/react';
 import { useEffect, useId, useState } from 'react';
 
 import { CommandPalette } from './command-palette';
@@ -10,14 +10,11 @@ import { WorkspaceSidebar } from './sidebar';
 /** How many recent items the empty palette lists. */
 const RECENT_LIMIT = 4;
 
-/** ⌘ on Apple keyboards, Ctrl elsewhere; both open the palette everywhere. */
-const MODIFIER =
-  typeof navigator !== 'undefined' && /Mac|iPhone|iPad/.test(navigator.userAgent) ? '⌘' : 'Ctrl';
-
 /**
- * Command palette (panel over Home, Inset direction): Ctrl+K or ⌘K anywhere, the search control in
- * the page bar or the sidebar's search field open it. Running a page, customer or deal moves it to
- * the top of Recent; a starting point has nowhere to go, so running only closes the palette.
+ * Command palette (panel over Home, Inset direction): Ctrl+K or ⌘K anywhere, or the sidebar's
+ * search field, which shows the shortcut, open it: one door on the screen, not two. Running a
+ * page, customer or deal moves it to the top of Recent; a starting point has nowhere to go, so
+ * running only closes the palette.
  */
 export default function CommandPaletteBlock() {
   const sidebarId = useId();
@@ -72,20 +69,6 @@ export default function CommandPaletteBlock() {
             <Breadcrumbs separator="arrow">
               <Breadcrumbs.Item>Home</Breadcrumbs.Item>
             </Breadcrumbs>
-            {/* The palette's door in the bar, with its shortcut, so it can be found by sight. */}
-            <Button
-              variant="secondary"
-              preset="ghost"
-              size="sm"
-              aria-haspopup="dialog"
-              aria-keyshortcuts="Control+K Meta+K"
-              onClick={() => setOpen(true)}
-              className="-mr-ws-5 ml-auto"
-            >
-              <Button.Icon icon={RiSearchLine} />
-              Search
-              <span className="text-ws-static-subtle">{`${MODIFIER} K`}</span>
-            </Button>
           </div>
         </div>
 

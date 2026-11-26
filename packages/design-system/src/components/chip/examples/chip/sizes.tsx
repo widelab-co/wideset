@@ -9,7 +9,9 @@ export default function ChipSizes() {
     <div className="gap-ws-12 flex flex-wrap items-center">
       {(['sm', 'md', 'lg'] as const).map((size) => (
         <Chip key={size} size={size}>
-          Remote only
+          <Chip.Action>
+            <Chip.Label>Remote only</Chip.Label>
+          </Chip.Action>
         </Chip>
       ))}
     </div>

@@ -13,7 +13,7 @@ import TabRow from './TabRow';
  * side by side, a row of selects), it is laid out at its natural size and drawn smaller to
  * fit, so nothing overlaps or runs off the card.
  */
-const Fit = ({ children }: { children: React.ReactNode }) => {
+export const Fit = ({ children }: { children: React.ReactNode }) => {
   const box = useRef<HTMLDivElement>(null);
   const [zoom, setZoom] = useState<number | null>(null);
   useLayoutEffect(() => {

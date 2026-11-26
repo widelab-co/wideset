@@ -570,6 +570,17 @@ describe('ComboBox', () => {
 
       expect(baseElement).toMatchSnapshot();
     });
+
+    it.each(['sm', 'md', 'lg'] as const)(
+      'should match snapshot for size="%s" with a clear button and a value',
+      (size) => {
+        const { container } = render(
+          <ComboBox options={options} defaultValue="poland" size={size} clearable />,
+        );
+        expect(screen.getByRole('button', { name: 'Clear selection' })).toBeInTheDocument();
+        expect(container).toMatchSnapshot();
+      },
+    );
   });
 });
 

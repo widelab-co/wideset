@@ -405,7 +405,7 @@ export const BLOCKS: BlockMeta[] = [
     direction: 'inset',
     navigation: 'sidebar',
     description:
-      'Team goals on a raised page: each goal’s figure against its target with one bar, a judged state and key results to tick off, then the quarter’s leaderboard with your row selected and the milestones reached, and a dialog to add a goal.',
+      'Team goals on a raised page: each goal’s figure against its target with one bar, a judged state and key results to tick off, then the quarter’s leaderboard with your row marked “(you)” and the milestones reached, and a dialog to add a goal.',
   },
   {
     id: 'profile',
@@ -485,7 +485,7 @@ export const BLOCKS: BlockMeta[] = [
     direction: 'inset',
     navigation: 'sidebar',
     description:
-      'Adding a product to the catalogue on a raised page: details, photos with a cover, pricing with a live margin, options that make variants and inventory as cards, either beside its status, sales channels and a live preview (split) or alone in a centred column with the actions in a bar at the foot (centered).',
+      'Adding a product to the catalogue on a raised page: details, photos with a cover, pricing with a live margin, options that make variants and inventory as cards, either beside its sales channels and a live preview (split) or alone in a centred column with the actions in a bar at the foot (centered).',
   },
   {
     id: 'import',
@@ -600,12 +600,28 @@ export const BLOCKS: BlockMeta[] = [
       'An agent workspace in Code mode: sessions by repository, a transcript of the plan, steps, test runs and an approval waiting for a command, beside a pane with the changes, a terminal, a preview, the files, the tasks or the pull request’s checks.',
   },
   {
+    id: 'agent-research',
+    title: 'Agent research',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'A research run in Chat mode: the plan the agent follows, its steps folded to a few lines, and the report with a comparison table and numbered citations, beside the sources it read, behind a line; a citation lights its source and a source its citations.',
+  },
+  {
     id: 'agent-sessions',
     title: 'Agent sessions',
     direction: 'inset',
     navigation: 'sidebar',
     description:
       'Every Code session in one list to work through: a search and a filter by state, the sessions under their repositories with the state, branch, pull request and its checks, the last step and the run time, the ones that need you first and answered from the row, and Stop and Archive for a selection.',
+  },
+  {
+    id: 'agent-states',
+    title: 'Agent states',
+    direction: 'inset',
+    navigation: 'sidebar',
+    description:
+      'One Code session at the moments it has to handle, picked from the top bar: the usage limit reached, a step that failed, a connector to reconnect, a question from the agent, the context nearly full, the connection lost, messages waiting in the queue and a run you stopped, each shown where it happens with its way out.',
   },
 ];
 
@@ -738,6 +754,12 @@ export const PANELS: PanelMeta[] = [
     title: 'Export dialog',
     description:
       'Exporting customers in a dialog: all, the filtered or the selected ones with their counts, the date added, the columns and the format, then the file prepared in place and downloaded, or e-mailed when it is large.',
+  },
+  {
+    id: 'agent-context',
+    title: 'Agent context',
+    description:
+      'A session’s environment in a popover from the context meter in the composer: how full the context is and what fills it with a way to compact it, the connectors with the one to reconnect, the files and the document the session produced, and the pull request it opened.',
   },
 ];
 

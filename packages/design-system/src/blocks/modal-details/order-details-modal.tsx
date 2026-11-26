@@ -49,11 +49,11 @@ export function OrderDetailsModal({
           if (event.currentTarget instanceof HTMLElement) event.currentTarget.focus();
         }}
       >
-        <div className="flex min-h-0 flex-1 flex-col overflow-y-auto">
+        <div className="ws-scrollbar flex min-h-0 flex-1 flex-col overflow-y-auto">
           <div className="gap-ws-12 p-ws-11 relative flex flex-col items-start">
             <OrderThumbnail icon={order.icon} />
             <div className="flex w-full flex-col">
-              {/* Modal.Title is 20px; Figma's title here is 24/32 in Static/Text/Base. */}
+              {/* Modal.Title is 18px; Figma's title here is 24/32 in Static/Text/Base. */}
               <Modal.Title className="-mt-ws-2">
                 <span className="typography-title-sm text-ws-static-base block">
                   Order #{order.id}
