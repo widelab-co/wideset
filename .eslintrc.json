@@ -61,10 +61,7 @@
     "unused-imports/no-unused-vars": "warn",
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",
-    // A state change computed from the value the render captured undoes or repeats another one
-    // that lands before the next render (two calls in one handler, an effect and an event).
-    // Compute it from the current value: setOpen((open) => !open). A setter that takes no
-    // function (a controlled callback) is the exception: disable the line and say why.
+    // Setters take the updater form; a controlled callback that cannot: disable the line, say why.
     "no-restricted-syntax": [
       "error",
       {
