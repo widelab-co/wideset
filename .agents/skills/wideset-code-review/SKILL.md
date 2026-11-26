@@ -107,7 +107,8 @@ API change in one PR that no single changeset line can describe.
 ### 4. Spawn the three sub-agents in parallel
 
 Each gets the diff command, the commit list, the PR title/body, the changeset files, and its own brief only. Every
-brief ends with the same rule: a finding names its kind of problem and lists every place in the diff where that kind
+brief asks reviewers to trace generated copies to their source and name the regeneration command.
+Each brief ends with the same rule: a finding names its kind of problem and lists every place in the diff where that kind
 occurs, copies of shared files included, so the author fixes it once instead of one review round per place.
 
 - **Safety**: "Using the risk zones from step 2, list every place this diff can hurt consumers, the release or the repo: file:line,

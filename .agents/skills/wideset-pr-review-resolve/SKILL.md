@@ -76,7 +76,9 @@ a reviewer's seniority, or agreement count is not evidence.
 sits elsewhere, and CodeRabbit re-reads only the files changed since its last round, so a
 one-line fix earns a new round per remaining case. Name the kind of bug in a few words ("reads
 state from the last render", "Enter during IME composition submits"), search the whole PR for
-it, every copy of a shared file included, and fix every case at once. The sweep is done when the
+it and apply each eligible fix. Cases that touch public APIs, shared utilities, tokens or
+dependencies go to Needs decision. For generated files, fix the source and regenerate with the
+repository command (for example, `pnpm build:skills`). The sweep is done when the
 report lists, for the finding, the kind, the search you ran and every place changed; the reply
 says how many places changed.
 
