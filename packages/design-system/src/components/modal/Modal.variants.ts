@@ -16,6 +16,7 @@ export const modalContainerVariants = cva(
     'max-w-[600px]',
     VIEWPORT_INSET,
     'bg-ws-static-overlay border-ws-dynamic-secondary-default shadow-ws-high',
+    'outline-hidden',
   ),
 );
 

@@ -1,26 +1,19 @@
 import type { VariantProps } from 'class-variance-authority';
-import type {
-  ButtonHTMLAttributes,
-  ForwardRefExoticComponent,
-  MouseEventHandler,
-  PropsWithoutRef,
-  ReactNode,
-  RefAttributes,
-} from 'react';
+import type { ButtonHTMLAttributes, MouseEventHandler, ReactNode } from 'react';
 
 import type { MotionProps } from '../../motion/Motion.types';
 import type { ButtonIconProps } from './Button.types';
-import type { ButtonIcon } from './ButtonIcon';
 import type { iconButtonVariants } from './IconButton.variants';
-
-/** `IconButton.Icon` is `Button.Icon`; same props. */
-export type IconButtonIconProps = ButtonIconProps;
 
 /** An icon-only action button; provide an accessible name. */
 export type IconButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
   MotionProps &
   VariantProps<typeof iconButtonVariants> & {
-    /** Whether to render the icon button styling onto its child element via Radix Slot. */
+    /** Accessible action name. Provide this or `aria-labelledby`. */
+    'aria-label'?: string;
+    /** ID of the element naming the action. Provide this or `aria-label`. */
+    'aria-labelledby'?: string;
+    /** Whether to render onto a child via Radix Slot. Set its accessible name on IconButton; it is forwarded to the child. */
     asChild?: boolean;
     /** Optional child element used when `asChild` is enabled. */
     children?: ReactNode;
@@ -36,10 +29,4 @@ export type IconButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
     onClick?: MouseEventHandler<HTMLButtonElement>;
     /** Native button type used for form behavior. */
     type?: 'button' | 'submit' | 'reset';
-  };
-
-export type IconButtonWithSubComponents = ForwardRefExoticComponent<
-  PropsWithoutRef<IconButtonProps> & RefAttributes<HTMLButtonElement>
-> & {
-  Icon: typeof ButtonIcon;
-};
+  } & ({ 'aria-label': string } | { 'aria-labelledby': string });

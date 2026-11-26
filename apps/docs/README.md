@@ -29,20 +29,21 @@ Vitest and tsc. Only the stylesheets come from the built package (`@wideset/reac
 | `/blocks/<id>`         | One block, live, and its code; `/blocks/<id>.md` and `/blocks.md` for models |
 | `/blocks/<id>/preview` | The block alone at the window's size (`?theme=light\|dark`)                  |
 | `/docs/playground`     | Redirects old Playground links to the component's Playground tab             |
+| `/docs/themes`         | Brand presets (colour, corners, font) on live components, and the CSS        |
 | `/llms.txt`, `/r/*`    | The docs for models; the shadcn registry                                     |
 
 wideset.co is shared with the landing page: the docs Worker owns only the paths in
-`wrangler.jsonc` (`/docs*`, `/components*`, `/blocks*`, …), so Playground sits under
+`wrangler.jsonc` (`/docs*`, `/components*`, `/blocks*`, …), so Playground and Themes sit under
 `/docs`. A new top-level path needs a route there, a line in the "Check the deployed host" step of
 `.github/workflows/build.yaml` and an exclusion in the zone's Redirect Rule.
 
 **A component page** opens with the title and description and "Copy page" (the page as
-Markdown, or handed to a model), then up to five tabs whose content switches in place:
+Markdown, or handed to a model), then up to four tabs whose content switches in place:
 
-- **Overview:** the component on its stage; Installation, one card whose header picks CLI or
+- **Overview:** the component on its stage, with the code for its defaults in the same "View
+  code" peek as an example; Installation, one card whose header picks CLI or
   Manual and the package manager; Examples, each a card with the live example and its code; API
   reference, one props table per part; Accessibility, when the component's spec has the section.
-- **Code** shows the component's own files from its registry item.
 - **Anatomy:** the component drawn 1:1 with each part named beside it, then the parts as a table
   (Part, Renders, Description). Hover highlights the part. Activating its name opens a popup
   with the tokens read from the rendered classes (`src/lib/tokenClasses.ts`) and computed styles.
@@ -113,9 +114,11 @@ where to go instead. Never a sentence that repeats the title or describes what i
 A playground is the component's `examples/<id>/default.tsx` (one typical instance whose root
 takes `{...props}`) with controls: every string-literal union and boolean of the root props type
 in `src/generated/controls.json`, with the component's own default, so a new variant shows up
-without touching anything. The Overview stage and the gallery thumbnail show the defaults. The
-component's Playground tab (`?tab=playground`) contains the workbench. The Properties panel sets
-the props, the code shows the resulting JSX, and the address saves changed values.
+without touching anything. The Overview stage and the gallery thumbnail show the defaults, and
+the stage's code is `code(defaults)`. The component's Playground tab (`?tab=playground`) contains
+the workbench. The Properties panel sets the props, the code shows the resulting JSX, and the
+address saves changed values. The component's own files are under Installation › Manual; an old
+`?tab=code` address opens there (`#installation-manual`), without the file it named.
 
 `src/playgrounds/<id>.tsx` is optional tuning: `playground({...})` from
 `src/lib/playground-kit.ts` with `hide`, `labels` (`preset` is already "Style"), `order`,
@@ -165,6 +168,17 @@ is merged.
   screen for 200 ms and is removed when it leaves, so scrolling the gallery keeps a handful of
   blocks alive, not all of them; nothing to regenerate when a block changes.
 
+## Themes
+
+`/docs/themes` (`src/components/Themes.tsx`): a brand preset sets the primary colour ramp, the
+corner ladder and the font; a "Customize" row changes them by hand; the cards under it are live
+components in that theme. "Get code", beside the presets, opens a dialog with the CSS to paste
+after the Wideset stylesheet. The theme is a scope on each card (the light or dark tokens re-declared under the
+primitive overrides), so nothing outside the cards changes. A third-party brand appears by name
+only: no logos and no proprietary fonts are in the repository. An open font loads (Poppins, from
+`@fontsource`); a licensed one (UberMove, Apercu) is named first in the preset's stack, so it
+draws where the viewer has it installed, and Inter stands in everywhere else.
+
 ## Adding things
 
 - **A guide page:** `src/content/docs/<name>.mdx` with `title`, `description`, `order` in the
@@ -187,7 +201,7 @@ is merged.
   actions), `parts.tsx` (the bar, the sidebar, the rail, the page tabs, the code block, the
   example card, Installation, "Copy page", breadcrumbs), `SearchPalette` (⌘K, on the system's `Modal` +
   `Search`), `Thumbnail`, `Playground` + `Workbench` + `PropertiesPanel` (one shared store),
-  `PropsTables`, `AnatomyDiagram`, `RelationshipGraph`, `BlockFrame` (a block on its
+  `PropsTables`, `AnatomyDiagram`, `RelationshipGraph`, `Themes`, `BlockFrame` (a block on its
   preview route) and `BlockPreviewFrame` (that route in a frame).
 - `src/styles/docs.css` — Tailwind plus `@import '@wideset/react/theme'`, so the chrome is
   written in `ws` classes (`bg-ws-static-container`, `text-ws-static-subtle`, …) and follows

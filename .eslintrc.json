@@ -96,7 +96,7 @@
       }
     },
     {
-      // Node scripts (registry, playground, the wideset CLI, the docs generators): plain ESM run with node.
+      // Node scripts (registry, the wideset CLI, the docs generators): plain ESM run with node.
       "files": ["**/scripts/**/*.mjs", "**/cli/**/*.mjs"],
       "env": {
         "node": true,

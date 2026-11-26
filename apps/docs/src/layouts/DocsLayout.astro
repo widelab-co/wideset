@@ -18,7 +18,7 @@ import { THEME_KEY } from '../lib/theme';
  * same component everywhere, listing only that page's rows), the content, and a rail when the
  * page has one. Every page starts with PageHead at the same offset; no lines between columns.
  */
-export type Area = 'docs' | 'components' | 'blocks';
+export type Area = 'docs' | 'components' | 'blocks' | 'themes';
 interface Props {
   title: string;
   description: string;
@@ -34,6 +34,8 @@ interface Props {
   broad?: boolean;
   /** No container: the page spans the window, with the bar's 32px at the sides (a block). */
   full?: boolean;
+  /** A rail wide enough for the Playground's properties, on every tab so the content stays put. */
+  wideRail?: boolean;
 }
 const {
   title,
@@ -45,12 +47,14 @@ const {
   sections = [],
   broad = false,
   full = false,
+  wideRail = false,
 } = Astro.props;
 const hasRail = Astro.slots.has('rail');
 const PAGES: { id: Area; label: string; href: string }[] = [
   { id: 'docs', label: 'Docs', href: '/docs/introduction' },
   { id: 'components', label: 'Components', href: '/components' },
   { id: 'blocks', label: 'Blocks', href: '/blocks' },
+  { id: 'themes', label: 'Themes', href: '/docs/themes' },
 ];
 
 const docs = await docsNav();
@@ -114,7 +118,7 @@ const searchItems: SearchItem[] = [
       class:list={[
         'px-ws-9 sm:px-ws-14',
         !full && 'mx-auto max-w-[95rem]',
-        // The left column is the sidebar; a page without rows has none (a block).
+        // The left column is the sidebar; a page without rows has none (Themes, a block).
         nav && 'lg:grid lg:gap-ws-14',
         nav &&
           // A reading page keeps the rail's column even without a rail, so its content sits at
@@ -122,7 +126,9 @@ const searchItems: SearchItem[] = [
           // its right edge, the reading column centred between them.
           (broad
             ? 'lg:grid-cols-[15.25rem_minmax(0,1fr)]'
-            : 'lg:grid-cols-[15.25rem_minmax(0,1fr)] xl:grid-cols-[15.25rem_minmax(0,1fr)_12rem]'),
+            : wideRail
+              ? 'lg:grid-cols-[15.25rem_minmax(0,1fr)] xl:grid-cols-[15.25rem_minmax(0,1fr)_17rem]'
+              : 'lg:grid-cols-[15.25rem_minmax(0,1fr)] xl:grid-cols-[15.25rem_minmax(0,1fr)_12rem]'),
       ]}
     >
       {nav && (

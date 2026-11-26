@@ -1,4 +1,3 @@
-import { RiCloseLine } from '@remixicon/react';
 import { Button, Card, Chip, InlineAlert } from '@wideset/react';
 import { useEffect, useId, useRef } from 'react';
 
@@ -106,12 +105,13 @@ export function OrderSummary({
                         size="sm"
                         variant="secondary"
                         style="border"
-                        aria-label={`Remove promo code ${samplePromo.code}`}
                         disabled={payment !== 'idle'}
-                        onClick={() => onDiscountChange(false)}
                       >
-                        {samplePromo.code}
-                        <Chip.Icon icon={RiCloseLine} />
+                        <Chip.Label>{samplePromo.code}</Chip.Label>
+                        <Chip.IconButton
+                          aria-label={`Remove promo code ${samplePromo.code}`}
+                          onClick={() => onDiscountChange(false)}
+                        />
                       </Chip>
                     </>
                   }

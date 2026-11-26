@@ -93,7 +93,13 @@ describe('Card', () => {
               <Card.Description>Card Description</Card.Description>
             </div>
             <Card.Action>
-              <IconButton icon={RiDownloadLine} preset="ghost" size="md" variant="secondary" />
+              <IconButton
+                icon={RiDownloadLine}
+                preset="ghost"
+                size="md"
+                variant="secondary"
+                aria-label="Download"
+              />
             </Card.Action>
           </div>
         </Card.Header>
