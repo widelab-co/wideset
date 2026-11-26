@@ -266,7 +266,7 @@ export const Composition: Story = {
           <nav className="gap-ws-2 flex flex-col">
             {fullNav.map(({ icon, label, active, group }) =>
               group ? (
-                <Sidebar.SectionHeader key={group}>{group}</Sidebar.SectionHeader>
+                <Sidebar.SectionHeader key={`group-${group}`}>{group}</Sidebar.SectionHeader>
               ) : (
                 <Sidebar.Item key={label} href="#" icon={icon} label={label} active={active} />
               ),

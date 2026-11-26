@@ -1,7 +1,7 @@
 import { cva } from 'class-variance-authority';
 import { cn } from 'src/lib/utils';
 
-import { hoverTintMotion, pressMotion } from '../../motion/recipes';
+import { hoverTintMotion } from '../../motion/recipes';
 
 /**
  * Figma wraps the label in a `Label` frame carrying its own `Gap/2`–`Gap/3` inset,
@@ -137,7 +137,7 @@ export const filterButtonClearVariants = cva('relative shrink-0', {
 
 export const filterButtonTriggerMotionVariants = cva('', {
   variants: {
-    enabled: { true: cn(hoverTintMotion, pressMotion), false: '' },
+    enabled: { true: hoverTintMotion, false: '' },
   },
   defaultVariants: { enabled: true },
 });

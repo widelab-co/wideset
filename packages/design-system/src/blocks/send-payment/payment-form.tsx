@@ -10,9 +10,9 @@ import {
 } from '@wideset/react';
 import type { FormEvent } from 'react';
 
-import { balance, FEE, recipientLabel, recipients, ROUTES, today } from './data';
-import { formatAmount, formatPercent, formatUsd } from './format';
-import { feeFor, parseAmount, type PaymentErrors, type PaymentValues, type When } from './payment';
+import { recipientLabel, recipients, ROUTES, samplePayment, today } from './data';
+import { formatAmount, formatUsd } from './format';
+import { parseAmount, type PaymentErrors, type PaymentValues, type When } from './payment';
 
 const SAMPLE_TODAY = new Date(`${today}T00:00`);
 
@@ -33,9 +33,8 @@ type PaymentFormProps = {
 
 /**
  * The payment, in one column and in the order it is thought of: who gets it, how much, when, and
- * the line they will see on their statement. The balance and the fee stand under the amount,
- * where they are needed, and the fee follows what is typed. The screen holds the values and the
- * errors; nothing is checked while typing, everything on submit.
+ * the line they will see on their statement. The example balance and fee stand under the amount.
+ * The screen holds the values and the errors, and checks the fields on submit.
  */
 export function PaymentForm({ id, values, errors, onChange, onSubmit }: PaymentFormProps) {
   const amount = parseAmount(values.amount);
@@ -74,11 +73,7 @@ export function PaymentForm({ id, values, errors, onChange, onSubmit }: PaymentF
             <FormField
               label="Amount"
               htmlFor={`${id}-amount`}
-              helperText={
-                amount > 0
-                  ? `${formatUsd(balance)} available. The fee for this payment is ${formatUsd(feeFor(amount))}.`
-                  : `${formatUsd(balance)} available. The fee is ${formatPercent(FEE.rate)}, ${formatUsd(FEE.max)} at most.`
-              }
+              helperText={`${formatUsd(samplePayment.balance)} example balance. ${formatUsd(samplePayment.fee)} sample fee.`}
               errorText={errors.amount}
             >
               <TextInput

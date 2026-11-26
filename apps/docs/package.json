@@ -12,12 +12,13 @@
     "lint": "eslint . --ext .ts,.tsx,.mjs",
     "lint:fix": "pnpm lint --fix",
     "generate": "node scripts/generate.mjs",
-    "test": "node scripts/generate.mjs && node --test scripts/generate.test.mjs scripts/blocks.test.mjs"
+    "test": "node scripts/generate.mjs && node --test scripts/generate.test.mjs scripts/blocks.test.mjs && vitest run"
   },
   "dependencies": {
     "@astrojs/mdx": "^8.0.2",
     "@astrojs/react": "^7.0.0",
     "@fontsource-variable/inter": "^5.3.0",
+    "@fontsource/poppins": "^5.3.0",
     "@remixicon/react": "^4.9.0",
     "@tailwindcss/vite": "^4.3.3",
     "@wideset/react": "workspace:*",
@@ -32,6 +33,8 @@
     "@types/react": "^19.2.6",
     "@types/react-dom": "^19.2.3",
     "@wideset/skills": "workspace:*",
-    "typescript": "^5.9.3"
+    "jsdom": "^27.1.0",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.10"
   }
 }

@@ -18,7 +18,7 @@ import { THEME_KEY } from '../lib/theme';
  * same component everywhere, listing only that page's rows), the content, and a rail when the
  * page has one. Every page starts with PageHead at the same offset; no lines between columns.
  */
-export type Area = 'docs' | 'components' | 'blocks' | 'playground';
+export type Area = 'docs' | 'components' | 'blocks' | 'themes';
 interface Props {
   title: string;
   description: string;
@@ -29,13 +29,13 @@ interface Props {
   current?: string;
   /** The sidebar's search placeholder. */
   search?: string;
-  /** The sidebar switches the page in place (the Playground). */
-  soft?: boolean;
   sections?: SearchItem[];
   /** The content takes its whole column instead of the 760px reading measure. */
   broad?: boolean;
   /** No container: the page spans the window, with the bar's 32px at the sides (a block). */
   full?: boolean;
+  /** A rail wide enough for the Playground's properties, on every tab so the content stays put. */
+  wideRail?: boolean;
 }
 const {
   title,
@@ -44,17 +44,17 @@ const {
   nav,
   current = '',
   search = 'Search…',
-  soft = false,
   sections = [],
   broad = false,
   full = false,
+  wideRail = false,
 } = Astro.props;
 const hasRail = Astro.slots.has('rail');
 const PAGES: { id: Area; label: string; href: string }[] = [
   { id: 'docs', label: 'Docs', href: '/docs/introduction' },
   { id: 'components', label: 'Components', href: '/components' },
   { id: 'blocks', label: 'Blocks', href: '/blocks' },
-  { id: 'playground', label: 'Playground', href: '/docs/playground' },
+  { id: 'themes', label: 'Themes', href: '/docs/themes' },
 ];
 
 const docs = await docsNav();
@@ -76,7 +76,7 @@ const searchItems: SearchItem[] = [
 ];
 ---
 
-<html lang="en">
+<html lang="en" class="ws-scrollbars">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -118,7 +118,7 @@ const searchItems: SearchItem[] = [
       class:list={[
         'px-ws-9 sm:px-ws-14',
         !full && 'mx-auto max-w-[95rem]',
-        // The left column is the sidebar; a page without rows has none (a block).
+        // The left column is the sidebar; a page without rows has none (Themes, a block).
         nav && 'lg:grid lg:gap-ws-14',
         nav &&
           // A reading page keeps the rail's column even without a rail, so its content sits at
@@ -126,7 +126,9 @@ const searchItems: SearchItem[] = [
           // its right edge, the reading column centred between them.
           (broad
             ? 'lg:grid-cols-[15.25rem_minmax(0,1fr)]'
-            : 'lg:grid-cols-[15.25rem_minmax(0,1fr)] xl:grid-cols-[15.25rem_minmax(0,1fr)_12rem]'),
+            : wideRail
+              ? 'lg:grid-cols-[15.25rem_minmax(0,1fr)] xl:grid-cols-[15.25rem_minmax(0,1fr)_17rem]'
+              : 'lg:grid-cols-[15.25rem_minmax(0,1fr)] xl:grid-cols-[15.25rem_minmax(0,1fr)_12rem]'),
       ]}
     >
       {nav && (
@@ -135,7 +137,7 @@ const searchItems: SearchItem[] = [
           id="docs-nav"
           class="docs-nav sticky top-ws-19 -ml-ws-9 hidden h-[calc(100dvh-3.5rem)] overflow-y-auto lg:block"
         >
-          <SideNav groups={nav} current={current} placeholder={search} soft={soft} client:load />
+          <SideNav groups={nav} current={current} placeholder={search} client:load />
         </aside>
       )}
       <main class="min-w-0 pt-ws-14 pb-ws-23">
@@ -174,7 +176,6 @@ const searchItems: SearchItem[] = [
             groups={nav}
             current={current}
             placeholder={search}
-            soft={soft}
             className="pt-ws-9 pl-0"
             client:media="(max-width: 1023px)"
           />

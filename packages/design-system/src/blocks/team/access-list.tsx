@@ -40,7 +40,10 @@ export function AccessList<Role extends string>({
       <h3 id={id} className="typography-body-md text-ws-static-subtle">
         Who has access
       </h3>
-      <ul aria-labelledby={id} className="gap-ws-5 flex max-h-[18rem] flex-col overflow-y-auto">
+      <ul
+        aria-labelledby={id}
+        className="gap-ws-5 ws-scrollbar flex max-h-[18rem] flex-col overflow-y-auto"
+      >
         {people.map((person) => (
           <li key={person.id} className="gap-ws-5 py-ws-3 flex items-center">
             {person.name && person.initials ? (

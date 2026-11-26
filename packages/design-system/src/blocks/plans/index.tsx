@@ -95,7 +95,7 @@ export default function Plans() {
         </div>
 
         {/* `relative` keeps the comparison's screen-reader header inside its scroll area. */}
-        <div className="px-ws-12 relative lg:min-h-0 lg:flex-1 lg:overflow-y-auto">
+        <div className="px-ws-12 ws-scrollbar relative lg:min-h-0 lg:flex-1 lg:overflow-y-auto">
           <div className="pt-ws-9 pb-ws-16 mx-auto w-full max-w-[80rem]">
             <FeatureTable />
           </div>

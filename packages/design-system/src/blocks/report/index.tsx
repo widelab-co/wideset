@@ -139,7 +139,7 @@ export default function Report() {
         />
 
         {/* The controls stay in view; the report scrolls under them. */}
-        <div className="px-ws-12 pb-ws-12 min-h-0 flex-1 overflow-y-auto">
+        <div className="px-ws-12 pb-ws-12 ws-scrollbar min-h-0 flex-1 overflow-y-auto">
           <div className={cn(COLUMN, 'gap-ws-9 flex flex-col')}>
             <section aria-label="Key figures" className="gap-ws-9 grid grid-cols-4">
               {figures.map((figure) => (

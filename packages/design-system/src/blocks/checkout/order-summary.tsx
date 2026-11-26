@@ -1,4 +1,3 @@
-import { RiCloseLine } from '@remixicon/react';
 import { Button, Card, Chip, InlineAlert } from '@wideset/react';
 import { useEffect, useId, useRef } from 'react';
 
@@ -7,14 +6,14 @@ import {
   type OrderTotals,
   plan,
   product,
-  type Promo,
   receiptEmail,
   ROUTES,
+  samplePromo,
   subscription,
   today,
   workspace,
 } from './data';
-import { formatDate, formatPercent, formatPeriod, formatUsd } from './format';
+import { formatDate, formatPeriod, formatUsd } from './format';
 import { PromoCode } from './promo-code';
 import { SummaryRow } from './summary-row';
 import { TextLink } from './text-link';
@@ -29,8 +28,8 @@ export type PaymentState = 'idle' | 'paying' | 'paid';
 type OrderSummaryProps = {
   totals: OrderTotals;
   interval: Interval;
-  promo: Promo | null;
-  onPromoChange: (promo: Promo | null) => void;
+  showDiscount: boolean;
+  onDiscountChange: (show: boolean) => void;
   payment: PaymentState;
   onPay: () => void;
 };
@@ -44,8 +43,8 @@ type OrderSummaryProps = {
 export function OrderSummary({
   totals,
   interval,
-  promo,
-  onPromoChange,
+  showDiscount,
+  onDiscountChange,
   payment,
   onPay,
 }: OrderSummaryProps) {
@@ -93,9 +92,11 @@ export function OrderSummary({
             </dl>
             {/* The field and the line it turns into share one place, so applying a code changes
                 nothing around it. */}
-            {!promo && payment !== 'paid' && <PromoCode onApply={onPromoChange} />}
+            {!showDiscount && payment !== 'paid' && (
+              <PromoCode onApply={() => onDiscountChange(true)} />
+            )}
             <dl className={ROWS}>
-              {promo && (
+              {showDiscount && (
                 <SummaryRow
                   label={
                     <>
@@ -104,16 +105,17 @@ export function OrderSummary({
                         size="sm"
                         variant="secondary"
                         style="border"
-                        aria-label={`Remove promo code ${promo.code}`}
                         disabled={payment !== 'idle'}
-                        onClick={() => onPromoChange(null)}
                       >
-                        {promo.code}
-                        <Chip.Icon icon={RiCloseLine} />
+                        <Chip.Label>{samplePromo.code}</Chip.Label>
+                        <Chip.IconButton
+                          aria-label={`Remove promo code ${samplePromo.code}`}
+                          onClick={() => onDiscountChange(false)}
+                        />
                       </Chip>
                     </>
                   }
-                  detail={`${formatPercent(promo.rate)} off the first ${period}`}
+                  detail={`Sample discount for the first ${period}`}
                   amount={formatUsd(-totals.discount)}
                 />
               )}
@@ -122,10 +124,7 @@ export function OrderSummary({
                 detail={formatPeriod(today, subscription.periodEnd)}
                 amount={formatUsd(-totals.credit)}
               />
-              <SummaryRow
-                label={`VAT ${formatPercent(totals.vatRate)}${totals.vatRate ? '' : ', reverse charge'}`}
-                amount={formatUsd(totals.vat)}
-              />
+              <SummaryRow label={totals.tax.label} amount={formatUsd(totals.tax.amount)} />
             </dl>
           </div>
 

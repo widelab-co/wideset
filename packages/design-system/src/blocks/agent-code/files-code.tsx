@@ -31,7 +31,7 @@ export function FilesCode({ file }: { file: RepoFile }) {
       aria-label={`Contents of ${name}`}
       // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- a scrolling region must be reachable by keyboard
       tabIndex={0}
-      className="focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default min-h-0 flex-1 overflow-auto -outline-offset-2"
+      className="focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default ws-scrollbar min-h-0 flex-1 overflow-auto -outline-offset-2"
     >
       <div className="py-ws-5 flex min-h-full w-max min-w-full">
         <div

@@ -50,8 +50,11 @@ its imports named so the builder can resolve Wideset exports to their registry i
 entry imports the compiled layout stylesheet. The documentation's Code tab shows the files the
 installer writes, and Storybook reads the original source.
 
-The registry adds `ws-block-utility` to class props on installed markup. The compiled block
-utilities apply within that scope, including when a marked element renders in a portal.
+The registry adds `ws-block-utility` to the installed entry’s layout root and to its portal parts.
+The layout root is the entry’s `AppShell` or its single outer HTML element. The compiled
+utilities apply to each marked element and its DOM descendants. For custom content rendered
+through a portal callback, such as a toast message, or beside the layout root, such as a
+full-screen viewer, put the class on its styled DOM root.
 
 ## The four directions
 
@@ -115,6 +118,8 @@ centre their panel on a plain white screen.
   36px in a larger switcher); other workspaces are `Avatar shape="square"` with initials. The
   sign-in screens show the app icon instead (`app-icon.tsx`, Figma's glass tile, the same in
   dark). Icons are Remix.
+- Every element that scrolls on its own (`overflow-*-auto`, `overflow-*-scroll`) takes
+  `ws-scrollbar`, unless its bar is hidden on purpose (`[scrollbar-width:none]`).
 - Past 1440px the frame keeps filling the window and the content stops growing
   (`mx-auto w-full max-w-[80rem]`; a thread reads at 48rem); boards, calendars and timelines may
   fill. Panels stack their sections from the top. At 1440×960 nothing scrolls.

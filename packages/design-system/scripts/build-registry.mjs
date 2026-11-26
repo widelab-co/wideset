@@ -41,7 +41,7 @@ import {
   blockEntries,
   blockStyleImport,
   blockStyles,
-  markBlockClasses,
+  markBlockBoundaries,
   publicExports,
   rewriteBlockImports,
 } from './registry-blocks.mjs';
@@ -350,7 +350,8 @@ export async function buildRegistry({ root = ROOT, out, base, version, commit } 
         if (wanted) edits.push({ pos, end, text: wanted });
       }
 
-      if (block) edits.push(...markBlockClasses(source, rel));
+      const isBlockEntry = block && rel === directory + '/index.tsx';
+      if (block) edits.push(...markBlockBoundaries(source, rel, isBlockEntry));
 
       let content = source;
       for (const edit of edits.sort((a, b) => b.pos - a.pos)) {
@@ -364,7 +365,7 @@ export async function buildRegistry({ root = ROOT, out, base, version, commit } 
       // directive from every second file. This form is never matched: every project gets the
       // same files, and bundlers without Server Components ignore the directive.
       const clientDirective = /^\s*(['"])use client\1[^\S\n]*;?/.exec(content);
-      if (block && rel === directory + '/index.tsx') {
+      if (isBlockEntry) {
         const rest = content.slice(clientDirective?.[0].length ?? 0).trimStart();
         content = "'use client';\n\n" + blockStyleImport + rest;
       } else if (needsClientDirective(abs, source) && !clientDirective) {

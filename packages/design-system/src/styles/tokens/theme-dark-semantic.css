@@ -350,162 +350,232 @@
     );
     --text-color-ws-dynamic-danger-default: var(--ws-dynamic-text-danger-default);
     --decoration-ws-dynamic-danger-default: var(--ws-dynamic-text-danger-default);
+    --text-decoration-color-ws-dynamic-danger-default: var(--ws-dynamic-text-danger-default);
     --fill-ws-dynamic-danger-default: var(--ws-dynamic-text-danger-default);
     --stroke-ws-dynamic-danger-default: var(--ws-dynamic-text-danger-default);
     --text-color-ws-dynamic-danger-disabled: var(--ws-dynamic-text-danger-disabled);
     --decoration-ws-dynamic-danger-disabled: var(--ws-dynamic-text-danger-disabled);
+    --text-decoration-color-ws-dynamic-danger-disabled: var(--ws-dynamic-text-danger-disabled);
     --fill-ws-dynamic-danger-disabled: var(--ws-dynamic-text-danger-disabled);
     --stroke-ws-dynamic-danger-disabled: var(--ws-dynamic-text-danger-disabled);
     --text-color-ws-dynamic-danger-hover: var(--ws-dynamic-text-danger-hover);
     --decoration-ws-dynamic-danger-hover: var(--ws-dynamic-text-danger-hover);
+    --text-decoration-color-ws-dynamic-danger-hover: var(--ws-dynamic-text-danger-hover);
     --fill-ws-dynamic-danger-hover: var(--ws-dynamic-text-danger-hover);
     --stroke-ws-dynamic-danger-hover: var(--ws-dynamic-text-danger-hover);
     --text-color-ws-dynamic-danger-pressed: var(--ws-dynamic-text-danger-pressed);
     --decoration-ws-dynamic-danger-pressed: var(--ws-dynamic-text-danger-pressed);
+    --text-decoration-color-ws-dynamic-danger-pressed: var(--ws-dynamic-text-danger-pressed);
     --fill-ws-dynamic-danger-pressed: var(--ws-dynamic-text-danger-pressed);
     --stroke-ws-dynamic-danger-pressed: var(--ws-dynamic-text-danger-pressed);
     --text-color-ws-dynamic-inverse-default: var(--ws-dynamic-text-inverse-default);
     --decoration-ws-dynamic-inverse-default: var(--ws-dynamic-text-inverse-default);
+    --text-decoration-color-ws-dynamic-inverse-default: var(--ws-dynamic-text-inverse-default);
     --fill-ws-dynamic-inverse-default: var(--ws-dynamic-text-inverse-default);
     --stroke-ws-dynamic-inverse-default: var(--ws-dynamic-text-inverse-default);
     --text-color-ws-dynamic-inverse-disabled: var(--ws-dynamic-text-inverse-disabled);
     --decoration-ws-dynamic-inverse-disabled: var(--ws-dynamic-text-inverse-disabled);
+    --text-decoration-color-ws-dynamic-inverse-disabled: var(--ws-dynamic-text-inverse-disabled);
     --fill-ws-dynamic-inverse-disabled: var(--ws-dynamic-text-inverse-disabled);
     --stroke-ws-dynamic-inverse-disabled: var(--ws-dynamic-text-inverse-disabled);
     --text-color-ws-dynamic-inverse-hover: var(--ws-dynamic-text-inverse-hover);
     --decoration-ws-dynamic-inverse-hover: var(--ws-dynamic-text-inverse-hover);
+    --text-decoration-color-ws-dynamic-inverse-hover: var(--ws-dynamic-text-inverse-hover);
     --fill-ws-dynamic-inverse-hover: var(--ws-dynamic-text-inverse-hover);
     --stroke-ws-dynamic-inverse-hover: var(--ws-dynamic-text-inverse-hover);
     --text-color-ws-dynamic-inverse-pressed: var(--ws-dynamic-text-inverse-pressed);
     --decoration-ws-dynamic-inverse-pressed: var(--ws-dynamic-text-inverse-pressed);
+    --text-decoration-color-ws-dynamic-inverse-pressed: var(--ws-dynamic-text-inverse-pressed);
     --fill-ws-dynamic-inverse-pressed: var(--ws-dynamic-text-inverse-pressed);
     --stroke-ws-dynamic-inverse-pressed: var(--ws-dynamic-text-inverse-pressed);
     --text-color-ws-dynamic-on-danger-default: var(--ws-dynamic-text-on-danger-default);
     --decoration-ws-dynamic-on-danger-default: var(--ws-dynamic-text-on-danger-default);
+    --text-decoration-color-ws-dynamic-on-danger-default: var(--ws-dynamic-text-on-danger-default);
     --fill-ws-dynamic-on-danger-default: var(--ws-dynamic-text-on-danger-default);
     --stroke-ws-dynamic-on-danger-default: var(--ws-dynamic-text-on-danger-default);
     --text-color-ws-dynamic-on-danger-disabled: var(--ws-dynamic-text-on-danger-disabled);
     --decoration-ws-dynamic-on-danger-disabled: var(--ws-dynamic-text-on-danger-disabled);
+    --text-decoration-color-ws-dynamic-on-danger-disabled: var(
+      --ws-dynamic-text-on-danger-disabled
+    );
     --fill-ws-dynamic-on-danger-disabled: var(--ws-dynamic-text-on-danger-disabled);
     --stroke-ws-dynamic-on-danger-disabled: var(--ws-dynamic-text-on-danger-disabled);
     --text-color-ws-dynamic-on-danger-hover: var(--ws-dynamic-text-on-danger-hover);
     --decoration-ws-dynamic-on-danger-hover: var(--ws-dynamic-text-on-danger-hover);
+    --text-decoration-color-ws-dynamic-on-danger-hover: var(--ws-dynamic-text-on-danger-hover);
     --fill-ws-dynamic-on-danger-hover: var(--ws-dynamic-text-on-danger-hover);
     --stroke-ws-dynamic-on-danger-hover: var(--ws-dynamic-text-on-danger-hover);
     --text-color-ws-dynamic-on-danger-pressed: var(--ws-dynamic-text-on-danger-pressed);
     --decoration-ws-dynamic-on-danger-pressed: var(--ws-dynamic-text-on-danger-pressed);
+    --text-decoration-color-ws-dynamic-on-danger-pressed: var(--ws-dynamic-text-on-danger-pressed);
     --fill-ws-dynamic-on-danger-pressed: var(--ws-dynamic-text-on-danger-pressed);
     --stroke-ws-dynamic-on-danger-pressed: var(--ws-dynamic-text-on-danger-pressed);
     --text-color-ws-dynamic-on-inverse-default: var(--ws-dynamic-text-on-inverse-default);
     --decoration-ws-dynamic-on-inverse-default: var(--ws-dynamic-text-on-inverse-default);
+    --text-decoration-color-ws-dynamic-on-inverse-default: var(
+      --ws-dynamic-text-on-inverse-default
+    );
     --fill-ws-dynamic-on-inverse-default: var(--ws-dynamic-text-on-inverse-default);
     --stroke-ws-dynamic-on-inverse-default: var(--ws-dynamic-text-on-inverse-default);
     --text-color-ws-dynamic-on-inverse-disabled: var(--ws-dynamic-text-on-inverse-disabled);
     --decoration-ws-dynamic-on-inverse-disabled: var(--ws-dynamic-text-on-inverse-disabled);
+    --text-decoration-color-ws-dynamic-on-inverse-disabled: var(
+      --ws-dynamic-text-on-inverse-disabled
+    );
     --fill-ws-dynamic-on-inverse-disabled: var(--ws-dynamic-text-on-inverse-disabled);
     --stroke-ws-dynamic-on-inverse-disabled: var(--ws-dynamic-text-on-inverse-disabled);
     --text-color-ws-dynamic-on-inverse-hover: var(--ws-dynamic-text-on-inverse-hover);
     --decoration-ws-dynamic-on-inverse-hover: var(--ws-dynamic-text-on-inverse-hover);
+    --text-decoration-color-ws-dynamic-on-inverse-hover: var(--ws-dynamic-text-on-inverse-hover);
     --fill-ws-dynamic-on-inverse-hover: var(--ws-dynamic-text-on-inverse-hover);
     --stroke-ws-dynamic-on-inverse-hover: var(--ws-dynamic-text-on-inverse-hover);
     --text-color-ws-dynamic-on-inverse-pressed: var(--ws-dynamic-text-on-inverse-pressed);
     --decoration-ws-dynamic-on-inverse-pressed: var(--ws-dynamic-text-on-inverse-pressed);
+    --text-decoration-color-ws-dynamic-on-inverse-pressed: var(
+      --ws-dynamic-text-on-inverse-pressed
+    );
     --fill-ws-dynamic-on-inverse-pressed: var(--ws-dynamic-text-on-inverse-pressed);
     --stroke-ws-dynamic-on-inverse-pressed: var(--ws-dynamic-text-on-inverse-pressed);
     --text-color-ws-dynamic-on-primary-default: var(--ws-dynamic-text-on-primary-default);
     --decoration-ws-dynamic-on-primary-default: var(--ws-dynamic-text-on-primary-default);
+    --text-decoration-color-ws-dynamic-on-primary-default: var(
+      --ws-dynamic-text-on-primary-default
+    );
     --fill-ws-dynamic-on-primary-default: var(--ws-dynamic-text-on-primary-default);
     --stroke-ws-dynamic-on-primary-default: var(--ws-dynamic-text-on-primary-default);
     --text-color-ws-dynamic-on-primary-disabled: var(--ws-dynamic-text-on-primary-disabled);
     --decoration-ws-dynamic-on-primary-disabled: var(--ws-dynamic-text-on-primary-disabled);
+    --text-decoration-color-ws-dynamic-on-primary-disabled: var(
+      --ws-dynamic-text-on-primary-disabled
+    );
     --fill-ws-dynamic-on-primary-disabled: var(--ws-dynamic-text-on-primary-disabled);
     --stroke-ws-dynamic-on-primary-disabled: var(--ws-dynamic-text-on-primary-disabled);
     --text-color-ws-dynamic-on-primary-hover: var(--ws-dynamic-text-on-primary-hover);
     --decoration-ws-dynamic-on-primary-hover: var(--ws-dynamic-text-on-primary-hover);
+    --text-decoration-color-ws-dynamic-on-primary-hover: var(--ws-dynamic-text-on-primary-hover);
     --fill-ws-dynamic-on-primary-hover: var(--ws-dynamic-text-on-primary-hover);
     --stroke-ws-dynamic-on-primary-hover: var(--ws-dynamic-text-on-primary-hover);
     --text-color-ws-dynamic-on-primary-pressed: var(--ws-dynamic-text-on-primary-pressed);
     --decoration-ws-dynamic-on-primary-pressed: var(--ws-dynamic-text-on-primary-pressed);
+    --text-decoration-color-ws-dynamic-on-primary-pressed: var(
+      --ws-dynamic-text-on-primary-pressed
+    );
     --fill-ws-dynamic-on-primary-pressed: var(--ws-dynamic-text-on-primary-pressed);
     --stroke-ws-dynamic-on-primary-pressed: var(--ws-dynamic-text-on-primary-pressed);
     --text-color-ws-dynamic-on-secondary-default: var(--ws-dynamic-text-on-secondary-default);
     --decoration-ws-dynamic-on-secondary-default: var(--ws-dynamic-text-on-secondary-default);
+    --text-decoration-color-ws-dynamic-on-secondary-default: var(
+      --ws-dynamic-text-on-secondary-default
+    );
     --fill-ws-dynamic-on-secondary-default: var(--ws-dynamic-text-on-secondary-default);
     --stroke-ws-dynamic-on-secondary-default: var(--ws-dynamic-text-on-secondary-default);
     --text-color-ws-dynamic-on-secondary-disabled: var(--ws-dynamic-text-on-secondary-disabled);
     --decoration-ws-dynamic-on-secondary-disabled: var(--ws-dynamic-text-on-secondary-disabled);
+    --text-decoration-color-ws-dynamic-on-secondary-disabled: var(
+      --ws-dynamic-text-on-secondary-disabled
+    );
     --fill-ws-dynamic-on-secondary-disabled: var(--ws-dynamic-text-on-secondary-disabled);
     --stroke-ws-dynamic-on-secondary-disabled: var(--ws-dynamic-text-on-secondary-disabled);
     --text-color-ws-dynamic-on-secondary-hover: var(--ws-dynamic-text-on-secondary-hover);
     --decoration-ws-dynamic-on-secondary-hover: var(--ws-dynamic-text-on-secondary-hover);
+    --text-decoration-color-ws-dynamic-on-secondary-hover: var(
+      --ws-dynamic-text-on-secondary-hover
+    );
     --fill-ws-dynamic-on-secondary-hover: var(--ws-dynamic-text-on-secondary-hover);
     --stroke-ws-dynamic-on-secondary-hover: var(--ws-dynamic-text-on-secondary-hover);
     --text-color-ws-dynamic-on-secondary-pressed: var(--ws-dynamic-text-on-secondary-pressed);
     --decoration-ws-dynamic-on-secondary-pressed: var(--ws-dynamic-text-on-secondary-pressed);
+    --text-decoration-color-ws-dynamic-on-secondary-pressed: var(
+      --ws-dynamic-text-on-secondary-pressed
+    );
     --fill-ws-dynamic-on-secondary-pressed: var(--ws-dynamic-text-on-secondary-pressed);
     --stroke-ws-dynamic-on-secondary-pressed: var(--ws-dynamic-text-on-secondary-pressed);
     --text-color-ws-dynamic-on-success-default: var(--ws-dynamic-text-on-success-default);
     --decoration-ws-dynamic-on-success-default: var(--ws-dynamic-text-on-success-default);
+    --text-decoration-color-ws-dynamic-on-success-default: var(
+      --ws-dynamic-text-on-success-default
+    );
     --fill-ws-dynamic-on-success-default: var(--ws-dynamic-text-on-success-default);
     --stroke-ws-dynamic-on-success-default: var(--ws-dynamic-text-on-success-default);
     --text-color-ws-dynamic-on-success-disabled: var(--ws-dynamic-text-on-success-disabled);
     --decoration-ws-dynamic-on-success-disabled: var(--ws-dynamic-text-on-success-disabled);
+    --text-decoration-color-ws-dynamic-on-success-disabled: var(
+      --ws-dynamic-text-on-success-disabled
+    );
     --fill-ws-dynamic-on-success-disabled: var(--ws-dynamic-text-on-success-disabled);
     --stroke-ws-dynamic-on-success-disabled: var(--ws-dynamic-text-on-success-disabled);
     --text-color-ws-dynamic-on-success-hover: var(--ws-dynamic-text-on-success-hover);
     --decoration-ws-dynamic-on-success-hover: var(--ws-dynamic-text-on-success-hover);
+    --text-decoration-color-ws-dynamic-on-success-hover: var(--ws-dynamic-text-on-success-hover);
     --fill-ws-dynamic-on-success-hover: var(--ws-dynamic-text-on-success-hover);
     --stroke-ws-dynamic-on-success-hover: var(--ws-dynamic-text-on-success-hover);
     --text-color-ws-dynamic-on-success-pressed: var(--ws-dynamic-text-on-success-pressed);
     --decoration-ws-dynamic-on-success-pressed: var(--ws-dynamic-text-on-success-pressed);
+    --text-decoration-color-ws-dynamic-on-success-pressed: var(
+      --ws-dynamic-text-on-success-pressed
+    );
     --fill-ws-dynamic-on-success-pressed: var(--ws-dynamic-text-on-success-pressed);
     --stroke-ws-dynamic-on-success-pressed: var(--ws-dynamic-text-on-success-pressed);
     --text-color-ws-dynamic-primary-default: var(--ws-dynamic-text-primary-default);
     --decoration-ws-dynamic-primary-default: var(--ws-dynamic-text-primary-default);
+    --text-decoration-color-ws-dynamic-primary-default: var(--ws-dynamic-text-primary-default);
     --fill-ws-dynamic-primary-default: var(--ws-dynamic-text-primary-default);
     --stroke-ws-dynamic-primary-default: var(--ws-dynamic-text-primary-default);
     --text-color-ws-dynamic-primary-disabled: var(--ws-dynamic-text-primary-disabled);
     --decoration-ws-dynamic-primary-disabled: var(--ws-dynamic-text-primary-disabled);
+    --text-decoration-color-ws-dynamic-primary-disabled: var(--ws-dynamic-text-primary-disabled);
     --fill-ws-dynamic-primary-disabled: var(--ws-dynamic-text-primary-disabled);
     --stroke-ws-dynamic-primary-disabled: var(--ws-dynamic-text-primary-disabled);
     --text-color-ws-dynamic-primary-hover: var(--ws-dynamic-text-primary-hover);
     --decoration-ws-dynamic-primary-hover: var(--ws-dynamic-text-primary-hover);
+    --text-decoration-color-ws-dynamic-primary-hover: var(--ws-dynamic-text-primary-hover);
     --fill-ws-dynamic-primary-hover: var(--ws-dynamic-text-primary-hover);
     --stroke-ws-dynamic-primary-hover: var(--ws-dynamic-text-primary-hover);
     --text-color-ws-dynamic-primary-pressed: var(--ws-dynamic-text-primary-pressed);
     --decoration-ws-dynamic-primary-pressed: var(--ws-dynamic-text-primary-pressed);
+    --text-decoration-color-ws-dynamic-primary-pressed: var(--ws-dynamic-text-primary-pressed);
     --fill-ws-dynamic-primary-pressed: var(--ws-dynamic-text-primary-pressed);
     --stroke-ws-dynamic-primary-pressed: var(--ws-dynamic-text-primary-pressed);
     --text-color-ws-dynamic-secondary-default: var(--ws-dynamic-text-secondary-default);
     --decoration-ws-dynamic-secondary-default: var(--ws-dynamic-text-secondary-default);
+    --text-decoration-color-ws-dynamic-secondary-default: var(--ws-dynamic-text-secondary-default);
     --fill-ws-dynamic-secondary-default: var(--ws-dynamic-text-secondary-default);
     --stroke-ws-dynamic-secondary-default: var(--ws-dynamic-text-secondary-default);
     --text-color-ws-dynamic-secondary-disabled: var(--ws-dynamic-text-secondary-disabled);
     --decoration-ws-dynamic-secondary-disabled: var(--ws-dynamic-text-secondary-disabled);
+    --text-decoration-color-ws-dynamic-secondary-disabled: var(
+      --ws-dynamic-text-secondary-disabled
+    );
     --fill-ws-dynamic-secondary-disabled: var(--ws-dynamic-text-secondary-disabled);
     --stroke-ws-dynamic-secondary-disabled: var(--ws-dynamic-text-secondary-disabled);
     --text-color-ws-dynamic-secondary-hover: var(--ws-dynamic-text-secondary-hover);
     --decoration-ws-dynamic-secondary-hover: var(--ws-dynamic-text-secondary-hover);
+    --text-decoration-color-ws-dynamic-secondary-hover: var(--ws-dynamic-text-secondary-hover);
     --fill-ws-dynamic-secondary-hover: var(--ws-dynamic-text-secondary-hover);
     --stroke-ws-dynamic-secondary-hover: var(--ws-dynamic-text-secondary-hover);
     --text-color-ws-dynamic-secondary-pressed: var(--ws-dynamic-text-secondary-pressed);
     --decoration-ws-dynamic-secondary-pressed: var(--ws-dynamic-text-secondary-pressed);
+    --text-decoration-color-ws-dynamic-secondary-pressed: var(--ws-dynamic-text-secondary-pressed);
     --fill-ws-dynamic-secondary-pressed: var(--ws-dynamic-text-secondary-pressed);
     --stroke-ws-dynamic-secondary-pressed: var(--ws-dynamic-text-secondary-pressed);
     --text-color-ws-dynamic-success-default: var(--ws-dynamic-text-success-default);
     --decoration-ws-dynamic-success-default: var(--ws-dynamic-text-success-default);
+    --text-decoration-color-ws-dynamic-success-default: var(--ws-dynamic-text-success-default);
     --fill-ws-dynamic-success-default: var(--ws-dynamic-text-success-default);
     --stroke-ws-dynamic-success-default: var(--ws-dynamic-text-success-default);
     --text-color-ws-dynamic-success-disabled: var(--ws-dynamic-text-success-disabled);
     --decoration-ws-dynamic-success-disabled: var(--ws-dynamic-text-success-disabled);
+    --text-decoration-color-ws-dynamic-success-disabled: var(--ws-dynamic-text-success-disabled);
     --fill-ws-dynamic-success-disabled: var(--ws-dynamic-text-success-disabled);
     --stroke-ws-dynamic-success-disabled: var(--ws-dynamic-text-success-disabled);
     --text-color-ws-dynamic-success-hover: var(--ws-dynamic-text-success-hover);
     --decoration-ws-dynamic-success-hover: var(--ws-dynamic-text-success-hover);
+    --text-decoration-color-ws-dynamic-success-hover: var(--ws-dynamic-text-success-hover);
     --fill-ws-dynamic-success-hover: var(--ws-dynamic-text-success-hover);
     --stroke-ws-dynamic-success-hover: var(--ws-dynamic-text-success-hover);
     --text-color-ws-dynamic-success-pressed: var(--ws-dynamic-text-success-pressed);
     --decoration-ws-dynamic-success-pressed: var(--ws-dynamic-text-success-pressed);
+    --text-decoration-color-ws-dynamic-success-pressed: var(--ws-dynamic-text-success-pressed);
     --fill-ws-dynamic-success-pressed: var(--ws-dynamic-text-success-pressed);
     --stroke-ws-dynamic-success-pressed: var(--ws-dynamic-text-success-pressed);
     --background-color-ws-non-semantic-blue-strong: var(--ws-non-semantic-fill-blue-strong);
@@ -588,106 +658,184 @@
     --outline-color-ws-non-semantic-yellow-default: var(--ws-non-semantic-stroke-yellow-default);
     --text-color-ws-non-semantic-blue-on-strong: var(--ws-non-semantic-text-blue-on-strong);
     --decoration-ws-non-semantic-blue-on-strong: var(--ws-non-semantic-text-blue-on-strong);
+    --text-decoration-color-ws-non-semantic-blue-on-strong: var(
+      --ws-non-semantic-text-blue-on-strong
+    );
     --fill-ws-non-semantic-blue-on-strong: var(--ws-non-semantic-text-blue-on-strong);
     --stroke-ws-non-semantic-blue-on-strong: var(--ws-non-semantic-text-blue-on-strong);
     --text-color-ws-non-semantic-blue-on-subtle: var(--ws-non-semantic-text-blue-on-subtle);
     --decoration-ws-non-semantic-blue-on-subtle: var(--ws-non-semantic-text-blue-on-subtle);
+    --text-decoration-color-ws-non-semantic-blue-on-subtle: var(
+      --ws-non-semantic-text-blue-on-subtle
+    );
     --fill-ws-non-semantic-blue-on-subtle: var(--ws-non-semantic-text-blue-on-subtle);
     --stroke-ws-non-semantic-blue-on-subtle: var(--ws-non-semantic-text-blue-on-subtle);
     --text-color-ws-non-semantic-brand-on-strong: var(--ws-non-semantic-text-brand-on-strong);
     --decoration-ws-non-semantic-brand-on-strong: var(--ws-non-semantic-text-brand-on-strong);
+    --text-decoration-color-ws-non-semantic-brand-on-strong: var(
+      --ws-non-semantic-text-brand-on-strong
+    );
     --fill-ws-non-semantic-brand-on-strong: var(--ws-non-semantic-text-brand-on-strong);
     --stroke-ws-non-semantic-brand-on-strong: var(--ws-non-semantic-text-brand-on-strong);
     --text-color-ws-non-semantic-brand-on-subtle: var(--ws-non-semantic-text-brand-on-subtle);
     --decoration-ws-non-semantic-brand-on-subtle: var(--ws-non-semantic-text-brand-on-subtle);
+    --text-decoration-color-ws-non-semantic-brand-on-subtle: var(
+      --ws-non-semantic-text-brand-on-subtle
+    );
     --fill-ws-non-semantic-brand-on-subtle: var(--ws-non-semantic-text-brand-on-subtle);
     --stroke-ws-non-semantic-brand-on-subtle: var(--ws-non-semantic-text-brand-on-subtle);
     --text-color-ws-non-semantic-cyan-on-strong: var(--ws-non-semantic-text-cyan-on-strong);
     --decoration-ws-non-semantic-cyan-on-strong: var(--ws-non-semantic-text-cyan-on-strong);
+    --text-decoration-color-ws-non-semantic-cyan-on-strong: var(
+      --ws-non-semantic-text-cyan-on-strong
+    );
     --fill-ws-non-semantic-cyan-on-strong: var(--ws-non-semantic-text-cyan-on-strong);
     --stroke-ws-non-semantic-cyan-on-strong: var(--ws-non-semantic-text-cyan-on-strong);
     --text-color-ws-non-semantic-cyan-on-subtle: var(--ws-non-semantic-text-cyan-on-subtle);
     --decoration-ws-non-semantic-cyan-on-subtle: var(--ws-non-semantic-text-cyan-on-subtle);
+    --text-decoration-color-ws-non-semantic-cyan-on-subtle: var(
+      --ws-non-semantic-text-cyan-on-subtle
+    );
     --fill-ws-non-semantic-cyan-on-subtle: var(--ws-non-semantic-text-cyan-on-subtle);
     --stroke-ws-non-semantic-cyan-on-subtle: var(--ws-non-semantic-text-cyan-on-subtle);
     --text-color-ws-non-semantic-green-on-strong: var(--ws-non-semantic-text-green-on-strong);
     --decoration-ws-non-semantic-green-on-strong: var(--ws-non-semantic-text-green-on-strong);
+    --text-decoration-color-ws-non-semantic-green-on-strong: var(
+      --ws-non-semantic-text-green-on-strong
+    );
     --fill-ws-non-semantic-green-on-strong: var(--ws-non-semantic-text-green-on-strong);
     --stroke-ws-non-semantic-green-on-strong: var(--ws-non-semantic-text-green-on-strong);
     --text-color-ws-non-semantic-green-on-subtle: var(--ws-non-semantic-text-green-on-subtle);
     --decoration-ws-non-semantic-green-on-subtle: var(--ws-non-semantic-text-green-on-subtle);
+    --text-decoration-color-ws-non-semantic-green-on-subtle: var(
+      --ws-non-semantic-text-green-on-subtle
+    );
     --fill-ws-non-semantic-green-on-subtle: var(--ws-non-semantic-text-green-on-subtle);
     --stroke-ws-non-semantic-green-on-subtle: var(--ws-non-semantic-text-green-on-subtle);
     --text-color-ws-non-semantic-indigo-on-strong: var(--ws-non-semantic-text-indigo-on-strong);
     --decoration-ws-non-semantic-indigo-on-strong: var(--ws-non-semantic-text-indigo-on-strong);
+    --text-decoration-color-ws-non-semantic-indigo-on-strong: var(
+      --ws-non-semantic-text-indigo-on-strong
+    );
     --fill-ws-non-semantic-indigo-on-strong: var(--ws-non-semantic-text-indigo-on-strong);
     --stroke-ws-non-semantic-indigo-on-strong: var(--ws-non-semantic-text-indigo-on-strong);
     --text-color-ws-non-semantic-indigo-on-subtle: var(--ws-non-semantic-text-indigo-on-subtle);
     --decoration-ws-non-semantic-indigo-on-subtle: var(--ws-non-semantic-text-indigo-on-subtle);
+    --text-decoration-color-ws-non-semantic-indigo-on-subtle: var(
+      --ws-non-semantic-text-indigo-on-subtle
+    );
     --fill-ws-non-semantic-indigo-on-subtle: var(--ws-non-semantic-text-indigo-on-subtle);
     --stroke-ws-non-semantic-indigo-on-subtle: var(--ws-non-semantic-text-indigo-on-subtle);
     --text-color-ws-non-semantic-lime-on-strong: var(--ws-non-semantic-text-lime-on-strong);
     --decoration-ws-non-semantic-lime-on-strong: var(--ws-non-semantic-text-lime-on-strong);
+    --text-decoration-color-ws-non-semantic-lime-on-strong: var(
+      --ws-non-semantic-text-lime-on-strong
+    );
     --fill-ws-non-semantic-lime-on-strong: var(--ws-non-semantic-text-lime-on-strong);
     --stroke-ws-non-semantic-lime-on-strong: var(--ws-non-semantic-text-lime-on-strong);
     --text-color-ws-non-semantic-lime-on-subtle: var(--ws-non-semantic-text-lime-on-subtle);
     --decoration-ws-non-semantic-lime-on-subtle: var(--ws-non-semantic-text-lime-on-subtle);
+    --text-decoration-color-ws-non-semantic-lime-on-subtle: var(
+      --ws-non-semantic-text-lime-on-subtle
+    );
     --fill-ws-non-semantic-lime-on-subtle: var(--ws-non-semantic-text-lime-on-subtle);
     --stroke-ws-non-semantic-lime-on-subtle: var(--ws-non-semantic-text-lime-on-subtle);
     --text-color-ws-non-semantic-orange-on-strong: var(--ws-non-semantic-text-orange-on-strong);
     --decoration-ws-non-semantic-orange-on-strong: var(--ws-non-semantic-text-orange-on-strong);
+    --text-decoration-color-ws-non-semantic-orange-on-strong: var(
+      --ws-non-semantic-text-orange-on-strong
+    );
     --fill-ws-non-semantic-orange-on-strong: var(--ws-non-semantic-text-orange-on-strong);
     --stroke-ws-non-semantic-orange-on-strong: var(--ws-non-semantic-text-orange-on-strong);
     --text-color-ws-non-semantic-orange-on-subtle: var(--ws-non-semantic-text-orange-on-subtle);
     --decoration-ws-non-semantic-orange-on-subtle: var(--ws-non-semantic-text-orange-on-subtle);
+    --text-decoration-color-ws-non-semantic-orange-on-subtle: var(
+      --ws-non-semantic-text-orange-on-subtle
+    );
     --fill-ws-non-semantic-orange-on-subtle: var(--ws-non-semantic-text-orange-on-subtle);
     --stroke-ws-non-semantic-orange-on-subtle: var(--ws-non-semantic-text-orange-on-subtle);
     --text-color-ws-non-semantic-pink-on-strong: var(--ws-non-semantic-text-pink-on-strong);
     --decoration-ws-non-semantic-pink-on-strong: var(--ws-non-semantic-text-pink-on-strong);
+    --text-decoration-color-ws-non-semantic-pink-on-strong: var(
+      --ws-non-semantic-text-pink-on-strong
+    );
     --fill-ws-non-semantic-pink-on-strong: var(--ws-non-semantic-text-pink-on-strong);
     --stroke-ws-non-semantic-pink-on-strong: var(--ws-non-semantic-text-pink-on-strong);
     --text-color-ws-non-semantic-pink-on-subtle: var(--ws-non-semantic-text-pink-on-subtle);
     --decoration-ws-non-semantic-pink-on-subtle: var(--ws-non-semantic-text-pink-on-subtle);
+    --text-decoration-color-ws-non-semantic-pink-on-subtle: var(
+      --ws-non-semantic-text-pink-on-subtle
+    );
     --fill-ws-non-semantic-pink-on-subtle: var(--ws-non-semantic-text-pink-on-subtle);
     --stroke-ws-non-semantic-pink-on-subtle: var(--ws-non-semantic-text-pink-on-subtle);
     --text-color-ws-non-semantic-purple-on-strong: var(--ws-non-semantic-text-purple-on-strong);
     --decoration-ws-non-semantic-purple-on-strong: var(--ws-non-semantic-text-purple-on-strong);
+    --text-decoration-color-ws-non-semantic-purple-on-strong: var(
+      --ws-non-semantic-text-purple-on-strong
+    );
     --fill-ws-non-semantic-purple-on-strong: var(--ws-non-semantic-text-purple-on-strong);
     --stroke-ws-non-semantic-purple-on-strong: var(--ws-non-semantic-text-purple-on-strong);
     --text-color-ws-non-semantic-purple-on-subtle: var(--ws-non-semantic-text-purple-on-subtle);
     --decoration-ws-non-semantic-purple-on-subtle: var(--ws-non-semantic-text-purple-on-subtle);
+    --text-decoration-color-ws-non-semantic-purple-on-subtle: var(
+      --ws-non-semantic-text-purple-on-subtle
+    );
     --fill-ws-non-semantic-purple-on-subtle: var(--ws-non-semantic-text-purple-on-subtle);
     --stroke-ws-non-semantic-purple-on-subtle: var(--ws-non-semantic-text-purple-on-subtle);
     --text-color-ws-non-semantic-red-on-strong: var(--ws-non-semantic-text-red-on-strong);
     --decoration-ws-non-semantic-red-on-strong: var(--ws-non-semantic-text-red-on-strong);
+    --text-decoration-color-ws-non-semantic-red-on-strong: var(
+      --ws-non-semantic-text-red-on-strong
+    );
     --fill-ws-non-semantic-red-on-strong: var(--ws-non-semantic-text-red-on-strong);
     --stroke-ws-non-semantic-red-on-strong: var(--ws-non-semantic-text-red-on-strong);
     --text-color-ws-non-semantic-red-on-subtle: var(--ws-non-semantic-text-red-on-subtle);
     --decoration-ws-non-semantic-red-on-subtle: var(--ws-non-semantic-text-red-on-subtle);
+    --text-decoration-color-ws-non-semantic-red-on-subtle: var(
+      --ws-non-semantic-text-red-on-subtle
+    );
     --fill-ws-non-semantic-red-on-subtle: var(--ws-non-semantic-text-red-on-subtle);
     --stroke-ws-non-semantic-red-on-subtle: var(--ws-non-semantic-text-red-on-subtle);
     --text-color-ws-non-semantic-teal-on-strong: var(--ws-non-semantic-text-teal-on-strong);
     --decoration-ws-non-semantic-teal-on-strong: var(--ws-non-semantic-text-teal-on-strong);
+    --text-decoration-color-ws-non-semantic-teal-on-strong: var(
+      --ws-non-semantic-text-teal-on-strong
+    );
     --fill-ws-non-semantic-teal-on-strong: var(--ws-non-semantic-text-teal-on-strong);
     --stroke-ws-non-semantic-teal-on-strong: var(--ws-non-semantic-text-teal-on-strong);
     --text-color-ws-non-semantic-teal-on-subtle: var(--ws-non-semantic-text-teal-on-subtle);
     --decoration-ws-non-semantic-teal-on-subtle: var(--ws-non-semantic-text-teal-on-subtle);
+    --text-decoration-color-ws-non-semantic-teal-on-subtle: var(
+      --ws-non-semantic-text-teal-on-subtle
+    );
     --fill-ws-non-semantic-teal-on-subtle: var(--ws-non-semantic-text-teal-on-subtle);
     --stroke-ws-non-semantic-teal-on-subtle: var(--ws-non-semantic-text-teal-on-subtle);
     --text-color-ws-non-semantic-violet-on-strong: var(--ws-non-semantic-text-violet-on-strong);
     --decoration-ws-non-semantic-violet-on-strong: var(--ws-non-semantic-text-violet-on-strong);
+    --text-decoration-color-ws-non-semantic-violet-on-strong: var(
+      --ws-non-semantic-text-violet-on-strong
+    );
     --fill-ws-non-semantic-violet-on-strong: var(--ws-non-semantic-text-violet-on-strong);
     --stroke-ws-non-semantic-violet-on-strong: var(--ws-non-semantic-text-violet-on-strong);
     --text-color-ws-non-semantic-violet-on-subtle: var(--ws-non-semantic-text-violet-on-subtle);
     --decoration-ws-non-semantic-violet-on-subtle: var(--ws-non-semantic-text-violet-on-subtle);
+    --text-decoration-color-ws-non-semantic-violet-on-subtle: var(
+      --ws-non-semantic-text-violet-on-subtle
+    );
     --fill-ws-non-semantic-violet-on-subtle: var(--ws-non-semantic-text-violet-on-subtle);
     --stroke-ws-non-semantic-violet-on-subtle: var(--ws-non-semantic-text-violet-on-subtle);
     --text-color-ws-non-semantic-yellow-on-strong: var(--ws-non-semantic-text-yellow-on-strong);
     --decoration-ws-non-semantic-yellow-on-strong: var(--ws-non-semantic-text-yellow-on-strong);
+    --text-decoration-color-ws-non-semantic-yellow-on-strong: var(
+      --ws-non-semantic-text-yellow-on-strong
+    );
     --fill-ws-non-semantic-yellow-on-strong: var(--ws-non-semantic-text-yellow-on-strong);
     --stroke-ws-non-semantic-yellow-on-strong: var(--ws-non-semantic-text-yellow-on-strong);
     --text-color-ws-non-semantic-yellow-on-subtle: var(--ws-non-semantic-text-yellow-on-subtle);
     --decoration-ws-non-semantic-yellow-on-subtle: var(--ws-non-semantic-text-yellow-on-subtle);
+    --text-decoration-color-ws-non-semantic-yellow-on-subtle: var(
+      --ws-non-semantic-text-yellow-on-subtle
+    );
     --fill-ws-non-semantic-yellow-on-subtle: var(--ws-non-semantic-text-yellow-on-subtle);
     --stroke-ws-non-semantic-yellow-on-subtle: var(--ws-non-semantic-text-yellow-on-subtle);
     --background-color-ws-semantic-info: var(--ws-semantic-fill-info);
@@ -717,62 +865,91 @@
     --border-color-ws-semantic-positive: var(--ws-semantic-stroke-positive);
     --text-color-ws-semantic-info: var(--ws-semantic-text-info);
     --decoration-ws-semantic-info: var(--ws-semantic-text-info);
+    --text-decoration-color-ws-semantic-info: var(--ws-semantic-text-info);
     --fill-ws-semantic-info: var(--ws-semantic-text-info);
     --stroke-ws-semantic-info: var(--ws-semantic-text-info);
     --text-color-ws-semantic-negative: var(--ws-semantic-text-negative);
     --decoration-ws-semantic-negative: var(--ws-semantic-text-negative);
+    --text-decoration-color-ws-semantic-negative: var(--ws-semantic-text-negative);
     --fill-ws-semantic-negative: var(--ws-semantic-text-negative);
     --stroke-ws-semantic-negative: var(--ws-semantic-text-negative);
     --text-color-ws-semantic-neutral: var(--ws-semantic-text-neutral);
     --decoration-ws-semantic-neutral: var(--ws-semantic-text-neutral);
+    --text-decoration-color-ws-semantic-neutral: var(--ws-semantic-text-neutral);
     --fill-ws-semantic-neutral: var(--ws-semantic-text-neutral);
     --stroke-ws-semantic-neutral: var(--ws-semantic-text-neutral);
     --text-color-ws-semantic-notice: var(--ws-semantic-text-notice);
     --decoration-ws-semantic-notice: var(--ws-semantic-text-notice);
+    --text-decoration-color-ws-semantic-notice: var(--ws-semantic-text-notice);
     --fill-ws-semantic-notice: var(--ws-semantic-text-notice);
     --stroke-ws-semantic-notice: var(--ws-semantic-text-notice);
     --text-color-ws-semantic-positive: var(--ws-semantic-text-positive);
     --decoration-ws-semantic-positive: var(--ws-semantic-text-positive);
+    --text-decoration-color-ws-semantic-positive: var(--ws-semantic-text-positive);
     --fill-ws-semantic-positive: var(--ws-semantic-text-positive);
     --stroke-ws-semantic-positive: var(--ws-semantic-text-positive);
     --text-color-ws-semantic-on-inverse-info: var(--ws-semantic-text-on-inverse-info);
     --decoration-ws-semantic-on-inverse-info: var(--ws-semantic-text-on-inverse-info);
+    --text-decoration-color-ws-semantic-on-inverse-info: var(--ws-semantic-text-on-inverse-info);
     --fill-ws-semantic-on-inverse-info: var(--ws-semantic-text-on-inverse-info);
     --stroke-ws-semantic-on-inverse-info: var(--ws-semantic-text-on-inverse-info);
     --text-color-ws-semantic-on-inverse-negative: var(--ws-semantic-text-on-inverse-negative);
     --decoration-ws-semantic-on-inverse-negative: var(--ws-semantic-text-on-inverse-negative);
+    --text-decoration-color-ws-semantic-on-inverse-negative: var(
+      --ws-semantic-text-on-inverse-negative
+    );
     --fill-ws-semantic-on-inverse-negative: var(--ws-semantic-text-on-inverse-negative);
     --stroke-ws-semantic-on-inverse-negative: var(--ws-semantic-text-on-inverse-negative);
     --text-color-ws-semantic-on-inverse-neutral: var(--ws-semantic-text-on-inverse-neutral);
     --decoration-ws-semantic-on-inverse-neutral: var(--ws-semantic-text-on-inverse-neutral);
+    --text-decoration-color-ws-semantic-on-inverse-neutral: var(
+      --ws-semantic-text-on-inverse-neutral
+    );
     --fill-ws-semantic-on-inverse-neutral: var(--ws-semantic-text-on-inverse-neutral);
     --stroke-ws-semantic-on-inverse-neutral: var(--ws-semantic-text-on-inverse-neutral);
     --text-color-ws-semantic-on-inverse-notice: var(--ws-semantic-text-on-inverse-notice);
     --decoration-ws-semantic-on-inverse-notice: var(--ws-semantic-text-on-inverse-notice);
+    --text-decoration-color-ws-semantic-on-inverse-notice: var(
+      --ws-semantic-text-on-inverse-notice
+    );
     --fill-ws-semantic-on-inverse-notice: var(--ws-semantic-text-on-inverse-notice);
     --stroke-ws-semantic-on-inverse-notice: var(--ws-semantic-text-on-inverse-notice);
     --text-color-ws-semantic-on-inverse-positive: var(--ws-semantic-text-on-inverse-positive);
     --decoration-ws-semantic-on-inverse-positive: var(--ws-semantic-text-on-inverse-positive);
+    --text-decoration-color-ws-semantic-on-inverse-positive: var(
+      --ws-semantic-text-on-inverse-positive
+    );
     --fill-ws-semantic-on-inverse-positive: var(--ws-semantic-text-on-inverse-positive);
     --stroke-ws-semantic-on-inverse-positive: var(--ws-semantic-text-on-inverse-positive);
     --text-color-ws-semantic-on-subtle-info: var(--ws-semantic-text-on-subtle-info);
     --decoration-ws-semantic-on-subtle-info: var(--ws-semantic-text-on-subtle-info);
+    --text-decoration-color-ws-semantic-on-subtle-info: var(--ws-semantic-text-on-subtle-info);
     --fill-ws-semantic-on-subtle-info: var(--ws-semantic-text-on-subtle-info);
     --stroke-ws-semantic-on-subtle-info: var(--ws-semantic-text-on-subtle-info);
     --text-color-ws-semantic-on-subtle-negative: var(--ws-semantic-text-on-subtle-negative);
     --decoration-ws-semantic-on-subtle-negative: var(--ws-semantic-text-on-subtle-negative);
+    --text-decoration-color-ws-semantic-on-subtle-negative: var(
+      --ws-semantic-text-on-subtle-negative
+    );
     --fill-ws-semantic-on-subtle-negative: var(--ws-semantic-text-on-subtle-negative);
     --stroke-ws-semantic-on-subtle-negative: var(--ws-semantic-text-on-subtle-negative);
     --text-color-ws-semantic-on-subtle-neutral: var(--ws-semantic-text-on-subtle-neutral);
     --decoration-ws-semantic-on-subtle-neutral: var(--ws-semantic-text-on-subtle-neutral);
+    --text-decoration-color-ws-semantic-on-subtle-neutral: var(
+      --ws-semantic-text-on-subtle-neutral
+    );
     --fill-ws-semantic-on-subtle-neutral: var(--ws-semantic-text-on-subtle-neutral);
     --stroke-ws-semantic-on-subtle-neutral: var(--ws-semantic-text-on-subtle-neutral);
     --text-color-ws-semantic-on-subtle-notice: var(--ws-semantic-text-on-subtle-notice);
     --decoration-ws-semantic-on-subtle-notice: var(--ws-semantic-text-on-subtle-notice);
+    --text-decoration-color-ws-semantic-on-subtle-notice: var(--ws-semantic-text-on-subtle-notice);
     --fill-ws-semantic-on-subtle-notice: var(--ws-semantic-text-on-subtle-notice);
     --stroke-ws-semantic-on-subtle-notice: var(--ws-semantic-text-on-subtle-notice);
     --text-color-ws-semantic-on-subtle-positive: var(--ws-semantic-text-on-subtle-positive);
     --decoration-ws-semantic-on-subtle-positive: var(--ws-semantic-text-on-subtle-positive);
+    --text-decoration-color-ws-semantic-on-subtle-positive: var(
+      --ws-semantic-text-on-subtle-positive
+    );
     --fill-ws-semantic-on-subtle-positive: var(--ws-semantic-text-on-subtle-positive);
     --stroke-ws-semantic-on-subtle-positive: var(--ws-semantic-text-on-subtle-positive);
     --background-color-ws-static-background: var(--ws-static-fill-background);
@@ -828,26 +1005,32 @@
     --outline-color-ws-static-inverse-subtle: var(--ws-static-stroke-inverse-subtle);
     --text-color-ws-static-base: var(--ws-static-text-base);
     --decoration-ws-static-base: var(--ws-static-text-base);
+    --text-decoration-color-ws-static-base: var(--ws-static-text-base);
     --fill-ws-static-base: var(--ws-static-text-base);
     --stroke-ws-static-base: var(--ws-static-text-base);
     --text-color-ws-static-strong: var(--ws-static-text-strong);
     --decoration-ws-static-strong: var(--ws-static-text-strong);
+    --text-decoration-color-ws-static-strong: var(--ws-static-text-strong);
     --fill-ws-static-strong: var(--ws-static-text-strong);
     --stroke-ws-static-strong: var(--ws-static-text-strong);
     --text-color-ws-static-subtle: var(--ws-static-text-subtle);
     --decoration-ws-static-subtle: var(--ws-static-text-subtle);
+    --text-decoration-color-ws-static-subtle: var(--ws-static-text-subtle);
     --fill-ws-static-subtle: var(--ws-static-text-subtle);
     --stroke-ws-static-subtle: var(--ws-static-text-subtle);
     --text-color-ws-static-inverse-base: var(--ws-static-text-inverse-base);
     --decoration-ws-static-inverse-base: var(--ws-static-text-inverse-base);
+    --text-decoration-color-ws-static-inverse-base: var(--ws-static-text-inverse-base);
     --fill-ws-static-inverse-base: var(--ws-static-text-inverse-base);
     --stroke-ws-static-inverse-base: var(--ws-static-text-inverse-base);
     --text-color-ws-static-inverse-strong: var(--ws-static-text-inverse-strong);
     --decoration-ws-static-inverse-strong: var(--ws-static-text-inverse-strong);
+    --text-decoration-color-ws-static-inverse-strong: var(--ws-static-text-inverse-strong);
     --fill-ws-static-inverse-strong: var(--ws-static-text-inverse-strong);
     --stroke-ws-static-inverse-strong: var(--ws-static-text-inverse-strong);
     --text-color-ws-static-inverse-subtle: var(--ws-static-text-inverse-subtle);
     --decoration-ws-static-inverse-subtle: var(--ws-static-text-inverse-subtle);
+    --text-decoration-color-ws-static-inverse-subtle: var(--ws-static-text-inverse-subtle);
     --fill-ws-static-inverse-subtle: var(--ws-static-text-inverse-subtle);
     --stroke-ws-static-inverse-subtle: var(--ws-static-text-inverse-subtle);
   }

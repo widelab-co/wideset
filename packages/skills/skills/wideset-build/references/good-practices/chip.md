@@ -18,19 +18,27 @@
 
 ```tsx
 // Do: a toggle filter that shows and announces its state
-<Chip style={remote ? 'filled' : 'border'} aria-pressed={remote} onClick={() => setRemote(!remote)}>
-  Remote only
+<Chip style={remote ? 'filled' : 'border'}>
+  <Chip.Action aria-pressed={remote} onClick={() => setRemote(!remote)}>
+    <Chip.Label>Remote only</Chip.Label>
+  </Chip.Action>
 </Chip>
 ```
 
-- Don't put an `IconButton` or any other control inside a chip (nested interactive controls); the
-  whole chip removes, with a trailing `Chip.Icon`.
+- Don't nest `Chip.IconButton` or another interactive control inside `Chip.Action`; the main
+  action and removal button are siblings.
 - Don't use a chip as a read-only label → `Tag`.
 
 ## Gotchas
 
 - `style` is a variant (`'filled' | 'border'`), not the HTML style attribute; inline styles are not
   accepted.
-- The root is a `div` with `role="button"`, not a `<button>`: it never submits a form.
-- `disabled` blocks clicks and keys; your `onClick` will not fire.
-- DOM hooks: `data-slot="chip"`, `"chip-icon"`.
+- The root ref points to an `HTMLDivElement`. Action and IconButton refs point to native buttons;
+  Label's ref points to a span.
+- Both buttons default to `type="button"`; set `type="submit"` on a button explicitly if needed.
+- Appearance and motion are configured on Chip. Both buttons inherit the root's motion setting;
+  IconButton also inherits its size and colors instead of exposing separate appearance props.
+- Click handlers belong on the individual buttons. Removal calls the consumer's handler; Chip
+  does not remove itself or choose where focus moves afterward.
+- DOM hooks: `data-slot="chip"`, `"chip-action"`, `"chip-label"`, `"chip-icon"`,
+  `"chip-icon-button"`.

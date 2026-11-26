@@ -21,7 +21,7 @@ export default function LinkButtonVariants() {
       <LinkButton variant="success" href="#next-steps">
         See next steps
       </LinkButton>
-      <div className="bg-ws-static-inverse-background p-ws-8">
+      <div className="bg-ws-static-inverse-background rounded-ws-container-md p-ws-8">
         <LinkButton variant="inverse" href="#pricing">
           Compare plans
         </LinkButton>

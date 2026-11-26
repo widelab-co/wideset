@@ -127,7 +127,7 @@ describe('Sidepanel', () => {
 
 describe('Sidepanel Snapshots', () => {
   it('matches snapshot for default sidepanel', () => {
-    const { asFragment } = render(
+    const { baseElement } = render(
       <Sidepanel defaultOpen>
         <Sidepanel.Panel>
           <Sidepanel.Header>
@@ -147,11 +147,11 @@ describe('Sidepanel Snapshots', () => {
       </Sidepanel>,
     );
 
-    expect(asFragment()).toMatchSnapshot();
+    expect(baseElement).toMatchSnapshot();
   });
 
   it('matches snapshot for left sidepanel', () => {
-    const { asFragment } = render(
+    const { baseElement } = render(
       <Sidepanel defaultOpen>
         <Sidepanel.Panel side="left" size="sm">
           <Sidepanel.Header>
@@ -162,7 +162,7 @@ describe('Sidepanel Snapshots', () => {
       </Sidepanel>,
     );
 
-    expect(asFragment()).toMatchSnapshot();
+    expect(baseElement).toMatchSnapshot();
   });
 });
 
