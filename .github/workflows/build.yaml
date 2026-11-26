@@ -79,6 +79,11 @@ jobs:
       - name: Test
         run: pnpm test
 
+      # The repository's own scripts (root scripts/, outside every package), e.g. the changeset
+      # rule the promotion and release jobs share.
+      - name: Test repository scripts
+        run: node --test 'scripts/*.test.mjs'
+
       # Proves Storybook builds; the deploy job builds it again with its own URLs.
       - name: Build Storybook
         run: pnpm build:storybook

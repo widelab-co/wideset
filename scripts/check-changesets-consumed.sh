@@ -8,7 +8,7 @@
 # Run it from the repository root. It needs only the checkout.
 #
 # Empty changesets (`pnpm changeset --empty`, or any front matter that lists no packages: blank,
-# comments only, `{}`, `~`, `null`) release nothing, and
+# comments only, `{}`, `~`, `null`, also with a trailing comment) release nothing, and
 # changesets/action neither versions nor publishes while only empty ones are pending (it logs "All
 # changesets are empty" and stops; on develop it opens no Version PR to consume them). So they are
 # deleted from the checkout first (nothing is committed): the release job relies on that to publish.
@@ -30,8 +30,9 @@ esac
 shopt -s nullglob
 
 # True when the file's front matter lists no packages, the way @changesets/parse reads it: what
-# lies between the `---` lines is blank, comments only, `{}` or a YAML null (`~`, `null`). Anything
-# else, unclosed front matter included, counts as a release: the check fails rather than skip one.
+# lies between the `---` lines is blank, comments only, `{}` or a YAML null (`~`, `null`), with or
+# without a trailing `# comment`. Anything else, unclosed front matter included, counts as a
+# release: the check fails rather than skip one. Cases: scripts/check-changesets-consumed.test.mjs.
 is_empty_changeset() {
   awk '
     { sub(/\r$/, "") }
@@ -41,8 +42,9 @@ is_empty_changeset() {
       exit
     }
     /^[ \t]*---[ \t]*$/ { closed = 1; exit }
-    { gsub(/[ \t]/, "") }
-    $0 == "" || /^#/ { next }
+    /^[ \t]*#/ { next }
+    { sub(/[ \t]#.*/, ""); gsub(/[ \t]/, "") }
+    $0 == "" { next }
     { body = body $0 }
     END {
       empty = body == "" || body == "{}" || body == "~" || body == "null" || body == "Null" || body == "NULL"
