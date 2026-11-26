@@ -344,34 +344,44 @@ describe('DropdownMenu', () => {
     });
 
     it.each([
-      { destination: 'document.body', custom: false },
-      { destination: 'an explicit portal container', custom: true },
-    ])('renders the submenu in $destination', ({ custom }) => {
-      const container = custom ? render(<div />).container : document.body;
+      { destination: 'document.body by default', parent: 'default', explicitSubmenu: false },
+      { destination: 'the parent portalContainer', parent: 'prop', explicitSubmenu: false },
+      { destination: 'the parent explicit portal', parent: 'explicit', explicitSubmenu: false },
+      { destination: 'its own explicit portal', parent: 'prop', explicitSubmenu: true },
+    ])('renders the submenu in $destination', ({ parent, explicitSubmenu }) => {
+      const parentContainer = parent === 'default' ? document.body : render(<div />).container;
+      const submenuContainer = explicitSubmenu ? render(<div />).container : parentContainer;
       const submenu = (
         <DropdownMenu.SubContent>
           <DropdownMenu.Item>Archive</DropdownMenu.Item>
         </DropdownMenu.SubContent>
       );
+      const content = (
+        <DropdownMenu.Content portalContainer={parent === 'prop' ? parentContainer : undefined}>
+          <DropdownMenu.Sub open>
+            <DropdownMenu.SubTrigger>Move to</DropdownMenu.SubTrigger>
+            {explicitSubmenu ? (
+              <DropdownMenu.Portal container={submenuContainer}>{submenu}</DropdownMenu.Portal>
+            ) : (
+              submenu
+            )}
+          </DropdownMenu.Sub>
+        </DropdownMenu.Content>
+      );
 
       render(
         <DropdownMenu open modal={false}>
           <DropdownMenu.Trigger>Open</DropdownMenu.Trigger>
-          <DropdownMenu.Content>
-            <DropdownMenu.Sub open>
-              <DropdownMenu.SubTrigger>Move to</DropdownMenu.SubTrigger>
-              {custom ? (
-                <DropdownMenu.Portal container={container}>{submenu}</DropdownMenu.Portal>
-              ) : (
-                submenu
-              )}
-            </DropdownMenu.Sub>
-          </DropdownMenu.Content>
+          {parent === 'explicit' ? (
+            <DropdownMenu.Portal container={parentContainer}>{content}</DropdownMenu.Portal>
+          ) : (
+            content
+          )}
         </DropdownMenu>,
       );
 
       const panel = screen.getByRole('menu', { name: 'Move to' });
-      expect(container).toContainElement(panel);
+      expect(submenuContainer).toContainElement(panel);
       expect(screen.getByRole('menu', { name: 'Open' })).not.toContainElement(panel);
     });
   });
@@ -459,7 +469,7 @@ describe('DropdownMenu', () => {
             <DropdownMenu.Separator />
             <DropdownMenu.Sub open>
               <DropdownMenu.SubTrigger>Share</DropdownMenu.SubTrigger>
-              <DropdownMenu.SubContent data-testid="sub-content">
+              <DropdownMenu.SubContent>
                 <DropdownMenu.Item>Copy link</DropdownMenu.Item>
               </DropdownMenu.SubContent>
             </DropdownMenu.Sub>
@@ -506,7 +516,7 @@ describe('DropdownMenu', () => {
     it('gives the submenu the menu surface', () => {
       renderMenu();
 
-      expect(screen.getByTestId('sub-content')).toHaveClass(
+      expect(screen.getByRole('menu', { name: 'Share' })).toHaveClass(
         'min-w-ws-28',
         'rounded-ws-container-sm',
         'p-ws-3',
@@ -519,7 +529,11 @@ describe('DropdownMenu', () => {
     it('keeps the separator row at 12px, as Figma draws it', () => {
       renderMenu();
 
-      expect(screen.getByRole('separator')).toHaveClass('my-[5.5px]', 'border-t');
+      expect(screen.getByRole('separator')).toHaveClass(
+        'h-ws-7',
+        'content-center',
+        'before:border-t-(length:--border-width-ws-width-sm)',
+      );
     });
 
     it('uses the caller-provided element for submenu triggers and radio items with asChild', () => {

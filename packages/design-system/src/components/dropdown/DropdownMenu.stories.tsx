@@ -126,6 +126,10 @@ const meta = {
     'DropdownMenu.Content': DropdownMenu.Content,
     'DropdownMenu.Item': DropdownMenu.Item,
     'DropdownMenu.Label': DropdownMenu.Label,
+    'DropdownMenu.RadioGroup': DropdownMenu.RadioGroup,
+    'DropdownMenu.RadioItem': DropdownMenu.RadioItem,
+    'DropdownMenu.SubContent': DropdownMenu.SubContent,
+    'DropdownMenu.SubTrigger': DropdownMenu.SubTrigger,
   },
   decorators: [
     (Story) => (

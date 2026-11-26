@@ -6,6 +6,7 @@ import { useDefaultMotion } from '../../motion/MotionProvider';
 import { DropdownMenuContext, DropdownMenuPortalContext } from './DropdownMenu.context';
 import type { DropdownMenuContentProps } from './DropdownMenu.types';
 import {
+  dropdownMenuCollisionPadding,
   dropdownMenuContentClassName,
   dropdownMenuContentMotionVariants,
 } from './DropdownMenu.variants';
@@ -18,7 +19,7 @@ export const DropdownMenuContent = forwardRef<
     {
       className,
       sideOffset = 4,
-      collisionPadding = 10,
+      collisionPadding = dropdownMenuCollisionPadding,
       onCloseAutoFocus,
       onPointerDown,
       portalContainer,
@@ -28,7 +29,8 @@ export const DropdownMenuContent = forwardRef<
     ref,
   ) => {
     const motion = useDefaultMotion(defaultMotion);
-    const insidePortal = useContext(DropdownMenuPortalContext);
+    const { container, hasExplicitPortal } = useContext(DropdownMenuPortalContext);
+    const panelContainer = hasExplicitPortal ? container : portalContainer;
     // Prevent focus return to trigger after closing with mouse click, to not show the outline on the trigger
     const lastPointerTime = useRef(0);
 
@@ -46,9 +48,10 @@ export const DropdownMenuContent = forwardRef<
     };
 
     const content = (
-      // Reset for descendants (a Select inside the menu): the flag only applies to the Content
-      // placed directly in a Portal.
-      <DropdownMenuPortalContext.Provider value={false}>
+      // Descendants get the container. Each panel still gets its own portal.
+      <DropdownMenuPortalContext.Provider
+        value={{ container: panelContainer, hasExplicitPortal: false }}
+      >
         <DropdownMenuPrimitive.Content
           ref={ref}
           data-slot="dropdown-menu-content"
@@ -73,11 +76,11 @@ export const DropdownMenuContent = forwardRef<
     // must reach it too.
     return (
       <DropdownMenuContext.Provider value={{ motion }}>
-        {insidePortal ? (
+        {hasExplicitPortal ? (
           content
         ) : (
           <DropdownMenuPrimitive.Portal
-            container={portalContainer ?? undefined}
+            container={panelContainer ?? undefined}
             forceMount={props.forceMount}
           >
             {content}

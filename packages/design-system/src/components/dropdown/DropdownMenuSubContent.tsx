@@ -5,6 +5,7 @@ import { cn } from 'src/lib/utils';
 import { DropdownMenuPortalContext, useDropdownMenuContext } from './DropdownMenu.context';
 import type { DropdownMenuSubContentProps } from './DropdownMenu.types';
 import {
+  dropdownMenuCollisionPadding,
   dropdownMenuContentClassName,
   dropdownMenuContentMotionVariants,
 } from './DropdownMenu.variants';
@@ -12,12 +13,12 @@ import {
 export const DropdownMenuSubContent = forwardRef<
   ComponentRef<typeof DropdownMenuPrimitive.SubContent>,
   DropdownMenuSubContentProps
->(({ className, collisionPadding = 10, ...props }, ref) => {
+>(({ className, collisionPadding = dropdownMenuCollisionPadding, ...props }, ref) => {
   const { motion } = useDropdownMenuContext();
-  const insidePortal = useContext(DropdownMenuPortalContext);
+  const { container, hasExplicitPortal } = useContext(DropdownMenuPortalContext);
 
   const content = (
-    <DropdownMenuPortalContext.Provider value={false}>
+    <DropdownMenuPortalContext.Provider value={{ container, hasExplicitPortal: false }}>
       <DropdownMenuPrimitive.SubContent
         ref={ref}
         data-slot="dropdown-menu-sub-content"
@@ -32,10 +33,10 @@ export const DropdownMenuSubContent = forwardRef<
     </DropdownMenuPortalContext.Provider>
   );
 
-  return insidePortal ? (
+  return hasExplicitPortal ? (
     content
   ) : (
-    <DropdownMenuPrimitive.Portal forceMount={props.forceMount}>
+    <DropdownMenuPrimitive.Portal container={container} forceMount={props.forceMount}>
       {content}
     </DropdownMenuPrimitive.Portal>
   );

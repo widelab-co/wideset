@@ -5,7 +5,7 @@ import { cn } from 'src/lib/utils';
 import { ListItem } from '../list-item/ListItem';
 import { useDropdownMenuContext } from './DropdownMenu.context';
 import type { DropdownMenuRadioItemProps } from './DropdownMenu.types';
-import { dropdownMenuItemClassName } from './DropdownMenu.variants';
+import { dropdownMenuRadioItemVariants } from './DropdownMenu.variants';
 
 export const DropdownMenuRadioItem = forwardRef<
   ComponentRef<typeof DropdownMenuPrimitive.RadioItem>,
@@ -17,7 +17,7 @@ export const DropdownMenuRadioItem = forwardRef<
     <DropdownMenuPrimitive.RadioItem
       ref={ref}
       data-slot="dropdown-menu-radio-item"
-      className={asChild ? className : cn(dropdownMenuItemClassName, className)}
+      className={cn(dropdownMenuRadioItemVariants({ defaultRow: !asChild }), className)}
       {...props}
       asChild
     >

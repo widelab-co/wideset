@@ -7,9 +7,9 @@ import { ListItem } from '../list-item/ListItem';
 import { useDropdownMenuContext } from './DropdownMenu.context';
 import type { DropdownMenuSubTriggerProps } from './DropdownMenu.types';
 import {
-  dropdownMenuSubTriggerClassName,
   dropdownMenuSubTriggerIconClassName,
   dropdownMenuSubTriggerSuffixClassName,
+  dropdownMenuSubTriggerVariants,
 } from './DropdownMenu.variants';
 
 export const DropdownMenuSubTrigger = forwardRef<
@@ -22,7 +22,7 @@ export const DropdownMenuSubTrigger = forwardRef<
     <DropdownMenuPrimitive.SubTrigger
       ref={ref}
       data-slot="dropdown-menu-sub-trigger"
-      className={asChild ? className : cn(dropdownMenuSubTriggerClassName, className)}
+      className={cn(dropdownMenuSubTriggerVariants({ defaultRow: !asChild }), className)}
       {...props}
       asChild
     >

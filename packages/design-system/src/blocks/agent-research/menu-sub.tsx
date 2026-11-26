@@ -1,4 +1,3 @@
-// TODO(custom): a submenu (a row with the current value and a chevron, its own panel beside the menu); Wideset exports DropdownMenu.Sub, SubTrigger and SubContent as bare Radix parts with no styling.
 import { type RemixiconComponentType, RiArrowRightSLine } from '@remixicon/react';
 import { DropdownMenu, ListItem } from '@wideset/react';
 import type { ReactNode } from 'react';

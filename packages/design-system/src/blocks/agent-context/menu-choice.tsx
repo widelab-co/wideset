@@ -1,4 +1,3 @@
-// TODO(custom): a menu item that is one choice of several, ticked when picked; Wideset exports DropdownMenu.RadioGroup and RadioItem as bare Radix parts with no styling.
 import { DropdownMenu, ListItem } from '@wideset/react';
 import type { ReactNode } from 'react';
 

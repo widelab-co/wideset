@@ -1,6 +1,9 @@
 import { cva } from 'class-variance-authority';
 import { cn } from 'src/lib/utils';
 
+// Match Radix Select's viewport inset. collisionPadding takes a number in pixels.
+export const dropdownMenuCollisionPadding = 10;
+
 export const dropdownMenuContentClassName = cn(
   'min-w-ws-28',
   'rounded-ws-container-sm p-ws-3 outline-hidden',
@@ -21,13 +24,24 @@ export const dropdownMenuLabelVariants = cva(
   },
 );
 
-// The 1px border counts toward the 12px row, leaving 5.5px on each side.
-export const dropdownMenuSeparatorClassName = 'border-ws-static-base -mx-ws-3 my-[5.5px] border-t';
+export const dropdownMenuRadioItemVariants = cva('', {
+  variants: {
+    defaultRow: {
+      true: dropdownMenuItemClassName,
+    },
+  },
+});
 
-export const dropdownMenuSubTriggerClassName = cn(
-  dropdownMenuItemClassName,
-  'data-[state=open]:bg-ws-dynamic-secondary-alpha-hover',
-);
+export const dropdownMenuSeparatorClassName =
+  '-mx-ws-3 grid h-ws-7 content-center border-ws-static-base before:border-t-(length:--border-width-ws-width-sm) before:border-inherit';
+
+export const dropdownMenuSubTriggerVariants = cva('', {
+  variants: {
+    defaultRow: {
+      true: [dropdownMenuItemClassName, 'data-[state=open]:bg-ws-dynamic-secondary-alpha-hover'],
+    },
+  },
+});
 export const dropdownMenuSubTriggerSuffixClassName = 'size-ws-12 justify-center';
 export const dropdownMenuSubTriggerIconClassName = 'size-ws-9';
 

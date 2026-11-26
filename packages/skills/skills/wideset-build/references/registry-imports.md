@@ -251,7 +251,7 @@ A member such as `Card.Header` comes with `Card`; its named form, `CardHeader`, 
 - `import type { DatePickerProps } from '@/components/ui/wideset/datepicker/DatePicker.types';`
 - `import type { DateRangePickerProps, DateRangePreset, DateRangeValue } from '@/components/ui/wideset/daterangepicker/DateRangePicker.types';`
 - `import type { DividerProps } from '@/components/ui/wideset/divider/Divider.types';`
-- `import type { DropdownMenuContentProps, DropdownMenuGroupProps, DropdownMenuItemProps, DropdownMenuLabelProps, DropdownMenuPortalProps, DropdownMenuProps, DropdownMenuRadioGroupProps, DropdownMenuSeparatorProps, DropdownMenuTriggerProps } from '@/components/ui/wideset/dropdown/DropdownMenu.types';`
+- `import type { DropdownMenuCheckboxItemProps, DropdownMenuContentProps, DropdownMenuGroupProps, DropdownMenuItemIndicatorProps, DropdownMenuItemProps, DropdownMenuLabelProps, DropdownMenuPortalProps, DropdownMenuProps, DropdownMenuRadioGroupProps, DropdownMenuRadioItemProps, DropdownMenuSeparatorProps, DropdownMenuSubContentProps, DropdownMenuSubTriggerProps, DropdownMenuTriggerProps } from '@/components/ui/wideset/dropdown/DropdownMenu.types';`
 - `import type { FileItemDescriptionProps, FileItemLoadingProps, FileItemProps, FileItemThumbnailProps, FileItemTitleProps } from '@/components/ui/wideset/file-upload/FileItem.types';`
 - `import type { FileUploadDropzoneProps, FileUploadLabels, FileUploadProps, FileUploadTriggerProps } from '@/components/ui/wideset/file-upload/FileUpload.types';`
 - `import type { FilterButtonProps } from '@/components/ui/wideset/filter-button/FilterButton.types';`
