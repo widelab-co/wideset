@@ -1,10 +1,12 @@
+import { forwardRef } from 'react';
+
 import type { TabsLabelProps } from './Tabs.types';
 
-const TabsLabel = ({ children, ...props }: TabsLabelProps) => (
-  <span data-slot="tabs-label" {...props}>
+const TabsLabel = forwardRef<HTMLSpanElement, TabsLabelProps>(({ children, ...props }, ref) => (
+  <span ref={ref} data-slot="tabs-label" {...props}>
     {children}
   </span>
-);
+));
 
 TabsLabel.displayName = 'Tabs.Label';
 
