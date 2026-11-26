@@ -503,58 +503,23 @@ describe('Spreadsheet', () => {
       expect(screen.getByRole('button', { name: 'After' })).toHaveFocus();
     });
 
-    it('takes a nested editor out of the tab order when it becomes its own editing host', async () => {
-      const editors = (outerEditable: boolean) => (
-        <OneCell>
-          <div contentEditable={outerEditable} suppressContentEditableWarning>
-            <div contentEditable suppressContentEditableWarning role="textbox" aria-label="Notes">
-              Text
-            </div>
-          </div>
-        </OneCell>
-      );
-      const { rerender } = render(editors(true));
-      const editor = screen.getByRole('textbox', { name: 'Notes' });
-      expect(editor).not.toHaveAttribute('tabindex');
-      rerender(editors(false));
-      await waitFor(() => expect(editor).toHaveAttribute('tabindex', '-1'));
-    });
-
-    it('takes focusable SVGs out of the native tab order', () => {
-      render(
-        <OneCell>
-          <svg role="img" aria-label="Diagram" tabIndex={0}>
-            <a href="#details" aria-label="Details">
-              <title>Details</title>
-            </a>
-          </svg>
-        </OneCell>,
-      );
-      expect(screen.getByRole('img', { name: 'Diagram' })).toHaveAttribute('tabindex', '-1');
-      expect(screen.getByLabelText('Details')).toHaveAttribute('tabindex', '-1');
-    });
-
-    it('takes legacy SVG links and image map areas out of the tab order', async () => {
+    /** Lets the grid's observer handle the mutations made so far. */
+    const settle = () => act(async () => {});
+    const SVG = 'http://www.w3.org/2000/svg';
+    const XLINK = 'http://www.w3.org/1999/xlink';
+    /** An SVG `a` added to a cell after render, where only the observer can reach it. */
+    const addSvgLink = async () => {
       render(
         <OneCell>
           <svg role="img" aria-label="Diagram" />
-          <map name="locations">
-            <area alt="Location" href="#location" />
-          </map>
         </OneCell>,
       );
-      const link = document.createElementNS('http://www.w3.org/2000/svg', 'a');
+      const link = document.createElementNS(SVG, 'a');
       await act(async () => screen.getByRole('img', { name: 'Diagram' }).append(link));
-      expect(link).not.toHaveAttribute('tabindex');
-      const xlink = 'http://www.w3.org/1999/xlink';
-      await act(async () => link.setAttributeNS(xlink, 'xlink:href', '#details'));
-      expect(link).toHaveAttribute('tabindex', '-1');
-      await act(async () => link.removeAttributeNS(xlink, 'href'));
-      expect(link).not.toHaveAttribute('tabindex');
-      expect(screen.getByAltText('Location')).toHaveAttribute('tabindex', '-1');
-    });
-
-    it('restores implicit and explicit tab indices when controls leave a cell', async () => {
+      return link;
+    };
+    /** Two buttons added to a cell, then moved out of the grid. */
+    const moveOutOfGrid = async () => {
       render(<OneCell>Notes</OneCell>);
       const controls = document.createElement('div');
       const implicit = document.createElement('button');
@@ -565,8 +530,193 @@ describe('Spreadsheet', () => {
       expect(implicit).toHaveAttribute('tabindex', '-1');
       expect(explicit).toHaveAttribute('tabindex', '-1');
       await act(async () => screen.getByRole('grid').parentElement?.after(controls));
-      expect(implicit).not.toHaveAttribute('tabindex');
-      expect(explicit).toHaveAttribute('tabindex', '2');
+      return { implicit, explicit };
+    };
+
+    it.each<[string, () => Promise<Element> | Element, string | null]>([
+      [
+        'a focusable svg',
+        () => {
+          render(
+            <OneCell>
+              <svg role="img" aria-label="Diagram" tabIndex={0} />
+            </OneCell>,
+          );
+          return screen.getByRole('img', { name: 'Diagram' });
+        },
+        '-1',
+      ],
+      [
+        'a link in an svg',
+        () => {
+          render(
+            <OneCell>
+              <svg>
+                <a href="#details" aria-label="Details">
+                  <title>Details</title>
+                </a>
+              </svg>
+            </OneCell>,
+          );
+          return screen.getByLabelText('Details');
+        },
+        '-1',
+      ],
+      [
+        'an image map area',
+        () => {
+          render(
+            <OneCell>
+              <map name="locations">
+                <area alt="Location" href="#location" />
+              </map>
+            </OneCell>,
+          );
+          return screen.getByAltText('Location');
+        },
+        '-1',
+      ],
+      ['an SVG link without an href', addSvgLink, null],
+      [
+        'an SVG link given a legacy xlink:href',
+        async () => {
+          const link = await addSvgLink();
+          await act(async () => link.setAttributeNS(XLINK, 'xlink:href', '#details'));
+          return link;
+        },
+        '-1',
+      ],
+      [
+        'an SVG link that loses its xlink:href',
+        async () => {
+          const link = await addSvgLink();
+          await act(async () => link.setAttributeNS(XLINK, 'xlink:href', '#details'));
+          expect(link).toHaveAttribute('tabindex', '-1');
+          await act(async () => link.removeAttributeNS(XLINK, 'href'));
+          return link;
+        },
+        null,
+      ],
+      [
+        'a nested editor that becomes its own editing host',
+        async () => {
+          const editors = (outerEditable: boolean) => (
+            <OneCell>
+              <div contentEditable={outerEditable} suppressContentEditableWarning>
+                <div contentEditable suppressContentEditableWarning aria-label="Notes" />
+              </div>
+            </OneCell>
+          );
+          const { rerender } = render(editors(true));
+          const editor = screen.getByLabelText('Notes');
+          expect(editor).not.toHaveAttribute('tabindex');
+          rerender(editors(false));
+          await settle();
+          return editor;
+        },
+        '-1',
+      ],
+      [
+        'an editing host whose authored -1 is removed while static',
+        async () => {
+          const notes = (editable: boolean, tabIndex?: number) => (
+            <OneCell>
+              <div contentEditable={editable} tabIndex={tabIndex} suppressContentEditableWarning>
+                Note
+              </div>
+            </OneCell>
+          );
+          const { rerender } = render(notes(true, -1));
+          const editor = screen.getByText('Note');
+          rerender(notes(false));
+          await settle();
+          expect(editor).not.toHaveAttribute('tabindex');
+          rerender(notes(true));
+          await settle();
+          return editor;
+        },
+        '-1',
+      ],
+      ...(['audio', 'video'] as const).map((Media): [string, () => Promise<Element>, string] => [
+        `${Media} whose controls are enabled later`,
+        async () => {
+          const media = (controls: boolean) => (
+            <OneCell>
+              <Media controls={controls} aria-label="Recording" />
+            </OneCell>
+          );
+          const { rerender } = render(media(false));
+          rerender(media(true));
+          await settle();
+          return screen.getByLabelText('Recording');
+        },
+        '-1',
+      ]),
+      [
+        'a control rendered later',
+        async () => {
+          const { rerender } = render(<OneCell>Call back</OneCell>);
+          rerender(
+            <OneCell>
+              <input aria-label="Notes" />
+            </OneCell>,
+          );
+          await settle();
+          return screen.getByRole('textbox', { name: 'Notes' });
+        },
+        '-1',
+      ],
+      [
+        'a control enabled later',
+        async () => {
+          const save = (disabled: boolean) => (
+            <OneCell>
+              <button type="button" disabled={disabled}>
+                Save
+              </button>
+            </OneCell>
+          );
+          const { rerender } = render(save(true));
+          rerender(save(false));
+          await settle();
+          return screen.getByRole('button', { name: 'Save' });
+        },
+        '-1',
+      ],
+      [
+        'a control a re-render puts back in the tab order',
+        async () => {
+          const action = (tabIndex: number) => (
+            <OneCell>
+              <span role="button" tabIndex={tabIndex}>
+                Archive
+              </span>
+            </OneCell>
+          );
+          const { rerender } = render(action(-1));
+          rerender(action(0));
+          await settle();
+          return screen.getByRole('button', { name: 'Archive' });
+        },
+        '-1',
+      ],
+      ['a control moved out of the grid', async () => (await moveOutOfGrid()).implicit, null],
+      [
+        'a control with its own tabindex moved out of the grid',
+        async () => (await moveOutOfGrid()).explicit,
+        '2',
+      ],
+    ])('manages the tabindex of %s', async (_, setup, tabIndex) => {
+      const element = await setup();
+      if (tabIndex === null) expect(element).not.toHaveAttribute('tabindex');
+      else expect(element).toHaveAttribute('tabindex', tabIndex);
+    });
+
+    it('observes each SVG link on its own, as an attributeFilter never reports xlink:href', async () => {
+      const observe = vi.spyOn(MutationObserver.prototype, 'observe');
+      const link = await addSvgLink();
+      expect(observe).toHaveBeenCalledWith(link, { attributes: true });
+      observe.mockRestore();
     });
 
     it('drops the managed tabindex when a link loses its href', async () => {
@@ -605,23 +755,6 @@ describe('Spreadsheet', () => {
       await user.click(screen.getByRole('gridcell'));
       await user.keyboard('{Enter}');
       expect(screen.getByRole('textbox', { name: 'Next' })).toHaveFocus();
-    });
-
-    it('suppresses an editing host again after its authored negative tabindex is removed', async () => {
-      const notes = (editable: boolean, tabIndex?: number) => (
-        <OneCell>
-          <div contentEditable={editable} tabIndex={tabIndex} suppressContentEditableWarning>
-            Note
-          </div>
-        </OneCell>
-      );
-      const { rerender } = render(notes(true, -1));
-      const editor = screen.getByText('Note');
-      rerender(notes(false));
-      await act(async () => {});
-      expect(editor).not.toHaveAttribute('tabindex');
-      rerender(notes(true));
-      await waitFor(() => expect(editor).toHaveAttribute('tabindex', '-1'));
     });
 
     it('suppresses iframe tab stops and enters the next same-document control', async () => {
@@ -733,22 +866,6 @@ describe('Spreadsheet', () => {
       await user.tab();
       expect(screen.getByRole('button', { name: 'After' })).toHaveFocus();
     });
-
-    it.each(['audio', 'video'] as const)(
-      'takes %s out of the tab order when controls are enabled',
-      async (tag) => {
-        const Media = tag;
-        const notes = (controls: boolean) => (
-          <OneCell>
-            <Media controls={controls} aria-label="Recording" />
-          </OneCell>
-        );
-        const { rerender } = render(notes(false));
-        rerender(notes(true));
-        await act(async () => {});
-        expect(screen.getByLabelText('Recording')).toHaveAttribute('tabindex', '-1');
-      },
-    );
 
     it.each([
       [0, -1, 'After'],
@@ -989,51 +1106,6 @@ describe('Spreadsheet', () => {
         expect(scroller).toHaveAttribute('tabindex', String(tabIndex));
       },
     );
-
-    it('keeps a control rendered later out of the tab order', async () => {
-      const Notes = ({ editing }: { editing: boolean }) => (
-        <Spreadsheet aria-label="Clients">
-          <Spreadsheet.Body>
-            <Spreadsheet.Row>
-              <Spreadsheet.Cell>
-                {editing ? <input aria-label="Notes" /> : 'Call back'}
-              </Spreadsheet.Cell>
-              <Spreadsheet.Cell>
-                <button type="button" disabled={!editing}>
-                  Save
-                </button>
-              </Spreadsheet.Cell>
-            </Spreadsheet.Row>
-          </Spreadsheet.Body>
-        </Spreadsheet>
-      );
-      const { rerender } = render(<Notes editing={false} />);
-      rerender(<Notes editing />);
-      await act(async () => {});
-      expect(screen.getByRole('textbox', { name: 'Notes' })).toHaveAttribute('tabindex', '-1');
-      // A control enabled after the grid rendered stays out too.
-      expect(screen.getByRole('button', { name: 'Save' })).toHaveAttribute('tabindex', '-1');
-    });
-
-    it('takes a control out of the tab order again when a re-render puts it back', async () => {
-      const Action = ({ tabIndex }: { tabIndex: number }) => (
-        <Spreadsheet aria-label="Clients">
-          <Spreadsheet.Body>
-            <Spreadsheet.Row>
-              <Spreadsheet.Cell>
-                <span role="button" tabIndex={tabIndex}>
-                  Archive
-                </span>
-              </Spreadsheet.Cell>
-            </Spreadsheet.Row>
-          </Spreadsheet.Body>
-        </Spreadsheet>
-      );
-      const { rerender } = render(<Action tabIndex={-1} />);
-      rerender(<Action tabIndex={0} />);
-      await act(async () => {});
-      expect(screen.getByRole('button', { name: 'Archive' })).toHaveAttribute('tabindex', '-1');
-    });
 
     it('moves between the controls of one cell with Tab before leaving the grid', async () => {
       const user = userEvent.setup();
