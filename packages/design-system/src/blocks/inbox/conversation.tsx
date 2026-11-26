@@ -52,7 +52,7 @@ export function Conversation({
             />
           </div>
           {/* Pulled left by the links' own padding, so their text starts under the subject. */}
-          <div className="-ml-ws-6 flex min-w-0 items-center">
+          <div className="-ml-ws-5 flex min-w-0 items-center">
             <LinkButton variant="secondary" href="#customers" className="gap-ws-3">
               <RiContactsBook3Line aria-hidden className="size-ws-9" />
               {customer}

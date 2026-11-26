@@ -63,7 +63,7 @@ export function SidePanel({
             <LinkButton
               variant="secondary"
               href={`#${call.deal.id}`}
-              className="-ml-ws-6 gap-ws-3 self-start"
+              className="-ml-ws-5 gap-ws-3 self-start"
             >
               <RiHandCoinLine aria-hidden className="size-ws-9" />
               {call.deal.name}
