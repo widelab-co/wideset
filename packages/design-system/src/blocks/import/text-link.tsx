@@ -1,4 +1,4 @@
-// TODO(custom): a link inside a sentence; Wideset has no inline text link (LinkButton is a control with its own padding and height).
+// TODO(custom): this block underlines links on hover and focus. Wideset TextLink uses a persistent underline.
 import { cn } from '@wideset/react';
 import type { AnchorHTMLAttributes } from 'react';
 

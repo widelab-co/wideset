@@ -1,4 +1,4 @@
-/** Off by default, since a link button usually stands on its own. Turn the underline on when the link sits inside a sentence, where colour alone does not tell it apart from the text around it. */
+/** Off by default, since a link button stands on its own. Turn the underline on where colour alone does not tell it apart from the text near it. A link inside a sentence is a TextLink, which keeps the sentence's size and weight. */
 import { LinkButton } from '@wideset/react';
 
 export default function LinkButtonUnderlined() {

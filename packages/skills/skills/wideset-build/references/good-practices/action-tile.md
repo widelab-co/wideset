@@ -9,7 +9,7 @@
 
 - A tile that only presents information, or one the user selects → `Tile` (`TileCheckbox`,
   `TileRadio`).
-- A single inline route → `LinkButton`.
+- A standalone text link → `LinkButton`. A link inside running text → `TextLink`.
 - A single action without a description → `Button`.
 
 ## Do / Don't
