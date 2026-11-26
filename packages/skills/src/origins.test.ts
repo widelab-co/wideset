@@ -5,12 +5,7 @@ import { fileURLToPath } from 'node:url';
 
 import { describe, expect, it } from 'vitest';
 
-/**
- * Production docs and Storybook answer only on wideset.co and storybook.wideset.co; the old
- * workers.dev addresses are retired (RELEASING.md). When the default visual direction changed,
- * wideset-build kept a workers.dev link and the first pass missed it. Nothing a consumer or an
- * agent reads may point there: the skills, the specs, the library and CLI source, the docs pages.
- */
+/** Checks that consumer-facing files use the production docs and Storybook origins. */
 const REPO = resolve(dirname(fileURLToPath(import.meta.url)), '../../..');
 const SHIPPED = [
   'packages/skills',

@@ -5,11 +5,7 @@ import { fileURLToPath } from 'node:url';
 
 import { describe, expect, it } from 'vitest';
 
-/**
- * The default visual direction is said once in prose, in specs/patterns/directions.md, and once
- * in code, AppShell's `defaultVariants`. When it changed from Flat to Inset, it was also written
- * in four other places and one of them kept the old value. Everything else points to the pattern.
- */
+/** Checks that the directions pattern and AppShell agree on the default visual direction. */
 const REPO = resolve(dirname(fileURLToPath(import.meta.url)), '../../..');
 const PATTERN = 'packages/design-system/specs/patterns/directions.md';
 const read = (file: string) => readFileSync(join(REPO, file), 'utf8');
