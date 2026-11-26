@@ -24,18 +24,14 @@ import statesSource from './examples/navigation-bar/states?raw';
 import { NavigationBar } from './NavigationBar';
 import { NavigationBarIcon } from './NavigationBarIcon';
 import { NavigationBarItem } from './NavigationBarItem';
-import { NavigationBarLabel } from './NavigationBarLabel';
-import { NavigationBarNav } from './NavigationBarNav';
 
 const meta = {
   title: 'Components/NavigationBar',
   tags: ['autodocs'],
   component: NavigationBar,
   subcomponents: {
-    'NavigationBar.Nav': NavigationBarNav,
     'NavigationBar.Item': NavigationBarItem,
     'NavigationBar.Icon': NavigationBarIcon,
-    'NavigationBar.Label': NavigationBarLabel,
   },
   parameters: {
     docs: {
@@ -151,15 +147,15 @@ export const Default: Story = {
   },
 };
 
+export const Divider: Story = exampleStory(DividerExample, dividerSource);
+
+export const States: Story = exampleStory(StatesExample, statesSource);
+
 export const Navigation: Story = exampleStory(NavigationExample, navigationSource);
 
 export const Breadcrumbs: Story = exampleStory(BreadcrumbsExample, breadcrumbsSource);
 
 export const Minimal: Story = exampleStory(MinimalExample, minimalSource);
-
-export const Divider: Story = exampleStory(DividerExample, dividerSource);
-
-export const States: Story = exampleStory(StatesExample, statesSource);
 
 const PAGES = [
   { to: '/', label: 'Dashboard', icon: RiHome5Line },
