@@ -24,7 +24,7 @@ export function StepDetail({ detail }: { detail: Detail }) {
       aria-label={NAME[detail.kind]}
       // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- a scrolling region must be reachable by keyboard
       tabIndex={0}
-      className="border-ws-static-base rounded-ws-container-sm ml-ws-12 mt-ws-2 mb-ws-3 focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default max-h-[15rem] overflow-auto border"
+      className="border-ws-static-base rounded-ws-container-sm ml-ws-12 mt-ws-2 mb-ws-3 focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default ws-scrollbar max-h-[15rem] overflow-auto border"
     >
       {detail.kind === 'results' ? (
         <ul className="px-ws-7 py-ws-5 typography-body-md flex flex-col">

@@ -11,7 +11,7 @@ import categories from '../data/block-categories.json';
 /**
  * The starting points: whole screens and the panels that open over them, in
  * packages/design-system/src/blocks/<id>/, listed by the manifest beside them. The server side
- * reads their files as text for the code and the Markdown; the browser loads only the one block a
+ * reads their files as text for the package examples in Markdown; the browser loads only the one block a
  * preview shows (src/components/BlockFrame.tsx).
  */
 export { BLOCKS, DIRECTION_TITLE, NAVIGATION_TITLE, PANELS };
@@ -27,7 +27,7 @@ export const PANEL_SUMMARY =
   'A panel opens over any screen and keeps its own look in every direction: it has no direction of its own.';
 
 const sources = import.meta.glob<string>(
-  '../../../../packages/design-system/src/blocks/*/*.{ts,tsx}',
+  '../../../../packages/design-system/src/blocks/*/**/*.{ts,tsx}',
   { query: '?raw', import: 'default', eager: true },
 );
 
@@ -36,9 +36,10 @@ export type BlockFile = { name: string; code: string };
 /** A block's files, `index.tsx` first, then its parts, then `data.ts`. */
 export const filesOf = (id: string): BlockFile[] => {
   const rank = (name: string) => (name === 'index.tsx' ? 0 : name === 'data.ts' ? 2 : 1);
+  const directory = '../../../../packages/design-system/src/blocks/' + id + '/';
   return Object.entries(sources)
-    .filter(([path]) => path.includes(`/blocks/${id}/`))
-    .map(([path, code]) => ({ name: path.split('/').pop()!, code }))
+    .filter(([path]) => path.startsWith(directory))
+    .map(([path, code]) => ({ name: path.slice(directory.length), code }))
     .sort((a, b) => rank(a.name) - rank(b.name) || a.name.localeCompare(b.name));
 };
 
@@ -104,7 +105,7 @@ export const DIRECTION_SUMMARY: Record<BlockMeta['direction'], string> = {
 export const blocksMarkdown = (site: URL) =>
   [
     '# Starting points',
-    'Whole Wideset screens to start a new app from: the first ones rebuilt 1:1 from the Wideset Core Figma file, the rest composed from Wideset by the same rules. Pick the visual direction first (once per app), then the screen closest to what you build; copy it, keep its surround, replace its content.',
+    'Whole Wideset screens to start a new app from: the first ones rebuilt 1:1 from the Wideset Core Figma file, the rest composed from Wideset by the same rules. Pick the visual direction first (once per app), then the screen closest to what you build; install it with the Wideset CLI, keep its surround and replace its content.',
     `## Directions\n\n${blocksByDirection()
       .map(({ direction, title }) => `- **${title}**: ${DIRECTION_SUMMARY[direction]}`)
       .join('\n')}`,
@@ -129,13 +130,16 @@ export const blockMarkdown = (block: Entry, site: URL) => {
       ? `Direction: **${DIRECTION_TITLE[block.direction]}** · Navigation: **${NAVIGATION_TITLE[block.navigation]}**. ` +
         `The direction is the app's surround; keep it on every screen. All four, and every starting point: ${index}`
       : `${PANEL_SUMMARY} Every starting point: ${index}`,
-    '## Use it',
+    '## Install it',
+    fence('bash', `npx wideset add block-${block.id}`),
+    `Import the default export from \`@/blocks/wideset/${block.id}\`. The CLI installs the block's files, Wideset components and styles. The [Code tab](${new URL(`/blocks/${block.id}?tab=code`, site).href}) shows the installed files.`,
+    '## Use it with the npm package',
     `${
       isScreen(block)
         ? `Copy the files below into one folder of your app (for example \`src/screens/${block.id}/\`), keep the surround (the root element, the navigation and \`main\`), and replace the content and \`data.ts\` with yours.`
         : `Copy the files below into one folder of your app (for example \`src/panels/${block.id}/\`), render the panel from the screen that opens it, and replace its content and \`data.ts\` with yours.`
-    } The code imports \`@wideset/react\`; in registry mode take each import from the registry-imports reference. It uses state and effects: in a React Server Components app (the Next.js App Router) put \`'use client'\` at the top of \`index.tsx\`.${files.some((file) => file.name.endsWith('.assets.ts')) ? ' The photos in `*.assets.ts` are shortened here: point them at your own images.' : ''} Preview: ${new URL(`/blocks/${block.id}/preview`, site).href}`,
-    `## Files\n\n${files.map((file) => `### ${file.name}\n\n${fence(file.name.endsWith('.ts') ? 'ts' : 'tsx', forMarkdown(file))}`).join('\n\n')}`,
+    } The files below import \`@wideset/react\`. The block layout uses Tailwind v4 with the Wideset theme. The code uses state and effects: in a React Server Components app (the Next.js App Router) put \`'use client'\` at the top of \`index.tsx\`.${files.some((file) => file.name.endsWith('.assets.ts')) ? ' The photos in `*.assets.ts` are shortened here: point them at your own images.' : ''} Preview: ${new URL(`/blocks/${block.id}/preview`, site).href}`,
+    `### Package source files\n\n${files.map((file) => `#### ${file.name}\n\n${fence(file.name.endsWith('.ts') ? 'ts' : 'tsx', forMarkdown(file))}`).join('\n\n')}`,
   ].join('\n\n');
 };
 

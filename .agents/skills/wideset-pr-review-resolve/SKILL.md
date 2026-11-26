@@ -81,7 +81,7 @@ option that knowingly breaks a hard rule. Ask related decisions together, record
 it, and continue fixes that do not depend on it.
 
 Validate with `pnpm typecheck` then `pnpm test`, plus the checks the changed files require (build,
-registry/playground, changeset, snapshots, Figma). Add regression coverage for behaviour fixes;
+registry, changeset, snapshots, Figma). Add regression coverage for behaviour fixes;
 do not delete failing gates, blanket-update snapshots, or accept a Figma spec without sign-off.
 Report failures and limits honestly and separate failures that existed before the changes.
 

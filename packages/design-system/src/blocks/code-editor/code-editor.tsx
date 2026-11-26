@@ -53,10 +53,11 @@ function pieces(line: string, tokens: Token[], problems: Problem[]): Piece[] {
   ]
     .filter((at) => at >= 0 && at <= line.length)
     .sort((a, b) => a - b);
+  const reversedTokens = [...tokens].reverse();
   return cuts.slice(0, -1).map((from, index) => ({
     from,
     to: cuts[index + 1],
-    kind: tokens.findLast((token) => token.start <= from)?.kind ?? 'plain',
+    kind: reversedTokens.find((token) => token.start <= from)?.kind ?? 'plain',
     mark: marks.find((mark) => mark.from <= from && from < mark.to)?.severity,
   }));
 }
@@ -152,7 +153,7 @@ export function CodeEditor({ file, value, onChange, problems, reveal }: CodeEdit
   };
 
   return (
-    <div className="min-h-0 flex-1 overflow-auto">
+    <div className="ws-scrollbar min-h-0 flex-1 overflow-auto">
       <div className="flex min-h-full w-max min-w-full">
         {/* Numbers stay put while long lines scroll sideways. */}
         <div

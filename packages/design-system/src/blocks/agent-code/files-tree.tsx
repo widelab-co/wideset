@@ -188,7 +188,7 @@ export function FilesTree({ files, active, onOpen, reveal }: FilesTreeProps) {
         </TextInput>
       </div>
 
-      <div className="px-ws-7 py-ws-5 min-h-0 flex-1 overflow-y-auto">
+      <div className="px-ws-7 py-ws-5 ws-scrollbar min-h-0 flex-1 overflow-y-auto">
         {shown.length > 0 ? (
           <ul>{rows('')}</ul>
         ) : (

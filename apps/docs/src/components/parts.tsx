@@ -33,18 +33,23 @@ import { type ReactNode, useEffect, useId, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 import { loadExample } from '../lib/exampleLoader';
-import { type CodeLang, highlight } from '../lib/highlight';
+import type { CodeLang } from '../lib/highlight';
 import type { ProjectPaths } from '../lib/importSource';
 import { PLAYGROUNDS, withPlayground } from '../lib/playground';
 import type { ManualFiles } from '../lib/registry';
 import { isDark, loadAppearance, onAppearanceChange } from '../lib/theme';
-import { useShownCode } from './ComponentCode';
+import { ImportPick, useShownCode } from './ComponentCode';
 import { Fit } from './Example';
+import { listKeys } from './listKeys';
 import { ManualSteps } from './ManualSteps';
+import { Pills } from './Pills';
 import SearchPalette, { type SearchItem } from './SearchPalette';
+import TabRow from './TabRow';
 import ThemeToggle from './ThemeToggle';
+import { useHighlightedCode } from './useHighlightedCode';
 
-const useCopy = () => {
+/** Copies text to the clipboard; `copied` stays true for a moment after, for the button's label. */
+export const useCopy = () => {
   const [copied, setCopied] = useState(false);
   const copy = async (text: string) => {
     try {
@@ -96,26 +101,22 @@ export const Code = ({
   peek = false,
   flush = false,
   rule = false,
+  tools,
 }: {
   code: string;
   lang?: CodeLang;
   label?: string;
   header?: ReactNode;
+  /** Controls beside the copy button (the Local / npm import pick). */
+  tools?: ReactNode;
   peek?: boolean;
   flush?: boolean;
   /** A hairline under the header, edge to edge (a header that holds a choice). */
   rule?: boolean;
 }) => {
-  const [html, setHtml] = useState<string | null>(null);
+  const html = useHighlightedCode(code, lang);
   // A short snippet shows whole: the peek is for code longer than its four lines.
   const [open, setOpen] = useState(!peek || code.trimEnd().split('\n').length <= 4);
-  useEffect(() => {
-    let live = true;
-    highlight(code, lang).then((result) => live && setHtml(result));
-    return () => {
-      live = false;
-    };
-  }, [code, lang]);
   return (
     <div
       className={cn(
@@ -126,14 +127,19 @@ export const Code = ({
     >
       <div
         className={cn(
-          'flex h-ws-15 items-center justify-between gap-ws-5 pr-ws-4 pl-ws-9',
+          'flex min-h-ws-15 items-center justify-between gap-ws-5 py-ws-2 pr-ws-4 pl-ws-9',
           rule && 'border-b border-ws-static-subtle',
         )}
       >
         {header ?? (
-          <span className="font-mono typography-caption-md text-ws-static-subtle">{label}</span>
+          <span className="min-w-0 font-mono typography-caption-md wrap-anywhere text-ws-static-subtle">
+            {label}
+          </span>
         )}
-        <CopyIcon text={() => code} />
+        <div className="flex shrink-0 items-center gap-ws-5">
+          {tools}
+          <CopyIcon text={() => code} />
+        </div>
       </div>
       <div className={cn('relative', !open && 'max-h-[7.5rem] overflow-hidden')}>
         {html ? <div dangerouslySetInnerHTML={{ __html: html }} /> : <pre>{code.trimEnd()}</pre>}
@@ -151,25 +157,40 @@ export const Code = ({
 
 /**
  * The component page's thumbnail: the component as the gallery draws it, on the soft stage every
- * thumbnail sits on. No code under it.
+ * thumbnail sits on, and under it the code for the playground's defaults in the same peek as an
+ * example's. An overlay's stage draws it open (`preview`); its code is the trigger and the overlay,
+ * as the reader writes them.
  */
-export const Stage = withPlayground(({ component }: { component: string }) => {
-  const definition = PLAYGROUNDS[component];
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
-  return (
-    <div
-      data-stage
-      className="grid min-h-[20rem] place-items-center overflow-hidden rounded-ws-container-md bg-ws-static-alpha-subtle px-ws-14 py-ws-14 text-ws-static-base"
-    >
-      {(mounted || !definition.clientOnly) && (
-        <div className="w-max max-w-full">
-          {definition.preview ? definition.preview() : definition.render(definition.defaults)}
+export const Stage = withPlayground(
+  ({ component, paths }: { component: string; paths: ProjectPaths }) => {
+    const definition = PLAYGROUNDS[component];
+    const [mounted, setMounted] = useState(false);
+    useEffect(() => setMounted(true), []);
+    const shown = useShownCode(definition.code(definition.defaults), paths, true);
+    return (
+      <div className="overflow-hidden rounded-ws-container-md border border-ws-static-subtle">
+        <div
+          data-stage
+          className="grid min-h-[20rem] place-items-center overflow-hidden bg-ws-static-alpha-subtle px-ws-14 py-ws-14 text-ws-static-base"
+        >
+          {(mounted || !definition.clientOnly) &&
+            (definition.preview && !definition.livePreview ? (
+              <div inert aria-hidden="true" className="pointer-events-none w-max max-w-full">
+                {definition.preview()}
+              </div>
+            ) : (
+              <div className="w-max max-w-full">
+                {definition.preview ? definition.preview() : definition.render(definition.defaults)}
+              </div>
+            ))}
         </div>
-      )}
-    </div>
-  );
-});
+        <div className="border-t border-ws-static-subtle">
+          <Code code={shown} peek flush tools={<ImportPick />} />
+        </div>
+      </div>
+    );
+  },
+);
 
 /** An example: one hairline card, the live file on its stage and its source in the peek under it. */
 export const ExampleCard = ({
@@ -205,7 +226,7 @@ export const ExampleCard = ({
         )}
       </div>
       <div className="border-t border-ws-static-subtle">
-        <Code code={shown} peek flush />
+        <Code code={shown} peek flush tools={<ImportPick />} />
       </div>
     </div>
   );
@@ -217,66 +238,6 @@ const RUNNERS = [
   { value: 'yarn', run: 'yarn dlx' },
   { value: 'bun', run: 'bunx' },
 ];
-
-const PILL =
-  'h-ws-12 rounded-ws-control-md px-ws-5 typography-caption-md outline-ws-dynamic-primary-strong-default transition-colors focus-visible:wds-focus-visible';
-const ARROWS: Record<string, number> = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 };
-
-/**
- * A row of small pills that picks one value, in a card's header. A radio group: one tab stop
- * (the chosen pill), the arrow keys choose the next or the previous one.
- */
-const Pills = ({
-  label,
-  options,
-  value,
-  onChange,
-  mono = false,
-}: {
-  label: string;
-  options: { value: string; label: string }[];
-  value: string;
-  onChange: (value: string) => void;
-  mono?: boolean;
-}) => (
-  // ds-exempt: small pills in a code block's header; SegmentedControl's items are a 14px
-  // control, too loud for this row, and a second row of Tabs would compete with the page's.
-  <div role="radiogroup" aria-label={label} className="flex shrink-0 gap-ws-2">
-    {options.map((item, index) => (
-      <button
-        key={item.value}
-        type="button"
-        role="radio"
-        aria-checked={value === item.value}
-        tabIndex={value === item.value ? 0 : -1}
-        onClick={() => onChange(item.value)}
-        onKeyDown={(event) => {
-          const step = ARROWS[event.key];
-          if (!step) return;
-          event.preventDefault();
-          onChange(options[(index + step + options.length) % options.length].value);
-          // The chosen pill takes the focus once drawn (Install draws the row anew for Manual).
-          requestAnimationFrame(() =>
-            document
-              .querySelector<HTMLElement>(
-                `[role="radiogroup"][aria-label="${label}"] [aria-checked="true"]`,
-              )
-              ?.focus(),
-          );
-        }}
-        className={cn(
-          PILL,
-          mono && 'font-mono',
-          value === item.value
-            ? 'bg-ws-static-alpha-base text-ws-static-strong'
-            : 'text-ws-static-subtle hover:text-ws-static-strong',
-        )}
-      >
-        {item.label}
-      </button>
-    ))}
-  </div>
-);
 
 const METHODS = [
   { value: 'cli', label: 'CLI' },
@@ -291,6 +252,10 @@ const METHODS = [
 export const Install = ({ id, files }: { id: string; files: ManualFiles }) => {
   const [method, setMethod] = useState('cli');
   const [runner, setRunner] = useState('pnpm');
+  // `#installation-manual` (where an old `?tab=code` link lands) opens the files.
+  useEffect(() => {
+    if (location.hash === '#installation-manual') setMethod('manual');
+  }, []);
   const run = RUNNERS.find((item) => item.value === runner)!.run;
   const methods = (
     <Pills label="Install with" options={METHODS} value={method} onChange={setMethod} />
@@ -313,7 +278,7 @@ export const Install = ({ id, files }: { id: string; files: ManualFiles }) => {
         code={`${run} wideset add ${id}`}
         rule
         header={
-          <div className="docs-scroll flex min-w-0 flex-1 items-center justify-between gap-ws-7 overflow-x-auto">
+          <div className="docs-scroll docs-focus-room flex min-w-0 flex-1 items-center justify-between gap-ws-7 overflow-x-auto">
             {methods}
             <Pills
               label="Package manager"
@@ -422,53 +387,35 @@ export const CopyPage = ({
 
 export type NavGroup = {
   label?: string;
-  items: { title: string; href: string; fresh?: boolean }[];
+  items: { title: string; href: string }[];
 };
 
-/** A page switched in place (the Playground's component): the URL changes, the page hears it. */
-export const SOFT_NAVIGATE = 'docs:navigate';
-
 /**
- * The one sidebar, the same on every page: a search field that narrows the list as you type,
- * then the page's own rows (library Sidebar rows; the current one filled). `soft`: the rows switch
- * the page in place instead of loading it (the Playground).
+ * A searchable list of the current section's pages, with the current page selected. The arrow
+ * keys move between the filter and the rows; Enter in the filter opens the first row (`listKeys`).
  */
 export const SideNav = ({
   groups,
   current,
   placeholder,
-  soft = false,
   className,
 }: {
   groups: NavGroup[];
   /** The current row's href. */
   current: string;
   placeholder: string;
-  soft?: boolean;
   /** Extra classes on the sidebar (the narrow menu drops the column's top padding). */
   className?: string;
 }) => {
   const [query, setQuery] = useState('');
-  const [active, setActive] = useState(current);
   useEffect(() => {
-    if (soft) {
-      // Both sidebars (the column and the narrow menu) follow a switch made in either.
-      const sync = () => setActive(`${location.pathname}${location.search.split('&')[0]}`);
-      if (location.search) sync();
-      addEventListener('popstate', sync);
-      addEventListener(SOFT_NAVIGATE, sync);
-      return () => {
-        removeEventListener('popstate', sync);
-        removeEventListener(SOFT_NAVIGATE, sync);
-      };
-    }
     // The list scrolls on its own; bring the current row to its middle.
     const row = document.querySelector<HTMLElement>('#docs-nav [aria-current="page"]');
     const viewport = row?.closest<HTMLElement>('[data-slot="scroll-area-viewport"]');
     if (!row || !viewport) return;
     const offset = row.getBoundingClientRect().top - viewport.getBoundingClientRect().top;
     viewport.scrollTop += offset - viewport.clientHeight / 2 + row.offsetHeight / 2;
-  }, [soft]);
+  }, [current]);
   const needle = query.trim().toLowerCase();
   const shown = groups
     .map((group) => ({
@@ -480,6 +427,7 @@ export const SideNav = ({
     <Sidebar
       className={cn('h-full w-full border-r-0 bg-transparent pt-ws-14', className)}
       aria-label="Navigation"
+      onKeyDown={listKeys('nav a[href]')}
     >
       <Sidebar.Header>
         <TextInput
@@ -507,33 +455,9 @@ export const SideNav = ({
                 <Sidebar.Item
                   key={item.href}
                   href={item.href}
-                  label={
-                    item.fresh ? (
-                      <span className="inline-flex items-center gap-ws-4">
-                        {item.title}
-                        <span
-                          className="size-ws-4 shrink-0 rounded-ws-control-full bg-ws-dynamic-primary-default"
-                          title="New"
-                        />
-                      </span>
-                    ) : (
-                      item.title
-                    )
-                  }
-                  active={item.href === active}
-                  aria-current={item.href === active ? 'page' : undefined}
-                  onClick={
-                    soft
-                      ? (event: React.MouseEvent) => {
-                          if (event.metaKey || event.ctrlKey || event.shiftKey) return;
-                          event.preventDefault();
-                          history.pushState(null, '', item.href);
-                          setActive(item.href);
-                          document.documentElement.removeAttribute('data-docs-menu');
-                          window.dispatchEvent(new Event(SOFT_NAVIGATE));
-                        }
-                      : undefined
-                  }
+                  label={item.title}
+                  active={item.href === current}
+                  aria-current={item.href === current ? 'page' : undefined}
                 />
               ))}
             </nav>
@@ -695,7 +619,7 @@ const DocsMenu = ({ active }: { active: boolean }) => {
 /**
  * The top bar after the logo, as the website's navbar: the pages as plain text links at the left
  * (Docs opens its menu), and at the right GitHub (icon and text), the theme and "Get started".
- * The one search palette lives here with no trigger of its own: ⌘K opens it.
+ * The search button and ⌘K open the global search palette.
  */
 export const TopNav = ({
   area,
@@ -712,7 +636,7 @@ export const TopNav = ({
       {[
         { id: 'components', label: 'Components', href: '/components' },
         { id: 'blocks', label: 'Blocks', href: '/blocks' },
-        { id: 'playground', label: 'Playground', href: '/docs/playground' },
+        { id: 'themes', label: 'Themes', href: '/docs/themes' },
       ].map((page) => (
         <a
           key={page.id}
@@ -793,8 +717,7 @@ const MenuButton = () => {
 };
 
 /**
- * A page's tabs, under its head: a component's (Overview, then Anatomy and Relationships when it
- * has them) or a block's (Preview, Code). The panels are the page's own HTML (`data-tab-panel`),
+ * A component or block page's tabs. The panels are the page's own HTML (`data-tab-panel`),
  * shown by `html[data-tab]` (docs.css), which the page sets from the address before first paint;
  * this row keeps the two in step. The tab is in the address (`?tab=anatomy`; the first tab has
  * none), so Back and Forward move between tabs and a tab can be linked.
@@ -832,20 +755,21 @@ export const PageTabs = ({ tabs }: { tabs: { id: string; label: string }[] }) =>
   };
   return (
     <div className="docs-page-tabs mb-ws-14" data-ready={ready ? '' : undefined}>
-      <Tabs value={value} onValueChange={pick} size="sm">
-        {/* The list spans the column, so its own divider is the one line under the tabs. */}
-        <Tabs.List aria-label="Sections of this page" className="w-full">
-          {tabs.map((tab) => (
-            <Tabs.Item
-              key={tab.id}
-              value={tab.id}
-              id={`tab-${tab.id}`}
-              aria-controls={`panel-${tab.id}`}
-            >
-              <Tabs.Label>{tab.label}</Tabs.Label>
-            </Tabs.Item>
-          ))}
-        </Tabs.List>
+      <Tabs value={value} onValueChange={pick} size="sm" divider={false}>
+        <TabRow selected={value}>
+          <Tabs.List aria-label="Sections of this page" className="min-w-full">
+            {tabs.map((tab) => (
+              <Tabs.Item
+                key={tab.id}
+                value={tab.id}
+                id={`tab-${tab.id}`}
+                aria-controls={`panel-${tab.id}`}
+              >
+                <Tabs.Label>{tab.label}</Tabs.Label>
+              </Tabs.Item>
+            ))}
+          </Tabs.List>
+        </TabRow>
       </Tabs>
     </div>
   );
@@ -861,17 +785,34 @@ export const Rail = ({ items }: { items: { id: string; label: string; indent?: b
   const labelId = useId();
   useEffect(() => {
     const update = () => {
-      const shown = items.filter(({ id }) => document.getElementById(id)?.getClientRects().length);
-      const atEnd = scrollY + innerHeight >= document.documentElement.scrollHeight - 1;
+      const shown = items.flatMap(({ id }) => {
+        const heading = document.getElementById(id);
+        return heading?.getClientRects().length ? [heading] : [];
+      });
+      const maxScroll = document.documentElement.scrollHeight - innerHeight;
+      const anchor = shown.find((heading) => location.hash === `#${heading.id}`);
+      if (anchor) {
+        const offset = parseFloat(getComputedStyle(anchor).scrollMarginTop) || 0;
+        const top = scrollY + anchor.getBoundingClientRect().top - offset;
+        // A heading near the end may be unable to reach the usual offset.
+        if (Math.abs(scrollY - Math.max(0, Math.min(top, maxScroll))) <= 2) {
+          setCurrent(anchor.id);
+          return;
+        }
+      }
+      const atEnd = scrollY > 0 && scrollY >= maxScroll - 1;
       const passed = shown.filter(
-        ({ id }) =>
-          (document.getElementById(id)?.getBoundingClientRect().top ?? Infinity) <= innerHeight / 4,
+        (heading) => heading.getBoundingClientRect().top <= innerHeight / 4,
       );
-      setCurrent((atEnd && scrollY > 0 ? shown.at(-1) : passed.at(-1))?.id ?? shown[0]?.id);
+      setCurrent((atEnd ? shown.at(-1) : passed.at(-1))?.id ?? shown[0]?.id);
     };
     update();
     addEventListener('scroll', update, { passive: true });
-    return () => removeEventListener('scroll', update);
+    addEventListener('hashchange', update);
+    return () => {
+      removeEventListener('scroll', update);
+      removeEventListener('hashchange', update);
+    };
   }, [items]);
   return (
     <nav aria-labelledby={labelId} className="flex flex-col gap-ws-7">

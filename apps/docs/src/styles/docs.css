@@ -59,13 +59,6 @@
   }
 }
 
-/* The Select's list is as wide as its trigger, which can be as wide as one word. The list
-   sizes to its own options instead, with a floor so short lists still read as a menu. */
-[role='listbox'] {
-  width: auto;
-  min-width: 10rem;
-}
-
 /* A pane one step off the page ground: code blocks, do/don't panes. */
 .docs-pane {
   background: var(--background-color-ws-static-background);
@@ -159,7 +152,7 @@
   list-style: decimal;
   padding-left: 1.25rem;
 }
-.docs-prose a {
+.docs-prose a:not(.docs-section-link) {
   color: var(--text-color-ws-static-strong);
   text-decoration: underline;
   text-underline-offset: 3px;
@@ -189,15 +182,6 @@
   background: none;
   font-size: inherit;
 }
-.docs-prose pre.astro-code,
-.docs-prose pre.astro-code span {
-  color: var(--shiki-light);
-}
-.dark .docs-prose pre.astro-code,
-.dark .docs-prose pre.astro-code span {
-  color: var(--shiki-dark);
-}
-
 .docs-prose table {
   display: block;
   overflow-x: auto;
@@ -245,9 +229,35 @@
 .docs-scroll::-webkit-scrollbar {
   display: none;
 }
+/* A scroll row whose controls show a focus outline (the Installation card's pills): room for
+   the 2px outline and its 2px offset inside the row, which a scroll container would clip, taken
+   back with a negative margin so the row's controls stay where they were. */
+.docs-focus-room {
+  --docs-focus-room: 5px;
+  margin: calc(-1 * var(--docs-focus-room));
+  padding: var(--docs-focus-room);
+}
 
-/* Code blocks (CodeBlock island). shiki renders both themes as variables
-   (defaultColor: false); the page picks one by `.dark`. */
+.docs-tab-row {
+  /* Leave 4px for the Tabs focus outline and 1px for scroll rounding. */
+  --docs-tab-focus-space: 5px;
+  container-type: inline-size;
+  margin-inline: calc(-1 * var(--docs-tab-focus-space));
+  padding: var(--docs-tab-focus-space);
+  padding-block-end: calc(var(--docs-tab-focus-space) + 1px);
+  background: linear-gradient(var(--border-color-ws-static-subtle) 0 0) center bottom
+    var(--docs-tab-focus-space) / calc(100% - 2 * var(--docs-tab-focus-space)) 1px no-repeat;
+}
+.docs-tab-row [role='tab'] {
+  max-inline-size: 100cqi;
+}
+.docs-tab-row [data-slot='tabs-label'] {
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Code blocks (CodeBlock island). */
 .docs-code pre,
 .docs-code-fallback {
   margin: 0;
@@ -261,14 +271,6 @@
 }
 .docs-code code {
   font-family: inherit;
-}
-.docs-code .shiki,
-.docs-code .shiki span {
-  color: var(--shiki-light);
-}
-.dark .docs-code .shiki,
-.dark .docs-code .shiki span {
-  color: var(--shiki-dark);
 }
 .docs-code--prompt pre,
 .docs-code--prompt .docs-code-fallback {
@@ -298,33 +300,6 @@ html .docs .docs-fade {
 }
 .dark .docs :is(.docs-card, .docs-card-rule, .docs-frame, .docs-code):not(.docs-light) {
   border-color: var(--border-color-ws-static-base);
-}
-/* Scrollbars inside the page: a thin, quiet thumb with no track or arrows, a little stronger under the pointer.
-   Chromium and Safari draw it from the ::-webkit-scrollbar rules (setting scrollbar-color there
-   would switch those off); browsers without them, Firefox, get the standard thin bar. */
-@supports not selector(::-webkit-scrollbar) {
-  .docs * {
-    scrollbar-width: thin;
-    scrollbar-color: var(--background-color-ws-static-alpha-base) transparent;
-  }
-}
-.docs ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-.docs ::-webkit-scrollbar-track,
-.docs ::-webkit-scrollbar-corner {
-  background: transparent;
-}
-.docs ::-webkit-scrollbar-button {
-  display: none;
-}
-.docs ::-webkit-scrollbar-thumb {
-  background: var(--background-color-ws-static-alpha-base);
-  border-radius: 999px;
-}
-.docs ::-webkit-scrollbar-thumb:hover {
-  background: var(--background-color-ws-static-alpha-strong);
 }
 /* A jump to a heading lands clear of the bar. */
 .docs .docs-prose :is(h2, h3) {
@@ -435,6 +410,9 @@ body.docs :is(.docs-snippet pre, .docs-code pre, .docs-code .docs-code-fallback)
 body.docs .docs-code pre {
   padding-top: 16px;
 }
+body.docs .docs-code--prompt :is(pre, .docs-code-fallback) {
+  padding: 16px 48px 16px 16px;
+}
 body.docs .docs-prose pre:not(.docs-code pre) {
   position: relative;
   margin: 0;
@@ -452,34 +430,18 @@ body.docs .docs-prose pre[data-language]:not(.docs-code pre)::before {
 body.docs .docs-prose-pre {
   margin-top: var(--spacing-ws-9);
 }
-/* Calm syntax: identifiers in the base ink; keywords, tags, names and constants strong; strings
-   and attribute values in one muted accent; comments subtle. The github-light colours shiki
-   writes say which is which. */
-body.docs :is(.docs-snippet .shiki, .docs-code .shiki, .docs-prose pre.astro-code) span {
-  color: var(--text-color-ws-static-base);
-}
-body.docs
-  :is(.docs-snippet .shiki, .docs-code .shiki, .docs-prose pre.astro-code)
-  span:is(
-    [style*='--shiki-light:#d73a49' i],
-    [style*='--shiki-light:#6f42c1' i],
-    [style*='--shiki-light:#005cc5' i],
-    [style*='--shiki-light:#22863a' i],
-    [style*='--shiki-light:#e36209' i]
-  ) {
-  color: var(--text-color-ws-static-strong);
-}
-body.docs
-  :is(.docs-snippet .shiki, .docs-code .shiki, .docs-prose pre.astro-code)
-  span[style*='--shiki-light:#032f62' i] {
-  color: var(--text-color-ws-non-semantic-brand-on-subtle);
-}
-body.docs
-  :is(.docs-snippet .shiki, .docs-code .shiki, .docs-prose pre.astro-code)
-  span[style*='--shiki-light:#6a737d' i],
 body.docs .docs-code--prompt .line::before {
   color: var(--text-color-ws-static-subtle);
 }
+
+/* Shiki emits both GitHub themes for interactive snippets and Astro's Markdown fences. */
+body.docs :is(pre.shiki, pre.astro-code) span[style] {
+  color: var(--shiki-light);
+}
+.dark body.docs :is(pre.shiki, pre.astro-code) span[style] {
+  color: var(--shiki-dark);
+}
+
 .docs .docs-prose :is(h2, h3) {
   scroll-margin-top: var(--spacing-ws-21);
 }
@@ -522,16 +484,12 @@ body.docs.docs .docs-snippet-ruled pre {
   padding: 12px 16px;
 }
 /* The shell: the sidebar's list scrolls with no bar; every demo frame, code block and card
-   has the same 12px corners; the Playground's Properties sit in their column with no padding of
-   their own. */
+   has the same 12px corners. */
 #docs-nav [data-slot='scroll-area-scrollbar'] {
   display: none;
 }
 body.docs.docs .docs-frame:not(.docs-light, .dark) {
   border-radius: var(--radius-ws-container-md);
-}
-body.docs .docs-properties > section {
-  padding: 0;
 }
 /* The Playground's stage is the soft stage every thumbnail sits on, in the stage's own theme
    (its sun/moon button can show the other one). */
@@ -577,7 +535,7 @@ html:not(.dark) body.docs.docs .docs-frame[data-playground-stage].dark,
 html.dark body.docs.docs .docs-frame[data-playground-stage].docs-light {
   background: var(--background-color-ws-static-background);
 }
-/* A page's tabs: a component's (Overview, Anatomy, Relationships) and a block's (Preview, Code).
+/* Component and block page tabs.
    The page writes the tab in the address onto `html[data-tab]` before first paint, so the right
    panel (and its rail) shows with no flash; the first tab is the page with no tab. Until the tab
    row has hydrated on a page opened on another tab, it stays out of sight rather than show the
@@ -588,10 +546,33 @@ html.dark body.docs.docs .docs-frame[data-playground-stage].docs-light {
 html:not([data-tab]) [data-tab-panel='overview'],
 html:not([data-tab]) [data-tab-panel='preview'],
 html[data-tab='code'] [data-tab-panel='code'],
+html[data-tab='playground'] [data-tab-panel='playground'],
 html[data-tab='anatomy'] [data-tab-panel='anatomy'],
 html[data-tab='relationships'] [data-tab-panel='relationships'] {
   display: block;
 }
 html[data-tab] .docs-page-tabs:not([data-ready]) {
   visibility: hidden;
+}
+.docs-section-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-ws-4);
+  text-decoration: none;
+}
+.docs-section-link svg {
+  opacity: 0;
+  color: var(--text-color-ws-static-subtle);
+}
+.docs-section-link:is(:hover, :focus-visible) svg {
+  opacity: 1;
+}
+.docs-section-link:focus-visible {
+  outline: 2px solid var(--outline-color-ws-dynamic-primary-strong-default);
+  outline-offset: 4px;
+}
+@media (hover: none) {
+  .docs-section-link svg {
+    opacity: 1;
+  }
 }

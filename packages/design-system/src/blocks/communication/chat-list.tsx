@@ -114,21 +114,17 @@ export function ChatList() {
         </h2>
         <div className="gap-ws-3 flex">
           {(['open', 'archive'] as const).map((value) => (
-            <Chip
-              key={value}
-              variant="secondary"
-              style={filter === value ? 'filled' : 'border'}
-              aria-pressed={filter === value}
-              onClick={() => setFilter(value)}
-            >
-              {filter === value && <Chip.Icon icon={RiCheckLine} />}
-              {value === 'open' ? 'Open' : 'Archive'}
+            <Chip key={value} variant="secondary" style={filter === value ? 'filled' : 'border'}>
+              <Chip.Action aria-pressed={filter === value} onClick={() => setFilter(value)}>
+                {filter === value && <Chip.Icon icon={RiCheckLine} />}
+                <Chip.Label>{value === 'open' ? 'Open' : 'Archive'}</Chip.Label>
+              </Chip.Action>
             </Chip>
           ))}
         </div>
       </header>
 
-      <div className="gap-ws-5 px-ws-3 pt-ws-8 flex min-h-0 flex-1 flex-col overflow-y-auto">
+      <div className="gap-ws-5 px-ws-3 pt-ws-8 ws-scrollbar flex min-h-0 flex-1 flex-col overflow-y-auto">
         <div className="px-ws-8">
           <TextInput size="sm">
             <TextInput.Prefix inner>

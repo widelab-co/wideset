@@ -27,7 +27,7 @@ export function CustomersTable({
 
   return (
     // Narrower than its columns, the table scrolls sideways inside its own area.
-    <div className="overflow-x-auto">
+    <div className="ws-scrollbar overflow-x-auto">
       <Table size="md" selectionMode="multiple" className="min-w-[56rem] table-fixed">
         <Table.Head>
           <Table.Row>

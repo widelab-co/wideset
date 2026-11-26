@@ -1,9 +1,7 @@
 import type { NavGroup } from '../components/parts';
 import { blockCategories } from './blocks';
 import { entries } from './catalog';
-import { newIds } from './gitInfo';
 import { docsNav } from './nav';
-import { hasPlayground } from './playground';
 
 /** The sidebars: each page lists only its own rows, in the one sidebar component. */
 const WHATS_NEW = '/docs/whats-new';
@@ -26,33 +24,16 @@ export const docsSidebar = async (): Promise<NavGroup[]> => {
 
 const sorted = [...entries].sort((a, b) => a.title.localeCompare(b.title));
 
-/** Components: Overview, then every component A–Z; the newest carry a mark. */
-export const componentsSidebar = (): NavGroup[] => {
-  const fresh = newIds(entries);
-  return [
-    {
-      items: [
-        { title: 'Overview', href: '/components' },
-        ...sorted.map((entry) => ({
-          title: entry.title,
-          href: `/components/${entry.id}`,
-          fresh: fresh.has(entry.id),
-        })),
-      ],
-    },
-  ];
-};
-
-/** Playground: the components that have one; a row switches the page in place. */
-export const playgroundItems = sorted
-  .filter((entry) => hasPlayground(entry.id))
-  .map((entry) => ({ id: entry.id, title: entry.title }));
-export const playgroundSidebar = (): NavGroup[] => [
+/** Components: Overview, then every component A–Z. */
+export const componentsSidebar = (): NavGroup[] => [
   {
-    items: playgroundItems.map((item) => ({
-      title: item.title,
-      href: `/docs/playground?c=${item.id}`,
-    })),
+    items: [
+      { title: 'Overview', href: '/components' },
+      ...sorted.map((entry) => ({
+        title: entry.title,
+        href: `/components/${entry.id}`,
+      })),
+    ],
   },
 ];
 

@@ -131,7 +131,7 @@ export default function Integrations({ direction = 'flat' }: { direction?: Direc
         </div>
 
         {/* The page scrolls here, under the bar (in Inset inside the card, so its corners stay put). */}
-        <div className="min-h-0 flex-1 overflow-y-auto">
+        <div className="ws-scrollbar min-h-0 flex-1 overflow-y-auto">
           <div className="gap-ws-12 px-ws-14 pt-ws-14 pb-ws-16 mx-auto flex w-full max-w-[80rem] flex-col">
             <PageHeader query={query} onQueryChange={setQuery} />
 

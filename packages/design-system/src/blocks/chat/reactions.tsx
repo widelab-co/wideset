@@ -25,16 +25,15 @@ export function Reactions({ reactions, onToggle }: ReactionsProps) {
   return (
     <div className="gap-ws-4 pt-ws-4 flex flex-wrap">
       {reactions.map(({ kind, count, mine }) => (
-        <Chip
-          key={kind}
-          variant="secondary"
-          style={mine ? 'filled' : 'border'}
-          aria-pressed={mine}
-          aria-label={`${REACTIONS[kind].label}, ${count}`}
-          onClick={() => onToggle(kind)}
-        >
-          <Chip.Icon icon={REACTIONS[kind].icon} />
-          <span className="tabular-nums">{count}</span>
+        <Chip key={kind} variant="secondary" style={mine ? 'filled' : 'border'}>
+          <Chip.Action
+            aria-pressed={mine}
+            aria-label={`${REACTIONS[kind].label}, ${count}`}
+            onClick={() => onToggle(kind)}
+          >
+            <Chip.Icon icon={REACTIONS[kind].icon} />
+            <Chip.Label className="tabular-nums">{count}</Chip.Label>
+          </Chip.Action>
         </Chip>
       ))}
     </div>

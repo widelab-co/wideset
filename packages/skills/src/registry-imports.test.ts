@@ -73,7 +73,7 @@ describe('registry imports', () => {
 
     app = mkdtempSync(join(tmpdir(), 'skills-registry-imports-'));
     const out = join(app, 'r');
-    buildRegistry({ out, base: 'https://registry.test/r', commit: 'test' });
+    await buildRegistry({ out, base: 'https://registry.test/r', commit: 'test' });
     const files: string[] = [];
     for (const name of readdirSync(out)) {
       const item = JSON.parse(readFileSync(join(out, name), 'utf8')) as {
@@ -125,7 +125,8 @@ describe('registry imports', () => {
     const pathsOf = (name: string) =>
       entries.filter(({ exported }) => exported === name).map(({ path }) => path);
     expect(pathsOf('IconButton')).toEqual(['@/components/ui/wideset/button/IconButton']);
-    expect(pathsOf('IconButtonIcon')).toEqual(['@/components/ui/wideset/button/IconButton']);
+    expect(pathsOf('IconButtonIcon')).toEqual([]);
+    expect(pathsOf('IconButtonIconProps')).toEqual([]);
     expect(pathsOf('IconButtonProps')).toEqual(['@/components/ui/wideset/button/IconButton.types']);
     expect(pathsOf('Button')).toEqual(['@/components/ui/wideset/button/Button']);
   });

@@ -1,0 +1,10 @@
+/* Compiled only for the registry. The base Wideset stylesheet supplies tokens and component CSS. */
+@layer properties, theme, base, components, utilities;
+@import 'tailwindcss/theme.css' layer(theme) theme(inline);
+@import 'tailwindcss/utilities.css' layer(utilities) source(none);
+@reference './theme.css';
+
+@source '../blocks/**/*.{ts,tsx}';
+
+@plugin 'tailwindcss-radix';
+@plugin 'tailwindcss-animate';
