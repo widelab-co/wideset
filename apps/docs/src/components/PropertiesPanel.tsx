@@ -104,9 +104,13 @@ const PropertiesPanel = ({ component }: { component: string }) => {
   // No visible heading: the first group's title is the top of the panel, padded as its sides;
   // the panel is named for assistive technology. No lines inside: groups part by space, a
   // clearly larger step than between controls; a group's title is its strongest text, the field
-  // labels the quietest. Reset sits on the first title's row.
+  // labels the quietest. Reset sits on the first title's row. The panel is a subtle card in the
+  // same tone as the preview's stage.
   return (
-    <section aria-label="Properties" className="flex flex-col gap-ws-14 p-ws-11">
+    <section
+      aria-label="Properties"
+      className="flex flex-col gap-ws-14 rounded-ws-container-lg bg-ws-static-alpha-subtle p-ws-9"
+    >
       {definition.groups.map((group, index) => (
         <div
           key={group.title}

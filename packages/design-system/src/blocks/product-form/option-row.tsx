@@ -1,5 +1,5 @@
 // TODO(custom): an option's values as removable chips with a field to add more; Wideset has no chip or tag input.
-import { RiCloseLine, RiDeleteBinLine } from '@remixicon/react';
+import { RiDeleteBinLine } from '@remixicon/react';
 import { Chip, IconButton, TextInput } from '@wideset/react';
 import { useState } from 'react';
 
@@ -47,14 +47,12 @@ export function OptionRow({ nameId, option, onChange, onRemove }: OptionRowProps
       />
       <div className="gap-ws-3 flex min-w-0 flex-wrap items-center">
         {option.values.map((value) => (
-          <Chip
-            key={value}
-            variant="secondary"
-            aria-label={`Remove ${value} from ${label}`}
-            onClick={() => remove(value)}
-          >
-            {value}
-            <Chip.Icon icon={RiCloseLine} />
+          <Chip key={value} variant="secondary">
+            <Chip.Label>{value}</Chip.Label>
+            <Chip.IconButton
+              aria-label={`Remove ${value} from ${label}`}
+              onClick={() => remove(value)}
+            />
           </Chip>
         ))}
         <TextInput

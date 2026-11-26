@@ -1,7 +1,7 @@
 import { cva } from 'class-variance-authority';
 import { cn } from 'src/lib/utils';
 
-import { hoverTintMotion, pressMotion } from '../../motion/recipes';
+import { hoverTintMotion } from '../../motion/recipes';
 
 export const selectTriggerVariants = cva(
   cn(
@@ -62,7 +62,7 @@ export const selectTriggerVariants = cva(
 
 export const selectTriggerMotionVariants = cva('', {
   variants: {
-    enabled: { true: cn(hoverTintMotion, pressMotion), false: '' },
+    enabled: { true: hoverTintMotion, false: '' },
   },
   defaultVariants: { enabled: true },
 });
@@ -139,7 +139,6 @@ export const selectContentVariants = cva(
     variants: {
       position: {
         popper: cn(
-          'data-[side=bottom]:translate-y-ws-1 data-[side=left]:-translate-x-ws-1 data-[side=right]:translate-x-ws-1 data-[side=top]:-translate-y-ws-1',
           // Width floor: never narrower than the trigger nor the Size/28 menu
           // minimum; grows freely with content past that.
           'min-w-[max(var(--radix-select-trigger-width),var(--spacing-ws-28))]',
