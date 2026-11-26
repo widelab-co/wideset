@@ -242,7 +242,9 @@ On each range's branch:
    reader). Tell it: "Port of widelab-co/wideset-design#<n>; the designer's commits are the
    design, the later commits are ours. Review the result as one change for this repo."
 2. Run `wideset-component-convention` on the components the diff touches.
-3. Fix every 🔴 blocker and 🟡 should-fix as its own commit; list the 🟢 nits for the developer.
+3. Mark findings that conflict with Figma or design intent as _needs design_ and bring them to
+   gate 3. Fix the other 🔴 blockers and 🟡 should-fixes in individual commits. List 🟢 nits for
+   the developer.
 4. Repeat from 1 on the new commits. After three rounds, stop and report what is left instead of
    looping.
 
@@ -296,7 +298,8 @@ Follow-ups: <follow-up lines, or "none">.
 Once every range's PR is open, move the ClickUp task to `in review` and add the PR links to it
 as a comment; it stays there until the PRs merge.
 
-When stacked PRs merge, retarget the child to `develop` first, then delete the parent's branch:
+Include the proposed child retargets and parent branch deletions in gate 3 approval. After the
+approved parent PR merges, retarget the child to `develop` before deleting the parent's branch:
 `--delete-branch` on the parent closes the child.
 
 ## 8. Report back in the fork (gate 1)
