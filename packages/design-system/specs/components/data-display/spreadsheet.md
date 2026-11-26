@@ -112,13 +112,9 @@ A `<table role="grid">` inside a scroll container: `ColumnHeader` is a `th scope
 - Name the grid: `aria-label` or `aria-labelledby` on `Spreadsheet` (it reaches the table).
 - Keyboard: arrows move the selected cell, Home / End to the row's ends, Ctrl/Cmd+Home / End to
   the grid's corners, Page Up / Down by a screen of rows. Enter or F2 moves focus into the cell's
-  first control in the same document, Tab between the cell's controls, Escape or F2 back to the
-  cell. Controls in cells are out of the tab order, so Tab leaves the grid without stopping on
-  one, and returns to the same cell. Navigation between controls respects their `tabIndex`
-  order, including changes to that attribute. An explicit negative value excludes a control
-  from Tab navigation within the cell. The grid skips embedded documents when entering a cell or
-  moving between its controls. Set `tabIndex={-1}` on custom scroll containers inside cells
-  to keep the browser from adding a tab stop for the scrolling region.
+  first control, Tab between the cell's controls in their `tabIndex` order (a negative one skips
+  a control), Escape or F2 back to the cell. The grid is one tab stop: Tab leaves it without
+  stopping on a control in a cell, and returns to the same cell.
 - Controls in cells have no visible label: give each an `aria-label` naming column and row
   (`Verified: Tech Nova`). `ColumnHeaderTrigger` requires its own (`Customers options`).
 - An empty corner header still needs a name: `aria-label="Row"`.
@@ -145,6 +141,9 @@ A `<table role="grid">` inside a scroll container: `ColumnHeader` is a `th scope
   `event.preventDefault()` in the cell's `onKeyDown` when you start editing on Enter.
 - Arrow keys still move the grid from a checkbox, switch, link or button in a cell; a text field
   keeps them. Handle Tab inside your own editor if it should move to the next cell.
+- The grid writes `tabindex="-1"` on the controls in cells to keep them out of the tab order: it
+  shows in DOM snapshots, and `userEvent.tab()` from a cell leaves the grid. A scroll container
+  you render in a cell needs `tabIndex={-1}`, or the browser makes it a tab stop.
 - The grid paints the container surface (`bg-ws-static-container`) so pinned cells stay opaque;
   on another surface pass its class to `Spreadsheet` (`bg-ws-static-foreground`).
 - It fills the width it is given. In a parent that sizes to its content (a centred grid cell,

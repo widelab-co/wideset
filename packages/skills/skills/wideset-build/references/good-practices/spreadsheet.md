@@ -36,6 +36,9 @@
   `event.preventDefault()` in the cell's `onKeyDown` when you start editing on Enter.
 - Arrow keys still move the grid from a checkbox, switch, link or button in a cell; a text field
   keeps them. Handle Tab inside your own editor if it should move to the next cell.
+- The grid writes `tabindex="-1"` on the controls in cells to keep them out of the tab order: it
+  shows in DOM snapshots, and `userEvent.tab()` from a cell leaves the grid. A scroll container
+  you render in a cell needs `tabIndex={-1}`, or the browser makes it a tab stop.
 - The grid paints the container surface (`bg-ws-static-container`) so pinned cells stay opaque;
   on another surface pass its class to `Spreadsheet` (`bg-ws-static-foreground`).
 - It fills the width it is given. In a parent that sizes to its content (a centred grid cell,
