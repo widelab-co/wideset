@@ -1,35 +1,62 @@
-// TODO(custom): keyboard hints (a key chip and what it does) and the keys they name; Wideset has no Kbd / shortcut component, so the key is the box of Button `xs` Border drawn by hand.
 import {
   type RemixiconComponentType,
   RiArrowDownSLine,
   RiArrowLeftLine,
   RiArrowUpSLine,
 } from '@remixicon/react';
-import { cn } from '@wideset/react';
-import type { KeyboardEvent, ReactNode } from 'react';
+import { Button, IconButton, Modal } from '@wideset/react';
+import { forwardRef, type KeyboardEvent, type MouseEvent, type ReactNode } from 'react';
+
+type Step = 1 | -1;
+
+type KeyboardHintsProps = {
+  /** Up and Down; by default they move the focus to the previous or next control of the modal. */
+  onMove?: (step: Step) => void;
+  /** Left: back to where the modal was opened from. */
+  onBack: () => void;
+};
 
 /**
  * The hints in the modal's footer strip, as Figma draws them: moving through the modal, going
- * back to where it was opened from, and closing. Esc is the Modal's own; `modalKeys` wires the
- * other two on `Modal.Content`, so every hint does what it says.
+ * back to where it was opened from, and closing. Each key is a button that does what the key
+ * does, for the pointer; from the keyboard, `modalKeys` on `Modal.Content` answers the keys and
+ * Esc is the Modal's own.
  */
-export function KeyboardHints() {
+export function KeyboardHints({ onMove, onBack }: KeyboardHintsProps) {
+  const move = (step: Step) => (event: MouseEvent<HTMLButtonElement>) => {
+    if (onMove) onMove(step);
+    else {
+      const dialog = event.currentTarget.closest<HTMLElement>('[role="dialog"]');
+      if (dialog) moveFocus(dialog, document.activeElement, step);
+    }
+  };
+
   return (
     <>
       <div className="gap-ws-12 flex items-center">
         <Hint
           keys={
             <span className="gap-ws-3 flex">
-              <Key icon={RiArrowUpSLine} name="Up arrow" />
-              <Key icon={RiArrowDownSLine} name="Down arrow" />
+              <KeyButton icon={RiArrowUpSLine} name="Up arrow" onClick={move(-1)} />
+              <KeyButton icon={RiArrowDownSLine} name="Down arrow" onClick={move(1)} />
             </span>
           }
         >
           Navigate
         </Hint>
-        <Hint keys={<Key icon={RiArrowLeftLine} name="Left arrow" />}>Return to parent</Hint>
+        <Hint keys={<KeyButton icon={RiArrowLeftLine} name="Left arrow" onClick={onBack} />}>
+          Return to parent
+        </Hint>
       </div>
-      <Hint keys={<Key>esc</Key>}>Close</Hint>
+      <Hint
+        keys={
+          <Modal.Close asChild>
+            <KeyButton>Esc</KeyButton>
+          </Modal.Close>
+        }
+      >
+        Close
+      </Hint>
     </>
   );
 }
@@ -44,34 +71,53 @@ function Hint({ keys, children }: { keys: ReactNode; children: string }) {
   );
 }
 
-/** A key as a `kbd`, 24px high. An icon key names itself for screen readers. */
-function Key({
-  icon: Icon,
-  name,
-  children,
-}: {
+/** A pointer press on a key keeps the focus where it was, so the key acts from there. */
+const keepFocus = (event: MouseEvent) => event.preventDefault();
+
+type KeyButtonProps = {
+  /** An icon key (the arrows); its `name` is what screen readers hear. */
   icon?: RemixiconComponentType;
   name?: string;
+  /** A key written as text (`Esc`). */
   children?: string;
-}) {
-  return (
-    <kbd
-      className={cn(
-        'font-ws-body border-ws-dynamic-secondary-default bg-ws-static-highlight-subtle shadow-ws-controls-control rounded-ws-control-md h-ws-12 typography-caption-strong-md text-ws-dynamic-secondary-default flex items-center justify-center border',
-        Icon ? 'w-ws-12' : 'px-ws-5',
-      )}
-    >
-      {Icon ? (
-        <>
-          <Icon aria-hidden="true" className="size-ws-8 shrink-0" />
-          <span className="sr-only">{name}</span>
-        </>
-      ) : (
-        children
-      )}
-    </kbd>
-  );
-}
+  onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
+};
+
+/**
+ * A key the hint names, drawn as Figma draws it here: an `xs` Border button, clickable for the
+ * pointer. Out of the Tab order: from the keyboard, the key itself does the job.
+ */
+const KeyButton = forwardRef<HTMLButtonElement, KeyButtonProps>(
+  ({ icon, name, children, onClick, ...props }, ref) =>
+    icon ? (
+      <IconButton
+        ref={ref}
+        icon={icon}
+        aria-label={name}
+        size="xs"
+        variant="secondary"
+        preset="border"
+        tabIndex={-1}
+        onMouseDown={keepFocus}
+        onClick={onClick}
+        {...props}
+      />
+    ) : (
+      <Button
+        ref={ref}
+        size="xs"
+        variant="secondary"
+        preset="border"
+        tabIndex={-1}
+        onMouseDown={keepFocus}
+        onClick={onClick}
+        {...props}
+      >
+        {children}
+      </Button>
+    ),
+);
+KeyButton.displayName = 'KeyButton';
 
 /** Places where the arrows already mean something: a list, a choice, tabs, a menu, a number. */
 const OWN_ARROWS =
@@ -86,6 +132,22 @@ const caretAtStart = (target: Element) =>
   (target.selectionStart === 0 && target.selectionEnd === 0);
 
 /**
+ * Moves the focus to the previous or next visible control in the Tab order of `container`. From
+ * outside that order, Down goes to the first control and Up to the last.
+ */
+function moveFocus(container: HTMLElement, from: Element | null, step: Step): boolean {
+  const controls = [...container.querySelectorAll<HTMLElement>(FOCUSABLE)].filter(
+    (element) => element.tabIndex >= 0 && element.getClientRects().length > 0,
+  );
+  const index = controls.indexOf(from as HTMLElement);
+  const next =
+    index === -1 ? controls[step === 1 ? 0 : controls.length - 1] : controls[index + step];
+  if (!next) return false;
+  next.focus();
+  return true;
+}
+
+/**
  * The keys the hints name, for `Modal.Content`'s `onKeyDown`: Up and Down move to the previous or
  * next control in the modal, Left goes back with `onBack`. Neither takes a key from a place that
  * uses it (a select, a radio group, tabs, a list, a menu), nor one already handled; Left in a text
@@ -97,14 +159,7 @@ export function modalKeys(onBack: () => void) {
     if (event.defaultPrevented || event.altKey || event.ctrlKey || event.metaKey) return;
     if (!(target instanceof Element) || target.closest(OWN_ARROWS)) return;
     if (key === 'ArrowUp' || key === 'ArrowDown') {
-      const controls = [...currentTarget.querySelectorAll<HTMLElement>(FOCUSABLE)].filter(
-        (element) => element.getClientRects().length > 0,
-      );
-      const next =
-        controls[controls.indexOf(target as HTMLElement) + (key === 'ArrowDown' ? 1 : -1)];
-      if (!next) return;
-      event.preventDefault();
-      next.focus();
+      if (moveFocus(currentTarget, target, key === 'ArrowDown' ? 1 : -1)) event.preventDefault();
     } else if (key === 'ArrowLeft' && !event.shiftKey && caretAtStart(target)) {
       event.preventDefault();
       onBack();

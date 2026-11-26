@@ -67,13 +67,26 @@ export function SearchModal({
   const caretAtStart = () =>
     input.current?.selectionStart === 0 && input.current.selectionEnd === 0;
 
+  const move = (step: 1 | -1) => {
+    const next = shown[active + step];
+    if (!next) return;
+    setActive(shown.indexOf(next));
+    document.getElementById(optionId(next))?.scrollIntoView({ block: 'nearest' });
+  };
+
+  /** Back a level: from a tab to All, and from All to the page it was opened from. */
+  const back = () => {
+    if (scope === 'all') onOpenChange(false);
+    else {
+      setScope('all');
+      setActive(0);
+    }
+  };
+
   const onKeyDown = (event: KeyboardEvent) => {
     if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
       event.preventDefault();
-      const next = shown[active + (event.key === 'ArrowDown' ? 1 : -1)];
-      if (!next) return;
-      setActive(shown.indexOf(next));
-      document.getElementById(optionId(next))?.scrollIntoView({ block: 'nearest' });
+      move(event.key === 'ArrowDown' ? 1 : -1);
     } else if (event.key === 'Enter' && event.target === input.current && current) {
       onOpenResult(current);
     } else if (
@@ -85,13 +98,8 @@ export function SearchModal({
       event.target === input.current &&
       caretAtStart()
     ) {
-      // Back a level: from a tab to All, and from All to the page it was opened from.
       event.preventDefault();
-      if (scope === 'all') onOpenChange(false);
-      else {
-        setScope('all');
-        setActive(0);
-      }
+      back();
     }
   };
 
@@ -194,7 +202,7 @@ export function SearchModal({
         </Tabs>
 
         <Modal.Footer variant="extension" className="items-center">
-          <KeyboardHints />
+          <KeyboardHints onMove={move} onBack={back} />
         </Modal.Footer>
       </Modal.Content>
     </Modal>

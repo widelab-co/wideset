@@ -10,15 +10,15 @@ import {
   RiPriceTag3Line,
   RiUserSharedLine,
 } from '@remixicon/react';
-import { DropdownMenu, ListItem } from '@wideset/react';
+import { DropdownMenu, ListItem, Shortcut } from '@wideset/react';
 import { useRef } from 'react';
 
 import { type Customer, PEOPLE, type PersonId, type TagId, TAGS } from './data';
-import { Shortcut, useModifier } from './keyboard-key';
 import { MenuCheck } from './menu-check';
 import { MenuChoice } from './menu-choice';
 import { MenuSub } from './menu-sub';
 import { PersonAvatar } from './person-avatar';
+import { useModifier } from './use-modifier';
 
 export type MenuAction = 'open' | 'open-new-tab' | 'copy-link' | 'duplicate' | 'archive' | 'delete';
 
@@ -37,8 +37,8 @@ export type MenuAnchor = {
 
 /** The shortcuts the menu shows, which the rows also answer to; `modifier` is ⌘ or Ctrl. */
 const shortcuts = (modifier: string): Partial<Record<MenuAction, string[]>> => ({
-  open: ['Enter'],
-  'open-new-tab': [modifier, 'Enter'],
+  open: ['↵'],
+  'open-new-tab': [modifier, '↵'],
   'copy-link': [modifier, 'C'],
   duplicate: [modifier, 'D'],
   archive: ['E'],
@@ -95,7 +95,11 @@ export function CustomerMenu({
         </ListItem.Content>
         {keys && (
           <ListItem.Suffix>
-            <Shortcut keys={keys} />
+            <Shortcut>
+              {keys.map((key) => (
+                <Shortcut.Key key={key}>{key}</Shortcut.Key>
+              ))}
+            </Shortcut>
           </ListItem.Suffix>
         )}
       </DropdownMenu.Item>

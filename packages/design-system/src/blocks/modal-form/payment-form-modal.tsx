@@ -66,7 +66,7 @@ export function PaymentFormModal({ open, onOpenChange }: PaymentFormModalProps) 
           </Button>
         </Modal.Footer>
         <Modal.Footer variant="extension" className="items-center">
-          <KeyboardHints />
+          <KeyboardHints onBack={() => onOpenChange(false)} />
         </Modal.Footer>
       </Modal.Content>
     </Modal>

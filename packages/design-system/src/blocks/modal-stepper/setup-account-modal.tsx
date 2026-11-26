@@ -99,7 +99,7 @@ export function SetupAccountModal({ open, onOpenChange }: SetupAccountModalProps
           </div>
         </div>
         <Modal.Footer variant="extension" className="items-center">
-          <KeyboardHints />
+          <KeyboardHints onBack={() => (step > 0 ? setStep(step - 1) : onOpenChange(false))} />
         </Modal.Footer>
       </Modal.Content>
     </Modal>

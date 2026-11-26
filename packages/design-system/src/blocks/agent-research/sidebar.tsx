@@ -21,10 +21,10 @@ import {
 import { type MouseEvent, useEffect, useId, useRef, useState } from 'react';
 
 import { BrandMark } from './brand-mark';
-import { useModifier } from './keyboard-key';
 import type { Mode, ThreadGroup } from './model';
 import { PersonAvatar } from './person-avatar';
 import { ThreadMark } from './thread-mark';
+import { useModifier } from './use-modifier';
 
 type AgentSidebarProps = Pick<SidebarProps, 'id' | 'collapsed' | 'onCollapsedChange'> & {
   product: string;

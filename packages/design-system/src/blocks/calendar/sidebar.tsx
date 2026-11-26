@@ -14,6 +14,7 @@ import {
   DropdownMenu,
   IconButton,
   ListItem,
+  Shortcut,
   Sidebar,
   TextInput,
 } from '@wideset/react';
@@ -58,16 +59,6 @@ const SWATCH_ICON: Record<ProjectColor, RemixiconComponentType> = {
   teal: swatch('teal'),
 };
 
-/** Figma's Shortcut chip: ⌘ and a digit. */
-function Shortcut({ digit }: { digit: string }) {
-  return (
-    <kbd className="font-ws-body border-ws-static-base rounded-ws-control-md px-ws-4 py-ws-2 flex items-center border">
-      <span className="w-ws-9 text-center">⌘</span>
-      {digit}
-    </kbd>
-  );
-}
-
 /** The workspace sidebar: switcher, search, pages, projects and the signed-in account. */
 export function CalendarSidebar() {
   const [active, setActive] = useState('documents');
@@ -79,7 +70,14 @@ export function CalendarSidebar() {
       icon={active === id ? (activeIcon ?? icon) : icon}
       label={label}
       active={active === id}
-      suffix={shortcut ? <Shortcut digit={shortcut} /> : undefined}
+      suffix={
+        shortcut ? (
+          <Shortcut>
+            <Shortcut.Key>⌘</Shortcut.Key>
+            <Shortcut.Key>{shortcut}</Shortcut.Key>
+          </Shortcut>
+        ) : undefined
+      }
       suffixOnHover
       onClick={() => setActive(id)}
     />

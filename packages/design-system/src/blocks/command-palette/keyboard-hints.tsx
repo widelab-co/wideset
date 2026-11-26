@@ -1,7 +1,6 @@
-// TODO(custom): keyboard hints (a key chip and what it does); Wideset has no Kbd / shortcut component, so the key is the box of Button `xs` Border drawn by hand.
 import type { RemixiconComponentType } from '@remixicon/react';
-import { cn } from '@wideset/react';
-import type { ReactNode } from 'react';
+import { Button, IconButton } from '@wideset/react';
+import { forwardRef, type MouseEvent, type ReactNode } from 'react';
 
 /** One hint: the keys, then what they do. */
 export function Hint({ keys, children }: { keys: ReactNode; children: string }) {
@@ -13,34 +12,50 @@ export function Hint({ keys, children }: { keys: ReactNode; children: string }) 
   );
 }
 
-/**
- * A key as a `kbd`, 24px high, copied from the form modal's hints. An icon key names itself for
- * screen readers.
- */
-export function Key({
-  icon: Icon,
-  name,
-  children,
-}: {
+/** A pointer press on a key keeps the focus in the field, so the keyboard keeps working. */
+const keepFocus = (event: MouseEvent) => event.preventDefault();
+
+type KeyButtonProps = {
+  /** An icon key (Enter, the arrows); its `name` is what screen readers hear. */
   icon?: RemixiconComponentType;
   name?: string;
+  /** A key written as text (`Esc`, `>`). */
   children?: string;
-}) {
-  return (
-    <kbd
-      className={cn(
-        'font-ws-body border-ws-dynamic-secondary-default bg-ws-static-highlight-subtle shadow-ws-controls-control rounded-ws-control-md h-ws-12 typography-caption-strong-md text-ws-dynamic-secondary-default flex shrink-0 items-center justify-center border',
-        Icon || children?.length === 1 ? 'min-w-ws-12' : 'px-ws-5',
-      )}
-    >
-      {Icon ? (
-        <>
-          <Icon aria-hidden="true" className="size-ws-8 shrink-0" />
-          <span className="sr-only">{name}</span>
-        </>
-      ) : (
-        children
-      )}
-    </kbd>
-  );
-}
+  onClick?: () => void;
+};
+
+/**
+ * A key the hint names, drawn as Figma draws it here: an `xs` Border button, clickable for the
+ * pointer. Out of the Tab order: from the keyboard, the key itself does the job.
+ */
+export const KeyButton = forwardRef<HTMLButtonElement, KeyButtonProps>(
+  ({ icon, name, children, onClick, ...props }, ref) =>
+    icon ? (
+      <IconButton
+        ref={ref}
+        icon={icon}
+        aria-label={name}
+        size="xs"
+        variant="secondary"
+        preset="border"
+        tabIndex={-1}
+        onMouseDown={keepFocus}
+        onClick={onClick}
+        {...props}
+      />
+    ) : (
+      <Button
+        ref={ref}
+        size="xs"
+        variant="secondary"
+        preset="border"
+        tabIndex={-1}
+        onMouseDown={keepFocus}
+        onClick={onClick}
+        {...props}
+      >
+        {children}
+      </Button>
+    ),
+);
+KeyButton.displayName = 'KeyButton';
