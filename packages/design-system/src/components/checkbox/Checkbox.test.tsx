@@ -114,6 +114,17 @@ describe('Checkbox', () => {
       expect(checkbox).toHaveAttribute('aria-label', 'Custom checkbox');
       expect(checkbox).toHaveAttribute('aria-describedby', 'description');
     });
+
+    // A focus background has the same specificity as the checked fill, so whichever comes later
+    // in the CSS wins: on keyboard focus the fill turned white and hid the white check.
+    it.each(['primary', 'danger'] as const)(
+      'sets no background on focus that could cover the %s checked fill',
+      (variant) => {
+        render(<Checkbox variant={variant} defaultChecked aria-label="Updates" />);
+        const classes = screen.getByRole('checkbox').className.split(/\s+/);
+        expect(classes.filter((name) => name.startsWith('focus-visible:bg-'))).toEqual([]);
+      },
+    );
   });
 
   describe('Interaction', () => {

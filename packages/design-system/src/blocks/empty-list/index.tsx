@@ -21,7 +21,7 @@ export default function EmptyList() {
       <AppShell.Main className="flex flex-col">
         <header className="border-ws-static-subtle px-ws-12 shrink-0 border-b">
           <div className="h-ws-20 gap-ws-9 mx-auto flex w-full max-w-[80rem] items-center justify-between">
-            <h1 className="typography-title-md text-ws-static-strong">Customers</h1>
+            <h1 className="typography-title-sm text-ws-static-strong">Customers</h1>
             <Button size="sm">
               <Button.Icon icon={RiAddLine} />
               Add customer
@@ -29,7 +29,7 @@ export default function EmptyList() {
           </div>
         </header>
 
-        <div className="px-ws-12 min-h-0 flex-1 overflow-y-auto">
+        <div className="px-ws-12 ws-scrollbar min-h-0 flex-1 overflow-y-auto">
           <div className="gap-ws-9 py-ws-9 mx-auto flex h-full w-full max-w-[80rem] flex-col">
             <TextInput
               size="sm"

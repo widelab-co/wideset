@@ -317,6 +317,33 @@ describe('Table', () => {
     });
   });
 
+  describe('Focus', () => {
+    it('does not take focus by default', async () => {
+      const user = userEvent.setup();
+      render(<BasicTable interactive />);
+      await user.click(screen.getByRole('cell', { name: 'Row 1' }));
+      expect(screen.getByRole('table')).not.toHaveFocus();
+    });
+
+    it.each(['stickyHeader', 'stickyColumn'] as const)(
+      'is reachable with Tab when %s is enabled',
+      async (prop) => {
+        const user = userEvent.setup();
+        render(<BasicTable {...{ [prop]: true }} />);
+        await user.tab();
+        expect(screen.getByRole('table')).toHaveFocus();
+      },
+    );
+
+    it.each([
+      { stickyHeader: false, tabIndex: 0 },
+      { stickyHeader: true, tabIndex: -1 },
+    ])('honors tabIndex=$tabIndex with stickyHeader=$stickyHeader', (props) => {
+      render(<BasicTable {...props} />);
+      expect(screen.getByRole('table')).toHaveAttribute('tabindex', String(props.tabIndex));
+    });
+  });
+
   describe('Table.Row', () => {
     it('sets aria-selected="true" on a selected row when selectionMode is set', () => {
       render(

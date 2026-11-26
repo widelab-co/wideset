@@ -116,7 +116,7 @@ export function AssistantPanel({ onApply }: AssistantPanelProps) {
         </Button>
       </header>
 
-      <div ref={scroller} className="min-h-0 flex-1 overflow-y-auto">
+      <div ref={scroller} className="ws-scrollbar min-h-0 flex-1 overflow-y-auto">
         {turns.length === 0 ? (
           <div className="gap-ws-3 px-ws-11 pb-ws-9 flex h-full flex-col justify-end">
             <p className="typography-label-strong-md text-ws-static-strong">Ask about this deal</p>

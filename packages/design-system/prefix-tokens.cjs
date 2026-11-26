@@ -26,6 +26,7 @@ const path = require('path');
 
 // Longest first, so `--text-color-*` wins over `--text-*`.
 const TAILWIND_NAMESPACES = [
+  'text-decoration-color',
   'background-color',
   'outline-color',
   'border-color',

@@ -5,10 +5,11 @@
  * shows a wrong rail, a missing default or a component that should not be there.
  */
 import assert from 'node:assert/strict';
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, it } from 'node:test';
 
+import { asText } from './as-text.mjs';
 import { generatedDir } from './paths.mjs';
 
 const read = (name) => JSON.parse(readFileSync(join(generatedDir, name), 'utf8'));
@@ -129,26 +130,72 @@ describe('generate: foundations token data', () => {
 });
 
 describe('gen-guidance', () => {
-  const page = (id) => readFileSync(join(generatedDir, 'guidance', `${id}.md`), 'utf8');
+  const page = (id) => readFileSync(join(generatedDir, 'guidance-md', `${id}.md`), 'utf8');
 
-  it('gives every component a page from its spec', () => {
+  it('gives every component its usage Markdown from its spec', () => {
     const missing = catalog
       .map((entry) => entry.id)
-      .filter((id) => !existsSync(join(generatedDir, 'guidance', `${id}.md`)));
+      .filter((id) => !existsSync(join(generatedDir, 'guidance-md', `${id}.md`)));
     assert.deepEqual(missing, []);
   });
 
-  it('shows on the page only when to use a component', () => {
+  it('keeps every usage section in the Markdown for models', () => {
     const select = page('select');
     assert.match(select, /^### When not to use/m);
-    assert.doesNotMatch(select, /^### (Choosing props|Do \/ Don't|Gotchas)/m);
+    assert.match(select, /^### Gotchas/m);
     assert.doesNotMatch(select, /^#+ Anatomy/m);
   });
 
-  it('keeps every usage section in the Markdown for models', () => {
-    const select = readFileSync(join(generatedDir, 'guidance-md', 'select.md'), 'utf8');
-    assert.match(select, /^### Gotchas/m);
-    assert.doesNotMatch(select, /^#+ Anatomy/m);
+  it('writes the Accessibility notes with no heading of their own', () => {
+    const notes = readFileSync(join(generatedDir, 'guidance-a11y', 'button.md'), 'utf8');
+    assert.ok(notes.trim().length > 0);
+    assert.doesNotMatch(notes, /^#+ Accessibility/m);
+  });
+
+  it('keeps a placeholder in the Accessibility notes as text, not a tag', () => {
+    // File Item's spec names the button "Remove <title>": as HTML it swallowed the page's tabs.
+    const dir = join(generatedDir, 'guidance-a11y');
+    const prose = (file) =>
+      readFileSync(join(dir, file), 'utf8')
+        .split(/(`+[^`]*`+)/)
+        .filter((_, index) => index % 2 === 0)
+        .join('');
+    assert.deepEqual(
+      readdirSync(dir).filter((file) => /<[a-z]/i.test(prose(file))),
+      [],
+    );
+    assert.match(prose('file-item.md'), /Remove &lt;title>/);
+  });
+
+  it('closes a code span only on a backtick run of its own length', () => {
+    assert.equal(
+      asText('Press `` to insert a backtick. Remove <title>. Use `disabled`.'),
+      'Press `` to insert a backtick. Remove &lt;title>. Use `disabled`.',
+    );
+    assert.equal(asText('Use ``a ` <b>`` and <i>.'), 'Use ``a ` <b>`` and &lt;i>.');
+  });
+
+  it('opens no code span on a backslash-escaped backtick', () => {
+    assert.equal(asText('\\`Remove <title>\\`'), '\\`Remove &lt;title>\\`');
+    assert.equal(asText('\\\\`<b>`'), '\\\\`<b>`');
+    assert.equal(asText('`a\\` <i>'), '`a\\` &lt;i>');
+    assert.equal(asText('\\``<title>` ``'), '\\``<title>` ``');
+  });
+
+  it('never lets a code span cross a blank line', () => {
+    assert.equal(
+      asText('`First paragraph.\n\nRemove <title>.\n\nLast paragraph.`'),
+      '`First paragraph.\n\nRemove &lt;title>.\n\nLast paragraph.`',
+    );
+    assert.equal(asText('Use `<b>`\nacross lines.'), 'Use `<b>`\nacross lines.');
+  });
+
+  it('keeps fenced code as it is and escapes the prose after it', () => {
+    assert.equal(
+      asText('~~~html\n<title>\n~~~\nRemove <title>.'),
+      '~~~html\n<title>\n~~~\nRemove &lt;title>.',
+    );
+    assert.equal(asText('````\n<a>\n```\n<b>\n`````\n<i>'), '````\n<a>\n```\n<b>\n`````\n&lt;i>');
   });
 
   it('points links only at pages the site has', () => {

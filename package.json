@@ -29,7 +29,6 @@
     "test:registry": "pnpm --filter @wideset/react test:registry",
     "test:cli": "pnpm --filter wideset test:cli",
     "test:skills": "pnpm --filter @wideset/skills test:skills",
-    "playground": "pnpm --filter @wideset/react playground",
     "prettier:fix": "prettier --write .",
     "lint:fix": "turbo run lint:fix"
   },

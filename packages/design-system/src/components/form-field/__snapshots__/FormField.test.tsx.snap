@@ -9,22 +9,15 @@ exports[`FormField Snapshots > matches snapshot for default form field 1`] = `
     class=""
   >
     <div
-      class="gap-ws-3 flex flex-wrap items-start w-fit"
-      data-slot="field-label"
+      class="gap-ws-3 flex items-start"
+      data-slot="form-field-label-row"
     >
-      <div
-        class="gap-ws-3 flex min-w-0 flex-1 items-center"
+      <label
+        class="text-ws-static-strong typography-label-strong-sm gap-ws-3 inline-flex min-w-0 flex-wrap items-center wrap-anywhere"
+        data-slot="field-label"
       >
-        <label
-          class="text-ws-static-strong typography-label-strong-sm gap-ws-3 flex min-w-0 flex-wrap items-center"
-        >
-          <span
-            class="min-w-0 break-words"
-          >
-            Label
-          </span>
-        </label>
-      </div>
+        Label
+      </label>
     </div>
   </div>
   <div
@@ -55,22 +48,15 @@ exports[`FormField Snapshots > matches snapshot for horizontal variant 1`] = `
     class="gap-ws-4 flex w-full max-w-[10rem] shrink-0 flex-col"
   >
     <div
-      class="gap-ws-3 flex flex-wrap items-start w-fit"
-      data-slot="field-label"
+      class="gap-ws-3 flex items-start"
+      data-slot="form-field-label-row"
     >
-      <div
-        class="gap-ws-3 flex min-w-0 flex-1 items-center"
+      <label
+        class="text-ws-static-strong typography-label-strong-sm gap-ws-3 inline-flex min-w-0 flex-wrap items-center wrap-anywhere"
+        data-slot="field-label"
       >
-        <label
-          class="text-ws-static-strong typography-label-strong-sm gap-ws-3 flex min-w-0 flex-wrap items-center"
-        >
-          <span
-            class="min-w-0 break-words"
-          >
-            Label
-          </span>
-        </label>
-      </div>
+        Label
+      </label>
     </div>
     <span
       class="typography-body-sm gap-ws-3 py-ws-3 flex items-center text-ws-static-subtle"
@@ -101,22 +87,15 @@ exports[`FormField Snapshots > matches snapshot with error and icon 1`] = `
     class=""
   >
     <div
-      class="gap-ws-3 flex flex-wrap items-start w-fit"
-      data-slot="field-label"
+      class="gap-ws-3 flex items-start"
+      data-slot="form-field-label-row"
     >
-      <div
-        class="gap-ws-3 flex min-w-0 flex-1 items-center"
+      <label
+        class="text-ws-static-strong typography-label-strong-sm gap-ws-3 inline-flex min-w-0 flex-wrap items-center wrap-anywhere"
+        data-slot="field-label"
       >
-        <label
-          class="text-ws-static-strong typography-label-strong-sm gap-ws-3 flex min-w-0 flex-wrap items-center"
-        >
-          <span
-            class="min-w-0 break-words"
-          >
-            Email
-          </span>
-        </label>
-      </div>
+        Email
+      </label>
     </div>
   </div>
   <div
@@ -163,22 +142,15 @@ exports[`FormField Snapshots > matches snapshot with fieldset 1`] = `
     class=""
   >
     <div
-      class="gap-ws-3 flex flex-wrap items-start w-fit"
-      data-slot="field-label"
+      class="gap-ws-3 flex items-start"
+      data-slot="form-field-label-row"
     >
-      <div
-        class="gap-ws-3 flex min-w-0 flex-1 items-center"
+      <label
+        class="text-ws-static-strong typography-label-strong-sm gap-ws-3 inline-flex min-w-0 flex-wrap items-center wrap-anywhere"
+        data-slot="field-label"
       >
-        <label
-          class="text-ws-static-strong typography-label-strong-sm gap-ws-3 flex min-w-0 flex-wrap items-center"
-        >
-          <span
-            class="min-w-0 break-words"
-          >
-            Label
-          </span>
-        </label>
-      </div>
+        Label
+      </label>
     </div>
   </div>
   <div

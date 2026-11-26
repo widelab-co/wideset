@@ -22,7 +22,6 @@ export const useSelectionPill = (enabled: boolean) => {
     const controller = new AbortController();
     const { signal } = controller;
     let lastSelected: HTMLElement | null = null;
-    let fromKeyboard = false;
 
     const resizeObserver = new ResizeObserver(() => measure());
 
@@ -31,7 +30,7 @@ export const useSelectionPill = (enabled: boolean) => {
         .querySelectorAll(':scope > [role="radio"]')
         .forEach((item) => resizeObserver.observe(item));
 
-      const selected = node.querySelector<HTMLElement>(':scope > [data-state="on"]');
+      const selected = node.querySelector<HTMLElement>(':scope > [data-state="checked"]');
       if (!selected) {
         setPill((previous) => previous && { ...previous, visible: false });
         return;
@@ -46,7 +45,7 @@ export const useSelectionPill = (enabled: boolean) => {
         width: selected.offsetWidth,
         height: selected.offsetHeight,
         visible: !selected.hasAttribute('data-disabled'),
-        animate: moved && !fromKeyboard,
+        animate: moved,
       };
       setPill((previous) => (previous && isSamePill(previous, next) ? previous : next));
     };
@@ -61,8 +60,6 @@ export const useSelectionPill = (enabled: boolean) => {
       attributes: true,
       attributeFilter: ['data-state', 'data-disabled'],
     });
-    node.addEventListener('keydown', () => (fromKeyboard = true), { signal });
-    node.addEventListener('pointerdown', () => (fromKeyboard = false), { signal });
     document.fonts?.ready.then(() => !signal.aborted && measure());
 
     return () => {

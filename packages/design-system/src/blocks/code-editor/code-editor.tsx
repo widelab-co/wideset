@@ -1,4 +1,4 @@
-// TODO(custom): a code editor (line numbers, colouring, current line, problem marks) as a textarea over a coloured copy; Wideset has no code editor and no monospace font token (Tailwind's font-mono stands in).
+// TODO(custom): a code editor (line numbers, colouring, current line, problem marks) as a textarea over a coloured copy; Wideset has no code editor.
 import { cn } from '@wideset/react';
 import { type KeyboardEvent, useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
 
@@ -9,7 +9,7 @@ import type { Problem } from './lint';
 const INDENT = '  ';
 
 /** The textarea and its coloured copy share every metric, so the caret sits on the letters. */
-const CODE = 'typography-body-md tracking-ws-normal whitespace-pre font-mono';
+const CODE = 'typography-body-md tracking-ws-normal whitespace-pre font-ws-mono';
 const PAD = 'py-ws-5 pl-ws-7 pr-ws-9';
 
 /**
@@ -53,10 +53,11 @@ function pieces(line: string, tokens: Token[], problems: Problem[]): Piece[] {
   ]
     .filter((at) => at >= 0 && at <= line.length)
     .sort((a, b) => a - b);
+  const reversedTokens = [...tokens].reverse();
   return cuts.slice(0, -1).map((from, index) => ({
     from,
     to: cuts[index + 1],
-    kind: tokens.findLast((token) => token.start <= from)?.kind ?? 'plain',
+    kind: reversedTokens.find((token) => token.start <= from)?.kind ?? 'plain',
     mark: marks.find((mark) => mark.from <= from && from < mark.to)?.severity,
   }));
 }
@@ -152,7 +153,7 @@ export function CodeEditor({ file, value, onChange, problems, reveal }: CodeEdit
   };
 
   return (
-    <div className="min-h-0 flex-1 overflow-auto">
+    <div className="ws-scrollbar min-h-0 flex-1 overflow-auto">
       <div className="flex min-h-full w-max min-w-full">
         {/* Numbers stay put while long lines scroll sideways. */}
         <div

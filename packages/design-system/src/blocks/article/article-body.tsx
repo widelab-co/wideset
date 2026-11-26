@@ -98,11 +98,12 @@ export function ArticleBody() {
             </>,
             <>
               Check how the columns match. Orbit matches the ones named as in the table above;
-              choose a field for any other column, or <Ui>Skip</Ui> to leave it out.
+              choose a field for any other column, or <Ui>Don’t import</Ui> to leave it out.
             </>,
             <>
-              Choose what happens to customers already in Orbit: <Ui>Skip</Ui> them, or{' '}
-              <Ui>Update</Ui> them with the values in the file.
+              Choose what happens to customers already in Orbit: <Ui>Update them</Ui> with the
+              values in the file, <Ui>Skip them</Ui>, or <Ui>Create them anyway</Ui> as second
+              customers.
             </>,
             <>
               Select <Ui>Import</Ui>. A large file takes a few minutes; you can keep working while
@@ -114,7 +115,7 @@ export function ArticleBody() {
           status="warning"
           persistent
           title="Updates can’t be undone"
-          message="With Update, the values in the file replace the ones in Orbit. If you may need the old values, export your customers first."
+          message="“Update them” replaces the values in Orbit with the ones in the file. If you may need the old values, export your customers first."
         />
       </Section>
 
@@ -125,10 +126,10 @@ export function ArticleBody() {
           their source, so you can filter for them.
         </p>
 
-        <ArticleSection level={3} title="If some rows failed">
+        <ArticleSection level={3} title="If some rows were skipped">
           <p className={TEXT}>
             The summary lists every row Orbit could not read and why, such as a missing name or an
-            amount with letters in it. Select <Ui>Download failed rows</Ui> to get them as a CSV
+            amount with letters in it. Select <Ui>Download skipped rows</Ui> to get them as a CSV
             file, correct them and import that file. Rows that worked the first time are not
             imported twice.
           </p>

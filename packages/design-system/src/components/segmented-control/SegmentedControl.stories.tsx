@@ -93,6 +93,24 @@ const meta = {
         defaultValue: { summary: 'false' },
       },
     },
+    name: {
+      description:
+        'Form field name used to submit the selected segment value. Set it on the group, not on individual items.',
+      control: 'text',
+      table: {
+        category: 'Behavior',
+        type: { summary: 'string' },
+      },
+    },
+    required: {
+      description: 'Requires a selected segment before the containing form can be submitted.',
+      control: 'boolean',
+      table: {
+        category: 'Behavior',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
+    },
     defaultValue: {
       control: 'text',
       table: {

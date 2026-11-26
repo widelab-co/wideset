@@ -1,11 +1,14 @@
-import { forwardRef, type KeyboardEvent } from 'react';
+import { forwardRef } from 'react';
 import { cn } from 'src/lib/utils';
 
 import { useDefaultMotion } from '../../motion/MotionProvider';
 import { ChipContext } from './Chip.context';
 import type { ChipProps, ChipWithSubComponents } from './Chip.types';
-import { chipMotionVariants, chipVariants } from './Chip.variants';
+import { chipSurfaceMotionVariants, chipVariants } from './Chip.variants';
+import { ChipAction } from './ChipAction';
 import { ChipIcon } from './ChipIcon';
+import { ChipIconButton } from './ChipIconButton';
+import { ChipLabel } from './ChipLabel';
 
 const Chip = forwardRef<HTMLDivElement, ChipProps>(
   (
@@ -14,54 +17,26 @@ const Chip = forwardRef<HTMLDivElement, ChipProps>(
       size = 'md',
       variant = 'primary',
       style = 'filled',
-      disabled,
+      disabled = false,
       defaultMotion,
       children,
-      onKeyDown,
-      onKeyUp,
       ...props
     },
     ref,
   ) => {
     const motion = useDefaultMotion(defaultMotion);
 
-    const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
-      onKeyDown?.(event);
-      if (event.defaultPrevented || event.target !== event.currentTarget) return;
-      if (event.key === ' ') {
-        event.preventDefault();
-        return;
-      }
-      if (event.key === 'Enter' && !disabled) {
-        event.preventDefault();
-        event.currentTarget.click();
-      }
-    };
-
-    const handleKeyUp = (event: KeyboardEvent<HTMLDivElement>) => {
-      onKeyUp?.(event);
-      if (event.defaultPrevented || event.target !== event.currentTarget) return;
-      if (event.key === ' ' && !disabled) {
-        event.currentTarget.click();
-      }
-    };
-
     return (
-      <ChipContext.Provider value={{ size, variant, style }}>
+      <ChipContext.Provider value={{ size, variant, style, disabled, motion }}>
         <div
           className={cn(
             chipVariants({ size, variant, style }),
-            chipMotionVariants({ enabled: motion }),
+            chipSurfaceMotionVariants({ enabled: motion }),
             className,
           )}
           ref={ref}
-          tabIndex={disabled ? -1 : 0}
-          data-disabled={disabled || undefined}
-          aria-disabled={disabled || undefined}
-          role="button"
           data-slot="chip"
-          onKeyDown={handleKeyDown}
-          onKeyUp={handleKeyUp}
+          data-disabled={disabled || undefined}
           {...props}
         >
           {children}
@@ -72,6 +47,9 @@ const Chip = forwardRef<HTMLDivElement, ChipProps>(
 ) as ChipWithSubComponents;
 
 Chip.displayName = 'Chip';
+Chip.Action = ChipAction;
 Chip.Icon = ChipIcon;
+Chip.IconButton = ChipIconButton;
+Chip.Label = ChipLabel;
 
 export { Chip };

@@ -55,12 +55,6 @@ CLAUDE.local.md
 # Generated shadcn registry (pnpm build:registry); served with Storybook under /r
 packages/design-system/public/r
 
-# Scaffolding playground: a real consumer app. The components the shadcn CLI scaffolded into it
-# (src/components/ui/wideset, src/lib/wideset, src/styles) are committed, as they would be in a
-# consumer's repo.
-packages/design-system/playground/node_modules
-packages/design-system/playground/dist
-
 # Astro
 .astro
 

@@ -115,8 +115,17 @@ export { Checkbox, CheckboxDescription, CheckboxLabel } from './components/check
 export type { CheckboxGroupProps, CheckboxProps } from './components/checkbox/Checkbox.types';
 export { CheckboxGroup } from './components/checkbox/CheckboxGroup';
 export { Chip } from './components/chip/Chip';
-export type { ChipIconProps, ChipProps } from './components/chip/Chip.types';
+export type {
+  ChipActionProps,
+  ChipIconButtonProps,
+  ChipIconProps,
+  ChipLabelProps,
+  ChipProps,
+} from './components/chip/Chip.types';
+export { ChipAction } from './components/chip/ChipAction';
 export { ChipIcon } from './components/chip/ChipIcon';
+export { ChipIconButton } from './components/chip/ChipIconButton';
+export { ChipLabel } from './components/chip/ChipLabel';
 export { ComboBox, ComboBoxIcon, ComboBoxPrefix } from './components/combo-box/ComboBox';
 export type {
   ComboBoxContentProps,
@@ -310,7 +319,22 @@ export { PopupHeader } from './components/popup/PopupHeader';
 export { PopupTitle } from './components/popup/PopupTitle';
 export { PopupTrigger } from './components/popup/PopupTrigger';
 export { ProgressBar } from './components/progress-bar/ProgressBar';
-export type { ProgressBarProps } from './components/progress-bar/ProgressBar.types';
+export type {
+  ProgressBarDescriptionProps,
+  ProgressBarHeaderProps,
+  ProgressBarLabelProps,
+  ProgressBarProps,
+  ProgressBarStatus,
+  ProgressBarTrackProps,
+  ProgressBarType,
+  ProgressBarValueProps,
+  ProgressBarWithSubComponents,
+} from './components/progress-bar/ProgressBar.types';
+export { ProgressBarDescription } from './components/progress-bar/ProgressBarDescription';
+export { ProgressBarHeader } from './components/progress-bar/ProgressBarHeader';
+export { ProgressBarLabel } from './components/progress-bar/ProgressBarLabel';
+export { ProgressBarTrack } from './components/progress-bar/ProgressBarTrack';
+export { ProgressBarValue } from './components/progress-bar/ProgressBarValue';
 export { ProgressStepper } from './components/progress-stepper/ProgressStepper';
 export type {
   ProgressStepperIconProps,

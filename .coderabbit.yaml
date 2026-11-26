@@ -47,7 +47,6 @@ reviews:
     - '!packages/skills/agents/**'
     - '!packages/skills/cursor/**'
     - '!packages/skills/AGENTS.wideset.md'
-    - '!packages/design-system/playground/src/**'
 
   path_instructions:
     - path: 'packages/design-system/src/components/**'

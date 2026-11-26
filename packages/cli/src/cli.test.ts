@@ -55,6 +55,8 @@ const INDEX = {
   items: [
     { name: 'button', type: 'registry:ui', description: 'Buttons trigger actions.' },
     { name: 'select', type: 'registry:ui', description: 'Pick one option from a list.' },
+    { name: 'block-calendar', type: 'registry:block', description: 'A month calendar.' },
+    { name: 'block-styles', type: 'registry:item', description: 'Block layout.' },
     { name: 'skills', type: 'registry:item', description: 'Agent skills.' },
     { name: 'skills-claude', type: 'registry:item', description: 'Agent skills for Claude.' },
     { name: 'styles', type: 'registry:item', description: 'Compiled CSS.' },
@@ -495,9 +497,11 @@ describe('wideset add', () => {
   });
 
   it('passes namespaced addresses to shadcn add', async () => {
-    const { code, shadcn } = await run(['add', 'button', '@wideset/select']);
+    const { code, shadcn } = await run(['add', 'button', '@wideset/select', 'block-calendar']);
     expect(code).toBe(0);
-    expect(shadcn).toEqual([['add', '--yes', '@wideset/button', '@wideset/select']]);
+    expect(shadcn).toEqual([
+      ['add', '--yes', '@wideset/button', '@wideset/select', '@wideset/block-calendar'],
+    ]);
   });
 
   it('forwards --overwrite and expands --all to components only', async () => {
@@ -529,11 +533,12 @@ describe('wideset add', () => {
 });
 
 describe('wideset list', () => {
-  it('lists components with their descriptions, not the shared items', async () => {
+  it('lists components and blocks in separate groups', async () => {
     const { code, out } = await run(['list', '--registry', REGISTRY]);
     expect(code).toBe(0);
     expect(out).toMatch(/button\s+Buttons trigger actions\./);
-    expect(out).not.toMatch(/^\s+styles/m);
+    expect(out).toMatch(/1 blocks .*\n\n {2}block-calendar\s+A month calendar\./);
+    expect(out).not.toMatch(/^\s+(styles|block-styles)/m);
   });
 });
 
