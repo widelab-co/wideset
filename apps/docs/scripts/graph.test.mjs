@@ -1,6 +1,6 @@
 /**
  * The token graph as agents receive it: `/graph.json` from a real docs build
- * (src/lib/tokenUsage.ts renders every playground, so it only runs inside Astro). CI builds the
+ * (src/lib/tokenUsage.ts renders every playground; src/lib/tokenUsage.test.ts runs the same guards without a build). CI builds the
  * docs before `pnpm test`; without a build (`pnpm --filter @wideset/docs build`) the suite skips.
  *
  * The shape checks are the format contract: a change to the Anatomy tab's labels in

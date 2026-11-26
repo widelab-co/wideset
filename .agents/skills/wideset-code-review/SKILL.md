@@ -63,6 +63,10 @@ The library lives in `packages/design-system/`; the `src/…` paths below are re
   no `--no-verify` / `continue-on-error`.
 - **Tests** — `*.test.*`, `__snapshots__/**`.
   No test deleted or `.skip`ped without a reason. Snapshot diffs read hunk by hunk.
+- **Docs token graph** — a new part, variant or Tailwind state variant in a component; `apps/docs/src/lib/tokenUsage*`,
+  `apps/docs/src/playgrounds/**`. The token graph test in `pnpm test` passes in the same PR: a new part is drawn in the
+  playground's `anatomy()`, an unknown variant is added to `tokenUsageStates.ts`. Never silenced by an `absent` entry
+  without a reason, or by widening `NOT_LISTED` for a class someone would match a surface by.
 - **Agent instructions** — `AGENTS.md`, `CLAUDE.md`, `.agents/**`, `.claude/**`, `.mcp.json`.
   Ships publicly: no credentials or internal links. A changed convention changes `AGENTS.md` too.
 

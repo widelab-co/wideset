@@ -10,7 +10,7 @@ import { kebab } from './kebab';
 import { PLAYGROUNDS, type Values } from './playground';
 import { classify, segments } from './tokenClasses';
 import { type ClassSource, PORTALLED, type PortalledPart } from './tokenUsagePortals';
-import { stateOf } from './tokenUsageStates';
+import { stateOf, unknownPrefix } from './tokenUsageStates';
 
 /**
  * Which design tokens each component paints with, in which part, variant and state: the token
@@ -25,15 +25,19 @@ import { stateOf } from './tokenUsageStates';
  * variant reads `{ variant: 'primary', preset: 'filled' }` and a class a part adds only when
  * disabled reads `{ disabled: true }`.
  *
- * The build fails (see `GUARDS`) when something would otherwise drop out of the graph without a
- * word: a `ws` class with no variable, a class the classifier does not know, a state prefix with
- * no key, a public part that is never rendered, a component with no token at all.
+ * The docs build and `tokenUsage.test.ts` (part of `pnpm test`) fail when something would
+ * otherwise drop out of the graph without a word: a `ws` class with no variable, a class the
+ * classifier does not know, a state prefix with no key, a public part that is never rendered, a
+ * component with no token at all. Each message names the file to change. Size is never a
+ * failure: past `MAX_RENDERS` the graph renders every pair of controls instead (`sampled`).
  */
 
 const DATA = tokenClassData as TokenClassData;
 
-/** Renders per component; past it the build fails rather than take minutes. */
+/** Renders per component; past it the graph renders pairs of controls rather than take minutes. */
 export const MAX_RENDERS = 4096;
+
+const playgroundFile = (id: string) => `apps/docs/src/playgrounds/${id}.tsx`;
 
 export type Use = {
   /** The part, as its named export (`ButtonIcon`), or the building block's name when `internal`. */
@@ -62,7 +66,15 @@ export type Use = {
   when: Values[];
 };
 
-export type ComponentTokens = { defaults: Values; uses: Use[] };
+export type ComponentTokens = {
+  defaults: Values;
+  uses: Use[];
+  /**
+   * More control combinations than `MAX_RENDERS`: every pair of controls was rendered, the
+   * others at their defaults, so a class only three or more values together add is missing.
+   */
+  sampled?: true;
+};
 export type TokenEntry = {
   alias: string | null;
   light: string;
@@ -127,7 +139,34 @@ export const slotsIn = (html: string) => {
   return out;
 };
 
-type Axis = { key: string; values: (string | boolean)[]; content: boolean };
+type Axis = { key: string; values: (string | boolean)[]; content?: boolean };
+
+/**
+ * Every combination of the axes' values, or, past `MAX_RENDERS`, every pair of axes with the
+ * others at `base`: a compound variant rarely joins more than two props, and the full product
+ * of a large component would take minutes.
+ */
+export const valueSets = (axes: Axis[], base: Values) => {
+  const size = axes.reduce((total, axis) => total * axis.values.length, 1);
+  if (size <= MAX_RENDERS) {
+    let product: Values[] = [{ ...base }];
+    for (const axis of axes)
+      product = product.flatMap((values) =>
+        axis.values.map((value) => ({ ...values, [axis.key]: value })),
+      );
+    return { sets: product, sampled: false };
+  }
+  const sets = new Map<string, Values>();
+  const put = (values: Values) => sets.set(JSON.stringify(values), values);
+  put({ ...base });
+  axes.forEach((first, i) =>
+    axes.slice(i + 1).forEach((second) => {
+      for (const a of first.values)
+        for (const b of second.values) put({ ...base, [first.key]: a, [second.key]: b });
+    }),
+  );
+  return { sets: [...sets.values()], sampled: true };
+};
 
 /** The playground's controls as axes; content controls vary one at a time, not in the product. */
 const axesOf = (id: string): Axis[] =>
@@ -147,11 +186,10 @@ const axesOf = (id: string): Axis[] =>
  */
 const combinations = (id: string, axes: Axis[]) => {
   const defaults = PLAYGROUNDS[id].defaults;
-  let product: Values[] = [{ ...defaults }];
-  for (const axis of axes.filter((item) => !item.content))
-    product = product.flatMap((values) =>
-      axis.values.map((value) => ({ ...values, [axis.key]: value })),
-    );
+  const { sets: product, sampled } = valueSets(
+    axes.filter((item) => !item.content),
+    defaults,
+  );
   const content = axes
     .filter((item) => item.content)
     .flatMap((axis) =>
@@ -159,7 +197,7 @@ const combinations = (id: string, axes: Axis[]) => {
         .filter((value) => value !== defaults[axis.key])
         .map((value) => ({ ...defaults, [axis.key]: value })),
     );
-  return { product, content };
+  return { product, content, sampled };
 };
 
 /**
@@ -228,7 +266,9 @@ const propertyOf = (utility: string, className: string, problems: string[], wher
   if (classified) return classified.property;
   if (NOT_LISTED.some((pattern) => pattern.test(utility.replace(/^!/, ''))))
     return utility.replace(/^-/, '').replace(/-(ws-|\(|\[).*$/, '');
-  problems.push(`${where}: ${className} is a token class the classifier does not know`);
+  problems.push(
+    `${where}: the token graph does not know what ${className} sets; add its property to PROPERTIES in apps/docs/src/lib/tokenClasses.ts, or to NOT_LISTED in apps/docs/src/lib/tokenUsage.ts if nobody would match a surface by it`,
+  );
   return 'unknown';
 };
 
@@ -268,11 +308,7 @@ const variantsOf = (source: PortalledPart) => {
     key: row.name,
     values: row.type === 'switch' ? [false, true] : row.values!,
   }));
-  let combinations: Values[] = [{}];
-  for (const axis of axes)
-    combinations = combinations.flatMap((values) =>
-      axis.values.map((value) => ({ ...values, [axis.key]: value })),
-    );
+  const { sets: combinations, sampled } = valueSets(axes, {});
   const found = new Map<string, { className: string; nested: boolean; present: Set<number> }>();
   combinations.forEach((values, index) => {
     const call = (list: ClassSource[] = [], nested: boolean) => {
@@ -293,20 +329,20 @@ const variantsOf = (source: PortalledPart) => {
     call(source.classes, false);
     call(source.inner, true);
   });
-  return { keys: axes.map((axis) => axis.key), combinations, classes: [...found.values()] };
+  return {
+    keys: axes.map((axis) => axis.key),
+    combinations,
+    sampled,
+    classes: [...found.values()],
+  };
 };
 
 const usesOf = (entry: Entry, problems: string[]) => {
   const definition = PLAYGROUNDS[entry.id];
   const axes = axesOf(entry.id);
-  const { product, content } = combinations(entry.id, axes);
+  const { product, content, sampled: stageSampled } = combinations(entry.id, axes);
   const renders = [...product, ...content];
-  if (renders.length > MAX_RENDERS) {
-    problems.push(
-      `${entry.id}: ${renders.length} control combinations, more than ${MAX_RENDERS}; hide controls that do not change the look in its playground`,
-    );
-    return { uses: [], parts: new Set<string>() };
-  }
+  let sampled = stageSampled;
 
   // (part, class) → the renders it appears in: the product, then the content renders, then the
   // anatomy picture, so parts the stage never shows still count.
@@ -327,15 +363,20 @@ const usesOf = (entry: Entry, problems: string[]) => {
   };
   // A `clientOnly` stage is rendered here too: its markup only has to carry the classes, not
   // match what the browser draws later.
-  const render = (node: ReactNode, index: number) => {
+  const render = (draw: () => ReactNode, index: number, what: string) => {
     try {
-      add(renderToStaticMarkup(node), index);
+      add(renderToStaticMarkup(draw()), index);
     } catch (error) {
-      problems.push(`${entry.id}: render ${index} failed: ${(error as Error).message}`);
+      problems.push(
+        `${entry.id}: ${playgroundFile(entry.id)} throws when rendered on the server with ${what}: ${(error as Error).message}`,
+      );
     }
   };
-  renders.forEach((values, index) => render(definition.render(values), index));
-  if (typeof definition.anatomy === 'function') render(definition.anatomy(), renders.length);
+  renders.forEach((values, index) =>
+    render(() => definition.render(values), index, JSON.stringify(values)),
+  );
+  const { anatomy } = definition;
+  if (typeof anatomy === 'function') render(anatomy, renders.length, 'anatomy()');
 
   // A part that is another component's part under this one's name (`IconButton.Icon` is
   // `ButtonIcon`, so it renders `button-icon`): the same member after a different root.
@@ -378,13 +419,15 @@ const usesOf = (entry: Entry, problems: string[]) => {
     if (tokens === undefined || tokens?.length === 0) return;
     const where = `${entry.id} (${slot})`;
     if (tokens === null) {
-      problems.push(`${where}: ${className} reads no declared token variable`);
+      problems.push(
+        `${where}: ${className} reads a variable no theme declares, so it styles nothing; fix the class in the component or add the token`,
+      );
       return;
     }
     const state = stateOf(parts);
     if (state === undefined) {
       problems.push(
-        `${where}: ${className} has a state prefix with no key; add it to STATE_KEYS or LAYOUT in src/lib/tokenUsageStates.ts`,
+        `${where}: the token graph does not know the prefix ${unknownPrefix(parts)}: in ${className}; add it to STATE_KEYS (a state) or LAYOUT (only where the class lands) in apps/docs/src/lib/tokenUsageStates.ts`,
       );
       return;
     }
@@ -406,26 +449,29 @@ const usesOf = (entry: Entry, problems: string[]) => {
   for (const slot of copiedSlots(entry.id))
     if (!portalled[slot])
       problems.push(
-        `${entry.id}: the playground draws ${slot} by hand; add the variants it renders with to PORTALLED in src/lib/tokenUsagePortals.ts`,
+        `${entry.id}: ${playgroundFile(entry.id)} draws ${slot} by hand; add the variants it renders with to PORTALLED in apps/docs/src/lib/tokenUsagePortals.ts`,
       );
   for (const [slot, source] of Object.entries(portalled)) {
     if (!partOf.has(slot)) {
-      problems.push(`${entry.id}: PORTALLED names ${slot}, which is not one of its parts`);
+      problems.push(
+        `${entry.id}: PORTALLED names ${slot}, which is no longer one of its parts; rename or remove it in apps/docs/src/lib/tokenUsagePortals.ts`,
+      );
       continue;
     }
     slots.add(slot);
     const read = variantsOf(source);
-    if (read.combinations.length > MAX_RENDERS) {
-      problems.push(`${entry.id} (${slot}): more than ${MAX_RENDERS} variant combinations`);
-      continue;
-    }
+    if (read.sampled) sampled = true;
     for (const { className, nested, present } of read.classes)
       file(slot, className, nested, () => conditions(read.keys, read.combinations, present));
   }
 
   for (const { slot, className, nested, renders: present } of seen.values())
     if (!portalled[slot]) file(slot, className, nested, () => whenOf(present));
-  return { uses, parts: new Set([...slots].flatMap((slot) => partOf.get(slot) ?? [])) };
+  return {
+    uses,
+    sampled,
+    parts: new Set([...slots].flatMap((slot) => partOf.get(slot) ?? [])),
+  };
 };
 
 /**
@@ -454,19 +500,26 @@ const build = () => {
   for (const entry of entries) {
     const definition = PLAYGROUNDS[entry.id];
     if (!definition) {
-      problems.push(`${entry.id}: no playground`);
+      problems.push(`${entry.id}: no playground; add ${playgroundFile(entry.id)}`);
       continue;
     }
-    const { uses, parts } = usesOf(entry, problems);
-    if (!uses.length) problems.push(`${entry.id}: no token classes found in any render`);
+    const { uses, parts, sampled } = usesOf(entry, problems);
+    if (!uses.length)
+      problems.push(
+        `${entry.id}: no render of ${playgroundFile(entry.id)} carries a token class; check that its stage renders the component`,
+      );
     for (const part of partsOf(entry)) {
       const name = part.exportName;
       if (parts.has(name) || definition.absent?.[name] || NO_ELEMENT.has(name)) continue;
       problems.push(
-        `${entry.id}: part ${name} is never rendered; draw it in the playground's anatomy(), or say why in absent`,
+        `${entry.id}: part ${name} is never rendered; draw it in anatomy() in ${playgroundFile(entry.id)}, or say why in its absent`,
       );
     }
-    components[entry.id] = { defaults: definition.defaults, uses };
+    components[entry.id] = {
+      defaults: definition.defaults,
+      uses,
+      ...(sampled ? { sampled: true as const } : {}),
+    };
   }
 
   const tokens: Record<string, TokenEntry> = {};
