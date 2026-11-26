@@ -74,8 +74,8 @@ export type {
 } from './components/button/Button.types';
 export { ButtonIcon } from './components/button/ButtonIcon';
 export { ButtonTruncatedText } from './components/button/ButtonTruncatedText';
-export { IconButton, IconButtonIcon } from './components/button/IconButton';
-export type { IconButtonIconProps, IconButtonProps } from './components/button/IconButton.types';
+export { IconButton } from './components/button/IconButton';
+export type { IconButtonProps } from './components/button/IconButton.types';
 export { LinkButton, LinkButtonTruncatedText } from './components/button/LinkButton';
 export type {
   LinkButtonProps,

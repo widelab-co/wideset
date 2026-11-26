@@ -98,8 +98,8 @@ State: `value` + `onChange` (controlled), or nothing (uncontrolled, starts empty
 ## Accessibility
 
 - Every field needs a name: `FormField` with `htmlFor` matching the input `id`, or `aria-label`.
-- `TextInput.IconButton` needs `aria-label`. `TextInput.ClearButton` defaults to "Clear";
-  translate it with `aria-label`.
+- `TextInput.IconButton` needs `aria-label` or `aria-labelledby`.
+  `TextInput.ClearButton` defaults to "Clear"; translate it with `aria-label`.
 - `TextInput.Icon` is hidden from screen readers.
 - Use `type="search"` on a search field: it is announced as search and gets a search key on
   mobile keyboards.
