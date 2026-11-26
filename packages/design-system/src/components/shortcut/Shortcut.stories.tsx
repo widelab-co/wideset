@@ -36,6 +36,8 @@ Use Tag or StatusBadge for a label that is not a key.
     emphasis: {
       control: 'radio',
       options: ['strong', 'weak'],
+      description:
+        '`strong` draws the keys in a bordered cap, for the end of a menu or sidebar row. `weak` shows the bare keys, for a shortcut inside a line of text.',
       table: {
         category: 'Appearance',
         type: { summary: "'strong' | 'weak'" },

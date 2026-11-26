@@ -15,6 +15,7 @@ export type ShortcutProps = HTMLAttributes<HTMLElement> & {
   /**
    * `strong` draws the keys in a bordered cap, for the end of a menu or sidebar row. `weak` shows
    * the bare keys, for a shortcut inside a line of text.
+   * @default 'strong'
    */
   emphasis?: VariantProps<typeof shortcutVariants>['emphasis'];
   /**

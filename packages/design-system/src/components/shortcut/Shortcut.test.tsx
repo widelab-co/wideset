@@ -5,7 +5,12 @@ import { describe, expect, it } from 'vitest';
 import { Shortcut } from './Shortcut';
 import type { ShortcutProps } from './Shortcut.types';
 
-const emphases: ShortcutProps['emphasis'][] = ['strong', 'weak'];
+const snapshotCases: [string, ShortcutProps][] = [
+  ['emphasis="strong"', { emphasis: 'strong' }],
+  ['emphasis="weak"', { emphasis: 'weak' }],
+  ['variant="inverse"', { variant: 'inverse' }],
+  ['variant="inverse" emphasis="weak"', { variant: 'inverse', emphasis: 'weak' }],
+];
 
 describe('Shortcut', () => {
   describe('Rendering', () => {
@@ -123,73 +128,24 @@ describe('Shortcut', () => {
     });
   });
 
-  describe('Keys', () => {
-    it.each(['⌘', '⇧', '⌥', '↵', '↑', '→'])('draws %s at the wide minimum width', (glyph) => {
-      render(
-        <Shortcut>
-          <Shortcut.Key data-testid="key">{glyph}</Shortcut.Key>
-        </Shortcut>,
-      );
-
-      expect(screen.getByTestId('key')).toHaveClass('min-w-ws-9');
-    });
-
-    it.each(['⌃', 'K', 'Esc'])('draws %s at the narrow minimum width', (key) => {
-      render(
-        <Shortcut>
-          <Shortcut.Key data-testid="key">{key}</Shortcut.Key>
-        </Shortcut>,
-      );
-
-      expect(screen.getByTestId('key')).toHaveClass('min-w-ws-8');
-    });
-  });
-
-  describe('Variants', () => {
-    it('keeps the default colours unless asked', () => {
-      render(
-        <Shortcut data-testid="shortcut">
-          <Shortcut.Key>K</Shortcut.Key>
-        </Shortcut>,
-      );
-
-      const shortcut = screen.getByTestId('shortcut');
-      expect(shortcut).toHaveClass('text-ws-static-subtle');
-      expect(shortcut).not.toHaveClass('text-ws-static-inverse-subtle');
-    });
-
-    it('draws inverse text and stroke for a dark surface', () => {
-      render(
-        <Shortcut variant="inverse" data-testid="shortcut">
-          <Shortcut.Key>K</Shortcut.Key>
-        </Shortcut>,
-      );
-
-      const shortcut = screen.getByTestId('shortcut');
-      expect(shortcut).toHaveClass('text-ws-static-inverse-subtle');
-      expect(shortcut).toHaveClass('inset-ring-(--ws-static-stroke-inverse-base)');
-      expect(shortcut).not.toHaveClass('text-ws-static-subtle');
-    });
-
-    it('draws no stroke for weak inverse', () => {
-      render(
-        <Shortcut variant="inverse" emphasis="weak" data-testid="shortcut">
-          <Shortcut.Key>K</Shortcut.Key>
-        </Shortcut>,
-      );
-
-      expect(screen.getByTestId('shortcut')).not.toHaveClass(
-        'inset-ring-(--ws-static-stroke-inverse-base)',
-      );
-    });
-  });
-
   describe('Snapshots', () => {
-    it.each(emphases)('should match snapshot for emphasis="%s"', (emphasis) => {
+    it.each(snapshotCases)('should match snapshot for %s', (_, props) => {
       const { container } = render(
-        <Shortcut emphasis={emphasis}>
+        <Shortcut {...props}>
           <Shortcut.Key>⌘</Shortcut.Key>
           <Shortcut.Key>K</Shortcut.Key>
+        </Shortcut>,
+      );
+
+      expect(container).toMatchSnapshot();
+    });
+
+    it('should match snapshot for modifier, navigation and named keys', () => {
+      const { container } = render(
+        <Shortcut>
+          {['⌃', '⌥', '⇧', '⌘', '↵', '↑', '↓', '←', '→', 'Esc'].map((key) => (
+            <Shortcut.Key key={key}>{key}</Shortcut.Key>
+          ))}
         </Shortcut>,
       );
 

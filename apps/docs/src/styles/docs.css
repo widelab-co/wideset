@@ -33,7 +33,7 @@
   font-style: normal;
   font-weight: 100 900;
   font-display: swap;
-  src: url('./fonts/inter-modifier-keys.woff2') format('woff2-variations');
+  src: url('/_docs/fonts/inter-modifier-keys.woff2') format('woff2-variations');
   unicode-range: U+21E7, U+2303, U+2318, U+2325;
 }
 
