@@ -101,7 +101,8 @@ beyond a one-line fix), `RELEASING.md` (changesets). On top of them, the Wideset
    an effect, timers and listeners cleaned up on unmount. Tests run in jsdom on one React version and stay green when
    this breaks, which is why it is a review question, not a CI question.
 
-A comment that justifies the change instead of explaining the code ("Figma: …", "now uses X") is a finding: the
+Avoid comments. A comment the code does not need (it restates the code, or names and structure could say it) is a
+finding, and so is one that justifies the change instead of explaining the code ("Figma: …", "now uses X"): the
 commit message, changeset or PR carry that (`AGENTS.md` › Comments).
 
 Judgement-call smells (labelled as such, repo practice wins): prop bag where siblings compose; one-off synonym (`isDisabled`,

@@ -94,7 +94,7 @@ Check each refactored component for:
 - [ ] Public API uses a single top-level component (e.g. `<ComboBox>`), not Radix-style `.Root`. Providers, context, and primitive wrappers are hidden inside — users write `<ComboBox><ComboBox.Trigger /></ComboBox>`, never `<ComboBox.Root>` or `<ComboBox.Provider>`. See `Accordion` for reference.
 - [ ] Parent→child data shared via Context in `Component.context.tsx` when subcomponents need parent state
 - [ ] Context hook throws with convention: `use{X}Context must be used within a <{X}>`
-- [ ] A code comment says why the code is not obvious, never why it changed or where a value came from ("Figma: …", "was X, now Y"): that goes in the commit message, changeset or PR
+- [ ] Comments are avoided; one appears only where the code cannot say why it is not obvious, never why it changed or where a value came from ("Figma: …", "was X, now Y"): that goes in the commit message, changeset or PR
 
 #### Styling
 
