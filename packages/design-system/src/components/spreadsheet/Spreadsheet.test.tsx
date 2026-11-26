@@ -1080,11 +1080,11 @@ describe('Spreadsheet', () => {
       await user.tab({ shift: true });
       expect(screen.getByRole('button', { name: 'Before' })).toHaveFocus();
       expect(focused).toEqual([]);
-      // The cell is the tab stop again once focus has left, and the scroll container (out of the
-      // tab order meanwhile, as Chrome would stop on it) is as it was.
+      // The cell is the tab stop again once focus has left, and the scroll container keeps its
+      // own tabindex.
       await act(() => new Promise((resolve) => setTimeout(resolve)));
       expect(checkbox.closest('td')).toHaveAttribute('tabindex', '0');
-      expect(screen.getByRole('grid').parentElement).not.toHaveAttribute('tabindex');
+      expect(screen.getByRole('grid').parentElement).toHaveAttribute('tabindex', '-1');
     });
 
     it.each([0, -1])(

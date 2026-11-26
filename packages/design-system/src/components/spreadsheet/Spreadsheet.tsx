@@ -49,6 +49,8 @@ export const Spreadsheet = React.forwardRef<HTMLDivElement, SpreadsheetProps>(
         <div
           ref={composedRef}
           data-slot="spreadsheet"
+          // Firefox makes an overflowing scroller a tab stop of its own; the active cell is the one.
+          tabIndex={-1}
           {...props}
           className={cn(SPREADSHEET_CLASS, className)}
         >
