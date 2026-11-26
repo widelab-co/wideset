@@ -1,6 +1,7 @@
 import { RiCheckboxBlankCircleLine } from '@remixicon/react';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { createRef } from 'react';
 import { describe, expect, it, vi } from 'vitest';
 
 import type { RemixiconProps } from '../../types/icon.types';
@@ -15,6 +16,35 @@ const MockIcon = (props: RemixiconProps) => (
 
 describe('Tabs', () => {
   describe('Basic rendering', () => {
+    it('forwards refs to the root, list, item, label, and content and clears them on unmount', () => {
+      const root = createRef<HTMLDivElement>();
+      const list = createRef<HTMLDivElement>();
+      const item = createRef<HTMLButtonElement>();
+      const label = createRef<HTMLSpanElement>();
+      const content = createRef<HTMLDivElement>();
+      const { container, unmount } = render(
+        <Tabs ref={root} defaultValue="account">
+          <Tabs.List ref={list}>
+            <Tabs.Item ref={item} value="account">
+              <Tabs.Label ref={label}>Account</Tabs.Label>
+            </Tabs.Item>
+          </Tabs.List>
+          <Tabs.Content ref={content} value="account">
+            Account settings
+          </Tabs.Content>
+        </Tabs>,
+      );
+
+      expect(root.current).toBe(container.firstElementChild);
+      expect(list.current).toBe(screen.getByRole('tablist'));
+      expect(item.current).toBe(screen.getByRole('tab', { name: 'Account' }));
+      expect(label.current).toBe(screen.getByText('Account'));
+      expect(content.current).toBe(screen.getByRole('tabpanel', { name: 'Account' }));
+
+      unmount();
+      for (const ref of [root, list, item, label, content]) expect(ref.current).toBeNull();
+    });
+
     it('renders tabs with proper content visibility', () => {
       render(
         <Tabs defaultValue="tab1">
@@ -180,22 +210,32 @@ describe('Tabs', () => {
       expect(tab).toHaveAttribute('data-state');
     });
 
-    it('applies active visual state when active prop is set', () => {
-      render(
-        <Tabs defaultValue="tab2">
-          <Tabs.List>
-            <Tabs.Item value="tab1" active>
-              <Tabs.Label>Tab 1</Tabs.Label>
-            </Tabs.Item>
-            <Tabs.Item value="tab2">
-              <Tabs.Label>Tab 2</Tabs.Label>
-            </Tabs.Item>
-          </Tabs.List>
-        </Tabs>,
+    it('keeps visual and accessible selection synchronized with the controlled value', () => {
+      const items = (
+        <Tabs.List>
+          <Tabs.Item value="tab1">
+            <Tabs.Label>Tab 1</Tabs.Label>
+          </Tabs.Item>
+          <Tabs.Item value="tab2">
+            <Tabs.Label>Tab 2</Tabs.Label>
+          </Tabs.Item>
+        </Tabs.List>
       );
+      const { rerender } = render(<Tabs value="tab2">{items}</Tabs>);
+      const first = screen.getByRole('tab', { name: 'Tab 1' });
+      const second = screen.getByRole('tab', { name: 'Tab 2' });
 
-      const forcedActiveTab = screen.getByRole('tab', { name: 'Tab 1' });
-      expect(forcedActiveTab).toHaveAttribute('data-active', '');
+      expect(first).toHaveAttribute('aria-selected', 'false');
+      expect(first).toHaveAttribute('data-state', 'inactive');
+      expect(second).toHaveAttribute('aria-selected', 'true');
+      expect(second).toHaveAttribute('data-state', 'active');
+
+      rerender(<Tabs value="tab1">{items}</Tabs>);
+
+      expect(first).toHaveAttribute('aria-selected', 'true');
+      expect(first).toHaveAttribute('data-state', 'active');
+      expect(second).toHaveAttribute('aria-selected', 'false');
+      expect(second).toHaveAttribute('data-state', 'inactive');
     });
 
     it('forwards HTML attributes to tab items', () => {

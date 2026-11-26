@@ -4,10 +4,13 @@
 
 - Content splits cleanly into peer groups (Overview / Members / Comments) and the user moves
   between them on the same page.
-- A row of route-level sections inside a page, rendered as router links (`asChild` + `active`).
+- The same in-page panels with the open tab kept in the URL for deep linking: derive the root
+  `value` from the URL and update it through `onValueChange`.
 
 ## When not to use
 
+- Moving between separate pages or routes, where users need real links with middle-click and
+  "open in new tab" support: use links inside a `<nav>` with `aria-current="page"`, not Tabs.
 - Picking one value or view mode that changes the current content in place (list vs grid,
   a filter) → `SegmentedControl`.
 - App-level navigation between areas of the product → `Sidebar`.
@@ -18,13 +21,43 @@
 ## Do / Don't
 
 ```tsx
-// Do: router links keep the tab look through asChild + active
-<Tabs.Item value="billing" asChild active={pathname === '/billing'}>
-  <a href="/billing"><Tabs.Label>Billing</Tabs.Label></a>
-</Tabs.Item>
+import { Tabs } from '@wideset/react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
+// Do: keep URL-driven selection and its content panels together.
+function RoutingTabs() {
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const currentTab = pathname === '/billing' ? 'billing' : 'overview';
+
+  return (
+    <Tabs
+      value={currentTab}
+      activationMode="manual"
+      onValueChange={(value) => {
+        if (value !== currentTab) navigate('/' + value);
+      }}
+    >
+      <Tabs.List>
+        <Tabs.Item value="overview">
+          <Tabs.Label>Overview</Tabs.Label>
+        </Tabs.Item>
+        <Tabs.Item value="billing">
+          <Tabs.Label>Billing</Tabs.Label>
+        </Tabs.Item>
+      </Tabs.List>
+      <Tabs.Content value="overview">Overview content</Tabs.Content>
+      <Tabs.Content value="billing">Billing content</Tabs.Content>
+    </Tabs>
+  );
+}
+```
+
+```tsx
 // Don't: an icon passed as a bare child
-<Tabs.Item value="x"><RiTeamLine /></Tabs.Item>
+<Tabs.Item value="x">
+  <RiTeamLine />
+</Tabs.Item>
 ```
 
 - Don't mix `size` or `type` between tab rows on one screen.
@@ -39,3 +72,5 @@
 - `divider={false}` has no effect on `pills` and `ghost`; they never draw it.
 - `Tabs.List`, `Tabs.Item` and `Tabs.Count` throw outside `<Tabs>`.
 - Animations follow `MotionProvider`; set `defaultMotion={false}` on `Tabs` to turn them off here.
+- When tab selection updates the URL, use `activationMode="manual"` so arrow keys move focus
+  without adding browser history entries. Enter or Space selects the focused tab.
