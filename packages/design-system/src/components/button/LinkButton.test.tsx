@@ -79,6 +79,52 @@ describe('LinkButton', () => {
     });
   });
 
+  // Figma's Link Button (State=Focused): Corner Radius/Control/sm, the variant's Alpha/Default
+  // fill, and 8 × 4px padding at both sizes.
+  describe('Figma appearance', () => {
+    it('draws the shared focus-visible ring and no dead focus class', () => {
+      render(<LinkButton href="/test">Link</LinkButton>);
+      const classes = screen.getByRole('link', { name: 'Link' }).className.split(' ');
+      expect(classes).toContain('focus-visible:wds-focus-visible');
+      expect(classes).not.toContain('focus-visible:wds-focus');
+    });
+
+    it('rounds the link with Corner Radius/Control/sm', () => {
+      render(<LinkButton href="/test">Link</LinkButton>);
+      expect(screen.getByRole('link', { name: 'Link' })).toHaveClass('rounded-ws-control-sm');
+    });
+
+    it.each(['primary', 'secondary', 'danger', 'success', 'inverse'] as const)(
+      'fills the focused %s link with its Alpha/Default fill',
+      (variant) => {
+        render(
+          <LinkButton href="/test" variant={variant}>
+            Link
+          </LinkButton>,
+        );
+        expect(screen.getByRole('link', { name: 'Link' })).toHaveClass(
+          `focus-visible:bg-ws-dynamic-${variant}-alpha-default`,
+        );
+      },
+    );
+
+    it('pads both sizes the same, so only the label size differs', () => {
+      render(
+        <>
+          <LinkButton href="/a" size="sm">
+            Small
+          </LinkButton>
+          <LinkButton href="/b" size="lg">
+            Large
+          </LinkButton>
+        </>,
+      );
+      for (const name of ['Small', 'Large']) {
+        expect(screen.getByRole('link', { name })).toHaveClass('px-ws-5', 'py-ws-3');
+      }
+    });
+  });
+
   describe('href attribute', () => {
     it('should render with href attribute', () => {
       render(<LinkButton href="/test">Link</LinkButton>);

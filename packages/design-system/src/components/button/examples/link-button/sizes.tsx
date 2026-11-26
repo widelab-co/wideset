@@ -1,6 +1,7 @@
 /**
- * Small is the default and sits in body text, cards and table rows. Large gives a standalone
- * route more presence and a bigger hit area, such as the link under a form.
+ * Small is the default and sits in body text, cards and table rows. Large sets a bigger label
+ * for a standalone route that needs more presence, such as the link under a form. Both sizes
+ * are the same height.
  */
 import { LinkButton } from '@wideset/react';
 
