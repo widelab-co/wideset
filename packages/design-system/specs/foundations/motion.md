@@ -20,7 +20,7 @@ Docs: `https://wideset.co/docs/motion` · Source:
 | `--ws-motion-duration-very-slow`                       | 500ms                             | Emphasis: success check, badge appear                |
 | `--ws-motion-ease-smooth-out`                          | cubic-bezier(0.22, 1, 0.36, 1)    | Open, close, slide, resize                           |
 | `--ws-motion-ease-in-out`                              | ease-in-out                       | Cross-fades (icon swap, text swap)                   |
-| `--ws-motion-ease-out`                                 | ease-out                          | Menus, tooltip, hover tint                           |
+| `--ws-motion-ease-out`                                 | ease-out                          | Menus, hover tint                                    |
 | `--ws-motion-ease-linear`                              | linear                            | Shimmer, spinners, shake envelope                    |
 | `--ws-motion-ease-bounce`                              | cubic-bezier(0.34, 1.36, 0.64, 1) | Pop-ins: badge, indicator                            |
 | `--ws-motion-ease-bounce-strong`                       | cubic-bezier(0.34, 1.85, 0.64, 1) | Stronger pop-in                                      |

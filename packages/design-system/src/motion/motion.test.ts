@@ -30,10 +30,15 @@ describe('Menus', () => {
     expect(menuFadeMotion).toContain('data-[state=closed]:duration-(--ws-motion-duration-quick)');
   });
 
-  it('only panels slide or zoom by a fixed amount', () => {
-    expect(variantFilesMatching(/zoom-(in|out)-\d|slide-in-from-/)).toEqual([
+  it('only panels, dialogs, the tooltip and check marks zoom or slide', () => {
+    expect(variantFilesMatching(/zoom-(in|out)-[\d[(]|slide-(in-from|out-to)-/)).toEqual([
       'ActionBar',
+      'Checkbox',
+      'Modal',
+      'RadioButton',
       'Sidepanel',
+      'StatusModal',
+      'Tooltip',
     ]);
   });
 });
