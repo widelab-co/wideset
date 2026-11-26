@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { renderToString } from 'react-dom/server';
 import { describe, expect, it, vi } from 'vitest';
 
 import { Switch } from './Switch';
@@ -65,6 +66,7 @@ describe('Switch', () => {
 
     it('renders label and ignores children when both are provided', () => {
       render(
+        // @ts-expect-error label and children are mutually exclusive
         <Switch label="String label">
           <Switch.Label>Composed label</Switch.Label>
         </Switch>,
@@ -138,6 +140,21 @@ describe('Switch', () => {
       render(<Switch data-testid="custom-switch" aria-label="Toggle setting" />);
       const switchElement = screen.getByTestId('custom-switch');
       expect(switchElement).toHaveAttribute('aria-label', 'Toggle setting');
+    });
+
+    it('puts className on the same element as ref', () => {
+      const ref = { current: null as HTMLButtonElement | null };
+      render(<Switch ref={ref} label="Label" className="custom-class" />);
+      expect(ref.current).toBe(screen.getByRole('switch'));
+      expect(ref.current).toHaveClass('custom-class');
+      expect(ref.current?.parentElement).not.toHaveClass('custom-class');
+    });
+
+    it('puts wrapperClassName on the row', () => {
+      render(<Switch label="Label" wrapperClassName="w-full" className="custom-class" />);
+      const row = screen.getByRole('switch').parentElement;
+      expect(row).toHaveClass('w-full');
+      expect(row).not.toHaveClass('custom-class');
     });
 
     it('should handle data attributes', () => {
@@ -236,6 +253,89 @@ describe('Switch', () => {
       const label = screen.getByTestId('custom-label');
       expect(label).toHaveClass('custom-label-class');
       expect(label).toHaveAttribute('aria-label', 'Custom label');
+    });
+  });
+
+  describe('Switch.Description', () => {
+    it('renders next to Switch.Label and forwards attributes', () => {
+      render(
+        <Switch>
+          <Switch.Label>Email notifications</Switch.Label>
+          <Switch.Description className="custom-class" data-testid="description">
+            Sent once a day
+          </Switch.Description>
+        </Switch>,
+      );
+      const description = screen.getByText('Sent once a day');
+      expect(description).toHaveAttribute('data-slot', 'switch-description');
+      expect(description).toHaveClass('custom-class');
+      expect(description).toHaveAttribute('data-testid', 'description');
+    });
+
+    it('describes the switch', () => {
+      render(
+        <Switch aria-describedby="external">
+          <Switch.Label>Email notifications</Switch.Label>
+          <Switch.Description>Sent once a day</Switch.Description>
+        </Switch>,
+      );
+      const switchElement = screen.getByRole('switch');
+      const description = screen.getByText('Sent once a day');
+      expect(switchElement).toHaveAccessibleDescription('Sent once a day');
+      expect(switchElement.getAttribute('aria-describedby')?.split(' ')).toEqual([
+        'external',
+        description.id,
+      ]);
+    });
+
+    it('describes the switch in the server render', () => {
+      const html = renderToString(
+        <Switch id="notify">
+          <Switch.Label>Email notifications</Switch.Label>
+          <Switch.Description>Sent once a day</Switch.Description>
+        </Switch>,
+      );
+      expect(html).toContain('aria-describedby="notify-description"');
+      expect(html).toContain('id="notify-description"');
+    });
+
+    it('warns when given more than one description', () => {
+      const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+      render(
+        <Switch>
+          <Switch.Label>Email notifications</Switch.Label>
+          <Switch.Description id="first">Sent once a day</Switch.Description>
+          <Switch.Description id="second">Sent once a week</Switch.Description>
+        </Switch>,
+      );
+      expect(warn).toHaveBeenCalledWith(expect.stringContaining('one `Switch.Description`'));
+      warn.mockRestore();
+    });
+
+    it('keeps the description id when a replaced description unmounts', () => {
+      const { rerender } = render(
+        <Switch>
+          <Switch.Label>Email notifications</Switch.Label>
+          <Switch.Description id="first">Sent once a day</Switch.Description>
+        </Switch>,
+      );
+      rerender(
+        <Switch>
+          <Switch.Label>Email notifications</Switch.Label>
+          <Switch.Description id="second">Sent once a week</Switch.Description>
+        </Switch>,
+      );
+      expect(screen.getByRole('switch')).toHaveAttribute('aria-describedby', 'second');
+    });
+
+    it('keeps a caller id on the description', () => {
+      render(
+        <Switch>
+          <Switch.Label>Email notifications</Switch.Label>
+          <Switch.Description id="custom-id">Sent once a day</Switch.Description>
+        </Switch>,
+      );
+      expect(screen.getByRole('switch')).toHaveAttribute('aria-describedby', 'custom-id');
     });
   });
 

@@ -22,7 +22,7 @@ Before writing UI, load the `wideset-build` skill. Its specs say which component
 
 Surfaces `bg-ws-static-background` `bg-ws-static-container` `bg-ws-static-overlay`; text `text-ws-static-strong` `text-ws-static-base` `text-ws-static-subtle`; borders `border-ws-static-subtle` `border-ws-static-base` `border-ws-static-strong`.
 
-Type is one class: `typography-subtitle-lg`, `typography-body-md`, `typography-label-sm`, `typography-number-md`. Spacing: `ws-3` 0.25rem, `ws-5` 0.5rem, `ws-7` 0.75rem, `ws-9` 1rem, `ws-12` 1.5rem, `ws-14` 2rem. Your own `ws` classes need `@import '@wideset/react/theme'` in your Tailwind entry CSS.
+Type is one class: `typography-title-md`, `typography-body-md`, `typography-label-sm`, `typography-number-md`. Spacing: `ws-3` 0.25rem, `ws-5` 0.5rem, `ws-7` 0.75rem, `ws-9` 1rem, `ws-12` 1.5rem, `ws-14` 2rem. Your own `ws` classes need `@import '@wideset/react/theme'` in your Tailwind entry CSS.
 
 Font: the page font is variable Inter, set through `--font-ws-sans`; `wideset init` adds it as `styles/wideset-font.css`. Text that looks heavier than the design means no variable font is loaded: load `wideset-setup`.
 
@@ -56,6 +56,7 @@ Font: the page font is variable Inter, set through `--font-ws-sans`; `wideset in
 - DateRangePicker: a date span with optional presets.
 - TimePicker: times at a fixed interval, value `HH:mm`.
 - Calendar: an always-visible grid; in a form use DatePicker.
+- Illustration: a drawing for an empty state, a first run or an announcement; not an icon.
 - InlineAlert: persistent feedback attached to one section.
 - SystemAlert: a product-wide banner at the top of the page.
 - Toast: brief floating feedback through `useToast`.
@@ -73,10 +74,12 @@ Font: the page font is variable Inter, set through `--font-ws-sans`; `wideset in
 - DropdownMenu: commands that run on select; never for picking a value.
 - Tooltip: a read-only hint on hover or focus.
 - Table: records compared across rows; sorting, selection and paging are your state.
+- Spreadsheet: a dense grid worked cell by cell, with a pinned header and row numbers; not a list of rows to open, that is Table.
 - ListItem: one compact row; the row inside menus and selects.
 - Avatar: a person, team or the agent orb next to a name.
 - Tag: a static category label; colour is categorical.
 - StatusBadge: a static state label.
+- AppShell: the screen's frame; one `direction` (inset by default, flat, frame, canvas) sets the window, sidebar and page.
 - Card: a bounded surface for one subject; not clickable, not a page wrapper.
 - Accordion: named sections opened in place.
 - Divider: a horizontal separator, optionally labelled.

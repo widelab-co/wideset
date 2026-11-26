@@ -61,9 +61,7 @@ describe('Thumbnail', () => {
       const { container } = render(<Thumbnail type={type} data-testid="thumb" />);
 
       expect(container.querySelector('svg')).toBeInTheDocument();
-      expect(screen.getByTestId('thumb').className).toMatch(
-        /bg-ws-non-semantic-[a-z]+-strong|bg-\[#e96949\]/,
-      );
+      expect(screen.getByTestId('thumb').className).toMatch(/bg-ws-non-semantic-[a-z]+-strong/);
     });
 
     it('still renders explicit children as an escape hatch', () => {

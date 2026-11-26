@@ -1,4 +1,4 @@
-import { forwardRef, useRef, useState } from 'react';
+import { forwardRef, useState } from 'react';
 import type { DateRange } from 'react-day-picker';
 import { formatDateToISOString, parseISODate } from 'src/logic/date';
 
@@ -43,16 +43,18 @@ const DateRangePicker = forwardRef<HTMLButtonElement, DateRangePickerProps>(
     ref,
   ) => {
     const motion = useDefaultMotion(defaultMotion);
-    const { weekStartsOn } = calendarProps;
+    const { weekStartsOn, today } = calendarProps;
     const [isOpen, setIsOpen] = useState(false);
     const [internalRange, setInternalRange] = useState<DateRangeValue | undefined>(() => {
-      if (defaultDatePreset) return getPresetRange(defaultDatePreset, weekStartsOn);
+      if (defaultDatePreset) return getPresetRange(defaultDatePreset, weekStartsOn, today);
       return defaultSelected;
     });
     const [internalPreset, setInternalPreset] = useState<DateRangePreset | undefined>(
       defaultDatePreset,
     );
-    const selectStepRef = useRef<'start' | 'end'>('start');
+    // The range after the first click, kept here until the second click reports it: in
+    // controlled mode `selected` does not change in between, so the calendar would drop it.
+    const [pendingRange, setPendingRange] = useState<DateRangeValue>();
 
     const isRangeControlled = selected !== undefined;
     const isPresetControlled = controlledPreset !== undefined;
@@ -61,17 +63,17 @@ const DateRangePicker = forwardRef<HTMLButtonElement, DateRangePickerProps>(
 
     const handleOpenChange = (open: boolean) => {
       setIsOpen(open);
-      if (open) selectStepRef.current = 'start';
+      setPendingRange(undefined);
     };
 
     const handlePresetSelect = (presetKey: DateRangePreset) => {
       if (presetKey === 'custom') {
         if (!isPresetControlled) setInternalPreset('custom');
-        selectStepRef.current = 'start';
+        setPendingRange(undefined);
         return;
       }
 
-      const presetRange = getPresetRange(presetKey, weekStartsOn);
+      const presetRange = getPresetRange(presetKey, weekStartsOn, today);
       if (!isRangeControlled) setInternalRange(presetRange);
       if (!isPresetControlled) setInternalPreset(presetKey);
       setIsOpen(false);
@@ -79,24 +81,31 @@ const DateRangePicker = forwardRef<HTMLButtonElement, DateRangePickerProps>(
     };
 
     const handleCalendarSelect = (dateRange: DateRange | undefined) => {
-      const newRange: DateRangeValue = {
-        from: formatDateToISOString(dateRange?.from),
-        to: formatDateToISOString(dateRange?.to),
-      };
-      if (!isRangeControlled) setInternalRange(newRange);
-      if (!isPresetControlled) setInternalPreset('custom');
-
-      if (selectStepRef.current === 'start') {
-        selectStepRef.current = 'end';
+      // A second click on the start day comes back as `undefined`. Without `min` that is a
+      // one-day range; with `min` the calendar rejected it, so the start day stays pending.
+      if (!dateRange && pendingRange && calendarProps.min) return;
+      const newRange: DateRangeValue =
+        !dateRange && pendingRange
+          ? { from: pendingRange.from, to: pendingRange.from }
+          : {
+              from: formatDateToISOString(dateRange?.from),
+              to: formatDateToISOString(dateRange?.to),
+            };
+      // Only a complete range commits; with `min` the calendar can report an open-ended one.
+      if (!pendingRange || (dateRange && !dateRange.to)) {
+        setPendingRange(newRange);
         return;
       }
 
-      selectStepRef.current = 'start';
+      if (!isRangeControlled) setInternalRange(newRange);
+      if (!isPresetControlled) setInternalPreset('custom');
+      setPendingRange(undefined);
       onSelect?.(newRange, 'custom');
     };
 
-    const calendarRange: DateRange | undefined = range
-      ? { from: parseISODate(range.from), to: parseISODate(range.to) }
+    const shownRange = pendingRange ?? range;
+    const calendarRange: DateRange | undefined = shownRange
+      ? { from: parseISODate(shownRange.from), to: parseISODate(shownRange.to) }
       : undefined;
 
     return (
@@ -112,7 +121,7 @@ const DateRangePicker = forwardRef<HTMLButtonElement, DateRangePickerProps>(
             aria-invalid={ariaInvalid}
             className={className}
             placeholder={placeholder}
-            value={formatRangeDisplay(range, currentPreset, dateFormat)}
+            value={formatRangeDisplay(range, currentPreset, dateFormat, presetLabels)}
             size={size}
             preset={preset}
             variant={variant}

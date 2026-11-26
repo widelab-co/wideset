@@ -68,3 +68,6 @@ export const cellVariants = cva(
     },
   },
 );
+
+/** Figma Table Cell › Description: Body/Small in Static/Text/Subtle, on its own line. */
+export const tableCellDescriptionVariants = cva('typography-body-sm text-ws-static-subtle block');

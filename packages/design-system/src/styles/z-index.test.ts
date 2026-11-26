@@ -22,18 +22,22 @@ const sourceFiles = (dir: string): string[] =>
     return /\.tsx?$/.test(entry.name) && !/\.(test|stories)\.tsx?$/.test(entry.name) ? [full] : [];
   });
 
+// Read once for all three scans: reading src/ per test went over vitest's 5s default when the
+// pre-push hook runs every package's tests at once.
+const sources = sourceFiles(path.resolve(root, 'src')).map((file) => ({
+  file: path.relative(root, file).replace(/\\/g, '/'),
+  lines: fs.readFileSync(file, 'utf-8').split(/\r?\n/),
+}));
+
 const matches = (pattern: RegExp) =>
-  sourceFiles(path.resolve(root, 'src')).flatMap((file) =>
-    fs
-      .readFileSync(file, 'utf-8')
-      .split(/\r?\n/)
-      .flatMap((line, index) =>
-        Array.from(line.matchAll(pattern), (m) => ({
-          where: `${path.relative(root, file).replace(/\\/g, '/')}:${index + 1}`,
-          match: m[0],
-          value: m[1],
-        })),
-      ),
+  sources.flatMap(({ file, lines }) =>
+    lines.flatMap((line, index) =>
+      Array.from(line.matchAll(pattern), (m) => ({
+        where: `${file}:${index + 1}`,
+        match: m[0],
+        value: m[1],
+      })),
+    ),
   );
 
 /**

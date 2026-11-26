@@ -128,7 +128,7 @@ export const Styles: Story = {
     text: { table: { disable: true } },
   },
   render: (args) => (
-    <div className="gap-ws-16 flex flex-col overflow-y-auto">
+    <div className="gap-ws-16 ws-scrollbar flex flex-col overflow-y-auto">
       <Divider {...args} lineStyle="solid" text="Solid" />
       <Divider {...args} lineStyle="dashed" text="Dashed" />
     </div>
@@ -149,7 +149,7 @@ export const Alignments: Story = {
     text: { table: { disable: true } },
   },
   render: (args) => (
-    <div className="gap-ws-16 flex flex-col overflow-y-auto">
+    <div className="gap-ws-16 ws-scrollbar flex flex-col overflow-y-auto">
       <Divider {...args} text={undefined} />
       <Divider {...args} textAlign="left" text="Left" />
       <Divider {...args} textAlign="center" text="Center" />

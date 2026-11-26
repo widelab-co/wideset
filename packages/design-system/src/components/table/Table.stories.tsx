@@ -12,6 +12,8 @@ import { Switch } from '../switch/Switch';
 import { Tag } from '../tag/Tag';
 import { TextInput } from '../text-input/TextInput';
 import { Thumbnail } from '../thumbnail/Thumbnail';
+import DescriptionsExample from './examples/table/descriptions';
+import descriptionsSource from './examples/table/descriptions?raw';
 import SeparatedExample from './examples/table/separated';
 import separatedSource from './examples/table/separated?raw';
 import SizesExample from './examples/table/sizes';
@@ -758,7 +760,7 @@ export const StickyHeader: Story = {
       },
       source: {
         code: `
-          <div className="h-44 overflow-y-scroll">
+          <div className="h-44 ws-scrollbar overflow-y-scroll">
             <Table stickyHeader>
               <Table.Head>
                 <Table.Row>
@@ -782,7 +784,7 @@ export const StickyHeader: Story = {
     },
   },
   render: () => (
-    <div className="h-44 overflow-y-scroll">
+    <div className="ws-scrollbar h-44 overflow-y-scroll">
       <Table stickyHeader>
         <Table.Head>
           <Table.Row>
@@ -842,7 +844,7 @@ export const StickyColumn: Story = {
       },
       source: {
         code: `
-          <div className="w-96 overflow-x-scroll">
+          <div className="w-96 ws-scrollbar overflow-x-scroll">
             <Table stickyColumn className="w-[600px]">
               <Table.Head>
                 <Table.Row>
@@ -870,7 +872,7 @@ export const StickyColumn: Story = {
     },
   },
   render: () => (
-    <div className="w-96 overflow-x-scroll">
+    <div className="ws-scrollbar w-96 overflow-x-scroll">
       <Table stickyColumn className="w-[600px]">
         <Table.Head>
           <Table.Row>
@@ -1131,6 +1133,8 @@ export const Sorting: Story = {
 };
 
 export const States: Story = exampleStory(StatesExample, statesSource);
+
+export const Descriptions: Story = exampleStory(DescriptionsExample, descriptionsSource);
 
 export const Composition: Story = {
   parameters: {

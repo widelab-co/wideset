@@ -150,7 +150,10 @@ export default defineConfig(({ mode }) => {
               // are included in the output without writing a temporary file.
               // Ship only classes that components use. Classes from stories, tests and docs pages
               // would otherwise land in the package and clash with the consumer's own utilities.
+              // Blocks get their own utilities in the registry. Storybook and the docs site
+              // compile the classes they use.
               const nonComponentSources = [
+                '../blocks',
                 '../**/*.stories.tsx',
                 '../**/*.test.ts',
                 '../**/*.test.tsx',
@@ -170,6 +173,7 @@ export default defineConfig(({ mode }) => {
               utilityClassNames.add('font-ws-sans');
               utilityClassNames.add('font-ws-heading');
               utilityClassNames.add('font-ws-body');
+              utilityClassNames.add('font-ws-mono');
 
               const inlineSource =
                 `\n@source inline("${Array.from(utilityClassNames).join(' ')}");\n` +

@@ -32,6 +32,7 @@ const Navbar = () => {
         <div className="mx-ws-4 mb-ws-10 flex items-center justify-between">
           {!isCollapsed && 'LOGO'}
           <IconButton
+            aria-label={isCollapsed ? 'Expand navigation' : 'Collapse navigation'}
             preset="border"
             variant="secondary"
             icon={RiArrowLeftSLine}

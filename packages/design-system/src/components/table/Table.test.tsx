@@ -1,3 +1,4 @@
+import { RiArrowUpDownLine, RiSortAsc, RiSortDesc } from '@remixicon/react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
@@ -59,6 +60,47 @@ describe('Table', () => {
       render(<BasicTable data-testid="my-table" aria-label="Project table" />);
       const table = screen.getByTestId('my-table');
       expect(table).toHaveAttribute('aria-label', 'Project table');
+    });
+  });
+
+  describe('Table.CellDescription', () => {
+    const renderCell = () =>
+      render(
+        <Table size="md">
+          <Table.Body>
+            <Table.Row>
+              <Table.Cell>
+                Offline sync
+                <Table.CellDescription data-testid="desc" className="mt-ws-1" aria-hidden="false">
+                  Edits made offline merge on reconnect.
+                </Table.CellDescription>
+              </Table.Cell>
+            </Table.Row>
+          </Table.Body>
+        </Table>,
+      );
+
+    it('renders a quieter second line under the label (Figma Body/Small, subtle)', () => {
+      renderCell();
+      expect(screen.getByTestId('desc')).toHaveClass(
+        'typography-body-sm',
+        'text-ws-static-subtle',
+        'block',
+      );
+    });
+
+    it('leaves the label in the cell type for its size', () => {
+      renderCell();
+      const cell = screen.getByRole('cell');
+      expect(cell).toHaveClass('typography-label-sm');
+    });
+
+    it('marks its slot, merges className and spreads rest props', () => {
+      renderCell();
+      const desc = screen.getByTestId('desc');
+      expect(desc).toHaveAttribute('data-slot', 'table-cell-description');
+      expect(desc).toHaveClass('mt-ws-1');
+      expect(desc).toHaveAttribute('aria-hidden', 'false');
     });
   });
 
@@ -272,6 +314,33 @@ describe('Table', () => {
 
       const thead = container.querySelector('thead');
       expect(thead).toHaveClass('sticky');
+    });
+  });
+
+  describe('Focus', () => {
+    it('does not take focus by default', async () => {
+      const user = userEvent.setup();
+      render(<BasicTable interactive />);
+      await user.click(screen.getByRole('cell', { name: 'Row 1' }));
+      expect(screen.getByRole('table')).not.toHaveFocus();
+    });
+
+    it.each(['stickyHeader', 'stickyColumn'] as const)(
+      'is reachable with Tab when %s is enabled',
+      async (prop) => {
+        const user = userEvent.setup();
+        render(<BasicTable {...{ [prop]: true }} />);
+        await user.tab();
+        expect(screen.getByRole('table')).toHaveFocus();
+      },
+    );
+
+    it.each([
+      { stickyHeader: false, tabIndex: 0 },
+      { stickyHeader: true, tabIndex: -1 },
+    ])('honors tabIndex=$tabIndex with stickyHeader=$stickyHeader', (props) => {
+      render(<BasicTable {...props} />);
+      expect(screen.getByRole('table')).toHaveAttribute('tabindex', String(props.tabIndex));
     });
   });
 
@@ -621,6 +690,17 @@ describe('Table', () => {
     it('sets aria-sort="none" when sortable is true and sortDirection is null', () => {
       render(<SortableTable sortable sortDirection={null} onSort={vi.fn()} data-testid="th" />);
       expect(screen.getByTestId('th')).toHaveAttribute('aria-sort', 'none');
+    });
+
+    it.each([
+      [null, RiArrowUpDownLine],
+      ['asc', RiSortAsc],
+      ['desc', RiSortDesc],
+    ] as const)('draws the %s sort state with its own icon', (sortDirection, Icon) => {
+      const pathOf = (root: Element) => root.querySelector('svg path')?.getAttribute('d');
+      const { container: icon } = render(<Icon />);
+      render(<SortableTable sortable sortDirection={sortDirection} onSort={vi.fn()} />);
+      expect(pathOf(screen.getByRole('button', { name: 'Sort by Name' }))).toBe(pathOf(icon));
     });
 
     it('sets aria-sort="ascending" when sortDirection is "asc"', () => {

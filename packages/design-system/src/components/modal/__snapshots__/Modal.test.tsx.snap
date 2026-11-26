@@ -27,7 +27,7 @@ exports[`Modal Snapshots > matches snapshot for default modal 1`] = `
   <div
     aria-describedby="radix-_r_10_"
     aria-labelledby="radix-_r_v_"
-    class="rounded-ws-container-md z-ws-modal fixed top-1/2 left-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden border max-w-[600px] w-[calc(100%-2*var(--spacing-ws-5))] max-h-[calc(100%-2*var(--spacing-ws-5))] bg-ws-static-overlay border-ws-dynamic-secondary-default shadow-ws-high data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 data-[state=open]:zoom-in-(--ws-motion-scale-large) data-[state=closed]:zoom-out-(--ws-motion-scale-large) ease-(--ws-motion-ease-smooth-out) data-[state=open]:duration-(--ws-motion-duration-fast) data-[state=closed]:duration-(--ws-motion-duration-quick)"
+    class="rounded-ws-container-md z-ws-modal fixed top-1/2 left-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden border max-w-[600px] w-[calc(100%-2*var(--spacing-ws-5))] max-h-[calc(100%-2*var(--spacing-ws-5))] bg-ws-static-overlay border-ws-dynamic-secondary-default shadow-ws-high outline-hidden data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 data-[state=open]:zoom-in-(--ws-motion-scale-large) data-[state=closed]:zoom-out-(--ws-motion-scale-large) ease-(--ws-motion-ease-smooth-out) data-[state=open]:duration-(--ws-motion-duration-fast) data-[state=closed]:duration-(--ws-motion-duration-quick)"
     data-slot="modal-content"
     data-state="open"
     id="radix-_r_u_"
@@ -55,7 +55,7 @@ exports[`Modal Snapshots > matches snapshot for default modal 1`] = `
       </p>
     </div>
     <div
-      class="p-ws-11 grow overflow-y-auto"
+      class="p-ws-11 ws-scrollbar grow overflow-y-auto"
       data-slot="modal-body"
     >
       Snapshot Content
@@ -65,7 +65,7 @@ exports[`Modal Snapshots > matches snapshot for default modal 1`] = `
       data-slot="modal-footer"
     >
       <button
-        class="w-fit whitespace-nowrap box-border relative inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default typography-label-strong-sm h-ws-forms-md gap-ws-3 rounded-ws-control-lg px-ws-7 bg-ws-dynamic-primary-default shadow-ws-controls-control text-ws-dynamic-on-primary-default outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-primary-hover active:bg-ws-dynamic-primary-pressed disabled:bg-ws-dynamic-primary-disabled disabled:text-ws-dynamic-on-primary-disabled transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+        class="w-fit whitespace-nowrap box-border relative inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default typography-label-strong-sm h-ws-forms-md gap-ws-3 rounded-ws-control-lg px-ws-7 bg-ws-dynamic-primary-default shadow-ws-controls-control text-ws-dynamic-on-primary-default outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-primary-hover active:bg-ws-dynamic-primary-pressed disabled:bg-ws-dynamic-primary-disabled disabled:text-ws-dynamic-on-primary-disabled transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
         data-slot="button"
         type="button"
       >
@@ -76,7 +76,7 @@ exports[`Modal Snapshots > matches snapshot for default modal 1`] = `
         </span>
       </button>
       <button
-        class="w-fit whitespace-nowrap box-border relative inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default border typography-label-strong-sm h-ws-forms-md gap-ws-3 rounded-ws-control-lg px-ws-7 border-ws-dynamic-secondary-default shadow-ws-controls-control bg-ws-static-highlight-subtle text-ws-dynamic-secondary-default outline-ws-dynamic-primary-strong-default hover:border-ws-dynamic-secondary-hover hover:text-ws-dynamic-secondary-hover active:border-ws-dynamic-secondary-pressed active:text-ws-dynamic-secondary-pressed disabled:border-ws-dynamic-secondary-disabled disabled:text-ws-dynamic-secondary-disabled transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
+        class="w-fit whitespace-nowrap box-border relative inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default border typography-label-strong-sm h-ws-forms-md gap-ws-3 rounded-ws-control-lg px-ws-7 border-ws-dynamic-secondary-default shadow-ws-controls-control bg-ws-static-highlight-subtle text-ws-dynamic-secondary-default outline-ws-dynamic-primary-strong-default hover:border-ws-dynamic-secondary-hover hover:text-ws-dynamic-secondary-hover active:border-ws-dynamic-secondary-pressed active:text-ws-dynamic-secondary-pressed disabled:border-ws-dynamic-secondary-disabled disabled:text-ws-dynamic-secondary-disabled transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small)"
         data-slot="modal-close"
         type="button"
       >
@@ -89,7 +89,7 @@ exports[`Modal Snapshots > matches snapshot for default modal 1`] = `
     </div>
     <button
       aria-label="Close modal"
-      class="whitespace-nowrap box-border inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default border typography-label-strong-sm gap-ws-2 rounded-ws-control-lg border-ws-dynamic-secondary-default shadow-ws-controls-control bg-ws-static-highlight-subtle text-ws-dynamic-secondary-default outline-ws-dynamic-primary-strong-default hover:border-ws-dynamic-secondary-hover hover:text-ws-dynamic-secondary-hover active:border-ws-dynamic-secondary-pressed active:text-ws-dynamic-secondary-pressed disabled:border-ws-dynamic-secondary-disabled disabled:text-ws-dynamic-secondary-disabled transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small) size-ws-forms-sm shrink-0 p-0 top-ws-9 right-ws-11 absolute"
+      class="whitespace-nowrap box-border inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default border typography-label-strong-sm gap-ws-2 rounded-ws-control-lg border-ws-dynamic-secondary-default shadow-ws-controls-control bg-ws-static-highlight-subtle text-ws-dynamic-secondary-default outline-ws-dynamic-primary-strong-default hover:border-ws-dynamic-secondary-hover hover:text-ws-dynamic-secondary-hover active:border-ws-dynamic-secondary-pressed active:text-ws-dynamic-secondary-pressed disabled:border-ws-dynamic-secondary-disabled disabled:text-ws-dynamic-secondary-disabled transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small) size-ws-forms-sm shrink-0 p-0 top-ws-9 right-ws-11 absolute"
       data-slot="modal-close"
       type="button"
     >
@@ -147,7 +147,7 @@ exports[`Modal Snapshots > matches snapshot for persistent modal 1`] = `
   <div
     aria-describedby="radix-_r_13_"
     aria-labelledby="radix-_r_12_"
-    class="rounded-ws-container-md z-ws-modal fixed top-1/2 left-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden border max-w-[600px] w-[calc(100%-2*var(--spacing-ws-5))] max-h-[calc(100%-2*var(--spacing-ws-5))] bg-ws-static-overlay border-ws-dynamic-secondary-default shadow-ws-high data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 data-[state=open]:zoom-in-(--ws-motion-scale-large) data-[state=closed]:zoom-out-(--ws-motion-scale-large) ease-(--ws-motion-ease-smooth-out) data-[state=open]:duration-(--ws-motion-duration-fast) data-[state=closed]:duration-(--ws-motion-duration-quick)"
+    class="rounded-ws-container-md z-ws-modal fixed top-1/2 left-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden border max-w-[600px] w-[calc(100%-2*var(--spacing-ws-5))] max-h-[calc(100%-2*var(--spacing-ws-5))] bg-ws-static-overlay border-ws-dynamic-secondary-default shadow-ws-high outline-hidden data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 data-[state=open]:zoom-in-(--ws-motion-scale-large) data-[state=closed]:zoom-out-(--ws-motion-scale-large) ease-(--ws-motion-ease-smooth-out) data-[state=open]:duration-(--ws-motion-duration-fast) data-[state=closed]:duration-(--ws-motion-duration-quick)"
     data-slot="modal-content"
     data-state="open"
     id="radix-_r_11_"
@@ -168,14 +168,14 @@ exports[`Modal Snapshots > matches snapshot for persistent modal 1`] = `
       </h2>
     </div>
     <div
-      class="p-ws-11 grow overflow-y-auto"
+      class="p-ws-11 ws-scrollbar grow overflow-y-auto"
       data-slot="modal-body"
     >
       Persistent content
     </div>
     <button
       aria-label="Close modal"
-      class="whitespace-nowrap box-border inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default border typography-label-strong-sm gap-ws-2 rounded-ws-control-lg border-ws-dynamic-secondary-default shadow-ws-controls-control bg-ws-static-highlight-subtle text-ws-dynamic-secondary-default outline-ws-dynamic-primary-strong-default hover:border-ws-dynamic-secondary-hover hover:text-ws-dynamic-secondary-hover active:border-ws-dynamic-secondary-pressed active:text-ws-dynamic-secondary-pressed disabled:border-ws-dynamic-secondary-disabled disabled:text-ws-dynamic-secondary-disabled transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small) size-ws-forms-sm shrink-0 p-0 top-ws-9 right-ws-11 absolute"
+      class="whitespace-nowrap box-border inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default border typography-label-strong-sm gap-ws-2 rounded-ws-control-lg border-ws-dynamic-secondary-default shadow-ws-controls-control bg-ws-static-highlight-subtle text-ws-dynamic-secondary-default outline-ws-dynamic-primary-strong-default hover:border-ws-dynamic-secondary-hover hover:text-ws-dynamic-secondary-hover active:border-ws-dynamic-secondary-pressed active:text-ws-dynamic-secondary-pressed disabled:border-ws-dynamic-secondary-disabled disabled:text-ws-dynamic-secondary-disabled transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small) size-ws-forms-sm shrink-0 p-0 top-ws-9 right-ws-11 absolute"
       data-slot="modal-close"
       type="button"
     >

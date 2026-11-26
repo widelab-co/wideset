@@ -18,6 +18,9 @@ Sources of truth, in order: Figma → code → specs.
   palette classes (`text-gray-900`) are wrong: see [tokens.md](https://wideset.co/docs/tokens.md).
 - Icons are Remix components passed by reference through the `icon` prop: `icon={RiCheckLine}`
   ([iconography](https://wideset.co/docs/icons.md)).
+- An element of your own that scrolls (`overflow-auto`, `overflow-y-auto`) takes `ws-scrollbar`,
+  so its bar matches Wideset's; a whole app takes `ws-scrollbars` on `<html>`. Wideset's own scroll
+  containers already have it, and a bar hidden on purpose (`[scrollbar-width:none]`) stays hidden.
 - Deprecated components (`status: deprecated`) name their replacement on their first line; use
   the replacement even when older code uses the deprecated one.
 
@@ -78,6 +81,7 @@ Sources of truth, in order: Figma → code → specs.
 
 ### [Feedback](components/feedback/README.md)
 
+- [Illustration](../good-practices/illustration.md): a drawing for an empty state, a first run or an announcement; not an icon.
 - [InlineAlert](../good-practices/inline-alert.md): persistent feedback attached to one section.
 - [SystemAlert](../good-practices/system-alert.md): a product-wide banner at the top of the page.
 - [Toast](../good-practices/toast.md): brief floating feedback through `useToast`.
@@ -110,6 +114,8 @@ Sources of truth, in order: Figma → code → specs.
 
 - [Table](../good-practices/table.md): records compared across rows; sorting, selection and
   paging are your state.
+- [Spreadsheet](../good-practices/spreadsheet.md): a dense grid worked cell by cell, with a
+  pinned header and row numbers; not a list of rows to open, that is Table.
 - [ListItem](../good-practices/list-item.md): one compact row; the row inside menus and
   selects.
 - [Avatar](../good-practices/avatar.md): a person, team or the agent orb next to a name.
@@ -118,6 +124,8 @@ Sources of truth, in order: Figma → code → specs.
 
 ### [Layout](components/layout/README.md)
 
+- [AppShell](../good-practices/app-shell.md): the screen's frame; one `direction` (inset by
+  default, flat, frame, canvas) sets the window, sidebar and page.
 - [Card](../good-practices/card.md): a bounded surface for one subject; not clickable, not a page
   wrapper.
 - [Accordion](../good-practices/accordion.md): named sections opened in place.
@@ -128,10 +136,12 @@ Sources of truth, in order: Figma → code → specs.
 Wideset has no page templates; patterns are compositions of real components with `ws` layout
 classes.
 
-- [App shell](patterns/app-shell.md): Sidebar next to the one scrolling main area.
+- [App shell](patterns/app-shell.md): `AppShell` with a Sidebar and the one scrolling main area.
 - [Form page](patterns/form-page.md): FormFields, validation, submit and cancel.
 - [List and filters](patterns/list-and-filters.md): search, filters, table, pagination, empty and
   loading.
+- [Dense data](patterns/dense-data.md): when a screen is spreadsheet-like; Spreadsheet vs Table vs
+  ListItem, density, numbers.
 - [Detail in a sidepanel](patterns/detail-in-sidepanel.md): row → Sidepanel with focus return.
 - [Confirm destructive](patterns/confirm-destructive.md): Modal or StatusModal + a danger Button.
 - [Page feedback](patterns/page-feedback.md): which feedback component for which message.

@@ -67,10 +67,12 @@ const meta = {
       control: 'boolean',
     },
     suffix: {
-      description: 'Additional text displayed after the label.',
       table: { category: 'Content', type: { summary: 'string' } },
       control: 'text',
     },
+    tooltip: { table: { category: 'Content' }, control: 'text' },
+    tooltipAriaLabel: { table: { category: 'Behavior' }, control: 'text' },
+    aside: { table: { category: 'Content' }, control: 'text' },
   },
 } satisfies Meta<typeof FormField>;
 

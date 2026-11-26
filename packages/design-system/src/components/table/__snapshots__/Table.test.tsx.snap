@@ -4,7 +4,6 @@ exports[`Table Snapshots > matches snapshot for align center table 1`] = `
 <table
   class="group w-full table-auto border-separate border-spacing-0"
   data-slot="table"
-  tabindex="-1"
 >
   <thead
     class=""
@@ -45,7 +44,6 @@ exports[`Table Snapshots > matches snapshot for all sortable header states 1`] =
 <table
   class="group w-full table-auto border-separate border-spacing-0"
   data-slot="table"
-  tabindex="-1"
 >
   <thead
     class=""
@@ -63,7 +61,7 @@ exports[`Table Snapshots > matches snapshot for all sortable header states 1`] =
         Unsorted
         <button
           aria-label="Sort by Unsorted"
-          class="whitespace-nowrap box-border relative inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default shrink-0 px-0 typography-caption-strong-md gap-ws-2 rounded-ws-control-md h-ws-forms-xs w-ws-forms-xs bg-ws-dynamic-secondary-alpha-default text-ws-dynamic-secondary-default outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover hover:text-ws-dynamic-secondary-hover active:bg-ws-dynamic-secondary-alpha-pressed active:text-ws-dynamic-secondary-pressed disabled:text-ws-dynamic-secondary-disabled disabled:bg-none transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small) ml-ws-2 align-middle"
+          class="whitespace-nowrap box-border relative inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default shrink-0 px-0 typography-caption-strong-md gap-ws-2 rounded-ws-control-md h-ws-forms-xs w-ws-forms-xs bg-ws-dynamic-secondary-alpha-default text-ws-dynamic-secondary-default outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover hover:text-ws-dynamic-secondary-hover active:bg-ws-dynamic-secondary-alpha-pressed active:text-ws-dynamic-secondary-pressed disabled:text-ws-dynamic-secondary-disabled disabled:bg-none transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small) ml-ws-2 align-middle"
           data-slot="icon-button"
           type="button"
         >
@@ -79,7 +77,7 @@ exports[`Table Snapshots > matches snapshot for all sortable header states 1`] =
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              d="M16.0503 12.0498L21 16.9996L16.0503 21.9493L14.636 20.5351L17.172 17.9988L4 17.9996V15.9996L17.172 15.9988L14.636 13.464L16.0503 12.0498ZM7.94975 2.0498L9.36396 3.46402L6.828 5.9988L20 5.99955V7.99955L6.828 7.9988L9.36396 10.5351L7.94975 11.9493L3 6.99955L7.94975 2.0498Z"
+              d="M11.9498 7.94975L10.5356 9.36396L8.00079 6.828L8.00004 20H6.00004L6.00079 6.828L3.46451 9.36396L2.05029 7.94975L7.00004 3L11.9498 7.94975ZM21.9498 16.0503L17 21L12.0503 16.0503L13.4645 14.636L16.0008 17.172L16 4H18L18.0008 17.172L20.5356 14.636L21.9498 16.0503Z"
             />
           </svg>
         </button>
@@ -92,7 +90,7 @@ exports[`Table Snapshots > matches snapshot for all sortable header states 1`] =
         Ascending
         <button
           aria-label="Sort by Ascending"
-          class="whitespace-nowrap box-border relative inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default shrink-0 px-0 typography-caption-strong-md gap-ws-2 rounded-ws-control-md h-ws-forms-xs w-ws-forms-xs bg-ws-dynamic-secondary-alpha-default text-ws-dynamic-secondary-default outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover hover:text-ws-dynamic-secondary-hover active:bg-ws-dynamic-secondary-alpha-pressed active:text-ws-dynamic-secondary-pressed disabled:text-ws-dynamic-secondary-disabled disabled:bg-none transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small) ml-ws-2 align-middle"
+          class="whitespace-nowrap box-border relative inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default shrink-0 px-0 typography-caption-strong-md gap-ws-2 rounded-ws-control-md h-ws-forms-xs w-ws-forms-xs bg-ws-dynamic-secondary-alpha-default text-ws-dynamic-secondary-default outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover hover:text-ws-dynamic-secondary-hover active:bg-ws-dynamic-secondary-alpha-pressed active:text-ws-dynamic-secondary-pressed disabled:text-ws-dynamic-secondary-disabled disabled:bg-none transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small) ml-ws-2 align-middle"
           data-slot="icon-button"
           type="button"
         >
@@ -121,7 +119,7 @@ exports[`Table Snapshots > matches snapshot for all sortable header states 1`] =
         Descending
         <button
           aria-label="Sort by Descending"
-          class="whitespace-nowrap box-border relative inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default shrink-0 px-0 typography-caption-strong-md gap-ws-2 rounded-ws-control-md h-ws-forms-xs w-ws-forms-xs bg-ws-dynamic-secondary-alpha-default text-ws-dynamic-secondary-default outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover hover:text-ws-dynamic-secondary-hover active:bg-ws-dynamic-secondary-alpha-pressed active:text-ws-dynamic-secondary-pressed disabled:text-ws-dynamic-secondary-disabled disabled:bg-none transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small) ml-ws-2 align-middle"
+          class="whitespace-nowrap box-border relative inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default shrink-0 px-0 typography-caption-strong-md gap-ws-2 rounded-ws-control-md h-ws-forms-xs w-ws-forms-xs bg-ws-dynamic-secondary-alpha-default text-ws-dynamic-secondary-default outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover hover:text-ws-dynamic-secondary-hover active:bg-ws-dynamic-secondary-alpha-pressed active:text-ws-dynamic-secondary-pressed disabled:text-ws-dynamic-secondary-disabled disabled:bg-none transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small) ml-ws-2 align-middle"
           data-slot="icon-button"
           type="button"
         >
@@ -150,7 +148,7 @@ exports[`Table Snapshots > matches snapshot for all sortable header states 1`] =
         Disabled
         <button
           aria-label="Sort by Disabled"
-          class="whitespace-nowrap box-border relative inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default shrink-0 px-0 typography-caption-strong-md gap-ws-2 rounded-ws-control-md h-ws-forms-xs w-ws-forms-xs bg-ws-dynamic-secondary-alpha-default text-ws-dynamic-secondary-default outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover hover:text-ws-dynamic-secondary-hover active:bg-ws-dynamic-secondary-alpha-pressed active:text-ws-dynamic-secondary-pressed disabled:text-ws-dynamic-secondary-disabled disabled:bg-none transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small) ml-ws-2 align-middle"
+          class="whitespace-nowrap box-border relative inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default shrink-0 px-0 typography-caption-strong-md gap-ws-2 rounded-ws-control-md h-ws-forms-xs w-ws-forms-xs bg-ws-dynamic-secondary-alpha-default text-ws-dynamic-secondary-default outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover hover:text-ws-dynamic-secondary-hover active:bg-ws-dynamic-secondary-alpha-pressed active:text-ws-dynamic-secondary-pressed disabled:text-ws-dynamic-secondary-disabled disabled:bg-none transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small) ml-ws-2 align-middle"
           data-slot="icon-button"
           disabled=""
           type="button"
@@ -167,7 +165,7 @@ exports[`Table Snapshots > matches snapshot for all sortable header states 1`] =
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              d="M16.0503 12.0498L21 16.9996L16.0503 21.9493L14.636 20.5351L17.172 17.9988L4 17.9996V15.9996L17.172 15.9988L14.636 13.464L16.0503 12.0498ZM7.94975 2.0498L9.36396 3.46402L6.828 5.9988L20 5.99955V7.99955L6.828 7.9988L9.36396 10.5351L7.94975 11.9493L3 6.99955L7.94975 2.0498Z"
+              d="M11.9498 7.94975L10.5356 9.36396L8.00079 6.828L8.00004 20H6.00004L6.00079 6.828L3.46451 9.36396L2.05029 7.94975L7.00004 3L11.9498 7.94975ZM21.9498 16.0503L17 21L12.0503 16.0503L13.4645 14.636L16.0008 17.172L16 4H18L18.0008 17.172L20.5356 14.636L21.9498 16.0503Z"
             />
           </svg>
         </button>
@@ -215,7 +213,6 @@ exports[`Table Snapshots > matches snapshot for default table 1`] = `
 <table
   class="group w-full table-auto border-separate border-spacing-0"
   data-slot="table"
-  tabindex="-1"
 >
   <thead
     class=""
@@ -287,7 +284,6 @@ exports[`Table Snapshots > matches snapshot for flushMargin table 1`] = `
 <table
   class="group w-full table-auto border-separate border-spacing-0"
   data-slot="table"
-  tabindex="-1"
 >
   <thead
     class=""
@@ -328,7 +324,6 @@ exports[`Table Snapshots > matches snapshot for interactive table 1`] = `
 <table
   class="group w-full table-auto border-separate border-spacing-0"
   data-slot="table"
-  tabindex="-1"
 >
   <thead
     class=""
@@ -369,7 +364,6 @@ exports[`Table Snapshots > matches snapshot for placement middle table 1`] = `
 <table
   class="group w-full table-auto border-separate border-spacing-0"
   data-slot="table"
-  tabindex="-1"
 >
   <thead
     class=""
@@ -412,7 +406,6 @@ exports[`Table Snapshots > matches snapshot for selectionMode multiple 1`] = `
   class="group w-full table-auto border-separate border-spacing-0"
   data-slot="table"
   role="grid"
-  tabindex="-1"
 >
   <thead
     class=""
@@ -478,7 +471,6 @@ exports[`Table Snapshots > matches snapshot for selectionMode single 1`] = `
   class="group w-full table-auto border-separate border-spacing-0"
   data-slot="table"
   role="grid"
-  tabindex="-1"
 >
   <thead
     class=""
@@ -531,7 +523,6 @@ exports[`Table Snapshots > matches snapshot for separated table 1`] = `
 <table
   class="is-separated group w-full table-auto border-separate border-spacing-0"
   data-slot="table"
-  tabindex="-1"
 >
   <thead
     class=""
@@ -572,7 +563,6 @@ exports[`Table Snapshots > matches snapshot for size lg 1`] = `
 <table
   class="group w-full table-auto border-separate border-spacing-0"
   data-slot="table"
-  tabindex="-1"
 >
   <thead
     class=""
@@ -613,7 +603,6 @@ exports[`Table Snapshots > matches snapshot for size md 1`] = `
 <table
   class="group w-full table-auto border-separate border-spacing-0"
   data-slot="table"
-  tabindex="-1"
 >
   <thead
     class=""
@@ -654,7 +643,6 @@ exports[`Table Snapshots > matches snapshot for size sm 1`] = `
 <table
   class="group w-full table-auto border-separate border-spacing-0"
   data-slot="table"
-  tabindex="-1"
 >
   <thead
     class=""
@@ -693,7 +681,7 @@ exports[`Table Snapshots > matches snapshot for size sm 1`] = `
 
 exports[`Table Snapshots > matches snapshot for stickyColumn table 1`] = `
 <table
-  class="group w-full table-auto border-separate border-spacing-0"
+  class="group w-full table-auto border-separate border-spacing-0 focus-visible:outline-ws-dynamic-primary-strong-default focus-visible:outline-2 focus-visible:-outline-offset-2"
   data-slot="table"
   tabindex="0"
 >
@@ -746,7 +734,7 @@ exports[`Table Snapshots > matches snapshot for stickyColumn table 1`] = `
 
 exports[`Table Snapshots > matches snapshot for stickyHeader table 1`] = `
 <table
-  class="group w-full table-auto border-separate border-spacing-0"
+  class="group w-full table-auto border-separate border-spacing-0 focus-visible:outline-ws-dynamic-primary-strong-default focus-visible:outline-2 focus-visible:-outline-offset-2"
   data-slot="table"
   tabindex="0"
 >
