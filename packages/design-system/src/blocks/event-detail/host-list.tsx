@@ -28,9 +28,16 @@ export function HostList({ hosts }: { hosts: Host[] }) {
               {host.role}
             </span>
           </div>
-          <IconButton asChild icon={RiMailLine} variant="secondary" preset="ghost" size="sm">
+          <IconButton
+            asChild
+            icon={RiMailLine}
+            variant="secondary"
+            preset="ghost"
+            size="sm"
+            aria-label={`E-mail ${host.name}`}
+          >
             {/* eslint-disable-next-line jsx-a11y/anchor-has-content -- IconButton slots its icon into the anchor, which is named by its label */}
-            <a href={`mailto:${host.email}`} aria-label={`E-mail ${host.name}`} />
+            <a href={`mailto:${host.email}`} />
           </IconButton>
         </li>
       ))}

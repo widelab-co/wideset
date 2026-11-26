@@ -1,5 +1,3 @@
-import { ListItem, Select } from '@wideset/react';
-
 import {
   importLines,
   type ImportSource,
@@ -9,42 +7,22 @@ import {
   withImportSource,
 } from '../lib/importSource';
 import { CodeBlock } from './CodeBlock';
+import { Pills } from './Pills';
 
 const SOURCES: { value: ImportSource; label: string }[] = [
-  { value: 'package', label: 'Package' },
-  { value: 'project', label: 'My project' },
+  { value: 'project', label: 'Local' },
+  { value: 'package', label: 'npm' },
 ];
 
-/** "Import from" inside the code block: one setting for the whole site. */
-const SourcePick = () => {
-  const source = useImportSource();
-  const selected = SOURCES.find((option) => option.value === source)!;
-  return (
-    <div className="flex items-center gap-ws-3">
-      <span className="typography-body-sm text-ws-static-subtle">Import from</span>
-      <Select
-        value={source}
-        onValueChange={(next: string) => setImportSource(next as ImportSource)}
-      >
-        <Select.Trigger
-          size="sm"
-          preset="ghost"
-          className="w-auto"
-          aria-label={`Import from: ${selected.label}`}
-        >
-          <span className="truncate">{selected.label}</span>
-        </Select.Trigger>
-        <Select.Content align="end">
-          {SOURCES.map((option) => (
-            <Select.Option key={option.value} value={option.value} textValue={option.label}>
-              <ListItem.Label className="text-ws-300">{option.label}</ListItem.Label>
-            </Select.Option>
-          ))}
-        </Select.Content>
-      </Select>
-    </div>
-  );
-};
+/** "Import from" in a code block's header: one setting for the whole site. */
+export const ImportPick = () => (
+  <Pills
+    label="Import from"
+    options={SOURCES}
+    value={useImportSource()}
+    onChange={(next) => setImportSource(next as ImportSource)}
+  />
+);
 
 /** Root component names a JSX snippet uses: `<Button.Icon` → `Button`. */
 const namesIn = (code: string, paths: ProjectPaths) =>
@@ -56,6 +34,16 @@ const iconsIn = (code: string) => [
 ];
 const iconImport = (icons: string[]) =>
   icons.length ? [`import { ${icons.sort().join(', ')} } from '@remixicon/react';`] : [];
+
+/** The code as the reader copies it: with its import, from wherever they take components. */
+export const useShownCode = (code: string, paths: ProjectPaths, snippet = false) => {
+  const source = useImportSource();
+  return snippet
+    ? [...iconImport(iconsIn(code)), ...importLines(namesIn(code, paths), source, paths), '', code]
+        .join('\n')
+        .trimStart()
+    : withImportSource(code, source, paths);
+};
 
 /**
  * Code that uses library components, with its import from wherever the reader takes them:
@@ -75,13 +63,8 @@ const ComponentCode = ({
   /** Passed to the code block. */
   className?: string;
 }) => {
-  const source = useImportSource();
-  const shown = snippet
-    ? [...iconImport(iconsIn(code)), ...importLines(namesIn(code, paths), source, paths), '', code]
-        .join('\n')
-        .trimStart()
-    : withImportSource(code, source, paths);
-  return <CodeBlock code={shown} lang="tsx" toolbar={<SourcePick />} className={className} />;
+  const shown = useShownCode(code, paths, snippet);
+  return <CodeBlock code={shown} lang="tsx" toolbar={<ImportPick />} className={className} />;
 };
 
 export default ComponentCode;

@@ -105,9 +105,9 @@ export function SetupChecklist({
           <ProgressBar
             value={count}
             max={steps.length}
-            variant={next ? 'default' : 'success'}
+            status={next ? 'default' : 'success'}
             aria-label="Setup progress"
-            getValueLabel={(value, max) => `${value} of ${max} steps done`}
+            aria-valuetext={`${count} of ${steps.length} steps done`}
           />
         </div>
       </Card.Header>

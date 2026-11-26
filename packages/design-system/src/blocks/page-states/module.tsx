@@ -1,4 +1,4 @@
-import { Card } from '@wideset/react';
+import { Card, cn } from '@wideset/react';
 import { type ReactNode, type Ref, useId } from 'react';
 
 type ModuleProps = {
@@ -11,6 +11,13 @@ type ModuleProps = {
   regionRef?: Ref<HTMLElement>;
   children: ReactNode;
 };
+
+/**
+ * A table in the card runs edge to edge: its outer cells take the card's 20px inset, so the first
+ * column lines up with the title, and the last row leaves its line to the card's border.
+ */
+const TABLE_IN_CARD =
+  '[&_tr>*:first-child]:pl-ws-11 [&_tr>*:last-child]:pr-ws-11 [&_tbody>tr:last-child>*]:border-b-0';
 
 /**
  * A module of the page: one frame and one header for every state, so only the body changes when
@@ -38,9 +45,9 @@ export function Module({ title, action, busy = false, regionRef, children }: Mod
             {action && <Card.Action>{action}</Card.Action>}
           </div>
         </Card.Header>
-        {/* The cells pad themselves: the body keeps 4px so a table's first column lines up with
-            the title. */}
-        <div className="px-ws-3 pb-ws-3 flex flex-1 flex-col">
+        {/* Straight in the card, not in Card.Content, whose scrollbar gutter would stop a
+            table's lines short. */}
+        <div className={cn(TABLE_IN_CARD, 'flex flex-1 flex-col')}>
           {busy && (
             <p role="status" className="sr-only">
               Loading {title.toLowerCase()}

@@ -36,7 +36,7 @@ export function RewardProgress({
           {label}
         </p>
         <p className="gap-ws-5 flex items-baseline tabular-nums">
-          <span className="typography-title-sm text-ws-static-strong">{value}</span>
+          <span className="typography-title-md text-ws-static-strong">{value}</span>
           <span className="typography-body-md text-ws-static-subtle">
             of {target} {unit}
           </span>
@@ -46,7 +46,7 @@ export function RewardProgress({
         value={Math.min(value, target)}
         max={target}
         aria-labelledby={labelId}
-        getValueLabel={() => `${value} of ${target} ${unit}`}
+        aria-valuetext={`${value} of ${target} ${unit}`}
       />
       <p className="typography-label-sm text-ws-static-subtle tabular-nums">{note}</p>
     </div>

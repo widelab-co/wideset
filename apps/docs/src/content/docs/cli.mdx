@@ -1,6 +1,6 @@
 ---
 title: CLI
-description: Copy a component's source into your own repo with the wideset CLI.
+description: Copy components and blocks into your own repo with the wideset CLI.
 section: Guide
 ---
 
@@ -26,6 +26,18 @@ Already using shadcn? `init` keeps your
 `components.json` and only registers the `@wideset` namespace. Files land in
 `components/ui/wideset/`, `lib/wideset/` and `hooks/wideset/`.
 
+## Add a block
+
+```bash
+npx wideset add block-calendar
+```
+
+The CLI installs the block's source files under `blocks/wideset/calendar/`, relative to your
+project's source directory. Its components and layout stylesheet go in `components/ui/wideset/`
+and `styles/`. Import the default export from `@/blocks/wideset/calendar`. Browse the
+[Blocks catalog](/blocks) to see the install command and files for each screen or panel.
+`npx wideset list` shows both catalogs and `npx wideset add --all` installs the component catalog.
+
 ## Without the Wideset CLI
 
 The CLI runs the [shadcn CLI](https://ui.shadcn.com/docs/cli) underneath, and you can call shadcn
@@ -34,8 +46,7 @@ yourself. You do not need shadcn's components, theme or `cn`, and you do not nee
 
 ### 1. Create components.json
 
-A `components.json` in your project root tells the CLI where files go and which registry
-`@wideset` means. Vite, sources in `src/`:
+A `components.json` in your project root tells the CLI where files go. Vite, sources in `src/`:
 
 ```json
 {
@@ -55,8 +66,7 @@ A `components.json` in your project root tells the CLI where files go and which 
     "lib": "@/lib",
     "hooks": "@/hooks",
     "utils": "@/lib/utils"
-  },
-  "registries": { "@wideset": "https://wideset.co/r/{name}.json" }
+  }
 }
 ```
 
@@ -64,13 +74,7 @@ Next.js App Router: `"rsc": true`, `"css": "app/globals.css"`, and `@/` pointing
 root (`"@/*": ["./*"]`). The `@/*` alias has to exist in `tsconfig.json` (`paths`) and, for Vite,
 in `vite.config.ts` (`resolve.alias`).
 
-**Already using shadcn?** Keep your `components.json` and only register the namespace:
-
-```bash
-npx shadcn@latest registry add @wideset=https://wideset.co/r/{name}.json
-```
-
-Wideset files land next to your shadcn components, under `components/ui/wideset/`, with their
+**Already using shadcn?** Keep your `components.json` as it is. Wideset files land next to your shadcn components, under `components/ui/wideset/`, with their
 own `cn` in `lib/wideset/`.
 
 ### 2. Add components

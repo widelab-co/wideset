@@ -71,7 +71,7 @@ export function InvitationsTable({
                   </time>
                 </Table.Cell>
                 <Table.Cell>
-                  <StatusBadge size="sm" color={expired ? 'negative' : 'notice'}>
+                  <StatusBadge color={expired ? 'negative' : 'notice'}>
                     {expired ? 'Expired' : 'Pending'}
                   </StatusBadge>
                 </Table.Cell>

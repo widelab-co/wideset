@@ -47,9 +47,7 @@ export function DealsTable({ deals }: { deals: Deal[] }) {
               <Table.CellDescription>{deal.name}</Table.CellDescription>
             </Table.Cell>
             <Table.Cell>
-              <StatusBadge size="sm" color={STAGE_COLOR[deal.stage]}>
-                {deal.stage}
-              </StatusBadge>
+              <StatusBadge color={STAGE_COLOR[deal.stage]}>{deal.stage}</StatusBadge>
             </Table.Cell>
             <Table.Cell align="right">
               <span className="typography-number-sm text-ws-static-strong tabular-nums">

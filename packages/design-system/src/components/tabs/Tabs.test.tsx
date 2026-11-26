@@ -1,6 +1,7 @@
 import { RiCheckboxBlankCircleLine } from '@remixicon/react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { createRef } from 'react';
 import { describe, expect, it, vi } from 'vitest';
 
 import type { RemixiconProps } from '../../types/icon.types';
@@ -15,6 +16,35 @@ const MockIcon = (props: RemixiconProps) => (
 
 describe('Tabs', () => {
   describe('Basic rendering', () => {
+    it('forwards refs to the root, list, item, label, and content and clears them on unmount', () => {
+      const root = createRef<HTMLDivElement>();
+      const list = createRef<HTMLDivElement>();
+      const item = createRef<HTMLButtonElement>();
+      const label = createRef<HTMLSpanElement>();
+      const content = createRef<HTMLDivElement>();
+      const { container, unmount } = render(
+        <Tabs ref={root} defaultValue="account">
+          <Tabs.List ref={list}>
+            <Tabs.Item ref={item} value="account">
+              <Tabs.Label ref={label}>Account</Tabs.Label>
+            </Tabs.Item>
+          </Tabs.List>
+          <Tabs.Content ref={content} value="account">
+            Account settings
+          </Tabs.Content>
+        </Tabs>,
+      );
+
+      expect(root.current).toBe(container.firstElementChild);
+      expect(list.current).toBe(screen.getByRole('tablist'));
+      expect(item.current).toBe(screen.getByRole('tab', { name: 'Account' }));
+      expect(label.current).toBe(screen.getByText('Account'));
+      expect(content.current).toBe(screen.getByRole('tabpanel', { name: 'Account' }));
+
+      unmount();
+      for (const ref of [root, list, item, label, content]) expect(ref.current).toBeNull();
+    });
+
     it('renders tabs with proper content visibility', () => {
       render(
         <Tabs defaultValue="tab1">
@@ -180,22 +210,32 @@ describe('Tabs', () => {
       expect(tab).toHaveAttribute('data-state');
     });
 
-    it('applies active visual state when active prop is set', () => {
-      render(
-        <Tabs defaultValue="tab2">
-          <Tabs.List>
-            <Tabs.Item value="tab1" active>
-              <Tabs.Label>Tab 1</Tabs.Label>
-            </Tabs.Item>
-            <Tabs.Item value="tab2">
-              <Tabs.Label>Tab 2</Tabs.Label>
-            </Tabs.Item>
-          </Tabs.List>
-        </Tabs>,
+    it('keeps visual and accessible selection synchronized with the controlled value', () => {
+      const items = (
+        <Tabs.List>
+          <Tabs.Item value="tab1">
+            <Tabs.Label>Tab 1</Tabs.Label>
+          </Tabs.Item>
+          <Tabs.Item value="tab2">
+            <Tabs.Label>Tab 2</Tabs.Label>
+          </Tabs.Item>
+        </Tabs.List>
       );
+      const { rerender } = render(<Tabs value="tab2">{items}</Tabs>);
+      const first = screen.getByRole('tab', { name: 'Tab 1' });
+      const second = screen.getByRole('tab', { name: 'Tab 2' });
 
-      const forcedActiveTab = screen.getByRole('tab', { name: 'Tab 1' });
-      expect(forcedActiveTab).toHaveAttribute('data-active', '');
+      expect(first).toHaveAttribute('aria-selected', 'false');
+      expect(first).toHaveAttribute('data-state', 'inactive');
+      expect(second).toHaveAttribute('aria-selected', 'true');
+      expect(second).toHaveAttribute('data-state', 'active');
+
+      rerender(<Tabs value="tab1">{items}</Tabs>);
+
+      expect(first).toHaveAttribute('aria-selected', 'true');
+      expect(first).toHaveAttribute('data-state', 'active');
+      expect(second).toHaveAttribute('aria-selected', 'false');
+      expect(second).toHaveAttribute('data-state', 'inactive');
     });
 
     it('forwards HTML attributes to tab items', () => {
@@ -577,40 +617,45 @@ describe('Tabs', () => {
       expect(middleTab).toHaveAttribute('aria-selected', 'false');
     });
 
-    it.todo(
-      'moves focus directly to the first focusable content element when leaving the tab list',
-      async () => {
-        const user = userEvent.setup();
+    it('enables the indicator transition when arrow navigation changes the active tab', async () => {
+      const user = userEvent.setup();
 
-        render(
-          <Tabs defaultValue="tab2">
-            <Tabs.List>
-              <Tabs.Item value="tab1">
-                <Tabs.Label>Tab 1</Tabs.Label>
-              </Tabs.Item>
-              <Tabs.Item value="tab2">
-                <Tabs.Label>Tab 2</Tabs.Label>
-              </Tabs.Item>
-            </Tabs.List>
-            <Tabs.Content value="tab1">Content 1</Tabs.Content>
-            <Tabs.Content value="tab2">
-              <button type="button">Save changes</button>
-            </Tabs.Content>
-          </Tabs>,
+      render(
+        <Tabs defaultValue="tab1" defaultMotion>
+          <Tabs.List>
+            <Tabs.Item value="tab1">
+              <Tabs.Label>Tab 1</Tabs.Label>
+            </Tabs.Item>
+            <Tabs.Item value="tab2">
+              <Tabs.Label>Tab 2</Tabs.Label>
+            </Tabs.Item>
+          </Tabs.List>
+        </Tabs>,
+      );
+
+      const tab2 = screen.getByRole('tab', { name: 'Tab 2' });
+      // JSDOM has no layout; give the destination a distinct position and size.
+      Object.defineProperties(tab2, {
+        offsetLeft: { value: 100 },
+        offsetWidth: { value: 120 },
+      });
+      const indicator = screen.getByRole('tablist').querySelector(':scope > span[aria-hidden]');
+      expect(indicator).toBeInTheDocument();
+      expect(indicator).not.toHaveClass('transition-[transform,width,opacity]');
+
+      await user.tab();
+      await user.keyboard('[ArrowRight>]');
+      await waitFor(() => {
+        expect(tab2).toHaveFocus();
+        expect(tab2).toHaveAttribute('aria-selected', 'true');
+        expect(indicator).toHaveStyle({ transform: 'translateX(100px)', width: '120px' });
+        expect(indicator).toHaveClass(
+          'transition-[transform,width,opacity]',
+          'duration-(--ws-motion-duration-fast)',
         );
-
-        const activeTab = screen.getByRole('tab', { name: 'Tab 2' });
-        const contentButton = screen.getByRole('button', { name: 'Save changes' });
-
-        await user.tab();
-        expect(activeTab).toHaveFocus();
-        await user.tab();
-        expect(contentButton).toHaveFocus();
-
-        await user.tab({ shift: true });
-        expect(activeTab).toHaveFocus();
-      },
-    );
+      });
+      await user.keyboard('[/ArrowRight]');
+    });
   });
 });
 

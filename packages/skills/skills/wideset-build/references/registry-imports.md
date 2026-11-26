@@ -35,7 +35,7 @@ A member such as `Card.Header` comes with `Card`; its named form, `CardHeader`, 
 - `import { Button } from '@/components/ui/wideset/button/Button';`
 - `import { ButtonIcon } from '@/components/ui/wideset/button/ButtonIcon';`
 - `import { ButtonTruncatedText } from '@/components/ui/wideset/button/ButtonTruncatedText';`
-- `import { IconButton, IconButtonIcon } from '@/components/ui/wideset/button/IconButton';`
+- `import { IconButton } from '@/components/ui/wideset/button/IconButton';`
 - `import { LinkButton, LinkButtonTruncatedText } from '@/components/ui/wideset/button/LinkButton';`
 - `import { SplitButton, SplitButtonIcon, SplitButtonTruncatedText } from '@/components/ui/wideset/button/SplitButton';`
 - `import { Calendar } from '@/components/ui/wideset/calendar/Calendar';`
@@ -50,7 +50,10 @@ A member such as `Card.Header` comes with `Card`; its named form, `CardHeader`, 
 - `import { Checkbox, CheckboxDescription, CheckboxLabel } from '@/components/ui/wideset/checkbox/Checkbox';`
 - `import { CheckboxGroup } from '@/components/ui/wideset/checkbox/CheckboxGroup';`
 - `import { Chip } from '@/components/ui/wideset/chip/Chip';`
+- `import { ChipAction } from '@/components/ui/wideset/chip/ChipAction';`
 - `import { ChipIcon } from '@/components/ui/wideset/chip/ChipIcon';`
+- `import { ChipIconButton } from '@/components/ui/wideset/chip/ChipIconButton';`
+- `import { ChipLabel } from '@/components/ui/wideset/chip/ChipLabel';`
 - `import { ComboBox, ComboBoxIcon, ComboBoxPrefix } from '@/components/ui/wideset/combo-box/ComboBox';`
 - `import { ComboBoxContent } from '@/components/ui/wideset/combo-box/ComboBoxContent';`
 - `import { ComboBoxItem } from '@/components/ui/wideset/combo-box/ComboBoxItem';`
@@ -114,6 +117,11 @@ A member such as `Card.Header` comes with `Card`; its named form, `CardHeader`, 
 - `import { PopupTitle } from '@/components/ui/wideset/popup/PopupTitle';`
 - `import { PopupTrigger } from '@/components/ui/wideset/popup/PopupTrigger';`
 - `import { ProgressBar } from '@/components/ui/wideset/progress-bar/ProgressBar';`
+- `import { ProgressBarDescription } from '@/components/ui/wideset/progress-bar/ProgressBarDescription';`
+- `import { ProgressBarHeader } from '@/components/ui/wideset/progress-bar/ProgressBarHeader';`
+- `import { ProgressBarLabel } from '@/components/ui/wideset/progress-bar/ProgressBarLabel';`
+- `import { ProgressBarTrack } from '@/components/ui/wideset/progress-bar/ProgressBarTrack';`
+- `import { ProgressBarValue } from '@/components/ui/wideset/progress-bar/ProgressBarValue';`
 - `import { ProgressStepper } from '@/components/ui/wideset/progress-stepper/ProgressStepper';`
 - `import { ProgressStepperIcon } from '@/components/ui/wideset/progress-stepper/ProgressStepperIcon';`
 - `import { ProgressStepperStep } from '@/components/ui/wideset/progress-stepper/ProgressStepperStep';`
@@ -232,13 +240,13 @@ A member such as `Card.Header` comes with `Card`; its named form, `CardHeader`, 
 - `import type { AgentProps as AvatarAgentProps, AvatarGroupContextType, AvatarProps, GroupProps as AvatarGroupProps, IconProps as AvatarIconProps, ImageProps as AvatarImageProps, InitialsProps as AvatarInitialsProps, MoreProps as AvatarMoreProps, StatusProps as AvatarStatusProps } from '@/components/ui/wideset/avatar/Avatar.types';`
 - `import type { BreadcrumbsDividerProps, BreadcrumbsItemProps, BreadcrumbsProps, BreadcrumbsWithSubComponents } from '@/components/ui/wideset/breadcrumbs/Breadcrumbs.types';`
 - `import type { ButtonContextValue, ButtonIconProps, ButtonProps, ButtonTruncatedTextProps } from '@/components/ui/wideset/button/Button.types';`
-- `import type { IconButtonIconProps, IconButtonProps } from '@/components/ui/wideset/button/IconButton.types';`
+- `import type { IconButtonProps } from '@/components/ui/wideset/button/IconButton.types';`
 - `import type { LinkButtonProps, LinkButtonTruncatedTextProps } from '@/components/ui/wideset/button/LinkButton.types';`
 - `import type { SplitButtonIconProps, SplitButtonProps, SplitButtonTruncatedTextProps } from '@/components/ui/wideset/button/SplitButton.types';`
 - `import type { CalendarProps } from '@/components/ui/wideset/calendar/Calendar.types';`
 - `import type { CardActionProps, CardContentProps, CardDescriptionProps, CardFooterProps, CardHeaderProps, CardMediaProps, CardProps, CardTitleProps } from '@/components/ui/wideset/card/Card.types';`
 - `import type { CheckboxGroupProps, CheckboxProps } from '@/components/ui/wideset/checkbox/Checkbox.types';`
-- `import type { ChipIconProps, ChipProps } from '@/components/ui/wideset/chip/Chip.types';`
+- `import type { ChipActionProps, ChipIconButtonProps, ChipIconProps, ChipLabelProps, ChipProps } from '@/components/ui/wideset/chip/Chip.types';`
 - `import type { ComboBoxContentProps, ComboBoxContextValue, ComboBoxHighlightedLabelProps, ComboBoxIconProps, ComboBoxItemProps, ComboBoxOption, ComboBoxPrefixProps, ComboBoxProps, ComboBoxTriggerProps } from '@/components/ui/wideset/combo-box/ComboBox.types';`
 - `import type { DatePickerProps } from '@/components/ui/wideset/datepicker/DatePicker.types';`
 - `import type { DateRangePickerProps, DateRangePreset, DateRangeValue } from '@/components/ui/wideset/daterangepicker/DateRangePicker.types';`
@@ -255,7 +263,7 @@ A member such as `Card.Header` comes with `Card`; its named form, `CardHeader`, 
 - `import type { MultiSelectContentProps, MultiSelectGroupProps, MultiSelectLabelProps, MultiSelectOptionProps, MultiSelectOptionType, MultiSelectProps, MultiSelectSeparatorProps, MultiSelectTriggerProps, MultiSelectValueProps } from '@/components/ui/wideset/multi-select/MultiSelect.types';`
 - `import type { PaginationNumbersProps, PaginationOverflowProps, PaginationProps, PaginationRowsPerPageProps, PaginationType } from '@/components/ui/wideset/pagination/Pagination.types';`
 - `import type { PopupCloseProps, PopupContainerProps, PopupContentProps, PopupDescriptionProps, PopupFooterProps, PopupHeaderProps, PopupProps, PopupTitleProps, PopupTriggerProps } from '@/components/ui/wideset/popup/Popup.types';`
-- `import type { ProgressBarProps } from '@/components/ui/wideset/progress-bar/ProgressBar.types';`
+- `import type { ProgressBarDescriptionProps, ProgressBarHeaderProps, ProgressBarLabelProps, ProgressBarProps, ProgressBarStatus, ProgressBarTrackProps, ProgressBarType, ProgressBarValueProps, ProgressBarWithSubComponents } from '@/components/ui/wideset/progress-bar/ProgressBar.types';`
 - `import type { ProgressStepperIconProps, ProgressStepperOrientation, ProgressStepperProps, ProgressStepperStepProps } from '@/components/ui/wideset/progress-stepper/ProgressStepper.types';`
 - `import type { ProgressTrackerContextValue, ProgressTrackerProps, ProgressTrackerStepProps, ProgressTrackerWithSubComponents } from '@/components/ui/wideset/progress-tracker/ProgressTracker.types';`
 - `import type { RadioButtonGroupProps, RadioButtonProps } from '@/components/ui/wideset/radio-button/RadioButton.types';`

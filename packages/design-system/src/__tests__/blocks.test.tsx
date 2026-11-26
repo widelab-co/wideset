@@ -1,17 +1,95 @@
-import { cleanup, render } from '@testing-library/react';
-import type { ComponentType } from 'react';
+import { act, cleanup, render, renderHook } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { type ComponentType, StrictMode, useState } from 'react';
 import { afterEach, describe, expect, it } from 'vitest';
 
 import { BLOCKS, PANELS } from '../blocks';
+import type { AgentTurn, Turn } from '../blocks/agent-chat/model';
+import { useSession } from '../blocks/agent-chat/use-session';
 import ganttPanelSource from '../blocks/gantt/task-sidepanel.tsx?raw';
 import panelSource from '../blocks/task-sidepanel/task-sidepanel.tsx?raw';
 
 // The sign-in, sign-up and account-access screens share their card, and the two sign-in screens their form.
 const authSources = import.meta.glob<string>(
-  '../blocks/{sign-in,sign-in-card,sign-up}/{app-icon,auth-card,sign-in-form}.tsx',
+  '../blocks/{sign-in,sign-in-card,sign-up,forgot-password,check-email,two-factor,sso-sign-in,accept-invite,new-password,verify-email,signed-out,choose-workspace}/{app-icon,auth-card,sign-in-form}.tsx',
   { query: '?raw', import: 'default', eager: true },
 );
-const AUTH_BLOCKS = ['sign-in', 'sign-in-card', 'sign-up'];
+const AUTH_BLOCKS = [
+  'sign-in',
+  'sign-in-card',
+  'sign-up',
+  'forgot-password',
+  'check-email',
+  'two-factor',
+  'sso-sign-in',
+  'accept-invite',
+  'new-password',
+  'verify-email',
+  'signed-out',
+  'choose-workspace',
+];
+// The agent interface (agent-*) is one app shown screen by screen: the transcript kit and the shell
+// live in agent-chat, and every other agent block carries copies of the files it uses.
+const agentSources = import.meta.glob<string>('../blocks/agent-*/*.{ts,tsx}', {
+  query: '?raw',
+  import: 'default',
+  eager: true,
+});
+const AGENT_KIT = [
+  'model.ts',
+  'canon.ts',
+  'run.ts',
+  'use-run.ts',
+  'use-session.ts',
+  'use-shell.ts',
+  'format.ts',
+  'motion.ts',
+  'session.tsx',
+  'transcript.tsx',
+  'agent-turn.tsx',
+  'user-message.tsx',
+  'transcript-break.tsx',
+  'reasoning.tsx',
+  'step-row.tsx',
+  'step-group.tsx',
+  'step-mark.tsx',
+  'step-detail.tsx',
+  'approval-card.tsx',
+  'question-card.tsx',
+  'row.tsx',
+  'fold.tsx',
+  'shimmer.tsx',
+  'prose.tsx',
+  'inline.tsx',
+  'code-block.tsx',
+  'copy-button.tsx',
+  'icon-action.tsx',
+  'answer-actions.tsx',
+  'pane-card.tsx',
+  'working-line.tsx',
+  'message-queue.tsx',
+  'composer.tsx',
+  'model-menu.tsx',
+  'tools-menu.tsx',
+  'chat-tools.tsx',
+  'code-tools.tsx',
+  'context-meter.tsx',
+  'context-summary.tsx',
+  'sidebar.tsx',
+  'thread-mark.tsx',
+  'top-bar.tsx',
+  'thread-menu.tsx',
+  'brand-mark.tsx',
+  'home.tsx',
+  'person-avatar.tsx',
+  'people.assets.ts',
+  'keyboard-key.tsx',
+  'menu-sub.tsx',
+  'menu-choice.tsx',
+];
+// Code-mode parts edited in agent-code and copied into the agent blocks that show them.
+const AGENT_CODE_KIT = ['changes-counts.tsx'];
+
 const SHARED = {
   'app-icon.tsx': AUTH_BLOCKS,
   'auth-card.tsx': AUTH_BLOCKS,
@@ -59,6 +137,16 @@ describe('Shared copies', () => {
       for (const copy of copies) expect(copy).toBe(copies[0]);
     },
   );
+
+  it.each([
+    ...AGENT_KIT.map((file) => [file, 'agent-chat']),
+    ...AGENT_CODE_KIT.map((file) => [file, 'agent-code']),
+  ])('keeps the agent kit’s %s identical in every agent block that carries it', (file, home) => {
+    const source = agentSources[`../blocks/${home}/${file}`];
+    expect(typeof source).toBe('string');
+    const copies = Object.entries(agentSources).filter(([path]) => path.endsWith(`/${file}`));
+    for (const [path, copy] of copies) expect(copy, path).toBe(source);
+  });
 });
 
 describe('Rendering', () => {
@@ -67,5 +155,357 @@ describe('Rendering', () => {
     expect(typeof Block).toBe('function');
     const { container } = render(<Block />);
     expect(container.firstElementChild).not.toBeNull();
+  });
+});
+
+describe('Agent research', () => {
+  // Stop keeps what is there: a source cut short stays in the list, unfinished and not counted.
+  it('keeps a source cut short by Stop, not counted as read', async () => {
+    const { SourcesPane } = await import('../blocks/agent-research/sources-pane');
+    const { sources } = await import('../blocks/agent-research/research-data');
+    const [first, second] = sources;
+    const { getByRole, getByText } = render(
+      <SourcesPane
+        id="sources"
+        sources={[first, second]}
+        unfinishedIds={[second.id]}
+        written={[]}
+        active={null}
+        pinned={null}
+        live={false}
+        onPeek={() => {}}
+        onClose={() => {}}
+      />,
+    );
+    expect(getByRole('link', { name: new RegExp(second.title) })).toHaveTextContent('Not finished');
+    expect(getByText('1 read')).toBeInTheDocument();
+  });
+
+  // Cancel, Esc or Run again ends the edit: the cursor goes back to Edit plan, not to the page.
+  it('returns the focus to Edit plan when an edit ends', async () => {
+    const { PlanCard } = await import('../blocks/agent-research/research-plan-card');
+    const user = userEvent.setup();
+    const { getByRole } = render(
+      <PlanCard
+        steps={['Prices', 'Reviews']}
+        live={false}
+        defaultOpen
+        locked={false}
+        onChange={() => {}}
+      />,
+    );
+    const edit = getByRole('button', { name: 'Edit plan' });
+    await user.click(edit);
+    expect(getByRole('textbox', { name: /^Plan/ })).toHaveFocus();
+    await user.keyboard('{Escape}');
+    expect(getByRole('button', { name: 'Edit plan' })).toHaveFocus();
+    await user.click(getByRole('button', { name: 'Edit plan' }));
+    await user.click(getByRole('button', { name: 'Cancel' }));
+    expect(getByRole('button', { name: 'Edit plan' })).toHaveFocus();
+  });
+});
+
+describe('Agent context', () => {
+  // Reconnected, the focus goes to the badge once; a later render (the popover makes the rows
+  // anew each time) does not take it back from wherever it went.
+  it('moves the focus to a reconnected connector once', async () => {
+    const { ConnectorList } = await import('../blocks/agent-context/connector-list');
+    const { connectors } = await import('../blocks/agent-context/data');
+    function Popover() {
+      const [back, setBack] = useState<string[]>([]);
+      const [renders, setRenders] = useState(0);
+      return (
+        <>
+          <ConnectorList
+            connectors={connectors.map((item) =>
+              back.includes(item.id) ? { ...item, state: 'connected' } : { ...item },
+            )}
+            onReconnect={(id) => setBack([...back, id])}
+          />
+          <button type="button" onClick={() => setRenders(renders + 1)}>
+            Something else
+          </button>
+        </>
+      );
+    }
+    const user = userEvent.setup();
+    const { getByRole } = render(<Popover />);
+    await user.click(getByRole('button', { name: 'Reconnect Team chat' }));
+    expect(document.activeElement).toHaveTextContent('Connected');
+    expect(getByRole('status')).toHaveTextContent('Team chat is connected');
+    const other = getByRole('button', { name: 'Something else' });
+    await user.click(other);
+    expect(other).toHaveFocus();
+  });
+});
+
+describe('Agent code', () => {
+  // The pane's six tabs each control a panel, mounted or not yet opened.
+  it('gives every pane tab its panel', async () => {
+    const { default: AgentCode } = await import('../blocks/agent-code');
+    const { getAllByRole, getByRole } = render(<AgentCode />);
+    const tabs = getAllByRole('tab');
+    expect(tabs.length).toBeGreaterThan(0);
+    for (const tab of tabs) {
+      const panel = document.getElementById(tab.getAttribute('aria-controls')!);
+      expect(panel, tab.textContent!).not.toBeNull();
+      expect(panel).toHaveAttribute('role', 'tabpanel');
+    }
+    expect(getByRole('tabpanel', { name: 'Changes' })).toBeVisible();
+  });
+
+  // A session started from a repository's + goes under that repository, the one Home shows.
+  it('starts a new session in the repository it was started from', async () => {
+    const { default: AgentCode } = await import('../blocks/agent-code');
+    const user = userEvent.setup();
+    const { getByRole } = render(<AgentCode />);
+    await user.click(getByRole('button', { name: 'New session in lumen-web' }));
+    expect(getByRole('combobox', { name: 'Repository' })).toHaveTextContent('lumen-web');
+    await user.type(getByRole('textbox', { name: 'Message' }), 'Add a dark theme{Enter}');
+    const group = getByRole('group', { name: 'lumen-web' });
+    expect(group).toHaveTextContent('Add a dark theme');
+  });
+
+  // Closing the pane hides it: a review comment written in it is there when it opens again.
+  // It renders the whole screen, slower than the 5 s default on CI, hence its own timeout.
+  it('keeps a review comment through closing and reopening the pane', async () => {
+    const { default: AgentCode } = await import('../blocks/agent-code');
+    const user = userEvent.setup();
+    const { getAllByRole, getByRole, getByText } = render(<AgentCode />);
+    await user.click(getAllByRole('button', { name: /^Comment on / })[0]);
+    await user.type(getAllByRole('textbox', { name: /^Comment on line/ })[0], 'Kept on reopening');
+    await user.click(getAllByRole('button', { name: /^Comment$/ })[0]);
+    expect(getByText('Kept on reopening')).toBeInTheDocument();
+    await user.click(getByRole('button', { name: 'Close pane' }));
+    expect(getByText('Kept on reopening')).not.toBeVisible();
+    await user.click(getByRole('button', { name: 'Open pane' }));
+    expect(getByText('Kept on reopening')).toBeVisible();
+  }, 20_000);
+});
+
+describe('Agent copy button', () => {
+  // A copy that cannot happen says so, whether the clipboard is missing or the text throws.
+  it('says the copy failed when the text cannot be worked out', async () => {
+    const { CopyButton } = await import('../blocks/agent-chat/copy-button');
+    const user = userEvent.setup();
+    const { getByRole } = render(
+      <CopyButton
+        label="Copy path"
+        text={() => {
+          throw new Error('No text');
+        }}
+      />,
+    );
+    await user.click(getByRole('button', { name: 'Copy path' }));
+    expect(getByRole('status')).toHaveTextContent('Copy failed');
+  });
+});
+
+describe('Agent session', () => {
+  const asking = (...ids: string[]): AgentTurn => ({
+    id: 'asking',
+    role: 'agent',
+    blocks: ids.map((id) => ({ kind: 'question', id, title: `Question ${id}`, options: [] })),
+  });
+  const reply = (id: string): AgentTurn => ({ id, role: 'agent', blocks: [] });
+  const session = (first: AgentTurn, queue?: string[]) =>
+    renderHook(() => {
+      const [turns, setTurns] = useState<Turn[]>([first]);
+      return { turns, session: useSession({ turns, onChange: setTurns, reply, queue }) };
+    }).result;
+  const sent = (turns: Turn[]) =>
+    turns.flatMap((turn) => (turn.role === 'user' ? [turn.text] : []));
+  const answerOf = (turns: Turn[], id: string) => {
+    const turn = turns.find((item) => item.id === 'asking') as AgentTurn;
+    const block = turn.blocks.find((item) => item.id === id);
+    return block?.kind === 'question' ? block.answer : undefined;
+  };
+
+  // Choosing the first of two questions leaves the turn stopped, so the second shows no card.
+  it('does not answer a question its stopped turn hides with the next message', () => {
+    const result = session(asking('first', 'second'));
+    act(() => result.current.session.choose('asking', 'first', 'Chosen answer'));
+    act(() => result.current.session.send('Unrelated later message'));
+    expect(answerOf(result.current.turns, 'first')).toBe('Chosen answer');
+    expect(answerOf(result.current.turns, 'second')).toBeUndefined();
+  });
+
+  it('answers the question on the page with the next message', () => {
+    const result = session(asking('only'));
+    act(() => result.current.session.send('Typed answer'));
+    expect(answerOf(result.current.turns, 'only')).toBe('Typed answer');
+  });
+
+  // A message queued while the agent worked is not what answers the question it then asked.
+  it('answers a waiting question with the message sent, not one queued before it', () => {
+    const result = session(asking('only'), ['Queued earlier']);
+    act(() => result.current.session.send('Typed answer'));
+    expect(answerOf(result.current.turns, 'only')).toBe('Typed answer');
+    expect(sent(result.current.turns)[0]).toBe('Typed answer');
+  });
+
+  // Two files attached in one handler both stay on the tray.
+  it('keeps every file attached before the next render', () => {
+    const result = session(reply('done'));
+    act(() => {
+      result.current.session.attach('a.txt');
+      result.current.session.attach('b.txt');
+    });
+    expect(result.current.session.attachments).toEqual(['a.txt', 'b.txt']);
+  });
+
+  // Two turns may ask questions with the same id: a message answers the one on the page only.
+  it('answers only the turn whose question is open', () => {
+    const question = (id: string) => ({
+      kind: 'question' as const,
+      id,
+      title: 'Which?',
+      options: [],
+    });
+    const earlier: AgentTurn = {
+      id: 'earlier',
+      role: 'agent',
+      blocks: [question('q')],
+      stoppedAt: 0,
+    };
+    const later: AgentTurn = { id: 'later', role: 'agent', blocks: [question('q')] };
+    const { result } = renderHook(() => {
+      const [turns, setTurns] = useState<Turn[]>([earlier, later]);
+      return { turns, session: useSession({ turns, onChange: setTurns, reply }) };
+    });
+    act(() => result.current.session.send('Typed answer'));
+    const answer = (id: string) => {
+      const turn = result.current.turns.find((item) => item.id === id) as AgentTurn;
+      const block = turn.blocks[0];
+      return block.kind === 'question' ? block.answer : undefined;
+    };
+    expect(answer('later')).toBe('Typed answer');
+    expect(answer('earlier')).toBeUndefined();
+  });
+
+  // A thread kept by the app and opened again already holds turns the hook made last time.
+  it('gives a new turn an id no turn in the thread has', () => {
+    const kept: Turn[] = [
+      { id: 'sent-1', role: 'user', text: 'Earlier message' },
+      { id: 'sent-2', role: 'agent', blocks: [] },
+    ];
+    const { result } = renderHook(() => {
+      const [turns, setTurns] = useState<Turn[]>(kept);
+      return { turns, session: useSession({ turns, onChange: setTurns, reply }) };
+    });
+    act(() => result.current.session.send('Later message'));
+    const ids = result.current.turns.map((turn) => turn.id);
+    expect(new Set(ids).size).toBe(ids.length);
+  });
+
+  const long = (id: string): AgentTurn => ({
+    id,
+    role: 'agent',
+    blocks: [
+      {
+        kind: 'text',
+        id: `${id}-answer`,
+        prose: [
+          { kind: 'paragraph', text: 'A long answer that is still being written. '.repeat(20) },
+        ],
+      },
+    ],
+  });
+
+  // Sent at rest, the first message starts a reply; the second waits for it instead of cutting it.
+  it('queues a second message sent in the same handler at rest', () => {
+    const { result } = renderHook(() => {
+      const [turns, setTurns] = useState<Turn[]>([reply('done')]);
+      return { turns, session: useSession({ turns, onChange: setTurns, reply: long }) };
+    });
+    act(() => {
+      result.current.session.send('First');
+      result.current.session.send('Second');
+    });
+    expect(sent(result.current.turns)).toEqual(['First']);
+    expect(result.current.session.queue.map((item) => item.text)).toEqual(['Second']);
+  });
+
+  // The files on the tray go with the next message only, even when two go in one handler.
+  it('sends the tray with one message only', () => {
+    const { result } = renderHook(() => {
+      const [turns, setTurns] = useState<Turn[]>([long('long')]);
+      return {
+        turns,
+        session: useSession({ turns, onChange: setTurns, reply, playing: { id: 'long', at: 0 } }),
+      };
+    });
+    act(() => {
+      result.current.session.attach('notes.txt');
+      result.current.session.send('First');
+      result.current.session.send('Second');
+    });
+    expect(result.current.session.queue.map((item) => item.sentWith)).toEqual([
+      ['notes.txt'],
+      undefined,
+    ]);
+  });
+
+  // Add files twice in one handler puts two files on the tray.
+  it('attaches the next file each time', () => {
+    const result = session(reply('done'));
+    act(() => {
+      result.current.session.attachNext(['a.txt', 'b.txt']);
+      result.current.session.attachNext(['a.txt', 'b.txt']);
+    });
+    expect(result.current.session.attachments).toEqual(['a.txt', 'b.txt']);
+  });
+
+  // While the agent works, two messages sent in one handler both wait their turn.
+  it('queues every message sent in one handler during a run', () => {
+    const { result } = renderHook(() => {
+      const [turns, setTurns] = useState<Turn[]>([long('long')]);
+      return {
+        turns,
+        session: useSession({ turns, onChange: setTurns, reply, playing: { id: 'long', at: 0 } }),
+      };
+    });
+    expect(result.current.session.running).toBe(true);
+    act(() => {
+      result.current.session.send('First');
+      result.current.session.send('Second');
+    });
+    expect(result.current.session.queue.map((item) => item.text)).toEqual(['First', 'Second']);
+  });
+
+  // Stopped with a message waiting, a send lets it go first; a second send before the next
+  // render must not send it again, and both new messages follow it.
+  it('sends a waiting message once when two sends follow a stop', () => {
+    const stopped: AgentTurn = { id: 'stopped', role: 'agent', blocks: [], stoppedAt: 0 };
+    const result = session(stopped, ['Queued earlier']);
+    act(() => {
+      result.current.session.send('First');
+      result.current.session.send('Second');
+    });
+    // The replies here end at once, so the two new messages follow in order.
+    expect(sent(result.current.turns)).toEqual(['Queued earlier', 'First', 'Second']);
+  });
+
+  // StrictMode sets effects up twice in development: a waiting message still goes out once.
+  it('sends a queued message once under StrictMode', () => {
+    const done: AgentTurn = { id: 'asking', role: 'agent', blocks: [] };
+    const { result } = renderHook(
+      () => {
+        const [turns, setTurns] = useState<Turn[]>([done]);
+        return {
+          turns,
+          session: useSession({ turns, onChange: setTurns, reply, queue: ['Export a PDF'] }),
+        };
+      },
+      { wrapper: StrictMode },
+    );
+    expect(sent(result.current.turns)).toEqual(['Export a PDF']);
+  });
+
+  it('sends a chosen answer before a message queued earlier', () => {
+    const result = session(asking('only'), ['Queued earlier']);
+    act(() => result.current.session.choose('asking', 'only', 'Chosen answer'));
+    expect(answerOf(result.current.turns, 'only')).toBe('Chosen answer');
+    expect(sent(result.current.turns)[0]).toBe('Chosen answer');
   });
 });

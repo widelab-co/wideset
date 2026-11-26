@@ -109,10 +109,13 @@ export function FileTree({ active, unsaved, onOpen }: FileTreeProps) {
       aria-label="Files"
       className="border-ws-static-base flex min-h-0 flex-col border-b md:border-r md:border-b-0"
     >
-      {/* As tall as the tab row beside it, so the two lines under them meet. */}
+      {/* As tall as the tab row beside it, so the two lines under them meet. The field has no box
+          of its own: the band is its box, as the tab row is the tabs'. A bordered field would sit
+          4px from the band's lines and 8px from its sides, a box crammed into a box. */}
       <div className="h-ws-16 px-ws-5 border-ws-static-subtle flex shrink-0 items-center border-b">
         <TextInput
           size="sm"
+          preset="ghost"
           className="w-full"
           value={query}
           onChange={(event) => setQuery(event.target.value)}
@@ -127,7 +130,7 @@ export function FileTree({ active, unsaved, onOpen }: FileTreeProps) {
         </TextInput>
       </div>
 
-      <div className="p-ws-5 min-h-0 flex-1 overflow-y-auto">
+      <div className="p-ws-5 ws-scrollbar min-h-0 flex-1 overflow-y-auto">
         {shown.length > 0 ? (
           <ul>
             {folderRow(ROOT, ROOT, [

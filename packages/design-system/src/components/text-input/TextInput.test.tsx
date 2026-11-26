@@ -696,7 +696,7 @@ describe('TextInput', () => {
         <TextInput>
           <TextInput.Input placeholder="Input" />
           <TextInput.Suffix>
-            <TextInput.IconButton icon={RiFileCopyLine} onClick={handleClick} />
+            <TextInput.IconButton icon={RiFileCopyLine} aria-label="Copy" onClick={handleClick} />
           </TextInput.Suffix>
         </TextInput>,
       );
@@ -711,7 +711,7 @@ describe('TextInput', () => {
         <TextInput>
           <TextInput.Input placeholder="Input" />
           <TextInput.Suffix>
-            <TextInput.IconButton icon={RiFileCopyLine} onClick={handleClick} />
+            <TextInput.IconButton icon={RiFileCopyLine} aria-label="Copy" onClick={handleClick} />
           </TextInput.Suffix>
         </TextInput>,
       );
@@ -883,7 +883,7 @@ describe('TextInput Snapshots', () => {
         <TextInput>
           <TextInput.Input placeholder="Input" />
           <TextInput.Suffix>
-            <TextInput.IconButton icon={RiFileCopyLine} onClick={vi.fn()} />
+            <TextInput.IconButton icon={RiFileCopyLine} aria-label="Copy" onClick={vi.fn()} />
           </TextInput.Suffix>
         </TextInput>,
       );

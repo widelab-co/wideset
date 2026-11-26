@@ -4,58 +4,79 @@ import '@wideset/react/styles';
 import '../styles/docs.css';
 import '../generated/light-scope.css';
 
-import SideNav from '../components/SideNav.astro';
-import TopBar from '../components/TopBar.astro';
-import { areaOf, blocksNav, componentsNav, docsNav, type NavSection } from '../lib/nav';
-import { RADIUS_KEY } from '../lib/radius';
+import type { SearchItem } from '../components/SearchPalette';
+import { type NavGroup, ProseCopy, SideNav, TopNav } from '../components/parts';
+import { ENTRIES } from '../lib/blocks';
+import { entries } from '../lib/catalog';
+import { docsNav, GITHUB_URL } from '../lib/nav';
 import { THEME_KEY } from '../lib/theme';
 
 /**
- * The frame every page shares: a fixed top bar with the areas, a left column with the
- * area's navigation, a reading column, then "On this page" (the `toc` slot) and on component
- * pages a right rail (the `rail` slot). "On this page" takes no width: its ticks sit in the reading
- * column's right margin, so the column stays centred. The rail is fixed and the reading column
- * keeps its room with a margin: the rail comes last in the HTML, so a column that made room for
- * it only once it arrived would paint centred in the whole window first and then jump left. Pages pass a title and description; the layout works out the area and the current
- * row from the URL.
+ * The frame: one shell for every page. The bar is the website's navbar (56px, full width,
+ * 32px at the sides: the app icon, the pages as text links after it, GitHub, theme and "Get
+ * started" at the right). Under it one centred container (~1520px): the page's own sidebar (the
+ * same component everywhere, listing only that page's rows), the content, and a rail when the
+ * page has one. Every page starts with PageHead at the same offset; no lines between columns.
  */
+export type Area = 'docs' | 'components' | 'blocks' | 'themes';
 interface Props {
   title: string;
   description: string;
-  /** Wider reading column, for index pages that lay content out in a grid. */
-  wide?: boolean;
-  /** No max width outside the frame; in it, a page with no "On this page" (the gallery). */
+  area: Area;
+  /** The sidebar's rows (only this page's own); without them the page has no sidebar. */
+  nav?: NavGroup[];
+  /** The current sidebar row's href. */
+  current?: string;
+  /** The sidebar's search placeholder. */
+  search?: string;
+  sections?: SearchItem[];
+  /** The content takes its whole column instead of the 760px reading measure. */
+  broad?: boolean;
+  /** No container: the page spans the window, with the bar's 32px at the sides (a block). */
   full?: boolean;
-  /**
-   * The components frame: every page in it reads at the same width (56rem). The right panel's
-   * column is there only when the page fills it, so a page without one centres in the window
-   * instead of beside an empty column.
-   */
-  frame?: boolean;
+  /** A rail wide enough for the Playground's properties, on every tab so the content stays put. */
+  wideRail?: boolean;
 }
-const { title, description, wide = false, full = false, frame = false } = Astro.props;
-
-const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
-const area = areaOf(pathname);
-const sections: NavSection[] =
-  area === 'docs'
-    ? await docsNav()
-    : area === 'components'
-      ? componentsNav()
-      : area === 'blocks'
-        ? blocksNav()
-        : [];
+const {
+  title,
+  description,
+  area,
+  nav,
+  current = '',
+  search = 'Search…',
+  sections = [],
+  broad = false,
+  full = false,
+  wideRail = false,
+} = Astro.props;
 const hasRail = Astro.slots.has('rail');
-/**
- * The reading column is centred in the space between the left column and the right one, so the
- * whitespace on its two sides is the same at every width (as in the prototype). Component pages
- * and the gallery read up to 56rem, so the gallery's cards keep a card's proportions.
- */
-const gallery = frame && full;
-const hasToc = (frame && !gallery) || Astro.slots.has('toc');
+const PAGES: { id: Area; label: string; href: string }[] = [
+  { id: 'docs', label: 'Docs', href: '/docs/introduction' },
+  { id: 'components', label: 'Components', href: '/components' },
+  { id: 'blocks', label: 'Blocks', href: '/blocks' },
+  { id: 'themes', label: 'Themes', href: '/docs/themes' },
+];
+
+const docs = await docsNav();
+const searchItems: SearchItem[] = [
+  ...sections,
+  ...docs.flatMap((section) =>
+    section.items.map((item) => ({
+      title: item.title,
+      href: item.href,
+      group: section.label ?? 'Docs',
+    })),
+  ),
+  ...entries.map((entry) => ({
+    title: entry.title,
+    href: `/components/${entry.id}`,
+    group: 'Components',
+  })),
+  ...ENTRIES.map((block) => ({ title: block.title, href: `/blocks/${block.id}`, group: 'Blocks' })),
+];
 ---
 
-<html lang="en">
+<html lang="en" class="ws-scrollbars">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -64,10 +85,13 @@ const hasToc = (frame && !gallery) || Astro.slots.has('toc');
     {/* Builds for workers.dev (develop, previews) stay out of search results. */}
     {Astro.site?.hostname.endsWith('.workers.dev') && <meta name="robots" content="noindex" />}
     {/* The production origin is reachable on workers.dev too; wideset.co is the address to index. */}
-    <link rel="canonical" href={new URL(pathname === '/' ? '/' : pathname, Astro.site)} />
+    <link
+      rel="canonical"
+      href={new URL(Astro.url.pathname.replace(/\/$/, '') || '/', Astro.site)}
+    />
     <link rel="icon" href="/_docs/favicon.png" />
-    <script is:inline define:vars={{ THEME_KEY, RADIUS_KEY }}>
-      // Appearance before first paint. Same keys and rules as src/lib/theme.ts and radius.ts.
+    <slot name="head" />
+    <script is:inline define:vars={{ THEME_KEY }}>
       try {
         var saved = localStorage.getItem(THEME_KEY);
         var dark =
@@ -77,50 +101,87 @@ const hasToc = (frame && !gallery) || Astro.slots.has('toc');
       } catch (e) {}
     </script>
   </head>
-  <body class="min-h-screen">
-    <TopBar area={area} />
-    <div class="flex min-h-screen pt-ws-19">
-      {sections.length > 0 && <SideNav sections={sections} current={pathname} />}
-      <main
-        class:list={[
-          'flex min-w-0 flex-1 justify-center px-ws-12 pt-ws-18 pb-ws-24 sm:px-ws-16',
-          hasRail && 'xl:mr-[296px]',
-        ]}
+  <body class="docs bg-ws-static-foreground">
+    <header class="border-ws-static-subtle bg-ws-static-foreground sticky top-0 z-30 flex h-ws-19 items-center border-b px-ws-9 sm:px-ws-14">
+      {/* The app icon of the website's navbar, at 2x. */}
+      <a
+        href="/docs/introduction"
+        aria-label="Wideset — home"
+        class="outline-ws-dynamic-primary-strong-default focus-visible:wds-focus-visible flex shrink-0 items-center rounded-ws-control-md"
       >
-        <div
-          class:list={[
-            'w-full min-w-0',
-            frame ? 'max-w-[56rem]' : full ? '' : wide ? 'max-w-[64rem]' : 'max-w-[43rem]',
-          ]}
+        <img src="/_docs/app-icon.png" alt="" width="32" height="32" class="size-ws-14" />
+      </a>
+      <TopNav area={area} items={searchItems} github={GITHUB_URL} client:load />
+    </header>
+    <div
+      id="docs-page"
+      class:list={[
+        'px-ws-9 sm:px-ws-14',
+        !full && 'mx-auto max-w-[95rem]',
+        // The left column is the sidebar; a page without rows has none (Themes, a block).
+        nav && 'lg:grid lg:gap-ws-14',
+        nav &&
+          // A reading page keeps the rail's column even without a rail, so its content sits at
+          // the same x on every such page: the sidebar at the container's left edge, the rail at
+          // its right edge, the reading column centred between them.
+          (broad
+            ? 'lg:grid-cols-[15.25rem_minmax(0,1fr)]'
+            : wideRail
+              ? 'lg:grid-cols-[15.25rem_minmax(0,1fr)] xl:grid-cols-[15.25rem_minmax(0,1fr)_17rem]'
+              : 'lg:grid-cols-[15.25rem_minmax(0,1fr)] xl:grid-cols-[15.25rem_minmax(0,1fr)_12rem]'),
+      ]}
+    >
+      {nav && (
+        // Pulled left by the rows' own padding, so their text sits on the logo's edge.
+        <aside
+          id="docs-nav"
+          class="docs-nav sticky top-ws-19 -ml-ws-9 hidden h-[calc(100dvh-3.5rem)] overflow-y-auto lg:block"
         >
+          <SideNav groups={nav} current={current} placeholder={search} client:load />
+        </aside>
+      )}
+      <main class="min-w-0 pt-ws-14 pb-ws-23">
+        <div class:list={[!broad && 'mx-auto w-full max-w-[47.5rem]']}>
           <slot />
         </div>
       </main>
-      {hasToc && (
-        <aside
-          class:list={[
-            'fixed top-14 z-10 hidden h-[calc(100vh-3.5rem)] w-0 xl:block',
-            hasRail ? 'right-[296px]' : 'right-0',
-          ]}
-        >
-          <div class="absolute top-ws-18 right-ws-9">
-            <slot name="toc" />
-          </div>
-        </aside>
-      )}
-      {hasRail && (
-        <aside class="fixed top-14 right-0 hidden h-[calc(100vh-3.5rem)] w-[296px] pt-ws-11 pr-ws-12 xl:block">
-          <div class="docs-scroll flex max-h-full flex-col gap-ws-7 overflow-y-auto pb-ws-12">
-            <slot name="rail" />
-            <a
-              href="https://widelab.co"
-              class="docs-rail text-ws-static-subtle hover:text-ws-static-strong flex h-ws-17 items-center justify-center rounded-ws-container-lg px-ws-9 typography-body-md transition-colors"
-            >
-              Built by Widelab
-            </a>
-          </div>
+      {nav && hasRail && (
+        <aside class="docs-nav sticky top-ws-19 hidden h-[calc(100dvh-3.5rem)] self-start overflow-y-auto pt-ws-14 xl:block">
+          <slot name="rail" />
         </aside>
       )}
     </div>
+    {/* A narrow window: the pages and the page's own list, opened by the bar's menu button. */}
+    <div
+      id="docs-menu"
+      class="bg-ws-static-foreground fixed inset-x-0 top-ws-19 bottom-0 z-20 hidden flex-col overflow-y-auto px-ws-9 pt-ws-9 lg:hidden!"
+    >
+      <nav aria-label="Pages" class="flex flex-wrap gap-x-ws-11 gap-y-ws-5 px-ws-5">
+        {PAGES.map((page) => (
+          <a
+            href={page.href}
+            aria-current={page.id === area ? 'page' : undefined}
+            class:list={[
+              'typography-label-strong-sm no-underline',
+              page.id === area ? 'text-ws-static-strong' : 'text-ws-static-subtle',
+            ]}
+          >
+            {page.label}
+          </a>
+        ))}
+      </nav>
+      {nav && (
+        <div class="min-h-0 flex-1">
+          <SideNav
+            groups={nav}
+            current={current}
+            placeholder={search}
+            className="pt-ws-9 pl-0"
+            client:media="(max-width: 1023px)"
+          />
+        </div>
+      )}
+    </div>
+    <ProseCopy client:idle />
   </body>
 </html>

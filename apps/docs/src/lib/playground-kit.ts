@@ -21,6 +21,8 @@ export type PlaygroundDefinition = {
    * the closed trigger (the real overlay portals to the body), the card draws it open.
    */
   preview?: () => React.ReactNode;
+  /** Keep the Overview `preview` clickable. Overlays leave it off: their trigger would open a second overlay. */
+  livePreview?: boolean;
   /**
    * The composition the Anatomy section draws, with every part present so each one can be
    * named. Parts are found by their `data-slot` attribute. Rules: the
@@ -191,7 +193,10 @@ export const playground = (
   config: PlaygroundConfig & {
     render?: (values: Values, kit: PlaygroundProps) => React.ReactNode;
     code?: (values: Values, kit: PlaygroundProps) => string;
-  } & Pick<PlaygroundDefinition, 'preview' | 'anatomy' | 'absent' | 'stage' | 'clientOnly'>,
+  } & Pick<
+      PlaygroundDefinition,
+      'preview' | 'livePreview' | 'anatomy' | 'absent' | 'stage' | 'clientOnly'
+    >,
 ): PlaygroundDefinition => {
   const tables = Array.isArray(config.from) ? config.from : [config.from];
   const hidden = new Set(config.hide ?? []);
@@ -306,6 +311,7 @@ export const playground = (
       return example ? exampleCode(example.source, kitFor(values).attrs()) : '';
     },
     preview: config.preview,
+    livePreview: config.livePreview,
     anatomy: config.anatomy,
     absent: config.absent,
     stage: config.stage,

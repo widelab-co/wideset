@@ -20,7 +20,7 @@ export default function IconButtonVariants() {
       <IconButton variant="secondary" icon={RiSettings3Line} aria-label="Settings" />
       <IconButton variant="danger" icon={RiDeleteBinLine} aria-label="Delete file" />
       <IconButton variant="success" icon={RiCheckLine} aria-label="Approve request" />
-      <div className="bg-ws-static-inverse-background p-ws-8">
+      <div className="bg-ws-static-inverse-background rounded-ws-container-md p-ws-8">
         <IconButton variant="inverse" icon={RiShareLine} aria-label="Share" />
       </div>
     </div>

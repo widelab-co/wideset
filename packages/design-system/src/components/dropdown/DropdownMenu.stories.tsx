@@ -173,7 +173,7 @@ export const Default: Story = {
       source: {
         code: `<DropdownMenu>
   <DropdownMenu.Trigger asChild>
-    <IconButton icon={RiArrowDownSLine} preset="border" variant="secondary" />
+    <IconButton icon={RiArrowDownSLine} preset="border" variant="secondary" aria-label="Open menu" />
   </DropdownMenu.Trigger>
   <DropdownMenu.Content>
     <DropdownMenu.Item>
@@ -231,7 +231,12 @@ export const Default: Story = {
     return (
       <DropdownMenu {...rootProps}>
         <DropdownMenu.Trigger asChild>
-          <IconButton icon={RiArrowDownSLine} preset="border" variant="secondary" />
+          <IconButton
+            icon={RiArrowDownSLine}
+            preset="border"
+            variant="secondary"
+            aria-label="Open menu"
+          />
         </DropdownMenu.Trigger>
         <DropdownMenu.Content {...contentProps}>
           <DropdownMenu.Item>

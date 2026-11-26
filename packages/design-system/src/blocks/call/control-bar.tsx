@@ -35,7 +35,6 @@ const Toggle = forwardRef<HTMLButtonElement, ToggleProps>(function Toggle(
       ref={ref}
       variant="secondary"
       preset={pressed ? 'filled' : 'ghost'}
-      size="sm"
       aria-label={label}
       aria-pressed={pressed}
       {...props}
@@ -79,8 +78,10 @@ type ControlBarProps = {
 /**
  * The call's controls under the stage: what Maya sends (microphone, camera, screen, recording)
  * on the left; the panels and the way out on the right. Each is an icon button named by its
- * label and a tooltip, its state in `aria-pressed`. Recording asks first, since everyone on the
- * call will be told; stopping it does not. Leave is the one coloured control.
+ * label and a tooltip, its state in `aria-pressed`. The bar is what the hand goes to during a
+ * call, so its controls keep the default 40px height, a step above the page's 32px controls.
+ * Recording asks first, since everyone on the call will be told; stopping it does not. Leave is
+ * the one coloured control. In a narrow column the groups wrap, and so do their buttons.
  */
 export function ControlBar({
   muted,
@@ -98,8 +99,12 @@ export function ControlBar({
   const [confirming, setConfirming] = useState(false);
 
   return (
-    <div role="toolbar" aria-label="Call controls" className="flex items-center justify-between">
-      <div className="gap-ws-3 flex items-center">
+    <div
+      role="toolbar"
+      aria-label="Call controls"
+      className="gap-ws-3 flex flex-wrap items-center justify-between"
+    >
+      <div className="gap-ws-3 flex flex-wrap items-center">
         <Hint label={muted ? 'Unmute' : 'Mute'}>
           <Toggle
             icon={muted ? RiMicOffLine : RiMicLine}
@@ -166,7 +171,7 @@ export function ControlBar({
         </Popup>
       </div>
 
-      <div className="gap-ws-3 flex items-center">
+      <div className="gap-ws-3 flex flex-wrap items-center">
         {PANELS.map(({ tab, label, icon }) => (
           <Hint key={tab} label={panel === tab ? `Hide ${label.toLowerCase()}` : label}>
             <Toggle
@@ -177,7 +182,7 @@ export function ControlBar({
             />
           </Hint>
         ))}
-        <Button variant="danger" size="sm" onClick={onLeave} className="ml-ws-7">
+        <Button variant="danger" onClick={onLeave} className="ml-ws-7">
           Leave
         </Button>
       </div>
