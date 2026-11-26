@@ -257,6 +257,15 @@ describe('FilterButton Snapshots', () => {
     { label: 'Option 2', value: 'option2' },
   ];
 
+  it('matches snapshot with the list open', async () => {
+    const user = userEvent.setup();
+    const { baseElement } = render(<FilterButton options={options} onChange={() => {}} />);
+
+    await user.click(screen.getByRole('button', { name: 'Filter' }));
+
+    expect(baseElement).toMatchSnapshot();
+  });
+
   const sizes: Array<'sm' | 'md' | 'lg'> = ['sm', 'md', 'lg'];
 
   describe('Empty state', () => {

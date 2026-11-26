@@ -67,6 +67,7 @@ export type PortalledPart = {
 /** Motion classes are only there when motion is on, which is the default. */
 const MOTION = { enabled: true };
 
+/** Update this map when a portalled part changes its variant functions or their arguments. */
 export const PORTALLED: Record<string, Record<string, PortalledPart>> = {
   'combo-box': {
     'combo-box-content': {

@@ -137,7 +137,7 @@ export const selectTriggerSuffixIconVariants = cva(
  * max-w cap).
  */
 export const selectMenuContentVariants = cva(
-  'p-ws-3 ws-scrollbar flex max-h-[18rem] min-w-[max(var(--radix-dropdown-menu-trigger-width),var(--spacing-ws-28))] flex-col overflow-auto',
+  'p-ws-3 ws-scrollbar flex max-h-[min(18rem,var(--radix-dropdown-menu-content-available-height))] min-w-[max(var(--radix-dropdown-menu-trigger-width),var(--spacing-ws-28))] flex-col overflow-auto',
 );
 
 /** The scrolling list inside the Radix Select content. */

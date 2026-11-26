@@ -35,7 +35,7 @@ A member such as `Card.Header` comes with `Card`; its named form, `CardHeader`, 
 - `import { Button } from '@/components/ui/wideset/button/Button';`
 - `import { ButtonIcon } from '@/components/ui/wideset/button/ButtonIcon';`
 - `import { ButtonTruncatedText } from '@/components/ui/wideset/button/ButtonTruncatedText';`
-- `import { IconButton, IconButtonIcon } from '@/components/ui/wideset/button/IconButton';`
+- `import { IconButton } from '@/components/ui/wideset/button/IconButton';`
 - `import { LinkButton, LinkButtonTruncatedText } from '@/components/ui/wideset/button/LinkButton';`
 - `import { SplitButton, SplitButtonIcon, SplitButtonTruncatedText } from '@/components/ui/wideset/button/SplitButton';`
 - `import { Calendar } from '@/components/ui/wideset/calendar/Calendar';`
@@ -240,7 +240,7 @@ A member such as `Card.Header` comes with `Card`; its named form, `CardHeader`, 
 - `import type { AgentProps as AvatarAgentProps, AvatarGroupContextType, AvatarProps, GroupProps as AvatarGroupProps, IconProps as AvatarIconProps, ImageProps as AvatarImageProps, InitialsProps as AvatarInitialsProps, MoreProps as AvatarMoreProps, StatusProps as AvatarStatusProps } from '@/components/ui/wideset/avatar/Avatar.types';`
 - `import type { BreadcrumbsDividerProps, BreadcrumbsItemProps, BreadcrumbsProps, BreadcrumbsWithSubComponents } from '@/components/ui/wideset/breadcrumbs/Breadcrumbs.types';`
 - `import type { ButtonContextValue, ButtonIconProps, ButtonProps, ButtonTruncatedTextProps } from '@/components/ui/wideset/button/Button.types';`
-- `import type { IconButtonIconProps, IconButtonProps } from '@/components/ui/wideset/button/IconButton.types';`
+- `import type { IconButtonProps } from '@/components/ui/wideset/button/IconButton.types';`
 - `import type { LinkButtonProps, LinkButtonTruncatedTextProps } from '@/components/ui/wideset/button/LinkButton.types';`
 - `import type { SplitButtonIconProps, SplitButtonProps, SplitButtonTruncatedTextProps } from '@/components/ui/wideset/button/SplitButton.types';`
 - `import type { CalendarProps } from '@/components/ui/wideset/calendar/Calendar.types';`

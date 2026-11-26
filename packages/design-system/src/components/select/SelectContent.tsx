@@ -39,6 +39,7 @@ export const SelectContent = React.forwardRef<
           data-slot="select-content"
           portalContainer={portalContainer}
           defaultMotion={motion}
+          collisionPadding={10}
           className={cn(selectMenuContentVariants(), className)}
           {...props}
         >

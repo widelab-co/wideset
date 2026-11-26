@@ -1987,7 +1987,7 @@ exports[`MultiSelect Snapshots > Sub-components snapshots > matches snapshot wit
   class="cursor-pointer"
   data-slot="multi-select-trigger"
   data-state="closed"
-  id="radix-_r_6u_"
+  id="radix-_r_7a_"
   type="button"
 >
   Select countries
@@ -2001,7 +2001,7 @@ exports[`MultiSelect Snapshots > Sub-components snapshots > matches snapshot wit
   class="cursor-pointer"
   data-slot="multi-select-trigger"
   data-state="closed"
-  id="radix-_r_6s_"
+  id="radix-_r_78_"
   type="button"
 >
   Select countries
@@ -2015,9 +2015,294 @@ exports[`MultiSelect Snapshots > Sub-components snapshots > matches snapshot wit
   class="cursor-pointer"
   data-slot="multi-select-trigger"
   data-state="closed"
-  id="radix-_r_70_"
+  id="radix-_r_7c_"
   type="button"
 >
   Select countries
 </button>
+`;
+
+exports[`MultiSelect Snapshots > matches snapshot with the list open 1`] = `
+<body
+  data-scroll-locked="1"
+  style="pointer-events: none;"
+>
+  <span
+    aria-hidden="true"
+    data-aria-hidden="true"
+    data-radix-focus-guard=""
+    style="outline: none; opacity: 0; position: fixed; pointer-events: none;"
+    tabindex="0"
+  />
+  <div
+    aria-hidden="true"
+    data-aria-hidden="true"
+  >
+    <div
+      class="flex w-full items-center"
+      data-slot="multi-select"
+    >
+      <button
+        aria-controls="radix-_r_4l_"
+        aria-expanded="true"
+        aria-haspopup="menu"
+        class="group/select-trigger text-ws-static-strong relative flex w-[16rem] items-center justify-between text-start whitespace-nowrap outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base border-ws-dynamic-secondary-default shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm rounded-ws-control-lg px-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) cursor-pointer py-ws-5 h-auto max-h-none overflow-visible min-h-ws-16"
+        data-radix-popper-align="start"
+        data-radix-popper-side="bottom"
+        data-slot="multi-select-trigger"
+        data-state="open"
+        type="button"
+      >
+        <div
+          class="gap-ws-2 flex min-w-0 flex-1 items-center flex-wrap min-h-ws-12"
+        >
+          <span
+            class="text-ws-static-subtle truncate"
+            data-slot="multi-select-value"
+          >
+            Select countries
+          </span>
+        </div>
+        <svg
+          aria-hidden="true"
+          class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-4 ml-ws-6"
+          fill="currentColor"
+          focusable="false"
+          height="24"
+          viewBox="0 0 24 24"
+          width="24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M11.9999 13.1714L16.9497 8.22168L18.3639 9.63589L11.9999 15.9999L5.63599 9.63589L7.0502 8.22168L11.9999 13.1714Z"
+          />
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div
+    data-radix-popper-content-wrapper=""
+    dir="ltr"
+    style="position: fixed; left: 0px; top: 0px; transform: translate(0px, 4px); min-width: max-content; --radix-popper-available-width: -20px; --radix-popper-available-height: -14px; --radix-popper-anchor-width: 0px; --radix-popper-anchor-height: 0px; --radix-popper-transform-origin: 0% 0px;"
+  >
+    <div
+      aria-labelledby="radix-_r_4k_"
+      aria-orientation="vertical"
+      class="rounded-ws-container-sm outline-hidden bg-ws-static-overlay text-ws-dynamic-secondary-default shadow-ws-medium z-ws-popout origin-radix-dropdown-menu transition-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 data-[state=open]:zoom-in-95 data-[state=closed]:zoom-out-95 data-[side=bottom]:ws-slide-in-from-top-2 data-[side=left]:slide-in-from-right-ws-2 data-[side=right]:ws-slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-ws-2 ease-(--ws-motion-ease-smooth-out) data-[state=open]:duration-(--ws-motion-duration-fast) data-[state=closed]:duration-(--ws-motion-duration-quick) p-ws-3 ws-scrollbar flex max-h-[min(18rem,var(--radix-dropdown-menu-content-available-height))] min-w-[max(var(--radix-dropdown-menu-trigger-width),var(--spacing-ws-28))] flex-col overflow-auto"
+      data-align="start"
+      data-orientation="vertical"
+      data-radix-menu-content=""
+      data-side="bottom"
+      data-slot="multi-select-content"
+      data-state="open"
+      dir="ltr"
+      id="radix-_r_4l_"
+      role="menu"
+      style="outline: none; --radix-dropdown-menu-content-transform-origin: var(--radix-popper-transform-origin); --radix-dropdown-menu-content-available-width: var(--radix-popper-available-width); --radix-dropdown-menu-content-available-height: var(--radix-popper-available-height); --radix-dropdown-menu-trigger-width: var(--radix-popper-anchor-width); --radix-dropdown-menu-trigger-height: var(--radix-popper-anchor-height); pointer-events: auto;"
+      tabindex="-1"
+    >
+      <div
+        aria-checked="false"
+        class="rounded-ws-control-md typography-label-sm gap-ws-5 px-ws-5 py-ws-3 flex cursor-pointer flex-row items-center justify-between focus:outline-none aria-disabled:cursor-default aria-disabled:bg-none aria-disabled:select-none bg-ws-dynamic-secondary-alpha-default text-ws-dynamic-secondary-default hover:not-aria-disabled:bg-ws-dynamic-secondary-alpha-hover hover:not-aria-disabled:text-ws-dynamic-secondary-hover active:not-aria-disabled:bg-ws-dynamic-secondary-alpha-pressed active:not-aria-disabled:text-ws-dynamic-secondary-pressed focus:not-aria-disabled:bg-ws-dynamic-secondary-alpha-hover focus:not-aria-disabled:text-ws-dynamic-secondary-default data-[highlighted]:not-aria-disabled:bg-ws-dynamic-secondary-alpha-hover data-[highlighted]:not-aria-disabled:text-ws-dynamic-secondary-default data-[state=checked]:not-aria-disabled:bg-ws-dynamic-primary-alpha-strong-default aria-disabled:text-ws-dynamic-secondary-disabled transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) min-h-ws-14 self-stretch"
+        data-orientation="vertical"
+        data-radix-collection-item=""
+        data-slot="multi-select-option"
+        data-state="unchecked"
+        role="menuitemcheckbox"
+        tabindex="-1"
+      >
+        <div
+          class="gap-ws-5 flex min-w-0 flex-1 flex-row items-center overflow-hidden"
+          data-slot="select-option-content"
+        >
+          <div
+            class="gap-ws-5 flex shrink-0 items-center"
+            data-slot="list-item-prefix"
+          >
+            <button
+              aria-checked="false"
+              class="group relative flex cursor-pointer border disabled:wds-disabled focus-visible:wds-focus-visible radix-state-unchecked:disabled:border-ws-dynamic-secondary-disabled radix-state-unchecked:disabled:bg-ws-static-alpha-subtle radix-state-checked:disabled:border-none radix-state-checked:disabled:bg-ws-dynamic-primary-disabled radix-state-indeterminate:disabled:border-none radix-state-indeterminate:disabled:bg-ws-dynamic-primary-disabled w-ws-control-md h-ws-control-md rounded-ws-control-md outline-ws-dynamic-primary-strong-default disabled:text-ws-dynamic-on-primary-disabled radix-state-unchecked:border-ws-static-strong radix-state-unchecked:bg-ws-static-highlight-base radix-state-unchecked:hover:border-ws-dynamic-secondary-hover radix-state-unchecked:active:border-ws-dynamic-secondary-pressed radix-state-checked:border-none radix-state-checked:bg-ws-dynamic-primary-default radix-state-checked:hover:bg-ws-dynamic-primary-hover radix-state-checked:hover:text-ws-dynamic-on-primary-hover radix-state-checked:active:bg-ws-dynamic-primary-pressed radix-state-checked:active:text-ws-dynamic-on-primary-pressed radix-state-indeterminate:border-none radix-state-indeterminate:bg-ws-dynamic-primary-default radix-state-indeterminate:hover:bg-ws-dynamic-primary-hover radix-state-indeterminate:hover:text-ws-dynamic-on-primary-hover radix-state-indeterminate:active:bg-ws-dynamic-primary-pressed radix-state-indeterminate:active:text-ws-dynamic-on-primary-pressed transition-[background-color,border-color] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-smooth-out) pointer-events-none"
+              data-slot="checkbox"
+              data-state="unchecked"
+              id="_r_4n_"
+              role="checkbox"
+              tabindex="-1"
+              type="button"
+              value="on"
+            />
+          </div>
+          <div
+            class="typography-label-sm min-w-0 flex-1 truncate"
+            data-slot="list-item-label"
+          >
+            Poland
+          </div>
+        </div>
+      </div>
+      <div
+        aria-checked="false"
+        class="rounded-ws-control-md typography-label-sm gap-ws-5 px-ws-5 py-ws-3 flex cursor-pointer flex-row items-center justify-between focus:outline-none aria-disabled:cursor-default aria-disabled:bg-none aria-disabled:select-none bg-ws-dynamic-secondary-alpha-default text-ws-dynamic-secondary-default hover:not-aria-disabled:bg-ws-dynamic-secondary-alpha-hover hover:not-aria-disabled:text-ws-dynamic-secondary-hover active:not-aria-disabled:bg-ws-dynamic-secondary-alpha-pressed active:not-aria-disabled:text-ws-dynamic-secondary-pressed focus:not-aria-disabled:bg-ws-dynamic-secondary-alpha-hover focus:not-aria-disabled:text-ws-dynamic-secondary-default data-[highlighted]:not-aria-disabled:bg-ws-dynamic-secondary-alpha-hover data-[highlighted]:not-aria-disabled:text-ws-dynamic-secondary-default data-[state=checked]:not-aria-disabled:bg-ws-dynamic-primary-alpha-strong-default aria-disabled:text-ws-dynamic-secondary-disabled transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) min-h-ws-14 self-stretch"
+        data-orientation="vertical"
+        data-radix-collection-item=""
+        data-slot="multi-select-option"
+        data-state="unchecked"
+        role="menuitemcheckbox"
+        tabindex="-1"
+      >
+        <div
+          class="gap-ws-5 flex min-w-0 flex-1 flex-row items-center overflow-hidden"
+          data-slot="select-option-content"
+        >
+          <div
+            class="gap-ws-5 flex shrink-0 items-center"
+            data-slot="list-item-prefix"
+          >
+            <button
+              aria-checked="false"
+              class="group relative flex cursor-pointer border disabled:wds-disabled focus-visible:wds-focus-visible radix-state-unchecked:disabled:border-ws-dynamic-secondary-disabled radix-state-unchecked:disabled:bg-ws-static-alpha-subtle radix-state-checked:disabled:border-none radix-state-checked:disabled:bg-ws-dynamic-primary-disabled radix-state-indeterminate:disabled:border-none radix-state-indeterminate:disabled:bg-ws-dynamic-primary-disabled w-ws-control-md h-ws-control-md rounded-ws-control-md outline-ws-dynamic-primary-strong-default disabled:text-ws-dynamic-on-primary-disabled radix-state-unchecked:border-ws-static-strong radix-state-unchecked:bg-ws-static-highlight-base radix-state-unchecked:hover:border-ws-dynamic-secondary-hover radix-state-unchecked:active:border-ws-dynamic-secondary-pressed radix-state-checked:border-none radix-state-checked:bg-ws-dynamic-primary-default radix-state-checked:hover:bg-ws-dynamic-primary-hover radix-state-checked:hover:text-ws-dynamic-on-primary-hover radix-state-checked:active:bg-ws-dynamic-primary-pressed radix-state-checked:active:text-ws-dynamic-on-primary-pressed radix-state-indeterminate:border-none radix-state-indeterminate:bg-ws-dynamic-primary-default radix-state-indeterminate:hover:bg-ws-dynamic-primary-hover radix-state-indeterminate:hover:text-ws-dynamic-on-primary-hover radix-state-indeterminate:active:bg-ws-dynamic-primary-pressed radix-state-indeterminate:active:text-ws-dynamic-on-primary-pressed transition-[background-color,border-color] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-smooth-out) pointer-events-none"
+              data-slot="checkbox"
+              data-state="unchecked"
+              id="_r_4p_"
+              role="checkbox"
+              tabindex="-1"
+              type="button"
+              value="on"
+            />
+          </div>
+          <div
+            class="typography-label-sm min-w-0 flex-1 truncate"
+            data-slot="list-item-label"
+          >
+            USA
+          </div>
+        </div>
+      </div>
+      <div
+        aria-checked="false"
+        class="rounded-ws-control-md typography-label-sm gap-ws-5 px-ws-5 py-ws-3 flex cursor-pointer flex-row items-center justify-between focus:outline-none aria-disabled:cursor-default aria-disabled:bg-none aria-disabled:select-none bg-ws-dynamic-secondary-alpha-default text-ws-dynamic-secondary-default hover:not-aria-disabled:bg-ws-dynamic-secondary-alpha-hover hover:not-aria-disabled:text-ws-dynamic-secondary-hover active:not-aria-disabled:bg-ws-dynamic-secondary-alpha-pressed active:not-aria-disabled:text-ws-dynamic-secondary-pressed focus:not-aria-disabled:bg-ws-dynamic-secondary-alpha-hover focus:not-aria-disabled:text-ws-dynamic-secondary-default data-[highlighted]:not-aria-disabled:bg-ws-dynamic-secondary-alpha-hover data-[highlighted]:not-aria-disabled:text-ws-dynamic-secondary-default data-[state=checked]:not-aria-disabled:bg-ws-dynamic-primary-alpha-strong-default aria-disabled:text-ws-dynamic-secondary-disabled transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) min-h-ws-14 self-stretch"
+        data-orientation="vertical"
+        data-radix-collection-item=""
+        data-slot="multi-select-option"
+        data-state="unchecked"
+        role="menuitemcheckbox"
+        tabindex="-1"
+      >
+        <div
+          class="gap-ws-5 flex min-w-0 flex-1 flex-row items-center overflow-hidden"
+          data-slot="select-option-content"
+        >
+          <div
+            class="gap-ws-5 flex shrink-0 items-center"
+            data-slot="list-item-prefix"
+          >
+            <button
+              aria-checked="false"
+              class="group relative flex cursor-pointer border disabled:wds-disabled focus-visible:wds-focus-visible radix-state-unchecked:disabled:border-ws-dynamic-secondary-disabled radix-state-unchecked:disabled:bg-ws-static-alpha-subtle radix-state-checked:disabled:border-none radix-state-checked:disabled:bg-ws-dynamic-primary-disabled radix-state-indeterminate:disabled:border-none radix-state-indeterminate:disabled:bg-ws-dynamic-primary-disabled w-ws-control-md h-ws-control-md rounded-ws-control-md outline-ws-dynamic-primary-strong-default disabled:text-ws-dynamic-on-primary-disabled radix-state-unchecked:border-ws-static-strong radix-state-unchecked:bg-ws-static-highlight-base radix-state-unchecked:hover:border-ws-dynamic-secondary-hover radix-state-unchecked:active:border-ws-dynamic-secondary-pressed radix-state-checked:border-none radix-state-checked:bg-ws-dynamic-primary-default radix-state-checked:hover:bg-ws-dynamic-primary-hover radix-state-checked:hover:text-ws-dynamic-on-primary-hover radix-state-checked:active:bg-ws-dynamic-primary-pressed radix-state-checked:active:text-ws-dynamic-on-primary-pressed radix-state-indeterminate:border-none radix-state-indeterminate:bg-ws-dynamic-primary-default radix-state-indeterminate:hover:bg-ws-dynamic-primary-hover radix-state-indeterminate:hover:text-ws-dynamic-on-primary-hover radix-state-indeterminate:active:bg-ws-dynamic-primary-pressed radix-state-indeterminate:active:text-ws-dynamic-on-primary-pressed transition-[background-color,border-color] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-smooth-out) pointer-events-none"
+              data-slot="checkbox"
+              data-state="unchecked"
+              id="_r_4r_"
+              role="checkbox"
+              tabindex="-1"
+              type="button"
+              value="on"
+            />
+          </div>
+          <div
+            class="typography-label-sm min-w-0 flex-1 truncate"
+            data-slot="list-item-label"
+          >
+            Germany
+          </div>
+        </div>
+      </div>
+      <div
+        aria-checked="false"
+        aria-disabled="true"
+        class="rounded-ws-control-md typography-label-sm gap-ws-5 px-ws-5 py-ws-3 flex cursor-pointer flex-row items-center justify-between focus:outline-none aria-disabled:cursor-default aria-disabled:bg-none aria-disabled:select-none bg-ws-dynamic-secondary-alpha-default text-ws-dynamic-secondary-default hover:not-aria-disabled:bg-ws-dynamic-secondary-alpha-hover hover:not-aria-disabled:text-ws-dynamic-secondary-hover active:not-aria-disabled:bg-ws-dynamic-secondary-alpha-pressed active:not-aria-disabled:text-ws-dynamic-secondary-pressed focus:not-aria-disabled:bg-ws-dynamic-secondary-alpha-hover focus:not-aria-disabled:text-ws-dynamic-secondary-default data-[highlighted]:not-aria-disabled:bg-ws-dynamic-secondary-alpha-hover data-[highlighted]:not-aria-disabled:text-ws-dynamic-secondary-default data-[state=checked]:not-aria-disabled:bg-ws-dynamic-primary-alpha-strong-default aria-disabled:text-ws-dynamic-secondary-disabled transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) min-h-ws-14 self-stretch"
+        data-disabled=""
+        data-orientation="vertical"
+        data-radix-collection-item=""
+        data-slot="multi-select-option"
+        data-state="unchecked"
+        role="menuitemcheckbox"
+        tabindex="-1"
+      >
+        <div
+          class="gap-ws-5 flex min-w-0 flex-1 flex-row items-center overflow-hidden"
+          data-slot="select-option-content"
+        >
+          <div
+            class="gap-ws-5 flex shrink-0 items-center"
+            data-slot="list-item-prefix"
+          >
+            <button
+              aria-checked="false"
+              class="group relative flex cursor-pointer border disabled:wds-disabled focus-visible:wds-focus-visible radix-state-unchecked:disabled:border-ws-dynamic-secondary-disabled radix-state-unchecked:disabled:bg-ws-static-alpha-subtle radix-state-checked:disabled:border-none radix-state-checked:disabled:bg-ws-dynamic-primary-disabled radix-state-indeterminate:disabled:border-none radix-state-indeterminate:disabled:bg-ws-dynamic-primary-disabled w-ws-control-md h-ws-control-md rounded-ws-control-md outline-ws-dynamic-primary-strong-default disabled:text-ws-dynamic-on-primary-disabled radix-state-unchecked:border-ws-static-strong radix-state-unchecked:bg-ws-static-highlight-base radix-state-unchecked:hover:border-ws-dynamic-secondary-hover radix-state-unchecked:active:border-ws-dynamic-secondary-pressed radix-state-checked:border-none radix-state-checked:bg-ws-dynamic-primary-default radix-state-checked:hover:bg-ws-dynamic-primary-hover radix-state-checked:hover:text-ws-dynamic-on-primary-hover radix-state-checked:active:bg-ws-dynamic-primary-pressed radix-state-checked:active:text-ws-dynamic-on-primary-pressed radix-state-indeterminate:border-none radix-state-indeterminate:bg-ws-dynamic-primary-default radix-state-indeterminate:hover:bg-ws-dynamic-primary-hover radix-state-indeterminate:hover:text-ws-dynamic-on-primary-hover radix-state-indeterminate:active:bg-ws-dynamic-primary-pressed radix-state-indeterminate:active:text-ws-dynamic-on-primary-pressed transition-[background-color,border-color] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-smooth-out) pointer-events-none"
+              data-disabled=""
+              data-slot="checkbox"
+              data-state="unchecked"
+              disabled=""
+              id="_r_4t_"
+              role="checkbox"
+              tabindex="-1"
+              type="button"
+              value="on"
+            />
+          </div>
+          <div
+            class="typography-label-sm min-w-0 flex-1 truncate"
+            data-slot="list-item-label"
+          >
+            Canada
+          </div>
+        </div>
+      </div>
+      <div
+        aria-checked="false"
+        class="rounded-ws-control-md typography-label-sm gap-ws-5 px-ws-5 py-ws-3 flex cursor-pointer flex-row items-center justify-between focus:outline-none aria-disabled:cursor-default aria-disabled:bg-none aria-disabled:select-none bg-ws-dynamic-secondary-alpha-default text-ws-dynamic-secondary-default hover:not-aria-disabled:bg-ws-dynamic-secondary-alpha-hover hover:not-aria-disabled:text-ws-dynamic-secondary-hover active:not-aria-disabled:bg-ws-dynamic-secondary-alpha-pressed active:not-aria-disabled:text-ws-dynamic-secondary-pressed focus:not-aria-disabled:bg-ws-dynamic-secondary-alpha-hover focus:not-aria-disabled:text-ws-dynamic-secondary-default data-[highlighted]:not-aria-disabled:bg-ws-dynamic-secondary-alpha-hover data-[highlighted]:not-aria-disabled:text-ws-dynamic-secondary-default data-[state=checked]:not-aria-disabled:bg-ws-dynamic-primary-alpha-strong-default aria-disabled:text-ws-dynamic-secondary-disabled transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) min-h-ws-14 self-stretch"
+        data-orientation="vertical"
+        data-radix-collection-item=""
+        data-slot="multi-select-option"
+        data-state="unchecked"
+        role="menuitemcheckbox"
+        tabindex="-1"
+      >
+        <div
+          class="gap-ws-5 flex min-w-0 flex-1 flex-row items-center overflow-hidden"
+          data-slot="select-option-content"
+        >
+          <div
+            class="gap-ws-5 flex shrink-0 items-center"
+            data-slot="list-item-prefix"
+          >
+            <button
+              aria-checked="false"
+              class="group relative flex cursor-pointer border disabled:wds-disabled focus-visible:wds-focus-visible radix-state-unchecked:disabled:border-ws-dynamic-secondary-disabled radix-state-unchecked:disabled:bg-ws-static-alpha-subtle radix-state-checked:disabled:border-none radix-state-checked:disabled:bg-ws-dynamic-primary-disabled radix-state-indeterminate:disabled:border-none radix-state-indeterminate:disabled:bg-ws-dynamic-primary-disabled w-ws-control-md h-ws-control-md rounded-ws-control-md outline-ws-dynamic-primary-strong-default disabled:text-ws-dynamic-on-primary-disabled radix-state-unchecked:border-ws-static-strong radix-state-unchecked:bg-ws-static-highlight-base radix-state-unchecked:hover:border-ws-dynamic-secondary-hover radix-state-unchecked:active:border-ws-dynamic-secondary-pressed radix-state-checked:border-none radix-state-checked:bg-ws-dynamic-primary-default radix-state-checked:hover:bg-ws-dynamic-primary-hover radix-state-checked:hover:text-ws-dynamic-on-primary-hover radix-state-checked:active:bg-ws-dynamic-primary-pressed radix-state-checked:active:text-ws-dynamic-on-primary-pressed radix-state-indeterminate:border-none radix-state-indeterminate:bg-ws-dynamic-primary-default radix-state-indeterminate:hover:bg-ws-dynamic-primary-hover radix-state-indeterminate:hover:text-ws-dynamic-on-primary-hover radix-state-indeterminate:active:bg-ws-dynamic-primary-pressed radix-state-indeterminate:active:text-ws-dynamic-on-primary-pressed transition-[background-color,border-color] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-smooth-out) pointer-events-none"
+              data-slot="checkbox"
+              data-state="unchecked"
+              id="_r_4v_"
+              role="checkbox"
+              tabindex="-1"
+              type="button"
+              value="on"
+            />
+          </div>
+          <div
+            class="typography-label-sm min-w-0 flex-1 truncate"
+            data-slot="list-item-label"
+          >
+            UK
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <span
+    aria-hidden="true"
+    data-aria-hidden="true"
+    data-radix-focus-guard=""
+    style="outline: none; opacity: 0; position: fixed; pointer-events: none;"
+    tabindex="0"
+  />
+</body>
 `;

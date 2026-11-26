@@ -1,6 +1,6 @@
 import { RiBugLine, RiCalendarLine } from '@remixicon/react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Link, MemoryRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
+import { MemoryRouter as Router, useLocation, useNavigate } from 'react-router-dom';
 
 import { exampleStory } from '../../stories/example';
 import IconsExample from './examples/tabs/icons';
@@ -168,48 +168,76 @@ export const Sizes: Story = exampleStory(SizesExample, sizesSource);
 
 export const Icons: Story = exampleStory(IconsExample, iconsSource);
 
+const RoutingTabs = () => {
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const currentTab = pathname.slice(1) || 'tab2';
+
+  return (
+    <Tabs
+      type="pills"
+      value={currentTab}
+      onValueChange={(value) => {
+        if (value !== currentTab) navigate('/' + value);
+      }}
+    >
+      <Tabs.List>
+        <Tabs.Item value="tab1">
+          <Tabs.Label>Tab 1</Tabs.Label>
+        </Tabs.Item>
+        <Tabs.Item value="tab2">
+          <Tabs.Label>Tab 2</Tabs.Label>
+        </Tabs.Item>
+        <Tabs.Item value="tab3">
+          <Tabs.Label>Tab 3</Tabs.Label>
+        </Tabs.Item>
+      </Tabs.List>
+      <Tabs.Content value="tab1" className="py-ws-8">
+        Content of Tab 1
+      </Tabs.Content>
+      <Tabs.Content value="tab2" className="py-ws-8">
+        Content of Tab 2
+      </Tabs.Content>
+      <Tabs.Content value="tab3" className="py-ws-8">
+        Content of Tab 3
+      </Tabs.Content>
+    </Tabs>
+  );
+};
+
 export const Routing: Story = {
   parameters: {
     docs: {
       description: {
         story:
-          'Use `asChild` to render each `Tabs.Item` as a router `<Link>`. Pass `active` to force the active visual state based on the current URL instead of Radix internal state, and `tabIndex={-1}` on the link so focus goes to the trigger, not the anchor.',
+          'The URL controls selection. onValueChange navigates for mouse and keyboard activation, and each tab labels its matching content panel. Native tab buttons avoid a second navigation path through links.',
       },
       source: {
-        code: `import { Link, MemoryRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
+        code: `import { Tabs } from '@wideset/react';
+import { MemoryRouter as Router, useLocation, useNavigate } from 'react-router-dom';
 
 const RoutingTabs = () => {
-  const location = useLocation();
-  const currentTab = location.pathname.slice(1) || 'tab2';
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const currentTab = pathname.slice(1) || 'tab2';
 
   return (
-    <>
-      <Tabs type="pills" value={currentTab}>
-        <Tabs.List>
-          <Tabs.Item value="tab1" active={location.pathname === '/tab1'} asChild>
-            <Link to="/tab1" tabIndex={-1}>
-              <Tabs.Label>Link 1</Tabs.Label>
-            </Link>
-          </Tabs.Item>
-          <Tabs.Item value="tab2" active={location.pathname === '/tab2'} asChild>
-            <Link to="/tab2" tabIndex={-1}>
-              <Tabs.Label>Link 2</Tabs.Label>
-            </Link>
-          </Tabs.Item>
-          <Tabs.Item value="tab3" active={location.pathname === '/tab3'} asChild>
-            <Link to="/tab3" tabIndex={-1}>
-              <Tabs.Label>Link 3</Tabs.Label>
-            </Link>
-          </Tabs.Item>
-        </Tabs.List>
-      </Tabs>
-
-      <Routes>
-        <Route path="/tab1" element={<div className="py-ws-8">Content of Tab 1</div>} />
-        <Route path="/tab2" element={<div className="py-ws-8">Content of Tab 2</div>} />
-        <Route path="/tab3" element={<div className="py-ws-8">Content of Tab 3</div>} />
-      </Routes>
-    </>
+    <Tabs
+      type="pills"
+      value={currentTab}
+      onValueChange={(value) => {
+        if (value !== currentTab) navigate('/' + value);
+      }}
+    >
+      <Tabs.List>
+        <Tabs.Item value="tab1"><Tabs.Label>Tab 1</Tabs.Label></Tabs.Item>
+        <Tabs.Item value="tab2"><Tabs.Label>Tab 2</Tabs.Label></Tabs.Item>
+        <Tabs.Item value="tab3"><Tabs.Label>Tab 3</Tabs.Label></Tabs.Item>
+      </Tabs.List>
+      <Tabs.Content value="tab1" className="py-ws-8">Content of Tab 1</Tabs.Content>
+      <Tabs.Content value="tab2" className="py-ws-8">Content of Tab 2</Tabs.Content>
+      <Tabs.Content value="tab3" className="py-ws-8">Content of Tab 3</Tabs.Content>
+    </Tabs>
   );
 };
 
@@ -223,47 +251,11 @@ export const Routing = () => (
       },
     },
   },
-  render: function Render() {
-    const RoutingTabs = () => {
-      const location = useLocation();
-      const currentTab = location.pathname.slice(1) || 'tab2';
-
-      return (
-        <>
-          <Tabs type="pills" value={currentTab}>
-            <Tabs.List>
-              <Tabs.Item value="tab1" active={location.pathname === '/tab1'} asChild>
-                <Link to="/tab1" tabIndex={-1}>
-                  <Tabs.Label>Link 1</Tabs.Label>
-                </Link>
-              </Tabs.Item>
-              <Tabs.Item value="tab2" active={location.pathname === '/tab2'} asChild>
-                <Link to="/tab2" tabIndex={-1}>
-                  <Tabs.Label>Link 2</Tabs.Label>
-                </Link>
-              </Tabs.Item>
-              <Tabs.Item value="tab3" active={location.pathname === '/tab3'} asChild>
-                <Link to="/tab3" tabIndex={-1}>
-                  <Tabs.Label>Link 3</Tabs.Label>
-                </Link>
-              </Tabs.Item>
-            </Tabs.List>
-          </Tabs>
-
-          <Routes>
-            <Route path="/tab1" element={<div className="py-ws-8">Content of Tab 1</div>} />
-            <Route path="/tab2" element={<div className="py-ws-8">Content of Tab 2</div>} />
-            <Route path="/tab3" element={<div className="py-ws-8">Content of Tab 3</div>} />
-          </Routes>
-        </>
-      );
-    };
-    return (
-      <Router initialEntries={['/tab2']}>
-        <RoutingTabs />
-      </Router>
-    );
-  },
+  render: () => (
+    <Router initialEntries={['/tab2']}>
+      <RoutingTabs />
+    </Router>
+  ),
 };
 
 export const States: Story = exampleStory(StatesExample, statesSource);

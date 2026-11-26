@@ -23,6 +23,12 @@ on:
       - main
       - develop
 
+# `pnpm install` runs `husky install` (the `prepare` script). Without this, the Git hooks would run
+# inside CI when changesets/action commits and pushes the Version PR branch or the release tags:
+# lint-staged on its commit; the changeset check, lint, Prettier and all tests on its push.
+env:
+  HUSKY: 0
+
 jobs:
   build:
     name: Build & validate

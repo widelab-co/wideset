@@ -26,9 +26,7 @@ export const useTabsIndicator = (enabled: boolean) => {
     const measure = () => {
       node.querySelectorAll('[role="tab"]').forEach((item) => resizeObserver.observe(item));
 
-      const active =
-        node.querySelector<HTMLElement>('[data-active]') ??
-        node.querySelector<HTMLElement>('[role="tab"][data-state="active"]');
+      const active = node.querySelector<HTMLElement>('[role="tab"][data-state="active"]');
       if (!active) {
         setIndicator((previous) => previous && { ...previous, visible: false });
         return;
@@ -54,7 +52,7 @@ export const useTabsIndicator = (enabled: boolean) => {
       subtree: true,
       childList: true,
       attributes: true,
-      attributeFilter: ['data-state', 'data-active', 'data-disabled'],
+      attributeFilter: ['data-state', 'data-disabled'],
     });
     document.fonts?.ready.then(() => !signal.aborted && measure());
 
