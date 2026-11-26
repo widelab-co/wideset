@@ -155,7 +155,6 @@ export const selectContentVariants = cva(
     variants: {
       position: {
         popper: cn(
-          'data-[side=bottom]:translate-y-ws-1 data-[side=left]:-translate-x-ws-1 data-[side=right]:translate-x-ws-1 data-[side=top]:-translate-y-ws-1',
           // Width floor: never narrower than the trigger nor the Size/28 menu
           // minimum; grows freely with content past that.
           'min-w-[max(var(--radix-select-trigger-width),var(--spacing-ws-28))]',

@@ -213,8 +213,13 @@ const reference = [
   family('outline', 'Outline colour', 'outline-ws', '--outline-color-ws-', 'outline-ws-'),
   family('fill', 'SVG fill', 'fill-ws', '--fill-ws-', 'fill-ws-'),
   family('stroke', 'SVG stroke', 'stroke-ws', '--stroke-ws-', 'stroke-ws-'),
-  // Tailwind reads decoration colours from --text-decoration-color-*, so no class reads these.
-  family('decoration', 'Text decoration colour', null, '--decoration-ws-', null),
+  family(
+    'decoration',
+    'Text decoration colour',
+    'decoration-ws',
+    '--text-decoration-color-ws-',
+    'decoration-ws-',
+  ),
   // The scale as padding; control and forms sizes as the class components use them.
   family(
     'spacing',
