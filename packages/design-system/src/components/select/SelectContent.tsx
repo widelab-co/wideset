@@ -62,7 +62,7 @@ export const SelectContent = React.forwardRef<
             'max-h-[var(--radix-select-content-available-height)]',
             className,
           )}
-          sideOffset={12}
+          sideOffset={4}
           position={position}
           {...props}
         >

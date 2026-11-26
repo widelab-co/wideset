@@ -109,10 +109,10 @@ exports[`TimePicker Snapshots > matches snapshot with 12h format 1`] = `
   <div
     data-radix-popper-content-wrapper=""
     dir="ltr"
-    style="position: fixed; left: 0px; top: 0px; transform: translate(0px, 12px); min-width: max-content; --radix-popper-available-width: -20px; --radix-popper-available-height: -22px; --radix-popper-anchor-width: 0px; --radix-popper-anchor-height: 0px; --radix-popper-transform-origin: 0% 0px;"
+    style="position: fixed; left: 0px; top: 0px; transform: translate(0px, 4px); min-width: max-content; --radix-popper-available-width: -20px; --radix-popper-available-height: -14px; --radix-popper-anchor-width: 0px; --radix-popper-anchor-height: 0px; --radix-popper-transform-origin: 0% 0px;"
   >
     <div
-      class="rounded-ws-container-sm z-ws-popout overflow-hidden bg-ws-static-overlay shadow-ws-medium data-[side=bottom]:translate-y-ws-1 data-[side=left]:-translate-x-ws-1 data-[side=right]:translate-x-ws-1 data-[side=top]:-translate-y-ws-1 min-w-[max(var(--radix-select-trigger-width),var(--spacing-ws-28))] origin-radix-select transition-none animate-in fade-in-0 zoom-in-95 duration-(--ws-motion-duration-fast) ease-(--ws-motion-ease-smooth-out) data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=closed]:duration-(--ws-motion-duration-quick) max-h-[var(--radix-select-content-available-height)]"
+      class="rounded-ws-container-sm z-ws-popout overflow-hidden bg-ws-static-overlay shadow-ws-medium min-w-[max(var(--radix-select-trigger-width),var(--spacing-ws-28))] origin-radix-select transition-none animate-in fade-in-0 zoom-in-95 duration-(--ws-motion-duration-fast) ease-(--ws-motion-ease-smooth-out) data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=closed]:duration-(--ws-motion-duration-quick) max-h-[var(--radix-select-content-available-height)]"
       data-align="start"
       data-side="bottom"
       data-slot="select-content"
@@ -2414,10 +2414,10 @@ exports[`TimePicker Snapshots > matches snapshot with custom min/max 1`] = `
   <div
     data-radix-popper-content-wrapper=""
     dir="ltr"
-    style="position: fixed; left: 0px; top: 0px; transform: translate(0px, 12px); min-width: max-content; --radix-popper-available-width: -20px; --radix-popper-available-height: -22px; --radix-popper-anchor-width: 0px; --radix-popper-anchor-height: 0px; --radix-popper-transform-origin: 0% 0px;"
+    style="position: fixed; left: 0px; top: 0px; transform: translate(0px, 4px); min-width: max-content; --radix-popper-available-width: -20px; --radix-popper-available-height: -14px; --radix-popper-anchor-width: 0px; --radix-popper-anchor-height: 0px; --radix-popper-transform-origin: 0% 0px;"
   >
     <div
-      class="rounded-ws-container-sm z-ws-popout overflow-hidden bg-ws-static-overlay shadow-ws-medium data-[side=bottom]:translate-y-ws-1 data-[side=left]:-translate-x-ws-1 data-[side=right]:translate-x-ws-1 data-[side=top]:-translate-y-ws-1 min-w-[max(var(--radix-select-trigger-width),var(--spacing-ws-28))] origin-radix-select transition-none animate-in fade-in-0 zoom-in-95 duration-(--ws-motion-duration-fast) ease-(--ws-motion-ease-smooth-out) data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=closed]:duration-(--ws-motion-duration-quick) max-h-[var(--radix-select-content-available-height)]"
+      class="rounded-ws-container-sm z-ws-popout overflow-hidden bg-ws-static-overlay shadow-ws-medium min-w-[max(var(--radix-select-trigger-width),var(--spacing-ws-28))] origin-radix-select transition-none animate-in fade-in-0 zoom-in-95 duration-(--ws-motion-duration-fast) ease-(--ws-motion-ease-smooth-out) data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=closed]:duration-(--ws-motion-duration-quick) max-h-[var(--radix-select-content-available-height)]"
       data-align="start"
       data-side="bottom"
       data-slot="select-content"
@@ -2994,10 +2994,10 @@ exports[`TimePicker Snapshots > matches snapshot with default props 1`] = `
   <div
     data-radix-popper-content-wrapper=""
     dir="ltr"
-    style="position: fixed; left: 0px; top: 0px; transform: translate(0px, 12px); min-width: max-content; --radix-popper-available-width: -20px; --radix-popper-available-height: -22px; --radix-popper-anchor-width: 0px; --radix-popper-anchor-height: 0px; --radix-popper-transform-origin: 0% 0px;"
+    style="position: fixed; left: 0px; top: 0px; transform: translate(0px, 4px); min-width: max-content; --radix-popper-available-width: -20px; --radix-popper-available-height: -14px; --radix-popper-anchor-width: 0px; --radix-popper-anchor-height: 0px; --radix-popper-transform-origin: 0% 0px;"
   >
     <div
-      class="rounded-ws-container-sm z-ws-popout overflow-hidden bg-ws-static-overlay shadow-ws-medium data-[side=bottom]:translate-y-ws-1 data-[side=left]:-translate-x-ws-1 data-[side=right]:translate-x-ws-1 data-[side=top]:-translate-y-ws-1 min-w-[max(var(--radix-select-trigger-width),var(--spacing-ws-28))] origin-radix-select transition-none animate-in fade-in-0 zoom-in-95 duration-(--ws-motion-duration-fast) ease-(--ws-motion-ease-smooth-out) data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=closed]:duration-(--ws-motion-duration-quick) max-h-[var(--radix-select-content-available-height)]"
+      class="rounded-ws-container-sm z-ws-popout overflow-hidden bg-ws-static-overlay shadow-ws-medium min-w-[max(var(--radix-select-trigger-width),var(--spacing-ws-28))] origin-radix-select transition-none animate-in fade-in-0 zoom-in-95 duration-(--ws-motion-duration-fast) ease-(--ws-motion-ease-smooth-out) data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=closed]:duration-(--ws-motion-duration-quick) max-h-[var(--radix-select-content-available-height)]"
       data-align="start"
       data-side="bottom"
       data-slot="select-content"

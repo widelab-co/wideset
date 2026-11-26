@@ -1,3 +1,7 @@
+import fs from 'node:fs';
+import path from 'node:path';
+
+import { compile } from 'tailwindcss';
 import { describe, expect, it } from 'vitest';
 
 import {
@@ -23,6 +27,34 @@ interface SemanticVariable {
 }
 
 describe('generate-semantic-variables', () => {
+  it('compiles text decoration utilities and preserves CSS variables in both themes', async () => {
+    const semanticCss = ['light', 'dark'].map((theme) =>
+      fs.readFileSync(
+        path.join(__dirname, `src/styles/tokens/theme-${theme}-semantic.css`),
+        'utf-8',
+      ),
+    );
+    const compiler = await compile(`${semanticCss.join('\n')}\n@tailwind utilities;`);
+    const css = compiler.build([
+      'decoration-ws-semantic-negative',
+      'decoration-ws-semantic-notice',
+    ]);
+
+    for (const color of ['negative', 'notice']) {
+      expect(css).toContain(
+        `.decoration-ws-semantic-${color} {\n  text-decoration-color: var(--text-decoration-color-ws-semantic-${color});`,
+      );
+      for (const theme of semanticCss) {
+        expect(theme).toContain(
+          `--text-decoration-color-ws-semantic-${color}: var(--ws-semantic-text-${color});`,
+        );
+        expect(theme).toContain(
+          `--decoration-ws-semantic-${color}: var(--ws-semantic-text-${color});`,
+        );
+      }
+    }
+  });
+
   describe('extractVariableInfo', () => {
     it('should extract info for semantic-fill variables (generates 2 prefixes)', () => {
       const result = extractVariableInfo('--ws-semantic-fill-primary-default');
@@ -37,12 +69,13 @@ describe('generate-semantic-variables', () => {
       });
     });
 
-    it('should extract info for semantic-text variables (generates 4 prefixes)', () => {
+    it('should extract info for semantic-text variables (generates 5 prefixes)', () => {
       const result = extractVariableInfo('--ws-semantic-text-primary-default');
-      expect(result).toHaveLength(4);
+      expect(result).toHaveLength(5);
       expect(result.map((r) => r.tailwindPrefix)).toEqual([
         '--text-color-ws-semantic',
         '--decoration-ws-semantic',
+        '--text-decoration-color-ws-semantic',
         '--fill-ws-semantic',
         '--stroke-ws-semantic',
       ]);
@@ -61,7 +94,7 @@ describe('generate-semantic-variables', () => {
     it('should handle all color variants (dynamic, non-semantic, static)', () => {
       expect(extractVariableInfo('--ws-dynamic-fill-primary')).toHaveLength(2);
       expect(extractVariableInfo('--ws-non-semantic-stroke-primary')).toHaveLength(2);
-      expect(extractVariableInfo('--ws-static-text-primary')).toHaveLength(4);
+      expect(extractVariableInfo('--ws-static-text-primary')).toHaveLength(5);
     });
 
     it('should return empty array for unknown prefixes', () => {
