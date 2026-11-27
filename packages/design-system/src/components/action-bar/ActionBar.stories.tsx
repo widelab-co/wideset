@@ -1,19 +1,11 @@
-import {
-  RiDeleteBin6Line,
-  RiRefreshLine,
-  RiSendPlaneLine,
-  RiShareForwardLine,
-} from '@remixicon/react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { exampleStory } from '../../stories/example';
-import { Button } from '../button/Button';
-import { IconButton } from '../button/IconButton';
-import { Tooltip } from '../tooltip/Tooltip';
 import { ActionBar } from './ActionBar';
 import type { ActionBarProps } from './ActionBar.types';
 import AlignmentsExample from './examples/action-bar/alignments';
 import alignmentsSource from './examples/action-bar/alignments?raw';
+import DefaultExample from './examples/action-bar/default';
 import PositionsExample from './examples/action-bar/positions';
 import positionsSource from './examples/action-bar/positions?raw';
 import SelectionExample from './examples/action-bar/selection';
@@ -27,7 +19,11 @@ const meta = {
   title: 'Components/ActionBar',
   tags: ['autodocs'],
   component: ActionBar,
-  subcomponents: { 'ActionBar.SelectAll': ActionBar.SelectAll },
+  subcomponents: {
+    'ActionBar.Count': ActionBar.Count,
+    'ActionBar.Actions': ActionBar.Actions,
+    'ActionBar.SelectAll': ActionBar.SelectAll,
+  },
   parameters: {
     docs: {
       description: {
@@ -99,61 +95,16 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   parameters: {
     docs: {
+      // The bar is fixed to the screen: in its own frame it sits at the frame's edges, where
+      // position and align move it, instead of floating over the docs page.
+      story: { inline: false, height: '14rem' },
       description: {
-        story:
-          'The bar for four selected rows. Toggle `isOpen` to see it animate in and out; the box contains the fixed bar so it stays in the preview.',
+        story: 'The bar for four selected rows. Toggle `isOpen` to see it animate in and out.',
       },
     },
   },
-  render: (args) => (
-    <div className="relative h-[5.5rem] w-[34rem] max-w-full [transform:translateZ(0)]">
-      <ActionBar {...args} onClose={undefined}>
-        <ActionBar.Count>4 rows selected</ActionBar.Count>
-        <ActionBar.Actions>
-          <ActionBar.SelectAll checked="indeterminate" />
-          <Button variant="secondary" size="sm">
-            <Button.Icon icon={RiSendPlaneLine} />
-            Publish
-          </Button>
-          <Tooltip size="sm" arrow={false}>
-            <Tooltip.Trigger asChild>
-              <IconButton
-                variant="secondary"
-                size="sm"
-                icon={RiShareForwardLine}
-                aria-label="Forward"
-              />
-            </Tooltip.Trigger>
-            <Tooltip.Content>
-              <Tooltip.Label>Forward</Tooltip.Label>
-            </Tooltip.Content>
-          </Tooltip>
-          <Tooltip size="sm" arrow={false}>
-            <Tooltip.Trigger asChild>
-              <IconButton variant="secondary" size="sm" icon={RiRefreshLine} aria-label="Refresh" />
-            </Tooltip.Trigger>
-            <Tooltip.Content>
-              <Tooltip.Label>Refresh</Tooltip.Label>
-            </Tooltip.Content>
-          </Tooltip>
-          <Tooltip size="sm" arrow={false}>
-            <Tooltip.Trigger asChild>
-              <IconButton
-                variant="danger"
-                preset="ghost"
-                size="sm"
-                icon={RiDeleteBin6Line}
-                aria-label="Delete"
-              />
-            </Tooltip.Trigger>
-            <Tooltip.Content>
-              <Tooltip.Label>Delete</Tooltip.Label>
-            </Tooltip.Content>
-          </Tooltip>
-        </ActionBar.Actions>
-      </ActionBar>
-    </div>
-  ),
+  // preview.tsx turns every on* prop into an action; onClose would bring back the legacy bar.
+  render: (args) => <DefaultExample {...args} onClose={undefined} />,
   args: {
     isOpen: true,
     position: 'bottom',

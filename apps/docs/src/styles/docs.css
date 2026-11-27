@@ -492,8 +492,10 @@ body.docs.docs .docs-frame:not(.docs-light, .dark) {
   border-radius: var(--radius-ws-container-md);
 }
 /* The Playground's stage is the soft stage every thumbnail sits on, in the stage's own theme
-   (its sun/moon button can show the other one). */
+   (its sun/moon button can show the other one). It holds a `position: fixed` component (Action
+   Bar) to its own edges instead of the window's, so position and align move it across it. */
 body.docs.docs .docs-frame[data-playground-stage] {
+  contain: layout;
   background: var(--background-color-ws-static-alpha-subtle);
   border: 0;
   border-radius: var(--radius-ws-container-md);
