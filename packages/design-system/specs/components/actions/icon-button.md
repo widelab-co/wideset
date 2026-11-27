@@ -3,7 +3,7 @@ name: IconButton
 import: import { IconButton } from '@wideset/react'
 group: actions
 status: stable
-parts: [IconButton, IconButtonIcon]
+parts: [IconButton]
 related: [Button, LinkButton, SplitButton]
 docs: https://wideset.co/components/icon-button
 storybook: components-button-iconbutton--default
@@ -30,8 +30,7 @@ storybook: components-button-iconbutton--default
 <IconButton icon={RiSettings3Line} aria-label="Settings" />
 ```
 
-The icon is a prop, not a child. `IconButtonIcon` / `IconButton.Icon` is `Button.Icon` re-exported;
-you do not need it for a plain icon button.
+The icon is required content supplied through the `icon` prop, not a composed child.
 
 ## Choosing props
 
@@ -63,10 +62,9 @@ What differs for icon-only use:
 
 ## Accessibility
 
-- The icon is hidden from screen readers. Every `IconButton` needs `aria-label` (or
-  `aria-labelledby`); the component does not supply one.
-- With `asChild` on an `<a>`, keep the accessible name on the link (`aria-label` or an `sr-only`
-  span inside it).
+- The icon is hidden from screen readers. The props require either `aria-label` or
+  `aria-labelledby`; the component does not supply a name.
+- With `asChild`, pass the naming attribute to `IconButton`; it is forwarded to the child element.
 
 ## Do / Don't
 
