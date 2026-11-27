@@ -91,6 +91,12 @@ Or use your own brand font — `body { font-family: … }`.
 
 > **Use a variable font.** Wideset's weights come straight from Figma and are not round numbers — `font-ws-medium` is 520, `font-ws-normal` is 480. A variable font renders them exactly; a static family rounds each one to its nearest cut (400, 500, 600 …), so 520 shows up as semibold. The Fontsource and `next/font` options below both give you variable Inter.
 
+If you use `Shortcut`, the default Inter subsets from Fontsource (including the CLI setup) and
+Google Fonts omit the modifier glyphs `⌘ ⇧ ⌥ ⌃`. Browsers use a fallback font for them. To render
+them in Inter, request a [subset containing those four glyphs](https://fonts.googleapis.com/css2?family=Inter:wght@100..900&text=%E2%8C%98%E2%87%A7%E2%8C%A5%E2%8C%83)
+and register its `@font-face` under the same family name as your main Inter font (for example,
+`Inter Variable` with Fontsource).
+
 **Fontsource** (self-hosted, works with any bundler):
 
 ```bash

@@ -1,9 +1,8 @@
 // TODO(custom): a command row (icon, name, quiet context, shortcut keys) driven by the palette's field; ListItem is a menu row that takes focus itself and has no keys slot.
-import { cn } from '@wideset/react';
+import { cn, Shortcut } from '@wideset/react';
 
 import type { Command } from './data';
 import { Highlight } from './highlight';
-import { Key } from './keyboard-hints';
 
 /**
  * One command, an option of the list the palette's field drives: the field keeps the focus, so the
@@ -51,9 +50,12 @@ export function CommandRow({
         </span>
       </span>
       {keys && (
+        // One Shortcut per key: the keys are pressed one after the other (G, then H), not together.
         <span className="gap-ws-2 flex shrink-0">
           {keys.map((key) => (
-            <Key key={key}>{key}</Key>
+            <Shortcut key={key}>
+              <Shortcut.Key>{key}</Shortcut.Key>
+            </Shortcut>
           ))}
         </span>
       )}

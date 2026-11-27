@@ -14,7 +14,6 @@ import {
   type AvatarColor,
   Button,
   Checkbox,
-  cn,
   IconButton,
   ProgressBar,
   Sidepanel,
@@ -24,7 +23,7 @@ import {
   Tag,
   type TagProps,
 } from '@wideset/react';
-import { Fragment, type KeyboardEvent, type ReactNode } from 'react';
+import { Fragment, type KeyboardEvent, type MouseEvent, type ReactNode } from 'react';
 
 /*
   The task side panel, one file so it can be copied on its own: the Gantt starting point carries a
@@ -259,8 +258,16 @@ export function TaskSidepanel({
                 <Hint
                   keys={
                     <span className="gap-ws-3 flex">
-                      <Key icon={RiArrowUpSLine} name="Up arrow" />
-                      <Key icon={RiArrowDownSLine} name="Down arrow" />
+                      <KeyButton
+                        icon={RiArrowUpSLine}
+                        name="Up arrow"
+                        onClick={() => onNavigate('previous')}
+                      />
+                      <KeyButton
+                        icon={RiArrowDownSLine}
+                        name="Down arrow"
+                        onClick={() => onNavigate('next')}
+                      />
                     </span>
                   }
                 >
@@ -268,12 +275,14 @@ export function TaskSidepanel({
                 </Hint>
               )}
               {onParent && (
-                <Hint keys={<Key icon={RiArrowLeftLine} name="Left arrow" />}>
+                <Hint
+                  keys={<KeyButton icon={RiArrowLeftLine} name="Left arrow" onClick={onParent} />}
+                >
                   Return to parent
                 </Hint>
               )}
             </div>
-            <Hint keys={<Key>esc</Key>}>Close</Hint>
+            <Hint keys={<KeyButton onClick={() => onOpenChange(false)}>Esc</KeyButton>}>Close</Hint>
           </div>
         </Fragment>
       </Sidepanel.Panel>
@@ -373,34 +382,43 @@ function Hint({ keys, children }: { keys: ReactNode; children: string }) {
   );
 }
 
+/** A pointer press on a key keeps the focus where it was, so the panel keeps its keys. */
+const keepFocus = (event: MouseEvent) => event.preventDefault();
+
 /**
- * A key, drawn as Figma draws it here: the box of Button `xs` Border, as a `kbd` (the calendar
- * sidebar's Shortcut is the same idea). An icon key names itself for screen readers.
+ * A key the hint names, drawn as Figma draws it here: an `xs` Border button that does what the
+ * key does, for the pointer. Out of the Tab order: from the keyboard, the key itself does the job.
  */
-function Key({
-  icon: Icon,
+function KeyButton({
+  icon,
   name,
   children,
-}: {
-  icon?: RemixiconComponentType;
-  name?: string;
-  children?: string;
-}) {
-  return (
-    <kbd
-      className={cn(
-        'font-ws-body border-ws-dynamic-secondary-default bg-ws-static-highlight-subtle shadow-ws-controls-control rounded-ws-control-md h-ws-12 typography-caption-strong-md text-ws-dynamic-secondary-default flex items-center justify-center border',
-        Icon ? 'w-ws-12' : 'px-ws-5',
-      )}
+  onClick,
+}: (
+  | { icon: RemixiconComponentType; name: string; children?: never }
+  | { icon?: never; name?: never; children: string }
+) & { onClick: () => void }) {
+  return icon ? (
+    <IconButton
+      icon={icon}
+      aria-label={name}
+      size="xs"
+      variant="secondary"
+      preset="border"
+      tabIndex={-1}
+      onMouseDown={keepFocus}
+      onClick={onClick}
+    />
+  ) : (
+    <Button
+      size="xs"
+      variant="secondary"
+      preset="border"
+      tabIndex={-1}
+      onMouseDown={keepFocus}
+      onClick={onClick}
     >
-      {Icon ? (
-        <>
-          <Icon aria-hidden="true" className="size-ws-8 shrink-0" />
-          <span className="sr-only">{name}</span>
-        </>
-      ) : (
-        children
-      )}
-    </kbd>
+      {children}
+    </Button>
   );
 }

@@ -1,0 +1,316 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Shortcut > Snapshots > should match snapshot for emphasis="strong" 1`] = `
+<div>
+  <kbd
+    class="inline-flex items-center whitespace-nowrap typography-caption-md text-ws-static-subtle font-[family-name:inherit] h-ws-12 px-ws-4 py-ws-2 rounded-ws-control-md inset-ring inset-ring-(--ws-static-stroke-base)"
+    data-slot="shortcut"
+  >
+    <kbd
+      class="flex items-center justify-center font-[family-name:inherit] min-w-ws-9"
+      data-slot="shortcut-key"
+    >
+      <span
+        aria-hidden="true"
+      >
+        ⌘
+      </span>
+      <span
+        class="sr-only"
+      >
+        Command
+      </span>
+    </kbd>
+    <kbd
+      class="flex items-center justify-center font-[family-name:inherit] min-w-ws-8"
+      data-slot="shortcut-key"
+    >
+      K
+    </kbd>
+  </kbd>
+</div>
+`;
+
+exports[`Shortcut > Snapshots > should match snapshot for emphasis="weak" 1`] = `
+<div>
+  <kbd
+    class="inline-flex items-center whitespace-nowrap typography-caption-md text-ws-static-subtle font-[family-name:inherit] h-ws-11"
+    data-slot="shortcut"
+  >
+    <kbd
+      class="flex items-center justify-center font-[family-name:inherit] min-w-ws-9"
+      data-slot="shortcut-key"
+    >
+      <span
+        aria-hidden="true"
+      >
+        ⌘
+      </span>
+      <span
+        class="sr-only"
+      >
+        Command
+      </span>
+    </kbd>
+    <kbd
+      class="flex items-center justify-center font-[family-name:inherit] min-w-ws-8"
+      data-slot="shortcut-key"
+    >
+      K
+    </kbd>
+  </kbd>
+</div>
+`;
+
+exports[`Shortcut > Snapshots > should match snapshot for modifier, navigation and named keys 1`] = `
+<div>
+  <kbd
+    class="inline-flex items-center whitespace-nowrap typography-caption-md text-ws-static-subtle font-[family-name:inherit] h-ws-12 px-ws-4 py-ws-2 rounded-ws-control-md inset-ring inset-ring-(--ws-static-stroke-base)"
+    data-slot="shortcut"
+  >
+    <kbd
+      class="flex items-center justify-center font-[family-name:inherit] min-w-ws-8"
+      data-slot="shortcut-key"
+    >
+      <span
+        aria-hidden="true"
+      >
+        ⌃
+      </span>
+      <span
+        class="sr-only"
+      >
+        Control
+      </span>
+    </kbd>
+    <kbd
+      class="flex items-center justify-center font-[family-name:inherit] min-w-ws-9"
+      data-slot="shortcut-key"
+    >
+      <span
+        aria-hidden="true"
+      >
+        ⌥
+      </span>
+      <span
+        class="sr-only"
+      >
+        Option
+      </span>
+    </kbd>
+    <kbd
+      class="flex items-center justify-center font-[family-name:inherit] min-w-ws-9"
+      data-slot="shortcut-key"
+    >
+      <span
+        aria-hidden="true"
+      >
+        ⇧
+      </span>
+      <span
+        class="sr-only"
+      >
+        Shift
+      </span>
+    </kbd>
+    <kbd
+      class="flex items-center justify-center font-[family-name:inherit] min-w-ws-9"
+      data-slot="shortcut-key"
+    >
+      <span
+        aria-hidden="true"
+      >
+        ⌘
+      </span>
+      <span
+        class="sr-only"
+      >
+        Command
+      </span>
+    </kbd>
+    <kbd
+      class="flex items-center justify-center font-[family-name:inherit] min-w-ws-9"
+      data-slot="shortcut-key"
+    >
+      <svg
+        aria-hidden="true"
+        class="remixicon shrink-0"
+        fill="currentColor"
+        height="24"
+        viewBox="0 0 24 24"
+        width="24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M19.0001 13.9999L19.0002 5L17.0002 4.99997L17.0001 11.9999L6.8283 12L10.778 8.05024L9.36382 6.63603L2.99986 13L9.36382 19.364L10.778 17.9497L6.82826 14L19.0001 13.9999Z"
+        />
+      </svg>
+      <span
+        class="sr-only"
+      >
+        Enter
+      </span>
+    </kbd>
+    <kbd
+      class="flex items-center justify-center font-[family-name:inherit] min-w-ws-9"
+      data-slot="shortcut-key"
+    >
+      <svg
+        aria-hidden="true"
+        class="remixicon shrink-0"
+        fill="currentColor"
+        height="24"
+        viewBox="0 0 24 24"
+        width="24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M13.0001 7.82843V20H11.0001V7.82843L5.63614 13.1924L4.22192 11.7782L12.0001 4L19.7783 11.7782L18.3641 13.1924L13.0001 7.82843Z"
+        />
+      </svg>
+      <span
+        class="sr-only"
+      >
+        Up Arrow
+      </span>
+    </kbd>
+    <kbd
+      class="flex items-center justify-center font-[family-name:inherit] min-w-ws-9"
+      data-slot="shortcut-key"
+    >
+      <svg
+        aria-hidden="true"
+        class="remixicon shrink-0"
+        fill="currentColor"
+        height="24"
+        viewBox="0 0 24 24"
+        width="24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M13.0001 16.1716L18.3641 10.8076L19.7783 12.2218L12.0001 20L4.22192 12.2218L5.63614 10.8076L11.0001 16.1716V4H13.0001V16.1716Z"
+        />
+      </svg>
+      <span
+        class="sr-only"
+      >
+        Down Arrow
+      </span>
+    </kbd>
+    <kbd
+      class="flex items-center justify-center font-[family-name:inherit] min-w-ws-9"
+      data-slot="shortcut-key"
+    >
+      <svg
+        aria-hidden="true"
+        class="remixicon shrink-0"
+        fill="currentColor"
+        height="24"
+        viewBox="0 0 24 24"
+        width="24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M7.82843 10.9999H20V12.9999H7.82843L13.1924 18.3638L11.7782 19.778L4 11.9999L11.7782 4.22168L13.1924 5.63589L7.82843 10.9999Z"
+        />
+      </svg>
+      <span
+        class="sr-only"
+      >
+        Left Arrow
+      </span>
+    </kbd>
+    <kbd
+      class="flex items-center justify-center font-[family-name:inherit] min-w-ws-9"
+      data-slot="shortcut-key"
+    >
+      <svg
+        aria-hidden="true"
+        class="remixicon shrink-0"
+        fill="currentColor"
+        height="24"
+        viewBox="0 0 24 24"
+        width="24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
+        />
+      </svg>
+      <span
+        class="sr-only"
+      >
+        Right Arrow
+      </span>
+    </kbd>
+    <kbd
+      class="flex items-center justify-center font-[family-name:inherit] min-w-ws-8"
+      data-slot="shortcut-key"
+    >
+      Esc
+    </kbd>
+  </kbd>
+</div>
+`;
+
+exports[`Shortcut > Snapshots > should match snapshot for variant="inverse" 1`] = `
+<div>
+  <kbd
+    class="inline-flex items-center whitespace-nowrap typography-caption-md font-[family-name:inherit] h-ws-12 px-ws-4 py-ws-2 rounded-ws-control-md inset-ring text-ws-static-inverse-subtle inset-ring-(--ws-static-stroke-inverse-base)"
+    data-slot="shortcut"
+  >
+    <kbd
+      class="flex items-center justify-center font-[family-name:inherit] min-w-ws-9"
+      data-slot="shortcut-key"
+    >
+      <span
+        aria-hidden="true"
+      >
+        ⌘
+      </span>
+      <span
+        class="sr-only"
+      >
+        Command
+      </span>
+    </kbd>
+    <kbd
+      class="flex items-center justify-center font-[family-name:inherit] min-w-ws-8"
+      data-slot="shortcut-key"
+    >
+      K
+    </kbd>
+  </kbd>
+</div>
+`;
+
+exports[`Shortcut > Snapshots > should match snapshot for variant="inverse" emphasis="weak" 1`] = `
+<div>
+  <kbd
+    class="inline-flex items-center whitespace-nowrap typography-caption-md font-[family-name:inherit] h-ws-11 text-ws-static-inverse-subtle"
+    data-slot="shortcut"
+  >
+    <kbd
+      class="flex items-center justify-center font-[family-name:inherit] min-w-ws-9"
+      data-slot="shortcut-key"
+    >
+      <span
+        aria-hidden="true"
+      >
+        ⌘
+      </span>
+      <span
+        class="sr-only"
+      >
+        Command
+      </span>
+    </kbd>
+    <kbd
+      class="flex items-center justify-center font-[family-name:inherit] min-w-ws-8"
+      data-slot="shortcut-key"
+    >
+      K
+    </kbd>
+  </kbd>
+</div>
+`;

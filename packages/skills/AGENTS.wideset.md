@@ -79,6 +79,7 @@ Font: the page font is variable Inter, set through `--font-ws-sans`; `wideset in
 - Avatar: a person, team or the agent orb next to a name.
 - Tag: a static category label; colour is categorical.
 - StatusBadge: a static state label.
+- Shortcut: the keys that run an action, at the end of a menu row or in help text; it only shows them.
 - AppShell: the screen's frame; one `direction` (inset by default, flat, frame, canvas) sets the window, sidebar and page.
 - Card: a bounded surface for one subject; not clickable, not a page wrapper.
 - Accordion: named sections opened in place.

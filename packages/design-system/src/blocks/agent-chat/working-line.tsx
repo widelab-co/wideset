@@ -1,9 +1,8 @@
 // TODO(custom): the line over the composer while the agent works or was stopped (a mark, a few words, the time, the way to stop or go on); Wideset has no activity line, and ProgressBar has no mode without a value.
-import { Button, cn } from '@wideset/react';
+import { Button, cn, Shortcut } from '@wideset/react';
 
 import { formatDuration } from './format';
 import { Inline } from './inline';
-import { Key } from './keyboard-key';
 import { ARRIVE } from './motion';
 
 type WorkingLineProps = {
@@ -61,7 +60,9 @@ export function WorkingLine({ state, label, seconds, onContinue }: WorkingLinePr
         </Button>
       ) : (
         <span className="gap-ws-3 ml-auto flex shrink-0 items-center">
-          <Key>Esc</Key>
+          <Shortcut>
+            <Shortcut.Key>Esc</Shortcut.Key>
+          </Shortcut>
           to stop
         </span>
       )}

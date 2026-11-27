@@ -111,7 +111,7 @@ export function TaskModal({ task, open, onOpenChange }: TaskModalProps) {
         </div>
 
         <Modal.Footer variant="extension" className="items-center">
-          <KeyboardHints />
+          <KeyboardHints onBack={() => onOpenChange(false)} />
         </Modal.Footer>
       </Modal.Content>
     </Modal>
