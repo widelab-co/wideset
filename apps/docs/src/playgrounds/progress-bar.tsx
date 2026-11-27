@@ -14,6 +14,9 @@ const STATUS_CONTENT: Record<string, { label: string; description: string }> = {
 
 const statusContent = (v: Values) => STATUS_CONTENT[String(v.status)] ?? DEFAULT_CONTENT;
 
+const standaloneLabel = (v: Values, label: string, description: string) =>
+  v.status === 'warning' ? `${label}. ${description}` : label;
+
 /** The header and description only exist on the bar; the circle composes its percentage. */
 const composed = (v: Values) => v.type === 'bar' && Boolean(v.label);
 const circleValue = (v: Values) => v.type === 'circle' && Boolean(v.label);
@@ -45,12 +48,20 @@ export default playground({
             <ProgressBar.Description>{description}</ProgressBar.Description>
           </ProgressBar>
         ) : circleValue(v) ? (
-          <ProgressBar {...props()} value={Number(v.value)} aria-label={label}>
+          <ProgressBar
+            {...props()}
+            value={Number(v.value)}
+            aria-label={standaloneLabel(v, label, description)}
+          >
             <ProgressBar.Value />
             <ProgressBar.Track />
           </ProgressBar>
         ) : (
-          <ProgressBar {...props()} value={Number(v.value)} aria-label={label} />
+          <ProgressBar
+            {...props()}
+            value={Number(v.value)}
+            aria-label={standaloneLabel(v, label, description)}
+          />
         )}
       </div>
     );
@@ -58,7 +69,7 @@ export default playground({
   code: (v, { attrs }) => {
     const { label, description } = statusContent(v);
     const props = [...attrs().trim().split(' '), `value={${v.value}}`].filter(Boolean);
-    const open = `<ProgressBar ${[...props, `aria-label="${label}"`].join(' ')}`;
+    const open = `<ProgressBar ${[...props, `aria-label="${standaloneLabel(v, label, description)}"`].join(' ')}`;
     if (circleValue(v)) {
       return [
         `${open}>`,
