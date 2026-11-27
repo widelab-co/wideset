@@ -1,0 +1,46 @@
+name: PR labels
+
+# Labels a PR as soon as it opens: its type from the branch prefix, `clickup` when the branch or
+# title carries a ClickUp task ID, `design contribution` for PRs from design. pull_request_target
+# runs this file from the base branch with a token that can write labels, also for PRs from forks.
+# It never checks out the PR's code, and PR text reaches the script only through env.
+on:
+  pull_request_target:
+    types: [opened, reopened, ready_for_review]
+
+permissions: {}
+
+jobs:
+  labels:
+    name: Labels
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    permissions:
+      pull-requests: write # add labels to the PR; every label already exists, so no `issues: write`
+    steps:
+      - name: Add labels
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          PR: ${{ github.event.pull_request.number }}
+          BRANCH: ${{ github.event.pull_request.head.ref }}
+          TITLE: ${{ github.event.pull_request.title }}
+          AUTHOR: ${{ github.event.pull_request.user.login }}
+        run: |
+          labels=()
+          case "$BRANCH" in
+            feature/* | feat/*) labels+=(enhancement) ;;
+            fix/*) labels+=(bug) ;;
+            docs/*) labels+=(documentation) ;;
+            chore/* | changeset-release/*) labels+=(chore) ;;
+          esac
+          # ClickUp task IDs: `[CU-1amndjnjwf0]` in the title, or a branch segment `1amndjnjwf0` /
+          # `CU-1amndjnjwf0` (`fix/1amndjnjwf0/…`, `feature/CU-1amndjnjwf0/…`).
+          clickup_title='\[CU-[0-9][a-z0-9]{10}\]'
+          clickup_branch='(^|/)(CU-)?[0-9][a-z0-9]{10}(/|$)'
+          if [[ "$TITLE" =~ $clickup_title || "$BRANCH" =~ $clickup_branch ]]; then labels+=(clickup); fi
+          if [[ "$AUTHOR" == themce77 ]]; then labels+=("design contribution"); fi
+          [[ ${#labels[@]} -eq 0 ]] && exit 0
+          args=()
+          for label in "${labels[@]}"; do args+=(-f "labels[]=$label"); done
+          gh api "repos/$REPO/issues/$PR/labels" "${args[@]}" --silent
