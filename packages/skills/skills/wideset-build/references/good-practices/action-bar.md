@@ -36,6 +36,8 @@
 - Add a button inside `ActionBar.Actions` to clear a partial selection in one step.
 - When migrating, move the formatted `amountSelected` into `ActionBar.Count`, wrap the actions
   in `ActionBar.Actions`, and use a labelled button for the legacy `onClose` action.
-- The bar is `position: fixed` to the viewport. A transformed ancestor becomes its containing
-  block, which is how the docs keep it inside a preview box.
+- The bar is `position: fixed` to the viewport, also for a table inside a card: it stays on
+  screen while the user scrolls and selects. An ancestor with `transform`, `filter` or
+  `contain` (an animated page wrapper, for one) becomes its containing block and pins it to
+  that element instead; render the bar outside such a wrapper.
 - Default copy is English ("Select all"); pass `label` to translate it.
