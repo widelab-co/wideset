@@ -1,21 +1,56 @@
 import type { VariantProps } from 'class-variance-authority';
-import type { ComponentPropsWithoutRef, ReactNode } from 'react';
+import type {
+  ComponentPropsWithoutRef,
+  ForwardRefExoticComponent,
+  ReactNode,
+  RefAttributes,
+} from 'react';
 
 import type { MotionProps } from '../../motion/Motion.types';
+import type { CheckboxProps } from '../checkbox/Checkbox.types';
 import type { actionBarVariants } from './ActionBar.variants';
+import type { ActionBarActions } from './ActionBarActions';
+import type { ActionBarCount } from './ActionBarCount';
+import type { ActionBarSelectAll } from './ActionBarSelectAll';
 
 /** Floating actions for the current selection. */
 export type ActionBarProps = {
-  /** Selected item count, or a count and formatter tuple for a custom selection label. */
+  /** @deprecated Use `ActionBar.Count` with the formatted selection count. */
   amountSelected?: number | [count: number, format: (amount: number) => ReactNode];
   /** Controls visibility of the action bar. Defaults to `false`. */
   isOpen?: boolean;
-  /** Called when the close button is activated; clear the selection or hide the bar in response. */
+  /** @deprecated Compose a clear-selection button inside `ActionBar.Actions`. */
   onClose?: () => void;
-  /** Action content rendered after the close button and selected count — typically buttons or icon buttons. */
+  /** Compose the selection count and its actions. */
   children?: ReactNode;
-  /** Accessible label for the close button. Defaults to `'Close'`. */
+  /** @deprecated Label the clear-selection button directly. The legacy default is `'Close'`. */
   closeAriaLabel?: string;
 } & Omit<ComponentPropsWithoutRef<'div'>, 'children'> &
   VariantProps<typeof actionBarVariants> &
   MotionProps;
+
+/** The selection count, read out politely when it changes. */
+export type ActionBarCountProps = ComponentPropsWithoutRef<'p'> & {
+  /** Localized text describing the current selection. */
+  children?: ReactNode;
+};
+
+/** The raised segment for the selection controls. */
+export type ActionBarActionsProps = ComponentPropsWithoutRef<'div'> & {
+  /** Optional Select all checkbox followed by actions for the selection. */
+  children?: ReactNode;
+};
+
+/** A checkbox for selecting or clearing all items in the current scope. */
+export type ActionBarSelectAllProps = Omit<CheckboxProps, 'label' | 'description' | 'children'> & {
+  /** Visible label of the checkbox. Defaults to `'Select all'`. */
+  label?: string;
+};
+
+export type ActionBarWithSubComponents = ForwardRefExoticComponent<
+  ActionBarProps & RefAttributes<HTMLDivElement>
+> & {
+  Count: typeof ActionBarCount;
+  Actions: typeof ActionBarActions;
+  SelectAll: typeof ActionBarSelectAll;
+};

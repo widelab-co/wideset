@@ -1,8 +1,9 @@
 import { cva } from 'class-variance-authority';
-import { cn } from 'src/lib/utils';
+
+import { cn } from '../../lib/utils';
 
 export const actionBarVariants = cva(
-  'rounded-ws-container-lg bg-ws-static-overlay shadow-ws-medium gap-ws-5 px-ws-11 py-ws-9 z-ws-sticky fixed flex items-center data-[state=closed]:pointer-events-none data-[state=closed]:opacity-0',
+  'z-ws-sticky fixed flex items-center data-[state=closed]:pointer-events-none data-[state=closed]:opacity-0',
   {
     variants: {
       position: {
@@ -21,6 +22,25 @@ export const actionBarVariants = cva(
     },
   },
 );
+
+export const actionBarAppearance = cva('', {
+  variants: {
+    legacy: {
+      true: 'rounded-ws-container-lg bg-ws-static-overlay shadow-ws-medium gap-ws-5 px-ws-11 py-ws-9',
+      false:
+        'gap-ws-5 p-ws-2 rounded-ws-container-md bg-ws-static-background shadow-ws-high w-max max-w-[calc(100%-2*var(--spacing-ws-9))] flex-wrap',
+    },
+  },
+});
+
+export const actionBarChildrenLayout = cva('', {
+  variants: {
+    legacy: {
+      true: 'gap-ws-5 flex min-w-0 items-center',
+      false: 'contents',
+    },
+  },
+});
 
 export const actionBarMotionVariants = cva('', {
   variants: {

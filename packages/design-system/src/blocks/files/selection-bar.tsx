@@ -2,13 +2,14 @@ import {
   RiAddLine,
   RiArchiveLine,
   RiArrowDownSLine,
+  RiCloseLine,
   RiDeleteBinLine,
   RiDownloadLine,
   RiFileCopyLine,
   RiFolderTransferLine,
   RiStackLine,
 } from '@remixicon/react';
-import { ActionBar, Button, DropdownMenu, ListItem } from '@wideset/react';
+import { ActionBar, Button, DropdownMenu, IconButton, ListItem } from '@wideset/react';
 
 import type { Collection } from './data';
 
@@ -43,65 +44,71 @@ export function SelectionBar({
   onDelete,
 }: SelectionBarProps) {
   return (
-    <ActionBar
-      isOpen={count > 0}
-      amountSelected={count}
-      onClose={onClear}
-      closeAriaLabel="Clear selection"
-    >
-      <Button variant="secondary" preset="border" size="sm" onClick={onDownload}>
-        <Button.Icon icon={RiDownloadLine} />
-        Download
-      </Button>
-      <Button variant="secondary" preset="border" size="sm" onClick={onMove}>
-        <Button.Icon icon={RiFolderTransferLine} />
-        Move
-      </Button>
-      <Button variant="secondary" preset="border" size="sm" onClick={onCopy}>
-        <Button.Icon icon={RiFileCopyLine} />
-        Copy
-      </Button>
-      <DropdownMenu>
-        <DropdownMenu.Trigger asChild>
-          <Button variant="secondary" preset="border" size="sm">
-            <Button.Icon icon={RiStackLine} />
-            Add to collection
-            <Button.Icon icon={RiArrowDownSLine} />
-          </Button>
-        </DropdownMenu.Trigger>
-        <DropdownMenu.Content side="top" align="start" className="w-[14rem]">
-          {collections.map((collection) => (
-            <DropdownMenu.Item
-              key={collection.id}
-              onSelect={() => onAddToCollection(collection.id)}
-            >
+    <ActionBar isOpen={count > 0}>
+      <ActionBar.Count>{count} selected</ActionBar.Count>
+      <ActionBar.Actions>
+        <IconButton
+          icon={RiCloseLine}
+          aria-label="Clear selection"
+          variant="secondary"
+          preset="ghost"
+          size="sm"
+          onClick={onClear}
+        />
+        <Button variant="secondary" preset="border" size="sm" onClick={onDownload}>
+          <Button.Icon icon={RiDownloadLine} />
+          Download
+        </Button>
+        <Button variant="secondary" preset="border" size="sm" onClick={onMove}>
+          <Button.Icon icon={RiFolderTransferLine} />
+          Move
+        </Button>
+        <Button variant="secondary" preset="border" size="sm" onClick={onCopy}>
+          <Button.Icon icon={RiFileCopyLine} />
+          Copy
+        </Button>
+        <DropdownMenu>
+          <DropdownMenu.Trigger asChild>
+            <Button variant="secondary" preset="border" size="sm">
+              <Button.Icon icon={RiStackLine} />
+              Add to collection
+              <Button.Icon icon={RiArrowDownSLine} />
+            </Button>
+          </DropdownMenu.Trigger>
+          <DropdownMenu.Content side="top" align="start" className="w-[14rem]">
+            {collections.map((collection) => (
+              <DropdownMenu.Item
+                key={collection.id}
+                onSelect={() => onAddToCollection(collection.id)}
+              >
+                <ListItem.Prefix>
+                  <RiStackLine className="size-ws-9" />
+                </ListItem.Prefix>
+                <ListItem.Content>
+                  <ListItem.Label>{collection.name}</ListItem.Label>
+                </ListItem.Content>
+              </DropdownMenu.Item>
+            ))}
+            <DropdownMenu.Separator />
+            <DropdownMenu.Item onSelect={onNewCollection}>
               <ListItem.Prefix>
-                <RiStackLine className="size-ws-9" />
+                <RiAddLine className="size-ws-9" />
               </ListItem.Prefix>
               <ListItem.Content>
-                <ListItem.Label>{collection.name}</ListItem.Label>
+                <ListItem.Label>New collection</ListItem.Label>
               </ListItem.Content>
             </DropdownMenu.Item>
-          ))}
-          <DropdownMenu.Separator />
-          <DropdownMenu.Item onSelect={onNewCollection}>
-            <ListItem.Prefix>
-              <RiAddLine className="size-ws-9" />
-            </ListItem.Prefix>
-            <ListItem.Content>
-              <ListItem.Label>New collection</ListItem.Label>
-            </ListItem.Content>
-          </DropdownMenu.Item>
-        </DropdownMenu.Content>
-      </DropdownMenu>
-      <Button variant="secondary" preset="border" size="sm" onClick={onArchive}>
-        <Button.Icon icon={RiArchiveLine} />
-        Archive
-      </Button>
-      <Button variant="danger" preset="border" size="sm" onClick={onDelete}>
-        <Button.Icon icon={RiDeleteBinLine} />
-        Delete
-      </Button>
+          </DropdownMenu.Content>
+        </DropdownMenu>
+        <Button variant="secondary" preset="border" size="sm" onClick={onArchive}>
+          <Button.Icon icon={RiArchiveLine} />
+          Archive
+        </Button>
+        <Button variant="danger" preset="border" size="sm" onClick={onDelete}>
+          <Button.Icon icon={RiDeleteBinLine} />
+          Delete
+        </Button>
+      </ActionBar.Actions>
     </ActionBar>
   );
 }

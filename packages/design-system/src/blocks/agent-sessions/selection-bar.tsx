@@ -1,5 +1,5 @@
-import { RiArchiveLine, RiStopCircleLine } from '@remixicon/react';
-import { ActionBar, Button } from '@wideset/react';
+import { RiArchiveLine, RiCloseLine, RiStopCircleLine } from '@remixicon/react';
+import { ActionBar, Button, IconButton } from '@wideset/react';
 
 type SelectionBarProps = {
   count: number;
@@ -16,20 +16,26 @@ type SelectionBarProps = {
  */
 export function SelectionBar({ count, canStop, onClear, onStop, onArchive }: SelectionBarProps) {
   return (
-    <ActionBar
-      isOpen={count > 0}
-      amountSelected={count}
-      onClose={onClear}
-      closeAriaLabel="Clear selection"
-    >
-      <Button variant="secondary" preset="border" size="sm" disabled={!canStop} onClick={onStop}>
-        <Button.Icon icon={RiStopCircleLine} />
-        Stop
-      </Button>
-      <Button variant="secondary" preset="border" size="sm" onClick={onArchive}>
-        <Button.Icon icon={RiArchiveLine} />
-        Archive
-      </Button>
+    <ActionBar isOpen={count > 0}>
+      <ActionBar.Count>{count} selected</ActionBar.Count>
+      <ActionBar.Actions>
+        <IconButton
+          icon={RiCloseLine}
+          aria-label="Clear selection"
+          variant="secondary"
+          preset="ghost"
+          size="sm"
+          onClick={onClear}
+        />
+        <Button variant="secondary" preset="border" size="sm" disabled={!canStop} onClick={onStop}>
+          <Button.Icon icon={RiStopCircleLine} />
+          Stop
+        </Button>
+        <Button variant="secondary" preset="border" size="sm" onClick={onArchive}>
+          <Button.Icon icon={RiArchiveLine} />
+          Archive
+        </Button>
+      </ActionBar.Actions>
     </ActionBar>
   );
 }

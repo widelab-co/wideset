@@ -4,7 +4,7 @@
  * stays under the items it acts on. The bar is fixed to the viewport: each box here contains it
  * only so the example stays on the card.
  */
-import { RiDeleteBinLine } from '@remixicon/react';
+import { RiSendPlaneLine } from '@remixicon/react';
 import { ActionBar, Button } from '@wideset/react';
 
 export default function ActionBarAlignments() {
@@ -15,11 +15,15 @@ export default function ActionBarAlignments() {
           key={align}
           className="rounded-ws-control-lg border-ws-static-base relative h-[5.5rem] [transform:translateZ(0)] overflow-hidden border"
         >
-          <ActionBar isOpen align={align} amountSelected={2} onClose={() => {}}>
-            <Button preset="border" variant="danger" size="sm">
-              <Button.Icon icon={RiDeleteBinLine} />
-              Delete
-            </Button>
+          <ActionBar isOpen align={align}>
+            <ActionBar.Count>2 rows selected</ActionBar.Count>
+            <ActionBar.Actions>
+              <ActionBar.SelectAll checked="indeterminate" />
+              <Button variant="secondary" size="sm">
+                <Button.Icon icon={RiSendPlaneLine} />
+                Publish
+              </Button>
+            </ActionBar.Actions>
           </ActionBar>
         </div>
       ))}
