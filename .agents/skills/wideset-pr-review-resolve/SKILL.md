@@ -72,6 +72,16 @@ a reviewer's seniority, or agreement count is not evidence.
 | Already addressed | Current code demonstrably satisfies the request                                             | Cite the implementation and checks; no repeated fix                 |
 | Context only      | Thanks, question already answered, withdrawn request, or duplicate with no separate action  | Track its relationship; no redundant reply                          |
 
+**Sweep** every finding you apply. A reviewer reports one line; the same kind of bug usually
+sits elsewhere, and CodeRabbit re-reads only the files changed since its last round, so a
+one-line fix earns a new round per remaining case. Name the kind of bug in a few words ("reads
+state from the last render", "Enter during IME composition submits"), search the whole PR for
+it and apply each eligible fix. Cases that touch public APIs, shared utilities, tokens or
+dependencies go to Needs decision. For generated files, fix the source and regenerate with the
+repository command (for example, `pnpm build:skills`). The sweep is done when the
+report lists, for the finding, the kind, the search you ran and every place changed; the reply
+says how many places changed.
+
 Resolution or outdated status alone does not prove a fix exists. A valid request can still need
 a decision when it touches public API, shared utilities, tokens, dependencies, release policy, or
 architecture: check `AGENTS.md` for the actual boundary. An expressly requested API fix is not an
@@ -107,6 +117,7 @@ Revision: <date / number> · Collection: <complete, or what is missing>
 - **Evidence:** <code paths/lines, tests or rules with file and section>
 - **Resolution:** <what changed and why it settles the comment; file link with current line and a
   short excerpt of the final code; mark a proposal as not yet applied>
+- **Sweep:** <for an applied fix: the kind of bug, the search, every place changed, or "no other case">
 - **Status:** <fixed locally / declined with reason / already addressed / needs decision / context>
 - **Question:** <only when the right fix cannot be chosen without an answer>
 - **GitHub reply:** <exact text to approve, in the thread's language; or "none">
