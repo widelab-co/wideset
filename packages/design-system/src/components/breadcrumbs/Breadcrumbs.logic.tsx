@@ -12,18 +12,32 @@ export const breadcrumbsDividersByType = {
 const isDivider = (node: React.ReactNode): boolean =>
   React.isValidElement(node) && node.type === BreadcrumbsDivider;
 
-const wrapInListItem = (node: React.ReactNode, key: React.Key) => (
-  <li key={key} aria-hidden={isDivider(node) ? true : undefined}>
+const wrapInListItem = (node: React.ReactNode, key: string, isCurrent = false) => (
+  <li
+    key={key}
+    aria-hidden={isDivider(node) ? true : undefined}
+    aria-current={isCurrent ? 'page' : undefined}
+  >
     {node}
   </li>
 );
 
-const flattenBreadcrumbsItems = (children: React.ReactNode): React.ReactNode[] =>
-  React.Children.toArray(children).flatMap((child) =>
-    React.isValidElement<{ children?: React.ReactNode }>(child) && child.type === React.Fragment
-      ? flattenBreadcrumbsItems(child.props.children)
-      : [child],
-  );
+const flattenBreadcrumbsItems = (
+  children: React.ReactNode,
+  parentKeys: React.Key[] = [],
+): { node: React.ReactNode; key: string }[] =>
+  React.Children.toArray(children).flatMap((node, index) => {
+    const element = React.isValidElement<{ children?: React.ReactNode }>(node) ? node : undefined;
+    const keys = [...parentKeys, element?.key ?? index];
+
+    if (element?.type === React.Fragment) {
+      return flattenBreadcrumbsItems(element.props.children, keys);
+    }
+
+    return [{ node, key: JSON.stringify(keys) }];
+  });
+
+const currentPageProps = { 'aria-current': 'page', 'aria-disabled': true } as const;
 
 export const separateBreadcrumbsItems = (
   children: React.ReactNode,
@@ -31,30 +45,16 @@ export const separateBreadcrumbsItems = (
 ) => {
   const items = flattenBreadcrumbsItems(children);
 
-  return items.reduce((allElements: React.ReactNode[], current: React.ReactNode, index: number) => {
+  return items.reduce((allElements: React.ReactNode[], { node, key }, index) => {
     const isLast = index === items.length - 1;
+    const isElement = React.isValidElement<typeof currentPageProps>(node);
+    const item = isLast && isElement ? React.cloneElement(node, currentPageProps) : node;
 
-    allElements.push(
-      wrapInListItem(
-        isLast
-          ? React.cloneElement(
-              current as React.ReactElement<{
-                'aria-disabled'?: boolean;
-                'aria-current'?: string;
-              }>,
-              {
-                'aria-current': 'page',
-                'aria-disabled': true,
-              },
-            )
-          : current,
-        `item-${index}`,
-      ),
-    );
+    allElements.push(wrapInListItem(item, `item-${key}`, isLast && !isElement));
 
     if (!isLast && separatorType) {
       allElements.push(
-        wrapInListItem(<BreadcrumbsDivider separator={separatorType} />, `separator-${index}`),
+        wrapInListItem(<BreadcrumbsDivider separator={separatorType} />, `separator-${key}`),
       );
     }
 

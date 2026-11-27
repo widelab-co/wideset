@@ -1,5 +1,7 @@
 import { RiAlertFill, RiCalendarLine, RiInformationFill } from '@remixicon/react';
 import { render, screen } from '@testing-library/react';
+import { Fragment } from 'react';
+import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 
 import { Breadcrumbs } from './Breadcrumbs';
@@ -251,6 +253,46 @@ describe('Breadcrumbs', () => {
       expect(screen.getAllByRole('listitem')).toHaveLength(4);
       expect(screen.getAllByText('/')).toHaveLength(3);
       expect(screen.getByRole('button', { current: 'page' })).toHaveAccessibleName('Billing');
+    });
+
+    it.each(['Billing', 42])(
+      'renders a trailing raw crumb (%s) as current on the server',
+      (crumb) => {
+        const html = renderToString(
+          <Breadcrumbs separator="slash">
+            <>
+              <Breadcrumbs.Item>Home</Breadcrumbs.Item>
+              {crumb}
+            </>
+          </Breadcrumbs>,
+        );
+
+        expect(html).toContain(`<li aria-current="page">${crumb}</li>`);
+      },
+    );
+
+    it('preserves focus on a keyed crumb when an earlier fragment grows', () => {
+      const trail = (showOverview: boolean) => (
+        <Breadcrumbs separator="slash">
+          <Fragment key="account">
+            <Breadcrumbs.Item key="start">Home</Breadcrumbs.Item>
+            {showOverview && <Breadcrumbs.Item key="overview">Overview</Breadcrumbs.Item>}
+          </Fragment>
+          <Fragment key="settings">
+            <Breadcrumbs.Item key="start">Settings</Breadcrumbs.Item>
+            <Breadcrumbs.Item key="billing">Billing</Breadcrumbs.Item>
+          </Fragment>
+        </Breadcrumbs>
+      );
+      const { rerender } = render(trail(false));
+      const settings = screen.getByRole('button', { name: 'Settings' });
+      settings.focus();
+      expect(settings).toHaveFocus();
+
+      rerender(trail(true));
+
+      expect(screen.getByRole('button', { name: 'Settings' })).toBe(settings);
+      expect(settings).toHaveFocus();
     });
   });
 
