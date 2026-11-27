@@ -39,8 +39,8 @@
 - `AppShell` fills the window (`h-dvh`). Inside a bounded preview, pass a height through
   `className` (`h-[24rem]`).
 - `AppShell.Main`, `AppShell.PageBar` and `AppShell.SidebarTrigger` throw outside an `AppShell`.
-- `AppShell.SidebarTrigger` needs a `Sidebar` in the same `AppShell`; without one it renders nothing
-  (it is in the server HTML until the Sidebar registers).
+- `AppShell.SidebarTrigger` needs a `Sidebar` in the same `AppShell`; without one it renders nothing.
+  It is not in the server HTML: it appears once the Sidebar registers, before the first paint.
 - One `Sidebar` per `AppShell`: the trigger follows the first one; a second one is ignored.
 - `AppShell.PageBar` sticks to the top of `AppShell.Main`. When the content under it scrolls by
   itself (`min-h-0 flex-1` with its own overflow), the bar simply stays above it.

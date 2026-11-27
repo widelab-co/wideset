@@ -1,6 +1,7 @@
-import { render, screen } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import * as React from 'react';
+import { hydrateRoot } from 'react-dom/client';
 import { renderToString } from 'react-dom/server';
 import { describe, expect, it, vi } from 'vitest';
 
@@ -332,16 +333,53 @@ describe('AppShell', () => {
         expect(screen.getByTestId('sidebar')).toHaveAttribute('data-state', 'expanded');
       });
 
-      it('is in the server HTML, before the Sidebar registers', () => {
+      it('is not in the server HTML, where the Sidebar never registers', () => {
         const html = renderToString(
           <AppShell>
-            <Sidebar />
+            <Sidebar id="sidebar" defaultCollapsed />
             <AppShell.Main>
               <AppShell.SidebarTrigger />
             </AppShell.Main>
           </AppShell>,
         );
-        expect(html).toContain('data-slot="app-shell-sidebar-trigger"');
+        expect(html).toContain('data-slot="sidebar"');
+        expect(html).not.toContain('data-slot="app-shell-sidebar-trigger"');
+      });
+
+      it('is not in the server HTML of a shell with no Sidebar', () => {
+        const html = renderToString(
+          <AppShell>
+            <AppShell.Main>
+              <AppShell.SidebarTrigger />
+            </AppShell.Main>
+          </AppShell>,
+        );
+        expect(html).not.toContain('data-slot="app-shell-sidebar-trigger"');
+      });
+
+      it('appears after hydration with the state of the Sidebar', async () => {
+        const app = (
+          <AppShell>
+            <Sidebar id="sidebar" defaultCollapsed />
+            <AppShell.Main>
+              <AppShell.SidebarTrigger />
+            </AppShell.Main>
+          </AppShell>
+        );
+        const container = document.createElement('div');
+        container.innerHTML = renderToString(app);
+        document.body.appendChild(container);
+        const onRecoverableError = vi.fn();
+
+        await act(async () => {
+          hydrateRoot(container, app, { onRecoverableError });
+        });
+
+        const trigger = screen.getByRole('button', { name: 'Expand sidebar' });
+        expect(trigger).toHaveAttribute('aria-expanded', 'false');
+        expect(trigger).toHaveAttribute('aria-controls', 'sidebar');
+        expect(onRecoverableError).not.toHaveBeenCalled();
+        container.remove();
       });
 
       it('renders nothing in a shell with no Sidebar', () => {

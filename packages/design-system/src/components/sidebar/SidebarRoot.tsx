@@ -12,6 +12,10 @@ import {
   sidebarVariants,
 } from './Sidebar.variants';
 
+// React 18 warns about useLayoutEffect during server rendering.
+const useIsomorphicLayoutEffect =
+  typeof window === 'undefined' ? React.useEffect : React.useLayoutEffect;
+
 const SidebarRoot = React.forwardRef<HTMLDivElement, SidebarProps>(
   (
     {
@@ -56,7 +60,7 @@ const SidebarRoot = React.forwardRef<HTMLDivElement, SidebarProps>(
 
     // Lets AppShell.SidebarTrigger toggle this sidebar.
     const registerSidebar = shell?.registerSidebar;
-    React.useLayoutEffect(() => {
+    useIsomorphicLayoutEffect(() => {
       if (!registerSidebar) return;
 
       const isOwn = (current: AppShellSidebarState | null) => current?.sidebarId === sidebarId;

@@ -20,19 +20,18 @@ const AppShellSidebarTrigger = React.forwardRef<HTMLButtonElement, AppShellSideb
     },
     ref,
   ) => {
-    // The Sidebar registers after mount: render as expanded until then, nothing if none registers.
+    // The Sidebar registers before paint in the browser and never on the server.
     const { sidebar } = useAppShellContext();
-    const [isMounted, setIsMounted] = React.useState(false);
-    React.useEffect(() => setIsMounted(true), []);
-    const isCollapsed = sidebar?.isCollapsed ?? false;
+
+    if (!sidebar) return null;
+
+    const isCollapsed = sidebar.isCollapsed;
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
       onClick?.(event);
 
-      if (!event.defaultPrevented) sidebar?.toggle();
+      if (!event.defaultPrevented) sidebar.toggle();
     };
-
-    if (isMounted && !sidebar) return null;
 
     return (
       <IconButton
@@ -45,10 +44,10 @@ const AppShellSidebarTrigger = React.forwardRef<HTMLButtonElement, AppShellSideb
         size="sm"
         iconClassName="text-ws-static-subtle size-ws-9"
         onClick={handleClick}
-        defaultMotion={defaultMotion ?? sidebar?.motion}
+        defaultMotion={defaultMotion ?? sidebar.motion}
         aria-label={ariaLabelProp || (isCollapsed ? expandLabel : collapseLabel)}
         aria-expanded={!isCollapsed}
-        aria-controls={sidebar?.sidebarId}
+        aria-controls={sidebar.sidebarId}
         className={cn(appShellSidebarTriggerVariants(), className)}
       />
     );
