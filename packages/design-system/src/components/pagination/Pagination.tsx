@@ -13,6 +13,7 @@ const Pagination = ({
   activePage,
   defaultActivePage = 1,
   pagesCount = 1,
+  getPageHref,
   onChangeActivePage,
   itemsPerPage,
   defaultItemsPerPage = 10,
@@ -34,8 +35,8 @@ const Pagination = ({
   children,
   ...props
 }: PaginationProps) => {
-  if (pagesCount < 1) {
-    throw new Error('Pagination: `pagesCount` must be greater than or equal to 1.');
+  if (pagesCount !== 0 && pagesCount < 1) {
+    throw new Error('Pagination: `pagesCount` must be 0 or at least 1.');
   }
 
   const motion = useDefaultMotion(defaultMotion);
@@ -50,13 +51,18 @@ const Pagination = ({
     (value: number) => {
       const newActivePage = clampPage(value, pagesCount);
 
+      if (getPageHref) {
+        globalThis.window?.location.assign(getPageHref(newActivePage));
+        return;
+      }
+
       if (!isControlled) {
         setLocalActivePage(newActivePage);
       }
 
       onChangeActivePage?.(newActivePage);
     },
-    [isControlled, onChangeActivePage, pagesCount],
+    [getPageHref, isControlled, onChangeActivePage, pagesCount],
   );
 
   const onItemsPerPageChange = useCallback(
@@ -81,6 +87,7 @@ const Pagination = ({
     () => ({
       localActivePage: currentPage,
       pagesCount,
+      getPageHref,
       localItemsPerPage,
       rowsPerPageLabel,
       prevLabel,
@@ -100,6 +107,7 @@ const Pagination = ({
     [
       currentPage,
       pagesCount,
+      getPageHref,
       localItemsPerPage,
       rowsPerPageLabel,
       prevLabel,
@@ -117,6 +125,8 @@ const Pagination = ({
       motion,
     ],
   );
+
+  if (pagesCount === 0 && children == null && !contextValue.rowsPerPageOptions.length) return null;
 
   return (
     <PaginationContext.Provider value={contextValue}>

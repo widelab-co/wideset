@@ -117,9 +117,47 @@ describe('Pagination', () => {
     expect(screen.getByLabelText('Go to next page')).toBeInTheDocument();
   });
 
-  it('throws error when pagesCount is lower than 1', () => {
-    expect(() => render(<Pagination pagesCount={0} />)).toThrow(
-      'Pagination: `pagesCount` must be greater than or equal to 1.',
+  it.each([-1, 0.5])('throws for an invalid pagesCount of %s', (pagesCount) => {
+    expect(() => render(<Pagination pagesCount={pagesCount} />)).toThrow(
+      'Pagination: `pagesCount` must be 0 or at least 1.',
+    );
+  });
+
+  describe('Empty results', () => {
+    it('hides pagination until there are pages to show', () => {
+      const { rerender } = render(<Pagination pagesCount={0} />);
+
+      expect(screen.queryByRole('navigation')).not.toBeInTheDocument();
+
+      rerender(<Pagination pagesCount={2} />);
+      expect(screen.getByRole('button', { name: '1', current: 'page' })).toBeInTheDocument();
+    });
+
+    it('keeps the rows-per-page selector in the default layout', () => {
+      render(<Pagination pagesCount={0} type="overflow" rowsPerPageOptions={[10, 25]} />);
+
+      expect(screen.getByText('Rows per page')).toBeInTheDocument();
+      expect(screen.getAllByRole('combobox')).toHaveLength(1);
+      expect(screen.queryAllByRole('button')).toHaveLength(0);
+    });
+
+    it.each([
+      { type: 'numbers', PageControls: Pagination.Numbers },
+      { type: 'overflow', PageControls: Pagination.Overflow },
+    ])(
+      'hides composed $type controls while keeping the rows-per-page selector',
+      ({ PageControls }) => {
+        render(
+          <Pagination pagesCount={0}>
+            <Pagination.RowsPerPage options={[10, 25]} />
+            <PageControls />
+          </Pagination>,
+        );
+
+        expect(screen.getByText('Rows per page')).toBeInTheDocument();
+        expect(screen.getAllByRole('combobox')).toHaveLength(1);
+        expect(screen.queryAllByRole('button')).toHaveLength(0);
+      },
     );
   });
 
@@ -506,4 +544,59 @@ describe('Overflow accessible names', () => {
     expect(screen.getByRole('button', { name: 'Go to previous page' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Go to next page' })).toBeInTheDocument();
   });
+});
+
+describe('Page links', () => {
+  it('renders numbered links and marks the current page', () => {
+    render(<Pagination pagesCount={5} activePage={2} getPageHref={(page) => `?page=${page}`} />);
+
+    expect(screen.getByRole('link', { name: '2', current: 'page' })).toHaveAttribute(
+      'href',
+      '?page=2',
+    );
+    expect(screen.getByRole('link', { name: 'Go to previous page' })).toHaveAttribute(
+      'href',
+      '?page=1',
+    );
+    expect(screen.getByRole('link', { name: 'Go to next page' })).toHaveAttribute(
+      'href',
+      '?page=3',
+    );
+  });
+
+  it('renders a compact next-page link and keeps the first-page boundary disabled', () => {
+    render(<Pagination type="overflow" pagesCount={5} getPageHref={(page) => `?page=${page}`} />);
+
+    expect(screen.getByRole('link', { name: 'Next' })).toHaveAttribute('href', '?page=2');
+    expect(screen.getByRole('button', { name: 'Prev' })).toBeDisabled();
+  });
+
+  it.each([
+    { type: 'numbers', target: 5 },
+    { type: 'overflow', target: 2 },
+  ] as const)(
+    'uses the supplied URL when selecting a page in $type mode',
+    async ({ type, target }) => {
+      const user = userEvent.setup();
+      const originalUrl = window.location.href;
+
+      render(
+        <Pagination
+          type={type}
+          pagesCount={10}
+          maxVisiblePages={5}
+          getPageHref={(page) => `#page-${page}`}
+        />,
+      );
+
+      try {
+        await user.click(screen.getByRole('combobox'));
+        await user.click(await screen.findByRole('option', { name: String(target) }));
+
+        expect(window.location.hash).toBe(`#page-${target}`);
+      } finally {
+        window.history.replaceState(null, '', originalUrl);
+      }
+    },
+  );
 });

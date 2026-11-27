@@ -13,6 +13,7 @@ const PaginationNumbers = ({ className, defaultMotion, ...props }: PaginationNum
   const {
     localActivePage,
     pagesCount,
+    getPageHref,
     maxVisiblePages,
     onChange,
     prevPageAriaLabel,
@@ -52,6 +53,8 @@ const PaginationNumbers = ({ className, defaultMotion, ...props }: PaginationNum
   }
 
   const buttonSizeClassName = 'size-ws-14 p-0 flex-shrink-0';
+  const previousHref = localActivePage > 1 ? getPageHref?.(localActivePage - 1) : undefined;
+  const nextHref = localActivePage < pagesCount ? getPageHref?.(localActivePage + 1) : undefined;
 
   const handleEllipsisClose = (event: Event, selectedPage: number) => {
     pendingFocusPage.current = null;
@@ -80,9 +83,16 @@ const PaginationNumbers = ({ className, defaultMotion, ...props }: PaginationNum
         defaultMotion={motion}
         icon={RiArrowLeftSLine}
         disabled={localActivePage <= 1}
-        onClick={() => onChange(localActivePage - 1)}
+        asChild={previousHref !== undefined}
+        onClick={previousHref === undefined ? () => onChange(localActivePage - 1) : undefined}
         className={buttonSizeClassName}
-      />
+      >
+        {previousHref !== undefined && (
+          <a href={previousHref}>
+            <span className="sr-only">{prevPageAriaLabel}</span>
+          </a>
+        )}
+      </IconButton>
       <ul className="gap-ws-5 flex">
         {pagesToDisplay.map((page, index) => (
           <PaginationNumbersItem
@@ -112,9 +122,16 @@ const PaginationNumbers = ({ className, defaultMotion, ...props }: PaginationNum
         defaultMotion={motion}
         icon={RiArrowRightSLine}
         disabled={localActivePage >= pagesCount}
-        onClick={() => onChange(localActivePage + 1)}
+        asChild={nextHref !== undefined}
+        onClick={nextHref === undefined ? () => onChange(localActivePage + 1) : undefined}
         className={buttonSizeClassName}
-      />
+      >
+        {nextHref !== undefined && (
+          <a href={nextHref}>
+            <span className="sr-only">{nextPageAriaLabel}</span>
+          </a>
+        )}
+      </IconButton>
     </div>
   );
 };

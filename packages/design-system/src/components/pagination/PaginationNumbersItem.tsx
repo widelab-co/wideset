@@ -28,7 +28,8 @@ const PaginationNumbersItem = ({
   buttonSizeClassName,
   defaultMotion,
 }: PaginationNumbersItemProps) => {
-  const { selectPageAriaLabel, ellipsisPlaceholder } = usePaginationContext();
+  const { getPageHref, selectPageAriaLabel, ellipsisPlaceholder } = usePaginationContext();
+  const pageHref = getPageHref?.(page);
   const selectedPageRef = useRef<number | null>(null);
   const previousOrCurrentPage = previousPage ?? page;
   const gap = page - previousOrCurrentPage;
@@ -54,7 +55,7 @@ const PaginationNumbersItem = ({
           value=""
           onValueChange={(value) => {
             const selectedPage = Number(value);
-            selectedPageRef.current = selectedPage;
+            if (!getPageHref) selectedPageRef.current = selectedPage;
             onChange(selectedPage);
           }}
           defaultMotion={defaultMotion}
@@ -105,16 +106,23 @@ const PaginationNumbersItem = ({
         </Select>
       )}
       <Button
-        ref={pageButtonRef}
+        ref={pageHref === undefined ? pageButtonRef : undefined}
         aria-current={isActive ? 'page' : undefined}
         preset={isActive ? 'filled' : 'ghost'}
         size="sm"
         variant="secondary"
         defaultMotion={defaultMotion}
-        onClick={() => onChange(page)}
+        asChild={pageHref !== undefined}
+        onClick={pageHref === undefined ? () => onChange(page) : undefined}
         className={buttonSizeClassName}
       >
-        {page}
+        {pageHref === undefined ? (
+          page
+        ) : (
+          <a href={pageHref}>
+            <span className="px-ws-2">{page}</span>
+          </a>
+        )}
       </Button>
     </li>
   );

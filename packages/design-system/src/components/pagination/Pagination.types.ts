@@ -11,9 +11,11 @@ export type PaginationProps = ComponentProps<'nav'> &
     activePage?: number;
     /** Initial active page in uncontrolled mode. */
     defaultActivePage?: number;
-    /** Total number of pages available. Must be greater than or equal to 1. */
+    /** Total pages available. Pass 0 to hide the page controls when there are no results. */
     pagesCount?: number;
-    /** Called whenever the active page changes. */
+    /** Returns a destination URL for each page. Page controls become links, and page selects navigate to the same URLs. */
+    getPageHref?: (page: number) => string;
+    /** Called when a page is selected in button mode. */
     onChangeActivePage?: (page: number) => void;
     /** Controlled rows-per-page value. */
     itemsPerPage?: number;
@@ -73,6 +75,7 @@ export type PaginationOverflowProps = ComponentProps<'div'> &
 export type PaginationContextValue = {
   localActivePage: number;
   pagesCount: number;
+  getPageHref?: PaginationProps['getPageHref'];
   localItemsPerPage: number;
   rowsPerPageLabel: string;
   prevLabel: string;
