@@ -31,7 +31,7 @@ const meta = {
       description: {
         component: `LinkButton preserves link semantics while applying button-like styling for navigation actions that need stronger visual emphasis.
 
-Use Button for actions and form submission.`,
+Use Button for actions and form submission, and TextLink for a link inside a sentence.`,
       },
     },
   },
