@@ -41,7 +41,7 @@ can make, in one short message, each with your recommended default so they can a
 
 1. **Visual direction:** Inset (a white page panel on a grey frame), Frame (white page beside a
    grey sidebar), Flat (white page beside a white sidebar) or Canvas (a grey page with the content
-   in white cards). Default: Inset.
+   in white cards). Default: the one the directions pattern in `wideset-build` names.
 2. **Density:** default 32px controls, or comfortable 40px (a public form, a rarely used setup).
 3. **Cards:** separated by space only (default) or with lines under headers and above footers
    (`divider`).
@@ -106,7 +106,7 @@ When nothing in the request says otherwise, use exactly these:
 | ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Control height     | `sm` (32px): `size="sm"` on Button, IconButton, SplitButton, TextInput, Select, MultiSelect, ComboBox, Textarea, SegmentedControl; `FilterButton`, `Chip` at their defaults                                                                                                                                             |
 | Page tabs          | `Tabs` at their default `sm`, on the page and inside a card or panel                                                                                                                                                                                                                                                    |
-| Page surface       | Set once per app by `AppShell direction` (default `inset`, the question above); the page is white like the `Sidebar`, cards on it `Card` bordered; only `canvas` leaves it grey                                                                                                                                         |
+| Page surface       | Set once per app by `AppShell direction` (the question above); the page is white like the `Sidebar`, cards on it `Card` bordered; only `canvas` leaves it grey                                                                                                                                                          |
 | Page title         | `typography-title-md text-ws-static-strong` (32px), one per page                                                                                                                                                                                                                                                        |
 | Section title      | `typography-subtitle-xs` (16px); a card title is `Card.Title` (16px)                                                                                                                                                                                                                                                    |
 | Body / description | `typography-body-md text-ws-static-base`; labels and metadata `-subtle`                                                                                                                                                                                                                                                 |

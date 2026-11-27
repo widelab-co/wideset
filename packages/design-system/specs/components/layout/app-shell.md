@@ -53,7 +53,7 @@ scroll container. Put your padding on a wrapper inside it. The full composition,
 
 | Prop        | Value    | Use for                                                                                            |
 | ----------- | -------- | -------------------------------------------------------------------------------------------------- |
-| `direction` | `inset`  | Default. Apps with navigation and several regions (a calendar, a document): the page a raised card |
+| `direction` | `inset`  | Apps with navigation and several regions (a calendar, a document): the page a raised card          |
 | `direction` | `flat`   | Simple, dense tools (tables, boards, editors): one white surface, a line splits sidebar and page   |
 | `direction` | `frame`  | Apps with side-by-side panels (messages, mail): the sidebar on a grey tint, the page full-bleed    |
 | `direction` | `canvas` | Pages made of separate modules (an overview, a wallet): a grey page, the content in white sections |
@@ -62,7 +62,8 @@ A `Sidebar` inside `AppShell` takes the matching surface on its own: the bare gr
 nav centred in the column (inset, canvas), white with a line (flat), grey tint (frame). Pass
 nothing to it. Choose by the product, not by taste, and keep one direction for every screen of the
 app. Ask the user which direction they want before the first screen, unless the prompt already
-says; without a way to ask, take `inset`.
+says; without a way to ask, take the default [Visual directions](../../patterns/directions.md)
+names.
 
 With a top bar instead of a `Sidebar`, the bar is the first child of `AppShell.Main` and scrolls
 with the page. In `canvas` it has no fill and no line: it sits on the grey, and the white sections
