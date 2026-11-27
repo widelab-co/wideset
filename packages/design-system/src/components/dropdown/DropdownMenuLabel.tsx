@@ -1,24 +1,18 @@
 import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
-import * as React from 'react';
+import { type ComponentRef, forwardRef } from 'react';
 import { cn } from 'src/lib/utils';
 
 import type { DropdownMenuLabelProps } from './DropdownMenu.types';
+import { dropdownMenuLabelVariants } from './DropdownMenu.variants';
 
-export const DropdownMenuLabel = React.forwardRef<
-  React.ComponentRef<typeof DropdownMenuPrimitive.Label>,
+export const DropdownMenuLabel = forwardRef<
+  ComponentRef<typeof DropdownMenuPrimitive.Label>,
   DropdownMenuLabelProps
 >(({ className, inset, ...props }, ref) => (
   <DropdownMenuPrimitive.Label
     ref={ref}
     data-slot="dropdown-menu-label"
-    className={cn(
-      // Padding follows Figma's `Group` variant (Gap/7 on top, Gap/5 elsewhere) so the label
-      // lines up with item text. Typography and colour deliberately differ from the shared
-      // Figma Group component (Caption/Strong/Medium, Static/Text/Subtle).
-      'typography-label-sm text-ws-dynamic-secondary-default pt-ws-7 pr-ws-5 pb-ws-5 pl-ws-5',
-      inset && 'pl-ws-8',
-      className,
-    )}
+    className={cn(dropdownMenuLabelVariants({ inset }), className)}
     {...props}
   />
 ));

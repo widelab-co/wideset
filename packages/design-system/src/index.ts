@@ -165,14 +165,19 @@ export {
   DropdownMenuSubTrigger,
 } from './components/dropdown/DropdownMenu';
 export type {
+  DropdownMenuCheckboxItemProps,
   DropdownMenuContentProps,
   DropdownMenuGroupProps,
+  DropdownMenuItemIndicatorProps,
   DropdownMenuItemProps,
   DropdownMenuLabelProps,
   DropdownMenuPortalProps,
   DropdownMenuProps,
   DropdownMenuRadioGroupProps,
+  DropdownMenuRadioItemProps,
   DropdownMenuSeparatorProps,
+  DropdownMenuSubContentProps,
+  DropdownMenuSubTriggerProps,
   DropdownMenuTriggerProps,
 } from './components/dropdown/DropdownMenu.types';
 export { DropdownMenuContent } from './components/dropdown/DropdownMenuContent';

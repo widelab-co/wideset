@@ -1,20 +1,25 @@
 import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
-import * as React from 'react';
+import { type ComponentRef, forwardRef, type PointerEvent, useContext, useRef } from 'react';
 import { cn } from 'src/lib/utils';
 
 import { useDefaultMotion } from '../../motion/MotionProvider';
 import { DropdownMenuContext, DropdownMenuPortalContext } from './DropdownMenu.context';
 import type { DropdownMenuContentProps } from './DropdownMenu.types';
-import { dropdownMenuContentMotionVariants } from './DropdownMenu.variants';
+import {
+  dropdownMenuCollisionPadding,
+  dropdownMenuContentClassName,
+  dropdownMenuContentMotionVariants,
+} from './DropdownMenu.variants';
 
-export const DropdownMenuContent = React.forwardRef<
-  React.ComponentRef<typeof DropdownMenuPrimitive.Content>,
+export const DropdownMenuContent = forwardRef<
+  ComponentRef<typeof DropdownMenuPrimitive.Content>,
   DropdownMenuContentProps
 >(
   (
     {
       className,
       sideOffset = 4,
+      collisionPadding = dropdownMenuCollisionPadding,
       onCloseAutoFocus,
       onPointerDown,
       portalContainer,
@@ -24,11 +29,12 @@ export const DropdownMenuContent = React.forwardRef<
     ref,
   ) => {
     const motion = useDefaultMotion(defaultMotion);
-    const insidePortal = React.useContext(DropdownMenuPortalContext);
+    const { container, hasExplicitPortal } = useContext(DropdownMenuPortalContext);
+    const panelContainer = hasExplicitPortal ? container : portalContainer;
     // Prevent focus return to trigger after closing with mouse click, to not show the outline on the trigger
-    const lastPointerTime = React.useRef(0);
+    const lastPointerTime = useRef(0);
 
-    const handlePointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
+    const handlePointerDown = (event: PointerEvent<HTMLDivElement>) => {
       lastPointerTime.current = Date.now();
       onPointerDown?.(event);
     };
@@ -42,23 +48,19 @@ export const DropdownMenuContent = React.forwardRef<
     };
 
     const content = (
-      // Reset for descendants (a Select inside the menu): the flag only applies to the Content
-      // placed directly in a Portal.
-      <DropdownMenuPortalContext.Provider value={false}>
+      // Descendants get the container. Each panel still gets its own portal.
+      <DropdownMenuPortalContext.Provider
+        value={{ container: panelContainer, hasExplicitPortal: false }}
+      >
         <DropdownMenuPrimitive.Content
           ref={ref}
           data-slot="dropdown-menu-content"
           sideOffset={sideOffset}
+          collisionPadding={collisionPadding}
           onCloseAutoFocus={handleCloseAutoFocus}
           onPointerDown={handlePointerDown}
           className={cn(
-            // Hard rule for floating menus: never narrower than Size/28 (10rem —
-            // Bootstrap's floor; shadcn uses 8rem, Material 112dp). Trigger-matching
-            // popovers (Select/MultiSelect) override the floor with
-            // max(trigger, Size/28).
-            'min-w-ws-28',
-            'rounded-ws-container-sm p-ws-3 outline-hidden',
-            'bg-ws-static-overlay text-ws-dynamic-secondary-default shadow-ws-medium z-ws-popout',
+            dropdownMenuContentClassName,
             dropdownMenuContentMotionVariants({ enabled: motion }),
             className,
           )}
@@ -74,11 +76,11 @@ export const DropdownMenuContent = React.forwardRef<
     // must reach it too.
     return (
       <DropdownMenuContext.Provider value={{ motion }}>
-        {insidePortal ? (
+        {hasExplicitPortal ? (
           content
         ) : (
           <DropdownMenuPrimitive.Portal
-            container={portalContainer ?? undefined}
+            container={panelContainer ?? undefined}
             forceMount={props.forceMount}
           >
             {content}

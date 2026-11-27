@@ -160,7 +160,6 @@ export function AccountMenu({
           icon={RiContrast2Line}
           label="Theme"
           value={THEMES.find((item) => item.value === theme)?.label}
-          container={container}
         >
           <DropdownMenu.RadioGroup
             aria-label="Theme"
@@ -182,7 +181,7 @@ export function AccountMenu({
         <Command icon={RiQuestionLine} label="Help and support" />
         <DropdownMenu.Separator />
 
-        <MenuSub icon={RiUserSharedLine} label="Switch account" container={container}>
+        <MenuSub icon={RiUserSharedLine} label="Switch account">
           <DropdownMenu.RadioGroup
             aria-label="Accounts"
             value={account.id}
