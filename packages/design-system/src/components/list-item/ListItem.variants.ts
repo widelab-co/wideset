@@ -8,7 +8,7 @@ export const listItemVariants = cva(
     // Figma renders menu row labels at Font/Weight/Normal (480). Shared by every
     // dropdown, select and menu in the library.
     'rounded-ws-control-md typography-label-sm gap-ws-5 px-ws-5 py-ws-3 flex cursor-pointer flex-row items-center justify-between focus:outline-none',
-    'aria-disabled:cursor-default aria-disabled:bg-none aria-disabled:select-none',
+    'group/list-item aria-disabled:cursor-default aria-disabled:bg-none aria-disabled:select-none',
   ),
   {
     variants: {
@@ -38,6 +38,17 @@ export const listItemVariants = cva(
     },
   },
 );
+
+export const listItemCheckVariants = cva('size-ws-11 shrink-0', {
+  variants: {
+    variant: {
+      primary:
+        'text-ws-dynamic-primary-default group-aria-disabled/list-item:text-ws-dynamic-primary-disabled',
+      danger: '',
+    },
+  },
+  defaultVariants: { variant: 'primary' },
+});
 
 export const listItemMotionVariants = cva('', {
   variants: {
