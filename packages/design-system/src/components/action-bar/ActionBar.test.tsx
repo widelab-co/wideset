@@ -282,6 +282,21 @@ describe('Composed ActionBar', () => {
     );
   });
 
+  it('marks Select all with its label as one part', () => {
+    render(
+      <ActionBar isOpen>
+        <ActionBarActions>
+          <ActionBarSelectAll checked={false} />
+        </ActionBarActions>
+      </ActionBar>,
+    );
+
+    const checkbox = screen.getByRole('checkbox', { name: 'Select all' });
+    const part = checkbox.closest('[data-slot="action-bar-select-all"]');
+    expect(part).not.toBeNull();
+    expect(part).toHaveTextContent('Select all');
+  });
+
   it.each([
     ['indeterminate', true],
     [true, false],
@@ -298,7 +313,6 @@ describe('Composed ActionBar', () => {
 
     await user.tab();
     const checkbox = screen.getByRole('checkbox', { name: 'Select all' });
-    expect(checkbox).toHaveAttribute('data-slot', 'action-bar-select-all');
     expect(checkbox).toHaveFocus();
     await user.keyboard(' ');
     expect(onCheckedChange).toHaveBeenCalledWith(next);
