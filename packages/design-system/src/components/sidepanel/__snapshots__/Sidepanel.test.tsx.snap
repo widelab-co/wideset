@@ -25,12 +25,12 @@ exports[`Sidepanel Snapshots > matches snapshot for default sidepanel 1`] = `
     style="pointer-events: auto;"
   />
   <div
-    aria-describedby="radix-_r_k_"
-    aria-labelledby="radix-_r_j_"
+    aria-describedby="radix-:id-2:"
+    aria-labelledby="radix-:id-3:"
     class="bg-ws-static-container rounded-ws-container-lg z-ws-drawer fixed flex max-h-[calc(100vh-2*var(--ws-size-5))] w-full flex-col overflow-hidden outline-hidden inset-y-ws-5 right-ws-5 max-w-[44rem] data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 ease-(--ws-motion-ease-smooth-out) data-[state=open]:duration-(--ws-motion-duration-slow) data-[state=closed]:duration-(--ws-motion-duration-medium) data-[state=open]:slide-in-from-right-ws-8 data-[state=closed]:slide-out-to-right-ws-8"
     data-slot="sidepanel-panel"
     data-state="open"
-    id="radix-_r_i_"
+    id="radix-:id-1:"
     role="dialog"
     style="pointer-events: auto;"
     tabindex="-1"
@@ -42,14 +42,14 @@ exports[`Sidepanel Snapshots > matches snapshot for default sidepanel 1`] = `
       <h2
         class="text-ws-static-strong typography-subtitle-md"
         data-slot="sidepanel-title"
-        id="radix-_r_j_"
+        id="radix-:id-3:"
       >
         Snapshot Title
       </h2>
       <p
         class="text-ws-static-subtle typography-body-lg mt-ws-3"
         data-slot="sidepanel-description"
-        id="radix-_r_k_"
+        id="radix-:id-2:"
       >
         Snapshot Description
       </p>
@@ -144,12 +144,12 @@ exports[`Sidepanel Snapshots > matches snapshot for left sidepanel 1`] = `
     style="pointer-events: auto;"
   />
   <div
-    aria-describedby="radix-_r_n_"
-    aria-labelledby="radix-_r_m_"
+    aria-describedby="radix-:id-2:"
+    aria-labelledby="radix-:id-3:"
     class="bg-ws-static-container rounded-ws-container-lg z-ws-drawer fixed flex max-h-[calc(100vh-2*var(--ws-size-5))] w-full flex-col overflow-hidden outline-hidden inset-y-ws-5 left-ws-5 max-w-[35rem] data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 ease-(--ws-motion-ease-smooth-out) data-[state=open]:duration-(--ws-motion-duration-slow) data-[state=closed]:duration-(--ws-motion-duration-medium) data-[state=closed]:[--tw-exit-translate-x:calc(var(--ws-size-8)*-1)] data-[state=open]:[--tw-enter-translate-x:calc(var(--ws-size-8)*-1)]"
     data-slot="sidepanel-panel"
     data-state="open"
-    id="radix-_r_l_"
+    id="radix-:id-1:"
     role="dialog"
     style="pointer-events: auto;"
     tabindex="-1"
@@ -161,7 +161,7 @@ exports[`Sidepanel Snapshots > matches snapshot for left sidepanel 1`] = `
       <h2
         class="text-ws-static-strong typography-subtitle-md"
         data-slot="sidepanel-title"
-        id="radix-_r_m_"
+        id="radix-:id-3:"
       >
         Left Panel
       </h2>

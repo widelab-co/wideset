@@ -1987,7 +1987,7 @@ exports[`MultiSelect Snapshots > Sub-components snapshots > matches snapshot wit
   class="cursor-pointer"
   data-slot="multi-select-trigger"
   data-state="closed"
-  id="radix-_r_7a_"
+  id="radix-:id-1:"
   type="button"
 >
   Select countries
@@ -2001,7 +2001,7 @@ exports[`MultiSelect Snapshots > Sub-components snapshots > matches snapshot wit
   class="cursor-pointer"
   data-slot="multi-select-trigger"
   data-state="closed"
-  id="radix-_r_78_"
+  id="radix-:id-1:"
   type="button"
 >
   Select countries
@@ -2015,7 +2015,7 @@ exports[`MultiSelect Snapshots > Sub-components snapshots > matches snapshot wit
   class="cursor-pointer"
   data-slot="multi-select-trigger"
   data-state="closed"
-  id="radix-_r_7c_"
+  id="radix-:id-1:"
   type="button"
 >
   Select countries
@@ -2043,7 +2043,7 @@ exports[`MultiSelect Snapshots > matches snapshot with the list open 1`] = `
       data-slot="multi-select"
     >
       <button
-        aria-controls="radix-_r_4l_"
+        aria-controls="radix-:id-1:"
         aria-expanded="true"
         aria-haspopup="menu"
         class="group/select-trigger text-ws-static-strong relative flex w-[16rem] items-center justify-between text-start whitespace-nowrap outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base border-ws-dynamic-secondary-default shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm rounded-ws-control-lg px-ws-9 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) cursor-pointer py-ws-5 h-auto max-h-none overflow-visible min-h-ws-16"
@@ -2086,7 +2086,7 @@ exports[`MultiSelect Snapshots > matches snapshot with the list open 1`] = `
     style="position: fixed; left: 0px; top: 0px; transform: translate(0px, 4px); min-width: max-content; --radix-popper-available-width: -20px; --radix-popper-available-height: -14px; --radix-popper-anchor-width: 0px; --radix-popper-anchor-height: 0px; --radix-popper-transform-origin: 0% 0px;"
   >
     <div
-      aria-labelledby="radix-_r_4k_"
+      aria-labelledby="radix-:id-2:"
       aria-orientation="vertical"
       class="rounded-ws-container-sm outline-hidden bg-ws-static-overlay text-ws-dynamic-secondary-default shadow-ws-medium z-ws-popout origin-radix-dropdown-menu transition-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 data-[state=open]:zoom-in-95 data-[state=closed]:zoom-out-95 data-[side=bottom]:ws-slide-in-from-top-2 data-[side=left]:slide-in-from-right-ws-2 data-[side=right]:ws-slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-ws-2 ease-(--ws-motion-ease-smooth-out) data-[state=open]:duration-(--ws-motion-duration-fast) data-[state=closed]:duration-(--ws-motion-duration-quick) ws-scrollbar flex max-h-[min(18rem,var(--radix-dropdown-menu-content-available-height))] min-w-[max(var(--radix-dropdown-menu-trigger-width),var(--spacing-ws-28))] flex-col overflow-auto p-ws-3"
       data-align="start"
@@ -2096,7 +2096,7 @@ exports[`MultiSelect Snapshots > matches snapshot with the list open 1`] = `
       data-slot="multi-select-content"
       data-state="open"
       dir="ltr"
-      id="radix-_r_4l_"
+      id="radix-:id-1:"
       role="menu"
       style="outline: none; --radix-dropdown-menu-content-transform-origin: var(--radix-popper-transform-origin); --radix-dropdown-menu-content-available-width: var(--radix-popper-available-width); --radix-dropdown-menu-content-available-height: var(--radix-popper-available-height); --radix-dropdown-menu-trigger-width: var(--radix-popper-anchor-width); --radix-dropdown-menu-trigger-height: var(--radix-popper-anchor-height); pointer-events: auto;"
       tabindex="-1"
@@ -2124,7 +2124,7 @@ exports[`MultiSelect Snapshots > matches snapshot with the list open 1`] = `
               class="group relative flex cursor-pointer border disabled:wds-disabled focus-visible:wds-focus-visible radix-state-unchecked:disabled:border-ws-dynamic-secondary-disabled radix-state-unchecked:disabled:bg-ws-static-alpha-subtle radix-state-checked:disabled:border-none radix-state-checked:disabled:bg-ws-dynamic-primary-disabled radix-state-indeterminate:disabled:border-none radix-state-indeterminate:disabled:bg-ws-dynamic-primary-disabled w-ws-control-md h-ws-control-md rounded-ws-control-md outline-ws-dynamic-primary-strong-default disabled:text-ws-dynamic-on-primary-disabled radix-state-unchecked:border-ws-static-strong radix-state-unchecked:bg-ws-static-highlight-base radix-state-unchecked:hover:border-ws-dynamic-secondary-hover radix-state-unchecked:active:border-ws-dynamic-secondary-pressed radix-state-checked:border-none radix-state-checked:bg-ws-dynamic-primary-default radix-state-checked:hover:bg-ws-dynamic-primary-hover radix-state-checked:hover:text-ws-dynamic-on-primary-hover radix-state-checked:active:bg-ws-dynamic-primary-pressed radix-state-checked:active:text-ws-dynamic-on-primary-pressed radix-state-indeterminate:border-none radix-state-indeterminate:bg-ws-dynamic-primary-default radix-state-indeterminate:hover:bg-ws-dynamic-primary-hover radix-state-indeterminate:hover:text-ws-dynamic-on-primary-hover radix-state-indeterminate:active:bg-ws-dynamic-primary-pressed radix-state-indeterminate:active:text-ws-dynamic-on-primary-pressed transition-[background-color,border-color] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-smooth-out) pointer-events-none"
               data-slot="checkbox"
               data-state="unchecked"
-              id="_r_4n_"
+              id=":id-3:"
               role="checkbox"
               tabindex="-1"
               type="button"
@@ -2162,7 +2162,7 @@ exports[`MultiSelect Snapshots > matches snapshot with the list open 1`] = `
               class="group relative flex cursor-pointer border disabled:wds-disabled focus-visible:wds-focus-visible radix-state-unchecked:disabled:border-ws-dynamic-secondary-disabled radix-state-unchecked:disabled:bg-ws-static-alpha-subtle radix-state-checked:disabled:border-none radix-state-checked:disabled:bg-ws-dynamic-primary-disabled radix-state-indeterminate:disabled:border-none radix-state-indeterminate:disabled:bg-ws-dynamic-primary-disabled w-ws-control-md h-ws-control-md rounded-ws-control-md outline-ws-dynamic-primary-strong-default disabled:text-ws-dynamic-on-primary-disabled radix-state-unchecked:border-ws-static-strong radix-state-unchecked:bg-ws-static-highlight-base radix-state-unchecked:hover:border-ws-dynamic-secondary-hover radix-state-unchecked:active:border-ws-dynamic-secondary-pressed radix-state-checked:border-none radix-state-checked:bg-ws-dynamic-primary-default radix-state-checked:hover:bg-ws-dynamic-primary-hover radix-state-checked:hover:text-ws-dynamic-on-primary-hover radix-state-checked:active:bg-ws-dynamic-primary-pressed radix-state-checked:active:text-ws-dynamic-on-primary-pressed radix-state-indeterminate:border-none radix-state-indeterminate:bg-ws-dynamic-primary-default radix-state-indeterminate:hover:bg-ws-dynamic-primary-hover radix-state-indeterminate:hover:text-ws-dynamic-on-primary-hover radix-state-indeterminate:active:bg-ws-dynamic-primary-pressed radix-state-indeterminate:active:text-ws-dynamic-on-primary-pressed transition-[background-color,border-color] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-smooth-out) pointer-events-none"
               data-slot="checkbox"
               data-state="unchecked"
-              id="_r_4p_"
+              id=":id-4:"
               role="checkbox"
               tabindex="-1"
               type="button"
@@ -2200,7 +2200,7 @@ exports[`MultiSelect Snapshots > matches snapshot with the list open 1`] = `
               class="group relative flex cursor-pointer border disabled:wds-disabled focus-visible:wds-focus-visible radix-state-unchecked:disabled:border-ws-dynamic-secondary-disabled radix-state-unchecked:disabled:bg-ws-static-alpha-subtle radix-state-checked:disabled:border-none radix-state-checked:disabled:bg-ws-dynamic-primary-disabled radix-state-indeterminate:disabled:border-none radix-state-indeterminate:disabled:bg-ws-dynamic-primary-disabled w-ws-control-md h-ws-control-md rounded-ws-control-md outline-ws-dynamic-primary-strong-default disabled:text-ws-dynamic-on-primary-disabled radix-state-unchecked:border-ws-static-strong radix-state-unchecked:bg-ws-static-highlight-base radix-state-unchecked:hover:border-ws-dynamic-secondary-hover radix-state-unchecked:active:border-ws-dynamic-secondary-pressed radix-state-checked:border-none radix-state-checked:bg-ws-dynamic-primary-default radix-state-checked:hover:bg-ws-dynamic-primary-hover radix-state-checked:hover:text-ws-dynamic-on-primary-hover radix-state-checked:active:bg-ws-dynamic-primary-pressed radix-state-checked:active:text-ws-dynamic-on-primary-pressed radix-state-indeterminate:border-none radix-state-indeterminate:bg-ws-dynamic-primary-default radix-state-indeterminate:hover:bg-ws-dynamic-primary-hover radix-state-indeterminate:hover:text-ws-dynamic-on-primary-hover radix-state-indeterminate:active:bg-ws-dynamic-primary-pressed radix-state-indeterminate:active:text-ws-dynamic-on-primary-pressed transition-[background-color,border-color] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-smooth-out) pointer-events-none"
               data-slot="checkbox"
               data-state="unchecked"
-              id="_r_4r_"
+              id=":id-5:"
               role="checkbox"
               tabindex="-1"
               type="button"
@@ -2242,7 +2242,7 @@ exports[`MultiSelect Snapshots > matches snapshot with the list open 1`] = `
               data-slot="checkbox"
               data-state="unchecked"
               disabled=""
-              id="_r_4t_"
+              id=":id-6:"
               role="checkbox"
               tabindex="-1"
               type="button"
@@ -2280,7 +2280,7 @@ exports[`MultiSelect Snapshots > matches snapshot with the list open 1`] = `
               class="group relative flex cursor-pointer border disabled:wds-disabled focus-visible:wds-focus-visible radix-state-unchecked:disabled:border-ws-dynamic-secondary-disabled radix-state-unchecked:disabled:bg-ws-static-alpha-subtle radix-state-checked:disabled:border-none radix-state-checked:disabled:bg-ws-dynamic-primary-disabled radix-state-indeterminate:disabled:border-none radix-state-indeterminate:disabled:bg-ws-dynamic-primary-disabled w-ws-control-md h-ws-control-md rounded-ws-control-md outline-ws-dynamic-primary-strong-default disabled:text-ws-dynamic-on-primary-disabled radix-state-unchecked:border-ws-static-strong radix-state-unchecked:bg-ws-static-highlight-base radix-state-unchecked:hover:border-ws-dynamic-secondary-hover radix-state-unchecked:active:border-ws-dynamic-secondary-pressed radix-state-checked:border-none radix-state-checked:bg-ws-dynamic-primary-default radix-state-checked:hover:bg-ws-dynamic-primary-hover radix-state-checked:hover:text-ws-dynamic-on-primary-hover radix-state-checked:active:bg-ws-dynamic-primary-pressed radix-state-checked:active:text-ws-dynamic-on-primary-pressed radix-state-indeterminate:border-none radix-state-indeterminate:bg-ws-dynamic-primary-default radix-state-indeterminate:hover:bg-ws-dynamic-primary-hover radix-state-indeterminate:hover:text-ws-dynamic-on-primary-hover radix-state-indeterminate:active:bg-ws-dynamic-primary-pressed radix-state-indeterminate:active:text-ws-dynamic-on-primary-pressed transition-[background-color,border-color] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-smooth-out) pointer-events-none"
               data-slot="checkbox"
               data-state="unchecked"
-              id="_r_4v_"
+              id=":id-7:"
               role="checkbox"
               tabindex="-1"
               type="button"

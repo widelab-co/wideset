@@ -29,7 +29,7 @@ exports[`DatePicker > Snapshots > should match snapshot 1`] = `
       />
       <span
         class="sr-only"
-        id="_r_11_"
+        id=":id-1:"
       >
         Pick a date
       </span>
@@ -69,7 +69,7 @@ exports[`DatePicker > Snapshots > should match snapshot when opened 1`] = `
   />
   <div>
     <button
-      aria-controls="radix-_r_14_"
+      aria-controls="radix-:id-1:"
       aria-expanded="true"
       aria-haspopup="dialog"
       class="group wds-focus-visible rounded-ws-control-lg cursor-pointer outline-hidden disabled:cursor-default transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) w-72"
@@ -98,7 +98,7 @@ exports[`DatePicker > Snapshots > should match snapshot when opened 1`] = `
         />
         <span
           class="sr-only"
-          id="_r_15_"
+          id=":id-2:"
         >
           08.17.2025
         </span>
@@ -137,7 +137,7 @@ exports[`DatePicker > Snapshots > should match snapshot when opened 1`] = `
       data-side="bottom"
       data-slot="popup-container"
       data-state="open"
-      id="radix-_r_14_"
+      id="radix-:id-1:"
       role="dialog"
       style="--radix-popover-content-transform-origin: var(--radix-popper-transform-origin); --radix-popover-content-available-width: var(--radix-popper-available-width); --radix-popover-content-available-height: var(--radix-popper-available-height); --radix-popover-trigger-width: var(--radix-popper-anchor-width); --radix-popover-trigger-height: var(--radix-popper-anchor-height);"
       tabindex="-1"
@@ -947,7 +947,7 @@ exports[`DatePicker > Snapshots > should match snapshot with selected date 1`] =
       />
       <span
         class="sr-only"
-        id="_r_13_"
+        id=":id-1:"
       >
         08.17.2025
       </span>

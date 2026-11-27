@@ -25,12 +25,12 @@ exports[`StatusModal snapshots > matches snapshot for default status modal 1`] =
     style="pointer-events: auto;"
   />
   <div
-    aria-describedby="radix-_r_h_"
-    aria-labelledby="radix-_r_g_"
+    aria-describedby="radix-:id-2:"
+    aria-labelledby="radix-:id-3:"
     class="bg-ws-static-overlay rounded-ws-container-lg shadow-ws-high z-ws-modal fixed top-1/2 left-1/2 flex w-full max-w-[600px] -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden before:z-ws-deep before:absolute before:inset-0 before:block before:bg-inherit before:bg-linear-to-b before:content-[""] outline-hidden text-left data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 data-[state=open]:zoom-in-(--ws-motion-scale-large) data-[state=closed]:zoom-out-(--ws-motion-scale-large) ease-(--ws-motion-ease-smooth-out) data-[state=open]:duration-(--ws-motion-duration-fast) data-[state=closed]:duration-(--ws-motion-duration-quick)"
     data-slot="status-modal-content"
     data-state="open"
-    id="radix-_r_f_"
+    id="radix-:id-1:"
     role="dialog"
     style="pointer-events: auto;"
     tabindex="-1"
@@ -41,7 +41,7 @@ exports[`StatusModal snapshots > matches snapshot for default status modal 1`] =
       <h2
         class="typography-subtitle-sm text-ws-static-strong"
         data-slot="status-modal-title"
-        id="radix-_r_g_"
+        id="radix-:id-3:"
       >
         Snapshot Title
       </h2>
@@ -49,7 +49,7 @@ exports[`StatusModal snapshots > matches snapshot for default status modal 1`] =
     <div
       class="typography-body-md text-ws-static-base mt-ws-5 px-ws-11 pr-[calc(var(--spacing-ws-11)+var(--spacing-ws-12)+var(--spacing-ws-forms-sm))]"
       data-slot="status-modal-body"
-      id="radix-_r_h_"
+      id="radix-:id-2:"
     >
       Snapshot Content
     </div>
@@ -111,12 +111,12 @@ exports[`StatusModal snapshots > matches snapshot for error status modal 1`] = `
     style="pointer-events: auto;"
   />
   <div
-    aria-describedby="radix-_r_n_"
-    aria-labelledby="radix-_r_m_"
+    aria-describedby="radix-:id-2:"
+    aria-labelledby="radix-:id-3:"
     class="bg-ws-static-overlay rounded-ws-container-lg shadow-ws-high z-ws-modal fixed top-1/2 left-1/2 flex w-full max-w-[600px] -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden before:z-ws-deep before:absolute before:inset-0 before:block before:bg-inherit before:bg-linear-to-b before:content-[""] outline-hidden before:from-ws-semantic-negative text-left data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 data-[state=open]:zoom-in-(--ws-motion-scale-large) data-[state=closed]:zoom-out-(--ws-motion-scale-large) ease-(--ws-motion-ease-smooth-out) data-[state=open]:duration-(--ws-motion-duration-fast) data-[state=closed]:duration-(--ws-motion-duration-quick)"
     data-slot="status-modal-content"
     data-state="open"
-    id="radix-_r_l_"
+    id="radix-:id-1:"
     role="dialog"
     style="pointer-events: auto;"
     tabindex="-1"
@@ -141,7 +141,7 @@ exports[`StatusModal snapshots > matches snapshot for error status modal 1`] = `
       <h2
         class="typography-subtitle-sm text-ws-static-strong"
         data-slot="status-modal-title"
-        id="radix-_r_m_"
+        id="radix-:id-3:"
       >
         Error
       </h2>
@@ -149,7 +149,7 @@ exports[`StatusModal snapshots > matches snapshot for error status modal 1`] = `
     <div
       class="typography-body-md text-ws-static-base mt-ws-5 px-ws-11"
       data-slot="status-modal-body"
-      id="radix-_r_n_"
+      id="radix-:id-2:"
     >
       Error content
     </div>
@@ -211,12 +211,12 @@ exports[`StatusModal snapshots > matches snapshot for positive vertical status m
     style="pointer-events: auto;"
   />
   <div
-    aria-describedby="radix-_r_k_"
-    aria-labelledby="radix-_r_j_"
+    aria-describedby="radix-:id-2:"
+    aria-labelledby="radix-:id-3:"
     class="bg-ws-static-overlay rounded-ws-container-lg shadow-ws-high z-ws-modal fixed top-1/2 left-1/2 flex w-full max-w-[600px] -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden before:z-ws-deep before:absolute before:inset-0 before:block before:bg-inherit before:bg-linear-to-b before:content-[""] outline-hidden before:from-ws-semantic-positive text-center data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 data-[state=open]:zoom-in-(--ws-motion-scale-large) data-[state=closed]:zoom-out-(--ws-motion-scale-large) ease-(--ws-motion-ease-smooth-out) data-[state=open]:duration-(--ws-motion-duration-fast) data-[state=closed]:duration-(--ws-motion-duration-quick)"
     data-slot="status-modal-content"
     data-state="open"
-    id="radix-_r_i_"
+    id="radix-:id-1:"
     role="dialog"
     style="pointer-events: auto;"
     tabindex="-1"
@@ -241,7 +241,7 @@ exports[`StatusModal snapshots > matches snapshot for positive vertical status m
       <h2
         class="typography-subtitle-sm text-ws-static-strong"
         data-slot="status-modal-title"
-        id="radix-_r_j_"
+        id="radix-:id-3:"
       >
         Positive
       </h2>
@@ -249,7 +249,7 @@ exports[`StatusModal snapshots > matches snapshot for positive vertical status m
     <div
       class="typography-body-md text-ws-static-base mt-ws-5 px-ws-22"
       data-slot="status-modal-body"
-      id="radix-_r_k_"
+      id="radix-:id-2:"
     >
       Positive content
     </div>

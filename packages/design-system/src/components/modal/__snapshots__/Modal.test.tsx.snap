@@ -25,12 +25,12 @@ exports[`Modal Snapshots > matches snapshot for default modal 1`] = `
     style="pointer-events: auto;"
   />
   <div
-    aria-describedby="radix-_r_10_"
-    aria-labelledby="radix-_r_v_"
+    aria-describedby="radix-:id-2:"
+    aria-labelledby="radix-:id-3:"
     class="rounded-ws-container-md z-ws-modal fixed top-1/2 left-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden border max-w-[600px] w-[calc(100%-2*var(--spacing-ws-5))] max-h-[calc(100%-2*var(--spacing-ws-5))] bg-ws-static-overlay border-ws-dynamic-secondary-default shadow-ws-high outline-hidden data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 data-[state=open]:zoom-in-(--ws-motion-scale-large) data-[state=closed]:zoom-out-(--ws-motion-scale-large) ease-(--ws-motion-ease-smooth-out) data-[state=open]:duration-(--ws-motion-duration-fast) data-[state=closed]:duration-(--ws-motion-duration-quick)"
     data-slot="modal-content"
     data-state="open"
-    id="radix-_r_u_"
+    id="radix-:id-1:"
     role="dialog"
     style="pointer-events: auto;"
     tabindex="-1"
@@ -42,14 +42,14 @@ exports[`Modal Snapshots > matches snapshot for default modal 1`] = `
       <h2
         class="text-ws-static-strong typography-subtitle-sm pt-ws-2 last:pb-ws-2"
         data-slot="modal-title"
-        id="radix-_r_v_"
+        id="radix-:id-3:"
       >
         Snapshot Title
       </h2>
       <p
         class="text-ws-static-subtle typography-body-md mt-ws-5 pb-ws-2"
         data-slot="modal-description"
-        id="radix-_r_10_"
+        id="radix-:id-2:"
       >
         Snapshot Description
       </p>
@@ -145,12 +145,12 @@ exports[`Modal Snapshots > matches snapshot for persistent modal 1`] = `
     style="pointer-events: auto;"
   />
   <div
-    aria-describedby="radix-_r_13_"
-    aria-labelledby="radix-_r_12_"
+    aria-describedby="radix-:id-2:"
+    aria-labelledby="radix-:id-3:"
     class="rounded-ws-container-md z-ws-modal fixed top-1/2 left-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden border max-w-[600px] w-[calc(100%-2*var(--spacing-ws-5))] max-h-[calc(100%-2*var(--spacing-ws-5))] bg-ws-static-overlay border-ws-dynamic-secondary-default shadow-ws-high outline-hidden data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 data-[state=open]:zoom-in-(--ws-motion-scale-large) data-[state=closed]:zoom-out-(--ws-motion-scale-large) ease-(--ws-motion-ease-smooth-out) data-[state=open]:duration-(--ws-motion-duration-fast) data-[state=closed]:duration-(--ws-motion-duration-quick)"
     data-slot="modal-content"
     data-state="open"
-    id="radix-_r_11_"
+    id="radix-:id-1:"
     role="dialog"
     style="pointer-events: auto;"
     tabindex="-1"
@@ -162,7 +162,7 @@ exports[`Modal Snapshots > matches snapshot for persistent modal 1`] = `
       <h2
         class="text-ws-static-strong typography-subtitle-sm pt-ws-2 last:pb-ws-2"
         data-slot="modal-title"
-        id="radix-_r_12_"
+        id="radix-:id-3:"
       >
         Persistent Modal
       </h2>

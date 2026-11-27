@@ -2,7 +2,7 @@
 
 exports[`DropdownMenu > DropdownMenu Snapshots > matches snapshot for basic dropdown 1`] = `
 <div
-  aria-labelledby="radix-_r_b_"
+  aria-labelledby="radix-:id-2:"
   aria-orientation="vertical"
   class="min-w-ws-28 rounded-ws-container-sm p-ws-3 outline-hidden bg-ws-static-overlay text-ws-dynamic-secondary-default shadow-ws-medium z-ws-popout origin-radix-dropdown-menu transition-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 data-[state=open]:zoom-in-95 data-[state=closed]:zoom-out-95 data-[side=bottom]:ws-slide-in-from-top-2 data-[side=left]:slide-in-from-right-ws-2 data-[side=right]:ws-slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-ws-2 ease-(--ws-motion-ease-smooth-out) data-[state=open]:duration-(--ws-motion-duration-fast) data-[state=closed]:duration-(--ws-motion-duration-quick)"
   data-align="center"
@@ -12,7 +12,7 @@ exports[`DropdownMenu > DropdownMenu Snapshots > matches snapshot for basic drop
   data-slot="dropdown-menu-content"
   data-state="open"
   dir="ltr"
-  id="radix-_r_c_"
+  id="radix-:id-1:"
   role="menu"
   style="outline: none; --radix-dropdown-menu-content-transform-origin: var(--radix-popper-transform-origin); --radix-dropdown-menu-content-available-width: var(--radix-popper-available-width); --radix-dropdown-menu-content-available-height: var(--radix-popper-available-height); --radix-dropdown-menu-trigger-width: var(--radix-popper-anchor-width); --radix-dropdown-menu-trigger-height: var(--radix-popper-anchor-height); pointer-events: auto;"
   tabindex="-1"
@@ -67,7 +67,7 @@ exports[`DropdownMenu > DropdownMenu Snapshots > matches snapshot for basic drop
 
 exports[`DropdownMenu > DropdownMenu Snapshots > matches snapshot for dropdown with danger variant item 1`] = `
 <div
-  aria-labelledby="radix-_r_n_"
+  aria-labelledby="radix-:id-2:"
   aria-orientation="vertical"
   class="min-w-ws-28 rounded-ws-container-sm p-ws-3 outline-hidden bg-ws-static-overlay text-ws-dynamic-secondary-default shadow-ws-medium z-ws-popout origin-radix-dropdown-menu transition-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 data-[state=open]:zoom-in-95 data-[state=closed]:zoom-out-95 data-[side=bottom]:ws-slide-in-from-top-2 data-[side=left]:slide-in-from-right-ws-2 data-[side=right]:ws-slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-ws-2 ease-(--ws-motion-ease-smooth-out) data-[state=open]:duration-(--ws-motion-duration-fast) data-[state=closed]:duration-(--ws-motion-duration-quick)"
   data-align="center"
@@ -77,7 +77,7 @@ exports[`DropdownMenu > DropdownMenu Snapshots > matches snapshot for dropdown w
   data-slot="dropdown-menu-content"
   data-state="open"
   dir="ltr"
-  id="radix-_r_o_"
+  id="radix-:id-1:"
   role="menu"
   style="outline: none; --radix-dropdown-menu-content-transform-origin: var(--radix-popper-transform-origin); --radix-dropdown-menu-content-available-width: var(--radix-popper-available-width); --radix-dropdown-menu-content-available-height: var(--radix-popper-available-height); --radix-dropdown-menu-trigger-width: var(--radix-popper-anchor-width); --radix-dropdown-menu-trigger-height: var(--radix-popper-anchor-height); pointer-events: auto;"
   tabindex="-1"
@@ -102,7 +102,7 @@ exports[`DropdownMenu > DropdownMenu Snapshots > matches snapshot for dropdown w
 
 exports[`DropdownMenu > DropdownMenu Snapshots > matches snapshot for dropdown with disabled item 1`] = `
 <div
-  aria-labelledby="radix-_r_q_"
+  aria-labelledby="radix-:id-2:"
   aria-orientation="vertical"
   class="min-w-ws-28 rounded-ws-container-sm p-ws-3 outline-hidden bg-ws-static-overlay text-ws-dynamic-secondary-default shadow-ws-medium z-ws-popout origin-radix-dropdown-menu transition-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 data-[state=open]:zoom-in-95 data-[state=closed]:zoom-out-95 data-[side=bottom]:ws-slide-in-from-top-2 data-[side=left]:slide-in-from-right-ws-2 data-[side=right]:ws-slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-ws-2 ease-(--ws-motion-ease-smooth-out) data-[state=open]:duration-(--ws-motion-duration-fast) data-[state=closed]:duration-(--ws-motion-duration-quick)"
   data-align="center"
@@ -112,7 +112,7 @@ exports[`DropdownMenu > DropdownMenu Snapshots > matches snapshot for dropdown w
   data-slot="dropdown-menu-content"
   data-state="open"
   dir="ltr"
-  id="radix-_r_r_"
+  id="radix-:id-1:"
   role="menu"
   style="outline: none; --radix-dropdown-menu-content-transform-origin: var(--radix-popper-transform-origin); --radix-dropdown-menu-content-available-width: var(--radix-popper-available-width); --radix-dropdown-menu-content-available-height: var(--radix-popper-available-height); --radix-dropdown-menu-trigger-width: var(--radix-popper-anchor-width); --radix-dropdown-menu-trigger-height: var(--radix-popper-anchor-height); pointer-events: auto;"
   tabindex="-1"
@@ -139,7 +139,7 @@ exports[`DropdownMenu > DropdownMenu Snapshots > matches snapshot for dropdown w
 
 exports[`DropdownMenu > DropdownMenu Snapshots > matches snapshot for dropdown with label 1`] = `
 <div
-  aria-labelledby="radix-_r_k_"
+  aria-labelledby="radix-:id-2:"
   aria-orientation="vertical"
   class="min-w-ws-28 rounded-ws-container-sm p-ws-3 outline-hidden bg-ws-static-overlay text-ws-dynamic-secondary-default shadow-ws-medium z-ws-popout origin-radix-dropdown-menu transition-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 data-[state=open]:zoom-in-95 data-[state=closed]:zoom-out-95 data-[side=bottom]:ws-slide-in-from-top-2 data-[side=left]:slide-in-from-right-ws-2 data-[side=right]:ws-slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-ws-2 ease-(--ws-motion-ease-smooth-out) data-[state=open]:duration-(--ws-motion-duration-fast) data-[state=closed]:duration-(--ws-motion-duration-quick)"
   data-align="center"
@@ -149,7 +149,7 @@ exports[`DropdownMenu > DropdownMenu Snapshots > matches snapshot for dropdown w
   data-slot="dropdown-menu-content"
   data-state="open"
   dir="ltr"
-  id="radix-_r_l_"
+  id="radix-:id-1:"
   role="menu"
   style="outline: none; --radix-dropdown-menu-content-transform-origin: var(--radix-popper-transform-origin); --radix-dropdown-menu-content-available-width: var(--radix-popper-available-width); --radix-dropdown-menu-content-available-height: var(--radix-popper-available-height); --radix-dropdown-menu-trigger-width: var(--radix-popper-anchor-width); --radix-dropdown-menu-trigger-height: var(--radix-popper-anchor-height); pointer-events: auto;"
   tabindex="-1"
@@ -180,7 +180,7 @@ exports[`DropdownMenu > DropdownMenu Snapshots > matches snapshot for dropdown w
 
 exports[`DropdownMenu > DropdownMenu Snapshots > matches snapshot for dropdown with separator 1`] = `
 <div
-  aria-labelledby="radix-_r_g_"
+  aria-labelledby="radix-:id-2:"
   aria-orientation="vertical"
   class="min-w-ws-28 rounded-ws-container-sm p-ws-3 outline-hidden bg-ws-static-overlay text-ws-dynamic-secondary-default shadow-ws-medium z-ws-popout origin-radix-dropdown-menu transition-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 data-[state=open]:zoom-in-95 data-[state=closed]:zoom-out-95 data-[side=bottom]:ws-slide-in-from-top-2 data-[side=left]:slide-in-from-right-ws-2 data-[side=right]:ws-slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-ws-2 ease-(--ws-motion-ease-smooth-out) data-[state=open]:duration-(--ws-motion-duration-fast) data-[state=closed]:duration-(--ws-motion-duration-quick)"
   data-align="center"
@@ -190,7 +190,7 @@ exports[`DropdownMenu > DropdownMenu Snapshots > matches snapshot for dropdown w
   data-slot="dropdown-menu-content"
   data-state="open"
   dir="ltr"
-  id="radix-_r_h_"
+  id="radix-:id-1:"
   role="menu"
   style="outline: none; --radix-dropdown-menu-content-transform-origin: var(--radix-popper-transform-origin); --radix-dropdown-menu-content-available-width: var(--radix-popper-available-width); --radix-dropdown-menu-content-available-height: var(--radix-popper-available-height); --radix-dropdown-menu-trigger-width: var(--radix-popper-anchor-width); --radix-dropdown-menu-trigger-height: var(--radix-popper-anchor-height); pointer-events: auto;"
   tabindex="-1"
