@@ -2,7 +2,7 @@
 
 exports[`Tooltip > Tooltip Snapshots > matches snapshot for default tooltip 1`] = `
 <div
-  class="rounded-ws-control-md z-ws-popout px-ws-5 flex flex-col gap-0 bg-ws-static-inverse-background drop-shadow-ws-controls-tooltip text-ws-static-inverse-strong py-ws-4 origin-radix-tooltip transition-none animate-in fade-in-0 zoom-in-95 duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-smooth-out) data-[state=instant-open]:animate-none data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=closed]:duration-(--ws-motion-duration-quick)"
+  class="rounded-ws-control-md z-ws-popout px-ws-5 flex flex-col gap-0 bg-ws-static-inverse-background drop-shadow-ws-controls-tooltip text-ws-static-inverse-strong py-ws-4 origin-radix-tooltip transition-none animate-in fade-in-0 zoom-in-(--ws-motion-scale-small) duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-smooth-out) data-[state=instant-open]:animate-none data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-(--ws-motion-scale-small) data-[state=closed]:duration-(--ws-motion-duration-quick)"
   data-align="center"
   data-side="top"
   data-slot="tooltip-content"
@@ -43,7 +43,7 @@ exports[`Tooltip > Tooltip Snapshots > matches snapshot for default tooltip 1`] 
 
 exports[`Tooltip > Tooltip Snapshots > matches snapshot for inverse variant 1`] = `
 <div
-  class="rounded-ws-control-md z-ws-popout px-ws-5 flex flex-col gap-0 bg-ws-static-overlay drop-shadow-ws-medium text-ws-static-strong py-ws-4 origin-radix-tooltip transition-none animate-in fade-in-0 zoom-in-95 duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-smooth-out) data-[state=instant-open]:animate-none data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=closed]:duration-(--ws-motion-duration-quick)"
+  class="rounded-ws-control-md z-ws-popout px-ws-5 flex flex-col gap-0 bg-ws-static-overlay drop-shadow-ws-medium text-ws-static-strong py-ws-4 origin-radix-tooltip transition-none animate-in fade-in-0 zoom-in-(--ws-motion-scale-small) duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-smooth-out) data-[state=instant-open]:animate-none data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-(--ws-motion-scale-small) data-[state=closed]:duration-(--ws-motion-duration-quick)"
   data-align="center"
   data-side="top"
   data-slot="tooltip-content"
@@ -84,7 +84,7 @@ exports[`Tooltip > Tooltip Snapshots > matches snapshot for inverse variant 1`] 
 
 exports[`Tooltip > Tooltip Snapshots > matches snapshot with Portal 1`] = `
 <div
-  class="rounded-ws-control-md z-ws-popout px-ws-5 flex flex-col gap-0 bg-ws-static-inverse-background drop-shadow-ws-controls-tooltip text-ws-static-inverse-strong py-ws-4 origin-radix-tooltip transition-none animate-in fade-in-0 zoom-in-95 duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-smooth-out) data-[state=instant-open]:animate-none data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=closed]:duration-(--ws-motion-duration-quick)"
+  class="rounded-ws-control-md z-ws-popout px-ws-5 flex flex-col gap-0 bg-ws-static-inverse-background drop-shadow-ws-controls-tooltip text-ws-static-inverse-strong py-ws-4 origin-radix-tooltip transition-none animate-in fade-in-0 zoom-in-(--ws-motion-scale-small) duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-smooth-out) data-[state=instant-open]:animate-none data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-(--ws-motion-scale-small) data-[state=closed]:duration-(--ws-motion-duration-quick)"
   data-align="center"
   data-side="top"
   data-slot="tooltip-content"
@@ -125,7 +125,7 @@ exports[`Tooltip > Tooltip Snapshots > matches snapshot with Portal 1`] = `
 
 exports[`Tooltip > Tooltip Snapshots > matches snapshot with custom className 1`] = `
 <div
-  class="rounded-ws-control-md z-ws-popout px-ws-5 flex flex-col gap-0 bg-ws-static-inverse-background drop-shadow-ws-controls-tooltip text-ws-static-inverse-strong py-ws-4 origin-radix-tooltip transition-none animate-in fade-in-0 zoom-in-95 duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-smooth-out) data-[state=instant-open]:animate-none data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=closed]:duration-(--ws-motion-duration-quick) max-w-48"
+  class="rounded-ws-control-md z-ws-popout px-ws-5 flex flex-col gap-0 bg-ws-static-inverse-background drop-shadow-ws-controls-tooltip text-ws-static-inverse-strong py-ws-4 origin-radix-tooltip transition-none animate-in fade-in-0 zoom-in-(--ws-motion-scale-small) duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-smooth-out) data-[state=instant-open]:animate-none data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-(--ws-motion-scale-small) data-[state=closed]:duration-(--ws-motion-duration-quick) max-w-48"
   data-align="center"
   data-side="top"
   data-slot="tooltip-content"
@@ -178,7 +178,7 @@ exports[`Tooltip > Tooltip Snapshots > matches snapshot with custom className 1`
 
 exports[`Tooltip > Tooltip Snapshots > matches snapshot with different sides 1`] = `
 <div
-  class="rounded-ws-control-md z-ws-popout px-ws-5 flex flex-col gap-0 bg-ws-static-inverse-background drop-shadow-ws-controls-tooltip text-ws-static-inverse-strong py-ws-4 origin-radix-tooltip transition-none animate-in fade-in-0 zoom-in-95 duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-smooth-out) data-[state=instant-open]:animate-none data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=closed]:duration-(--ws-motion-duration-quick)"
+  class="rounded-ws-control-md z-ws-popout px-ws-5 flex flex-col gap-0 bg-ws-static-inverse-background drop-shadow-ws-controls-tooltip text-ws-static-inverse-strong py-ws-4 origin-radix-tooltip transition-none animate-in fade-in-0 zoom-in-(--ws-motion-scale-small) duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-smooth-out) data-[state=instant-open]:animate-none data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-(--ws-motion-scale-small) data-[state=closed]:duration-(--ws-motion-duration-quick)"
   data-align="center"
   data-side="top"
   data-slot="tooltip-content"
@@ -219,7 +219,7 @@ exports[`Tooltip > Tooltip Snapshots > matches snapshot with different sides 1`]
 
 exports[`Tooltip > Tooltip Snapshots > matches snapshot with different sides 2`] = `
 <div
-  class="rounded-ws-control-md z-ws-popout px-ws-5 flex flex-col gap-0 bg-ws-static-inverse-background drop-shadow-ws-controls-tooltip text-ws-static-inverse-strong py-ws-4 origin-radix-tooltip transition-none animate-in fade-in-0 zoom-in-95 duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-smooth-out) data-[state=instant-open]:animate-none data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=closed]:duration-(--ws-motion-duration-quick)"
+  class="rounded-ws-control-md z-ws-popout px-ws-5 flex flex-col gap-0 bg-ws-static-inverse-background drop-shadow-ws-controls-tooltip text-ws-static-inverse-strong py-ws-4 origin-radix-tooltip transition-none animate-in fade-in-0 zoom-in-(--ws-motion-scale-small) duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-smooth-out) data-[state=instant-open]:animate-none data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-(--ws-motion-scale-small) data-[state=closed]:duration-(--ws-motion-duration-quick)"
   data-align="center"
   data-side="right"
   data-slot="tooltip-content"
@@ -260,7 +260,7 @@ exports[`Tooltip > Tooltip Snapshots > matches snapshot with different sides 2`]
 
 exports[`Tooltip > Tooltip Snapshots > matches snapshot with different sides 3`] = `
 <div
-  class="rounded-ws-control-md z-ws-popout px-ws-5 flex flex-col gap-0 bg-ws-static-inverse-background drop-shadow-ws-controls-tooltip text-ws-static-inverse-strong py-ws-4 origin-radix-tooltip transition-none animate-in fade-in-0 zoom-in-95 duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-smooth-out) data-[state=instant-open]:animate-none data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=closed]:duration-(--ws-motion-duration-quick)"
+  class="rounded-ws-control-md z-ws-popout px-ws-5 flex flex-col gap-0 bg-ws-static-inverse-background drop-shadow-ws-controls-tooltip text-ws-static-inverse-strong py-ws-4 origin-radix-tooltip transition-none animate-in fade-in-0 zoom-in-(--ws-motion-scale-small) duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-smooth-out) data-[state=instant-open]:animate-none data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-(--ws-motion-scale-small) data-[state=closed]:duration-(--ws-motion-duration-quick)"
   data-align="center"
   data-side="bottom"
   data-slot="tooltip-content"
@@ -301,7 +301,7 @@ exports[`Tooltip > Tooltip Snapshots > matches snapshot with different sides 3`]
 
 exports[`Tooltip > Tooltip Snapshots > matches snapshot with different sides 4`] = `
 <div
-  class="rounded-ws-control-md z-ws-popout px-ws-5 flex flex-col gap-0 bg-ws-static-inverse-background drop-shadow-ws-controls-tooltip text-ws-static-inverse-strong py-ws-4 origin-radix-tooltip transition-none animate-in fade-in-0 zoom-in-95 duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-smooth-out) data-[state=instant-open]:animate-none data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=closed]:duration-(--ws-motion-duration-quick)"
+  class="rounded-ws-control-md z-ws-popout px-ws-5 flex flex-col gap-0 bg-ws-static-inverse-background drop-shadow-ws-controls-tooltip text-ws-static-inverse-strong py-ws-4 origin-radix-tooltip transition-none animate-in fade-in-0 zoom-in-(--ws-motion-scale-small) duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-smooth-out) data-[state=instant-open]:animate-none data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-(--ws-motion-scale-small) data-[state=closed]:duration-(--ws-motion-duration-quick)"
   data-align="center"
   data-side="left"
   data-slot="tooltip-content"
@@ -342,7 +342,7 @@ exports[`Tooltip > Tooltip Snapshots > matches snapshot with different sides 4`]
 
 exports[`Tooltip > Tooltip Snapshots > matches snapshot with label and description 1`] = `
 <div
-  class="rounded-ws-control-md z-ws-popout px-ws-5 flex flex-col gap-0 bg-ws-static-inverse-background drop-shadow-ws-controls-tooltip text-ws-static-inverse-strong py-ws-4 origin-radix-tooltip transition-none animate-in fade-in-0 zoom-in-95 duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-smooth-out) data-[state=instant-open]:animate-none data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=closed]:duration-(--ws-motion-duration-quick)"
+  class="rounded-ws-control-md z-ws-popout px-ws-5 flex flex-col gap-0 bg-ws-static-inverse-background drop-shadow-ws-controls-tooltip text-ws-static-inverse-strong py-ws-4 origin-radix-tooltip transition-none animate-in fade-in-0 zoom-in-(--ws-motion-scale-small) duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-smooth-out) data-[state=instant-open]:animate-none data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-(--ws-motion-scale-small) data-[state=closed]:duration-(--ws-motion-duration-quick)"
   data-align="center"
   data-side="top"
   data-slot="tooltip-content"
@@ -395,7 +395,7 @@ exports[`Tooltip > Tooltip Snapshots > matches snapshot with label and descripti
 
 exports[`Tooltip > Tooltip Snapshots > matches snapshot without arrow 1`] = `
 <div
-  class="rounded-ws-control-md z-ws-popout px-ws-5 flex flex-col gap-0 bg-ws-static-inverse-background drop-shadow-ws-controls-tooltip text-ws-static-inverse-strong py-ws-4 origin-radix-tooltip transition-none animate-in fade-in-0 zoom-in-95 duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-smooth-out) data-[state=instant-open]:animate-none data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=closed]:duration-(--ws-motion-duration-quick)"
+  class="rounded-ws-control-md z-ws-popout px-ws-5 flex flex-col gap-0 bg-ws-static-inverse-background drop-shadow-ws-controls-tooltip text-ws-static-inverse-strong py-ws-4 origin-radix-tooltip transition-none animate-in fade-in-0 zoom-in-(--ws-motion-scale-small) duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-smooth-out) data-[state=instant-open]:animate-none data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-(--ws-motion-scale-small) data-[state=closed]:duration-(--ws-motion-duration-quick)"
   data-align="center"
   data-side="top"
   data-slot="tooltip-content"
