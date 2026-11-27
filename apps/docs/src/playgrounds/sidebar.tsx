@@ -120,7 +120,13 @@ ${navCode(v, '    ')}
         <Sidebar.Section>
           <nav className="flex flex-col gap-ws-2">
             <Sidebar.Item href="#" icon={RiDashboardLine} label="Dashboard" active />
-            <Sidebar.Item href="#" icon={RiFolder3Line} label="Projects" />
+            <Sidebar.Group defaultOpen>
+              <Sidebar.Item href="#" icon={RiFolder3Line} label="Projects" />
+              <Sidebar.GroupTrigger expandLabel="Show projects" collapseLabel="Hide projects" />
+              <Sidebar.GroupContent>
+                <Sidebar.Item href="#" label="Active projects" nested />
+              </Sidebar.GroupContent>
+            </Sidebar.Group>
             <Sidebar.SectionHeader>People</Sidebar.SectionHeader>
             <Sidebar.Item href="#" icon={RiUser3Line} label="Customers" />
           </nav>

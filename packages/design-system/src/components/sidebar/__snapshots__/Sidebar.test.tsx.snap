@@ -186,3 +186,147 @@ exports[`Sidebar > Sidebar Snapshots > matches snapshot for sidebar with multipl
   </button>
 </div>
 `;
+
+exports[`Sidebar.Group > Rendering > matches snapshot 1`] = `
+<div
+  class="gap-ws-7 pl-ws-5 py-ws-7 relative flex h-full flex-col overflow-hidden bg-ws-static-foreground border-ws-static-subtle border-r pr-ws-6 w-[16.25rem] transition-[width] duration-(--ws-motion-duration-slow) ease-(--ws-motion-ease-smooth-out)"
+  data-slot="sidebar"
+  data-state="expanded"
+  id="_r_1s_"
+>
+  <div
+    class="w-full min-w-0"
+    data-slot="sidebar-section"
+  >
+    <div
+      class="relative flex min-w-0 flex-col gap-[inherit] [&[data-collapsed]:has(>[data-slot=sidebar-group-trigger])>[data-slot=sidebar-group-content]]:hidden [&:not([data-collapsed]):has(>[data-slot=sidebar-group-trigger]:not([hidden]))>[data-slot=sidebar-item]]:pr-ws-14 [&:not([data-collapsed]):has(>[data-slot=sidebar-group-trigger]:not([hidden]):hover)>[data-slot=sidebar-item]:not([aria-disabled])]:bg-ws-dynamic-tertiary-alpha-strong-default [&:not([data-collapsed]):has(>[data-slot=sidebar-group-trigger]:not([hidden]):hover)>[data-slot=sidebar-item]:not([aria-disabled])]:text-ws-static-strong"
+      data-slot="sidebar-group"
+      data-state="open"
+      data-testid="group"
+    >
+      <a
+        class="group/sidebar-item rounded-ws-control-lg gap-ws-5 px-ws-5 py-ws-3 flex w-full cursor-pointer items-center text-left no-underline focus-visible:wds-focus-visible focus-visible:-outline-offset-2 focus-visible:outline-current hover:not-aria-disabled:bg-ws-dynamic-tertiary-alpha-strong-default hover:not-aria-disabled:text-ws-static-strong active:not-aria-disabled:bg-ws-dynamic-tertiary-alpha-strong-pressed active:not-aria-disabled:text-ws-static-strong aria-disabled:text-ws-dynamic-secondary-disabled aria-disabled:pointer-events-none aria-disabled:cursor-default text-ws-static-base h-ws-14 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+        data-slot="sidebar-item"
+        href="/button"
+      >
+        <span
+          class="typography-label-strong-sm min-w-0 flex-1 truncate"
+        >
+          Button
+        </span>
+      </a>
+      <button
+        aria-controls="_r_1t_"
+        aria-expanded="true"
+        aria-label="Hide Button components"
+        class="rounded-ws-control-lg size-ws-14 absolute top-0 right-0 flex cursor-pointer items-center justify-center text-ws-static-subtle hover:text-ws-static-strong focus-visible:wds-focus-visible focus-visible:-outline-offset-2 focus-visible:outline-current transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+        data-slot="sidebar-group-trigger"
+        type="button"
+      >
+        <svg
+          aria-hidden="true"
+          class="remixicon size-ws-10 shrink-0 rotate-90 transition-transform duration-(--ws-motion-duration-fast) ease-(--ws-motion-ease-smooth-out)"
+          fill="currentColor"
+          height="24"
+          viewBox="0 0 24 24"
+          width="24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M13.1717 12.0007L8.22192 7.05093L9.63614 5.63672L16.0001 12.0007L9.63614 18.3646L8.22192 16.9504L13.1717 12.0007Z"
+          />
+        </svg>
+      </button>
+      <div
+        class="flex min-w-0 flex-col gap-[inherit]"
+        data-slot="sidebar-group-content"
+        data-state="open"
+        data-testid="content"
+        id="_r_1t_"
+      >
+        <a
+          class="group/sidebar-item rounded-ws-control-lg gap-ws-5 px-ws-5 py-ws-3 flex w-full cursor-pointer items-center text-left no-underline focus-visible:wds-focus-visible focus-visible:-outline-offset-2 focus-visible:outline-current hover:not-aria-disabled:bg-ws-dynamic-tertiary-alpha-strong-default hover:not-aria-disabled:text-ws-static-strong active:not-aria-disabled:bg-ws-dynamic-tertiary-alpha-strong-pressed active:not-aria-disabled:text-ws-static-strong aria-disabled:text-ws-dynamic-secondary-disabled aria-disabled:pointer-events-none aria-disabled:cursor-default text-ws-static-base h-ws-14 pl-[calc(var(--spacing-ws-5)*2+var(--spacing-ws-10))] transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+          data-slot="sidebar-item"
+          href="/icon-button"
+        >
+          <span
+            class="typography-label-strong-sm min-w-0 flex-1 truncate"
+          >
+            Icon Button
+          </span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Sidebar.Group > Rendering > matches snapshot for a collapsible section 1`] = `
+<div
+  class="gap-ws-7 pl-ws-5 py-ws-7 relative flex h-full flex-col overflow-hidden bg-ws-static-foreground border-ws-static-subtle border-r pr-ws-6 w-[16.25rem] transition-[width] duration-(--ws-motion-duration-slow) ease-(--ws-motion-ease-smooth-out)"
+  data-slot="sidebar"
+  data-state="expanded"
+  id="_r_1u_"
+>
+  <div
+    class="w-full min-w-0"
+    data-slot="sidebar-section"
+  >
+    <div
+      class="relative flex min-w-0 flex-col gap-[inherit] [&[data-collapsed]:has(>[data-slot=sidebar-group-trigger])>[data-slot=sidebar-group-content]]:hidden [&:not([data-collapsed]):has(>[data-slot=sidebar-group-trigger]:not([hidden]))>[data-slot=sidebar-item]]:pr-ws-14 [&:not([data-collapsed]):has(>[data-slot=sidebar-group-trigger]:not([hidden]):hover)>[data-slot=sidebar-item]:not([aria-disabled])]:bg-ws-dynamic-tertiary-alpha-strong-default [&:not([data-collapsed]):has(>[data-slot=sidebar-group-trigger]:not([hidden]):hover)>[data-slot=sidebar-item]:not([aria-disabled])]:text-ws-static-strong"
+      data-slot="sidebar-group"
+      data-state="open"
+    >
+      <div
+        class="flex min-w-0 items-end contain-inline-size h-ws-18"
+        data-slot="sidebar-section-header"
+      >
+        <button
+          aria-controls="_r_1v_"
+          aria-expanded="true"
+          class="rounded-ws-control-lg p-ws-5 gap-ws-3 flex w-full min-w-0 cursor-pointer items-center text-left text-ws-static-subtle hover:text-ws-static-strong focus-visible:wds-focus-visible focus-visible:-outline-offset-2 focus-visible:outline-current transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+          type="button"
+        >
+          <span
+            class="typography-caption-strong-md min-w-0 truncate"
+          >
+            Spaces
+          </span>
+          <svg
+            aria-hidden="true"
+            class="remixicon size-ws-10 shrink-0 rotate-90 transition-transform duration-(--ws-motion-duration-fast) ease-(--ws-motion-ease-smooth-out)"
+            fill="currentColor"
+            height="24"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M13.1717 12.0007L8.22192 7.05093L9.63614 5.63672L16.0001 12.0007L9.63614 18.3646L8.22192 16.9504L13.1717 12.0007Z"
+            />
+          </svg>
+        </button>
+      </div>
+      <div
+        class="flex min-w-0 flex-col gap-[inherit]"
+        data-slot="sidebar-group-content"
+        data-state="open"
+        data-testid="content"
+        id="_r_1v_"
+      >
+        <a
+          class="group/sidebar-item rounded-ws-control-lg gap-ws-5 px-ws-5 py-ws-3 flex w-full cursor-pointer items-center text-left no-underline focus-visible:wds-focus-visible focus-visible:-outline-offset-2 focus-visible:outline-current hover:not-aria-disabled:bg-ws-dynamic-tertiary-alpha-strong-default hover:not-aria-disabled:text-ws-static-strong active:not-aria-disabled:bg-ws-dynamic-tertiary-alpha-strong-pressed active:not-aria-disabled:text-ws-static-strong aria-disabled:text-ws-dynamic-secondary-disabled aria-disabled:pointer-events-none aria-disabled:cursor-default text-ws-static-base h-ws-14 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out)"
+          data-slot="sidebar-item"
+          href="/design"
+        >
+          <span
+            class="typography-label-strong-sm min-w-0 flex-1 truncate"
+          >
+            Design
+          </span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+`;
