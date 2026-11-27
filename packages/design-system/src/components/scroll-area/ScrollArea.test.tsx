@@ -1,6 +1,6 @@
-import { render, screen } from '@testing-library/react';
-import { createRef } from 'react';
-import { describe, expect, it } from 'vitest';
+import { fireEvent, render, screen } from '@testing-library/react';
+import { createRef, type UIEvent } from 'react';
+import { describe, expect, it, vi } from 'vitest';
 
 import { ScrollArea } from './ScrollArea';
 
@@ -47,6 +47,24 @@ describe('ScrollArea', () => {
       expect(areaRoot).toHaveAttribute('aria-label', 'Scrollable content');
       expect(areaRoot).toHaveAttribute('title', 'Scroll area');
     });
+  });
+  it('calls onScroll on the viewport and exposes its scroll position', () => {
+    const ref = createRef<HTMLDivElement>();
+    const onScroll = vi.fn((event: UIEvent<HTMLDivElement>) => ({
+      viewport: event.currentTarget,
+      scrollTop: event.currentTarget.scrollTop,
+      scrollLeft: event.currentTarget.scrollLeft,
+    }));
+    render(
+      <ScrollArea ref={ref} onScroll={onScroll}>
+        <div>Test content</div>
+      </ScrollArea>,
+    );
+
+    fireEvent.scroll(ref.current!, { target: { scrollTop: 120, scrollLeft: 40 } });
+
+    expect(onScroll).toHaveBeenCalledOnce();
+    expect(onScroll).toHaveReturnedWith({ viewport: ref.current, scrollTop: 120, scrollLeft: 40 });
   });
 });
 
