@@ -1,5 +1,5 @@
 import { RiCheckLine, RiCloseLine } from '@remixicon/react';
-import { ActionBar, Button } from '@wideset/react';
+import { ActionBar, Button, IconButton } from '@wideset/react';
 
 import { ApprovePopup } from './approve-popup';
 import type { Role } from './data';
@@ -23,28 +23,34 @@ export function SelectionBar({
   onDecline: () => void;
 }) {
   return (
-    <ActionBar
-      isOpen={count > 0}
-      amountSelected={count}
-      onClose={onClear}
-      closeAriaLabel="Clear selection"
-    >
-      <ApprovePopup
-        title={count === 1 ? 'Approve 1 person' : `Approve ${count} people`}
-        count={count}
-        seatsUsed={seatsUsed}
-        side="top"
-        onApprove={onApprove}
-      >
-        <Button variant="secondary" preset="border" size="sm">
-          <Button.Icon icon={RiCheckLine} />
-          Approve
+    <ActionBar isOpen={count > 0}>
+      <ActionBar.Count>{count} selected</ActionBar.Count>
+      <ActionBar.Actions>
+        <IconButton
+          icon={RiCloseLine}
+          aria-label="Clear selection"
+          variant="secondary"
+          preset="ghost"
+          size="sm"
+          onClick={onClear}
+        />
+        <ApprovePopup
+          title={count === 1 ? 'Approve 1 person' : `Approve ${count} people`}
+          count={count}
+          seatsUsed={seatsUsed}
+          side="top"
+          onApprove={onApprove}
+        >
+          <Button variant="secondary" preset="border" size="sm">
+            <Button.Icon icon={RiCheckLine} />
+            Approve
+          </Button>
+        </ApprovePopup>
+        <Button variant="secondary" preset="border" size="sm" onClick={onDecline}>
+          <Button.Icon icon={RiCloseLine} />
+          Decline
         </Button>
-      </ApprovePopup>
-      <Button variant="secondary" preset="border" size="sm" onClick={onDecline}>
-        <Button.Icon icon={RiCloseLine} />
-        Decline
-      </Button>
+      </ActionBar.Actions>
     </ActionBar>
   );
 }

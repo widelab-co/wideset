@@ -1,41 +1,63 @@
-import { RiDeleteBinLine, RiDownloadLine, RiMoreFill } from '@remixicon/react';
+import {
+  RiDeleteBin6Line,
+  RiRefreshLine,
+  RiSendPlaneLine,
+  RiShareForwardLine,
+} from '@remixicon/react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useState } from 'react';
-import { fn } from 'storybook/test';
 
 import { exampleStory } from '../../stories/example';
 import { Button } from '../button/Button';
 import { IconButton } from '../button/IconButton';
-import { ListItem } from '../list-item/ListItem';
+import { Tooltip } from '../tooltip/Tooltip';
 import { ActionBar } from './ActionBar';
 import type { ActionBarProps } from './ActionBar.types';
 import AlignmentsExample from './examples/action-bar/alignments';
 import alignmentsSource from './examples/action-bar/alignments?raw';
 import PositionsExample from './examples/action-bar/positions';
 import positionsSource from './examples/action-bar/positions?raw';
+import SelectionExample from './examples/action-bar/selection';
+import selectionSource from './examples/action-bar/selection?raw';
 
-const positions: ActionBarProps['position'][] = ['bottom', 'top'];
+const positions: NonNullable<ActionBarProps['position']>[] = ['bottom', 'top'];
 
-const aligns: ActionBarProps['align'][] = ['left', 'center', 'right'];
+const aligns: NonNullable<ActionBarProps['align']>[] = ['left', 'center', 'right'];
 
 const meta = {
   title: 'Components/ActionBar',
   tags: ['autodocs'],
   component: ActionBar,
+  subcomponents: { 'ActionBar.SelectAll': ActionBar.SelectAll },
   parameters: {
     docs: {
       description: {
-        component: `ActionBar is a fixed floating toolbar that appears at the top or bottom of the screen, used to surface contextual actions when items are selected. Embedded buttons should be of size 'sm'.
+        component: `ActionBar is a floating bar that appears while items are selected, with the selection count, Select all and the actions for the selection.
+Use it for bulk actions on table rows, list items or files. Actions that need no selection belong in the page or table header as Buttons; confirm a finished bulk action with a Toast.
 
-Use a standard toolbar for actions that are always available without a selection.`,
+**Composition:**
+\`\`\`
+<ActionBar isOpen>         — the floating bar; keep it mounted and toggle isOpen
+  <ActionBar.Count>        — the selection count, read out politely as it changes
+  <ActionBar.Actions>      — the raised segment
+    <ActionBar.SelectAll>  — selects every item, or clears them once all are selected
+    <Button size="sm">     — the actions; icon-only ones get an aria-label and a Tooltip
+  </ActionBar.Actions>
+</ActionBar>
+\`\`\``,
       },
     },
   },
   argTypes: {
-    closeAriaLabel: { table: { category: 'Content', type: { summary: 'string' } } },
-    defaultMotion: { table: { category: 'Behavior', type: { summary: 'boolean' } } },
+    isOpen: {
+      control: 'boolean',
+      table: {
+        category: 'Behavior',
+        defaultValue: { summary: 'false' },
+        type: { summary: 'boolean' },
+      },
+    },
     position: {
-      description: 'Vertical placement of the action bar on the screen.',
+      description: 'Vertical placement of the bar on the screen.',
       control: 'radio',
       options: positions,
       table: {
@@ -45,7 +67,7 @@ Use a standard toolbar for actions that are always available without a selection
       },
     },
     align: {
-      description: 'Horizontal alignment of the action bar on the screen.',
+      description: 'Horizontal alignment of the bar on the screen.',
       control: 'radio',
       options: aligns,
       table: {
@@ -54,43 +76,15 @@ Use a standard toolbar for actions that are always available without a selection
         type: { summary: "'left' | 'center' | 'right'" },
       },
     },
-    amountSelected: {
-      control: 'select',
-      options: [undefined, 0, 1, 2, 5, 10, 500, 1000],
-      table: {
-        category: 'Content',
-        type: { summary: 'number | undefined | readonly [number, (amount: number) => ReactNode]' },
-      },
-    },
-    onClose: {
-      control: false,
-      table: {
-        category: 'Events',
-        type: { summary: '() => void' },
-      },
-    },
+    defaultMotion: { table: { category: 'Behavior', type: { summary: 'boolean' } } },
     children: {
       control: false,
-      table: {
-        category: 'Content',
-        type: { summary: 'ReactNode' },
-      },
-    },
-    isOpen: {
-      control: 'boolean',
-      table: {
-        category: 'Behavior',
-        defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+      table: { category: 'Content', type: { summary: 'ReactNode' } },
     },
     className: {
-      description: 'Additional CSS classes to apply to the action bar.',
+      description: 'Additional CSS classes for layout overrides.',
       control: 'text',
-      table: {
-        category: 'Appearance',
-        type: { summary: 'string' },
-      },
+      table: { category: 'Appearance', type: { summary: 'string' } },
     },
   },
 } satisfies Meta<typeof ActionBar>;
@@ -99,306 +93,73 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-const SAMPLE_ITEMS = [
-  { id: '1', name: 'Q1 Financial Report.pdf' },
-  { id: '2', name: 'Product Roadmap 2026.docx' },
-  { id: '3', name: 'Brand Guidelines v3.pdf' },
-  { id: '4', name: 'User Research Summary.docx' },
-  { id: '5', name: 'Engineering Spec — Auth.md' },
-];
-
 export const Default: Story = {
   parameters: {
     docs: {
       description: {
         story:
-          'Open the bar with **Show action bar**; dismiss with the close control. Enter/leave motion matches Sidepanel (tailwindcss-animate `data-state` + slide/fade).',
+          'The bar for four selected rows. Toggle `isOpen` to see it animate in and out; the box contains the fixed bar so it stays in the preview.',
       },
     },
   },
   render: (args) => (
-    <div className="py-ws-20">
+    <div className="relative h-[5.5rem] w-[34rem] max-w-full [transform:translateZ(0)]">
       <ActionBar {...args}>
-        <>
-          <Button preset="border" variant="secondary" size="sm">
-            <Button.Icon icon={RiDownloadLine} />
-            Export
+        <ActionBar.Count>4 rows selected</ActionBar.Count>
+        <ActionBar.Actions>
+          <ActionBar.SelectAll checked="indeterminate" />
+          <Button variant="secondary" size="sm">
+            <Button.Icon icon={RiSendPlaneLine} />
+            Publish
           </Button>
-          <Button preset="border" variant="secondary" size="sm">
-            <Button.Icon icon={RiDownloadLine} />
-            Download
-          </Button>
-          <Button preset="border" variant="danger" size="sm">
-            <Button.Icon icon={RiDeleteBinLine} />
-            Delete
-          </Button>
-          <IconButton
-            preset="border"
-            variant="secondary"
-            size="sm"
-            icon={RiMoreFill}
-            aria-label="More options"
-          />
-        </>
+          <Tooltip size="sm" arrow={false}>
+            <Tooltip.Trigger asChild>
+              <IconButton
+                variant="secondary"
+                size="sm"
+                icon={RiShareForwardLine}
+                aria-label="Forward"
+              />
+            </Tooltip.Trigger>
+            <Tooltip.Content>
+              <Tooltip.Label>Forward</Tooltip.Label>
+            </Tooltip.Content>
+          </Tooltip>
+          <Tooltip size="sm" arrow={false}>
+            <Tooltip.Trigger asChild>
+              <IconButton variant="secondary" size="sm" icon={RiRefreshLine} aria-label="Refresh" />
+            </Tooltip.Trigger>
+            <Tooltip.Content>
+              <Tooltip.Label>Refresh</Tooltip.Label>
+            </Tooltip.Content>
+          </Tooltip>
+          <Tooltip size="sm" arrow={false}>
+            <Tooltip.Trigger asChild>
+              <IconButton
+                variant="danger"
+                preset="ghost"
+                size="sm"
+                icon={RiDeleteBin6Line}
+                aria-label="Delete"
+              />
+            </Tooltip.Trigger>
+            <Tooltip.Content>
+              <Tooltip.Label>Delete</Tooltip.Label>
+            </Tooltip.Content>
+          </Tooltip>
+        </ActionBar.Actions>
       </ActionBar>
     </div>
   ),
   args: {
+    isOpen: true,
     position: 'bottom',
     align: 'center',
-    amountSelected: 3,
-    isOpen: true,
-    onClose: fn(),
   },
 };
+
+export const Selection: Story = exampleStory(SelectionExample, selectionSource);
 
 export const Positions: Story = exampleStory(PositionsExample, positionsSource);
 
 export const Alignments: Story = exampleStory(AlignmentsExample, alignmentsSource);
-
-export const AmountSelected: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story: 'Pass `amountSelected` as a number for default copy. Omit it to hide the label.',
-      },
-    },
-  },
-  argTypes: {
-    position: { table: { disable: true } },
-    amountSelected: { table: { disable: true } },
-    children: { table: { disable: true } },
-  },
-  render: (args) => (
-    <>
-      {[1, 42, undefined].map((amount) => (
-        <div key={String(amount)} className="py-ws-20 pt-ws-14 relative w-full">
-          <ActionBar {...args} amountSelected={amount} className="absolute" isOpen>
-            <>
-              <Button preset="border" variant="secondary" size="sm">
-                <Button.Icon icon={RiDownloadLine} />
-                Export
-              </Button>
-              <Button preset="border" variant="secondary" size="sm">
-                <Button.Icon icon={RiDownloadLine} />
-                Download
-              </Button>
-              <Button preset="border" variant="danger" size="sm">
-                <Button.Icon icon={RiDeleteBinLine} />
-                Delete
-              </Button>
-              <IconButton
-                preset="border"
-                variant="secondary"
-                size="sm"
-                icon={RiMoreFill}
-                aria-label="More options"
-              />
-            </>
-          </ActionBar>
-        </div>
-      ))}
-    </>
-  ),
-  args: Default.args,
-};
-
-export const CustomAmountSelectedFormatter: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'Use `[amount, (amount) => …]` when you need translations or wording other than “selected” (e.g. rows).',
-      },
-      source: {
-        code: `
-          <ActionBar amountSelected={[12, (n: number) => (n === 1 ? \`\${n} row\` : \`\${n} rows\`)]}>
-              <>
-    <Button preset="border" variant="secondary" size="sm">
-      <Button.Icon icon={RiDownloadLine} />
-      Export
-    </Button>
-    <Button preset="border" variant="secondary" size="sm">
-      <Button.Icon icon={RiDownloadLine} />
-      Download
-    </Button>
-    <Button preset="border" variant="danger" size="sm">
-      <Button.Icon icon={RiDeleteBinLine} />
-      Delete
-    </Button>
-    <IconButton
-      preset="border"
-      variant="secondary"
-      size="sm"
-      icon={RiMoreFill}
-      aria-label="More options"
-    />
-  </>
-          </ActionBar>
-        `,
-      },
-    },
-  },
-  render: (args) => (
-    <div className="py-ws-20 relative w-full">
-      <ActionBar {...args} isOpen>
-        <>
-          <Button preset="border" variant="secondary" size="sm">
-            <Button.Icon icon={RiDownloadLine} />
-            Export
-          </Button>
-          <Button preset="border" variant="secondary" size="sm">
-            <Button.Icon icon={RiDownloadLine} />
-            Download
-          </Button>
-          <Button preset="border" variant="danger" size="sm">
-            <Button.Icon icon={RiDeleteBinLine} />
-            Delete
-          </Button>
-          <IconButton
-            preset="border"
-            variant="secondary"
-            size="sm"
-            icon={RiMoreFill}
-            aria-label="More options"
-          />
-        </>
-      </ActionBar>
-    </div>
-  ),
-  args: {
-    ...Default.args,
-    amountSelected: [12, (n: number) => (n === 1 ? `${n} row` : `${n} rows`)],
-  },
-};
-
-export const NoCloseButton: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'When `onClose` is omitted, no close button is rendered — useful when dismissal is handled externally.',
-      },
-    },
-  },
-  render: (args) => (
-    <div className="py-ws-20 relative w-full">
-      <ActionBar {...args} isOpen>
-        <>
-          <Button preset="border" variant="secondary" size="sm">
-            <Button.Icon icon={RiDownloadLine} />
-            Export
-          </Button>
-          <Button preset="border" variant="secondary" size="sm">
-            <Button.Icon icon={RiDownloadLine} />
-            Download
-          </Button>
-          <Button preset="border" variant="danger" size="sm">
-            <Button.Icon icon={RiDeleteBinLine} />
-            Delete
-          </Button>
-          <IconButton
-            preset="border"
-            variant="secondary"
-            size="sm"
-            icon={RiMoreFill}
-            aria-label="More options"
-          />
-        </>
-      </ActionBar>
-    </div>
-  ),
-  args: {
-    ...Default.args,
-    onClose: undefined,
-  },
-};
-
-export const Composition: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'Selecting rows opens the ActionBar; the count updates as more are toggled. Clicking the close button deselects everything and dismisses the bar.',
-      },
-    },
-  },
-  argTypes: {
-    isOpen: { table: { disable: true } },
-    amountSelected: { table: { disable: true } },
-    onClose: { table: { disable: true } },
-    children: { table: { disable: true } },
-  },
-  render: function Render(args: Partial<ActionBarProps>) {
-    const [selected, setSelected] = useState<Record<string, boolean>>({ '1': true });
-
-    const toggle = (id: string) => setSelected((prev) => ({ ...prev, [id]: !prev[id] }));
-
-    const selectedCount = Object.values(selected).filter(Boolean).length;
-
-    return (
-      <div className="pb-ws-24">
-        <div className="gap-ws-3 flex flex-col">
-          {SAMPLE_ITEMS.map((item) => {
-            const isSelected = !!selected[item.id];
-
-            return (
-              <ListItem
-                key={item.id}
-                data-state={isSelected ? 'checked' : 'unchecked'}
-                onClick={() => toggle(item.id)}
-                shouldDisplayCheckmark={false}
-                className="rounded-none"
-              >
-                <ListItem.Prefix>
-                  <input
-                    type="checkbox"
-                    checked={isSelected}
-                    onChange={() => toggle(item.id)}
-                    onClick={(e) => e.stopPropagation()}
-                    className="cursor-pointer"
-                  />
-                </ListItem.Prefix>
-                <ListItem.Content>
-                  <ListItem.Label>{item.name}</ListItem.Label>
-                </ListItem.Content>
-              </ListItem>
-            );
-          })}
-        </div>
-        <ActionBar
-          {...args}
-          isOpen={selectedCount > 0}
-          amountSelected={selectedCount}
-          onClose={() => {
-            setSelected({});
-            args.onClose?.();
-          }}
-        >
-          <>
-            <Button preset="border" variant="secondary" size="sm">
-              <Button.Icon icon={RiDownloadLine} />
-              Export
-            </Button>
-            <Button preset="border" variant="secondary" size="sm">
-              <Button.Icon icon={RiDownloadLine} />
-              Download
-            </Button>
-            <Button preset="border" variant="danger" size="sm">
-              <Button.Icon icon={RiDeleteBinLine} />
-              Delete
-            </Button>
-            <IconButton
-              preset="border"
-              variant="secondary"
-              size="sm"
-              icon={RiMoreFill}
-              aria-label="More options"
-            />
-          </>
-        </ActionBar>
-      </div>
-    );
-  },
-  args: Default.args,
-};

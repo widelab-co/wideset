@@ -1,5 +1,5 @@
-import { RiDeleteBinLine, RiDownloadLine, RiUserSharedLine } from '@remixicon/react';
-import { ActionBar, Button, DropdownMenu, ListItem } from '@wideset/react';
+import { RiCloseLine, RiDeleteBinLine, RiDownloadLine, RiUserSharedLine } from '@remixicon/react';
+import { ActionBar, Button, DropdownMenu, IconButton, ListItem } from '@wideset/react';
 
 import { type OwnerId, OWNERS } from './data';
 import { PersonAvatar } from './person-avatar';
@@ -15,40 +15,46 @@ export function SelectionBar({
   onAssign: (owner: OwnerId) => void;
 }) {
   return (
-    <ActionBar
-      isOpen={count > 0}
-      amountSelected={count}
-      onClose={onClear}
-      closeAriaLabel="Clear selection"
-    >
-      <DropdownMenu>
-        <DropdownMenu.Trigger asChild>
-          <Button variant="secondary" preset="border" size="sm">
-            <Button.Icon icon={RiUserSharedLine} />
-            Assign owner
-          </Button>
-        </DropdownMenu.Trigger>
-        <DropdownMenu.Content side="top" align="start">
-          {(Object.keys(OWNERS) as OwnerId[]).map((id) => (
-            <DropdownMenu.Item key={id} onSelect={() => onAssign(id)}>
-              <ListItem.Prefix>
-                <PersonAvatar size="xs" name={OWNERS[id].name} initials={OWNERS[id].initials} />
-              </ListItem.Prefix>
-              <ListItem.Content>
-                <ListItem.Label>{OWNERS[id].name}</ListItem.Label>
-              </ListItem.Content>
-            </DropdownMenu.Item>
-          ))}
-        </DropdownMenu.Content>
-      </DropdownMenu>
-      <Button variant="secondary" preset="border" size="sm">
-        <Button.Icon icon={RiDownloadLine} />
-        Export
-      </Button>
-      <Button variant="danger" preset="border" size="sm">
-        <Button.Icon icon={RiDeleteBinLine} />
-        Delete
-      </Button>
+    <ActionBar isOpen={count > 0}>
+      <ActionBar.Count>{count} selected</ActionBar.Count>
+      <ActionBar.Actions>
+        <IconButton
+          icon={RiCloseLine}
+          aria-label="Clear selection"
+          variant="secondary"
+          preset="ghost"
+          size="sm"
+          onClick={onClear}
+        />
+        <DropdownMenu>
+          <DropdownMenu.Trigger asChild>
+            <Button variant="secondary" preset="border" size="sm">
+              <Button.Icon icon={RiUserSharedLine} />
+              Assign owner
+            </Button>
+          </DropdownMenu.Trigger>
+          <DropdownMenu.Content side="top" align="start">
+            {(Object.keys(OWNERS) as OwnerId[]).map((id) => (
+              <DropdownMenu.Item key={id} onSelect={() => onAssign(id)}>
+                <ListItem.Prefix>
+                  <PersonAvatar size="xs" name={OWNERS[id].name} initials={OWNERS[id].initials} />
+                </ListItem.Prefix>
+                <ListItem.Content>
+                  <ListItem.Label>{OWNERS[id].name}</ListItem.Label>
+                </ListItem.Content>
+              </DropdownMenu.Item>
+            ))}
+          </DropdownMenu.Content>
+        </DropdownMenu>
+        <Button variant="secondary" preset="border" size="sm">
+          <Button.Icon icon={RiDownloadLine} />
+          Export
+        </Button>
+        <Button variant="danger" preset="border" size="sm">
+          <Button.Icon icon={RiDeleteBinLine} />
+          Delete
+        </Button>
+      </ActionBar.Actions>
     </ActionBar>
   );
 }

@@ -4,6 +4,9 @@ import { createRef } from 'react';
 import { describe, expect, it, vi } from 'vitest';
 
 import { ActionBar } from './ActionBar';
+import { ActionBarActions } from './ActionBarActions';
+import { ActionBarCount } from './ActionBarCount';
+import { ActionBarSelectAll } from './ActionBarSelectAll';
 
 describe('ActionBar', () => {
   it('renders children', () => {
@@ -13,6 +16,25 @@ describe('ActionBar', () => {
       </ActionBar>,
     );
     expect(screen.getByText('Action')).toBeInTheDocument();
+  });
+
+  it('preserves the action subtree when the legacy count is hidden', () => {
+    const { rerender } = render(
+      <ActionBar isOpen amountSelected={2}>
+        <button type="button">Archive</button>
+      </ActionBar>,
+    );
+    const archive = screen.getByRole('button', { name: 'Archive' });
+    archive.focus();
+
+    rerender(
+      <ActionBar isOpen>
+        <button type="button">Archive</button>
+      </ActionBar>,
+    );
+
+    expect(screen.getByRole('button', { name: 'Archive' })).toBe(archive);
+    expect(archive).toHaveFocus();
   });
 
   it('renders close button when onClose is provided', () => {
@@ -231,5 +253,54 @@ describe('data-slot', () => {
       </ActionBar>,
     );
     expect(screen.getByTestId('bar')).toHaveAttribute('data-slot', 'action-bar');
+  });
+});
+
+describe('Composed ActionBar', () => {
+  it('renders the count as a status with its native props', () => {
+    render(
+      <ActionBar isOpen>
+        <ActionBarCount aria-label="Selection count">3 selected</ActionBarCount>
+      </ActionBar>,
+    );
+
+    const count = screen.getByRole('status', { name: 'Selection count' });
+    expect(count).toHaveAttribute('data-slot', 'action-bar-count');
+    expect(count).toHaveTextContent('3 selected');
+  });
+
+  it('forwards actions props to the raised segment', () => {
+    render(
+      <ActionBar isOpen>
+        <ActionBarActions role="group" aria-label="Selection actions" />
+      </ActionBar>,
+    );
+
+    expect(screen.getByRole('group', { name: 'Selection actions' })).toHaveAttribute(
+      'data-slot',
+      'action-bar-actions',
+    );
+  });
+
+  it.each([
+    ['indeterminate', true],
+    [true, false],
+  ] as const)('updates Select all from %s to %s by keyboard', async (checked, next) => {
+    const user = userEvent.setup();
+    const onCheckedChange = vi.fn();
+    render(
+      <ActionBar isOpen>
+        <ActionBarActions>
+          <ActionBarSelectAll checked={checked} onCheckedChange={onCheckedChange} />
+        </ActionBarActions>
+      </ActionBar>,
+    );
+
+    await user.tab();
+    const checkbox = screen.getByRole('checkbox', { name: 'Select all' });
+    expect(checkbox).toHaveAttribute('data-slot', 'action-bar-select-all');
+    expect(checkbox).toHaveFocus();
+    await user.keyboard(' ');
+    expect(onCheckedChange).toHaveBeenCalledWith(next);
   });
 });

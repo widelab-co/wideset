@@ -1,5 +1,5 @@
-import { RiArchiveLine, RiDownloadLine, RiFolderTransferLine } from '@remixicon/react';
-import { ActionBar, Button } from '@wideset/react';
+import { RiArchiveLine, RiCloseLine, RiDownloadLine, RiFolderTransferLine } from '@remixicon/react';
+import { ActionBar, Button, IconButton } from '@wideset/react';
 
 type SelectionBarProps = {
   count: number;
@@ -15,24 +15,30 @@ type SelectionBarProps = {
  */
 export function SelectionBar({ count, onClear, onDownload, onMove, onArchive }: SelectionBarProps) {
   return (
-    <ActionBar
-      isOpen={count > 0}
-      amountSelected={count}
-      onClose={onClear}
-      closeAriaLabel="Clear selection"
-    >
-      <Button variant="secondary" preset="border" size="sm" onClick={onDownload}>
-        <Button.Icon icon={RiDownloadLine} />
-        Download
-      </Button>
-      <Button variant="secondary" preset="border" size="sm" onClick={onMove}>
-        <Button.Icon icon={RiFolderTransferLine} />
-        Move
-      </Button>
-      <Button variant="secondary" preset="border" size="sm" onClick={onArchive}>
-        <Button.Icon icon={RiArchiveLine} />
-        Archive
-      </Button>
+    <ActionBar isOpen={count > 0}>
+      <ActionBar.Count>{count} selected</ActionBar.Count>
+      <ActionBar.Actions>
+        <IconButton
+          icon={RiCloseLine}
+          aria-label="Clear selection"
+          variant="secondary"
+          preset="ghost"
+          size="sm"
+          onClick={onClear}
+        />
+        <Button variant="secondary" preset="border" size="sm" onClick={onDownload}>
+          <Button.Icon icon={RiDownloadLine} />
+          Download
+        </Button>
+        <Button variant="secondary" preset="border" size="sm" onClick={onMove}>
+          <Button.Icon icon={RiFolderTransferLine} />
+          Move
+        </Button>
+        <Button variant="secondary" preset="border" size="sm" onClick={onArchive}>
+          <Button.Icon icon={RiArchiveLine} />
+          Archive
+        </Button>
+      </ActionBar.Actions>
     </ActionBar>
   );
 }

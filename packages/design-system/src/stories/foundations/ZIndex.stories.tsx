@@ -387,15 +387,18 @@ function LayersPage() {
         </div>
       </div>
 
-      <ActionBar isOpen amountSelected={3}>
-        <Button preset="border" variant="secondary" size="sm">
-          <Button.Icon icon={RiDownloadLine} />
-          ActionBar — z-ws-sticky
-        </Button>
-        <Button preset="border" variant="danger" size="sm">
-          <Button.Icon icon={RiDeleteBinLine} />
-          Delete
-        </Button>
+      <ActionBar isOpen>
+        <ActionBar.Count>3 selected</ActionBar.Count>
+        <ActionBar.Actions>
+          <Button preset="border" variant="secondary" size="sm">
+            <Button.Icon icon={RiDownloadLine} />
+            ActionBar — z-ws-sticky
+          </Button>
+          <Button preset="border" variant="danger" size="sm">
+            <Button.Icon icon={RiDeleteBinLine} />
+            Delete
+          </Button>
+        </ActionBar.Actions>
       </ActionBar>
     </ToastProvider>
   );

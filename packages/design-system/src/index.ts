@@ -16,7 +16,15 @@ export { AccordionItem } from './components/accordion/AccordionItem';
 export { AccordionTitle } from './components/accordion/AccordionTitle';
 export { AccordionTrigger } from './components/accordion/AccordionTrigger';
 export { ActionBar } from './components/action-bar/ActionBar';
-export type { ActionBarProps } from './components/action-bar/ActionBar.types';
+export type {
+  ActionBarActionsProps,
+  ActionBarCountProps,
+  ActionBarProps,
+  ActionBarSelectAllProps,
+} from './components/action-bar/ActionBar.types';
+export { ActionBarActions } from './components/action-bar/ActionBarActions';
+export { ActionBarCount } from './components/action-bar/ActionBarCount';
+export { ActionBarSelectAll } from './components/action-bar/ActionBarSelectAll';
 export { ActionTile } from './components/action-tile/ActionTile';
 export type {
   DescriptionProps as ActionTileDescriptionProps,

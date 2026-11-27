@@ -4,7 +4,7 @@
  * banner or a chat button. The bar is fixed to the viewport: each box here contains it only so
  * the example stays on the card.
  */
-import { RiDeleteBinLine, RiDownloadLine } from '@remixicon/react';
+import { RiSendPlaneLine } from '@remixicon/react';
 import { ActionBar, Button } from '@wideset/react';
 
 export default function ActionBarPositions() {
@@ -15,15 +15,15 @@ export default function ActionBarPositions() {
           key={position}
           className="rounded-ws-control-lg border-ws-static-base relative h-[9rem] [transform:translateZ(0)] overflow-hidden border"
         >
-          <ActionBar isOpen position={position} amountSelected={3} onClose={() => {}}>
-            <Button preset="border" variant="secondary" size="sm">
-              <Button.Icon icon={RiDownloadLine} />
-              Download
-            </Button>
-            <Button preset="border" variant="danger" size="sm">
-              <Button.Icon icon={RiDeleteBinLine} />
-              Delete
-            </Button>
+          <ActionBar isOpen position={position}>
+            <ActionBar.Count>3 rows selected</ActionBar.Count>
+            <ActionBar.Actions>
+              <ActionBar.SelectAll checked="indeterminate" />
+              <Button variant="secondary" size="sm">
+                <Button.Icon icon={RiSendPlaneLine} />
+                Publish
+              </Button>
+            </ActionBar.Actions>
           </ActionBar>
         </div>
       ))}
