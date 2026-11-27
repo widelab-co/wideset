@@ -115,6 +115,9 @@ The full checklist is the `wideset-component-convention` skill. The rules that m
   written before `{...props}` so a caller (or a parent part) can override it; the docs anatomy
   picture finds parts by it. Controlled and uncontrolled both work: `isControlled = value !== undefined`, callback
   fires in both modes. Context hooks throw `use{X}Context must be used within a <{X}>`.
+- **Comments.** Avoid comments: names and structure should make the code clear. Write one only
+  where the code cannot say why it is not obvious, never why it changed or where a value came from
+  ("Figma: …", "was X, now Y"): that belongs in the commit message, changeset or PR.
 - **Styling.** Design tokens only (`bg-ws-dynamic-primary-default`, `text-ws-static-strong`,
   `rounded-ws-control-lg`), never palette classes like `text-gray-900` or raw hex. A Figma value
   with no token means the Figma file needs fixing: report it (see below), do not hardcode it. Radix state via
@@ -183,7 +186,9 @@ The full checklist is the `wideset-component-convention` skill. The rules that m
   story and that each renders. See the `wideset-component-docs` skill.
 - Tests: `describe` blocks per concern, `screen.getByRole(..., { name })` over test IDs, one
   assertion topic per `it`, verify rest props (`data-*`, `aria-*`, `className`) reach the DOM,
-  imports from `vitest`.
+  imports from `vitest`. A new test checks what the snapshot cannot see (interaction, state,
+  focus); don't add one that only re-asserts a class or attribute the snapshot already pins. The
+  rest-props and `data-slot` checks are required, and existing tests stay.
 
 ## React Server Component boundary
 

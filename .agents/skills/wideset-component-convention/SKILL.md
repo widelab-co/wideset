@@ -94,6 +94,7 @@ Check each refactored component for:
 - [ ] Public API uses a single top-level component (e.g. `<ComboBox>`), not Radix-style `.Root`. Providers, context, and primitive wrappers are hidden inside — users write `<ComboBox><ComboBox.Trigger /></ComboBox>`, never `<ComboBox.Root>` or `<ComboBox.Provider>`. See `Accordion` for reference.
 - [ ] Parent→child data shared via Context in `Component.context.tsx` when subcomponents need parent state
 - [ ] Context hook throws with convention: `use{X}Context must be used within a <{X}>`
+- [ ] Comments are avoided; one appears only where the code cannot say why it is not obvious, never why it changed or where a value came from ("Figma: …", "was X, now Y"): that goes in the commit message, changeset or PR
 
 #### Styling
 
@@ -136,6 +137,7 @@ Check each refactored component for:
 - [ ] Snapshot test present and snapshot committed under `__snapshots__/`
 - [ ] One aspect per `it` (don't mix render + interaction assertions)
 - [ ] Rest-props spread is verified (e.g. `data-*`, `aria-*`, `className` merging onto the root element)
+- [ ] A new test checks what the snapshot cannot see (interaction, state, focus); none only re-asserts a class or attribute the snapshot already pins. Rest-props and `data-slot` checks stay required; existing tests are not removed for this
 - [ ] A component that shows user text in a fixed width has a long-value test: it truncates
       with an ellipsis on one line, never wraps or clips.
 - [ ] Imports: `describe, expect, it, vi` from `vitest` (not `@jest/globals`)
