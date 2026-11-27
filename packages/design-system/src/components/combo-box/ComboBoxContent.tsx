@@ -18,6 +18,8 @@ const ComboBoxContent = React.forwardRef<HTMLDivElement, ComboBoxContentProps>(
         ref={ref}
         data-slot="combo-box-content"
         defaultMotion={motion}
+        sideOffset={4}
+        collisionPadding={10}
         // `document?.body` still throws on the server: `document` is not declared there at all.
         className={cn(
           selectContentVariants({ position: 'popper' }),

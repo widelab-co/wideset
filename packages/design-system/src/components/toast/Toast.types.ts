@@ -122,7 +122,8 @@ export type ToastProps = ToastPropsBasic | ToastPropsExpanded;
 export type ToastActionProps = ButtonProps;
 
 /** Icon-only action rendered in the toast's top-right cluster, before the dismiss button. */
-export type ToastIconActionProps = Omit<IconButtonProps, 'preset' | 'variant' | 'size'>;
+export type ToastIconActionProps = Omit<IconButtonProps, 'preset' | 'variant' | 'size'> &
+  ({ 'aria-label': string } | { 'aria-labelledby': string });
 
 /** The message displayed inside the feedback surface. */
 export type ToastMessageProps = {

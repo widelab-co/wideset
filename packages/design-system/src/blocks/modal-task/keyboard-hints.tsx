@@ -74,12 +74,10 @@ function Hint({ keys, children }: { keys: ReactNode; children: string }) {
 /** A pointer press on a key keeps the focus where it was, so the key acts from there. */
 const keepFocus = (event: MouseEvent) => event.preventDefault();
 
-type KeyButtonProps = {
-  /** An icon key (the arrows); its `name` is what screen readers hear. */
-  icon?: RemixiconComponentType;
-  name?: string;
-  /** A key written as text (`Esc`). */
-  children?: string;
+type KeyButtonProps = (
+  | { icon: RemixiconComponentType; name: string; children?: never }
+  | { icon?: never; name?: never; children: string }
+) & {
   onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
 };
 

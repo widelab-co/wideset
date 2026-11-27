@@ -3,13 +3,12 @@ import React from 'react';
 import { cn } from 'src/lib/utils';
 
 import { useDefaultMotion } from '../../motion/MotionProvider';
-import { Button } from './Button';
 import { ButtonContext } from './Button.context';
 import { ButtonIcon } from './ButtonIcon';
-import type { IconButtonWithSubComponents } from './IconButton.types';
+import type { IconButtonProps } from './IconButton.types';
 import { iconButtonMotionVariants, iconButtonVariants } from './IconButton.variants';
 
-const IconButton = React.forwardRef(
+const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
   (
     {
       className,
@@ -43,15 +42,13 @@ const IconButton = React.forwardRef(
           {...props}
         >
           {children ? <Slottable>{children}</Slottable> : null}
-          <Button.Icon icon={Icon} className={iconClassName} />
+          <ButtonIcon icon={Icon} className={iconClassName} />
         </Comp>
       </ButtonContext.Provider>
     );
   },
-) as IconButtonWithSubComponents;
+);
 
 IconButton.displayName = 'IconButton';
-export const IconButtonIcon = ButtonIcon;
-IconButton.Icon = IconButtonIcon;
 
 export { IconButton };

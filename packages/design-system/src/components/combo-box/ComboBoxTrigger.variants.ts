@@ -1,11 +1,11 @@
 import { cva } from 'class-variance-authority';
 
-export const clearButtonOffsetVariants = cva('', {
+export const comboBoxClearButtonVariants = cva('ml-ws-3 relative shrink-0 rounded-full p-0', {
   variants: {
     size: {
-      sm: 'right-ws-14',
-      md: 'right-ws-16',
-      lg: 'right-ws-18',
+      sm: 'size-ws-11 mr-ws-2',
+      md: 'size-ws-13 mr-ws-3',
+      lg: 'size-ws-14 mr-ws-3',
     },
   },
   defaultVariants: {

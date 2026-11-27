@@ -73,13 +73,6 @@
   }
 }
 
-/* The Select's list is as wide as its trigger, which can be as wide as one word. The list
-   sizes to its own options instead, with a floor so short lists still read as a menu. */
-[role='listbox'] {
-  width: auto;
-  min-width: 10rem;
-}
-
 /* A pane one step off the page ground: code blocks, do/don't panes. */
 .docs-pane {
   background: var(--background-color-ws-static-background);

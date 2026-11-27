@@ -15,12 +15,10 @@ export function Hint({ keys, children }: { keys: ReactNode; children: string }) 
 /** A pointer press on a key keeps the focus in the field, so the keyboard keeps working. */
 const keepFocus = (event: MouseEvent) => event.preventDefault();
 
-type KeyButtonProps = {
-  /** An icon key (Enter, the arrows); its `name` is what screen readers hear. */
-  icon?: RemixiconComponentType;
-  name?: string;
-  /** A key written as text (`Esc`, `>`). */
-  children?: string;
+type KeyButtonProps = (
+  | { icon: RemixiconComponentType; name: string; children?: never }
+  | { icon?: never; name?: never; children: string }
+) & {
   onClick?: () => void;
 };
 

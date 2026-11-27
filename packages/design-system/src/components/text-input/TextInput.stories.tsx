@@ -230,6 +230,7 @@ export const Composition: Story = {
           <TextInput.Suffix>
             <TextInput.IconButton
               icon={RiFileCopyLine}
+              aria-label="Copy"
               onClick={() => {
                 console.log('copy clicked');
               }}
@@ -271,6 +272,7 @@ export const Composition: Story = {
           <TextInput.Suffix inner>
             <TextInput.IconButton
               icon={RiFileCopyLine}
+              aria-label="Copy"
               onClick={() => {
                 console.log('copy clicked');
               }}

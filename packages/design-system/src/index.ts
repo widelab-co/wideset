@@ -74,8 +74,8 @@ export type {
 } from './components/button/Button.types';
 export { ButtonIcon } from './components/button/ButtonIcon';
 export { ButtonTruncatedText } from './components/button/ButtonTruncatedText';
-export { IconButton, IconButtonIcon } from './components/button/IconButton';
-export type { IconButtonIconProps, IconButtonProps } from './components/button/IconButton.types';
+export { IconButton } from './components/button/IconButton';
+export type { IconButtonProps } from './components/button/IconButton.types';
 export { LinkButton, LinkButtonTruncatedText } from './components/button/LinkButton';
 export type {
   LinkButtonProps,
@@ -115,8 +115,17 @@ export { Checkbox, CheckboxDescription, CheckboxLabel } from './components/check
 export type { CheckboxGroupProps, CheckboxProps } from './components/checkbox/Checkbox.types';
 export { CheckboxGroup } from './components/checkbox/CheckboxGroup';
 export { Chip } from './components/chip/Chip';
-export type { ChipIconProps, ChipProps } from './components/chip/Chip.types';
+export type {
+  ChipActionProps,
+  ChipIconButtonProps,
+  ChipIconProps,
+  ChipLabelProps,
+  ChipProps,
+} from './components/chip/Chip.types';
+export { ChipAction } from './components/chip/ChipAction';
 export { ChipIcon } from './components/chip/ChipIcon';
+export { ChipIconButton } from './components/chip/ChipIconButton';
+export { ChipLabel } from './components/chip/ChipLabel';
 export { ComboBox, ComboBoxIcon, ComboBoxPrefix } from './components/combo-box/ComboBox';
 export type {
   ComboBoxContentProps,

@@ -394,12 +394,10 @@ function KeyButton({
   name,
   children,
   onClick,
-}: {
-  icon?: RemixiconComponentType;
-  name?: string;
-  children?: string;
-  onClick: () => void;
-}) {
+}: (
+  | { icon: RemixiconComponentType; name: string; children?: never }
+  | { icon?: never; name?: never; children: string }
+) & { onClick: () => void }) {
   return icon ? (
     <IconButton
       icon={icon}

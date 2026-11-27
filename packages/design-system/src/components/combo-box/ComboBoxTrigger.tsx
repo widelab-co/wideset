@@ -7,19 +7,17 @@ import { IconButton } from '../button/IconButton';
 import { Popup } from '../popup/Popup';
 import {
   selectClearButtonIconVariants,
-  selectClearButtonVariants,
   selectTriggerSuffixIconVariants,
   selectTriggerSuffixVariants,
   selectTriggerVariants,
   selectValueLeftPaddingVariants,
-  selectValueRightPaddingVariants,
 } from '../select/Select.variants';
 import { TextInput } from '../text-input/TextInput';
 import { TextInputContext } from '../text-input/TextInput.context';
 import { useComboBoxContext } from './ComboBox.context';
 import type { ComboBoxTriggerProps } from './ComboBox.types';
 import { comboBoxTriggerMotionVariants } from './ComboBox.variants';
-import { clearButtonOffsetVariants } from './ComboBoxTrigger.variants';
+import { comboBoxClearButtonVariants } from './ComboBoxTrigger.variants';
 
 const ComboBoxTrigger = React.forwardRef<HTMLDivElement, ComboBoxTriggerProps>(
   (
@@ -163,7 +161,6 @@ const ComboBoxTrigger = React.forwardRef<HTMLDivElement, ComboBoxTriggerProps>(
                 className={cn(
                   'h-auto min-w-0 flex-1 px-0',
                   hasPrefix && selectValueLeftPaddingVariants({ size }),
-                  resolvedHasClearButton && selectValueRightPaddingVariants({ size }),
                 )}
                 role="combobox"
                 {...comboboxProps}
@@ -176,7 +173,6 @@ const ComboBoxTrigger = React.forwardRef<HTMLDivElement, ComboBoxTriggerProps>(
                   'min-w-0 flex-1 truncate',
                   !resolvedDisplayedLabel && 'text-ws-static-subtle',
                   hasPrefix && selectValueLeftPaddingVariants({ size }),
-                  resolvedHasClearButton && selectValueRightPaddingVariants({ size }),
                 )}
               >
                 {resolvedDisplayedLabel || placeholder}
@@ -190,10 +186,7 @@ const ComboBoxTrigger = React.forwardRef<HTMLDivElement, ComboBoxTriggerProps>(
                 icon={RiCloseLine}
                 preset="ghost"
                 variant="secondary"
-                className={cn(
-                  selectClearButtonVariants({ size, hideArrow: false }),
-                  clearButtonOffsetVariants({ size }),
-                )}
+                className={comboBoxClearButtonVariants({ size })}
                 iconClassName={selectClearButtonIconVariants({ size })}
               />
             )}
