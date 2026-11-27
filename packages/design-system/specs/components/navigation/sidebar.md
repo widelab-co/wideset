@@ -13,6 +13,9 @@ parts:
     SidebarExpanded,
     SidebarCollapsed,
     SidebarItem,
+    SidebarGroup,
+    SidebarGroupTrigger,
+    SidebarGroupContent,
     SidebarTrigger,
   ]
 related: [AppShell, Tabs, Breadcrumbs, Sidepanel]
@@ -54,8 +57,21 @@ storybook: components-sidebar--default
     <nav aria-label="Main" className="gap-ws-2 flex flex-col">
       <Sidebar.Item href="/" icon={RiDashboardLine} label="Dashboard" active />
       <Sidebar.Item href="/projects" icon={RiFolder3Line} label="Projects" />
+      <Sidebar.Group defaultOpen>
+        <Sidebar.Item href="/reports" icon={RiBarChartLine} label="Reports" />
+        <Sidebar.GroupTrigger expandLabel="Show reports" collapseLabel="Hide reports" />
+        <Sidebar.GroupContent>
+          <Sidebar.Item href="/reports/revenue" icon={RiLineChartLine} label="Revenue" nested />
+        </Sidebar.GroupContent>
+      </Sidebar.Group>
       <Sidebar.SectionHeader>Products</Sidebar.SectionHeader>
       <Sidebar.Item href="/payments" icon={RiSecurePaymentLine} label="Payments" />
+      <Sidebar.Group>
+        <Sidebar.SectionHeader collapsible>Archived</Sidebar.SectionHeader>
+        <Sidebar.GroupContent>
+          <Sidebar.Item href="/ideas" icon={RiLightbulbLine} label="Ideas" />
+        </Sidebar.GroupContent>
+      </Sidebar.Group>
     </nav>
   </Sidebar.Section>
 </Sidebar>
@@ -80,6 +96,9 @@ The root fills its parent's height; place it in a full-height flex row next to t
 | `active`           | on `Sidebar.Item`             | The current page; one per sidebar.                                                       |
 | `disabled`         | on `Sidebar.Item`             | A page the user's plan or role does not include yet.                                     |
 | `asChild`          | on `Sidebar.Item`             | Render as a router `Link`; icon and label are injected into it.                          |
+| `defaultOpen`      | on `Sidebar.Group`            | Start open: the group holds the current page.                                            |
+| `open`             | + `onOpenChange`              | You own the group's state (open the one holding the route).                              |
+| `collapsible`      | on `Sidebar.SectionHeader`    | The header folds the `Sidebar.Group` around it.                                          |
 
 ## States
 
@@ -88,9 +107,10 @@ The root fills its parent's height; place it in a full-height flex row next to t
   icon, the footer's avatar. Nothing in the rail is offset to make room for a scrollbar.
 - Item active (`aria-current="page"`), hover, pressed, focus, disabled (`aria-disabled`, out of
   the tab order, click blocked).
-
-## Content
-
+- Group open / closed: `Sidebar.Group` and `Sidebar.GroupContent` carry `data-state`; closed rows
+  stay mounted but hidden. Collapsed, a group headed by an item hides its chevron and its rows
+  (the rail shows the head's icon); a collapsible section shows its chevron alone and still folds.
+- A collapsible section header puts its chevron right after the title, in the title's colour.
 - Labels are page names, one or two words, sentence case.
 - Every item has an icon: collapsed mode shows nothing else.
 - A count or badge on a row is its `suffix` (`suffix={3}`): it sits on the row's right edge,
@@ -113,6 +133,9 @@ The root fills its parent's height; place it in a full-height flex row next to t
   edge, where it meets the sidebar's own right line; on `frame` it keeps the nav's inset, because
   edge to edge it stops short of the page and reads as broken.
 - Prefer hiding a page the user will never reach over showing it disabled.
+- A page with sub-pages of its own folds them under it: a `Sidebar.Group` whose head is the page's
+  item followed by a `Sidebar.GroupTrigger`, the sub-pages `nested` in `Sidebar.GroupContent`.
+  A section the user may want out of the way gets a `collapsible` header instead.
 
 ## Accessibility
 
@@ -123,6 +146,9 @@ The root fills its parent's height; place it in a full-height flex row next to t
   keep focus when the sidebar toggles.
 - `Sidebar.SectionHeader` keeps its text in both modes; give it an `id` and point the group's
   `aria-labelledby` at it.
+- `Sidebar.GroupTrigger` sets `aria-expanded` / `aria-controls`; name the group through
+  `expandLabel` / `collapseLabel` ("Show reports"), the defaults only say "Expand group". A
+  collapsible section header is named by its title.
 - `Sidebar.Trigger` names itself ("Collapse sidebar" / "Expand sidebar", via `collapseLabel` /
   `expandLabel`) and sets `aria-expanded` / `aria-controls`.
 
@@ -158,6 +184,16 @@ The root fills its parent's height; place it in a full-height flex row next to t
 // Don't: an absolutely placed count over the row; it misses the shared right edge
 <div className="relative"><Sidebar.Item … /><span className="absolute right-ws-5">3</span></div>
 
+// Do: the head stays a link, the chevron is its own button beside it
+<Sidebar.Group>
+  <Sidebar.Item href="/reports" icon={RiBarChartLine} label="Reports" />
+  <Sidebar.GroupTrigger expandLabel="Show reports" collapseLabel="Hide reports" />
+  <Sidebar.GroupContent>…</Sidebar.GroupContent>
+</Sidebar.Group>
+
+// Don't: a toggle inside the link's suffix (a button inside an anchor)
+<Sidebar.Item href="/reports" label="Reports" suffix={<button>…</button>} />
+
 // Don't: the same navigation twice, once per mode (it remounts and drops focus on toggle)
 <Sidebar.Section>
   <Sidebar.Expanded>{nav}</Sidebar.Expanded>
@@ -188,6 +224,10 @@ The root fills its parent's height; place it in a full-height flex row next to t
   loses focus; keep one trigger outside them.
 - A row action (a "…" menu) is a button and cannot sit in `suffix`: the row is a link. Lay it
   over the row's right edge as a sibling, at the suffix's inset.
+- Put one `Sidebar.GroupContent` directly inside each `Sidebar.Group` in the DOM. For an item group,
+  the head item and its trigger are direct siblings of the content. A custom component can return
+  the trigger directly, and a React fragment can hold the head item and trigger.
+- `Sidebar.GroupTrigger` and a `collapsible` header throw outside a `Sidebar.Group`.
 - The item's `icon` takes a component (`icon={RiFolder3Line}`), not an element.
 - `onCollapsedChange` fires in both modes; with `collapsed` set, nothing changes until you update it.
 - `Sidebar.Trigger` with `asChild` merges the toggle onto your own button.

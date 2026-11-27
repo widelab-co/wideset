@@ -408,6 +408,9 @@ export type {
   SidebarCollapsedProps,
   SidebarExpandedProps,
   SidebarFooterProps,
+  SidebarGroupContentProps,
+  SidebarGroupProps,
+  SidebarGroupTriggerProps,
   SidebarHeaderProps,
   SidebarItemProps,
   SidebarProps,
@@ -418,6 +421,9 @@ export type {
 export { SidebarCollapsed } from './components/sidebar/SidebarCollapsed';
 export { SidebarExpanded } from './components/sidebar/SidebarExpanded';
 export { SidebarFooter } from './components/sidebar/SidebarFooter';
+export { SidebarGroup } from './components/sidebar/SidebarGroup';
+export { SidebarGroupContent } from './components/sidebar/SidebarGroupContent';
+export { SidebarGroupTrigger } from './components/sidebar/SidebarGroupTrigger';
 export { SidebarHeader } from './components/sidebar/SidebarHeader';
 export { SidebarItem } from './components/sidebar/SidebarItem';
 export { SidebarSection } from './components/sidebar/SidebarSection';

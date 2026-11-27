@@ -699,3 +699,348 @@ describe('data-slot', () => {
     );
   });
 });
+
+describe('Sidebar.Group', () => {
+  const renderFamily = ({
+    collapsed = false,
+    groupProps = {},
+    triggerProps = {},
+  }: {
+    collapsed?: boolean;
+    groupProps?: React.ComponentProps<typeof Sidebar.Group>;
+    triggerProps?: React.ComponentProps<typeof Sidebar.GroupTrigger>;
+  } = {}) =>
+    render(
+      <Sidebar collapsed={collapsed}>
+        <Sidebar.Section>
+          <Sidebar.Group data-testid="group" {...groupProps}>
+            <Sidebar.Item href="/button" label="Button" />
+            <Sidebar.GroupTrigger
+              expandLabel="Show Button components"
+              collapseLabel="Hide Button components"
+              {...triggerProps}
+            />
+            <Sidebar.GroupContent data-testid="content">
+              <Sidebar.Item href="/icon-button" label="Icon Button" nested />
+            </Sidebar.GroupContent>
+          </Sidebar.Group>
+        </Sidebar.Section>
+      </Sidebar>,
+    );
+
+  const renderSection = ({
+    collapsed = false,
+    groupProps = {},
+  }: {
+    collapsed?: boolean;
+    groupProps?: React.ComponentProps<typeof Sidebar.Group>;
+  } = {}) =>
+    render(
+      <Sidebar collapsed={collapsed}>
+        <Sidebar.Section>
+          <Sidebar.Group {...groupProps}>
+            <Sidebar.SectionHeader collapsible>Spaces</Sidebar.SectionHeader>
+            <Sidebar.GroupContent data-testid="content">
+              <Sidebar.Item href="/design" label="Design" />
+            </Sidebar.GroupContent>
+          </Sidebar.Group>
+        </Sidebar.Section>
+      </Sidebar>,
+    );
+
+  describe('Rendering', () => {
+    it('starts closed, its rows hidden', () => {
+      renderFamily();
+      expect(screen.getByTestId('content')).not.toBeVisible();
+      expect(screen.getByTestId('content')).toHaveClass('hidden');
+    });
+
+    it('starts open with defaultOpen', () => {
+      renderFamily({ groupProps: { defaultOpen: true } });
+      expect(screen.getByRole('link', { name: 'Icon Button' })).toBeVisible();
+    });
+
+    it('keeps the head a link, with the chevron a button beside it, not inside it', () => {
+      renderFamily();
+      const link = screen.getByRole('link', { name: 'Button' });
+      const toggle = screen.getByRole('button', { name: 'Show Button components' });
+      expect(link).not.toContainElement(toggle);
+      expect(toggle.parentElement).toBe(link.parentElement);
+    });
+
+    it('turns the chevron down when open', () => {
+      renderFamily({ groupProps: { defaultOpen: true } });
+      const icon = screen.getByRole('button', { name: 'Hide Button components' }).firstChild;
+      expect(icon).toHaveClass('rotate-90', 'transition-transform');
+    });
+
+    it('drops the chevron transition with defaultMotion={false}', () => {
+      renderFamily({ groupProps: { defaultMotion: false } });
+      const icon = screen.getByRole('button', { name: 'Show Button components' }).firstChild;
+      expect(icon).not.toHaveClass('transition-transform');
+    });
+
+    it('marks every part with data-slot and data-state', () => {
+      renderFamily();
+      expect(screen.getByTestId('group')).toHaveAttribute('data-slot', 'sidebar-group');
+      expect(screen.getByTestId('group')).toHaveAttribute('data-state', 'closed');
+      expect(screen.getByTestId('content')).toHaveAttribute('data-slot', 'sidebar-group-content');
+      expect(screen.getByRole('button')).toHaveAttribute('data-slot', 'sidebar-group-trigger');
+    });
+
+    it('passes rest props and className to the DOM', () => {
+      renderFamily({
+        groupProps: { className: 'custom-group', 'aria-label': 'Button family' },
+        triggerProps: { className: 'custom-trigger', title: 'Button components' },
+      });
+      expect(screen.getByTestId('group')).toHaveClass('custom-group');
+      expect(screen.getByTestId('group')).toHaveAttribute('aria-label', 'Button family');
+      expect(screen.getByRole('button')).toHaveClass('custom-trigger');
+      expect(screen.getByRole('button')).toHaveAttribute('title', 'Button components');
+    });
+
+    it('matches snapshot', () => {
+      const { container } = renderFamily({ groupProps: { defaultOpen: true } });
+      expect(container.firstChild).toMatchSnapshot();
+    });
+
+    it('matches snapshot for a collapsible section', () => {
+      const { container } = renderSection({ groupProps: { defaultOpen: true } });
+      expect(container.firstChild).toMatchSnapshot();
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('ties the chevron to the rows with aria-expanded and aria-controls', () => {
+      renderFamily();
+      const toggle = screen.getByRole('button', { name: 'Show Button components' });
+      expect(toggle).toHaveAttribute('aria-expanded', 'false');
+      expect(toggle).toHaveAttribute('aria-controls', screen.getByTestId('content').id);
+    });
+
+    it('takes aria-label over the state labels', () => {
+      renderFamily({ triggerProps: { 'aria-label': 'Button components' } });
+      expect(screen.getByRole('button', { name: 'Button components' })).toBeInTheDocument();
+    });
+
+    it('defaults the chevron names', async () => {
+      render(
+        <Sidebar>
+          <Sidebar.Group>
+            <Sidebar.Item href="#" label="Reports" />
+            <Sidebar.GroupTrigger />
+            <Sidebar.GroupContent />
+          </Sidebar.Group>
+        </Sidebar>,
+      );
+      await userEvent.click(screen.getByRole('button', { name: 'Expand group' }));
+      expect(screen.getByRole('button', { name: 'Collapse group' })).toBeInTheDocument();
+    });
+
+    it('toggles from the keyboard', async () => {
+      renderFamily();
+      await userEvent.tab();
+      expect(screen.getByRole('link', { name: 'Button' })).toHaveFocus();
+      await userEvent.tab();
+      expect(screen.getByRole('button', { name: 'Show Button components' })).toHaveFocus();
+      await userEvent.keyboard('{Enter}');
+      expect(screen.getByRole('link', { name: 'Icon Button' })).toBeVisible();
+      await userEvent.keyboard(' ');
+      expect(screen.getByTestId('content')).not.toBeVisible();
+    });
+
+    it('throws outside a Sidebar.Group', () => {
+      vi.spyOn(console, 'error').mockImplementation(() => {});
+      expect(() =>
+        render(
+          <Sidebar>
+            <Sidebar.GroupTrigger />
+          </Sidebar>,
+        ),
+      ).toThrow('useSidebarGroupContext must be used within a <Sidebar.Group>');
+      vi.restoreAllMocks();
+    });
+  });
+
+  describe('Uncontrolled mode', () => {
+    it('opens and closes on click, firing onOpenChange', async () => {
+      const onOpenChange = vi.fn();
+      renderFamily({ groupProps: { onOpenChange } });
+      await userEvent.click(screen.getByRole('button', { name: 'Show Button components' }));
+      expect(screen.getByRole('link', { name: 'Icon Button' })).toBeVisible();
+      expect(onOpenChange).toHaveBeenLastCalledWith(true);
+      await userEvent.click(screen.getByRole('button', { name: 'Hide Button components' }));
+      expect(screen.getByTestId('content')).not.toBeVisible();
+      expect(onOpenChange).toHaveBeenLastCalledWith(false);
+    });
+
+    it('does not toggle when the click handler prevents default', async () => {
+      renderFamily({ triggerProps: { onClick: (e) => e.preventDefault() } });
+      await userEvent.click(screen.getByRole('button', { name: 'Show Button components' }));
+      expect(screen.getByTestId('content')).not.toBeVisible();
+    });
+  });
+
+  describe('Controlled mode', () => {
+    it('follows open and only asks to change it', async () => {
+      const onOpenChange = vi.fn();
+      renderFamily({ groupProps: { open: false, onOpenChange } });
+      await userEvent.click(screen.getByRole('button', { name: 'Show Button components' }));
+      expect(onOpenChange).toHaveBeenCalledWith(true);
+      expect(screen.getByTestId('content')).not.toBeVisible();
+    });
+
+    it('opens when open is true', () => {
+      renderFamily({ groupProps: { open: true } });
+      expect(screen.getByRole('link', { name: 'Icon Button' })).toBeVisible();
+    });
+  });
+
+  describe('Collapsed sidebar', () => {
+    it.each(['component', 'fragment'])(
+      'keeps a trigger composed through a %s in the DOM and preserves the open state',
+      (composition) => {
+        function ReportsToggle() {
+          return <Sidebar.GroupTrigger hidden={false} />;
+        }
+
+        function renderSidebar(collapsed: boolean) {
+          return (
+            <Sidebar collapsed={collapsed}>
+              <Sidebar.Section>
+                <Sidebar.Group defaultOpen data-testid="group">
+                  <Sidebar.Item href="/reports" label="Reports" />
+                  {composition === 'component' ? (
+                    <ReportsToggle />
+                  ) : (
+                    <>
+                      <Sidebar.GroupTrigger hidden={false} />
+                    </>
+                  )}
+                  <Sidebar.GroupContent data-testid="content">
+                    <Sidebar.Item href="/revenue" label="Revenue" nested />
+                  </Sidebar.GroupContent>
+                </Sidebar.Group>
+              </Sidebar.Section>
+            </Sidebar>
+          );
+        }
+
+        const { rerender } = render(renderSidebar(false));
+        const group = screen.getByTestId('group');
+        const content = screen.getByTestId('content');
+        const trigger = screen.getByRole('button', { name: 'Collapse group' });
+        expect(trigger.parentElement).toBe(group);
+
+        rerender(renderSidebar(true));
+        expect(group).toHaveAttribute('data-collapsed', '');
+        expect(trigger).toHaveAttribute('hidden');
+        expect(trigger).toHaveClass('hidden');
+        expect(screen.queryByRole('button')).not.toBeInTheDocument();
+        expect(content).not.toHaveAttribute('hidden');
+        expect(content).toHaveAttribute('data-state', 'open');
+
+        rerender(renderSidebar(false));
+        expect(group).not.toHaveAttribute('data-collapsed');
+        expect(trigger).not.toHaveAttribute('hidden');
+        expect(screen.getByRole('button', { name: 'Collapse group', expanded: true })).toBe(
+          trigger,
+        );
+        expect(content).toHaveAttribute('data-state', 'open');
+      },
+    );
+
+    it('respects the trigger hidden prop while expanded', () => {
+      renderFamily({ groupProps: { defaultOpen: true }, triggerProps: { hidden: true } });
+      const trigger = screen.getByRole('button', { hidden: true });
+      expect(trigger).toHaveAttribute('hidden');
+      expect(trigger).toHaveClass('hidden');
+      expect(screen.getByRole('link', { name: 'Icon Button' })).toBeVisible();
+    });
+
+    it('keeps a collapsible section working: the chevron alone, named by its title', async () => {
+      renderSection({ collapsed: true, groupProps: { defaultOpen: true } });
+      expect(screen.getByText('Spaces')).toHaveClass('sr-only');
+      expect(screen.getByRole('link', { name: 'Design' })).toBeVisible();
+      await userEvent.click(screen.getByRole('button', { name: 'Spaces' }));
+      expect(screen.getByTestId('content')).not.toBeVisible();
+    });
+  });
+});
+
+describe('Sidebar.SectionHeader collapsible', () => {
+  const renderHeader = (defaultOpen = false) =>
+    render(
+      <Sidebar>
+        <Sidebar.Group defaultOpen={defaultOpen}>
+          <Sidebar.SectionHeader collapsible data-testid="header">
+            Spaces
+          </Sidebar.SectionHeader>
+          <Sidebar.GroupContent data-testid="content">
+            <Sidebar.Item href="#" label="Design" />
+          </Sidebar.GroupContent>
+        </Sidebar.Group>
+      </Sidebar>,
+    );
+
+  it('is a button named by its title', () => {
+    renderHeader();
+    const toggle = screen.getByRole('button', { name: 'Spaces' });
+    expect(toggle).toHaveAttribute('aria-expanded', 'false');
+    expect(toggle).toHaveAttribute('aria-controls', screen.getByTestId('content').id);
+  });
+
+  // Design decision: the title keeps a plain header's left edge, the chevron follows it.
+  it('puts the chevron right after the title, centred on its line', () => {
+    renderHeader();
+    const toggle = screen.getByRole('button', { name: 'Spaces' });
+    expect(toggle.firstElementChild).toHaveTextContent('Spaces');
+    expect(toggle.lastElementChild?.tagName.toLowerCase()).toBe('svg');
+    expect(toggle).toHaveClass('items-center', 'gap-ws-3');
+    expect(screen.getByText('Spaces')).not.toHaveClass('flex-1');
+  });
+
+  it("gives the chevron the title's colour, strengthening with it on hover", () => {
+    renderHeader();
+    const toggle = screen.getByRole('button', { name: 'Spaces' });
+    expect(toggle).toHaveClass('text-ws-static-subtle', 'hover:text-ws-static-strong');
+    expect(toggle.lastElementChild?.getAttribute('class')).not.toMatch(/\btext-ws-/);
+  });
+
+  it('folds the group on click', async () => {
+    renderHeader(true);
+    await userEvent.click(screen.getByRole('button', { name: 'Spaces' }));
+    expect(screen.getByRole('button', { name: 'Spaces' })).toHaveAttribute(
+      'aria-expanded',
+      'false',
+    );
+    expect(screen.getByTestId('content')).not.toBeVisible();
+  });
+
+  it("is Figma's Folder row: 48px, the row's padding on its button", () => {
+    renderHeader();
+    expect(screen.getByTestId('header')).toHaveClass('h-ws-18');
+    expect(screen.getByRole('button', { name: 'Spaces' })).toHaveClass('p-ws-5', 'gap-ws-3');
+  });
+
+  it('stays a plain heading without collapsible', () => {
+    render(
+      <Sidebar>
+        <Sidebar.SectionHeader>Products</Sidebar.SectionHeader>
+      </Sidebar>,
+    );
+    expect(screen.queryByRole('button')).not.toBeInTheDocument();
+  });
+
+  it('throws when collapsible outside a Sidebar.Group', () => {
+    vi.spyOn(console, 'error').mockImplementation(() => {});
+    expect(() =>
+      render(
+        <Sidebar>
+          <Sidebar.SectionHeader collapsible>Spaces</Sidebar.SectionHeader>
+        </Sidebar>,
+      ),
+    ).toThrow('useSidebarGroupContext must be used within a <Sidebar.Group>');
+    vi.restoreAllMocks();
+  });
+});

@@ -46,6 +46,16 @@
 // Don't: an absolutely placed count over the row; it misses the shared right edge
 <div className="relative"><Sidebar.Item … /><span className="absolute right-ws-5">3</span></div>
 
+// Do: the head stays a link, the chevron is its own button beside it
+<Sidebar.Group>
+  <Sidebar.Item href="/reports" icon={RiBarChartLine} label="Reports" />
+  <Sidebar.GroupTrigger expandLabel="Show reports" collapseLabel="Hide reports" />
+  <Sidebar.GroupContent>…</Sidebar.GroupContent>
+</Sidebar.Group>
+
+// Don't: a toggle inside the link's suffix (a button inside an anchor)
+<Sidebar.Item href="/reports" label="Reports" suffix={<button>…</button>} />
+
 // Don't: the same navigation twice, once per mode (it remounts and drops focus on toggle)
 <Sidebar.Section>
   <Sidebar.Expanded>{nav}</Sidebar.Expanded>
@@ -76,6 +86,10 @@
   loses focus; keep one trigger outside them.
 - A row action (a "…" menu) is a button and cannot sit in `suffix`: the row is a link. Lay it
   over the row's right edge as a sibling, at the suffix's inset.
+- Put one `Sidebar.GroupContent` directly inside each `Sidebar.Group` in the DOM. For an item group,
+  the head item and its trigger are direct siblings of the content. A custom component can return
+  the trigger directly, and a React fragment can hold the head item and trigger.
+- `Sidebar.GroupTrigger` and a `collapsible` header throw outside a `Sidebar.Group`.
 - The item's `icon` takes a component (`icon={RiFolder3Line}`), not an element.
 - `onCollapsedChange` fires in both modes; with `collapsed` set, nothing changes until you update it.
 - `Sidebar.Trigger` with `asChild` merges the toggle onto your own button.
