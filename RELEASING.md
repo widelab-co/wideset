@@ -98,7 +98,15 @@ The recommended way is the automated **"Version Packages" PR** that the Changese
 - Open it, review the computed version and the generated `CHANGELOG.md`.
 - Merge it into `develop`.
 
-If the auto-generated section is too noisy (many small Figma parity entries), **edit `CHANGELOG.md` in that PR** before merging: group visual fixes under one “Design (Figma parity)” bullet and keep breaking/features/bug fixes as short lines. Storybook reads this file verbatim.
+**Edit the new section of `packages/design-system/CHANGELOG.md` in that PR before merging.** The generator keeps only each changeset's first line and orders entries by chance, so migrations get lost. The docs' What's new page renders this file as it is. Every release uses the same shape:
+
+1. `### Breaking changes`: one entry per component, with what to change and a Before/After example copied from the changeset body.
+2. `### New components`
+3. `### Features`: new props, parts and utilities.
+4. `### Fixes`
+5. `### Design (Figma parity)`: visual changes with no API change.
+
+Leave out empty headings. Each entry starts with the component in bold (`- **Tabs:** …`), and entries are in alphabetical order inside a heading. Drop the commit hashes, entries for internal parts, notes about specs and skills, and CLI changes (they go in `packages/cli/CHANGELOG.md`). Edit only after the freeze: every merge into `develop` regenerates the PR and overwrites the edit.
 
 Treat **version → promote** as a brief freeze: avoid landing new changesets on `develop` between this step and step 2 (see Caveats).
 
