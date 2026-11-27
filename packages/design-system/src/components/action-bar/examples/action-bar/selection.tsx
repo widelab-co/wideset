@@ -6,7 +6,12 @@
  * region, so a screen reader reads it out as it changes. Keep the bar mounted and toggle
  * `isOpen`, so it can animate out.
  */
-import { RiDeleteBin6Line, RiSendPlaneLine, RiShareForwardLine } from '@remixicon/react';
+import {
+  RiCloseLine,
+  RiDeleteBin6Line,
+  RiSendPlaneLine,
+  RiShareForwardLine,
+} from '@remixicon/react';
 import { ActionBar, Button, Checkbox, IconButton, Table, Tooltip } from '@wideset/react';
 import { useRef, useState } from 'react';
 
@@ -76,9 +81,21 @@ export default function ActionBarSelection() {
             checked={allSelected || (selected.length > 0 ? 'indeterminate' : false)}
             onCheckedChange={updateFromBar}
           />
-          <Button variant="secondary" preset="ghost" size="sm" onClick={() => updateFromBar(false)}>
-            Clear selection
-          </Button>
+          <Tooltip size="sm" arrow={false}>
+            <Tooltip.Trigger asChild>
+              <IconButton
+                variant="secondary"
+                preset="ghost"
+                size="sm"
+                icon={RiCloseLine}
+                aria-label="Clear selection"
+                onClick={() => updateFromBar(false)}
+              />
+            </Tooltip.Trigger>
+            <Tooltip.Content>
+              <Tooltip.Label>Clear selection</Tooltip.Label>
+            </Tooltip.Content>
+          </Tooltip>
           <Button variant="secondary" size="sm">
             <Button.Icon icon={RiSendPlaneLine} />
             Publish

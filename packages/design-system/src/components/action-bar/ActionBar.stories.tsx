@@ -48,6 +48,9 @@ Use it for bulk actions on table rows, list items or files. Actions that need no
     },
   },
   argTypes: {
+    amountSelected: { table: { disable: true } },
+    onClose: { table: { disable: true } },
+    closeAriaLabel: { table: { disable: true } },
     isOpen: {
       control: 'boolean',
       table: {
@@ -104,7 +107,7 @@ export const Default: Story = {
   },
   render: (args) => (
     <div className="relative h-[5.5rem] w-[34rem] max-w-full [transform:translateZ(0)]">
-      <ActionBar {...args}>
+      <ActionBar {...args} onClose={undefined}>
         <ActionBar.Count>4 rows selected</ActionBar.Count>
         <ActionBar.Actions>
           <ActionBar.SelectAll checked="indeterminate" />
