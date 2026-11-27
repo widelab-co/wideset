@@ -25,9 +25,9 @@ export function BrandMark({ className, label }: { className?: string; label?: st
         ry="4"
         transform="rotate(-28 16 16)"
         strokeWidth="1.75"
-        className="fill-none stroke-(--ws-static-text-inverse-strong)"
+        className="stroke-ws-static-inverse-strong fill-none"
       />
-      <circle cx="16" cy="16" r="4.75" className="fill-(--ws-static-text-inverse-strong)" />
+      <circle cx="16" cy="16" r="4.75" className="fill-ws-static-inverse-strong" />
     </svg>
   );
 }

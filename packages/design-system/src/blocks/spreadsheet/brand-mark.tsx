@@ -20,7 +20,7 @@ export function BrandMark({ className, label }: { className?: string; label?: st
       className={cn('size-ws-14 shrink-0', className)}
     >
       <path d={TILE} className="fill-(--ws-static-fill-inverse-background)" />
-      <path d={W} className="fill-(--ws-static-text-inverse-strong)" />
+      <path d={W} className="fill-ws-static-inverse-strong" />
     </svg>
   );
 }
