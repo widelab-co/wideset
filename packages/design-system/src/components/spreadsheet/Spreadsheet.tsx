@@ -5,6 +5,7 @@ import { cn } from 'src/lib/utils';
 import { SpreadsheetContext } from './Spreadsheet.context';
 import {
   createActiveCellStore,
+  useSpreadsheetControls,
   useSpreadsheetKeyboard,
   useSpreadsheetLayout,
 } from './Spreadsheet.hooks';
@@ -41,12 +42,15 @@ export const Spreadsheet = React.forwardRef<HTMLDivElement, SpreadsheetProps>(
     const { focusWithin, onBlur, onFocus, onKeyDown } = useSpreadsheetKeyboard(scrollerRef, store);
 
     useSpreadsheetLayout(scrollerRef, tableRef, stickyColumns, store, focusWithin);
+    useSpreadsheetControls(tableRef);
 
     return (
       <SpreadsheetContext.Provider value={context}>
         <div
           ref={composedRef}
           data-slot="spreadsheet"
+          // Firefox makes an overflowing scroller a tab stop of its own; the active cell is the one.
+          tabIndex={-1}
           {...props}
           className={cn(SPREADSHEET_CLASS, className)}
         >

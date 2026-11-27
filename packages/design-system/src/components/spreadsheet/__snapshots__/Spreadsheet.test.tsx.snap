@@ -5,6 +5,7 @@ exports[`Spreadsheet > Rendering > matches the snapshot 1`] = `
   class="bg-ws-static-container isolate w-full ws-scrollbar overflow-auto"
   data-slot="spreadsheet"
   style="scroll-padding-top: 0px; scroll-padding-left: 0px;"
+  tabindex="-1"
 >
   <table
     aria-label="Clients"
