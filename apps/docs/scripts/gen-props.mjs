@@ -245,6 +245,9 @@ const elementOf = (text, fileText) => {
   }
   const html = text.match(/HTML(\w*)Element\b/);
   if (html) return `<${TAGS[html[1]] ?? html[1].toLowerCase()}>`;
+  // `ComponentPropsWithoutRef<'div'>` names the tag outright.
+  const tag = text.match(/ComponentProps(?:WithoutRef|WithRef)?<'([a-z][a-z0-9]*)'>/);
+  if (tag) return `<${tag[1]}>`;
   return undefined;
 };
 
