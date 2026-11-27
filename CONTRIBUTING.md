@@ -42,7 +42,9 @@ CI runs lint, Prettier, typecheck, build, tests and a Storybook build on every P
    line, correct semver bump. Shipping change with nothing to release: `pnpm changeset --empty`,
    reason in the body. The pre-push hook and CI refuse a branch without one
    ([RELEASING.md](RELEASING.md#when-a-changeset-is-required)).
-3. Run `pnpm typecheck && pnpm test` locally. Pre-commit hooks only format staged files.
+3. Run `pnpm typecheck && pnpm test` locally. The pre-commit hook formats staged files and stops
+   only on an ESLint error it cannot fix; the pre-push hook runs lint, Prettier, tests and the
+   changeset check. A new worktree needs `pnpm install` before its first commit (the hooks need it).
 4. Open the PR against `develop`. Write **Why** in one or two sentences and go through the
    checklist; [CodeRabbit](https://coderabbit.ai) writes the rest of the description and reviews
    the PR within minutes.

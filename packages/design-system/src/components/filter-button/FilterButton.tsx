@@ -171,7 +171,8 @@ export const FilterButton = React.forwardRef<HTMLButtonElement, FilterButtonProp
           // Width floor: max(trigger, Size/28) so the list neither shrinks below
           // the menu minimum nor jumps around as the trigger's own width
           // changes with the selection summary.
-          className="rounded-ws-container-sm p-ws-3 z-ws-popout w-auto min-w-[max(var(--radix-popover-trigger-width),var(--spacing-ws-28))]"
+          className="rounded-ws-container-sm p-ws-3 z-ws-popout max-h-[var(--radix-popover-content-available-height)] w-auto min-w-[max(var(--radix-popover-trigger-width),var(--spacing-ws-28))]"
+          collisionPadding={10}
           defaultMotion={motion}
           onOpenAutoFocus={(e) => {
             e.preventDefault();

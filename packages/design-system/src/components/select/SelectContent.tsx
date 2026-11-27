@@ -34,11 +34,12 @@ export const SelectContent = React.forwardRef<
           data-slot="select-content"
           portalContainer={portalContainer}
           defaultMotion={motion}
+          collisionPadding={10}
           className={cn(
             // Figma's Dropdown Menu container: Gap/3 (4px) inset, Gap/0 between rows.
             // Width floor: never narrower than the trigger nor the Size/28 menu
             // minimum (min-width beats DropdownMenu.Content's max-w cap).
-            'p-ws-3 ws-scrollbar flex max-h-[18rem] min-w-[max(var(--radix-dropdown-menu-trigger-width),var(--spacing-ws-28))] flex-col overflow-auto',
+            'p-ws-3 ws-scrollbar flex max-h-[min(18rem,var(--radix-dropdown-menu-content-available-height))] min-w-[max(var(--radix-dropdown-menu-trigger-width),var(--spacing-ws-28))] flex-col overflow-auto',
             className,
           )}
           {...props}

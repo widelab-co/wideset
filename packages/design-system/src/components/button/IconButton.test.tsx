@@ -1,8 +1,9 @@
 import { RiBugLine, RiCloseLine } from '@remixicon/react';
 import { render, screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, expectTypeOf, it } from 'vitest';
 
 import { IconButton } from './IconButton';
+import type { IconButtonProps } from './IconButton.types';
 
 describe('IconButton', () => {
   it('should render a button element by default', () => {
@@ -31,6 +32,20 @@ describe('IconButton', () => {
     const button = screen.getByRole('button');
     const computedStyle = window.getComputedStyle(button);
     expect(computedStyle.width).toBe(computedStyle.height);
+  });
+
+  it('requires an accessible name in its props type', () => {
+    type IconProps = { icon: typeof RiCloseLine };
+
+    expectTypeOf<IconProps & { 'aria-label': string }>().toExtend<IconButtonProps>();
+    expectTypeOf<IconProps & { 'aria-labelledby': string }>().toExtend<IconButtonProps>();
+    expectTypeOf<
+      IconProps & { 'aria-label': string; 'aria-labelledby': string }
+    >().toExtend<IconButtonProps>();
+    expectTypeOf<IconProps>().not.toExtend<IconButtonProps>();
+    expectTypeOf<
+      IconProps & { 'aria-label'?: string; 'aria-labelledby'?: string }
+    >().not.toExtend<IconButtonProps>();
   });
 });
 
