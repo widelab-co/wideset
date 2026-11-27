@@ -3,6 +3,7 @@ import { cn } from 'src/lib/utils';
 
 import { useDefaultMotion } from '../../motion/MotionProvider';
 import { AppShellContext } from '../app-shell/AppShell.context';
+import type { AppShellSidebarState } from '../app-shell/AppShell.types';
 import { SidebarContext } from './Sidebar.context';
 import type { SidebarProps } from './Sidebar.types';
 import {
@@ -10,6 +11,10 @@ import {
   sidebarSurfaceByDirection,
   sidebarVariants,
 } from './Sidebar.variants';
+
+// React 18 warns about useLayoutEffect during server rendering.
+const useIsomorphicLayoutEffect =
+  typeof window === 'undefined' ? React.useEffect : React.useLayoutEffect;
 
 const SidebarRoot = React.forwardRef<HTMLDivElement, SidebarProps>(
   (
@@ -29,7 +34,8 @@ const SidebarRoot = React.forwardRef<HTMLDivElement, SidebarProps>(
     const motion = useDefaultMotion(defaultMotion);
     // Inside an AppShell the sidebar takes the surface of the app's direction; its own
     // `surface` prop wins.
-    const direction = React.useContext(AppShellContext)?.direction;
+    const shell = React.useContext(AppShellContext);
+    const direction = shell?.direction;
     const surface = surfaceProp ?? (direction ? sidebarSurfaceByDirection[direction] : 'page');
     const [internalCollapsed, setInternalCollapsed] = React.useState(!!defaultCollapsed);
     const isControlled = collapsed !== undefined;
@@ -51,6 +57,19 @@ const SidebarRoot = React.forwardRef<HTMLDivElement, SidebarProps>(
       () => ({ isCollapsed, toggle, motion, sidebarId }),
       [isCollapsed, toggle, motion, sidebarId],
     );
+
+    // Lets AppShell.SidebarTrigger toggle this sidebar.
+    const registerSidebar = shell?.registerSidebar;
+    useIsomorphicLayoutEffect(() => {
+      if (!registerSidebar) return;
+
+      const isOwn = (current: AppShellSidebarState | null) => current?.sidebarId === sidebarId;
+      registerSidebar((current) =>
+        current && !isOwn(current) ? current : { isCollapsed, toggle, sidebarId, motion },
+      );
+
+      return () => registerSidebar((current) => (isOwn(current) ? null : current));
+    }, [registerSidebar, isCollapsed, toggle, sidebarId, motion]);
 
     return (
       <SidebarContext.Provider value={contextValue}>

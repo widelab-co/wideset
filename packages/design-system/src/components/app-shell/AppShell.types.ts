@@ -1,8 +1,12 @@
 import type { VariantProps } from 'class-variance-authority';
 import type * as React from 'react';
 
+import type { MotionProps } from '../../motion/Motion.types';
 import type { appShellVariants } from './AppShell.variants';
 import type { AppShellMain } from './AppShellMain';
+import type { AppShellPageBar } from './AppShellPageBar';
+import type { AppShellPageBarActions } from './AppShellPageBarActions';
+import type { AppShellSidebarTrigger } from './AppShellSidebarTrigger';
 
 /** The app's visual direction: how the navigation and the page meet the window. */
 export type AppShellDirection = NonNullable<VariantProps<typeof appShellVariants>['direction']>;
@@ -21,22 +25,78 @@ export type AppShellProps = React.HTMLAttributes<HTMLDivElement> & {
    * @default 'inset'
    */
   direction?: AppShellDirection;
-  /** A `Sidebar` (or another navigation) followed by `AppShell.Main`. */
+  /**
+   * A `Sidebar` (or another navigation) followed by `AppShell.Main`. AppShell supports one
+   * `Sidebar`: a second one is ignored.
+   */
   children?: React.ReactNode;
 };
 
 /** Props for the page area: a `<main>` styled for the shell's direction. */
 export type AppShellMainProps = React.HTMLAttributes<HTMLElement> & {
-  /** The page: its header and content. `AppShell.Main` is its only scroll container. */
+  /**
+   * The page: an optional `AppShell.PageBar` first, then its header and content. `AppShell.Main`
+   * is its only scroll container.
+   */
   children?: React.ReactNode;
+};
+
+/**
+ * Props for the slim bar at the top of the page: the sidebar's toggle, where you are, and the
+ * page's small tools. It stays put while the page scrolls under it.
+ */
+export type AppShellPageBarProps = React.HTMLAttributes<HTMLElement> & {
+  /**
+   * `AppShell.SidebarTrigger`, then `Breadcrumbs`, then `AppShell.PageBarActions`. Loose text in
+   * the bar takes the crumbs' size and colour (12px, subtle) on its own.
+   */
+  children?: React.ReactNode;
+};
+
+/** Props for the group at the far end of `AppShell.PageBar`. */
+export type AppShellPageBarActionsProps = React.HTMLAttributes<HTMLDivElement> & {
+  /** Small tools for the page: `sm` buttons and icon buttons, an avatar group, a status. */
+  children?: React.ReactNode;
+};
+
+/**
+ * Props for the button in `AppShell.PageBar` that collapses and expands the shell's `Sidebar`.
+ * The `Sidebar` keeps the state: use its `collapsed`, `defaultCollapsed` and `onCollapsedChange`.
+ * Renders nothing in a shell without a `Sidebar`.
+ */
+export type AppShellSidebarTriggerProps = Omit<
+  React.ButtonHTMLAttributes<HTMLButtonElement>,
+  'children'
+> & {
+  /** Accessible label used when the sidebar is collapsed (the button expands it). Ignored when `aria-label` is set. @default 'Expand sidebar' */
+  expandLabel?: string;
+  /** Accessible label used when the sidebar is expanded (the button collapses it). Ignored when `aria-label` is set. @default 'Collapse sidebar' */
+  collapseLabel?: string;
+} & MotionProps;
+
+/** What the shell's `Sidebar` reports about itself, for `AppShell.SidebarTrigger`. */
+export type AppShellSidebarState = {
+  isCollapsed: boolean;
+  toggle: () => void;
+  /** The sidebar root's `id`, for the trigger's `aria-controls`. */
+  sidebarId: string;
+  /** The sidebar's `defaultMotion`, the trigger's fallback. */
+  motion?: boolean;
 };
 
 export type AppShellContextValue = {
   direction: AppShellDirection;
+  /** The `Sidebar` inside this shell, once it has mounted. */
+  sidebar: AppShellSidebarState | null;
+  /** Called by `Sidebar` with its state, and with `null` when it unmounts. */
+  registerSidebar: React.Dispatch<React.SetStateAction<AppShellSidebarState | null>>;
 };
 
 export type AppShellWithSubComponents = React.ForwardRefExoticComponent<
   AppShellProps & React.RefAttributes<HTMLDivElement>
 > & {
   Main: typeof AppShellMain;
+  PageBar: typeof AppShellPageBar;
+  PageBarActions: typeof AppShellPageBarActions;
+  SidebarTrigger: typeof AppShellSidebarTrigger;
 };
