@@ -12,4 +12,8 @@ export type DividerProps = HTMLAttributes<HTMLDivElement> &
     text?: string;
     /** Horizontal alignment of the label text. */
     textAlign?: 'left' | 'center' | 'right';
+    /** Children are unsupported. Use `text` for the optional label. */
+    children?: never;
   };
+
+export type DividerLineProps = Pick<DividerProps, 'lineStyle' | 'emphasis' | 'weight'>;

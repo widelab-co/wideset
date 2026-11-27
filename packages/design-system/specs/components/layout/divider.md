@@ -40,6 +40,8 @@ storybook: components-divider--default
 
 A single element; no parts.
 
+Pass the label through `text`, not as children: use `<Divider text="or" />`, not `<Divider>or</Divider>`.
+
 ## Choosing props
 
 | Prop        | Value                                 | Use for                                                                        |
@@ -85,6 +87,7 @@ Use the lightest `weight` and `emphasis` that does the job.
 
 ## Gotchas
 
+- Children are unsupported and rejected by the props type; use `text` for the optional label.
 - Horizontal only; there is no `orientation` prop.
 - The prop is `lineStyle`, not `variant` or `style`; `weight` values are `thin` / `default` /
   `bold`, not sizes.

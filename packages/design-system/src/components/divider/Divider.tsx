@@ -1,17 +1,14 @@
 import { forwardRef } from 'react';
 import { cn } from 'src/lib/utils';
 
-import type { DividerProps } from './Divider.types';
+import type { DividerLineProps, DividerProps } from './Divider.types';
 import {
+  DIVIDER_WEIGHT_PX,
   dividerDashedLineVariants,
   dividerLineVariants,
   dividerTextVariants,
   dividerVariants,
 } from './Divider.variants';
-
-const DIVIDER_WEIGHT_PX = { thin: 1, default: 2, bold: 4 } as const;
-
-type DividerLineProps = Pick<DividerProps, 'lineStyle' | 'emphasis' | 'weight'>;
 
 const DividerLine = ({ lineStyle, emphasis, weight }: DividerLineProps) => {
   if (lineStyle === 'dashed') {

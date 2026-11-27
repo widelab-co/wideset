@@ -24,11 +24,13 @@ const meta = {
       description: {
         component: `
 A horizontal rule used to visually separate content sections. Supports an optional label text, line styles via \`lineStyle\` (\`solid\`, \`dashed\`), thickness levels (\`thin\`, \`default\`, \`bold\`), and emphasis levels (\`subtle\`, \`base\`, \`strong\`). When a label is provided it can be aligned left, center, or right; long text is truncated with an ellipsis.
+Pass the label through \`text\`; children are not supported. Divider is horizontal only.
         `,
       },
     },
   },
   argTypes: {
+    children: { control: false, table: { disable: true } },
     className: {
       control: 'text',
       description: 'Additional CSS classes applied to the root element.',
