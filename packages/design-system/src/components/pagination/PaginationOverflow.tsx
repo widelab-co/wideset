@@ -19,6 +19,7 @@ const PaginationOverflow = ({
   const {
     localActivePage,
     pagesCount,
+    getPageHref,
     onChange,
     prevLabel: contextPrevLabel,
     nextLabel: contextNextLabel,
@@ -40,6 +41,13 @@ const PaginationOverflow = ({
     [pagesCount],
   );
 
+  if (pagesCount === 0) return null;
+
+  const previousHref = localActivePage > 1 ? getPageHref?.(localActivePage - 1) : undefined;
+  const nextHref = localActivePage < pagesCount ? getPageHref?.(localActivePage + 1) : undefined;
+  const previousIcon = <Button.Icon key="icon" icon={RiArrowLeftSLine} />;
+  const nextIcon = <Button.Icon key="icon" icon={RiArrowRightSLine} />;
+
   return (
     <div
       data-slot="pagination-overflow"
@@ -53,10 +61,17 @@ const PaginationOverflow = ({
         variant="secondary"
         defaultMotion={motion}
         disabled={localActivePage <= 1}
-        onClick={() => onChange(localActivePage - 1)}
+        asChild={previousHref !== undefined}
+        onClick={previousHref === undefined ? () => onChange(localActivePage - 1) : undefined}
       >
-        <Button.Icon icon={RiArrowLeftSLine} />
-        {visiblePrevLabel}
+        {previousHref === undefined ? (
+          [previousIcon, visiblePrevLabel]
+        ) : (
+          <a href={previousHref}>
+            {previousIcon}
+            <span className="px-ws-2">{visiblePrevLabel}</span>
+          </a>
+        )}
       </Button>
 
       <div className="gap-ws-7 flex items-center">
@@ -82,10 +97,17 @@ const PaginationOverflow = ({
         variant="secondary"
         defaultMotion={motion}
         disabled={localActivePage >= pagesCount}
-        onClick={() => onChange(localActivePage + 1)}
+        asChild={nextHref !== undefined}
+        onClick={nextHref === undefined ? () => onChange(localActivePage + 1) : undefined}
       >
-        {visibleNextLabel}
-        <Button.Icon icon={RiArrowRightSLine} />
+        {nextHref === undefined ? (
+          [visibleNextLabel, nextIcon]
+        ) : (
+          <a href={nextHref}>
+            <span className="px-ws-2">{visibleNextLabel}</span>
+            {nextIcon}
+          </a>
+        )}
       </Button>
     </div>
   );

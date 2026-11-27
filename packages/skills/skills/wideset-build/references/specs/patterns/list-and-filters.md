@@ -48,7 +48,7 @@ export function ProjectList({ projects, loading }: { projects: Project[]; loadin
   const filtered = projects.filter(
     (p) => p.name.toLowerCase().includes(q) && (!statuses.length || statuses.includes(p.status)),
   );
-  const pagesCount = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  const pagesCount = Math.ceil(filtered.length / PAGE_SIZE);
   const rows = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
   const hasFilters = q !== '' || statuses.length > 0;
   const clearFilters = () => {

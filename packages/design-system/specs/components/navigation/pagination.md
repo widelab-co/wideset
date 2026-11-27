@@ -59,7 +59,7 @@ Compose only to reorder or restyle the pieces; pick `Numbers` or `Overflow`, nev
 |                      | `overflow`          | Prev, page select, Next; constant width for long sets and narrow bars.  |
 | `maxVisiblePages`    | number (default 7)  | How many numbered buttons `numbers` shows before folding into ellipses. |
 | `rowsPerPageOptions` | `number[]`          | Shows the rows-per-page select. Default `false` hides it.               |
-| `pagesCount`         | number ≥ 1          | Total pages. Defaults to 1, so always pass it; below 1 it throws.       |
+| `pagesCount`         | 0 or number ≥ 1     | Total pages. Use 0 for empty results. Defaults to 1.                    |
 
 State: `activePage` + `onChangeActivePage` (controlled) or `defaultActivePage`; rows per page:
 `itemsPerPage` + `onChangeItemsPerPage` or `defaultItemsPerPage` (default 10).
@@ -67,7 +67,7 @@ State: `activePage` + `onChangeActivePage` (controlled) or `defaultActivePage`; 
 ## States
 
 - First page disables Prev; last page disables Next.
-- Out-of-range pages are clamped to `1…pagesCount`.
+- When there are pages, out-of-range pages are clamped to `1…pagesCount`.
 
 ## Content
 
@@ -86,8 +86,13 @@ State: `activePage` + `onChangeActivePage` (controlled) or `defaultActivePage`; 
 
 - Do reset to page 1 in `onChangeItemsPerPage`; Pagination does not do it for you.
 - Do recompute `pagesCount` when the page size or the data changes.
+- Do use `getPageHref` when each page has its own URL. Derive `activePage` from that URL.
 - Don't put `Pagination.Numbers` and `Pagination.Overflow` in the same bar.
 - Don't render Pagination for a single page of results.
+
+```tsx
+<Pagination pagesCount={12} activePage={pageFromUrl} getPageHref={(page) => `?page=${page}`} />
+```
 
 ## Gotchas
 
@@ -97,6 +102,10 @@ State: `activePage` + `onChangeActivePage` (controlled) or `defaultActivePage`; 
   `options` on the part.
 - Pagination does not slice data; it only reports the page. Fetch or slice yourself.
 - Parts throw outside `<Pagination>`.
+- Pass `pagesCount={0}` for empty results. Page controls are hidden and the rows-per-page selector
+  stays available when configured.
+- With `getPageHref`, numbered pages and available arrows render as links. Page dropdowns navigate
+  to the same URLs. Use `onChangeActivePage` for in-place pagination without `getPageHref`.
 
 ## API
 

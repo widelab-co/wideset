@@ -132,6 +132,7 @@ Use it when content is already split into pages and users need either direct pag
     },
   },
   argTypes: {
+    getPageHref: { control: false, table: { category: 'Behavior' } },
     selectPageAriaLabel: { control: false, table: { category: 'Content' } },
     defaultMotion: { table: { category: 'Behavior', type: { summary: 'boolean' } } },
     navigationAriaLabel: { table: { category: 'Content', type: { summary: 'string' } } },
@@ -148,7 +149,7 @@ Use it when content is already split into pages and users need either direct pag
       },
     },
     pagesCount: {
-      control: { type: 'number', min: 1, step: 1 },
+      control: { type: 'number', min: 0, step: 1 },
       table: {
         category: 'Behavior',
         type: { summary: 'number' },
@@ -274,7 +275,7 @@ export const Default: Story = {
     docs: {
       description: {
         story:
-          'Default pagination with numbered navigation and an optional rows-per-page selector.',
+          'Default pagination with numbered navigation and an optional rows-per-page selector. Pass `pagesCount={0}` to hide page navigation when there are no results.',
       },
       source: {
         code: `const [activePage, setActivePage] = useState(3);
@@ -397,15 +398,16 @@ export const WithTable: Story = {
     const [activePage, setActivePage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(5);
 
-    const pagesCount = Math.max(1, Math.ceil(paginatedTableRows.length / itemsPerPage));
+    const pagesCount = Math.ceil(paginatedTableRows.length / itemsPerPage);
     const startIndex = (activePage - 1) * itemsPerPage;
     const visibleRows = paginatedTableRows.slice(startIndex, startIndex + itemsPerPage);
 
     return (
       <div className="gap-ws-8 flex w-full flex-col">
         <p className="text-ws-static-subtle typography-label-sm">
-          Showing {startIndex + 1}–{startIndex + visibleRows.length} of {paginatedTableRows.length}{' '}
-          projects
+          {visibleRows.length
+            ? `Showing ${startIndex + 1}–${startIndex + visibleRows.length} of ${paginatedTableRows.length} projects`
+            : 'No results'}
         </p>
 
         <div className="ws-scrollbar w-full overflow-auto">
