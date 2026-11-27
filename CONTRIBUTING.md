@@ -75,6 +75,11 @@ It evaluates comments against repository rules, applies clear fixes locally, and
 report with decisions and exact reply drafts. After approval of the reply batch, it posts the
 approved replies and resolves eligible threads. Code pushes require a separate instruction.
 
+A stale or unfinished PR is not fixed on its old branch: `wideset-pr-takeover` explains what it
+does and whether it still makes sense, with before/after screenshots, then rebuilds the agreed
+scope as a fresh PR from `develop` that answers the old review threads, and closes the old PR
+with a link to the new one. Pushing, opening and closing wait for approval.
+
 ## Adding a component
 
 1. Create `packages/design-system/src/components/<component-name>/` following the folder structure in
