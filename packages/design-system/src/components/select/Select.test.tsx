@@ -672,6 +672,23 @@ describe('Select', () => {
     });
   });
 
+  describe('Arrow and clear button placement', () => {
+    it('renders the clear button beside the combobox, not inside it', () => {
+      render(<Select options={baseOptions} defaultValue="poland" clearable />);
+      const combobox = screen.getByRole('combobox');
+      const clearButton = screen.getByRole('button', { name: 'Clear selection' });
+      expect(combobox).not.toContainElement(clearButton);
+      expect(clearButton.parentElement).toBe(combobox.parentElement);
+    });
+
+    it('lets a className padding replace the trigger padding', () => {
+      render(<Select options={baseOptions} className="px-ws-3" placeholder="Select country" />);
+      const combobox = screen.getByRole('combobox');
+      expect(combobox).toHaveClass('px-ws-3');
+      expect(combobox).not.toHaveClass('px-ws-9');
+    });
+  });
+
   describe('hasSearch', () => {
     it('renders search input when open', async () => {
       const user = userEvent.setup();

@@ -19,7 +19,7 @@ exports[`Pagination Snapshots > matches snapshot for composable API 1`] = `
     <button
       aria-autocomplete="none"
       aria-expanded="false"
-      class="group/select-trigger text-ws-static-strong relative flex cursor-pointer items-center justify-between overflow-hidden text-start whitespace-nowrap outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base border-ws-dynamic-secondary-default shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-sm max-h-ws-forms-sm rounded-ws-control-lg px-ws-7 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) w-ws-21"
+      class="group/select-trigger text-ws-static-strong relative flex cursor-pointer items-center justify-between overflow-hidden text-start whitespace-nowrap outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base border-ws-dynamic-secondary-default shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-sm max-h-ws-forms-sm rounded-ws-control-lg px-ws-7 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) w-ws-22"
       data-danger="false"
       data-slot="select-trigger"
       data-state="closed"
@@ -38,7 +38,7 @@ exports[`Pagination Snapshots > matches snapshot for composable API 1`] = `
       </div>
       <svg
         aria-hidden="true"
-        class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-5"
+        class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled box-content shrink-0 px-ws-3 ms-ws-7 -me-ws-5 size-ws-9"
         fill="currentColor"
         focusable="false"
         height="24"
@@ -489,7 +489,7 @@ exports[`Pagination Snapshots > matches snapshot for overflow type 1`] = `
         </div>
         <svg
           aria-hidden="true"
-          class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-5"
+          class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled box-content shrink-0 px-ws-3 ms-ws-7 -me-ws-5 size-ws-9"
           fill="currentColor"
           focusable="false"
           height="24"
@@ -559,7 +559,7 @@ exports[`Pagination Snapshots > matches snapshot with rows per page 1`] = `
     <button
       aria-autocomplete="none"
       aria-expanded="false"
-      class="group/select-trigger text-ws-static-strong relative flex cursor-pointer items-center justify-between overflow-hidden text-start whitespace-nowrap outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base border-ws-dynamic-secondary-default shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-sm max-h-ws-forms-sm rounded-ws-control-lg px-ws-7 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) w-ws-21"
+      class="group/select-trigger text-ws-static-strong relative flex cursor-pointer items-center justify-between overflow-hidden text-start whitespace-nowrap outline-hidden data-[placeholder]:text-ws-static-subtle data-[disabled=true]:text-ws-static-subtle data-[disabled=true]:cursor-default data-[disabled=true]:border-ws-dynamic-secondary-disabled data-[disabled=true]:bg-ws-static-alpha-subtle data-[disabled=true]:hover:not-focus-visible:border-ws-dynamic-secondary-disabled data-[disabled=true]:active:border-ws-dynamic-secondary-disabled data-[disabled=true]:focus-visible:not-active:border-ws-dynamic-secondary-disabled bg-ws-static-highlight-base border-ws-dynamic-secondary-default shadow-ws-forms-base border hover:not-focus-visible:not-data-[disabled=true]:border-ws-dynamic-secondary-hover active:not-data-[disabled=true]:border-ws-dynamic-secondary-pressed focus-visible:not-active:border-ws-dynamic-primary-strong-default focus-visible:not-active:shadow-ws-forms-active typography-label-sm h-ws-forms-sm max-h-ws-forms-sm rounded-ws-control-lg px-ws-7 transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) w-ws-22"
       data-danger="false"
       data-slot="select-trigger"
       data-state="closed"
@@ -578,7 +578,7 @@ exports[`Pagination Snapshots > matches snapshot with rows per page 1`] = `
       </div>
       <svg
         aria-hidden="true"
-        class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-5"
+        class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled box-content shrink-0 px-ws-3 ms-ws-7 -me-ws-5 size-ws-9"
         fill="currentColor"
         focusable="false"
         height="24"

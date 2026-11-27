@@ -5,9 +5,8 @@ import { hoverTintMotion, pressMotion } from '../../motion/recipes';
 
 export const multiSelectTriggerVariants = cva('', {
   variants: {
-    // No pl-* override: the left inset comes from SelectTrigger's own px
-    // (12/16/16px) — Figma insets the multi-select content exactly like the
-    // plain Select's.
+    // The trigger keeps SelectTrigger's inset (12 / 16 / 16px) for text (placeholder, "2 values
+    // selected"), as in Figma; the value row brings tags closer to the edge.
     size: {
       sm: 'py-ws-3',
       md: 'py-ws-5',
@@ -29,6 +28,20 @@ export const multiSelectTriggerVariants = cva('', {
   defaultVariants: {
     size: 'md',
     tagsGrow: false,
+  },
+});
+
+// Figma sets tags one tag inset (4 / 8 / 8px) from the edge and from what follows them, 8px closer
+// than text on both sides.
+export const multiSelectValueRowVariants = cva('', {
+  variants: {
+    tags: {
+      true: '-mx-ws-5',
+      false: '',
+    },
+  },
+  defaultVariants: {
+    tags: false,
   },
 });
 

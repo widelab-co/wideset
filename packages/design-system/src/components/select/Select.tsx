@@ -17,9 +17,10 @@ import type {
 } from './Select.types';
 import {
   selectClearButtonIconVariants,
-  selectClearButtonVariants,
+  selectClearButtonSize,
+  selectTriggerClearButtonVariants,
+  selectTriggerClearPaddingVariants,
   selectValuePrefixVariants,
-  selectValueRightPaddingVariants,
 } from './Select.variants';
 import { SelectContent } from './SelectContent';
 import { SelectLabel } from './SelectLabel';
@@ -184,7 +185,7 @@ export const Select = ({
           <span
             className={cn(
               'min-w-0 flex-1 truncate',
-              hasClearButton && selectValueRightPaddingVariants({ size }),
+              hasClearButton && selectTriggerClearPaddingVariants({ size, hideArrow }),
             )}
           >
             {selectedOption?.label}
@@ -194,7 +195,7 @@ export const Select = ({
             placeholder={placeholder}
             className={cn(
               'min-w-0 flex-1 truncate',
-              hasClearButton && selectValueRightPaddingVariants({ size }),
+              hasClearButton && selectTriggerClearPaddingVariants({ size, hideArrow }),
             )}
           />
         )}
@@ -246,7 +247,8 @@ export const Select = ({
                   icon={RiCloseLine}
                   preset="ghost"
                   variant="secondary"
-                  className={selectClearButtonVariants({ size, hideArrow })}
+                  size={selectClearButtonSize[size ?? 'md']}
+                  className={selectTriggerClearButtonVariants({ size, hideArrow })}
                   iconClassName={selectClearButtonIconVariants({ size })}
                 />
               )}

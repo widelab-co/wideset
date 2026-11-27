@@ -25,7 +25,7 @@ exports[`Select Snapshots > Size: lg > matches snapshot for border lg 1`] = `
   </div>
   <svg
     aria-hidden="true"
-    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-7"
+    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled box-content shrink-0 px-ws-6 ms-ws-9 -me-ws-7 size-ws-11"
     fill="currentColor"
     focusable="false"
     height="24"
@@ -67,7 +67,7 @@ exports[`Select Snapshots > Size: lg > matches snapshot for border lg disabled 1
   </div>
   <svg
     aria-hidden="true"
-    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-7"
+    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled box-content shrink-0 px-ws-6 ms-ws-9 -me-ws-7 size-ws-11"
     data-disabled="true"
     fill="currentColor"
     focusable="false"
@@ -103,14 +103,14 @@ exports[`Select Snapshots > Size: lg > matches snapshot for border lg with clear
       class="flex min-w-0 flex-1 items-center"
     >
       <span
-        class="min-w-0 flex-1 truncate pr-ws-19"
+        class="min-w-0 flex-1 truncate pe-ws-16"
       >
         Poland
       </span>
     </div>
     <svg
       aria-hidden="true"
-      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-7"
+      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled box-content shrink-0 px-ws-6 ms-ws-9 -me-ws-7 size-ws-11"
       fill="currentColor"
       focusable="false"
       height="24"
@@ -125,7 +125,7 @@ exports[`Select Snapshots > Size: lg > matches snapshot for border lg with clear
   </button>
   <button
     aria-label="Clear selection"
-    class="whitespace-nowrap box-border inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default typography-label-strong-sm gap-ws-3 bg-ws-dynamic-secondary-alpha-default text-ws-dynamic-secondary-default outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover hover:text-ws-dynamic-secondary-hover active:bg-ws-dynamic-secondary-alpha-pressed active:text-ws-dynamic-secondary-pressed disabled:text-ws-dynamic-secondary-disabled disabled:bg-none transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small) relative shrink-0 rounded-full p-0 size-ws-14 mr-[calc(var(--spacing-ws-17)+1px)] -ml-[calc(var(--spacing-ws-17)+var(--spacing-ws-14)+1px)]"
+    class="whitespace-nowrap box-border inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default typography-label-strong-sm gap-ws-3 h-ws-forms-md w-ws-forms-md bg-ws-dynamic-secondary-alpha-default text-ws-dynamic-secondary-default outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover hover:text-ws-dynamic-secondary-hover active:bg-ws-dynamic-secondary-alpha-pressed active:text-ws-dynamic-secondary-pressed disabled:text-ws-dynamic-secondary-disabled disabled:bg-none transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small) -translate-x-ws-1 rtl:translate-x-ws-1 relative shrink-0 rounded-full p-0 -ms-ws-16 end-ws-17"
     data-slot="icon-button"
     type="button"
   >
@@ -173,7 +173,7 @@ exports[`Select Snapshots > Size: lg > matches snapshot for border lg with dange
   </div>
   <svg
     aria-hidden="true"
-    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-7"
+    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled box-content shrink-0 px-ws-6 ms-ws-9 -me-ws-7 size-ws-11"
     fill="currentColor"
     focusable="false"
     height="24"
@@ -237,7 +237,7 @@ exports[`Select Snapshots > Size: lg > matches snapshot for border lg with value
   </div>
   <svg
     aria-hidden="true"
-    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-7"
+    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled box-content shrink-0 px-ws-6 ms-ws-9 -me-ws-7 size-ws-11"
     fill="currentColor"
     focusable="false"
     height="24"
@@ -277,7 +277,7 @@ exports[`Select Snapshots > Size: lg > matches snapshot for ghost lg 1`] = `
   </div>
   <svg
     aria-hidden="true"
-    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-7 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
+    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled box-content shrink-0 px-ws-6 ms-ws-9 -me-ws-7 size-ws-11 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
     fill="currentColor"
     focusable="false"
     height="24"
@@ -319,7 +319,7 @@ exports[`Select Snapshots > Size: lg > matches snapshot for ghost lg disabled 1`
   </div>
   <svg
     aria-hidden="true"
-    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-7 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
+    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled box-content shrink-0 px-ws-6 ms-ws-9 -me-ws-7 size-ws-11 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
     data-disabled="true"
     fill="currentColor"
     focusable="false"
@@ -355,14 +355,14 @@ exports[`Select Snapshots > Size: lg > matches snapshot for ghost lg with cleara
       class="flex min-w-0 flex-1 items-center"
     >
       <span
-        class="min-w-0 flex-1 truncate pr-ws-19"
+        class="min-w-0 flex-1 truncate pe-ws-16"
       >
         Poland
       </span>
     </div>
     <svg
       aria-hidden="true"
-      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-7 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
+      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled box-content shrink-0 px-ws-6 ms-ws-9 -me-ws-7 size-ws-11 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
       fill="currentColor"
       focusable="false"
       height="24"
@@ -377,7 +377,7 @@ exports[`Select Snapshots > Size: lg > matches snapshot for ghost lg with cleara
   </button>
   <button
     aria-label="Clear selection"
-    class="whitespace-nowrap box-border inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default typography-label-strong-sm gap-ws-3 bg-ws-dynamic-secondary-alpha-default text-ws-dynamic-secondary-default outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover hover:text-ws-dynamic-secondary-hover active:bg-ws-dynamic-secondary-alpha-pressed active:text-ws-dynamic-secondary-pressed disabled:text-ws-dynamic-secondary-disabled disabled:bg-none transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small) relative shrink-0 rounded-full p-0 size-ws-14 mr-[calc(var(--spacing-ws-17)+1px)] -ml-[calc(var(--spacing-ws-17)+var(--spacing-ws-14)+1px)]"
+    class="whitespace-nowrap box-border inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default typography-label-strong-sm gap-ws-3 h-ws-forms-md w-ws-forms-md bg-ws-dynamic-secondary-alpha-default text-ws-dynamic-secondary-default outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover hover:text-ws-dynamic-secondary-hover active:bg-ws-dynamic-secondary-alpha-pressed active:text-ws-dynamic-secondary-pressed disabled:text-ws-dynamic-secondary-disabled disabled:bg-none transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small) -translate-x-ws-1 rtl:translate-x-ws-1 relative shrink-0 rounded-full p-0 -ms-ws-16 end-ws-17"
     data-slot="icon-button"
     type="button"
   >
@@ -425,7 +425,7 @@ exports[`Select Snapshots > Size: lg > matches snapshot for ghost lg with danger
   </div>
   <svg
     aria-hidden="true"
-    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-7 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
+    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled box-content shrink-0 px-ws-6 ms-ws-9 -me-ws-7 size-ws-11 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
     fill="currentColor"
     focusable="false"
     height="24"
@@ -489,7 +489,7 @@ exports[`Select Snapshots > Size: lg > matches snapshot for ghost lg with value 
   </div>
   <svg
     aria-hidden="true"
-    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-7 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
+    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled box-content shrink-0 px-ws-6 ms-ws-9 -me-ws-7 size-ws-11 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
     fill="currentColor"
     focusable="false"
     height="24"
@@ -529,7 +529,7 @@ exports[`Select Snapshots > Size: md > matches snapshot for border md 1`] = `
   </div>
   <svg
     aria-hidden="true"
-    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-4 ml-ws-6"
+    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled box-content shrink-0 px-ws-5 ms-ws-9 -me-ws-7 size-ws-9"
     fill="currentColor"
     focusable="false"
     height="24"
@@ -571,7 +571,7 @@ exports[`Select Snapshots > Size: md > matches snapshot for border md disabled 1
   </div>
   <svg
     aria-hidden="true"
-    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-4 ml-ws-6"
+    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled box-content shrink-0 px-ws-5 ms-ws-9 -me-ws-7 size-ws-9"
     data-disabled="true"
     fill="currentColor"
     focusable="false"
@@ -607,14 +607,14 @@ exports[`Select Snapshots > Size: md > matches snapshot for border md with clear
       class="flex min-w-0 flex-1 items-center"
     >
       <span
-        class="min-w-0 flex-1 truncate pr-ws-16"
+        class="min-w-0 flex-1 truncate pe-ws-14"
       >
         Poland
       </span>
     </div>
     <svg
       aria-hidden="true"
-      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-4 ml-ws-6"
+      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled box-content shrink-0 px-ws-5 ms-ws-9 -me-ws-7 size-ws-9"
       fill="currentColor"
       focusable="false"
       height="24"
@@ -629,7 +629,7 @@ exports[`Select Snapshots > Size: md > matches snapshot for border md with clear
   </button>
   <button
     aria-label="Clear selection"
-    class="whitespace-nowrap box-border inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default typography-label-strong-sm gap-ws-3 bg-ws-dynamic-secondary-alpha-default text-ws-dynamic-secondary-default outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover hover:text-ws-dynamic-secondary-hover active:bg-ws-dynamic-secondary-alpha-pressed active:text-ws-dynamic-secondary-pressed disabled:text-ws-dynamic-secondary-disabled disabled:bg-none transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small) relative shrink-0 rounded-full p-0 size-ws-13 mr-[calc(var(--spacing-ws-15)+1px)] -ml-[calc(var(--spacing-ws-15)+var(--spacing-ws-13)+1px)]"
+    class="whitespace-nowrap box-border inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default typography-label-strong-sm gap-ws-2 h-ws-forms-sm w-ws-forms-sm bg-ws-dynamic-secondary-alpha-default text-ws-dynamic-secondary-default outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover hover:text-ws-dynamic-secondary-hover active:bg-ws-dynamic-secondary-alpha-pressed active:text-ws-dynamic-secondary-pressed disabled:text-ws-dynamic-secondary-disabled disabled:bg-none transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small) -translate-x-ws-1 rtl:translate-x-ws-1 relative shrink-0 rounded-full p-0 -ms-ws-14 end-ws-15"
     data-slot="icon-button"
     type="button"
   >
@@ -677,7 +677,7 @@ exports[`Select Snapshots > Size: md > matches snapshot for border md with dange
   </div>
   <svg
     aria-hidden="true"
-    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-4 ml-ws-6"
+    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled box-content shrink-0 px-ws-5 ms-ws-9 -me-ws-7 size-ws-9"
     fill="currentColor"
     focusable="false"
     height="24"
@@ -741,7 +741,7 @@ exports[`Select Snapshots > Size: md > matches snapshot for border md with value
   </div>
   <svg
     aria-hidden="true"
-    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-4 ml-ws-6"
+    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled box-content shrink-0 px-ws-5 ms-ws-9 -me-ws-7 size-ws-9"
     fill="currentColor"
     focusable="false"
     height="24"
@@ -781,7 +781,7 @@ exports[`Select Snapshots > Size: md > matches snapshot for ghost md 1`] = `
   </div>
   <svg
     aria-hidden="true"
-    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-4 ml-ws-6 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
+    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled box-content shrink-0 px-ws-5 ms-ws-9 -me-ws-7 size-ws-9 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
     fill="currentColor"
     focusable="false"
     height="24"
@@ -823,7 +823,7 @@ exports[`Select Snapshots > Size: md > matches snapshot for ghost md disabled 1`
   </div>
   <svg
     aria-hidden="true"
-    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-4 ml-ws-6 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
+    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled box-content shrink-0 px-ws-5 ms-ws-9 -me-ws-7 size-ws-9 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
     data-disabled="true"
     fill="currentColor"
     focusable="false"
@@ -859,14 +859,14 @@ exports[`Select Snapshots > Size: md > matches snapshot for ghost md with cleara
       class="flex min-w-0 flex-1 items-center"
     >
       <span
-        class="min-w-0 flex-1 truncate pr-ws-16"
+        class="min-w-0 flex-1 truncate pe-ws-14"
       >
         Poland
       </span>
     </div>
     <svg
       aria-hidden="true"
-      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-4 ml-ws-6 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
+      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled box-content shrink-0 px-ws-5 ms-ws-9 -me-ws-7 size-ws-9 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
       fill="currentColor"
       focusable="false"
       height="24"
@@ -881,7 +881,7 @@ exports[`Select Snapshots > Size: md > matches snapshot for ghost md with cleara
   </button>
   <button
     aria-label="Clear selection"
-    class="whitespace-nowrap box-border inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default typography-label-strong-sm gap-ws-3 bg-ws-dynamic-secondary-alpha-default text-ws-dynamic-secondary-default outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover hover:text-ws-dynamic-secondary-hover active:bg-ws-dynamic-secondary-alpha-pressed active:text-ws-dynamic-secondary-pressed disabled:text-ws-dynamic-secondary-disabled disabled:bg-none transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small) relative shrink-0 rounded-full p-0 size-ws-13 mr-[calc(var(--spacing-ws-15)+1px)] -ml-[calc(var(--spacing-ws-15)+var(--spacing-ws-13)+1px)]"
+    class="whitespace-nowrap box-border inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default typography-label-strong-sm gap-ws-2 h-ws-forms-sm w-ws-forms-sm bg-ws-dynamic-secondary-alpha-default text-ws-dynamic-secondary-default outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover hover:text-ws-dynamic-secondary-hover active:bg-ws-dynamic-secondary-alpha-pressed active:text-ws-dynamic-secondary-pressed disabled:text-ws-dynamic-secondary-disabled disabled:bg-none transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small) -translate-x-ws-1 rtl:translate-x-ws-1 relative shrink-0 rounded-full p-0 -ms-ws-14 end-ws-15"
     data-slot="icon-button"
     type="button"
   >
@@ -929,7 +929,7 @@ exports[`Select Snapshots > Size: md > matches snapshot for ghost md with danger
   </div>
   <svg
     aria-hidden="true"
-    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-4 ml-ws-6 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
+    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled box-content shrink-0 px-ws-5 ms-ws-9 -me-ws-7 size-ws-9 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
     fill="currentColor"
     focusable="false"
     height="24"
@@ -993,7 +993,7 @@ exports[`Select Snapshots > Size: md > matches snapshot for ghost md with value 
   </div>
   <svg
     aria-hidden="true"
-    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-4 ml-ws-6 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
+    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled box-content shrink-0 px-ws-5 ms-ws-9 -me-ws-7 size-ws-9 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
     fill="currentColor"
     focusable="false"
     height="24"
@@ -1033,7 +1033,7 @@ exports[`Select Snapshots > Size: sm > matches snapshot for border sm 1`] = `
   </div>
   <svg
     aria-hidden="true"
-    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-5"
+    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled box-content shrink-0 px-ws-3 ms-ws-7 -me-ws-5 size-ws-9"
     fill="currentColor"
     focusable="false"
     height="24"
@@ -1075,7 +1075,7 @@ exports[`Select Snapshots > Size: sm > matches snapshot for border sm disabled 1
   </div>
   <svg
     aria-hidden="true"
-    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-5"
+    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled box-content shrink-0 px-ws-3 ms-ws-7 -me-ws-5 size-ws-9"
     data-disabled="true"
     fill="currentColor"
     focusable="false"
@@ -1111,14 +1111,14 @@ exports[`Select Snapshots > Size: sm > matches snapshot for border sm with clear
       class="flex min-w-0 flex-1 items-center"
     >
       <span
-        class="min-w-0 flex-1 truncate pr-ws-11"
+        class="min-w-0 flex-1 truncate pe-ws-12"
       >
         Poland
       </span>
     </div>
     <svg
       aria-hidden="true"
-      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-5"
+      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled box-content shrink-0 px-ws-3 ms-ws-7 -me-ws-5 size-ws-9"
       fill="currentColor"
       focusable="false"
       height="24"
@@ -1133,7 +1133,7 @@ exports[`Select Snapshots > Size: sm > matches snapshot for border sm with clear
   </button>
   <button
     aria-label="Clear selection"
-    class="whitespace-nowrap box-border inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default typography-label-strong-sm gap-ws-3 bg-ws-dynamic-secondary-alpha-default text-ws-dynamic-secondary-default outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover hover:text-ws-dynamic-secondary-hover active:bg-ws-dynamic-secondary-alpha-pressed active:text-ws-dynamic-secondary-pressed disabled:text-ws-dynamic-secondary-disabled disabled:bg-none transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small) relative shrink-0 rounded-full p-0 size-ws-11 mr-[calc(var(--spacing-ws-13)+1px)] -ml-[calc(var(--spacing-ws-13)+var(--spacing-ws-11)+1px)]"
+    class="whitespace-nowrap box-border inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default typography-caption-strong-md gap-ws-2 h-ws-forms-xs w-ws-forms-xs bg-ws-dynamic-secondary-alpha-default text-ws-dynamic-secondary-default outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover hover:text-ws-dynamic-secondary-hover active:bg-ws-dynamic-secondary-alpha-pressed active:text-ws-dynamic-secondary-pressed disabled:text-ws-dynamic-secondary-disabled disabled:bg-none transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small) -translate-x-ws-1 rtl:translate-x-ws-1 relative shrink-0 rounded-full p-0 -ms-ws-12 end-ws-13"
     data-slot="icon-button"
     type="button"
   >
@@ -1181,7 +1181,7 @@ exports[`Select Snapshots > Size: sm > matches snapshot for border sm with dange
   </div>
   <svg
     aria-hidden="true"
-    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-5"
+    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled box-content shrink-0 px-ws-3 ms-ws-7 -me-ws-5 size-ws-9"
     fill="currentColor"
     focusable="false"
     height="24"
@@ -1245,7 +1245,7 @@ exports[`Select Snapshots > Size: sm > matches snapshot for border sm with value
   </div>
   <svg
     aria-hidden="true"
-    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-5"
+    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled box-content shrink-0 px-ws-3 ms-ws-7 -me-ws-5 size-ws-9"
     fill="currentColor"
     focusable="false"
     height="24"
@@ -1285,7 +1285,7 @@ exports[`Select Snapshots > Size: sm > matches snapshot for ghost sm 1`] = `
   </div>
   <svg
     aria-hidden="true"
-    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-5 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
+    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled box-content shrink-0 px-ws-3 ms-ws-7 -me-ws-5 size-ws-9 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
     fill="currentColor"
     focusable="false"
     height="24"
@@ -1327,7 +1327,7 @@ exports[`Select Snapshots > Size: sm > matches snapshot for ghost sm disabled 1`
   </div>
   <svg
     aria-hidden="true"
-    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-5 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
+    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled box-content shrink-0 px-ws-3 ms-ws-7 -me-ws-5 size-ws-9 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
     data-disabled="true"
     fill="currentColor"
     focusable="false"
@@ -1363,14 +1363,14 @@ exports[`Select Snapshots > Size: sm > matches snapshot for ghost sm with cleara
       class="flex min-w-0 flex-1 items-center"
     >
       <span
-        class="min-w-0 flex-1 truncate pr-ws-11"
+        class="min-w-0 flex-1 truncate pe-ws-12"
       >
         Poland
       </span>
     </div>
     <svg
       aria-hidden="true"
-      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-5 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
+      class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled box-content shrink-0 px-ws-3 ms-ws-7 -me-ws-5 size-ws-9 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
       fill="currentColor"
       focusable="false"
       height="24"
@@ -1385,7 +1385,7 @@ exports[`Select Snapshots > Size: sm > matches snapshot for ghost sm with cleara
   </button>
   <button
     aria-label="Clear selection"
-    class="whitespace-nowrap box-border inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default typography-label-strong-sm gap-ws-3 bg-ws-dynamic-secondary-alpha-default text-ws-dynamic-secondary-default outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover hover:text-ws-dynamic-secondary-hover active:bg-ws-dynamic-secondary-alpha-pressed active:text-ws-dynamic-secondary-pressed disabled:text-ws-dynamic-secondary-disabled disabled:bg-none transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small) relative shrink-0 rounded-full p-0 size-ws-11 mr-[calc(var(--spacing-ws-13)+1px)] -ml-[calc(var(--spacing-ws-13)+var(--spacing-ws-11)+1px)]"
+    class="whitespace-nowrap box-border inline-flex cursor-pointer items-center justify-center focus-visible:wds-focus-visible focus-visible:select-none disabled:pointer-events-none disabled:cursor-default typography-caption-strong-md gap-ws-2 h-ws-forms-xs w-ws-forms-xs bg-ws-dynamic-secondary-alpha-default text-ws-dynamic-secondary-default outline-ws-dynamic-primary-strong-default hover:bg-ws-dynamic-secondary-alpha-hover hover:text-ws-dynamic-secondary-hover active:bg-ws-dynamic-secondary-alpha-pressed active:text-ws-dynamic-secondary-pressed disabled:text-ws-dynamic-secondary-disabled disabled:bg-none transition-[background-color,border-color,color,box-shadow,scale,opacity] duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:duration-(--ws-motion-duration-micro) not-[[aria-haspopup]:not([aria-haspopup=false]),[role=combobox]]:active:not-disabled:not-aria-disabled:scale-(--ws-motion-scale-small) -translate-x-ws-1 rtl:translate-x-ws-1 relative shrink-0 rounded-full p-0 -ms-ws-12 end-ws-13"
     data-slot="icon-button"
     type="button"
   >
@@ -1433,7 +1433,7 @@ exports[`Select Snapshots > Size: sm > matches snapshot for ghost sm with danger
   </div>
   <svg
     aria-hidden="true"
-    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-5 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
+    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled box-content shrink-0 px-ws-3 ms-ws-7 -me-ws-5 size-ws-9 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
     fill="currentColor"
     focusable="false"
     height="24"
@@ -1497,7 +1497,7 @@ exports[`Select Snapshots > Size: sm > matches snapshot for ghost sm with value 
   </div>
   <svg
     aria-hidden="true"
-    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-3 ml-ws-5 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
+    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled box-content shrink-0 px-ws-3 ms-ws-7 -me-ws-5 size-ws-9 opacity-0 transition-opacity duration-(--ws-motion-duration-quick) ease-(--ws-motion-ease-out) group-hover/select-trigger:not-data-[disabled=true]:opacity-100 group-focus-visible/select-trigger:opacity-100 group-data-[state=open]/select-trigger:opacity-100 pointer-coarse:opacity-100"
     fill="currentColor"
     focusable="false"
     height="24"
@@ -1533,7 +1533,7 @@ exports[`Select Snapshots > Sub-components snapshots > matches snapshot with Sel
   </span>
   <svg
     aria-hidden="true"
-    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-4 ml-ws-6"
+    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled box-content shrink-0 px-ws-5 ms-ws-9 -me-ws-7 size-ws-9"
     fill="currentColor"
     focusable="false"
     height="24"
@@ -1569,7 +1569,7 @@ exports[`Select Snapshots > Sub-components snapshots > matches snapshot with Sel
   </span>
   <svg
     aria-hidden="true"
-    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-4 ml-ws-6"
+    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled box-content shrink-0 px-ws-5 ms-ws-9 -me-ws-7 size-ws-9"
     fill="currentColor"
     focusable="false"
     height="24"
@@ -1605,7 +1605,7 @@ exports[`Select Snapshots > Sub-components snapshots > matches snapshot with Sel
   </span>
   <svg
     aria-hidden="true"
-    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-4 ml-ws-6"
+    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled box-content shrink-0 px-ws-5 ms-ws-9 -me-ws-7 size-ws-9"
     fill="currentColor"
     focusable="false"
     height="24"
@@ -1659,7 +1659,7 @@ exports[`Select Snapshots > With prefix options > matches snapshot with prefix o
   </div>
   <svg
     aria-hidden="true"
-    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-4 ml-ws-6"
+    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled box-content shrink-0 px-ws-5 ms-ws-9 -me-ws-7 size-ws-9"
     fill="currentColor"
     focusable="false"
     height="24"
@@ -1699,7 +1699,7 @@ exports[`Select Snapshots > With prefix options > matches snapshot with prefix o
   </div>
   <svg
     aria-hidden="true"
-    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled size-ws-9 shrink-0 -mr-ws-4 ml-ws-6"
+    class="remixicon text-ws-dynamic-secondary-default data-[disabled=true]:text-ws-dynamic-secondary-disabled box-content shrink-0 px-ws-5 ms-ws-9 -me-ws-7 size-ws-9"
     fill="currentColor"
     focusable="false"
     height="24"

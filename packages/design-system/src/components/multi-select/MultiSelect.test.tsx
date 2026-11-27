@@ -225,6 +225,21 @@ describe('MultiSelect', () => {
       expect(screen.queryByRole('button', { name: 'Clear selection' })).not.toBeInTheDocument();
       expect(screen.getByRole('button', { name: /Select countries/ })).toHaveFocus();
     });
+
+    it('renders the clear button beside the trigger, not inside it', () => {
+      render(
+        <MultiSelect
+          options={baseOptions}
+          defaultValue={['poland']}
+          clearable
+          placeholder="Select countries"
+        />,
+      );
+      const trigger = screen.getByRole('button', { name: /Poland/ });
+      const clearButton = screen.getByRole('button', { name: 'Clear selection' });
+      expect(trigger).not.toContainElement(clearButton);
+      expect(clearButton.parentElement).toBe(trigger.parentElement);
+    });
   });
 
   describe('Disabled state', () => {

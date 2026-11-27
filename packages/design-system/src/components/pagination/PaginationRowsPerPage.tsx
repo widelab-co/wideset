@@ -43,7 +43,7 @@ const PaginationRowsPerPage = ({
         {label ?? rowsPerPageLabel}
       </div>
       <Select
-        className="w-ws-21"
+        className="w-ws-22"
         options={rowsPerPageSelectOptions}
         value={localItemsPerPage.toString()}
         onValueChange={onItemsPerPageChange}
