@@ -1,4 +1,4 @@
-// TODO(custom): takeover top bar (back, title); no NavigationBar / TopBar in Wideset.
+// TODO(custom): takeover top bar (back, title); NavigationBar is app navigation, Wideset has no takeover header.
 import { RiArrowLeftLine } from '@remixicon/react';
 import { IconButton } from '@wideset/react';
 

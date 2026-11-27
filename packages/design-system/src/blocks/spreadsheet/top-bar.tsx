@@ -1,6 +1,6 @@
 import { RiArrowDownSLine, RiNotification3Line, RiSearchLine } from '@remixicon/react';
-import { Avatar, cn, IconButton, TextInput } from '@wideset/react';
-import { type AnchorHTMLAttributes, useState } from 'react';
+import { Avatar, IconButton, NavigationBar, TextInput } from '@wideset/react';
+import { useState } from 'react';
 
 import { BrandMark } from './brand-mark';
 import { ACCOUNT, PAGES, TABLE } from './data';
@@ -13,37 +13,35 @@ export function TopBar() {
   const [current, setCurrent] = useState(PAGES[0].href);
 
   return (
-    <header className="border-ws-static-base h-ws-19 px-ws-11 flex shrink-0 items-center justify-between border-b">
-      <div className="gap-ws-12 flex items-center">
-        {/* One mark in every screen: this one has no sidebar, so the top bar carries it. */}
-        <div className="gap-ws-7 flex items-center">
-          <BrandMark label="Wideset" />
-          <div className="gap-ws-5 flex items-center">
-            <h1 className="typography-subtitle-xs text-ws-dynamic-secondary-default">{TABLE}</h1>
-            <IconButton
-              variant="secondary"
-              preset="ghost"
-              size="xs"
-              icon={RiArrowDownSLine}
-              aria-label="Switch table"
-            />
-          </div>
+    <NavigationBar className="px-ws-11 gap-ws-12">
+      {/* One mark in every screen: this one has no sidebar, so the top bar carries it. */}
+      <NavigationBar.Start className="gap-ws-7">
+        <BrandMark label="Wideset" />
+        <div className="gap-ws-5 flex items-center">
+          <h1 className="typography-subtitle-xs text-ws-dynamic-secondary-default">{TABLE}</h1>
+          <IconButton
+            variant="secondary"
+            preset="ghost"
+            size="xs"
+            icon={RiArrowDownSLine}
+            aria-label="Switch table"
+          />
         </div>
-        <nav aria-label={TABLE} className="gap-ws-3 flex items-center">
-          {PAGES.map((page) => (
-            <PageLink
-              key={page.href}
-              href={page.href}
-              active={page.href === current}
-              onClick={() => setCurrent(page.href)}
-            >
-              {page.label}
-            </PageLink>
-          ))}
-        </nav>
-      </div>
+      </NavigationBar.Start>
+      <NavigationBar.Nav aria-label={TABLE}>
+        {PAGES.map((page) => (
+          <NavigationBar.Item
+            key={page.href}
+            href={page.href}
+            active={page.href === current}
+            onClick={() => setCurrent(page.href)}
+          >
+            <NavigationBar.Label>{page.label}</NavigationBar.Label>
+          </NavigationBar.Item>
+        ))}
+      </NavigationBar.Nav>
 
-      <div className="gap-ws-5 flex items-center">
+      <NavigationBar.End className="gap-ws-5">
         <TextInput size="sm" className="w-[16rem]">
           <TextInput.Prefix inner>
             <TextInput.Icon icon={RiSearchLine} />
@@ -63,29 +61,7 @@ export function TopBar() {
           icon={RiNotification3Line}
           aria-label="Notifications"
         />
-      </div>
-    </header>
-  );
-}
-
-type PageLinkProps = AnchorHTMLAttributes<HTMLAnchorElement> & { active: boolean };
-
-/** Figma "Assets / Navigation Bar Page": a top-bar link, filled while it is the current page. */
-function PageLink({ active, className, children, ...props }: PageLinkProps) {
-  return (
-    <a
-      aria-current={active ? 'page' : undefined}
-      className={cn(
-        'typography-label-strong-sm rounded-ws-control-lg px-ws-5 py-ws-3 min-h-ws-14 flex items-center',
-        'focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default',
-        active
-          ? 'bg-ws-dynamic-tertiary-alpha-strong-default text-ws-static-strong'
-          : 'text-ws-static-base hover:bg-ws-dynamic-tertiary-alpha-strong-default hover:text-ws-static-strong',
-        className,
-      )}
-      {...props}
-    >
-      {children}
-    </a>
+      </NavigationBar.End>
+    </NavigationBar>
   );
 }

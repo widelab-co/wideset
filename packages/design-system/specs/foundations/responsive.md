@@ -36,8 +36,11 @@ export function Columns({ main, aside }: { main: ReactNode; aside: ReactNode }) 
 | `lg` and up  | The full `Sidebar`                                                   |
 
 Keep the items in one array so both forms stay in step, and close the panel on navigation. Under
-`md`, open `Sidepanel side="left"` from a menu `IconButton` (with `aria-label`). `Sidebar` has no
-drawer mode of its own: drive `collapsed` / `onCollapsedChange` from your layout code.
+`md`, open `Sidepanel side="left"` from a menu `IconButton` (with `aria-label`), in
+`NavigationBar.Start` when the app has a top bar. `Sidebar` has no drawer mode of its own: drive
+`collapsed` / `onCollapsedChange` from your layout code. A product whose links sit in a
+`NavigationBar` hides `NavigationBar.Nav` under `md` (`hidden md:flex`) and opens the same links
+from that menu button.
 
 ## Tables
 

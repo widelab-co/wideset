@@ -100,6 +100,20 @@ active={…}><Link to="/projects" /></Sidebar.Item>`. Icon and label are injecte
 grid-cols-[repeat(auto-fit,minmax(16rem,1fr))] gap-ws-11`) or stack sections with `gap-ws-12`.
 - **Page-level notice.** `SystemAlert` as the first child of the content column, above the
   header (see [page-feedback](page-feedback.md)).
+- **Top bar.** A product with a handful of areas puts them in a
+  [`NavigationBar`](../components/navigation/navigation-bar.md) instead of a `Sidebar`: `AppShell`
+  holds only `AppShell.Main`, and the bar is its first child, above the page. On a nested page the
+  bar shows `Breadcrumbs` in place of its links. Drop its line (`divider={false}`) when the page
+  opens with a large title or on `canvas`.
+
+```tsx
+<AppShell direction="flat">
+  <AppShell.Main className="flex flex-col">
+    <NavigationBar>…</NavigationBar>
+    <div className="p-ws-12 flex flex-col">…</div>
+  </AppShell.Main>
+</AppShell>
+```
 
 ## Rules
 
@@ -121,13 +135,14 @@ grid-cols-[repeat(auto-fit,minmax(16rem,1fr))] gap-ws-11`) or stack sections wit
 
 ## When a sidebar is wrong
 
-| Product                                         | Shell                                                            |
-| ----------------------------------------------- | ---------------------------------------------------------------- |
-| Two or three sections                           | Top [`Tabs`](../components/navigation/tabs.md) or a plain header |
-| Marketing or docs                               | Your own header: `Sidebar` is app navigation                     |
-| Focused single-task flow (checkout, onboarding) | No navigation; `ProgressStepper` and one column                  |
-| Editor or canvas                                | A toolbar, with panels that open on demand                       |
-| Embedded widget                                 | No shell                                                         |
+| Product                                         | Shell                                                                                       |
+| ----------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| Up to about five areas                          | [`NavigationBar`](../components/navigation/navigation-bar.md) as the top of `AppShell.Main` |
+| Two or three sections of one page               | Top [`Tabs`](../components/navigation/tabs.md) or a plain header                            |
+| Marketing or docs                               | Your own header: `Sidebar` and `NavigationBar` are app navigation                           |
+| Focused single-task flow (checkout, onboarding) | No navigation; `ProgressStepper` and one column                                             |
+| Editor or canvas                                | A toolbar, with panels that open on demand                                                  |
+| Embedded widget                                 | No shell                                                                                    |
 
 Do not add a sidebar to a one-page tool to make it look like an app. On small screens the shell
 changes shape: see [responsive](../foundations/responsive.md).
@@ -151,6 +166,7 @@ changes shape: see [responsive](../foundations/responsive.md).
 - A grey page (`bg-ws-static-background`) on `AppShell.Main` beside the white sidebar: the work
   then looks like the background.
 - A second `ToastProvider` per page: toasts then stack in two places.
-- Building navigation from `Button`s or `ListItem`s; use `Sidebar.Item` (it renders an `<a>`).
+- Building navigation from `Button`s or `ListItem`s; use `Sidebar.Item` or `NavigationBar.Item`
+  (both render an `<a>`).
 - Plain Tailwind spacing (`p-6`, `gap-4`) or palette colours; use `p-ws-*`, `gap-ws-*`,
   `bg-ws-static-*`.

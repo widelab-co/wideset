@@ -7,7 +7,7 @@ import {
   RiNotification3Line,
   RiSettings4Line,
 } from '@remixicon/react';
-import { Breadcrumbs, IconButton, SegmentedControl } from '@wideset/react';
+import { Breadcrumbs, IconButton, NavigationBar, SegmentedControl } from '@wideset/react';
 
 /**
  * Figma's Top Navigation for a takeover: back to where the user came from and where this page
@@ -15,14 +15,16 @@ import { Breadcrumbs, IconButton, SegmentedControl } from '@wideset/react';
  */
 export function TopBar() {
   return (
-    <header className="border-ws-static-base h-ws-19 gap-ws-9 px-ws-11 flex shrink-0 items-center border-b">
-      <IconButton
-        variant="secondary"
-        preset="ghost"
-        size="sm"
-        icon={RiArrowLeftLine}
-        aria-label="Back to projects"
-      />
+    <NavigationBar className="px-ws-11">
+      <NavigationBar.Start>
+        <IconButton
+          variant="secondary"
+          preset="ghost"
+          size="sm"
+          icon={RiArrowLeftLine}
+          aria-label="Back to projects"
+        />
+      </NavigationBar.Start>
       <Breadcrumbs separator="arrow" className="min-w-0 flex-1">
         <Breadcrumbs.Item>
           <RiFolder3Fill aria-hidden="true" className="size-ws-9" />
@@ -30,7 +32,7 @@ export function TopBar() {
         </Breadcrumbs.Item>
         <Breadcrumbs.Item>Marketing</Breadcrumbs.Item>
       </Breadcrumbs>
-      <div className="gap-ws-9 flex items-center">
+      <NavigationBar.End>
         <SegmentedControl size="sm" defaultValue="timeline" aria-label="View">
           <SegmentedControl.Item
             value="timeline"
@@ -39,7 +41,7 @@ export function TopBar() {
           />
           <SegmentedControl.Item value="chart" icon={RiBarChartFill} aria-label="Chart" />
         </SegmentedControl>
-        <div className="gap-ws-3 flex items-center">
+        <NavigationBar.Actions>
           {[
             { icon: RiNotification3Line, label: 'Notifications' },
             { icon: RiInbox2Line, label: 'Inbox' },
@@ -54,8 +56,8 @@ export function TopBar() {
               aria-label={label}
             />
           ))}
-        </div>
-      </div>
-    </header>
+        </NavigationBar.Actions>
+      </NavigationBar.End>
+    </NavigationBar>
   );
 }
