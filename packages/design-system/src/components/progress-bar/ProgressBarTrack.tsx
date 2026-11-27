@@ -4,8 +4,9 @@ import * as React from 'react';
 import { cn } from 'src/lib/utils';
 
 import { useProgressBarContext } from './ProgressBar.context';
-import type { ProgressBarTrackProps } from './ProgressBar.types';
+import type { ProgressBarStatus, ProgressBarTrackProps } from './ProgressBar.types';
 import {
+  progressBarCircleArcVariants,
   progressBarCircleIconVariants,
   progressBarCircleMotionVariants,
   progressBarIndicatorMotionVariants,
@@ -18,7 +19,15 @@ const RING_STROKE = 2.5;
 const RING_RADIUS = RING_SIZE / 2 - RING_STROKE / 2;
 const RING_CIRCUMFERENCE = 2 * Math.PI * RING_RADIUS;
 
-const ProgressBarRing = ({ percent, motion }: { percent: number; motion: boolean }) => (
+const ProgressBarRing = ({
+  percent,
+  motion,
+  status,
+}: {
+  percent: number;
+  motion: boolean;
+  status: Exclude<ProgressBarStatus, 'success' | 'error'>;
+}) => (
   <svg
     width={RING_SIZE}
     height={RING_SIZE}
@@ -38,8 +47,7 @@ const ProgressBarRing = ({ percent, motion }: { percent: number; motion: boolean
       cy={RING_SIZE / 2}
       r={RING_RADIUS}
       className={cn(
-        // `stroke-ws-*` maps to text tokens, so the bar's fill colour is read from its variable.
-        'fill-none stroke-(--background-color-ws-dynamic-primary-default)',
+        progressBarCircleArcVariants({ status }),
         progressBarCircleMotionVariants({ enabled: motion }),
       )}
       strokeWidth={RING_STROKE}
@@ -71,9 +79,10 @@ const ProgressBarTrack = React.forwardRef<HTMLDivElement, ProgressBarTrackProps>
             style={{ transform: `translateX(-${100 - percent}%)` }}
           />
         )}
-        {type === 'circle' && status === 'default' && (
-          <ProgressBarRing percent={percent} motion={motion} />
-        )}
+        {type === 'circle' &&
+          (status === 'default' || status === 'neutral' || status === 'warning') && (
+            <ProgressBarRing percent={percent} motion={motion} status={status} />
+          )}
         {type === 'circle' && status === 'success' && (
           <RiCheckboxCircleFill
             aria-hidden="true"

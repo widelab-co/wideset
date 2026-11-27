@@ -3,17 +3,19 @@ import type { VariantProps } from 'class-variance-authority';
 import type * as React from 'react';
 
 import type { MotionProps } from '../../motion/Motion.types';
-import type { progressBarRootVariants } from './ProgressBar.variants';
+import type { progressBarIndicatorVariants, progressBarRootVariants } from './ProgressBar.variants';
 import type { ProgressBarDescription } from './ProgressBarDescription';
 import type { ProgressBarHeader } from './ProgressBarHeader';
 import type { ProgressBarLabel } from './ProgressBarLabel';
 import type { ProgressBarTrack } from './ProgressBarTrack';
 import type { ProgressBarValue } from './ProgressBarValue';
 
-export type ProgressBarStatus = 'default' | 'success' | 'error';
+export type ProgressBarStatus = NonNullable<
+  VariantProps<typeof progressBarIndicatorVariants>['status']
+>;
 export type ProgressBarType = NonNullable<VariantProps<typeof progressBarRootVariants>['type']>;
 
-/** Shows how far a task has got, as a bar or a ring. */
+/** Shows task progress or usage against a limit, as a bar or a ring. */
 export type ProgressBarProps = Omit<
   React.ComponentPropsWithoutRef<typeof ProgressPrimitive.Root>,
   'children' | 'getValueLabel'
@@ -21,11 +23,11 @@ export type ProgressBarProps = Omit<
   MotionProps & {
     /** Current progress, clamped between `0` and `max`. A missing or `NaN` value renders `0`. */
     value?: number;
-    /** The value that means complete. Defaults to `100`. */
+    /** The value that marks completion or the usage limit. Defaults to `100`. */
     max?: number;
     /**
-     * State of the task: `default` while it runs, `success` when it finished, `error` when it
-     * failed. Sets the colour of the fill, the circle's icon and the description.
+     * `default` for a running task, `neutral` for usage against a limit, `warning` near the limit,
+     * `success` when complete, and `error` for failure or a limit exceeded.
      */
     status?: ProgressBarStatus;
     /** Shape of the progress indicator: a full-width bar or a compact ring. */

@@ -187,7 +187,7 @@ describe('ProgressBar Snapshots', () => {
   });
 
   it('matches snapshot for all statuses', () => {
-    const statuses = ['default', 'success', 'error'] as const;
+    const statuses = ['default', 'neutral', 'warning', 'success', 'error'] as const;
 
     statuses.forEach((status) => {
       const { container } = render(<ProgressBar status={status} value={50} />);
@@ -688,7 +688,7 @@ describe('Part ids', () => {
     expect(screen.getByRole('progressbar')).not.toHaveAttribute('aria-describedby');
   });
 
-  it.each(['default', 'success'] as const)(
+  it.each(['default', 'success', 'warning'] as const)(
     'points aria-describedby at a Description whose content is 0 (%s)',
     (status) => {
       render(
@@ -756,6 +756,7 @@ describe('Part ids', () => {
   it.each([
     ['success', 'success'],
     ['error', 'error'],
+    ['warning', 'warning'],
   ] as const)(
     'does not point aria-describedby at an icon-only Description (%s)',
     (_name, status) => {
@@ -858,5 +859,32 @@ describe('Error announcement', () => {
 
     expect(screen.getByRole('alert')).toHaveTextContent('Uploading');
     expect(description).not.toBeInTheDocument();
+  });
+});
+
+describe('ProgressBar usage statuses', () => {
+  it('shows a decorative description icon for warning', () => {
+    render(<LabelledBar status="warning" description="Near the quota" value={92} />);
+
+    const icon = screen.getByText('Near the quota').querySelector('svg');
+    expect(icon).toHaveAttribute('aria-hidden', 'true');
+  });
+
+  it('keeps the neutral description free of icons', () => {
+    render(<LabelledBar status="neutral" description="Usage within the quota" value={50} />);
+
+    expect(screen.getByText('Usage within the quota').querySelector('svg')).not.toBeInTheDocument();
+  });
+
+  it.each([
+    ['neutral', 'stroke-(--ws-semantic-fill-inverse-neutral)'],
+    ['warning', 'stroke-(--ws-semantic-stroke-notice)'],
+  ] as const)('uses the %s token on the circle arc', (status, stroke) => {
+    render(<ProgressBar type="circle" status={status} value={75} aria-label="API calls" />);
+
+    const arc = screen
+      .getByRole('progressbar', { name: 'API calls' })
+      .querySelector('[stroke-dasharray]');
+    expect(arc).toHaveClass(stroke);
   });
 });
