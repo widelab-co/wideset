@@ -14,6 +14,7 @@ states. They show; they don't collect input. Selection and filtering live in `se
 - [Avatar](avatar.md) — a person, team or agent next to a name; `Avatar.Group` for several.
 - [Tag](tag.md) — which category something belongs to; colour is categorical.
 - [StatusBadge](status-badge.md) — what state something is in; colour is semantic.
+- [Count](count.md) — how many items sit behind a label (a list group, a heading, a filter).
 
 ## Tag vs StatusBadge vs Chip
 

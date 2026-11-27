@@ -3,7 +3,7 @@
 ## When to use
 
 - The status of a row, card or page subject: Paid, Overdue, Draft, Scheduled.
-- A short count or state next to a title (`lg` beside a page or card title).
+- A short state next to a title (`lg` beside a page or card title).
 
 ## When not to use
 
@@ -11,7 +11,7 @@
 - A label the user clicks, toggles or removes → `Chip`.
 - A message the user must read or act on → `InlineAlert` / `SystemAlert`.
 - Progress of a running task → `ProgressBar`.
-- A count on a tab → `Tabs.Count`.
+- A count → `Count` (`Tabs.Count` on a tab).
 
 ## Do / Don't
 
