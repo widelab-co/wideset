@@ -4,6 +4,7 @@ import { cn } from 'src/lib/utils';
 
 import { Search } from '../search/Search';
 import type { SelectSearchProps } from './Select.types';
+import { selectSearchVariants } from './Select.variants';
 
 export const SelectSearch = ({ value, onChange, onClear, className }: SelectSearchProps) => {
   const searchRef = useCallback((input: HTMLInputElement | null) => {
@@ -29,7 +30,7 @@ export const SelectSearch = ({ value, onChange, onClear, className }: SelectSear
     <Search
       ref={searchRef}
       data-slot="select-search"
-      className={cn('m-ws-5 w-auto shrink-0', className)}
+      className={cn(selectSearchVariants(), className)}
       value={value}
       size="sm"
       onChange={onChange}

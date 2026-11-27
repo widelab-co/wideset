@@ -181,6 +181,11 @@ The full checklist is the `wideset-component-convention` skill. The rules that m
   `default.tsx` is the docs playground's stage. Dev-only stories stay in the stories file.
   `src/__tests__/examples.test.tsx` checks the layout, the descriptions, that every example is a
   story and that each renders. See the `wideset-component-docs` skill.
+- Token graph: `/graph.json` and each docs page's `## Tokens` are generated from the docs
+  playgrounds (`apps/docs/src/lib/tokenUsage.ts`), never written by hand. `pnpm test` fails
+  (`apps/docs/src/lib/tokenUsage.test.ts`) when a component change leaves the graph behind: a new
+  part not drawn in `anatomy()` in `apps/docs/src/playgrounds/<id>.tsx`, or a Tailwind variant
+  the graph does not know. Fix it in the same PR; the message names the file.
 - Tests: `describe` blocks per concern, `screen.getByRole(..., { name })` over test IDs, one
   assertion topic per `it`, verify rest props (`data-*`, `aria-*`, `className`) reach the DOM,
   imports from `vitest`.

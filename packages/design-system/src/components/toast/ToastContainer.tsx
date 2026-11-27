@@ -2,33 +2,13 @@ import { cn } from 'src/lib/utils';
 
 import { MotionProvider, useDefaultMotion } from '../../motion/MotionProvider';
 import { Toast } from './Toast';
-import type { ToastContainerProps, ToastItem, ToastPosition } from './Toast.types';
+import type { ToastContainerProps, ToastItem } from './Toast.types';
 import {
+  toastContainerVariants,
   toastMotionVariants,
   toastStackItemMotionVariants,
   toastViewportMotionVariants,
 } from './Toast.variants';
-
-const getPositionClasses = (position: ToastPosition): string => {
-  const baseClasses = 'fixed z-ws-notification w-full max-w-[24rem] flex flex-col gap-ws-5';
-
-  switch (position) {
-    case 'top-right':
-      return `${baseClasses} top-ws-9 right-ws-9`;
-    case 'top-left':
-      return `${baseClasses} top-ws-9 left-ws-9`;
-    case 'bottom-right':
-      return `${baseClasses} bottom-ws-9 right-ws-9`;
-    case 'bottom-left':
-      return `${baseClasses} bottom-ws-9 left-ws-9`;
-    case 'top-center':
-      return `${baseClasses} top-ws-9 left-1/2 transform -translate-x-1/2`;
-    case 'bottom-center':
-      return `${baseClasses} bottom-ws-9 left-1/2 transform -translate-x-1/2`;
-    default:
-      return `${baseClasses} bottom-ws-9 right-ws-9`;
-  }
-};
 
 const getToastTiming = (toast: ToastItem, now: number) => {
   const elapsed = now - toast.createdAt;
@@ -60,7 +40,7 @@ const ToastContainer = ({
       <div
         data-slot="toast-container"
         className={cn(
-          getPositionClasses(position),
+          toastContainerVariants({ position }),
           toastViewportMotionVariants({ enabled: motion, stacked, side }),
         )}
       >

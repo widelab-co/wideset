@@ -18,6 +18,7 @@ import type {
 import {
   selectClearButtonIconVariants,
   selectClearButtonVariants,
+  selectSearchVariants,
   selectValuePrefixVariants,
   selectValueRightPaddingVariants,
 } from './Select.variants';
@@ -260,7 +261,7 @@ export const Select = ({
                 <Search
                   ref={searchRef}
                   data-slot="select-search"
-                  className="m-ws-5 w-auto shrink-0"
+                  className={selectSearchVariants()}
                   value={searchQuery}
                   size="sm"
                   onChange={(e) => {

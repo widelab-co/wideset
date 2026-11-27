@@ -1,6 +1,24 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from 'src/lib/utils';
 
+/** Where the stack of toasts sits on the screen, above everything else. */
+export const toastContainerVariants = cva(
+  'z-ws-notification gap-ws-5 fixed flex w-full max-w-[24rem] flex-col',
+  {
+    variants: {
+      position: {
+        'top-right': 'top-ws-9 right-ws-9',
+        'top-left': 'top-ws-9 left-ws-9',
+        'bottom-right': 'bottom-ws-9 right-ws-9',
+        'bottom-left': 'bottom-ws-9 left-ws-9',
+        'top-center': 'top-ws-9 left-1/2 -translate-x-1/2 transform',
+        'bottom-center': 'bottom-ws-9 left-1/2 -translate-x-1/2 transform',
+      },
+    },
+    defaultVariants: { position: 'bottom-right' },
+  },
+);
+
 export const toastVariants = cva('inline-flex w-full items-center', {
   variants: {
     status: {

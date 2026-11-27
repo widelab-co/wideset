@@ -19,7 +19,7 @@ export type TokenClass = {
 };
 
 /** Splits on `:` outside brackets: `data-[state=on]:bg-x` → ['data-[state=on]', 'bg-x']. */
-const segments = (cls: string) => {
+export const segments = (cls: string) => {
   const out: string[] = [];
   let depth = 0;
   let current = '';
@@ -53,7 +53,14 @@ const stateOf = (prefixes: string[]) => {
 const KEYWORD =
   /-(none|transparent|current|inherit|full|fit|auto|lh|px|0|\d+\/\d+)$|^outline-offset-\d+$/;
 const BORDER_WIDTH = /^border(-[xytrbl])?(-\d+)?$/;
-const SIDES: Record<string, string> = { t: 'top', r: 'right', b: 'bottom', l: 'left' };
+const SIDES: Record<string, string> = {
+  t: 'top',
+  r: 'right',
+  b: 'bottom',
+  l: 'left',
+  s: 'start',
+  e: 'end',
+};
 /** An arbitrary value that is a length, not a colour: `[0.75rem]`, `[2px]`, `[length:…]`. */
 const LENGTH = String.raw`\[(length:[^\]]+|-?[\d.]+[a-z%]*)\]$`;
 /** Tailwind's palette (`bg-red-500`, `text-gray-900/50`, `border-black`): never a token. */
@@ -78,7 +85,7 @@ const PROPERTIES: [RegExp, string | ((utility: string) => string)][] = [
   [/^font-ws-/, 'Font weight'],
   [/^leading-ws-/, 'Line height'],
   [/^tracking-ws-/, 'Letter spacing'],
-  [/^border-(ws-|\[|transparent)/, 'Border colour'],
+  [/^border-(ws-|\[|\(|transparent)/, 'Border colour'],
   // Tailwind's own palette and type scale: no token, listed so the popup can say so.
   [PALETTE, (utility) => PALETTE_PROPERTY[utility.split('-')[0]]],
   [/^text-(xs|sm|base|lg|\d?xl)$/, 'Font size'],
@@ -96,7 +103,7 @@ const PROPERTIES: [RegExp, string | ((utility: string) => string)][] = [
   [/^size-/, 'Size'],
   [/^px-/, 'Padding x'],
   [/^py-/, 'Padding y'],
-  [/^p[trbl]-/, (utility) => `Padding ${SIDES[utility[1]]}`],
+  [/^p[trblse]-/, (utility) => `Padding ${SIDES[utility[1]]}`],
   [/^p-/, 'Padding'],
   [/^gap-x-/, 'Gap x'],
   [/^gap-y-/, 'Gap y'],

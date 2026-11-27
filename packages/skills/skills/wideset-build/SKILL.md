@@ -85,6 +85,8 @@ Choose by what the thing does. These pairs get mixed up most:
 
 Style only with `ws` classes, and let components own their looks: `className` is for layout. Look up a token at `https://wideset.co/docs/tokens.md`.
 
+A surface Wideset has no component for takes the classes of the component beside it: the `## Tokens` section of that component's `https://wideset.co/components/<id>.md` lists them by part, variant and state. A panel beside a `Card` takes its background, border and radius; a row in a menu takes the hover of `ListItem`. `https://wideset.co/graph.json` holds every component's classes and, for each token, the components it changes.
+
 For how a finished screen should look, and for the rules on token choice, focus, icons, words and responsive layout, load `wideset-craft`.
 
 ## Before you finish
