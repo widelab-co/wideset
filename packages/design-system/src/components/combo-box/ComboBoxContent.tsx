@@ -18,6 +18,8 @@ const ComboBoxContent = React.forwardRef<HTMLDivElement, ComboBoxContentProps>(
         ref={ref}
         data-slot="combo-box-content"
         defaultMotion={motion}
+        sideOffset={4}
+        collisionPadding={10}
         // `document?.body` still throws on the server: `document` is not declared there at all.
         className={cn(
           selectContentVariants({ position: 'popper' }),
@@ -29,7 +31,11 @@ const ComboBoxContent = React.forwardRef<HTMLDivElement, ComboBoxContentProps>(
         onCloseAutoFocus={(e) => e.preventDefault()}
         {...props}
       >
-        <ul id={contentId} role="listbox" className="p-ws-3 max-h-[18rem] overflow-y-auto">
+        <ul
+          id={contentId}
+          role="listbox"
+          className="p-ws-3 ws-scrollbar max-h-[18rem] overflow-y-auto"
+        >
           {typeof children === 'function'
             ? filteredOptions.map((option) => (
                 <React.Fragment key={option.value}>{children(option)}</React.Fragment>

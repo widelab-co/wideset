@@ -128,6 +128,7 @@ ${navCode(v, '    ')}
       </Sidebar>
     </div>
   ),
+  livePreview: true,
   // The gallery card shows a whole app sidebar, built like the Storybook "Full" story.
   preview: () => (
     <div className="flex h-[27rem] overflow-hidden rounded-ws-container-lg border border-ws-static-base bg-ws-static-background shadow-ws-high">

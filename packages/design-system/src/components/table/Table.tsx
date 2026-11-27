@@ -5,6 +5,7 @@ import { TableContext } from './Table.context';
 import type { TableProps } from './Table.types';
 import { TableBody } from './TableBody';
 import { TableCell } from './TableCell';
+import { TableCellDescription } from './TableCellDescription';
 import { TableFoot } from './TableFoot';
 import { TableHead } from './TableHead';
 import { TableHeader } from './TableHeader';
@@ -27,7 +28,8 @@ const TableRoot = ({
   selectionMode,
   ...props
 }: TableProps) => {
-  const effectiveHasBackground = hasBackground ?? (stickyHeader || stickyColumn ? true : undefined);
+  const isSticky = stickyHeader || stickyColumn;
+  const effectiveHasBackground = hasBackground ?? (isSticky ? true : undefined);
 
   return (
     <TableContext.Provider
@@ -48,15 +50,17 @@ const TableRoot = ({
     >
       <table
         data-slot="table"
+        tabIndex={isSticky ? 0 : undefined}
         {...props}
         role={selectionMode ? 'grid' : undefined}
         aria-multiselectable={selectionMode === 'multiple' ? true : undefined}
         className={cn(
           separated && 'is-separated',
           'group w-full table-auto border-separate border-spacing-0',
+          isSticky &&
+            'focus-visible:outline-ws-dynamic-primary-strong-default focus-visible:outline-2 focus-visible:-outline-offset-2',
           className,
         )}
-        tabIndex={stickyColumn || stickyHeader ? 0 : -1}
       >
         {children}
       </table>
@@ -67,6 +71,7 @@ const TableRoot = ({
 const Table = TableRoot as typeof TableRoot & {
   Body: typeof TableBody;
   Cell: typeof TableCell;
+  CellDescription: typeof TableCellDescription;
   Foot: typeof TableFoot;
   Head: typeof TableHead;
   Header: typeof TableHeader;
@@ -74,6 +79,7 @@ const Table = TableRoot as typeof TableRoot & {
 };
 
 Table.Cell = TableCell;
+Table.CellDescription = TableCellDescription;
 Table.Row = TableRow;
 Table.Header = TableHeader;
 Table.Head = TableHead;

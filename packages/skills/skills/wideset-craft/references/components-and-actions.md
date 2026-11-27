@@ -23,6 +23,23 @@ where generated UI most often goes wrong while still looking correct.
 Rule of thumb: if two components could work, pick the one whose reference names your
 case, and say why in your report.
 
+### One row of tabs in the page flow
+
+A page has at most one row of `Tabs` in its flow. Never stack a second row under it: two
+underlined rows look like a mistake and make the reader guess which one is in charge, even when
+each is right on its own. When a tabbed view needs a second switch:
+
+- **Put it inside a container.** `Tabs` inside a card or panel (an example's Description | Code)
+  read as part of that card, not as a second level of the page.
+- **Use a different control.** A `SegmentedControl` for a mode (Preview / Code, Grid / List),
+  aligned with the content it switches, not with the page tabs.
+- **Drop it.** Often the second switch only duplicates something reachable elsewhere (the code is
+  in the playground); remove it.
+
+The same goes for sub-navigation: Sidebar → page Tabs → Tabs inside a card is the deepest it goes.
+Review check: on the blurred screen, count the underlined tab rows outside cards. More than one is
+a defect.
+
 ## The right container
 
 | The task                                                    | Container                                                                                                          |
@@ -40,8 +57,13 @@ A Modal that scrolls or a page with one checkbox both mean the container is wron
 - **One primary per view** (filled `Button`). If you cannot pick one, the screen has two jobs;
   split it.
 - **Secondary** actions: `variant="secondary" preset="border"`. **Tertiary** and in-row actions:
-  `preset="ghost"`, `IconButton`, `LinkButton`, or a `DropdownMenu` behind an overflow
-  `IconButton` (`RiMoreLine`) when there are more than two.
+  `preset="ghost"`, `IconButton`, or a `DropdownMenu` behind an overflow `IconButton`
+  (`RiMoreLine`) when there are more than two.
+- **A row of buttons holds only buttons.** Every action beside a `Button` (a form or card footer,
+  a page header) is a `Button` or `IconButton` of the same size, even one that navigates
+  (`Button asChild` around an `<a>`). `LinkButton` has no control height and no hover fill, so in
+  that row it reads as dead text, even when a reference draws plain text there. It belongs in
+  a sentence or alone under a form or card.
 - **Placement**: page actions top right in the header, primary rightmost. Form and dialog actions
   at the end, right-aligned, primary rightmost, Cancel to its left. In a step flow, Back on the far
   left, Continue on the right.
@@ -55,9 +77,9 @@ A Modal that scrolls or a page with one checkbox both mean the container is wron
 ```tsx
 // Do: one primary, rightmost; secondary as border; overflow for the rest
 <div className="gap-ws-5 flex items-center">
-  <IconButton icon={RiMoreLine} preset="ghost" variant="secondary" aria-label="More actions" />
-  <Button variant="secondary" preset="border">Export</Button>
-  <Button>Create order</Button>
+  <IconButton size="sm" icon={RiMoreLine} preset="ghost" variant="secondary" aria-label="More actions" />
+  <Button size="sm" variant="secondary" preset="border">Export</Button>
+  <Button size="sm">Create order</Button>
 </div>
 
 // Don't: three filled buttons competing, the primary not last

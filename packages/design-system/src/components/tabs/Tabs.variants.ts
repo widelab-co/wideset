@@ -1,7 +1,7 @@
 import { cva } from 'class-variance-authority';
 import { cn } from 'src/lib/utils';
 
-import { hoverTintMotion, pressMotion } from '../../motion/recipes';
+import { hoverTintMotion } from '../../motion/recipes';
 
 export const tabsVariants = cva(`text-ws-static-base flex flex-col`, {
   variants: {
@@ -78,12 +78,11 @@ export const tabsItemVariants = cva(
           'rounded-ws-control-full border-ws-dynamic-secondary-default border-1',
           'hover:border-ws-dynamic-secondary-hover',
           'aria-selected:not-focus-visible:bg-ws-dynamic-primary-alpha-strong-default aria-selected:text-ws-dynamic-primary-default! aria-selected:border-transparent!',
-          'data-active:not-focus-visible:bg-ws-dynamic-primary-alpha-strong-default data-active:text-ws-dynamic-primary-default! data-active:border-transparent!',
         ),
         ghost: cn(
           'rounded-ws-control-lg text-ws-static-subtle hover:text-ws-static-strong',
           '[&_svg]:text-current',
-          'aria-selected:text-ws-static-strong data-active:text-ws-static-strong',
+          'aria-selected:text-ws-static-strong',
         ),
       },
       size: {
@@ -133,7 +132,7 @@ export const tabsItemVariants = cva(
 export const tabsItemMotionVariants = cva('', {
   variants: {
     enabled: {
-      true: cn(hoverTintMotion, pressMotion),
+      true: hoverTintMotion,
       false: '',
     },
   },

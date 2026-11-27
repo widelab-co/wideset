@@ -18,19 +18,19 @@ roles are in [borders.md](borders.md); shadows and surface depth in [elevation.m
 
 ## Surfaces (`bg-ws-static-*`)
 
-| Class                                             | Use for                                                                                     |
-| ------------------------------------------------- | ------------------------------------------------------------------------------------------- |
-| `bg-ws-static-background`                         | The page canvas behind everything. Grey in light, darkest in dark.                          |
-| `bg-ws-static-foreground`                         | App chrome on the canvas: the sidebar.                                                      |
-| `bg-ws-static-container`                          | Cards, tables, side panels: content blocks on the page.                                     |
-| `bg-ws-static-overlay`                            | Floating layers: dropdowns, popups, modals, toasts, tooltips.                               |
-| `bg-ws-static-panel`                              | A docked panel surface; between foreground and container in dark. No component uses it yet. |
-| `bg-ws-static-highlight-base`                     | Rest fill of form fields and choice controls (inputs, checkbox, tile).                      |
-| `bg-ws-static-highlight-subtle`                   | Fill behind outlined buttons and tags.                                                      |
-| `bg-ws-static-highlight-strong`                   | A selected item inside a group (segmented control, tile). Visible in dark only.             |
-| `bg-ws-static-alpha-subtle` · `-base` · `-strong` | Translucent neutral tint over any surface (4 / 8 / 12 %).                                   |
-| `bg-ws-static-scrim-base`                         | Backdrop behind a modal or side panel.                                                      |
-| `bg-ws-static-inverse-background`                 | A dark island on a light page (and the reverse): default tooltip.                           |
+| Class                                             | Use for                                                                                      |
+| ------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| `bg-ws-static-background`                         | The grey ground behind content blocks when a page needs one. Grey in light, darkest in dark. |
+| `bg-ws-static-foreground`                         | The app: `Sidebar` and the page beside it (`main`), split by the sidebar's subtle line.      |
+| `bg-ws-static-container`                          | Cards, tables, side panels: content blocks on the page.                                      |
+| `bg-ws-static-overlay`                            | Floating layers: dropdowns, popups, modals, toasts, tooltips.                                |
+| `bg-ws-static-panel`                              | A docked panel surface; between foreground and container in dark. No component uses it yet.  |
+| `bg-ws-static-highlight-base`                     | Rest fill of form fields and choice controls (inputs, checkbox, tile).                       |
+| `bg-ws-static-highlight-subtle`                   | Fill behind outlined buttons and tags.                                                       |
+| `bg-ws-static-highlight-strong`                   | A selected item inside a group (segmented control, tile). Visible in dark only.              |
+| `bg-ws-static-alpha-subtle` · `-base` · `-strong` | Translucent neutral tint over any surface (4 / 8 / 12 %).                                    |
+| `bg-ws-static-scrim-base`                         | Backdrop behind a modal or side panel.                                                       |
+| `bg-ws-static-inverse-background`                 | A dark island on a light page (and the reverse): default tooltip.                            |
 
 `inverse-*` versions exist for container, foreground, overlay and alpha too. Use them only
 inside an inverse surface, with `text-ws-static-inverse-*` on top.

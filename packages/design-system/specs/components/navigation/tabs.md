@@ -17,10 +17,13 @@ storybook: components-tabs--default
 
 - Content splits cleanly into peer groups (Overview / Members / Comments) and the user moves
   between them on the same page.
-- A row of route-level sections inside a page, rendered as router links (`asChild` + `active`).
+- The same in-page panels with the open tab kept in the URL for deep linking: derive the root
+  `value` from the URL and update it through `onValueChange`.
 
 ## When not to use
 
+- Moving between separate pages or routes, where users need real links with middle-click and
+  "open in new tab" support: use links inside a `<nav>` with `aria-current="page"`, not Tabs.
 - Picking one value or view mode that changes the current content in place (list vs grid,
   a filter) → `SegmentedControl`.
 - App-level navigation between areas of the product → `Sidebar`.
@@ -61,13 +64,12 @@ Named exports (`TabsList`, `TabsItem`, …) are the same parts for Server Compon
 | `size`     | `sm` (default) / `lg` | `sm` for panels and dense screens, `lg` for the top level of a page. |
 | `divider`  | `true` (default)      | Line under the list. Ignored by `pills` and `ghost`.                 |
 | `disabled` | on `Tabs` or one item | Root disables every tab; item disables only that tab.                |
-| `active`   | on `Tabs.Item`        | Forces the active look when the item is a router link (`asChild`).   |
 
 State: `value` + `onValueChange` (controlled) or `defaultValue` (uncontrolled), from Radix Tabs.
 
 ## States
 
-- Active: set by `value` / `defaultValue`, or `active` on a link item.
+- Active: set by the root `value` / `defaultValue`. For routing, derive `value` from the current URL.
 - Disabled: dimmed and skipped by the keyboard. Keep a disabled tab only when the user can tell
   why it is unavailable.
 
@@ -88,13 +90,43 @@ State: `value` + `onValueChange` (controlled) or `defaultValue` (uncontrolled), 
 ## Do / Don't
 
 ```tsx
-// Do: router links keep the tab look through asChild + active
-<Tabs.Item value="billing" asChild active={pathname === '/billing'}>
-  <a href="/billing"><Tabs.Label>Billing</Tabs.Label></a>
-</Tabs.Item>
+import { Tabs } from '@wideset/react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
+// Do: keep URL-driven selection and its content panels together.
+function RoutingTabs() {
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const currentTab = pathname === '/billing' ? 'billing' : 'overview';
+
+  return (
+    <Tabs
+      value={currentTab}
+      activationMode="manual"
+      onValueChange={(value) => {
+        if (value !== currentTab) navigate('/' + value);
+      }}
+    >
+      <Tabs.List>
+        <Tabs.Item value="overview">
+          <Tabs.Label>Overview</Tabs.Label>
+        </Tabs.Item>
+        <Tabs.Item value="billing">
+          <Tabs.Label>Billing</Tabs.Label>
+        </Tabs.Item>
+      </Tabs.List>
+      <Tabs.Content value="overview">Overview content</Tabs.Content>
+      <Tabs.Content value="billing">Billing content</Tabs.Content>
+    </Tabs>
+  );
+}
+```
+
+```tsx
 // Don't: an icon passed as a bare child
-<Tabs.Item value="x"><RiTeamLine /></Tabs.Item>
+<Tabs.Item value="x">
+  <RiTeamLine />
+</Tabs.Item>
 ```
 
 - Don't mix `size` or `type` between tab rows on one screen.
@@ -102,11 +134,15 @@ State: `value` + `onValueChange` (controlled) or `defaultValue` (uncontrolled), 
 
 ## Gotchas
 
+- When a panel starts with a focusable element, pass `tabIndex={-1}` to `Tabs.Content` so Tab
+  reaches that element directly. Otherwise the panel itself is a tab stop by default.
 - `type` and `size` are set once on `Tabs`; items and list read them from context. There is no
   `type` on `Tabs.Item`.
 - `divider={false}` has no effect on `pills` and `ghost`; they never draw it.
 - `Tabs.List`, `Tabs.Item` and `Tabs.Count` throw outside `<Tabs>`.
 - Animations follow `MotionProvider`; set `defaultMotion={false}` on `Tabs` to turn them off here.
+- When tab selection updates the URL, use `activationMode="manual"` so arrow keys move focus
+  without adding browser history entries. Enter or Space selects the focused tab.
 
 ## API
 

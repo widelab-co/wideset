@@ -98,13 +98,23 @@ The recommended way is the automated **"Version Packages" PR** that the Changese
 - Open it, review the computed version and the generated `CHANGELOG.md`.
 - Merge it into `develop`.
 
-If the auto-generated section is too noisy (many small Figma parity entries), **edit `CHANGELOG.md` in that PR** before merging: group visual fixes under one “Design (Figma parity)” bullet and keep breaking/features/bug fixes as short lines. Storybook reads this file verbatim.
+**Edit the new section of `packages/design-system/CHANGELOG.md` in that PR before merging.** The generator keeps only each changeset's first line and orders entries by chance, so migrations get lost. The docs' What's new page renders this file as it is. Every release uses the same shape:
+
+1. `### Breaking changes`: one entry per component, with what to change and a Before/After example copied from the changeset body.
+2. `### New components`
+3. `### Features`: new props, parts and utilities.
+4. `### Fixes`
+5. `### Design (Figma parity)`: visual changes with no API change.
+
+Leave out empty headings. Each entry starts with the component in bold (`- **Tabs:** …`), and entries are in alphabetical order inside a heading. Drop the commit hashes, entries for internal parts, notes about specs and skills, and CLI changes (they go in `packages/cli/CHANGELOG.md`). Edit only after the freeze: every merge into `develop` regenerates the PR and overwrites the edit.
 
 Treat **version → promote** as a brief freeze: avoid landing new changesets on `develop` between this step and step 2 (see Caveats).
 
 ### 2. Promote `develop → main`
 
 Open a PR `develop → main` and merge it with **"Create a merge commit"** — **never Squash or Rebase** (squash collapses the whole history into one commit). The `main` ruleset allows only merge commits, and only `wideset-core` can merge into `main`.
+
+The `Changesets consumed` check fails the promotion PR while `.changeset/` still holds a changeset the Version PR did not consume (empty changesets aside), listing the files. Merge the Version PR on `develop`; the promotion PR picks it up and the check runs again.
 
 On push to `main`, CI runs in order: **build → deploy → publish**:
 
@@ -126,11 +136,11 @@ After this, `develop` and `main` are aligned. Nothing to back‑merge.
 
 The `deploy` job in `.github/workflows/build.yaml` publishes to Cloudflare Workers:
 
-| Trigger   | Docs and registry                                                              | Storybook                                     |
-| --------- | ------------------------------------------------------------------------------ | --------------------------------------------- |
-| `main`    | `wideset-docs` on `wideset.co` (`/docs`, `/components`, `/r`, `/llms*.txt`, …) | `wideset-storybook` on `storybook.wideset.co` |
-| `develop` | `wideset-docs-develop` on workers.dev                                          | `wideset-storybook-develop` on workers.dev    |
-| PR        | alias `pr-<number>` on the `-develop` Workers                                  | same                                          |
+| Trigger   | Docs and registry                                                                         | Storybook                                     |
+| --------- | ----------------------------------------------------------------------------------------- | --------------------------------------------- |
+| `main`    | `wideset-docs` on `wideset.co` (`/docs`, `/components`, `/blocks`, `/r`, `/llms*.txt`, …) | `wideset-storybook` on `storybook.wideset.co` |
+| `develop` | `wideset-docs-develop` on workers.dev                                                     | `wideset-storybook-develop` on workers.dev    |
+| PR        | alias `pr-<number>` on the `-develop` Workers                                             | same                                          |
 
 Repository settings: secrets `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`, `NPM_TOKEN`; variable
 `CF_WORKERS_SUBDOMAIN`; environments `production` (branch `main`) and `develop` (branch `develop`);
@@ -149,11 +159,13 @@ Production on `wideset.co`:
   hostnames; DNS-only, the deploy succeeds and the post-deploy check fails.
 - A Redirect Rule on the zone (Rules → Redirect Rules, dashboard only) sends every other path on
   `wideset.co` to `www.wideset.co`, the landing page. It runs before the Worker routes, so it must
-  exclude exactly the routes in `apps/docs/wrangler.jsonc`: **change both together**. Landing
-  pages must not use paths starting with `/docs` or `/components`. Expression:
+  exclude exactly the routes in `apps/docs/wrangler.jsonc`: **change both together**, and change
+  the rule **before** merging the `develop → main` PR that adds a route: the deploy checks every
+  route on `wideset.co`, so a route the rule still redirects fails the release before npm. Landing
+  pages must not use paths starting with `/docs`, `/components` or `/blocks`. Expression:
 
   ```text
-  (http.host eq "wideset.co" and not starts_with(http.request.uri.path, "/docs") and not starts_with(http.request.uri.path, "/components") and not starts_with(http.request.uri.path, "/r/") and not starts_with(http.request.uri.path, "/_docs/") and not starts_with(http.request.uri.path, "/.well-known/agent-skills/") and http.request.uri.path ne "/llms.txt" and http.request.uri.path ne "/llms-full.txt")
+  (http.host eq "wideset.co" and not starts_with(http.request.uri.path, "/docs") and not starts_with(http.request.uri.path, "/components") and not starts_with(http.request.uri.path, "/blocks") and not starts_with(http.request.uri.path, "/r/") and not starts_with(http.request.uri.path, "/_docs/") and not starts_with(http.request.uri.path, "/.well-known/agent-skills/") and http.request.uri.path ne "/llms.txt" and http.request.uri.path ne "/llms-full.txt")
   ```
 
   Action: dynamic redirect to `concat("https://www.wideset.co", http.request.uri.path)`, 301,
@@ -167,8 +179,10 @@ Production on `wideset.co`:
 
 ## Caveats
 
-- **Freeze window.** If a new changeset lands on `develop` _between_ the version step and the promotion, `main` arrives with an unconsumed changeset and the Action opens a Version PR instead of publishing. Rare at our cadence; just keep version → promote tight.
-- **Empty changesets.** `changesets/action` neither versions nor publishes while only empty changesets are pending, so the `release` job deletes them from its checkout (nothing is committed) and the action publishes.
+- **Freeze window.** If a new changeset lands on `develop` _between_ the version step and the promotion, the promotion PR carries an unconsumed changeset and the `Changesets consumed` check blocks it, naming the file. Merge the Version PR that `develop` opens for it; the promotion PR updates and the check passes. Keep version → promote tight.
+  - **Required check (manual).** The check blocks the merge only when `Changesets consumed` is a required status check in the `main` ruleset. A maintainer adds it in the repository settings (Rules → Rulesets → `main` → Require status checks to pass); CI cannot.
+  - **Backstop.** If an unconsumed changeset still reaches `main` (the check was not required, or was bypassed), the `release` job runs the same script, `scripts/check-changesets-consumed.sh`, and stops before npm, naming it. By then `deploy` has already published docs for a version npm will not get: merge the Version PR on `develop` and promote again; it bumps past the unpublished version.
+- **Empty changesets.** `changesets/action` neither versions nor publishes while only empty changesets are pending, so the `release` job deletes them from its checkout (nothing is committed) and the action publishes. The `Changesets consumed` check ignores them the same way. Empty means front matter that lists no packages: what `pnpm changeset --empty` writes, or blank, comments only, `{}`, `~` or `null` between the `---` lines, with or without a trailing `# comment`.
 - **Merge method matters.** Always promote `develop → main` with a merge commit. Squash/Rebase destroys the per‑component history.
 
 ---

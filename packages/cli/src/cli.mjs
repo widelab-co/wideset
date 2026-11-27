@@ -33,19 +33,20 @@ import { runShadcn as defaultRunShadcn } from './shadcn.mjs';
 
 const { version: VERSION } = createRequire(import.meta.url)('../package.json');
 
-const HELP = `wideset ${VERSION} — scaffold Wideset components into your React project
+const HELP = `wideset ${VERSION} — scaffold Wideset components and blocks into your React project
 
 Usage
   npx wideset init                 set up this project (add runs it for you the first time)
-  npx wideset add <name...>        add components, e.g. npx wideset add button select
+  npx wideset add <name...>        add components or blocks, e.g. npx wideset add block-calendar
   npx wideset add --all            add every component
-  npx wideset list                 show the components you can add
+  npx wideset list                 show the components and blocks you can add
   npx wideset skills               add the Wideset agent skills and rules to this project
   npx wideset info                 show how this project uses Wideset (--json for agents)
 
 Options
   --overwrite         add: replace files that already exist (your edits to them are lost)
   --dry-run           init, skills: print what would change, change nothing
+  --no-font           init, add: keep the project's own font instead of adding Inter
   --claude            skills: also install for Claude Code, even with no CLAUDE.md or .claude/
   --json              info: print JSON
   --registry <url>    init, list, skills: use another Wideset registry, e.g. a preview deploy
@@ -61,6 +62,7 @@ function parseArgs(argv) {
     overwrite: false,
     all: false,
     dryRun: false,
+    font: true,
     claude: false,
     json: false,
     help: false,
@@ -78,6 +80,7 @@ function parseArgs(argv) {
     else if (arg === '--overwrite' || arg === '-o') opts.overwrite = true;
     else if (arg === '--all' || arg === '-a') opts.all = true;
     else if (arg === '--dry-run') opts.dryRun = true;
+    else if (arg === '--no-font') opts.font = false;
     else if (arg === '--claude') opts.claude = true;
     else if (arg === '--json') opts.json = true;
     else if (arg === '--registry') opts.registry = value();
@@ -219,6 +222,55 @@ async function init(ctx, { nested = false } = {}) {
     );
   }
 
+  // 5. Font. Inter in a project set up for the first time. One that already has a components.json
+  //    is left alone, so removing the file or its import sticks; one that brought its own font
+  //    keeps it. A registry without the item (an older one, or a deploy in progress) is a warning.
+  const fontSpecifier = '@/styles/wideset-font.css';
+  const fontPath = `${project.srcDir === '.' ? '' : `${project.srcDir}/`}styles/wideset-font.css`;
+  const hasFontFile = existsSync(join(cwd, fontPath));
+  // An entry that defines --font-ws-sans itself: next/font's `variable: '--font-ws-sans'`, as the
+  //    installation guide shows, or a `--font-ws-sans:` declaration. A `var(--font-ws-sans)` read
+  //    does not count: it loads nothing.
+  const entryText = project.entry ? readFileSync(join(cwd, project.entry), 'utf8') : '';
+  const ownFontVariable =
+    !hasFontFile && /variable:\s*['"`]--font-ws-sans['"`]|--font-ws-sans\s*:/.test(entryText);
+  if (!opts.font) {
+    say(false, 'font: left as it is (--no-font)');
+  } else if (existing) {
+    say(false, 'font: left as it is');
+  } else if (!hasFontFile && project.fontPackages.length) {
+    say(false, `font: kept yours (${project.fontPackages.join(', ')})`);
+  } else if (ownFontVariable) {
+    say(false, `font: kept yours (${project.entry} sets --font-ws-sans)`);
+  } else {
+    let added = hasFontFile;
+    if (!hasFontFile) {
+      try {
+        if (!dryRun) await runShadcn(['add', '--yes', '--silent', `${NAMESPACE}/font`], { cwd });
+        added = true;
+        say(true, `font: added ${NAMESPACE}/font (Inter)`);
+      } catch (error) {
+        log(`! font: could not add ${NAMESPACE}/font (${error.message})`);
+        manual.push(
+          'Load a variable font yourself:\n' +
+            'https://wideset-docs.widelab.workers.dev/docs/installation#3-load-the-font',
+        );
+      }
+    }
+    if (!added) {
+      // No file to import.
+    } else if (project.entry) {
+      const css = addStyleImports(entryText, [fontSpecifier], { last: true });
+      if (css.changed) write(project.entry, css.text);
+      say(
+        css.changed,
+        `${project.entry}: ${css.changed ? 'imports' : 'already imports'} ${fontSpecifier}`,
+      );
+    } else {
+      manual.push(`Import once, after your other stylesheets:\nimport '${fontSpecifier}';`);
+    }
+  }
+
   if (manual.length) {
     log('\nOne more thing by hand:\n');
     for (const step of manual) log(`  ${step.replace(/\n/g, '\n  ')}\n`);
@@ -233,7 +285,7 @@ async function add(ctx) {
   const names = opts.positional.map((name) => name.replace(new RegExp(`^${NAMESPACE}/`), ''));
   if (!names.length && !opts.all) {
     throw new CliError(
-      'Name at least one component, e.g. `npx wideset add button`. See `npx wideset list`.',
+      'Name at least one component or block, e.g. `npx wideset add button`. See `npx wideset list`.',
     );
   }
 
@@ -260,7 +312,9 @@ async function add(ctx) {
   }
 
   const selected = opts.all ? index.items.filter(isComponent).map((item) => item.name) : names;
-  log(`Adding ${selected.length === 1 ? selected[0] : `${selected.length} components`}\n`);
+  log(
+    `Adding ${selected.length === 1 ? selected[0] : `${selected.length} ${opts.all ? 'components' : 'items'}`}\n`,
+  );
   await runShadcn(
     [
       'add',
@@ -277,16 +331,23 @@ async function list(ctx) {
   const { cwd, opts, env, log, fetchImpl } = ctx;
   const { base } = registryFor(opts, env, readComponentsJson(cwd));
   const index = await fetchIndex(base, fetchImpl);
-  const components = index.items.filter(isComponent);
-  const width = Math.max(...components.map((item) => item.name.length));
-  log(`${components.length} components (npx wideset add <name>):\n`);
-  const room = Math.max(20, (ctx.columns ?? 100) - width - 6);
-  for (const item of components) {
-    const text = item.description ?? item.title ?? '';
-    const clipped = text.length > room ? `${text.slice(0, room - 1).trimEnd()}…` : text;
-    log(`  ${item.name.padEnd(width)}  ${clipped}`.trimEnd());
+  const show = (label, items) => {
+    const width = Math.max(0, ...items.map((item) => item.name.length));
+    const room = Math.max(20, (ctx.columns ?? 100) - width - 6);
+    log(`${items.length} ${label} (npx wideset add <name>):\n`);
+    for (const item of items) {
+      const text = item.description ?? item.title ?? '';
+      const clipped = text.length > room ? `${text.slice(0, room - 1).trimEnd()}…` : text;
+      log(`  ${item.name.padEnd(width)}  ${clipped}`.trimEnd());
+    }
+  };
+  show('components', index.items.filter(isComponent));
+  const blocks = index.items.filter((item) => item.type === 'registry:block');
+  if (blocks.length) {
+    log('');
+    show('blocks', blocks);
   }
-  log(`\nShared code (styles, utils, motion, …) comes along with the components that need it.`);
+  log('\nShared code and styles come along with the items that need them.');
   return 0;
 }
 

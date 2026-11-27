@@ -77,6 +77,8 @@ Pure `styles` defines no Tailwind variable (`--font-sans`, `--spacing`, …) and
 
 ### 3. Load the font
 
+The `wideset` CLI does this step for you: `npx wideset init` adds variable Inter as `styles/wideset-font.css` (skip it with `--no-font`). With the npm package, do it by hand.
+
 Wideset does not load a font by itself. It ships a `--font-ws-sans` variable (Inter with a system fallback), and components inherit the font from the page. Load Inter one of these ways, then apply it:
 
 ```css
@@ -162,8 +164,7 @@ import { Button } from '@/components/ui/wideset/button/Button';
 The CLI runs the shadcn CLI underneath; you can call shadcn yourself. Wideset does not use shadcn's
 components, theme or `cn`, so you do **not** need `shadcn init`.
 
-**1. Create `components.json`** in your project root. It tells the CLI where files go and which
-registry `@wideset` means. Vite (sources in `src/`):
+**1. Create `components.json`** in your project root. It tells the CLI where files go. Vite (sources in `src/`):
 
 ```json
 {
@@ -183,19 +184,13 @@ registry `@wideset` means. Vite (sources in `src/`):
     "lib": "@/lib",
     "hooks": "@/hooks",
     "utils": "@/lib/utils"
-  },
-  "registries": { "@wideset": "https://wideset.co/r/{name}.json" }
+  }
 }
 ```
 
 Next.js App Router: `"rsc": true`, `"css": "app/globals.css"`, and `@/` pointing at the project
 root (`"@/*": ["./*"]`). The `@/*` alias has to exist in `tsconfig.json` (`paths`) and, for Vite, in
-`vite.config.ts` (`resolve.alias`). Already using shadcn? Keep your `components.json` and only
-register the namespace:
-
-```bash
-npx shadcn@latest registry add @wideset=https://wideset.co/r/{name}.json
-```
+`vite.config.ts` (`resolve.alias`). Already using shadcn? Keep your `components.json` as it is.
 
 **2. Add components.** Sub-components and dependencies come along; the item list is `/r/registry.json`.
 

@@ -23,6 +23,12 @@ on:
       - main
       - develop
 
+# `pnpm install` runs `husky install` (the `prepare` script). Without this, the Git hooks would run
+# inside CI when changesets/action commits and pushes the Version PR branch or the release tags:
+# lint-staged on its commit; the changeset check, lint, Prettier and all tests on its push.
+env:
+  HUSKY: 0
+
 jobs:
   build:
     name: Build & validate
@@ -78,6 +84,11 @@ jobs:
 
       - name: Test
         run: pnpm test
+
+      # The repository's own scripts (root scripts/, outside every package), e.g. the changeset
+      # rule the promotion and release jobs share.
+      - name: Test repository scripts
+        run: node --test 'scripts/*.test.mjs'
 
       # Proves Storybook builds; the deploy job builds it again with its own URLs.
       - name: Build Storybook
@@ -244,7 +255,8 @@ jobs:
           if [ "$APP" = docs ]; then
             [ "$MODE" = production ] && URL=https://wideset.co
             checks="$URL/r/registry.json|application/json $URL/docs/introduction|text/html
-              $URL/components/button.md|text/markdown $URL/_docs/favicon.png|image/png
+              $URL/components/button.md|text/markdown $URL/blocks.md|text/markdown
+              $URL/_docs/favicon.png|image/png
               $URL/llms.txt|text/plain $URL/llms-full.txt|text/plain
               $URL/.well-known/agent-skills/index.json|application/json"
           else
@@ -307,6 +319,17 @@ jobs:
           # build never see the token.
           persist-credentials: false
 
+      # The backstop for the `changesets-consumed` job, which blocks such a promotion on its PR.
+      # It needs only the checkout, so it runs before install and build and fails in seconds.
+      #
+      # Empty changesets are deleted from the checkout (not committed): changesets/action
+      # neither versions nor publishes while only empty ones are pending, so without this it
+      # would not publish. Any other changeset left landed on develop after the Version PR was
+      # merged: changesets/action would switch to version mode and fail opening a PR from here,
+      # without publishing. The script stops with the cause instead.
+      - name: Drop empty changesets, check the rest were consumed on develop
+        run: bash scripts/check-changesets-consumed.sh release
+
       # Version comes from `packageManager` in package.json.
       - uses: pnpm/action-setup@v4
 
@@ -322,21 +345,8 @@ jobs:
       - name: Build library
         run: pnpm build:lib
 
-      # changesets/action neither versions nor publishes while only empty changesets are pending
-      # (it logs "All changesets are empty" and stops), and on develop it opens no Version PR to
-      # consume them. An empty changeset releases nothing, so it is dropped from the checkout
-      # (not committed) and the action falls through to publishing.
-      - name: Drop empty changesets
-        run: |
-          for f in .changeset/*.md; do
-            [ "$(basename "$f")" = README.md ] && continue
-            if [ "$(sed -n '1,2p' "$f" | tr -d '\r' | paste -sd '|')" = '---|---' ]; then
-              echo "empty changeset: $f"
-              rm "$f"
-            fi
-          done
-
-      # No pending changesets on main (consumed on develop) => publish mode only.
+      # The changeset check above guarantees no pending changesets, so the action runs in publish
+      # mode only.
       - name: Publish to npm
         uses: changesets/action@v1 # consider pinning to a full SHA
         with:
@@ -367,6 +377,26 @@ jobs:
 
       - name: Check for a changeset
         run: node scripts/check-changeset.mjs origin/${{ github.base_ref }} HEAD
+
+  # A PR into main (the promotion) must not carry a changeset the Version Packages PR did not
+  # consume: once merged, `deploy` would publish docs for a version that `release` then refuses to
+  # put on npm, and the recovery skips that version. Required in the main ruleset (RELEASING.md,
+  # Caveats). Same rule as the release job's backstop: scripts/check-changesets-consumed.sh. The
+  # checkout is the PR's merge commit, so .changeset/ is what main would hold after the merge.
+  changesets-consumed:
+    name: Changesets consumed
+    if: github.event_name == 'pull_request' && github.base_ref == 'main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Drop empty changesets, check the rest were consumed on develop
+        run: bash scripts/check-changesets-consumed.sh pr
 
   # The smoke jobs install fresh apps from npm and pull shadcn presets from ui.shadcn.com, so
   # they are slow and can flake. They only prove something when a file that ends up in the
@@ -413,9 +443,9 @@ jobs:
             echo "run=false" >> "$GITHUB_OUTPUT"
           fi
 
-  # Every registry item has to install into a fresh Vite + Tailwind v4 + shadcn app and type-check.
-  # Sharded because each item is a separate install; "all" adds every item to one app and runs
-  # vite build. Runs against a locally served build of the registry, never a deployed one.
+  # Install components and representative blocks into fresh Vite + Tailwind v4 + shadcn apps.
+  # Shard the individual installs. The combined run adds the same items to one app and builds it.
+  # Tests use a locally served build of the registry.
   registry-smoke:
     name: Registry smoke (${{ matrix.shard }})
     needs: [build, registry-changes]

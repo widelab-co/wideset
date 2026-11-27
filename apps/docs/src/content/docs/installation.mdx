@@ -68,6 +68,9 @@ use them in your own code.
 
 ## 3. Load the font
 
+The `wideset` CLI does this step for you: `npx wideset init` adds variable Inter as
+`styles/wideset-font.css` (skip it with `--no-font`). With the npm package, do it by hand.
+
 Wideset loads no font and components set none: they inherit the font on `body`, so your brand
 font applies to them too. The package defines `--font-ws-sans` (Inter, then the system stack).
 Load Inter and apply it:

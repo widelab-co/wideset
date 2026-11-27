@@ -19,6 +19,8 @@ A member such as `Card.Header` comes with `Card`; its named form, `CardHeader`, 
 - `import { ActionTileEntity } from '@/components/ui/wideset/action-tile/ActionTileEntity';`
 - `import { ActionTileIcon } from '@/components/ui/wideset/action-tile/ActionTileIcon';`
 - `import { ActionTileTitle } from '@/components/ui/wideset/action-tile/ActionTileTitle';`
+- `import { AppShell } from '@/components/ui/wideset/app-shell/AppShell';`
+- `import { AppShellMain } from '@/components/ui/wideset/app-shell/AppShellMain';`
 - `import { Avatar } from '@/components/ui/wideset/avatar/Avatar';`
 - `import { AvatarAgent } from '@/components/ui/wideset/avatar/AvatarAgent';`
 - `import { AvatarGroup } from '@/components/ui/wideset/avatar/AvatarGroup';`
@@ -33,7 +35,7 @@ A member such as `Card.Header` comes with `Card`; its named form, `CardHeader`, 
 - `import { Button } from '@/components/ui/wideset/button/Button';`
 - `import { ButtonIcon } from '@/components/ui/wideset/button/ButtonIcon';`
 - `import { ButtonTruncatedText } from '@/components/ui/wideset/button/ButtonTruncatedText';`
-- `import { IconButton, IconButtonIcon } from '@/components/ui/wideset/button/IconButton';`
+- `import { IconButton } from '@/components/ui/wideset/button/IconButton';`
 - `import { LinkButton, LinkButtonTruncatedText } from '@/components/ui/wideset/button/LinkButton';`
 - `import { SplitButton, SplitButtonIcon, SplitButtonTruncatedText } from '@/components/ui/wideset/button/SplitButton';`
 - `import { Calendar } from '@/components/ui/wideset/calendar/Calendar';`
@@ -48,7 +50,10 @@ A member such as `Card.Header` comes with `Card`; its named form, `CardHeader`, 
 - `import { Checkbox, CheckboxDescription, CheckboxLabel } from '@/components/ui/wideset/checkbox/Checkbox';`
 - `import { CheckboxGroup } from '@/components/ui/wideset/checkbox/CheckboxGroup';`
 - `import { Chip } from '@/components/ui/wideset/chip/Chip';`
+- `import { ChipAction } from '@/components/ui/wideset/chip/ChipAction';`
 - `import { ChipIcon } from '@/components/ui/wideset/chip/ChipIcon';`
+- `import { ChipIconButton } from '@/components/ui/wideset/chip/ChipIconButton';`
+- `import { ChipLabel } from '@/components/ui/wideset/chip/ChipLabel';`
 - `import { ComboBox, ComboBoxIcon, ComboBoxPrefix } from '@/components/ui/wideset/combo-box/ComboBox';`
 - `import { ComboBoxContent } from '@/components/ui/wideset/combo-box/ComboBoxContent';`
 - `import { ComboBoxItem } from '@/components/ui/wideset/combo-box/ComboBoxItem';`
@@ -73,6 +78,7 @@ A member such as `Card.Header` comes with `Card`; its named form, `CardHeader`, 
 - `import { FileUploadTrigger } from '@/components/ui/wideset/file-upload/FileUploadTrigger';`
 - `import { FilterButton } from '@/components/ui/wideset/filter-button/FilterButton';`
 - `import { FormField } from '@/components/ui/wideset/form-field/FormField';`
+- `import { Illustration } from '@/components/ui/wideset/illustration/Illustration';`
 - `import { InlineAlert } from '@/components/ui/wideset/inline-alert/InlineAlert';`
 - `import { useInlineAlert } from '@/components/ui/wideset/inline-alert/InlineAlert.hooks';`
 - `import { InlineAlertAction } from '@/components/ui/wideset/inline-alert/InlineAlertAction';`
@@ -111,6 +117,11 @@ A member such as `Card.Header` comes with `Card`; its named form, `CardHeader`, 
 - `import { PopupTitle } from '@/components/ui/wideset/popup/PopupTitle';`
 - `import { PopupTrigger } from '@/components/ui/wideset/popup/PopupTrigger';`
 - `import { ProgressBar } from '@/components/ui/wideset/progress-bar/ProgressBar';`
+- `import { ProgressBarDescription } from '@/components/ui/wideset/progress-bar/ProgressBarDescription';`
+- `import { ProgressBarHeader } from '@/components/ui/wideset/progress-bar/ProgressBarHeader';`
+- `import { ProgressBarLabel } from '@/components/ui/wideset/progress-bar/ProgressBarLabel';`
+- `import { ProgressBarTrack } from '@/components/ui/wideset/progress-bar/ProgressBarTrack';`
+- `import { ProgressBarValue } from '@/components/ui/wideset/progress-bar/ProgressBarValue';`
 - `import { ProgressStepper } from '@/components/ui/wideset/progress-stepper/ProgressStepper';`
 - `import { ProgressStepperIcon } from '@/components/ui/wideset/progress-stepper/ProgressStepperIcon';`
 - `import { ProgressStepperStep } from '@/components/ui/wideset/progress-stepper/ProgressStepperStep';`
@@ -132,6 +143,7 @@ A member such as `Card.Header` comes with `Card`; its named form, `CardHeader`, 
 - `import { Sidebar } from '@/components/ui/wideset/sidebar/Sidebar';`
 - `import { SidebarCollapsed } from '@/components/ui/wideset/sidebar/SidebarCollapsed';`
 - `import { SidebarExpanded } from '@/components/ui/wideset/sidebar/SidebarExpanded';`
+- `import { SidebarFooter } from '@/components/ui/wideset/sidebar/SidebarFooter';`
 - `import { SidebarHeader } from '@/components/ui/wideset/sidebar/SidebarHeader';`
 - `import { SidebarItem } from '@/components/ui/wideset/sidebar/SidebarItem';`
 - `import { SidebarSection } from '@/components/ui/wideset/sidebar/SidebarSection';`
@@ -147,6 +159,15 @@ A member such as `Card.Header` comes with `Card`; its named form, `CardHeader`, 
 - `import { SidepanelTitle } from '@/components/ui/wideset/sidepanel/SidepanelTitle';`
 - `import { Slider } from '@/components/ui/wideset/slider/Slider';`
 - `import { SliderLabel } from '@/components/ui/wideset/slider/SliderLabel';`
+- `import { Spreadsheet } from '@/components/ui/wideset/spreadsheet/Spreadsheet';`
+- `import { SpreadsheetBody } from '@/components/ui/wideset/spreadsheet/SpreadsheetBody';`
+- `import { SpreadsheetCell } from '@/components/ui/wideset/spreadsheet/SpreadsheetCell';`
+- `import { SpreadsheetColumnHeader } from '@/components/ui/wideset/spreadsheet/SpreadsheetColumnHeader';`
+- `import { SpreadsheetColumnHeaderIcon } from '@/components/ui/wideset/spreadsheet/SpreadsheetColumnHeaderIcon';`
+- `import { SpreadsheetColumnHeaderTrigger } from '@/components/ui/wideset/spreadsheet/SpreadsheetColumnHeaderTrigger';`
+- `import { SpreadsheetHead } from '@/components/ui/wideset/spreadsheet/SpreadsheetHead';`
+- `import { SpreadsheetRow } from '@/components/ui/wideset/spreadsheet/SpreadsheetRow';`
+- `import { SpreadsheetRowHeader } from '@/components/ui/wideset/spreadsheet/SpreadsheetRowHeader';`
 - `import { StatusBadge } from '@/components/ui/wideset/status-badge/StatusBadge';`
 - `import { StatusBadgeIcon } from '@/components/ui/wideset/status-badge/StatusBadgeIcon';`
 - `import { StatusBadgeLabel } from '@/components/ui/wideset/status-badge/StatusBadgeLabel';`
@@ -156,14 +177,14 @@ A member such as `Card.Header` comes with `Card`; its named form, `CardHeader`, 
 - `import { StatusModalFooter } from '@/components/ui/wideset/status-modal/StatusModalFooter';`
 - `import { StatusModalOverlay } from '@/components/ui/wideset/status-modal/StatusModalOverlay';`
 - `import { StatusModalTitle } from '@/components/ui/wideset/status-modal/StatusModalTitle';`
-- `import { Switch } from '@/components/ui/wideset/switch/Switch';`
-- `import { SwitchLabel } from '@/components/ui/wideset/switch/SwitchLabel';`
+- `import { Switch, SwitchDescription, SwitchLabel } from '@/components/ui/wideset/switch/Switch';`
 - `import { SystemAlert } from '@/components/ui/wideset/system-alert/SystemAlert';`
 - `import { SystemAlertAction } from '@/components/ui/wideset/system-alert/SystemAlertAction';`
 - `import { SystemAlertMessage } from '@/components/ui/wideset/system-alert/SystemAlertMessage';`
 - `import { Table } from '@/components/ui/wideset/table/Table';`
 - `import { TableBody } from '@/components/ui/wideset/table/TableBody';`
 - `import { TableCell } from '@/components/ui/wideset/table/TableCell';`
+- `import { TableCellDescription } from '@/components/ui/wideset/table/TableCellDescription';`
 - `import { TableFoot } from '@/components/ui/wideset/table/TableFoot';`
 - `import { TableHead } from '@/components/ui/wideset/table/TableHead';`
 - `import { TableHeader } from '@/components/ui/wideset/table/TableHeader';`
@@ -214,17 +235,18 @@ A member such as `Card.Header` comes with `Card`; its named form, `CardHeader`, 
 - `import type { AccordionCaptionProps, AccordionContentProps, AccordionIconProps, AccordionItemProps, AccordionProps, AccordionTitleProps, AccordionTriggerProps } from '@/components/ui/wideset/accordion/Accordion.types';`
 - `import type { ActionBarProps } from '@/components/ui/wideset/action-bar/ActionBar.types';`
 - `import type { ActionTileProps, DescriptionProps as ActionTileDescriptionProps, EntityProps as ActionTileEntityProps, IconProps as ActionTileIconProps, TitleProps as ActionTileTitleProps } from '@/components/ui/wideset/action-tile/ActionTile.types';`
+- `import type { AppShellDirection, AppShellMainProps, AppShellProps } from '@/components/ui/wideset/app-shell/AppShell.types';`
 - `import type { AvatarColor } from '@/components/ui/wideset/avatar/Avatar.colors';`
 - `import type { AgentProps as AvatarAgentProps, AvatarGroupContextType, AvatarProps, GroupProps as AvatarGroupProps, IconProps as AvatarIconProps, ImageProps as AvatarImageProps, InitialsProps as AvatarInitialsProps, MoreProps as AvatarMoreProps, StatusProps as AvatarStatusProps } from '@/components/ui/wideset/avatar/Avatar.types';`
 - `import type { BreadcrumbsDividerProps, BreadcrumbsItemProps, BreadcrumbsProps, BreadcrumbsWithSubComponents } from '@/components/ui/wideset/breadcrumbs/Breadcrumbs.types';`
 - `import type { ButtonContextValue, ButtonIconProps, ButtonProps, ButtonTruncatedTextProps } from '@/components/ui/wideset/button/Button.types';`
-- `import type { IconButtonIconProps, IconButtonProps } from '@/components/ui/wideset/button/IconButton.types';`
+- `import type { IconButtonProps } from '@/components/ui/wideset/button/IconButton.types';`
 - `import type { LinkButtonProps, LinkButtonTruncatedTextProps } from '@/components/ui/wideset/button/LinkButton.types';`
 - `import type { SplitButtonIconProps, SplitButtonProps, SplitButtonTruncatedTextProps } from '@/components/ui/wideset/button/SplitButton.types';`
 - `import type { CalendarProps } from '@/components/ui/wideset/calendar/Calendar.types';`
 - `import type { CardActionProps, CardContentProps, CardDescriptionProps, CardFooterProps, CardHeaderProps, CardMediaProps, CardProps, CardTitleProps } from '@/components/ui/wideset/card/Card.types';`
 - `import type { CheckboxGroupProps, CheckboxProps } from '@/components/ui/wideset/checkbox/Checkbox.types';`
-- `import type { ChipIconProps, ChipProps } from '@/components/ui/wideset/chip/Chip.types';`
+- `import type { ChipActionProps, ChipIconButtonProps, ChipIconProps, ChipLabelProps, ChipProps } from '@/components/ui/wideset/chip/Chip.types';`
 - `import type { ComboBoxContentProps, ComboBoxContextValue, ComboBoxHighlightedLabelProps, ComboBoxIconProps, ComboBoxItemProps, ComboBoxOption, ComboBoxPrefixProps, ComboBoxProps, ComboBoxTriggerProps } from '@/components/ui/wideset/combo-box/ComboBox.types';`
 - `import type { DatePickerProps } from '@/components/ui/wideset/datepicker/DatePicker.types';`
 - `import type { DateRangePickerProps, DateRangePreset, DateRangeValue } from '@/components/ui/wideset/daterangepicker/DateRangePicker.types';`
@@ -234,27 +256,29 @@ A member such as `Card.Header` comes with `Card`; its named form, `CardHeader`, 
 - `import type { FileUploadDropzoneProps, FileUploadLabels, FileUploadProps, FileUploadTriggerProps } from '@/components/ui/wideset/file-upload/FileUpload.types';`
 - `import type { FilterButtonProps } from '@/components/ui/wideset/filter-button/FilterButton.types';`
 - `import type { FormFieldProps } from '@/components/ui/wideset/form-field/FormField.types';`
+- `import type { IllustrationName, IllustrationProps, IllustrationSize } from '@/components/ui/wideset/illustration/Illustration.types';`
 - `import type { InlineAlertActionProps, InlineAlertItem, InlineAlertMessageProps, InlineAlertOrientation, InlineAlertOutletHandle, InlineAlertOutletProps, InlineAlertProps, InlineAlertShowConfig, InlineAlertStatus, InlineAlertTitleProps, InlineAlertWithSubComponents } from '@/components/ui/wideset/inline-alert/InlineAlert.types';`
 - `import type { ListItemContentProps, ListItemDescriptionProps, ListItemLabelProps, ListItemPrefixProps, ListItemProps, ListItemSuffixProps, ListItemWithSubComponents } from '@/components/ui/wideset/list-item/ListItem.types';`
 - `import type { ModalBodyProps, ModalCloseProps, ModalContentProps, ModalDescriptionProps, ModalFooterProps, ModalHeaderProps, ModalOverlayProps, ModalProps, ModalTitleProps, ModalTriggerProps } from '@/components/ui/wideset/modal/Modal.types';`
 - `import type { MultiSelectContentProps, MultiSelectGroupProps, MultiSelectLabelProps, MultiSelectOptionProps, MultiSelectOptionType, MultiSelectProps, MultiSelectSeparatorProps, MultiSelectTriggerProps, MultiSelectValueProps } from '@/components/ui/wideset/multi-select/MultiSelect.types';`
 - `import type { PaginationNumbersProps, PaginationOverflowProps, PaginationProps, PaginationRowsPerPageProps, PaginationType } from '@/components/ui/wideset/pagination/Pagination.types';`
 - `import type { PopupCloseProps, PopupContainerProps, PopupContentProps, PopupDescriptionProps, PopupFooterProps, PopupHeaderProps, PopupProps, PopupTitleProps, PopupTriggerProps } from '@/components/ui/wideset/popup/Popup.types';`
-- `import type { ProgressBarProps } from '@/components/ui/wideset/progress-bar/ProgressBar.types';`
+- `import type { ProgressBarDescriptionProps, ProgressBarHeaderProps, ProgressBarLabelProps, ProgressBarProps, ProgressBarStatus, ProgressBarTrackProps, ProgressBarType, ProgressBarValueProps, ProgressBarWithSubComponents } from '@/components/ui/wideset/progress-bar/ProgressBar.types';`
 - `import type { ProgressStepperIconProps, ProgressStepperOrientation, ProgressStepperProps, ProgressStepperStepProps } from '@/components/ui/wideset/progress-stepper/ProgressStepper.types';`
 - `import type { ProgressTrackerContextValue, ProgressTrackerProps, ProgressTrackerStepProps, ProgressTrackerWithSubComponents } from '@/components/ui/wideset/progress-tracker/ProgressTracker.types';`
 - `import type { RadioButtonGroupProps, RadioButtonProps } from '@/components/ui/wideset/radio-button/RadioButton.types';`
 - `import type { SearchProps } from '@/components/ui/wideset/search/Search.types';`
 - `import type { SegmentedControlIconProps, SegmentedControlItemProps, SegmentedControlProps, SegmentedControlWithSubComponents } from '@/components/ui/wideset/segmented-control/SegmentedControl.types';`
 - `import type { SelectContentProps, SelectGroupProps, SelectItemIndicatorProps, SelectItemTextProps, SelectLabelProps, SelectOptionProps, SelectOptionType, SelectProps, SelectRootProps, SelectScrollDownButtonProps, SelectScrollUpButtonProps, SelectSearchProps, SelectSeparatorProps, SelectTriggerProps, SelectValueProps } from '@/components/ui/wideset/select/Select.types';`
-- `import type { SidebarCollapsedProps, SidebarExpandedProps, SidebarHeaderProps, SidebarItemProps, SidebarProps, SidebarSectionHeaderProps, SidebarSectionProps, SidebarTriggerProps } from '@/components/ui/wideset/sidebar/Sidebar.types';`
+- `import type { SidebarCollapsedProps, SidebarExpandedProps, SidebarFooterProps, SidebarHeaderProps, SidebarItemProps, SidebarProps, SidebarSectionHeaderProps, SidebarSectionProps, SidebarTriggerProps } from '@/components/ui/wideset/sidebar/Sidebar.types';`
 - `import type { SidepanelActionsProps, SidepanelCloseProps, SidepanelContentProps, SidepanelDescriptionProps, SidepanelFooterProps, SidepanelHeaderProps, SidepanelPanelProps, SidepanelProps, SidepanelTitleProps, SidepanelTriggerProps } from '@/components/ui/wideset/sidepanel/Sidepanel.types';`
 - `import type { SliderLabelProps, SliderProps } from '@/components/ui/wideset/slider/Slider.types';`
+- `import type { SpreadsheetAlign, SpreadsheetBodyProps, SpreadsheetCellProps, SpreadsheetColumnHeaderIconProps, SpreadsheetColumnHeaderProps, SpreadsheetColumnHeaderTriggerProps, SpreadsheetHeadProps, SpreadsheetProps, SpreadsheetRowHeaderProps, SpreadsheetRowProps, SpreadsheetSize } from '@/components/ui/wideset/spreadsheet/Spreadsheet.types';`
 - `import type { StatusBadgeIconProps, StatusBadgeLabelProps, StatusBadgeProps, StatusBadgeWithSubComponents } from '@/components/ui/wideset/status-badge/StatusBadge.types';`
 - `import type { StatusModalBodyProps, StatusModalCloseProps, StatusModalContentProps, StatusModalFooterProps, StatusModalOrientation, StatusModalOverlayProps, StatusModalStatus, StatusModalTitleProps, StatusModalTriggerProps } from '@/components/ui/wideset/status-modal/StatusModal.types';`
 - `import type { SwitchLabelProps, SwitchProps } from '@/components/ui/wideset/switch/Switch.types';`
 - `import type { SystemAlertActionProps, SystemAlertEmphasis, SystemAlertMessageProps, SystemAlertProps, SystemAlertStatus, SystemAlertWithSubComponents } from '@/components/ui/wideset/system-alert/SystemAlert.types';`
-- `import type { SelectionMode, SortDirection, TableBodyProps, TableCellProps, TableFootProps, TableHeadProps, TableHeaderProps, TableProps, TableRowProps } from '@/components/ui/wideset/table/Table.types';`
+- `import type { SelectionMode, SortDirection, TableBodyProps, TableCellDescriptionProps, TableCellProps, TableFootProps, TableHeadProps, TableHeaderProps, TableProps, TableRowProps } from '@/components/ui/wideset/table/Table.types';`
 - `import type { TabsContentProps, TabsCountProps, TabsItemProps, TabsListProps, TabsProps } from '@/components/ui/wideset/tabs/Tabs.types';`
 - `import type { TagContextValue, TagIconProps, TagProps } from '@/components/ui/wideset/tag/Tag.types';`
 - `import type { TextInputButtonProps, TextInputClearButtonProps, TextInputIconButtonProps, TextInputIconProps, TextInputInputProps, TextInputProps } from '@/components/ui/wideset/text-input/TextInput.types';`

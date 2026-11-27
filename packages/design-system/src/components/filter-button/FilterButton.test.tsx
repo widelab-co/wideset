@@ -22,6 +22,22 @@ describe('FilterButton', () => {
     { label: 'Canada', value: 'canada', disabled: true },
   ];
 
+  describe('Long values', () => {
+    it('cuts a long selected value with an ellipsis instead of clipping it', () => {
+      render(
+        <FilterButton
+          options={[{ label: 'Marek Zieliński from the platform team', value: 'marek' }]}
+          defaultValue={['marek']}
+          onChange={() => {}}
+        />,
+      );
+      expect(screen.getByText('Marek Zieliński from the platform team')).toHaveClass(
+        'truncate',
+        'min-w-0',
+      );
+    });
+  });
+
   describe('Basic rendering', () => {
     it('renders placeholder when empty', () => {
       render(<FilterButton options={options} defaultValue={[]} onChange={() => {}} />);
@@ -240,6 +256,15 @@ describe('FilterButton Snapshots', () => {
     { label: 'Option 1', value: 'option1' },
     { label: 'Option 2', value: 'option2' },
   ];
+
+  it('matches snapshot with the list open', async () => {
+    const user = userEvent.setup();
+    const { baseElement } = render(<FilterButton options={options} onChange={() => {}} />);
+
+    await user.click(screen.getByRole('button', { name: 'Filter' }));
+
+    expect(baseElement).toMatchSnapshot();
+  });
 
   const sizes: Array<'sm' | 'md' | 'lg'> = ['sm', 'md', 'lg'];
 

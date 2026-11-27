@@ -27,7 +27,7 @@ export default playground({
       ],
       default: 'none',
     },
-    // Inherited from the Radix toggle group, so not in the generated controls.
+    // Inherited from the Radix radio group, so not in the generated controls.
     { key: 'disabled', label: 'Disabled', type: 'switch', default: false, group: 'State' },
   ],
   render: (v, { props }) => (

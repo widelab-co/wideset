@@ -18,12 +18,12 @@ Every class carries `-ws-`. A class without it (`p-4`, `rounded-lg`, `text-sm`) 
 own scale, not Wideset's. To change a value, override the variable in a stylesheet loaded after
 Wideset's ([Theming](/docs/theming)).
 
-Three families read differently:
+A few families have extra usage details:
 
 - **Spacing** is shown as padding (`p-ws-4`); the same variable drives `m-`, `gap-`, `w-`, `h-`,
   `size-` and `inset-`.
-- **Text decoration colour** (`--decoration-ws-*`) has no working class: Tailwind's
-  `decoration-*` utilities read a different namespace.
+- **Text decoration colour** uses classes such as `decoration-ws-semantic-negative`. They read
+  `--text-decoration-color-ws-*`. Existing CSS references to `--decoration-ws-*` remain supported.
 - **Motion** tokens are read by component styles, not by a class per token.
 
 <TokenReference />

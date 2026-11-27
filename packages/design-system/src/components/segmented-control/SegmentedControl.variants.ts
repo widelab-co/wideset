@@ -24,17 +24,18 @@ export const segmentedControlVariants = cva('bg-ws-static-alpha-base p-ws-2', {
 export const segmentedControlItemVariants = cva(
   cn(
     'text-ws-dynamic-secondary-default flex cursor-pointer items-center justify-center',
+    'data-[state=unchecked]:enabled:not-focus-visible:*:data-[slot=segmented-control-icon]:text-ws-static-base',
     'focus-visible:wds-focus-visible outline-ws-dynamic-primary-strong-default',
     'hover:bg-ws-dynamic-secondary-alpha-hover active:bg-ws-dynamic-secondary-alpha-pressed',
-    'data-[state=on]:bg-ws-static-highlight-strong data-[state=on]:shadow-ws-low',
-    'data-[state=on]:hover:bg-ws-static-highlight-strong data-[state=on]:active:bg-ws-static-highlight-strong',
+    'data-[state=checked]:bg-ws-static-highlight-strong data-[state=checked]:shadow-ws-low',
+    'data-[state=checked]:hover:bg-ws-static-highlight-strong data-[state=checked]:active:bg-ws-static-highlight-strong',
     'disabled:text-ws-dynamic-secondary-disabled disabled:pointer-events-none',
     'disabled:bg-transparent disabled:shadow-none',
-    'disabled:data-[state=on]:bg-transparent disabled:data-[state=on]:shadow-none',
+    'disabled:data-[state=checked]:bg-transparent disabled:data-[state=checked]:shadow-none',
     'data-disabled:bg-transparent data-disabled:shadow-none',
-    'data-disabled:data-[state=on]:bg-transparent data-disabled:data-[state=on]:shadow-none',
+    'data-disabled:data-[state=checked]:bg-transparent data-disabled:data-[state=checked]:shadow-none',
     'disabled:hover:bg-transparent disabled:active:bg-transparent',
-    'disabled:data-[state=on]:hover:bg-transparent disabled:data-[state=on]:active:bg-transparent',
+    'disabled:data-[state=checked]:hover:bg-transparent disabled:data-[state=checked]:active:bg-transparent',
   ),
   {
     variants: {
@@ -75,7 +76,7 @@ export const segmentedControlItemMotionVariants = cva('', {
 export const segmentedControlGlideVariants = cva('', {
   variants: {
     enabled: {
-      true: 'relative isolate *:data-[state=on]:bg-transparent! *:data-[state=on]:shadow-none!',
+      true: 'relative isolate *:data-[state=checked]:bg-transparent! *:data-[state=checked]:shadow-none!',
       false: '',
     },
   },
@@ -83,7 +84,7 @@ export const segmentedControlGlideVariants = cva('', {
 });
 
 export const segmentedControlPillVariants = cva(
-  'bg-ws-static-highlight-base shadow-ws-low pointer-events-none absolute top-0 left-0 -z-[var(--ws-z-index-base)]',
+  'bg-ws-static-highlight-strong shadow-ws-low pointer-events-none absolute top-0 left-0 -z-[var(--ws-z-index-base)]',
   {
     variants: {
       size: {
