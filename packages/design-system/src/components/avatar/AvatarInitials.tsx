@@ -24,6 +24,7 @@ const AvatarInitials = ({ initials, size, shape, status, color, className }: Ini
           size: resolvedSize,
           shape: shape || context?.shape,
           hasStatus: !!status,
+          grouped: context?.layout === 'row',
         }),
         initialsColorVariants({ color: resolved, className }),
       )}

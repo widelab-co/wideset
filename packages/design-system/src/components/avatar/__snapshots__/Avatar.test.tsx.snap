@@ -12,7 +12,7 @@ exports[`Avatar > Snapshots > should match snapshot for a group with an overflow
       style="z-index: 3;"
     >
       <span
-        class="relative box-border inline-flex shrink-0 items-center justify-center object-cover typography-label-strong-sm h-ws-14 w-ws-14 [&_svg]:size-ws-9 [--mask-edge:0.5px] [--mask-position:6px] [--mask-radius:6px] rounded-full bg-ws-non-semantic-yellow-subtle text-ws-non-semantic-yellow-on-subtle"
+        class="relative box-border inline-flex shrink-0 items-center justify-center object-cover typography-label-strong-sm h-ws-14 w-ws-14 [&_svg]:size-ws-9 [--mask-edge:0.5px] [--mask-position:6px] [--mask-radius:6px] rounded-full outline-ws-static-container outline-2 outline-solid bg-ws-non-semantic-yellow-subtle text-ws-non-semantic-yellow-on-subtle"
         data-slot="avatar-initials"
       >
         WD
@@ -24,7 +24,7 @@ exports[`Avatar > Snapshots > should match snapshot for a group with an overflow
       style="z-index: 2;"
     >
       <span
-        class="relative box-border inline-flex shrink-0 items-center justify-center object-cover typography-label-strong-sm h-ws-14 w-ws-14 [&_svg]:size-ws-9 [--mask-edge:0.5px] [--mask-position:6px] [--mask-radius:6px] rounded-full bg-ws-non-semantic-indigo-subtle text-ws-non-semantic-indigo-on-subtle"
+        class="relative box-border inline-flex shrink-0 items-center justify-center object-cover typography-label-strong-sm h-ws-14 w-ws-14 [&_svg]:size-ws-9 [--mask-edge:0.5px] [--mask-position:6px] [--mask-radius:6px] rounded-full outline-ws-static-container outline-2 outline-solid bg-ws-non-semantic-indigo-subtle text-ws-non-semantic-indigo-on-subtle"
         data-slot="avatar-initials"
       >
         WD1
@@ -122,7 +122,7 @@ exports[`Avatar > Snapshots > should match snapshot for avatar in group 1`] = `
       style="z-index: 3;"
     >
       <span
-        class="relative box-border inline-flex shrink-0 items-center justify-center object-cover typography-label-strong-sm h-ws-14 w-ws-14 [&_svg]:size-ws-9 [--mask-edge:0.5px] [--mask-position:6px] [--mask-radius:6px] rounded-full bg-ws-non-semantic-yellow-subtle text-ws-non-semantic-yellow-on-subtle"
+        class="relative box-border inline-flex shrink-0 items-center justify-center object-cover typography-label-strong-sm h-ws-14 w-ws-14 [&_svg]:size-ws-9 [--mask-edge:0.5px] [--mask-position:6px] [--mask-radius:6px] rounded-full outline-ws-static-container outline-2 outline-solid bg-ws-non-semantic-yellow-subtle text-ws-non-semantic-yellow-on-subtle"
         data-slot="avatar-initials"
       >
         WD
@@ -134,7 +134,7 @@ exports[`Avatar > Snapshots > should match snapshot for avatar in group 1`] = `
       style="z-index: 2;"
     >
       <span
-        class="relative box-border inline-flex shrink-0 items-center justify-center object-cover typography-label-strong-sm h-ws-14 w-ws-14 [&_svg]:size-ws-9 [--mask-edge:0.5px] [--mask-position:6px] [--mask-radius:6px] rounded-full bg-ws-non-semantic-indigo-subtle text-ws-non-semantic-indigo-on-subtle"
+        class="relative box-border inline-flex shrink-0 items-center justify-center object-cover typography-label-strong-sm h-ws-14 w-ws-14 [&_svg]:size-ws-9 [--mask-edge:0.5px] [--mask-position:6px] [--mask-radius:6px] rounded-full outline-ws-static-container outline-2 outline-solid bg-ws-non-semantic-indigo-subtle text-ws-non-semantic-indigo-on-subtle"
         data-slot="avatar-initials"
       >
         WD1
@@ -146,7 +146,7 @@ exports[`Avatar > Snapshots > should match snapshot for avatar in group 1`] = `
       style="z-index: 1;"
     >
       <span
-        class="relative box-border inline-flex shrink-0 items-center justify-center object-cover typography-label-strong-sm h-ws-14 w-ws-14 [&_svg]:size-ws-9 [--mask-edge:0.5px] [--mask-position:6px] [--mask-radius:6px] rounded-full bg-ws-non-semantic-purple-subtle text-ws-non-semantic-purple-on-subtle"
+        class="relative box-border inline-flex shrink-0 items-center justify-center object-cover typography-label-strong-sm h-ws-14 w-ws-14 [&_svg]:size-ws-9 [--mask-edge:0.5px] [--mask-position:6px] [--mask-radius:6px] rounded-full outline-ws-static-container outline-2 outline-solid bg-ws-non-semantic-purple-subtle text-ws-non-semantic-purple-on-subtle"
         data-slot="avatar-initials"
       >
         WD2
@@ -197,7 +197,7 @@ exports[`Avatar > Snapshots > should match snapshot for avatar with status 1`] =
     >
       <div
         aria-hidden="true"
-        class="bg-ws-static-alpha-base text-ws-static-base relative box-border inline-flex shrink-0 items-center justify-center object-cover typography-caption-strong-sm h-ws-11 w-ws-11 [&_svg]:size-ws-7 [--mask-edge:0.5px] [--mask-position:5px] [--mask-radius:4px] rounded-full mask-[radial-gradient(circle_at_calc(100%-var(--mask-position))_calc(100%-var(--mask-position)),transparent_var(--mask-radius),black_calc(var(--mask-radius)_+_var(--mask-edge)))] [-webkit-mask-image:radial-gradient(circle_at_calc(100%-var(--mask-position))_calc(100%-var(--mask-position)),transparent_var(--mask-radius),black_calc(var(--mask-radius)_+_var(--mask-edge)))]"
+        class="bg-ws-static-alpha-base text-ws-static-base relative box-border inline-flex shrink-0 items-center justify-center object-cover typography-caption-strong-sm h-ws-11 w-ws-11 [&_svg]:size-ws-7 [--mask-edge:0.5px] [--mask-position:5px] [--mask-radius:4px] rounded-full mask-[radial-gradient(circle_at_calc(100%-var(--mask-position)-var(--mask-bleed))_calc(100%-var(--mask-position)-var(--mask-bleed)),transparent_var(--mask-radius),black_calc(var(--mask-radius)_+_var(--mask-edge)))] [mask-size:calc(100%_+_2*var(--mask-bleed))_calc(100%_+_2*var(--mask-bleed))] [mask-clip:no-clip] [mask-position:calc(-1*var(--mask-bleed))_calc(-1*var(--mask-bleed))] [mask-repeat:no-repeat] [--mask-bleed:6px] [-webkit-mask-clip:no-clip] [-webkit-mask-image:radial-gradient(circle_at_calc(100%-var(--mask-position)-var(--mask-bleed))_calc(100%-var(--mask-position)-var(--mask-bleed)),transparent_var(--mask-radius),black_calc(var(--mask-radius)_+_var(--mask-edge)))] [-webkit-mask-position:calc(-1*var(--mask-bleed))_calc(-1*var(--mask-bleed))] [-webkit-mask-repeat:no-repeat] [-webkit-mask-size:calc(100%_+_2*var(--mask-bleed))_calc(100%_+_2*var(--mask-bleed))] outline-ws-static-container outline-2 outline-solid"
         data-slot="avatar-icon"
       >
         <svg
@@ -233,7 +233,7 @@ exports[`Avatar > Snapshots > should match snapshot for avatar with status 1`] =
     >
       <div
         aria-hidden="true"
-        class="bg-ws-static-alpha-base text-ws-static-base relative box-border inline-flex shrink-0 items-center justify-center object-cover typography-caption-strong-sm h-ws-11 w-ws-11 [&_svg]:size-ws-7 [--mask-edge:0.5px] [--mask-position:5px] [--mask-radius:4px] rounded-full mask-[radial-gradient(circle_at_calc(100%-var(--mask-position))_calc(100%-var(--mask-position)),transparent_var(--mask-radius),black_calc(var(--mask-radius)_+_var(--mask-edge)))] [-webkit-mask-image:radial-gradient(circle_at_calc(100%-var(--mask-position))_calc(100%-var(--mask-position)),transparent_var(--mask-radius),black_calc(var(--mask-radius)_+_var(--mask-edge)))]"
+        class="bg-ws-static-alpha-base text-ws-static-base relative box-border inline-flex shrink-0 items-center justify-center object-cover typography-caption-strong-sm h-ws-11 w-ws-11 [&_svg]:size-ws-7 [--mask-edge:0.5px] [--mask-position:5px] [--mask-radius:4px] rounded-full mask-[radial-gradient(circle_at_calc(100%-var(--mask-position)-var(--mask-bleed))_calc(100%-var(--mask-position)-var(--mask-bleed)),transparent_var(--mask-radius),black_calc(var(--mask-radius)_+_var(--mask-edge)))] [mask-size:calc(100%_+_2*var(--mask-bleed))_calc(100%_+_2*var(--mask-bleed))] [mask-clip:no-clip] [mask-position:calc(-1*var(--mask-bleed))_calc(-1*var(--mask-bleed))] [mask-repeat:no-repeat] [--mask-bleed:6px] [-webkit-mask-clip:no-clip] [-webkit-mask-image:radial-gradient(circle_at_calc(100%-var(--mask-position)-var(--mask-bleed))_calc(100%-var(--mask-position)-var(--mask-bleed)),transparent_var(--mask-radius),black_calc(var(--mask-radius)_+_var(--mask-edge)))] [-webkit-mask-position:calc(-1*var(--mask-bleed))_calc(-1*var(--mask-bleed))] [-webkit-mask-repeat:no-repeat] [-webkit-mask-size:calc(100%_+_2*var(--mask-bleed))_calc(100%_+_2*var(--mask-bleed))] outline-ws-static-container outline-2 outline-solid"
         data-slot="avatar-icon"
       >
         <svg
@@ -269,7 +269,7 @@ exports[`Avatar > Snapshots > should match snapshot for avatar with status 1`] =
     >
       <div
         aria-hidden="true"
-        class="bg-ws-static-alpha-base text-ws-static-base relative box-border inline-flex shrink-0 items-center justify-center object-cover typography-caption-strong-sm h-ws-11 w-ws-11 [&_svg]:size-ws-7 [--mask-edge:0.5px] [--mask-position:5px] [--mask-radius:4px] rounded-full mask-[radial-gradient(circle_at_calc(100%-var(--mask-position))_calc(100%-var(--mask-position)),transparent_var(--mask-radius),black_calc(var(--mask-radius)_+_var(--mask-edge)))] [-webkit-mask-image:radial-gradient(circle_at_calc(100%-var(--mask-position))_calc(100%-var(--mask-position)),transparent_var(--mask-radius),black_calc(var(--mask-radius)_+_var(--mask-edge)))]"
+        class="bg-ws-static-alpha-base text-ws-static-base relative box-border inline-flex shrink-0 items-center justify-center object-cover typography-caption-strong-sm h-ws-11 w-ws-11 [&_svg]:size-ws-7 [--mask-edge:0.5px] [--mask-position:5px] [--mask-radius:4px] rounded-full mask-[radial-gradient(circle_at_calc(100%-var(--mask-position)-var(--mask-bleed))_calc(100%-var(--mask-position)-var(--mask-bleed)),transparent_var(--mask-radius),black_calc(var(--mask-radius)_+_var(--mask-edge)))] [mask-size:calc(100%_+_2*var(--mask-bleed))_calc(100%_+_2*var(--mask-bleed))] [mask-clip:no-clip] [mask-position:calc(-1*var(--mask-bleed))_calc(-1*var(--mask-bleed))] [mask-repeat:no-repeat] [--mask-bleed:6px] [-webkit-mask-clip:no-clip] [-webkit-mask-image:radial-gradient(circle_at_calc(100%-var(--mask-position)-var(--mask-bleed))_calc(100%-var(--mask-position)-var(--mask-bleed)),transparent_var(--mask-radius),black_calc(var(--mask-radius)_+_var(--mask-edge)))] [-webkit-mask-position:calc(-1*var(--mask-bleed))_calc(-1*var(--mask-bleed))] [-webkit-mask-repeat:no-repeat] [-webkit-mask-size:calc(100%_+_2*var(--mask-bleed))_calc(100%_+_2*var(--mask-bleed))] outline-ws-static-container outline-2 outline-solid"
         data-slot="avatar-icon"
       >
         <svg

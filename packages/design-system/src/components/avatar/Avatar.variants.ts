@@ -25,11 +25,25 @@ export const avatarVariants = cva(
         square: '',
       },
       hasStatus: {
-        true: 'mask-[radial-gradient(circle_at_calc(100%-var(--mask-position))_calc(100%-var(--mask-position)),transparent_var(--mask-radius),black_calc(var(--mask-radius)_+_var(--mask-edge)))] [-webkit-mask-image:radial-gradient(circle_at_calc(100%-var(--mask-position))_calc(100%-var(--mask-position)),transparent_var(--mask-radius),black_calc(var(--mask-radius)_+_var(--mask-edge)))]',
+        // `no-clip` keeps the group ring: a mask otherwise clips everything outside the box. One
+        // tile, `--mask-bleed` larger than the box on each side, covers the ring; a repeated
+        // tile would also cut its notch into the ring's top and left edges.
+        true: 'mask-[radial-gradient(circle_at_calc(100%-var(--mask-position)-var(--mask-bleed))_calc(100%-var(--mask-position)-var(--mask-bleed)),transparent_var(--mask-radius),black_calc(var(--mask-radius)_+_var(--mask-edge)))] [mask-size:calc(100%_+_2*var(--mask-bleed))_calc(100%_+_2*var(--mask-bleed))] [mask-clip:no-clip] [mask-position:calc(-1*var(--mask-bleed))_calc(-1*var(--mask-bleed))] [mask-repeat:no-repeat] [--mask-bleed:6px] [-webkit-mask-clip:no-clip] [-webkit-mask-image:radial-gradient(circle_at_calc(100%-var(--mask-position)-var(--mask-bleed))_calc(100%-var(--mask-position)-var(--mask-bleed)),transparent_var(--mask-radius),black_calc(var(--mask-radius)_+_var(--mask-edge)))] [-webkit-mask-position:calc(-1*var(--mask-bleed))_calc(-1*var(--mask-bleed))] [-webkit-mask-repeat:no-repeat] [-webkit-mask-size:calc(100%_+_2*var(--mask-bleed))_calc(100%_+_2*var(--mask-bleed))]',
+        false: '',
+      },
+      /**
+       * Set by a `row` group, where avatars overlap. Figma strokes each one outside in
+       * Static/Fill/Container, so the avatar in front cuts a gap into the one behind; an
+       * outline is that stroke: outside the box, on its radius, without moving the layout.
+       */
+      grouped: {
+        true: 'outline-ws-static-container outline-2 outline-solid',
         false: '',
       },
     },
     compoundVariants: [
+      // Figma's Large row strokes 3px; xl and 2xl have no Figma group and follow it.
+      { grouped: true, size: ['lg', 'xl', '2xl'], class: 'outline-3' },
       { shape: 'square', size: 'xs', class: 'rounded-ws-control-sm' },
       { shape: 'square', size: 'sm', class: 'rounded-ws-control-md' },
       { shape: 'square', size: 'md', class: 'rounded-ws-control-lg' },
@@ -133,7 +147,9 @@ export const statusVariants = cva('right-ws-2 bottom-ws-2 z-ws-base absolute rou
  * dot so the notch can cut the ring without clipping the dot.
  *
  * Keep `mask-clip: no-clip` — the outline sits outside the box, so any other
- * value masks it away entirely. Radii mirror `avatarVariants`; a test asserts
+ * value masks it away entirely. The single tile, `--mask-bleed` larger than the
+ * box on each side, covers the ring (2px gap + 2px) without repeating the notch
+ * onto its top and left edges. Radii mirror `avatarVariants`; a test asserts
  * they match.
  */
 export const selectionRingVariants = cva(
@@ -153,7 +169,7 @@ export const selectionRingVariants = cva(
         '2xl': '[--mask-edge:0.5px] [--mask-position:11px] [--mask-radius:11px]',
       },
       hasStatus: {
-        true: 'mask-[radial-gradient(circle_at_calc(100%-var(--mask-position))_calc(100%-var(--mask-position)),transparent_var(--mask-radius),black_calc(var(--mask-radius)_+_var(--mask-edge)))] [mask-clip:no-clip] [-webkit-mask-clip:no-clip] [-webkit-mask-image:radial-gradient(circle_at_calc(100%-var(--mask-position))_calc(100%-var(--mask-position)),transparent_var(--mask-radius),black_calc(var(--mask-radius)_+_var(--mask-edge)))]',
+        true: 'mask-[radial-gradient(circle_at_calc(100%-var(--mask-position)-var(--mask-bleed))_calc(100%-var(--mask-position)-var(--mask-bleed)),transparent_var(--mask-radius),black_calc(var(--mask-radius)_+_var(--mask-edge)))] [mask-size:calc(100%_+_2*var(--mask-bleed))_calc(100%_+_2*var(--mask-bleed))] [mask-clip:no-clip] [mask-position:calc(-1*var(--mask-bleed))_calc(-1*var(--mask-bleed))] [mask-repeat:no-repeat] [--mask-bleed:6px] [-webkit-mask-clip:no-clip] [-webkit-mask-image:radial-gradient(circle_at_calc(100%-var(--mask-position)-var(--mask-bleed))_calc(100%-var(--mask-position)-var(--mask-bleed)),transparent_var(--mask-radius),black_calc(var(--mask-radius)_+_var(--mask-edge)))] [-webkit-mask-position:calc(-1*var(--mask-bleed))_calc(-1*var(--mask-bleed))] [-webkit-mask-repeat:no-repeat] [-webkit-mask-size:calc(100%_+_2*var(--mask-bleed))_calc(100%_+_2*var(--mask-bleed))]',
         false: '',
       },
     },

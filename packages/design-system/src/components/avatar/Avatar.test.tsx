@@ -409,6 +409,117 @@ describe('Avatar', () => {
     });
   });
 
+  describe('Group ring', () => {
+    // Figma strokes each avatar of a row outside in Static/Fill/Container, 2px (3px from Large).
+    const ring = (element: Element) =>
+      element.className.split(/\s+/).filter((name) => /^outline-(\d|ws-static)/.test(name));
+    const boxes =
+      '[data-slot="avatar-fallback"], [data-slot="avatar-initials"], [data-slot="avatar-icon"], [data-slot="avatar-agent"]';
+
+    it('should ring every avatar of a row 2px in the container colour', () => {
+      const { container } = render(
+        <Avatar.Group>
+          <Avatar src="https://example.com/ada.png" alt="Ada" />
+          <Avatar initials="CD" />
+          <Avatar aria-label="Bug" icon={<RiBugLine />} />
+          <Avatar agent />
+        </Avatar.Group>,
+      );
+
+      const found = [...container.querySelectorAll(boxes)];
+
+      expect(found).toHaveLength(4);
+      for (const box of found) {
+        expect(ring(box)).toEqual(['outline-ws-static-container', 'outline-2']);
+      }
+    });
+
+    it.each(['lg', 'xl', '2xl'] as const)('should widen the ring to 3px at %s', (size) => {
+      render(
+        <Avatar.Group size={size}>
+          <Avatar initials="CD" />
+        </Avatar.Group>,
+      );
+
+      expect(ring(screen.getByText('CD'))).toEqual(['outline-ws-static-container', 'outline-3']);
+    });
+
+    it('should follow the avatar’s own size rather than the group’s', () => {
+      render(
+        <Avatar.Group size="md">
+          <Avatar initials="AB" />
+          <Avatar initials="CD" size="lg" />
+        </Avatar.Group>,
+      );
+
+      expect(ring(screen.getByText('AB'))).toContain('outline-2');
+      expect(ring(screen.getByText('CD'))).toContain('outline-3');
+    });
+
+    it('should not ring a grid, where avatars do not overlap', () => {
+      render(
+        <Avatar.Group layout="grid">
+          <Avatar initials="CD" />
+        </Avatar.Group>,
+      );
+
+      expect(ring(screen.getByText('CD'))).toEqual([]);
+    });
+
+    it('should not ring an avatar outside a group', () => {
+      render(<Avatar initials="CD" />);
+
+      expect(ring(screen.getByText('CD'))).toEqual([]);
+    });
+
+    it('should not ring the overflow badge, which sits behind the others', () => {
+      render(
+        <Avatar.Group>
+          <Avatar initials="CD" />
+          <Avatar.More>+3</Avatar.More>
+        </Avatar.Group>,
+      );
+
+      expect(ring(screen.getByText('+3'))).toEqual([]);
+    });
+
+    it('should keep the ring when a status dot masks the avatar box', () => {
+      // A mask clips everything outside the border box, the outline included, unless no-clip.
+      render(
+        <Avatar.Group>
+          <Avatar initials="CD" status="online" />
+        </Avatar.Group>,
+      );
+
+      expect(screen.getByText('CD')).toHaveClass(
+        'outline-2',
+        '[mask-clip:no-clip]',
+        '[-webkit-mask-clip:no-clip]',
+      );
+    });
+
+    it('should draw the status notch once, so it cannot cut the ring’s top and left edges', () => {
+      // A repeated mask tile puts a notch in the neighbouring tiles too, right where the ring
+      // runs; one tile, larger than the box by `--mask-bleed`, covers the ring instead.
+      const { container } = render(
+        <Avatar.Group>
+          <Avatar initials="CD" status="online" selected />
+        </Avatar.Group>,
+      );
+      const selection = container.querySelector('span[aria-hidden="true"]') as HTMLElement;
+
+      for (const masked of [screen.getByText('CD'), selection]) {
+        expect(masked).toHaveClass(
+          '[--mask-bleed:6px]',
+          '[mask-repeat:no-repeat]',
+          '[-webkit-mask-repeat:no-repeat]',
+        );
+        expect(masked.className).toContain('[mask-size:calc(100%_+_2*var(--mask-bleed))');
+        expect(masked.className).toContain('[mask-position:calc(-1*var(--mask-bleed))');
+      }
+    });
+  });
+
   describe('Review regressions', () => {
     const hueOf = (el: HTMLElement | null) =>
       el?.className.match(/bg-ws-non-semantic-([a-z]+)-subtle/)?.[1] ?? null;

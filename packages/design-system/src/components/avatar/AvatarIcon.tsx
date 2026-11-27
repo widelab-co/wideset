@@ -19,6 +19,7 @@ const AvatarIcon = ({ size, shape, icon, className, status }: IconProps) => {
           size: size || context?.size,
           shape: shape || context?.shape,
           hasStatus: !!status,
+          grouped: context?.layout === 'row',
           className,
         }),
       )}

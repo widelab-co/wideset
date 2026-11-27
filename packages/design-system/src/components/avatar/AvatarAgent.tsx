@@ -21,6 +21,7 @@ const AvatarAgent = ({ size, shape, status, alt = 'Agent', className }: AgentPro
           size: size || context?.size,
           shape: resolvedShape,
           hasStatus: !!status,
+          grouped: context?.layout === 'row',
           className,
         }),
       )}
