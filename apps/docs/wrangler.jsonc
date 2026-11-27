@@ -14,9 +14,11 @@
 // Rule that sends the rest of wideset.co to www makes the same cut). /docs?utm=… reaching the
 // docs wins.
 // Astro writes a 404.html, so unknown paths (a missing registry item too) answer with a 404 status.
+// worker/index.mjs runs for /r/* only and counts registry downloads; production has the dataset.
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "wideset-docs",
+  "main": "./worker/index.mjs",
   "compatibility_date": "2026-10-01",
   // Production lives on wideset.co only: the old workers.dev address is retired. Previews run on
   // the develop Worker, which keeps its workers.dev address.
@@ -34,9 +36,12 @@
   ],
   "assets": {
     "directory": "./dist",
+    "binding": "ASSETS",
+    "run_worker_first": ["/r/*"],
     "not_found_handling": "404-page",
     "html_handling": "drop-trailing-slash",
   },
+  "analytics_engine_datasets": [{ "binding": "REGISTRY_DOWNLOADS", "dataset": "wideset_registry" }],
   "env": {
     "develop": {
       "name": "wideset-docs-develop",
@@ -46,6 +51,8 @@
       "routes": [],
       "assets": {
         "directory": "./dist",
+        "binding": "ASSETS",
+        "run_worker_first": ["/r/*"],
         "not_found_handling": "404-page",
         "html_handling": "drop-trailing-slash",
       },
