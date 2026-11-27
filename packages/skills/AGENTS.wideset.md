@@ -67,6 +67,7 @@ Font: the page font is variable Inter, set through `--font-ws-sans`; `wideset in
 - Pagination: page through a collection; it never slices data.
 - Sidebar: the permanent app navigation that collapses to icons.
 - ProgressStepper: named, ordered steps of a flow.
+- TreeView: browse a folding hierarchy (files, categories) and pick one item.
 - Modal: a blocking dialog for a short decision or small form.
 - StatusModal: a blocking dialog whose message is a status.
 - Popup: a small anchored panel that leaves the page usable.
