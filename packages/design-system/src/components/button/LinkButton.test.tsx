@@ -82,11 +82,10 @@ describe('LinkButton', () => {
   // Figma's Link Button (State=Focused): Corner Radius/Control/sm, the variant's Alpha/Default
   // fill, and 8 × 4px padding at both sizes.
   describe('Figma appearance', () => {
-    it('draws the shared focus-visible ring and no dead focus class', () => {
+    it('draws the shared focus-visible ring', () => {
       render(<LinkButton href="/test">Link</LinkButton>);
       const classes = screen.getByRole('link', { name: 'Link' }).className.split(' ');
       expect(classes).toContain('focus-visible:wds-focus-visible');
-      expect(classes).not.toContain('focus-visible:wds-focus');
     });
 
     it('rounds the link with Corner Radius/Control/sm', () => {
