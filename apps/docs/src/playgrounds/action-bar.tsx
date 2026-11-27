@@ -13,9 +13,9 @@ export default playground({
   from: 'ActionBarProps',
   hide: ['isOpen', 'amountSelected', 'onClose', 'closeAriaLabel'],
   // The bar drawn in place, every part once: `static` takes it out of `position: fixed` and
-  // `left` drops the centring translate, so the drawing is the bar itself.
+  // `left` drops the centring translate. The short sample fits the drawing at its natural width.
   anatomy: () => (
-    <ActionBar isOpen align="left" className="static">
+    <ActionBar isOpen align="left" className="static max-w-none flex-nowrap">
       <ActionBar.Count>4 rows selected</ActionBar.Count>
       <ActionBar.Actions>
         <ActionBar.SelectAll checked="indeterminate" />
