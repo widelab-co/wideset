@@ -1,0 +1,10 @@
+# Generated files: kept out of `git diff` output and collapsed in GitHub reviews.
+# Skill references copied from packages/design-system/specs by pnpm build:skills.
+packages/skills/skills/*/references/specs/** linguist-generated
+packages/skills/skills/*/references/good-practices/** linguist-generated
+packages/skills/skills/*/references/good-practices.md linguist-generated
+packages/skills/skills/wideset-build/references/registry-imports.md linguist-generated
+# Written by pnpm build:skills from templates/ and the wideset-review references.
+packages/skills/AGENTS.wideset.md linguist-generated
+packages/skills/cursor/wideset.mdc linguist-generated
+packages/skills/agents/*.md linguist-generated
