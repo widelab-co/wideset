@@ -33,7 +33,7 @@ export function CustomerSummary() {
           <span className="tabular-nums">{contact.phone}</span>
         </p>
         {/* Pulled left by its own padding, so its words start on the column's edge. */}
-        <LinkButton href={`#customer-${customer.id}`} className="-ml-ws-6">
+        <LinkButton href={`#customer-${customer.id}`} className="-ml-ws-5">
           View customer
         </LinkButton>
       </div>

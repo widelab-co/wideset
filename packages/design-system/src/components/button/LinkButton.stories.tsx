@@ -89,7 +89,7 @@ Use Button for actions and form submission.`,
       },
     },
     size: {
-      description: 'Size of the link button affecting spacing and typography.',
+      description: 'Size of the link button: the label size. Both sizes are the same height.',
       options: sizes,
       control: 'radio',
       table: {
