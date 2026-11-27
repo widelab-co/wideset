@@ -40,7 +40,7 @@ export function WorkingLine({ state, label, seconds, onContinue }: WorkingLinePr
           'size-ws-4 rounded-ws-control-full mx-ws-2 shrink-0',
           state === 'working'
             ? 'bg-ws-static-inverse-background motion-safe:animate-pulse'
-            : 'border-ws-static-inverse-background border',
+            : 'text-ws-static-strong border border-current',
         )}
       />
       <span aria-live="polite" className="min-w-0 truncate">
