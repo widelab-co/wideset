@@ -18,11 +18,20 @@ const wrapInListItem = (node: React.ReactNode, key: React.Key) => (
   </li>
 );
 
+const flattenBreadcrumbsItems = (children: React.ReactNode): React.ReactNode[] =>
+  React.Children.toArray(children).flatMap((child) =>
+    React.isValidElement<{ children?: React.ReactNode }>(child) && child.type === React.Fragment
+      ? flattenBreadcrumbsItems(child.props.children)
+      : [child],
+  );
+
 export const separateBreadcrumbsItems = (
-  items: React.ReactNode[],
+  children: React.ReactNode,
   separatorType?: BreadcrumbsProps['separator'],
-) =>
-  items.reduce((allElements: React.ReactNode[], current: React.ReactNode, index: number) => {
+) => {
+  const items = flattenBreadcrumbsItems(children);
+
+  return items.reduce((allElements: React.ReactNode[], current: React.ReactNode, index: number) => {
     const isLast = index === items.length - 1;
 
     allElements.push(
@@ -51,3 +60,4 @@ export const separateBreadcrumbsItems = (
 
     return allElements;
   }, []);
+};

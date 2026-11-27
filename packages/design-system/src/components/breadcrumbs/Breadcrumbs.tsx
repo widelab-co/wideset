@@ -9,7 +9,7 @@ const Breadcrumbs = React.forwardRef<HTMLElement, BreadcrumbsProps>(
   ({ children, className, separator, ...props }, ref) => (
     <nav ref={ref} data-slot="breadcrumbs" aria-label="Breadcrumb" className={className} {...props}>
       <ol className="group gap-ws-3 m-0 flex list-none flex-nowrap items-center p-0">
-        {separateBreadcrumbsItems(React.Children.toArray(children), separator)}
+        {separateBreadcrumbsItems(children, separator)}
       </ol>
     </nav>
   ),

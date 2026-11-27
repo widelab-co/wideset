@@ -233,6 +233,25 @@ describe('Breadcrumbs', () => {
       expect(button).toHaveAttribute('tabindex', '-1');
       expect(container.querySelectorAll('div').length).toBe(0);
     });
+
+    it('treats crumbs in nested fragments as individual list items', () => {
+      render(
+        <Breadcrumbs separator="slash">
+          <Breadcrumbs.Item>Home</Breadcrumbs.Item>
+          <>
+            <Breadcrumbs.Item>Account</Breadcrumbs.Item>
+            <>
+              <Breadcrumbs.Item>Settings</Breadcrumbs.Item>
+              <Breadcrumbs.Item>Billing</Breadcrumbs.Item>
+            </>
+          </>
+        </Breadcrumbs>,
+      );
+
+      expect(screen.getAllByRole('listitem')).toHaveLength(4);
+      expect(screen.getAllByText('/')).toHaveLength(3);
+      expect(screen.getByRole('button', { current: 'page' })).toHaveAccessibleName('Billing');
+    });
   });
 
   describe('Props forwarding', () => {
