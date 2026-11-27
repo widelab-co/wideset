@@ -1,6 +1,10 @@
 import '@testing-library/jest-dom';
 
+import { configure } from '@testing-library/react';
 import { vi } from 'vitest';
+
+// Render in StrictMode, as apps do in development, so stale state and leaky effects fail here.
+configure({ reactStrictMode: true });
 
 // Mock scrollIntoView for jsdom (used by Radix primitives)
 Element.prototype.scrollIntoView = vi.fn();

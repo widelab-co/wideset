@@ -197,7 +197,7 @@ export function ExportDialog({
                         preset="ghost"
                         onClick={() => {
                           setRange(undefined);
-                          setCleared(cleared + 1);
+                          setCleared((cleared) => cleared + 1);
                         }}
                       >
                         Clear

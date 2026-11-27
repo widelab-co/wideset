@@ -60,7 +60,23 @@
     "unused-imports/no-unused-imports": "error",
     "unused-imports/no-unused-vars": "warn",
     "simple-import-sort/imports": "error",
-    "simple-import-sort/exports": "error"
+    "simple-import-sort/exports": "error",
+    // Setters take the updater form; where a controlled callback can't, disable the line and say why.
+    "no-restricted-syntax": [
+      "error",
+      {
+        "selector": "CallExpression[callee.name=/^set[A-Z]/][arguments.length=1] > UnaryExpression.arguments[operator='!'][argument.type='Identifier']",
+        "message": "Toggle from the current value with the updater form: setOpen((open) => !open)."
+      },
+      {
+        "selector": "CallExpression[callee.name=/^set[A-Z]/][arguments.length=1] > ArrayExpression.arguments > SpreadElement[argument.type='Identifier']",
+        "message": "Add to the current list with the updater form: setItems((items) => [...items, item])."
+      },
+      {
+        "selector": "CallExpression[callee.name=/^set[A-Z]/][arguments.length=1] > BinaryExpression.arguments[operator=/^[-+]$/][left.type='Identifier'][right.type='Literal']",
+        "message": "Count from the current value with the updater form: setStep((step) => step + 1)."
+      }
+    ]
   },
   "overrides": [
     {

@@ -137,7 +137,8 @@ export function LessonQuiz({
       return;
     }
     setChecked(false);
-    setStep(step + 1);
+    // Only from the question on screen: a second press before the render does not skip one.
+    setStep((current) => (current === step ? step + 1 : current));
   };
 
   return (

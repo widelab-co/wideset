@@ -51,7 +51,7 @@ function TeamPage() {
 
   const invite = (emails: string[], role: Invitation['role']) => {
     const sent = NOW.toISOString();
-    setInvitations([
+    setInvitations((invitations) => [
       ...emails.map((email) => ({ id: email, email, role, invitedBy: account.name, sent })),
       ...invitations,
     ]);

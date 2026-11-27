@@ -23,6 +23,8 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     setupFiles: ['./src/test-setup.ts'],
+    // StrictMode (test-setup.ts) renders twice; the timeout catches a hang, not a slow render.
+    testTimeout: 15_000,
     exclude: [...configDefaults.exclude, '**/.claude/**'],
   },
 });

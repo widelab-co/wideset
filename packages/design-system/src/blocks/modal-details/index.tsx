@@ -19,8 +19,8 @@ export default function ModalDetailsBlock() {
         order={orders[index]}
         open={open}
         onOpenChange={setOpen}
-        onPrevious={index > 0 ? () => setIndex(index - 1) : undefined}
-        onNext={index < orders.length - 1 ? () => setIndex(index + 1) : undefined}
+        onPrevious={index > 0 ? () => setIndex((index) => index - 1) : undefined}
+        onNext={index < orders.length - 1 ? () => setIndex((index) => index + 1) : undefined}
       />
     </div>
   );

@@ -54,7 +54,7 @@ function ReferralsPage() {
   const redeemable = Math.min(credit.earned - redeemed, nextInvoice.amount);
 
   const invite = (email: string) => {
-    setInvited([{ email, invited: today, status: 'invited' }, ...invited]);
+    setInvited((invited) => [{ email, invited: today, status: 'invited' }, ...invited]);
     showToast({ status: 'success', content: `Invitation sent to ${email}` });
   };
 
@@ -153,7 +153,7 @@ export default function Referrals() {
                 aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
                 aria-expanded={!collapsed}
                 aria-controls={sidebarId}
-                onClick={() => setCollapsed(!collapsed)}
+                onClick={() => setCollapsed((collapsed) => !collapsed)}
                 className="-ml-ws-5"
               />
               <Breadcrumbs separator="arrow">

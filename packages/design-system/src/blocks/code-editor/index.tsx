@@ -52,14 +52,14 @@ function EditorPage() {
   ).sort((a, b) => Number(b.problem.severity === 'error') - Number(a.problem.severity === 'error'));
 
   const openFile = (id: FileId) => {
-    if (!open.includes(id)) setOpen([...open, id]);
+    setOpen((open) => (open.includes(id) ? open : [...open, id]));
     setActive(id);
   };
 
   const save = () => {
     if (!dirty) return;
-    setVersions([
-      { number: current.number + 1, savedAt: NOW, by: 'maya', sources: drafts },
+    setVersions((versions) => [
+      { number: versions[0].number + 1, savedAt: NOW, by: 'maya', sources: drafts },
       ...versions,
     ]);
   };
@@ -89,9 +89,9 @@ function EditorPage() {
   };
 
   const restore = (version: Version) => {
-    setVersions([
+    setVersions((versions) => [
       {
-        number: current.number + 1,
+        number: versions[0].number + 1,
         savedAt: NOW,
         by: 'maya',
         restoredFrom: version.number,
@@ -207,7 +207,7 @@ export default function CodeEditorBlock() {
               aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
               aria-expanded={!collapsed}
               aria-controls={sidebarId}
-              onClick={() => setCollapsed(!collapsed)}
+              onClick={() => setCollapsed((collapsed) => !collapsed)}
               className="-ml-ws-5"
             />
             <Breadcrumbs separator="arrow">

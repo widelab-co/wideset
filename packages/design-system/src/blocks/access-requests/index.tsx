@@ -80,22 +80,26 @@ function AccessPage() {
   /** Takes requests out of the list (and the selection); returns how to put them back. */
   const remove = (ids: string[]) => {
     const before = requests;
-    setRequests(requests.filter((request) => !ids.includes(request.id)));
-    setSelected(selected.filter((id) => !ids.includes(id)));
+    const gone = before.filter((request) => ids.includes(request.id));
+    setRequests((current) => current.filter((request) => !ids.includes(request.id)));
+    setSelected((current) => current.filter((id) => !ids.includes(id)));
     return {
-      gone: before.filter((request) => ids.includes(request.id)),
-      restore: () => setRequests(before),
+      gone,
+      // Puts back only these requests, in their old places; what changed since stays changed.
+      restore: () =>
+        setRequests((current) =>
+          before.filter((request) => current.includes(request) || gone.includes(request)),
+        ),
     };
   };
 
   const approve = (ids: string[], role: Role) => {
     const { gone, restore } = remove(ids);
-    const seats = seatsUsed;
-    setSeatsUsed(seats + gone.length);
+    setSeatsUsed((seats) => seats + gone.length);
     const who = gone.length === 1 ? gone[0].name : `${gone.length} people`;
     toastWithUndo(`${who} joined as ${asRole(role, gone.length)}`, () => {
       restore();
-      setSeatsUsed(seats);
+      setSeatsUsed((seats) => seats - gone.length);
     });
   };
 
@@ -111,15 +115,14 @@ function AccessPage() {
 
   const block = (person: AccessRequest, reason: string) => {
     const { restore } = remove([person.id]);
-    const before = blocked;
     const { id, name, initials, email } = person;
-    setBlocked([
+    setBlocked((current) => [
       { id, name, initials, email, reason, blockedBy: account.name, blocked: NOW.toISOString() },
-      ...before,
+      ...current,
     ]);
     toastWithUndo(`${name} declined and blocked`, () => {
       restore();
-      setBlocked(before);
+      setBlocked((current) => current.filter((entry) => entry.id !== id));
     });
   };
 
@@ -201,7 +204,7 @@ function AccessPage() {
         invited={invitations.map((i) => i.email)}
         blocked={blocked.map((p) => p.email)}
         onInvite={(email, role) => {
-          setInvitations([
+          setInvitations((invitations) => [
             { id: email, email, role, invitedBy: account.name, sent: NOW.toISOString() },
             ...invitations,
           ]);
@@ -250,7 +253,7 @@ export default function AccessRequests() {
                 aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
                 aria-expanded={!collapsed}
                 aria-controls={sidebarId}
-                onClick={() => setCollapsed(!collapsed)}
+                onClick={() => setCollapsed((collapsed) => !collapsed)}
                 className="-ml-ws-5"
               />
               <Breadcrumbs separator="arrow">

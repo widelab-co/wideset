@@ -1,8 +1,10 @@
 import { RiMoreLine } from '@remixicon/react';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 
 import { Toast } from './Toast';
+import { ToastProvider, useToast } from './Toast.context';
+import type { ToastContextType } from './Toast.types';
 import { ToastContainer } from './ToastContainer';
 
 describe('Toast', () => {
@@ -260,5 +262,57 @@ describe('data-slot', () => {
     expect(document.querySelector('[data-slot="toast-container"]')).toContainElement(
       screen.getByRole('status'),
     );
+  });
+});
+
+// Two actions before React renders again (two calls in one handler, an effect and an event):
+// the second must work from the state the first left, not from the last render's.
+describe('useToast actions, twice in one act', () => {
+  const renderWithApi = () => {
+    const api: { current?: ToastContextType } = {};
+    function Capture() {
+      api.current = useToast();
+      return null;
+    }
+    render(
+      <ToastProvider>
+        <Capture />
+      </ToastProvider>,
+    );
+    return api as Required<typeof api>;
+  };
+
+  it('shows both toasts', () => {
+    const api = renderWithApi();
+    act(() => {
+      api.current.showToast({ content: 'First', duration: 0 });
+      api.current.showToast({ content: 'Second', duration: 0 });
+    });
+    expect(screen.getByText('First')).toBeInTheDocument();
+    expect(screen.getByText('Second')).toBeInTheDocument();
+  });
+
+  it('dismisses both toasts', () => {
+    vi.useFakeTimers();
+    try {
+      const api = renderWithApi();
+      let ids: string[] = [];
+      act(() => {
+        ids = [
+          api.current.showToast({ content: 'First', duration: 0 }),
+          api.current.showToast({ content: 'Second', duration: 0 }),
+        ];
+      });
+      act(() => {
+        for (const id of ids) api.current.dismissToast(id);
+      });
+      act(() => {
+        vi.advanceTimersByTime(300);
+      });
+      expect(screen.queryByText('First')).not.toBeInTheDocument();
+      expect(screen.queryByText('Second')).not.toBeInTheDocument();
+    } finally {
+      vi.useRealTimers();
+    }
   });
 });
